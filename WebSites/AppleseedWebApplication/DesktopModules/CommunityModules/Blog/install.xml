@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Modules>
+	<Module>
+		<FriendlyName>Blog</FriendlyName>
+		<DesktopSource>DesktopModules/CommunityModules/Blog/Blog.ascx</DesktopSource>
+		<MobileSource></MobileSource>
+	</Module>
+</Modules>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Appleseed.Modules.Image</name>
+    </assembly>
+    <members>
+        <member name="T:Appleseed.Content.Web.ModulesImageModule">
+            <summary>
+            ImageModule
+            Display an image on screen
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesImageModule.Image1">
+            <summary>
+            The Image
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesImageModule.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The Page_Load event handler on this User Control uses
+            the Portal configuration system to obtain image details.
+            It then sets these properties on an &lt;asp:Image&gt; server control.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesImageModule.#ctor">
+            <summary>
+            Constructor
+            Module Settings
+            <list type="">
+            <item>src</item>
+            <item>width</item>
+            <item>height</item>
+            </list>
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesImageModule.OnInit(System.EventArgs)">
+            <summary>
+            Raises Init event
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesImageModule.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesImageModule.GuidID">
+            <summary>
+            General Module GUID
+            </summary>
+        </member>
+    </members>
+</doc>

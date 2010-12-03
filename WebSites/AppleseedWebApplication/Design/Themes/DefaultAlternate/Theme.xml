@@ -1,0 +1,68 @@
+<?xml version="1.0" standalone="yes" ?>
+<Theme>
+	<Name>default</Name>
+	<Css>default.css</Css>
+	<MinimizeColor>#aaaaaa</MinimizeColor>
+	<Images>
+</Images>
+	<Parts>
+		<ThemePart Name="TitleStart">
+			<HTML><![CDATA[
+			<table  cellspacing='0' cellpadding='0' border='0' width='100%'>
+<tr><td Width='10' Height='31'><img src='img/theme_1_alt.gif' alt='design' Width='10' Height='31'></td>
+<td width='100%' height='31' background='img/theme_2_alt.gif' class='SubHead'>
+			]]></HTML>
+		</ThemePart>
+		<ThemePart Name="TitleMiddle">
+			<HTML><![CDATA[
+			</td><td height='31'><img alt='design' src='img/theme_middle_alt.gif' Width='15' Height='31'></td>
+			]]></HTML>
+		</ThemePart>
+		<ThemePart Name="TitleBeforeButton">
+			<HTML><![CDATA[
+			<td style='padding-top: 6' height='31' background='img/theme_2_alt.gif'>
+			]]></HTML>
+		</ThemePart>
+		<ThemePart Name="TitleAfterButton">
+			<HTML><![CDATA[
+			</td>
+			]]></HTML>
+		</ThemePart>
+		<ThemePart Name="TitleEnd">
+			<HTML><![CDATA[
+			<td height='31' width='10'><img src='img/theme_3_alt.gif' alt='design' height='31' width='10'></td>
+</tr></table></td></tr>
+			]]></HTML>
+		</ThemePart>
+		<ThemePart Name="ControlTitleEnd">
+			<HTML><![CDATA[
+			<tr><td colspan='3'><table cellpadding='0' cellspacing='0' width='100%'><tr><td height='30' width='10'><img src='img/theme_6_alt.gif' alt='design' height='30' width='10'></td><td width='100%' background='img/theme_7_alt.gif'><img src='img/theme_7_alt.gif' alt='design' height='30' width='10'></td><td width=10'><img src='img/theme_8_alt.gif' alt='design' height='30' width='25'></td></tr></table></td></tr></table><img src="img/shim.gif" alt='design' width="10" height="10" border="0">
+			]]></HTML>
+		</ThemePart>
+		<ThemePart Name="ControlTitleStart">
+			<HTML><![CDATA[
+			<table   cellspacing='0' cellpadding='0' border='0' width='100%'><tr><td colspan='3'>
+			]]></HTML>
+		</ThemePart>
+		<ThemePart Name="ControlNoTitleStart">
+			<HTML><![CDATA[
+			<table cellspacing='0' cellpadding='0' border='0' width='100%'><tr><td style='height:14;width:14;'><img src='img/box_tl_alt.gif' alt='design' width='14' height='14'></td><td background='img/box_t_alt.gif'><img src='img/box_t_alt.gif' alt='design' width='10' height='14'></td><td style='height:14;width:10;'><img src='img/box_tr_alt.gif' alt='design' width='14' height='14'></td></tr><tr><td background='img/box_l_alt.gif'><img src='img/box_l_alt.gif' alt='design' width='14' height='10'></td><td bgcolor='#ffffff'>
+			]]></HTML>
+		</ThemePart>
+		<ThemePart Name="ControlNoTitleEnd">
+			<HTML><![CDATA[
+			</td><td background='img/box_r_alt.gif'><img src='img/box_r_alt.gif' alt='design' width='14' height='10'></td></tr><tr><td style='height:14;width:14;'><img src='img/box_bl_alt.gif' alt='design' width='14' height='14'></td><td background='img/box_b_alt.gif'><img src='img/box_b_alt.gif' alt='design' width='10' height='14'></td><td style='width:14;'><img src='img/box_br_alt.gif' alt='design' width='14' height='14'></td></tr></table><img src="img/shim.gif" width="10" height="10" border="0">
+			]]></HTML>
+		</ThemePart>
+		<ThemePart Name="ControlTitleBeforeControl">
+			<HTML><![CDATA[
+			<tr><td width='10' background='img/theme_4_alt.gif'><img alt='design' src='img/theme_4_alt.gif' height='10' width='10'><td width='100%' class='module'>
+			]]></HTML>
+		</ThemePart>
+		<ThemePart Name="ControlTitleAfterControl">
+			<HTML><![CDATA[
+			</td><td width='10' background='img/theme_5_alt.gif'><img alt='design' src='img/theme_5_alt.gif'  height='10' width='10'></td></tr>
+			]]></HTML>
+		</ThemePart>
+	</Parts>
+</Theme>

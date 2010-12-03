@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Appleseed.Modules.AmazonFull</name>
+    </assembly>
+    <members>
+        <member name="T:AmazonFull.Books">
+            <summary>
+            Books module
+            Load books from amazon
+            </summary>
+        </member>
+        <member name="F:AmazonFull.Books.myDataList">
+            <summary>
+            Datalist for the books
+            </summary>
+        </member>
+        <member name="M:AmazonFull.Books.#ctor">
+            <summary>
+            Books consturctor
+            </summary>
+        </member>
+        <member name="M:AmazonFull.Books.GetTdWidthPercentage(System.String)">
+            <summary>
+            GetTdWidthPercentage
+            </summary>
+            <param name="Columns"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AmazonFull.Books.GetWebServiceDetails(System.String,System.String,System.String,System.String)">
+            <summary>
+            GetWebServiceDetails
+            </summary>
+            <param name="AmazonDevToken"></param>
+            <param name="isbn"></param>
+            <param name="ShowDetails"></param>
+            <param name="PromoCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AmazonFull.Books.ConvertStr2ByteArray(System.String)">
+            <summary>
+            ConvertStr2ByteArray
+            </summary>
+            <param name="strInput"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AmazonFull.Books.Install(System.Collections.IDictionary)">
+            <summary>
+            
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="M:AmazonFull.Books.Uninstall(System.Collections.IDictionary)">
+            <summary>
+            
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="M:AmazonFull.Books.OnInit(System.EventArgs)">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:AmazonFull.Books.Searchable">
+            <summary>
+            Is module searchable
+            </summary>
+        </member>
+        <member name="P:AmazonFull.Books.GuidID">
+            <summary>
+            General Module DEf GUID
+            </summary>
+        </member>
+        <member name="T:AmazonFull.BooksDB">
+            <summary>
+            Books DB
+            </summary>
+        </member>
+        <member name="M:AmazonFull.BooksDB.GetSinglerb_BookList(System.Int32)">
+            <summary>
+            GetSinglerb_BookList
+            </summary>
+            <param name="ItemID">ItemID</param>
+            <returns>A SqlDataReader</returns>
+        </member>
+        <member name="M:AmazonFull.BooksDB.Getrb_BookList(System.Int32)">
+            <summary>
+            Getrb_BookList
+            </summary>
+            <param name="ModuleId">ModuleId</param>
+            <returns>A SqlDataReader</returns>
+        </member>
+        <member name="M:AmazonFull.BooksDB.Deleterb_BookList(System.Int32)">
+            <summary>
+            Deleterb_BookList
+            </summary>
+            <param name="ItemID">ItemID</param>
+            <returns>Void</returns>
+        </member>
+        <member name="M:AmazonFull.BooksDB.Addrb_BookList(System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Addrb_BookList
+            </summary>
+            <param name="ModuleID"></param>
+            <param name="CreatedByUser"></param>
+            <param name="ISBN"></param>
+            <param name="Caption"></param>
+            <returns>The newly created ID</returns>
+        </member>
+        <member name="M:AmazonFull.BooksDB.Updaterb_BookList(System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Updaterb_BookList
+            </summary>
+            <param name="ItemID"></param>
+            <param name="CreatedByUser"></param>
+            <param name="ISBN"></param>
+            <param name="Caption"></param>
+        </member>
+        <member name="T:AmazonFull.BooksEdit">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AmazonFull.BooksEdit.topUpdateButton">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AmazonFull.BooksEdit.topCancelButton">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AmazonFull.BooksEdit.topDeleteButton">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AmazonFull.BooksEdit.ISBNField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AmazonFull.BooksEdit.ISBNRequiredValidator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AmazonFull.BooksEdit.CaptionTextBox">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AmazonFull.BooksEdit.bottomUpdateButton">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AmazonFull.BooksEdit.bottomCancelButton">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AmazonFull.BooksEdit.bottomDeleteButton">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AmazonFull.BooksEdit.CreatedLabelLiteral">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AmazonFull.BooksEdit.CreatedBy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AmazonFull.BooksEdit.CreatedDateLiteral">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:AmazonFull.BooksEdit.CreatedDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AmazonFull.BooksEdit.OnInit(System.EventArgs)">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:AmazonFull.BooksEdit.OnUpdate(System.EventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:AmazonFull.BooksEdit.OnDelete(System.EventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+    </members>
+</doc>
