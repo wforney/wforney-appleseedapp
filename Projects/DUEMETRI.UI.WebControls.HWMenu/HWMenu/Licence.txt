@@ -1,6 +1,6 @@
 Duemetri Public License (DPL) Version 1.0 
 
-The software is called "Appleseed"
+The software is called "Rainbow Portal"
  
 This software is Copyright (c) Duemetri sas (tm) and Contributors. All rights reserved.
 
