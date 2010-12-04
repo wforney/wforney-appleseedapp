@@ -1,3 +1,9 @@
+
+Portions of this software are based on Rainbow Portal Framework and Code
+(c) 2003-2006 by DUEMETRI sas http://www.duemetri.net
+and are used according the enclosed DPL licence
+
+
 Duemetri Public License (DPL) Version 1.0 
 
 The software is called "Rainbow Portal"
