@@ -9,7 +9,7 @@ Make sure you have a SQL Database configured
 
 Control f5 
 
-The software should take you to /Installer and walk you through install
+The software will take you to /Installer and walk you through install
 
 
 
