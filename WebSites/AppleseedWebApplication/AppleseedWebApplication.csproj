@@ -6115,7 +6115,6 @@
     <Content Include="Portals\_Appleseed\xml\sales2.xml" />
     <Content Include="Portals\_Appleseed\xml\sales2.xsl" />
     <Content Include="rb_logs\rb_logs.txt" />
-    <Content Include="readme.txt" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
