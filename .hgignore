@@ -35,4 +35,4 @@ _ReSharper*/
 rb_log.resx*
 builds/
 [Ll]ibs/[Pp]ortable[Aa]reas
-WebSites/AppleseedWebApplication/Web.config
+WebSites/AppleseedWebApplication/[Ww]eb.[Cc]onfig
