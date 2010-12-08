@@ -60,13 +60,13 @@ namespace Appleseed.Content.Web.Modules
             //Code no longer needed here, gman3001 10/06/2004
             /*string RegisterPage;
 
-			//Select the actual register page
-			if (portalSettings.CustomSettings["SITESETTINGS_REGISTER_TYPE"] != null &&
-					portalSettings.CustomSettings["SITESETTINGS_REGISTER_TYPE"].ToString() != "register.aspx" )
-				RegisterPage = portalSettings.CustomSettings["SITESETTINGS_REGISTER_TYPE"].ToString();
-			else
-				RegisterPage = "register.aspx";
-			*/
+            //Select the actual register page
+            if (portalSettings.CustomSettings["SITESETTINGS_REGISTER_TYPE"] != null &&
+                    portalSettings.CustomSettings["SITESETTINGS_REGISTER_TYPE"].ToString() != "register.aspx" )
+                RegisterPage = portalSettings.CustomSettings["SITESETTINGS_REGISTER_TYPE"].ToString();
+            else
+                RegisterPage = "register.aspx";
+            */
 
             // Calculate userid
             if (Request.Params["userid"] != null)
@@ -213,9 +213,10 @@ namespace Appleseed.Content.Web.Modules
         {
             get
             {
-                ArrayList al = new ArrayList();
-                al.Add("B6A48596-9047-4564-8555-61E3B31D7272");
-                al.Add("399D5138-5A1F-4131-9B8C-0AAF0682CFD4");
+                var al = new List<string>
+                    {
+                        "B6A48596-9047-4564-8555-61E3B31D7272", "399D5138-5A1F-4131-9B8C-0AAF0682CFD4" 
+                    };
                 return al;
             }
         }

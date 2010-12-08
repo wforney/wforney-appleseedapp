@@ -1,3 +1,14 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="PropertyPage.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   PropertyPage inherits from Appleseed.Framework.UI.SecurePage <br />
+//   Used for properties pages<br />
+//   Can be inherited
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace Appleseed.Framework.Web.UI
 {
     using System;
@@ -29,7 +40,7 @@ namespace Appleseed.Framework.Web.UI
             get
             {
                 var mdb = new ModulesDB();
-                List<string> al = new List<string> { mdb.GetModuleGuid(this.ModuleID).ToString() };
+                var al = new List<string> { mdb.GetModuleGuid(this.ModuleID).ToString() };
                 return al;
             }
         }

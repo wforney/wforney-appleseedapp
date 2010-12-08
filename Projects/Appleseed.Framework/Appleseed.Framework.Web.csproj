@@ -8,7 +8,7 @@
     <ProjectGuid>{D3A33CF8-2AEB-4E6E-AC2E-01C676F33616}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Appleseed.Framework</RootNamespace>
+    <RootNamespace>Appleseed.Framework.Web</RootNamespace>
     <AssemblyName>Appleseed.Framework</AssemblyName>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>

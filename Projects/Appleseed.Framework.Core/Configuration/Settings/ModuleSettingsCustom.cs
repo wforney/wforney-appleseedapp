@@ -1,159 +1,202 @@
-using System;
-using System.Collections;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web.UI;
-using Appleseed.Framework.Settings;
-using Appleseed.Framework.Web.UI.WebControls;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ModuleSettingsCustom.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   ModuleSettingsCustom extends the ModuleSettings class to allow authenticated users
+//   to 'customize' a module to their own preference.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.Site.Configuration
 {
-	/// <summary>
-	/// ModuleSettingsCustom extends the ModuleSettings class to allow authenticated users
-	/// to 'customize' a module to their own preference.
-	/// </summary>
-	public class ModuleSettingsCustom : ModuleSettings
-	{
-		const string strDesktopSrc = "DesktopSrc";
+    using System;
+    using System.Collections;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.Web.UI;
 
-		#region Data Access Methods used only by PortalModuleControlCustom
+    using Appleseed.Framework.Exceptions;
+    using Appleseed.Framework.Settings;
+    using Appleseed.Framework.Web.UI.WebControls;
 
-		/// <summary>
-		/// The GetModuleSettings Method returns a hashtable of
-		/// custom module specific settings from the database. This method is
-		/// used by some user control modules to access misc settings.
-		/// </summary>
-		/// <param name="moduleID">The module ID.</param>
-		/// <param name="userID">The user ID.</param>
-		/// <param name="page">The page.</param>
-		/// <returns></returns>
-		public static Hashtable GetModuleUserSettings(int moduleID, Guid userID, Page page)
-		{
-			string ControlPath = Path.ApplicationRoot + "/";
+    /// <summary>
+    /// ModuleSettingsCustom extends the ModuleSettings class to allow authenticated users
+    ///     to 'customize' a module to their own preference.
+    /// </summary>
+    public class ModuleSettingsCustom : ModuleSettings
+    {
+        #region Constants and Fields
 
-			using (SqlDataReader dr = GetModuleDefinitionByID(moduleID))
-			{
-				if (dr.Read())
-				{
-					ControlPath += dr[strDesktopSrc].ToString();
-				}
-			}
+        /// <summary>
+        /// The str desktop src.
+        /// </summary>
+        private const string StringsDesktopSrc = "DesktopSrc";
 
-			PortalModuleControlCustom portalModule;
-			Hashtable setting;
-			try
-			{
-				portalModule = (PortalModuleControlCustom)page.LoadControl(ControlPath);
-				setting = GetModuleUserSettings(moduleID, (Guid)PortalSettings.CurrentUser.Identity.ProviderUserKey, portalModule.CustomizedUserSettings);
-			}
-			catch (Exception ex)
-			{
-				// Appleseed.Framework.Configuration.ErrorHandler.HandleException("There was a problem loading: '" + ControlPath + "'", ex);
-				// throw;
-				throw new Appleseed.Framework.Exceptions.AppleseedException(Appleseed.Framework.LogLevel.Fatal, "There was a problem loading: '" + ControlPath + "'", ex);
-			}
-			return setting;
-		}
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// The GetModuleSettings Method returns a hashtable of
+        ///     custom module specific settings from the database. This method is
+        ///     used by some user control modules to access misc settings.
+        /// </summary>
+        /// <param name="moduleId">
+        /// The module ID.
+        /// </param>
+        /// <param name="userId">
+        /// The user ID.
+        /// </param>
+        /// <param name="page">
+        /// The page for settings.
+        /// </param>
+        /// <returns>
+        /// The hash table.
+        /// </returns>
+        public static Hashtable GetModuleUserSettings(int moduleId, Guid userId, Page page)
+        {
+            var controlPath = Path.ApplicationRoot + "/";
+
+            using (var dr = GetModuleDefinitionByID(moduleId))
+            {
+                if (dr.Read())
+                {
+                    controlPath += dr[StringsDesktopSrc].ToString();
+                }
+            }
+
+            PortalModuleControlCustom portalModule;
+            Hashtable setting;
+            try
+            {
+                portalModule = (PortalModuleControlCustom)page.LoadControl(controlPath);
+                setting = GetModuleUserSettings(
+                    moduleId, PortalSettings.CurrentUser.Identity.ProviderUserKey, portalModule.CustomizedUserSettings);
+            }
+            catch (Exception ex)
+            {
+                // Appleseed.Framework.Configuration.ErrorHandler.HandleException("There was a problem loading: '" + ControlPath + "'", ex);
+                // throw;
+                throw new AppleseedException(LogLevel.Fatal, string.Format("There was a problem loading: '{0}'", controlPath), ex);
+            }
+
+            return setting;
+        }
 
         /// <summary>
         /// Retrieves the custom user settings for the current user for this module
-        /// from the database.
+        ///     from the database.
         /// </summary>
-        /// <param name="moduleID">The module ID.</param>
-        /// <param name="userID">The user ID.</param>
-        /// <param name="_customSettings">The _custom settings.</param>
-        /// <returns></returns>
-		public static Hashtable GetModuleUserSettings(int moduleID, Guid userID, Hashtable _customSettings)
-		{
-			// Get Settings for this module from the database
-			Hashtable _settings = new Hashtable();
+        /// <param name="moduleId">
+        /// The module ID.
+        /// </param>
+        /// <param name="userId">
+        /// The user ID.
+        /// </param>
+        /// <param name="customSettings">
+        /// The custom settings.
+        /// </param>
+        /// <returns>
+        /// The hash table.
+        /// </returns>
+        public static Hashtable GetModuleUserSettings(int moduleId, Guid userId, Hashtable customSettings)
+        {
+            // Get Settings for this module from the database
+            var settings = new Hashtable();
 
-			// Create Instance of Connection and Command Object
-			using (SqlConnection myConnection = Config.SqlConnectionString)
-			{
-				using (SqlCommand myCommand = new SqlCommand("rb_GetModuleUserSettings", myConnection))
-				{
-					// Mark the Command as a SPROC
-					myCommand.CommandType = CommandType.StoredProcedure;
+            // Create Instance of Connection and Command Object
+            using (var connection = Config.SqlConnectionString)
+            {
+                using (var command = new SqlCommand("rb_GetModuleUserSettings", connection))
+                {
+                    // Mark the Command as a SPROC
+                    command.CommandType = CommandType.StoredProcedure;
 
-					// Add Parameters to SPROC
-					SqlParameter parameterModuleID = new SqlParameter("@ModuleID", SqlDbType.Int, 4);
-					parameterModuleID.Value = moduleID;
-					myCommand.Parameters.Add(parameterModuleID);
+                    // Add Parameters to SPROC
+                    var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
+                    command.Parameters.Add(parameterModuleId);
 
-					SqlParameter parameterUserID = new SqlParameter("@UserID", SqlDbType.Int, 4);
-					parameterUserID.Value = userID;
-					myCommand.Parameters.Add(parameterUserID);
+                    var parameterUserId = new SqlParameter("@UserID", SqlDbType.Int, 4) { Value = userId };
+                    command.Parameters.Add(parameterUserId);
 
-					// Execute the command
-					myConnection.Open();
-					using (SqlDataReader dr = myCommand.ExecuteReader(CommandBehavior.CloseConnection))
-					{
-						while (dr.Read())
-						{
-							_settings[dr["SettingName"].ToString()] = dr["SettingValue"].ToString();
-						}
-					}
-				}
-			}
+                    // Execute the command
+                    connection.Open();
+                    using (var dr = command.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        while (dr.Read())
+                        {
+                            settings[dr["SettingName"].ToString()] = dr["SettingValue"].ToString();
+                        }
+                    }
+                }
+            }
 
+            // foreach (string key in _customSettings.Keys)
+            foreach (string key in customSettings.Keys)
+            {
+                if (settings[key] == null)
+                {
+                    continue;
+                }
 
-			//foreach (string key in _customSettings.Keys)
-			foreach (string key in _customSettings.Keys)
-			{
-				if (_settings[key] != null)
-				{
-					SettingItem s = ((SettingItem)_customSettings[key]);
-					if (_settings[key].ToString().Length != 0)
-						s.Value = _settings[key].ToString();
-					//_customSettings[key] = s;
-				}
-			}
+                var s = (SettingItem)customSettings[key];
+                if (settings[key].ToString().Length != 0)
+                {
+                    s.Value = settings[key].ToString();
+                }
 
-			return _customSettings;
-		}
+                // _customSettings[key] = s;
+            }
 
-		/// <summary>
-		/// The UpdateCustomModuleSetting Method updates a single module setting
-		/// for the current user in the rb_ModuleUserSettings database table.
-		/// </summary>
-		/// <param name="moduleID">The module ID.</param>
-		/// <param name="userID">The user ID.</param>
-		/// <param name="key">The key.</param>
-		/// <param name="value">The value.</param>
-		public static void UpdateCustomModuleSetting(int moduleID, Guid userID, string key, string value)
-		{
-			// Create Instance of Connection and Command Object
-			using (SqlConnection myConnection = Config.SqlConnectionString)
-			{
-				using (SqlCommand myCommand = new SqlCommand("rb_UpdateModuleUserSetting", myConnection))
-				{
-					// Mark the Command as a SPROC
-					myCommand.CommandType = CommandType.StoredProcedure;
+            return customSettings;
+        }
 
-					// Add Parameters to SPROC
-					SqlParameter parameterModuleID = new SqlParameter("@ModuleID", SqlDbType.Int, 4);
-					parameterModuleID.Value = moduleID;
-					myCommand.Parameters.Add(parameterModuleID);
+        /// <summary>
+        /// The UpdateCustomModuleSetting Method updates a single module setting
+        ///     for the current user in the rb_ModuleUserSettings database table.
+        /// </summary>
+        /// <param name="moduleId">
+        /// The module ID.
+        /// </param>
+        /// <param name="userId">
+        /// The user ID.
+        /// </param>
+        /// <param name="key">
+        /// The setting key.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        public static void UpdateCustomModuleSetting(int moduleId, Guid userId, string key, string value)
+        {
+            // Create Instance of Connection and Command Object
+            using (var connection = Config.SqlConnectionString)
+            {
+                using (var command = new SqlCommand("rb_UpdateModuleUserSetting", connection))
+                {
+                    // Mark the Command as a SPROC
+                    command.CommandType = CommandType.StoredProcedure;
 
-					SqlParameter parameterUserID = new SqlParameter("@UserID", SqlDbType.Int, 4);
-					parameterUserID.Value = userID;
-					myCommand.Parameters.Add(parameterUserID);
+                    // Add Parameters to SPROC
+                    var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
+                    command.Parameters.Add(parameterModuleId);
 
-					SqlParameter parameterKey = new SqlParameter("@SettingName", SqlDbType.NVarChar, 50);
-					parameterKey.Value = key;
-					myCommand.Parameters.Add(parameterKey);
+                    var parameterUserId = new SqlParameter("@UserID", SqlDbType.Int, 4) { Value = userId };
+                    command.Parameters.Add(parameterUserId);
 
-					SqlParameter parameterValue = new SqlParameter("@SettingValue", SqlDbType.NVarChar, 1500);
-					parameterValue.Value = value;
-					myCommand.Parameters.Add(parameterValue);
+                    var parameterKey = new SqlParameter("@SettingName", SqlDbType.NVarChar, 50) { Value = key };
+                    command.Parameters.Add(parameterKey);
 
-					myConnection.Open();
-					myCommand.ExecuteNonQuery();
-				}
-			}
-		}
-		#endregion
+                    var parameterValue = new SqlParameter("@SettingValue", SqlDbType.NVarChar, 1500) { Value = value };
+                    command.Parameters.Add(parameterValue);
 
-	}
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        #endregion
+    }
 }

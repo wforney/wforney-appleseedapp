@@ -254,21 +254,21 @@ namespace Appleseed.Admin {
                 controlPath = Path.WebPathCombine( Path.ApplicationRoot, m.DesktopSrc );
 
                 try {
-					if (!controlPath.Contains("Area")){
-						pm = ( PortalModuleControl )LoadControl( controlPath );
-						if ( pm.InnerSupportsWorkflow ) {
-							enableWorkflowSupport.Checked = m.SupportWorkflow;
-							authApproveRoles.Enabled = m.SupportWorkflow;
-							authPublishingRoles.Enabled = m.SupportWorkflow;
-							populateRoles( ref authPublishingRoles, m.AuthorizedPublishingRoles );
-							populateRoles( ref authApproveRoles, m.AuthorizedApproveRoles );
-						}
-						else {
-							enableWorkflowSupport.Enabled = false;
-							authApproveRoles.Enabled = false;
-							authPublishingRoles.Enabled = false;
-						}
-					}
+                    if (!controlPath.Contains("Area")){
+                        pm = ( PortalModuleControl )LoadControl( controlPath );
+                        if ( pm.InnerSupportsWorkflow ) {
+                            enableWorkflowSupport.Checked = m.SupportWorkflow;
+                            authApproveRoles.Enabled = m.SupportWorkflow;
+                            authPublishingRoles.Enabled = m.SupportWorkflow;
+                            populateRoles( ref authPublishingRoles, m.AuthorizedPublishingRoles );
+                            populateRoles( ref authApproveRoles, m.AuthorizedApproveRoles );
+                        }
+                        else {
+                            enableWorkflowSupport.Enabled = false;
+                            authApproveRoles.Enabled = false;
+                            authPublishingRoles.Enabled = false;
+                        }
+                    }
                 }
                 catch ( Exception ex ) {
                     //ErrorHandler.HandleException("There was a problem loading: '" + controlPath + "'", ex);
@@ -291,12 +291,12 @@ namespace Appleseed.Admin {
                 populateRoles( ref authPropertiesRoles, m.AuthorizedPropertiesRoles );
 
                 // Jes1111
-				if (pm != null){
-					if ( !pm.Cacheable ) {
-						cacheTime.Text = "-1";
-						cacheTime.Enabled = false;
-					}
-				}
+                if (pm != null){
+                    if ( !pm.Cacheable ) {
+                        cacheTime.Text = "-1";
+                        cacheTime.Enabled = false;
+                    }
+                }
             }
             else // Denied access if Module not in Tab. jviladiu@portalServices.net (2004/07/23)
                 Appleseed.Framework.Security.PortalSecurity.AccessDenied();
@@ -423,21 +423,23 @@ namespace Appleseed.Admin {
         //			this.OnDelete(e);
         //		}
 
-        private ArrayList _allowedModules = null;
+        private List<string> allowedModules;
 
         /// <summary>
         /// Only can use this page from tab with original module
         /// jviladiu@portalServices.net (2004/07/22)
         /// </summary>
         protected override List<string> AllowedModules {
-            get {
-                if ( _allowedModules == null ) {
+            get
+            {
+                if (this.allowedModules == null)
+                {
                     ModulesDB mdb = new ModulesDB();
-                    ArrayList al = new ArrayList();
-                    al.Add( mdb.GetModuleGuid( ModuleID ).ToString() );
-                    _allowedModules = al;
+                    List<string> al = new List<string>();
+                    al.Add(mdb.GetModuleGuid(ModuleID).ToString());
+                    this.allowedModules = al;
                 }
-                return _allowedModules;
+                return this.allowedModules;
             }
         }
     }

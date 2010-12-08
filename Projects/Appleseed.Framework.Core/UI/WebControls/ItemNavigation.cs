@@ -1,14 +1,16 @@
- // mario@hartmann.net: 24/07/2003
-// modified from MenuNavigation
-// the navigation will not be effective and instead we navigate to the same page
-// and transmit the PageID as a ItemID.
-// thierry@tiptopweb.com.au: 17/09/2003
-// replace Default.aspx by DesktopDefault.aspx as we are loosing the parameters
-// when transfering from Default.aspx to DesktopDefault.aspx and not using the UrlBuilder
-// bill@billforney.com 2010/12/06 cleaned up code
-
+//
 namespace Appleseed.Framework.Web.UI.WebControls
 {
+    // mario@hartmann.net: 24/07/2003
+    // modified from MenuNavigation
+    // the navigation will not be effective and instead we navigate to the same page
+    // and transmit the PageID as a ItemID.
+    // thierry@tiptopweb.com.au: 17/09/2003
+    // replace Default.aspx by DesktopDefault.aspx as we are loosing the parameters
+    // when transfering from Default.aspx to DesktopDefault.aspx and not using the UrlBuilder
+    // bill@billforney.com 2010/12/06 cleaned up code
+    using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Web;
 
     using Appleseed.Framework.Security;
@@ -89,30 +91,19 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// <returns>
         /// A menu tree node.
         /// </returns>
-        protected override MenuTreeNode RecourseMenu(int tabIdItemsRoot, PagesBox t, MenuTreeNode mn)
+        protected override MenuTreeNode RecourseMenu(int tabIdItemsRoot, Collection<PageStripDetails> t, MenuTreeNode mn)
         {
             if (t.Count > 0)
             {
-                for (var c = 0; c < t.Count; c++)
+                foreach (var mnc in from mysubTab in t
+                                    where PortalSecurity.IsInRoles(mysubTab.AuthorizedRoles)
+                                    let mnc = new MenuTreeNode(mysubTab.PageName)
+                                        {
+                                            // change PageID into ItemID for the product module on the same page
+                                            Link = HttpUrlBuilder.BuildUrl("~/DesktopDefault.aspx", tabIdItemsRoot, string.Format("ItemID={0}", mysubTab.PageID)), Width = mn.Width
+                                        }
+                                    select this.RecourseMenu(tabIdItemsRoot, mysubTab.Pages, mnc))
                 {
-                    var mysubTab = t[c];
-
-                    if (!PortalSecurity.IsInRoles(mysubTab.AuthorizedRoles))
-                    {
-                        continue;
-                    }
-                    
-                    var mnc = new MenuTreeNode(mysubTab.PageName)
-                        {
-                            // change PageID into ItemID for the product module on the same page
-                            Link =
-                                HttpUrlBuilder.BuildUrl(
-                                    "~/DesktopDefault.aspx", tabIdItemsRoot, "ItemID=" + mysubTab.PageID),
-                            Width = mn.Width
-                        };
-
-                    // by manu
-                    mnc = this.RecourseMenu(tabIdItemsRoot, mysubTab.Pages, mnc);
                     mn.Childs.Add(mnc);
                 }
             }

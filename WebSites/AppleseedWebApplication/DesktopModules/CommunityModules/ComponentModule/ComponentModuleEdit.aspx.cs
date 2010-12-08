@@ -62,7 +62,7 @@ namespace Appleseed.Content.Web.Modules
         {
             get
             {
-                ArrayList al = new ArrayList();
+                List<string> al = new List<string>();
                 al.Add("2B113F51-FEA3-499A-98E7-7B83C192FDBC");
                 return al;
             }

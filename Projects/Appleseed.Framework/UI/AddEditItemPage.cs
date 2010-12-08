@@ -1,3 +1,14 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="AddEditItemPage.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   AddEditItemPage inherits from Appleseed.Framework.UI.SecurePage <br />
+//   Used for add/edit pages<br />
+//   Can be inherited
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace Appleseed.Framework.Web.UI
 {
     using System;

@@ -50,7 +50,7 @@ namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
         {
             get
             {
-                ArrayList al = new ArrayList();
+                List<string> al = new List<string>();
                 al.Add("2D86166C-4BDC-4A6F-A028-D17C2BB177C8");
                 al.Add("2502DB18-B580-4F90-8CB4-C15E6E531030"); // Access from portalSearch
                 al.Add("2502DB18-B580-4F90-8CB4-C15E6E531052"); // Access from serviceItemList				

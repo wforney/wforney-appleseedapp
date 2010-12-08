@@ -120,10 +120,10 @@ namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
                         break;
 
                         /* case "DELETE":
-						if (PortalSecurity.HasDeletePermissions(ModuleID) == false)
-							PortalSecurity.AccessDeniedEdit();
-						break;
-						*/
+                        if (PortalSecurity.HasDeletePermissions(ModuleID) == false)
+                            PortalSecurity.AccessDeniedEdit();
+                        break;
+                        */
 
                     default:
                         // invalid mode specified
@@ -141,7 +141,7 @@ namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
         {
             get
             {
-                ArrayList al = new ArrayList();
+                List<string> al = new List<string>();
                 al.Add("2D86166C-4BDC-4A6F-A028-D17C2BB177C8");
                 return al;
             }

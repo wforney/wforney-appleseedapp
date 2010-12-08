@@ -9,6 +9,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
 {
     using System;
     using System.Collections;
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Linq;
     using System.Web;
@@ -150,9 +151,8 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
                     if (mytab.Pages.Count > 0)
                     {
-                        for (var i = 0; i < mytab.Pages.Count; i++)
+                        foreach (var mysubTab in mytab.Pages)
                         {
-                            var mysubTab = mytab.Pages[i];
                             this.AddMenuTreeNode(mysubTab);
                         }
                     }
@@ -258,28 +258,18 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// <returns>
         /// A menu tree node.
         /// </returns>
-        private MenuTreeNode RecourseMenu(int tabIdShop, PagesBox t, MenuTreeNode mn)
+        private MenuTreeNode RecourseMenu(int tabIdShop, Collection<PageStripDetails> t, MenuTreeNode mn)
         {
             if (t.Count > 0)
             {
-                for (var c = 0; c < t.Count; c++)
+                foreach (var mnc in from mysubTab in t
+                                    where PortalSecurity.IsInRoles(mysubTab.AuthorizedRoles)
+                                    let mnc = new MenuTreeNode(mysubTab.PageName)
+                                        {
+                                            Link = HttpUrlBuilder.BuildUrl("~/" + HttpUrlBuilder.DefaultPage, tabIdShop, "ItemID=" + mysubTab.PageID), Width = mn.Width
+                                        }
+                                    select this.RecourseMenu(tabIdShop, mysubTab.Pages, mnc))
                 {
-                    var mysubTab = t[c];
-                    if (!PortalSecurity.IsInRoles(mysubTab.AuthorizedRoles))
-                    {
-                        continue;
-                    }
-                    
-                    var mnc = new MenuTreeNode(mysubTab.PageName)
-                        {
-                            Link =
-                                HttpUrlBuilder.BuildUrl(
-                                    "~/" + HttpUrlBuilder.DefaultPage, tabIdShop, "ItemID=" + mysubTab.PageID),
-                            Width = mn.Width
-                        };
-
-                    // change PageID into ItemID for the product module on the same page
-                    mnc = this.RecourseMenu(tabIdShop, mysubTab.Pages, mnc);
                     mn.Childs.Add(mnc);
                 }
             }

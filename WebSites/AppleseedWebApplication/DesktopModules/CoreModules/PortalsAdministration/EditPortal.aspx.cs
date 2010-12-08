@@ -65,7 +65,7 @@ namespace Appleseed.AdminAll
         {
             get
             {
-                ArrayList al = new ArrayList();
+                List<string> al = new List<string>();
                 al.Add("366C247D-4CFB-451D-A7AE-649C83B05841");
                 return al;
             }

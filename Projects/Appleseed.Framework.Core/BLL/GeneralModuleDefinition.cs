@@ -1,89 +1,65 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="GeneralModuleDefinition.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   The general module definition.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-namespace Appleseed.Framework.Core.BLL {
-    public class GeneralModuleDefinition {
+namespace Appleseed.Framework.Core.BLL
+{
+    /// <summary>
+    /// The general module definition.
+    /// </summary>
+    public class GeneralModuleDefinition
+    {
+        #region Constants and Fields
 
-        private int generalModDefID;
-        private string friendlyName;
-        private string desktopSource;
-        private string mobileSource;
-        private string assemblyName;
-        private string className;
-        private bool admin;
-        private bool searchable;
+        #endregion
 
-        public int GeneralModDefID {
-            get {
-                return generalModDefID;
-            }
-            set {
-                generalModDefID = value;
-            }
-        }
+        #region Properties
 
-        public string FriendlyName {
-            get {
-                return friendlyName;
-            }
-            set {
-                friendlyName = value;
-            }
-        }
+        /// <summary>
+        /// Gets or sets a value indicating whether Admin.
+        /// </summary>
+        public bool Admin { get; set; }
 
-        public string DesktopSource {
-            get {
-                return desktopSource;
-            }
-            set {
-                desktopSource = value;
-            }
-        }
+        /// <summary>
+        /// Gets or sets AssemblyName.
+        /// </summary>
+        public string AssemblyName { get; set; }
 
-        public string MobileSource {
-            get {
-                return mobileSource;
-            }
-            set {
-                mobileSource = value;
-            }
-        }
+        /// <summary>
+        /// Gets or sets ClassName.
+        /// </summary>
+        public string ClassName { get; set; }
 
-        public string AssemblyName {
-            get {
-                return assemblyName;
-            }
-            set {
-                assemblyName = value;
-            }
-        }
+        /// <summary>
+        /// Gets or sets DesktopSource.
+        /// </summary>
+        public string DesktopSource { get; set; }
 
-        public string ClassName {
-            get {
-                return className;
-            }
-            set {
-                className = value;
-            }
-        }
+        /// <summary>
+        /// Gets or sets FriendlyName.
+        /// </summary>
+        public string FriendlyName { get; set; }
 
-        public bool Admin {
-            get {
-                return admin;
-            }
-            set {
-                admin = value;
-            }
-        }
-        
-        public bool Searchable {
-            get {
-                return searchable;
-            }
-            set {
-                searchable = value;
-            }
-        }
+        /// <summary>
+        /// Gets or sets GeneralModDefID.
+        /// </summary>
+        public int GeneralModDefID { get; set; }
+
+        /// <summary>
+        /// Gets or sets MobileSource.
+        /// </summary>
+        public string MobileSource { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether Searchable.
+        /// </summary>
+        public bool Searchable { get; set; }
+
+        #endregion
     }
 }

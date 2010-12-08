@@ -1,58 +1,157 @@
-using System.Data;
-using System.Data.SqlClient;
-using Appleseed.Framework.Settings;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="HtmlTextDB.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Class that encapsulates all data logic necessary to add/query/delete
+//   HTML/text within the Portal database.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.Content.Data
 {
+    using System.Data;
+    using System.Data.SqlClient;
+
+    using Appleseed.Framework.Settings;
+
     /// <summary>
     /// Class that encapsulates all data logic necessary to add/query/delete
-    /// HTML/text within the Portal database.
+    ///     HTML/text within the Portal database.
     /// </summary>
     public class HtmlTextDB
     {
+        #region Public Methods
 
         /// <summary>
-        /// GetHtmlTextString
+        /// The GetHtmlText method returns a SqlDataReader containing details
+        ///     about a specific item from the HtmlText database table.
         /// </summary>
-        /// <param name="moduleID">The module ID.</param>
-        /// <param name="version">The version.</param>
-        /// <returns></returns>
-        public string GetHtmlTextString(int moduleID, WorkFlowVersion version, out string mobileSummary, out string mobileDetails)
+        /// <param name="moduleId">
+        /// The module ID.
+        /// </param>
+        /// <returns>
+        /// A sql data reader
+        /// </returns>
+        public SqlDataReader GetHtmlText(int moduleId)
         {
-            string strDesktopHtml = string.Empty;
+            // Change by Geert.Audenaert@Syntegra.Com
+            // Date: 6/2/2003
+            // Get prod version by default
+            return this.GetHtmlText(moduleId, WorkFlowVersion.Production);
+
+            // End Change Geert.Audenaert@Syntegra.Com
+        }
+
+        /// <summary>
+        /// The GetHtmlText method returns a SqlDataReader containing details
+        ///     about a specific item from the HtmlText database table.
+        /// </summary>
+        /// <param name="moduleId">
+        /// The module ID.
+        /// </param>
+        /// <param name="version">
+        /// The version.
+        /// </param>
+        /// <returns>
+        /// A sql data reader
+        /// </returns>
+        public SqlDataReader GetHtmlText(int moduleId, WorkFlowVersion version)
+        {
+            // Create Instance of Connection and Command Object
+            var connection = Config.SqlConnectionString;
+
+            // Mark the Command as a SPROC
+            var command = new SqlCommand("rb_GetHtmlText", connection) { CommandType = CommandType.StoredProcedure };
+
+            // Add Parameters to SPROC
+            var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
+            command.Parameters.Add(parameterModuleId);
+
+            // Change by Geert.Audenaert@Syntegra.Com
+            // Date: 6/2/2003
+            var parameterWorkflowVersion = new SqlParameter("@WorkflowVersion", SqlDbType.Int, 4)
+                {
+                    Value = (int)version 
+                };
+            command.Parameters.Add(parameterWorkflowVersion);
+
+            // End Change Geert.Audenaert@Syntegra.Com
+
+            // Execute the command
+            connection.Open();
+            var result = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+            // Return the datareader 
+            return result;
+        }
+
+        /// <summary>
+        /// Get Html Text String
+        /// </summary>
+        /// <param name="moduleId">
+        /// The module ID.
+        /// </param>
+        /// <param name="version">
+        /// The version.
+        /// </param>
+        /// <param name="mobileSummary">
+        /// The mobile Summary.
+        /// </param>
+        /// <param name="mobileDetails">
+        /// The mobile Details.
+        /// </param>
+        /// <returns>
+        /// The get html text string.
+        /// </returns>
+        public string GetHtmlTextString(
+            int moduleId, WorkFlowVersion version, out string mobileSummary, out string mobileDetails)
+        {
+            var strDesktopHtml = string.Empty;
 
             // Create Instance of Connection and Command Object
-            using (SqlConnection myConnection = Config.SqlConnectionString) {
-                using (SqlCommand myCommand = new SqlCommand("rb_GetHtmlText", myConnection)) {
+            using (var connection = Config.SqlConnectionString)
+            {
+                using (var command = new SqlCommand("rb_GetHtmlText", connection))
+                {
                     // Mark the Command as a SPROC
-                    myCommand.CommandType = CommandType.StoredProcedure;
+                    command.CommandType = CommandType.StoredProcedure;
 
                     // Add Parameters to SPROC
-                    SqlParameter parameterModuleID = new SqlParameter("@ModuleID", SqlDbType.Int, 4);
-                    parameterModuleID.Value = moduleID;
-                    myCommand.Parameters.Add(parameterModuleID);
+                    var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
+                    command.Parameters.Add(parameterModuleId);
 
                     // Change by Geert.Audenaert@Syntegra.Com
                     // Date: 6/2/2003
-                    SqlParameter parameterWorkflowVersion = new SqlParameter("@WorkflowVersion", SqlDbType.Int, 4);
-                    parameterWorkflowVersion.Value = (int)version;
-                    myCommand.Parameters.Add(parameterWorkflowVersion);
+                    var parameterWorkflowVersion = new SqlParameter("@WorkflowVersion", SqlDbType.Int, 4)
+                        {
+                            Value = (int)version 
+                        };
+                    command.Parameters.Add(parameterWorkflowVersion);
+
                     // End Change Geert.Audenaert@Syntegra.Com
 
                     // Execute the command
-                    myConnection.Open();
+                    connection.Open();
 
-                    using (SqlDataReader result = myCommand.ExecuteReader(CommandBehavior.CloseConnection)) {
-                        try {
-                            if (result.Read()) {
+                    using (var result = command.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        try
+                        {
+                            if (result.Read())
+                            {
                                 strDesktopHtml = result["DesktopHtml"].ToString();
                                 mobileSummary = result["MobileSummary"].ToString();
                                 mobileDetails = result["MobileDetails"].ToString();
-                            } else {
+                            }
+                            else
+                            {
                                 mobileSummary = string.Empty;
                                 mobileDetails = string.Empty;
                             }
-                        } finally {
+                        }
+                        finally
+                        {
                             // Close the datareader
                             result.Close();
                         }
@@ -63,41 +162,48 @@ namespace Appleseed.Framework.Content.Data
             return strDesktopHtml;
         }
 
-
         /// <summary>
-        /// GetHtmlTextString
+        /// Get Html Text String
         /// </summary>
-        /// <param name="moduleID">The module ID.</param>
-        /// <param name="version">The version.</param>
-        /// <returns></returns>
-        public string GetHtmlTextString(int moduleID, WorkFlowVersion version)
+        /// <param name="moduleId">
+        /// The module ID.
+        /// </param>
+        /// <param name="version">
+        /// The version.
+        /// </param>
+        /// <returns>
+        /// The get html text string.
+        /// </returns>
+        public string GetHtmlTextString(int moduleId, WorkFlowVersion version)
         {
-            string strDesktopHtml = string.Empty;
+            var strDesktopHtml = string.Empty;
 
             // Create Instance of Connection and Command Object
-            using (SqlConnection myConnection = Config.SqlConnectionString)
+            using (var connection = Config.SqlConnectionString)
             {
-                using (SqlCommand myCommand = new SqlCommand("rb_GetHtmlText", myConnection))
+                using (var command = new SqlCommand("rb_GetHtmlText", connection))
                 {
                     // Mark the Command as a SPROC
-                    myCommand.CommandType = CommandType.StoredProcedure;
+                    command.CommandType = CommandType.StoredProcedure;
 
                     // Add Parameters to SPROC
-                    SqlParameter parameterModuleID = new SqlParameter("@ModuleID", SqlDbType.Int, 4);
-                    parameterModuleID.Value = moduleID;
-                    myCommand.Parameters.Add(parameterModuleID);
+                    var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
+                    command.Parameters.Add(parameterModuleId);
 
                     // Change by Geert.Audenaert@Syntegra.Com
                     // Date: 6/2/2003
-                    SqlParameter parameterWorkflowVersion = new SqlParameter("@WorkflowVersion", SqlDbType.Int, 4);
-                    parameterWorkflowVersion.Value = (int) version;
-                    myCommand.Parameters.Add(parameterWorkflowVersion);
+                    var parameterWorkflowVersion = new SqlParameter("@WorkflowVersion", SqlDbType.Int, 4)
+                        {
+                            Value = (int)version 
+                        };
+                    command.Parameters.Add(parameterWorkflowVersion);
+
                     // End Change Geert.Audenaert@Syntegra.Com
 
                     // Execute the command
-                    myConnection.Open();
+                    connection.Open();
 
-                    using (SqlDataReader result = myCommand.ExecuteReader(CommandBehavior.CloseConnection))
+                    using (var result = command.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         try
                         {
@@ -119,108 +225,66 @@ namespace Appleseed.Framework.Content.Data
         }
 
         /// <summary>
-        /// The GetHtmlText method returns a SqlDataReader containing details
-        /// about a specific item from the HtmlText database table.
-        /// </summary>
-        /// <param name="moduleID">The module ID.</param>
-        /// <returns></returns>
-        public SqlDataReader GetHtmlText(int moduleID)
-        {
-            // Change by Geert.Audenaert@Syntegra.Com
-            // Date: 6/2/2003
-            // Get prod version by default
-            return GetHtmlText(moduleID, WorkFlowVersion.Production);
-            // End Change Geert.Audenaert@Syntegra.Com
-        }
-
-        /// <summary>
-        /// The GetHtmlText method returns a SqlDataReader containing details
-        /// about a specific item from the HtmlText database table.
-        /// </summary>
-        /// <param name="moduleID">The module ID.</param>
-        /// <param name="version">The version.</param>
-        /// <returns></returns>
-        public SqlDataReader GetHtmlText(int moduleID, WorkFlowVersion version)
-        {
-            // Create Instance of Connection and Command Object
-            SqlConnection myConnection = Config.SqlConnectionString;
-
-            SqlCommand myCommand = new SqlCommand("rb_GetHtmlText", myConnection);
-
-
-            // Mark the Command as a SPROC
-            myCommand.CommandType = CommandType.StoredProcedure;
-
-            // Add Parameters to SPROC
-            SqlParameter parameterModuleID = new SqlParameter("@ModuleID", SqlDbType.Int, 4);
-            parameterModuleID.Value = moduleID;
-            myCommand.Parameters.Add(parameterModuleID);
-
-            // Change by Geert.Audenaert@Syntegra.Com
-            // Date: 6/2/2003
-            SqlParameter parameterWorkflowVersion = new SqlParameter("@WorkflowVersion", SqlDbType.Int, 4);
-            parameterWorkflowVersion.Value = (int) version;
-            myCommand.Parameters.Add(parameterWorkflowVersion);
-            // End Change Geert.Audenaert@Syntegra.Com
-
-            // Execute the command
-            myConnection.Open();
-            SqlDataReader result = myCommand.ExecuteReader(CommandBehavior.CloseConnection);
-
-            // Return the datareader 
-            return result;
-        }
-
-        /// <summary>
         /// The UpdateHtmlText method updates a specified item within
-        /// the HtmlText database table.
+        ///     the HtmlText database table.
         /// </summary>
-        /// <param name="moduleID">The module ID.</param>
-        /// <param name="desktopHtml">The desktop HTML.</param>
-        /// <param name="mobileSummary">The mobile summary.</param>
-        /// <param name="mobileDetails">The mobile details.</param>
-        public void UpdateHtmlText(int moduleID, string desktopHtml, string mobileSummary, string mobileDetails)
+        /// <param name="moduleId">
+        /// The module ID.
+        /// </param>
+        /// <param name="desktopHtml">
+        /// The desktop HTML.
+        /// </param>
+        /// <param name="mobileSummary">
+        /// The mobile summary.
+        /// </param>
+        /// <param name="mobileDetails">
+        /// The mobile details.
+        /// </param>
+        public void UpdateHtmlText(int moduleId, string desktopHtml, string mobileSummary, string mobileDetails)
         {
             // Create Instance of Connection and Command Object
-            using (SqlConnection myConnection = Config.SqlConnectionString)
+            using (var connection = Config.SqlConnectionString)
             {
-                using (SqlCommand myCommand = new SqlCommand("rb_UpdateHtmlText", myConnection))
+                using (var command = new SqlCommand("rb_UpdateHtmlText", connection))
                 {
                     // Mark the Command as a SPROC
-                    myCommand.CommandType = CommandType.StoredProcedure;
+                    command.CommandType = CommandType.StoredProcedure;
 
                     // Add Parameters to SPROC
-                    SqlParameter parameterModuleID = new SqlParameter("@ModuleID", SqlDbType.Int, 4);
-                    parameterModuleID.Value = moduleID;
-                    myCommand.Parameters.Add(parameterModuleID);
+                    var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
+                    command.Parameters.Add(parameterModuleId);
 
-                    SqlParameter parameterDesktopHtml = new SqlParameter("@DesktopHtml", SqlDbType.NText);
-                    parameterDesktopHtml.Value = desktopHtml;
-                    myCommand.Parameters.Add(parameterDesktopHtml);
+                    var parameterDesktopHtml = new SqlParameter("@DesktopHtml", SqlDbType.NText) { Value = desktopHtml };
+                    command.Parameters.Add(parameterDesktopHtml);
 
-                    SqlParameter parameterMobileSummary = new SqlParameter("@MobileSummary", SqlDbType.NText);
-                    parameterMobileSummary.Value = mobileSummary;
-                    myCommand.Parameters.Add(parameterMobileSummary);
+                    var parameterMobileSummary = new SqlParameter("@MobileSummary", SqlDbType.NText)
+                        {
+                            Value = mobileSummary 
+                        };
+                    command.Parameters.Add(parameterMobileSummary);
 
-                    SqlParameter parameterMobileDetails = new SqlParameter("@MobileDetails", SqlDbType.NText);
-                    parameterMobileDetails.Value = mobileDetails;
-                    myCommand.Parameters.Add(parameterMobileDetails);
-                    //
-                    //            SqlParameter parameterCulture = new SqlParameter("@Culture", SqlDbType.NVarChar, 8);
-                    //            parameterCulture.Value = culture.Name;
-                    //            myCommand.Parameters.Add(parameterCulture);
+                    var parameterMobileDetails = new SqlParameter("@MobileDetails", SqlDbType.NText)
+                        {
+                            Value = mobileDetails 
+                        };
+                    command.Parameters.Add(parameterMobileDetails);
 
-                    myConnection.Open();
+                    // SqlParameter parameterCulture = new SqlParameter("@Culture", SqlDbType.NVarChar, 8);
+                    // parameterCulture.Value = culture.Name;
+                    // command.Parameters.Add(parameterCulture);
+                    connection.Open();
                     try
                     {
-                        myCommand.ExecuteNonQuery();
+                        command.ExecuteNonQuery();
                     }
                     finally
                     {
-                        myConnection.Close();
+                        connection.Close();
                     }
                 }
             }
         }
+
+        #endregion
     }
 }

@@ -3,6 +3,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Linq;
     using System.Web;
@@ -287,30 +288,27 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// Index of the tab.
         /// </param>
         /// <param name="t">
-        /// The t.
+        /// The pages.
         /// </param>
         /// <param name="mn">
-        /// The mn.
+        /// The menu tree node.
         /// </param>
         /// <returns>
         /// </returns>
-        protected virtual MenuTreeNode RecourseMenu(int tabIndex, PagesBox t, MenuTreeNode mn)
+        protected virtual MenuTreeNode RecourseMenu(int tabIndex, Collection<PageStripDetails> t, MenuTreeNode mn)
         {
             // mh:
             if (t.Count > 0)
             {
-                for (var c = 0; c < t.Count; c++)
+                foreach (var mnc in from mysubTab in t
+                                    where PortalSecurity.IsInRoles(mysubTab.AuthorizedRoles)
+                                    let mnc = new MenuTreeNode(mysubTab.PageName)
+                                        {
+                                            Link = this.GiveMeUrl(mysubTab.PageName, mysubTab.PageID), Width = mn.Width
+                                        }
+                                    select this.RecourseMenu(tabIndex, mysubTab.Pages, mnc))
                 {
-                    var mysubTab = t[c];
-                    if (PortalSecurity.IsInRoles(mysubTab.AuthorizedRoles))
-                    {
-                        var mnc = new MenuTreeNode(mysubTab.PageName)
-                            { Link = this.GiveMeUrl(mysubTab.PageName, mysubTab.PageID), Width = mn.Width };
-
-                        mnc = this.RecourseMenu(tabIndex, mysubTab.Pages, mnc);
-
-                        mn.Childs.Add(mnc);
-                    }
+                    mn.Childs.Add(mnc);
                 }
             }
 
@@ -325,27 +323,20 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// <param name="mn">The mn.</param>
         /// <param name="idShop">The id shop.</param>
         /// <returns></returns>
-        protected virtual MenuTreeNode RecourseMenuShop(int tabIndex, PagesBox t, MenuTreeNode mn, int idShop)
+        protected virtual MenuTreeNode RecourseMenuShop(int tabIndex, Collection<PageStripDetails> t, MenuTreeNode mn, int idShop)
         {
             if (t.Count > 0)
             {
-                for (var c = 0; c < t.Count; c++)
+                foreach (var mnc in from mysubTab in t
+                                    where PortalSecurity.IsInRoles(mysubTab.AuthorizedRoles)
+                                    let mnc = new MenuTreeNode(mysubTab.PageName)
+                                        {
+                                            Link = HttpUrlBuilder.BuildUrl(string.Format("~/{0}", HttpUrlBuilder.DefaultPage), idShop, string.Format("ItemID={0}", mysubTab.PageID)),
+                                            Width = mn.Width
+                                        }
+                                    select this.RecourseMenuShop(tabIndex, mysubTab.Pages, mnc, idShop))
                 {
-                    var mysubTab = t[c];
-
-                    if (PortalSecurity.IsInRoles(mysubTab.AuthorizedRoles))
-                    {
-                        var mnc = new MenuTreeNode(mysubTab.PageName)
-                            {
-                                Link =
-                                    HttpUrlBuilder.BuildUrl(
-                                        "~/" + HttpUrlBuilder.DefaultPage, idShop, "ItemID=" + mysubTab.PageID),
-                                Width = mn.Width
-                            };
-
-                        mnc = this.RecourseMenuShop(tabIndex, mysubTab.Pages, mnc, idShop);
-                        mn.Childs.Add(mnc);
-                    }
+                    mn.Childs.Add(mnc);
                 }
             }
 
