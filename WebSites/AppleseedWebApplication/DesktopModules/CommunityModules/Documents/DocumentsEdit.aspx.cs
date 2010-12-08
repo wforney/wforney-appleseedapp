@@ -11,6 +11,8 @@ using Path=Appleseed.Framework.Settings.Path;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Update and edit documents.
     /// Update 14 nov 2002 - Bug on buttonclick events
@@ -82,7 +84,7 @@ namespace Appleseed.Content.Web.Modules
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {

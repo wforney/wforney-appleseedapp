@@ -13,6 +13,8 @@ using Label=Appleseed.Framework.Web.UI.WebControls.Label;
 
 namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// 
     /// </summary>
@@ -44,7 +46,7 @@ namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {

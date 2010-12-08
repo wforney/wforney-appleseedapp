@@ -15,6 +15,8 @@ using History=Appleseed.Framework.History;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Appleseed Portal Pictures module - Edit page part
     /// (c)2002 by Ender Malkoc
@@ -147,7 +149,7 @@ namespace Appleseed.Content.Web.Modules
         /// Set Esperantus.Esperantus.Localize. module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {

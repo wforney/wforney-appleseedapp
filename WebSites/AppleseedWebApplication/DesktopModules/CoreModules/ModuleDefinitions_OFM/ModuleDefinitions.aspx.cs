@@ -10,6 +10,8 @@ using Label=Appleseed.Framework.Web.UI.WebControls.Label;
 
 namespace Appleseed.AdminAll
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Add/Remove modules, assign OneFileModules to portals
     /// </summary>
@@ -109,7 +111,7 @@ namespace Appleseed.AdminAll
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {

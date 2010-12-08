@@ -9,6 +9,8 @@ using Appleseed.Framework.Web.UI;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// IBS Portal Milestone Module - Edit page part
     /// Writen by: Elaine Ossipov  - 9/11/2002 - admin@sbsc.net
@@ -70,7 +72,7 @@ namespace Appleseed.Content.Web.Modules
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {

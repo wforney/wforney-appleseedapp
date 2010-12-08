@@ -9,6 +9,8 @@ using History=Appleseed.Framework.History;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Page for editing contacts
     /// </summary>
@@ -88,7 +90,7 @@ namespace Appleseed.Content.Web.Modules
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {

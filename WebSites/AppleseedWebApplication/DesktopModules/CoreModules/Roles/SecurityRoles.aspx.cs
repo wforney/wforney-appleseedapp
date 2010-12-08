@@ -13,6 +13,8 @@ using Appleseed.Framework.Providers.AppleseedMembershipProvider;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// The SecurityRoles.aspx page is used to create and edit
     /// security roles within the Portal application.
@@ -26,7 +28,7 @@ namespace Appleseed.Content.Web.Modules
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {

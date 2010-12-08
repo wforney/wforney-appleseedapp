@@ -11,6 +11,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     ///	<summary>
     ///	Edit events
     ///	</summary>
@@ -158,7 +160,7 @@ namespace Appleseed.Content.Web.Modules
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {

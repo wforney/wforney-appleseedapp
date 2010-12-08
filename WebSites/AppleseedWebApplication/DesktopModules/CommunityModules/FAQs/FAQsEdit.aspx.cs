@@ -13,6 +13,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// IBS Portal FAQ module - Edit page part
     /// (c)2002 by Christopher S Judd, CDP &amp; Horizons, LLC
@@ -90,7 +92,7 @@ namespace Appleseed.Content.Web.Modules
         /// <summary>
         /// Set the module guids with free access to this page
         /// </summary>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {

@@ -10,6 +10,8 @@ using Appleseed.Framework.Web.UI;
 
 namespace Appleseed.Admin
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Blacklist Admin Module - Edit page<br/>
     /// This module is typically used togeteher with the Newsletter module.
@@ -48,7 +50,7 @@ namespace Appleseed.Admin
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {

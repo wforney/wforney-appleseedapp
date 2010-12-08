@@ -12,6 +12,8 @@ using History=Appleseed.Framework.History;
 
 namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
 {
+    using System.Collections.Generic;
+
     [History("jminond", "2006/2/23", "Converted to partial class")]
     public partial class DiscussionEdit : AddEditItemPage
     {
@@ -135,7 +137,7 @@ namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {

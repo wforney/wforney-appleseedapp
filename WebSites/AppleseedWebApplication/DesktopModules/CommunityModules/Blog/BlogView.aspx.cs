@@ -10,6 +10,8 @@ using ImageButton=Appleseed.Framework.Web.UI.WebControls.ImageButton;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     [History("jminond", "2005/3/12", "Changes for moving Tab to Page")]
     [History("Mario Endara", "2004/6/1", "Added EsperantusKeys for Localization")]
     public partial class BlogView : ViewItemPage
@@ -62,7 +64,7 @@ namespace Appleseed.Content.Web.Modules
         /// <summary>
         /// Set the module guids with free access to this page
         /// </summary>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {

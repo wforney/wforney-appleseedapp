@@ -429,7 +429,7 @@ namespace Appleseed.Admin {
         /// Only can use this page from tab with original module
         /// jviladiu@portalServices.net (2004/07/22)
         /// </summary>
-        protected override ArrayList AllowedModules {
+        protected override List<string> AllowedModules {
             get {
                 if ( _allowedModules == null ) {
                     ModulesDB mdb = new ModulesDB();

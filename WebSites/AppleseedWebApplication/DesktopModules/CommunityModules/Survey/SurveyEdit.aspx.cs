@@ -12,6 +12,8 @@ using ImageButton=System.Web.UI.WebControls.ImageButton;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Portal Survey module - Edit page part
     /// Written by: www.sysdatanet.com
@@ -91,7 +93,7 @@ namespace Appleseed.Content.Web.Modules
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {

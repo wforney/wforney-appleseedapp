@@ -9,6 +9,8 @@ using Appleseed.Framework.Web.UI;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     public partial class ArticlesView : ViewItemPage
     {
 
@@ -57,7 +59,7 @@ namespace Appleseed.Content.Web.Modules
         /// <summary>
         /// Set the module guids with free access to this page
         /// </summary>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {

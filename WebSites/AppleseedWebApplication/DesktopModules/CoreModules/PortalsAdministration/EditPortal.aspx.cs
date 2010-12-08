@@ -9,6 +9,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.AdminAll
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// EditPortal
     /// </summary>
@@ -59,7 +61,7 @@ namespace Appleseed.AdminAll
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {

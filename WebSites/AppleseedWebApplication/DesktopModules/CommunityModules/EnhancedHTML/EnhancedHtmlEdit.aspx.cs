@@ -15,6 +15,8 @@ using LanguageSwitcher=Appleseed.Framework.Localization.LanguageSwitcher;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Appleseed EnhancedHtml Module EditItemPage
     /// Written by: José Viladiu, jviladiu@portalServices.net
@@ -96,7 +98,7 @@ namespace Appleseed.Content.Web.Modules
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {

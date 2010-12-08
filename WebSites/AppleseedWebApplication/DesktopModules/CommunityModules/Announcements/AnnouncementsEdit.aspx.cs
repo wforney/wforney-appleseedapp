@@ -14,6 +14,8 @@ using LinkButton=Appleseed.Framework.Web.UI.WebControls.LinkButton;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Announcmeent Edit
     /// </summary>
@@ -111,7 +113,7 @@ namespace Appleseed.Content.Web.Modules
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {
