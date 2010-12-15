@@ -55,10 +55,6 @@
     <DocumentationFile>bin\Release\Appleseed.Framework.Core.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ActiveUp.WebControls.HtmlTextBox, Version=2.1.1188.22068, Culture=neutral, PublicKeyToken=debdbfc6bad3ccfc">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Libs\ActiveUp.WebControls.HtmlTextBox.dll</HintPath>
-    </Reference>
     <Reference Include="FlashMovie, Version=1.0.1587.40940, Culture=neutral">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Libs\FlashMovie.dll</HintPath>

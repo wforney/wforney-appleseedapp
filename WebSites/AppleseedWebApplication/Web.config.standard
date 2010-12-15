@@ -65,7 +65,8 @@
 		<add key="ADUserPassword" value="password" />
 		<add key="EncryptPassword" value="" />
 		<add key="DefaultLanguage" value="en" />
-		<add key="ProxyServer" value="http://127.0.0.1" />
+    <add key="DefaultLanguageList" value="en;es;ar;bg;ca;cs;da;de;el;en-GB;en-US;es-ES;es-MX;fr;fr-FR;he;hi;hr;is;it;ja;ko;nl;nl-BE;no;pl;pt;ru;sl;sv;tr;uk;vi;zh-CN;zh-TW;" />
+    <add key="ProxyServer" value="http://127.0.0.1" />
 		<add key="ProxyUserID" />
 		<add key="ProxyPassword" />
 		<add key="ProxyDomain" />

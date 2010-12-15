@@ -830,10 +830,10 @@ namespace Appleseed.Framework.Settings
         /// <summary>
         /// Default language list
         /// <br/>
-        /// Default value: "en-US"</summary>
+        /// Default value: "en;es;ar;bg;ca;cs;da;de;el;en-GB;en-US;es-ES;es-MX;fr;fr-FR;he;hi;hr;is;it;ja;ko;nl;nl-BE;no;pl;pt;ru;sl;sv;tr;uk;vi;zh-CN;zh-TW;"</summary>
         public static string DefaultLanguageList
         {
-            get { return GetString("DefaultLanguageList", "en;es;ar;bg;ca;cs;da;de;es-MX;fr;hr;is;it;ko;nl;nl-BE;no;pl;pt;ru;sl;sv;tr;uk;zh-CN;zh-TW;", false); }
+            get { return GetString("DefaultLanguageList", "en;es;ar;bg;ca;cs;da;de;el;en-GB;en-US;es-ES;es-MX;fr;fr-FR;he;hi;hr;is;it;ja;ko;nl;nl-BE;no;pl;pt;ru;sl;sv;tr;uk;vi;zh-CN;zh-TW;", false); }
         }
 
 		/// <summary>
