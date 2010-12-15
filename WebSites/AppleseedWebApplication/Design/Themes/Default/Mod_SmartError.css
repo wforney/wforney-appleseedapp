@@ -1,0 +1,18 @@
+/* CSS for SmartError page */
+div.SmartError{
+padding:10px 20px 0px 20px;
+}
+table.SmartErrorSupportInfo{
+border:1px solid Red;
+border-collapse:collapse;
+background:#fff;
+}
+table.SmartErrorSupportInfo td{
+margin:0px 0px 0px 0px;
+padding:5px;
+border:1px solid Gray;
+vertical-align:top;
+}
+table.SmartErrorSupportInfo td:first-child{
+background:Pink;
+}

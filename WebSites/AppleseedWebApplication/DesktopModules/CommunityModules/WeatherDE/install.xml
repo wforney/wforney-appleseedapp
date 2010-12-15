@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Modules>
+	<Module>
+		<FriendlyName>Weather German</FriendlyName>
+		<DesktopSource>DesktopModules/CommunityModules/WeatherDE/WeatherDE.ascx</DesktopSource>
+		<MobileSource></MobileSource>
+	</Module>
+</Modules>

@@ -1,0 +1,19 @@
+/* CSS for BreadCrumbs module */
+.bc_Row{
+padding-left:28px;
+border-bottom:solid 1px #f3a372;
+background-color:#f9ccb0;
+}
+.bc_Text{
+font-size:7pt;
+}
+.bc_Link,.bc_Link:link,.bc_Link:visited{
+padding-left:10px;
+font-size:7pt;
+font-weight:normal;
+text-decoration:none;
+color:#333333;
+}
+.bc_Link:hover{
+color:#f3a372;
+}

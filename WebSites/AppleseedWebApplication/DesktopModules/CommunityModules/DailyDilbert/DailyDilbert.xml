@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Appleseed.Modules.DailyDilbert</name>
+    </assembly>
+    <members>
+        <member name="T:Appleseed.Content.Web.ModulesDailyDilbert">
+            <summary>
+            DailyDilbert Module
+            Based on VB Module Written by SnowCovered.com
+            Modifications and conversion for C# IBS Portal (c)2002 by Christopher S Judd, CDP
+            email- dotNet@HorizonsLLC.com    web- www.HorizonsLLC.com/IBS
+            Modifications and conversion for Appleseed Jakob hansen
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDailyDilbert.imgDilbert">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDailyDilbert.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The Page_Load event handler on this User Control is used to
+            call the web service function that get the Dilbert Image
+            then sets the image for the page
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDailyDilbert.#ctor">
+            <summary>
+            Public constructor. Sets base settings for module.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDailyDilbert.OnInit(System.EventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDailyDilbert.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesDailyDilbert.GuidID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesDailyDilbertImage">
+            <summary>
+            DailyDilbert Module
+            Based on VB Module Written by SnowCovered.com
+            Modifications and conversion for C# IBS Portal (c)2002 by Christopher S Judd, CDP
+            email- dotNet@HorizonsLLC.com    web- www.HorizonsLLC.com/IBS
+            Modifications and conversion for Appleseed Jakob hansen
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDailyDilbertImage.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The Page_Load server event handler on this User Control is used
+            to stream the current comic from the DailyDilbert web service
+            and output an image for use on the web control
+            
+            The image returned is a thumbnail based on a % of 
+            the original picture size. If no % reduction then
+            the image will be viewed at 100%. if (ModuleID cannot
+            be determined, then the image will be viewed at 100%.
+            Since when clicking on the comic from the module, ModuleID
+            is not sent, it displays the image in a new window at 100%.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDailyDilbertImage.OnInit(System.EventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDailyDilbertImage.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesDailyDilbertImage.AllowedModules">
+            <summary>
+            Set the module guids with free access to this page
+            </summary>
+        </member>
+    </members>
+</doc>
