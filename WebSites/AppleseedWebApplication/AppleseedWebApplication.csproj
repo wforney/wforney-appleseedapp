@@ -249,6 +249,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\Appleseed.vi.designer.cs">
+      <DependentUpon>Appleseed.vi.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="app_support\FCK.filemanager\imagegallery.aspx.designer.cs">
       <DependentUpon>imagegallery.aspx</DependentUpon>
     </Compile>
@@ -6244,6 +6249,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_GlobalResources\Appleseed.vi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Appleseed.vi.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <EmbeddedResource Include="DesktopModules\CommunityModules\WeatherCom\WeatherCom.ascx.resx">
       <DependentUpon>WeatherCom.ascx.cs</DependentUpon>
     </EmbeddedResource>
