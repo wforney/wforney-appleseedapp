@@ -1,275 +1,298 @@
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Appleseed.Framework;
-using Appleseed.Framework.DataTypes;
-using Appleseed.Framework.Site.Configuration;
-using Appleseed.Framework.Web.UI.WebControls;
-using Label=Appleseed.Framework.Web.UI.WebControls.Label;
-using Localize=Appleseed.Framework.Web.UI.WebControls.Localize;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="EmailForm.ascx.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   The email form.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System;
+    using System.Web;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+
+    using Appleseed.Framework;
+    using Appleseed.Framework.DataTypes;
+    using Appleseed.Framework.Site.Configuration;
+    using Appleseed.Framework.Web.UI.WebControls;
+
+    using Label = Appleseed.Framework.Web.UI.WebControls.Label;
+    using Localize = Appleseed.Framework.Web.UI.WebControls.Localize;
+
     /// <summary>
-    ///	Summary description for EmailForm.
+    /// The email form.
     /// </summary>
     public class EmailForm : UserControl
     {
-        #region Declerations
+        #region Constants and Fields
 
         /// <summary>
-        /// CC List
-        /// </summary>
-        protected TextBox txtCc;
-
-        /// <summary>
-        /// BCC List
-        /// </summary>
-        protected TextBox txtBcc;
-
-        /// <summary>
-        /// Subject Textbox
-        /// </summary>
-        protected TextBox txtSubject;
-
-        /// <summary>
-        /// BOdy Area
-        /// </summary>
-        protected IHtmlEditor txtBody;
-
-        /// <summary>
-        /// To List
-        /// </summary>
-        protected TextBox txtTo;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private EmailAddressList _to;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private EmailAddressList _cc;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private EmailAddressList _bcc;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected Label lblEmailAddressesNotOk;
-
-        /// <summary>
-        /// 
+        ///     The literal 1.
         /// </summary>
         protected Localize Literal1;
 
         /// <summary>
-        /// 
+        ///     The literal 2.
         /// </summary>
         protected Localize Literal2;
 
         /// <summary>
-        /// 
+        ///     The literal 3.
         /// </summary>
         protected Localize Literal3;
 
         /// <summary>
-        /// 
+        ///     The literal 4.
         /// </summary>
         protected Localize Literal4;
 
         /// <summary>
-        /// 
+        ///     The place holder html editor.
         /// </summary>
         protected PlaceHolder PlaceHolderHTMLEditor;
 
         /// <summary>
-        /// /
+        ///     The lbl email addresses not ok.
         /// </summary>
-        private bool _allAddressesOk = true;
+        protected Label lblEmailAddressesNotOk;
+
+        /// <summary>
+        ///     BCC List
+        /// </summary>
+        protected TextBox txtBcc;
+
+        /// <summary>
+        ///     BOdy Area
+        /// </summary>
+        protected IHtmlEditor txtBody;
+
+        /// <summary>
+        ///     CC List
+        /// </summary>
+        protected TextBox txtCc;
+
+        /// <summary>
+        ///     Subject Textbox
+        /// </summary>
+        protected TextBox txtSubject;
+
+        /// <summary>
+        ///     To List
+        /// </summary>
+        protected TextBox txtTo;
 
         #endregion
 
-        private void Page_Load(object sender, EventArgs e)
-        {
-            if (IsPostBack)
-            {
-                _allAddressesOk = true;
-                // Initialize To addresses
-                foreach (string em in txtTo.Text.Split(";".ToCharArray()))
-                {
-                    try
-                    {
-                        if (em.Trim().Length != 0)
-                            To.Add(em);
-                    }
-                    catch (ArgumentException ae)
-                    {
-                        string message = ae.Message;
-                        _allAddressesOk = false;
-                    }
-                }
-                // Initialize Cc addresses
-                foreach (string em in txtCc.Text.Split(";".ToCharArray()))
-                {
-                    try
-                    {
-                        if (em.Trim().Length != 0)
-                            Cc.Add(em);
-                    }
-                    catch (ArgumentException ae)
-                    {
-                        string message = ae.Message;
-                        _allAddressesOk = false;
-                    }
-                }
-                // Initialize To addresses
-                foreach (string em in txtBcc.Text.Split(";".ToCharArray()))
-                {
-                    try
-                    {
-                        if (em.Trim().Length != 0)
-                            Bcc.Add(em);
-                    }
-                    catch (ArgumentException ae)
-                    {
-                        string message = ae.Message;
-                        _allAddressesOk = false;
-                    }
-                }
-                // Show error
-                lblEmailAddressesNotOk.Visible = ! AllEmailAddressesOk;
-            }
-            else
-            {
-                txtTo.Text = string.Join(";", (string[]) To.ToArray(typeof (string)));
-                txtCc.Text = string.Join(";", (string[]) Cc.ToArray(typeof (string)));
-                txtBcc.Text = string.Join(";", (string[]) Bcc.ToArray(typeof (string)));
-            }
-        }
+        #region Constructors and Destructors
 
         /// <summary>
-        /// Collection containing all to email addresses
+        ///     Initializes a new instance of the <see cref = "EmailForm" /> class.
         /// </summary>
-        public EmailAddressList To
+        public EmailForm()
         {
-            get { return _to; }
+            this.AllEmailAddressesOk = true;
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
-        /// Collection containing all cc email addresses
+        ///     Gets a value indicating whether [all email addresses ok].
         /// </summary>
-        public EmailAddressList Cc
-        {
-            get { return _cc; }
-        }
+        /// <value>
+        ///     <c>true</c> if [all email addresses ok]; otherwise, <c>false</c>.
+        /// </value>
+        public bool AllEmailAddressesOk { get; private set; }
 
         /// <summary>
-        /// Collection containing all bcc email addresses
+        ///     Gets a collection containing all bcc email addresses
         /// </summary>
-        public EmailAddressList Bcc
-        {
-            get { return _bcc; }
-        }
+        public EmailAddressList Bcc { get; private set; }
 
         /// <summary>
-        /// Contains subject
-        /// </summary>
-        public string Subject
-        {
-            get { return txtSubject.Text; }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("Subject", "Subject can not contain null values!");
-                txtSubject.Text = value;
-            }
-        }
-
-        /// <summary>
-        /// Contains text for the body of the email in html format
-        /// </summary>
-        public string HtmlBodyText
-        {
-            get { return txtBody.Text; }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("HtmlBodyText", "HtmlBodyText can not contain null values!");
-                txtBody.Text = value;
-            }
-        }
-
-        /// <summary>
-        /// Contains text for the body of the email in plain text format
+        ///     Gets or sets text for the body of the email in plain text format
         /// </summary>
         public string BodyText
         {
-            get { return txtBody.Text; }
+            get
+            {
+                return this.txtBody.Text;
+            }
+
             set
             {
                 if (value == null)
-                    throw new ArgumentNullException("BodyText", "BodyText can not contain null values!");
-                txtBody.Text = value;
+                {
+                    throw new ArgumentNullException("value", "BodyText can not contain null values!");
+                }
+
+                this.txtBody.Text = value;
             }
         }
 
         /// <summary>
-        /// 
+        ///     Gets a collection containing all cc email addresses
         /// </summary>
-        public bool AllEmailAddressesOk
-        {
-            get { return _allAddressesOk; }
-        }
-
-        #region Web Form Designer generated code
+        public EmailAddressList Cc { get; private set; }
 
         /// <summary>
-        /// 
+        ///     Gets or sets text for the body of the email in html format
         /// </summary>
-        /// <param name="e"></param>
+        public string HtmlBodyText
+        {
+            get
+            {
+                return this.txtBody.Text;
+            }
+
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value", "HtmlBodyText can not contain null values!");
+                }
+
+                this.txtBody.Text = value;
+            }
+        }
+
+        /// <summary>
+        ///     Gets or sets subject
+        /// </summary>
+        public string Subject
+        {
+            get
+            {
+                return this.txtSubject.Text;
+            }
+
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value", "Subject can not contain null values!");
+                }
+
+                this.txtSubject.Text = value;
+            }
+        }
+
+        /// <summary>
+        ///     Gets a collection containing all to email addresses
+        /// </summary>
+        public EmailAddressList To { get; private set; }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
+        /// </summary>
+        /// <param name="e">
+        /// An <see cref="T:System.EventArgs"/> object that contains the event data.
+        /// </param>
         protected override void OnInit(EventArgs e)
         {
-            //
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            //
-            InitializeComponent();
-            base.OnInit(e);
+            this.To = new EmailAddressList();
+            this.Cc = new EmailAddressList();
+            this.Bcc = new EmailAddressList();
 
-            _to = new EmailAddressList();
-            _cc = new EmailAddressList();
-            _bcc = new EmailAddressList();
-
-            HtmlEditorDataType h = new HtmlEditorDataType();
-            PortalSettings pS = (PortalSettings) HttpContext.Current.Items["PortalSettings"];
+            var h = new HtmlEditorDataType();
+            var pS = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
             try
             {
                 h.Value = pS.CustomSettings["SITESETTINGS_DEFAULT_EDITOR"].ToString();
-                txtBody =
-                    h.GetEditor(PlaceHolderHTMLEditor, int.Parse(Context.Request["mID"]),
-                                bool.Parse(pS.CustomSettings["SITESETTINGS_SHOWUPLOAD"].ToString()), pS);
+                this.txtBody = h.GetEditor(
+                    this.PlaceHolderHTMLEditor, 
+                    int.Parse(this.Context.Request["mID"]), 
+                    bool.Parse(pS.CustomSettings["SITESETTINGS_SHOWUPLOAD"].ToString()), 
+                    pS);
             }
             catch
             {
-                txtBody = h.GetEditor(PlaceHolderHTMLEditor, int.Parse(Context.Request["mID"]), true, pS);
+                this.txtBody = h.GetEditor(this.PlaceHolderHTMLEditor, int.Parse(this.Context.Request["mID"]), true, pS);
             }
 
-            lblEmailAddressesNotOk.Text =
-                General.GetString("EMF_ADDRESSES_NOT_OK", "The emailaddresses are not ok.", lblEmailAddressesNotOk);
+            this.lblEmailAddressesNotOk.Text = General.GetString(
+                "EMF_ADDRESSES_NOT_OK", "The emailaddresses are not ok.", this.lblEmailAddressesNotOk);
+
+            this.txtTo.Text = string.Join(";", (string[])this.To.ToArray(typeof(string)));
+            this.txtCc.Text = string.Join(";", (string[])this.Cc.ToArray(typeof(string)));
+            this.txtBcc.Text = string.Join(";", (string[])this.Bcc.ToArray(typeof(string)));
+
+            base.OnInit(e);
         }
 
         /// <summary>
-        ///	Required method for Designer support - do not modify
-        ///	the contents of this method with the code editor.
+        /// Raises the <see cref="E:System.Web.UI.Control.Load"/> event.
         /// </summary>
-        private void InitializeComponent()
+        /// <param name="e">
+        /// The <see cref="T:System.EventArgs"/> object that contains the event data.
+        /// </param>
+        protected override void OnLoad(EventArgs e)
         {
-            this.Load += new EventHandler(this.Page_Load);
+            base.OnLoad(e);
+
+            if (this.IsPostBack)
+            {
+                this.AllEmailAddressesOk = true;
+
+                // Initialize To addresses
+                foreach (var em in this.txtTo.Text.Split(";".ToCharArray()))
+                {
+                    try
+                    {
+                        if (em.Trim().Length != 0)
+                        {
+                            this.To.Add(em);
+                        }
+                    }
+                    catch (ArgumentException)
+                    {
+                        this.AllEmailAddressesOk = false;
+                    }
+                }
+
+                // Initialize Cc addresses
+                foreach (var em in this.txtCc.Text.Split(";".ToCharArray()))
+                {
+                    try
+                    {
+                        if (em.Trim().Length != 0)
+                        {
+                            this.Cc.Add(em);
+                        }
+                    }
+                    catch (ArgumentException)
+                    {
+                        this.AllEmailAddressesOk = false;
+                    }
+                }
+
+                // Initialize To addresses
+                foreach (var em in this.txtBcc.Text.Split(";".ToCharArray()))
+                {
+                    try
+                    {
+                        if (em.Trim().Length != 0)
+                        {
+                            this.Bcc.Add(em);
+                        }
+                    }
+                    catch (ArgumentException)
+                    {
+                        this.AllEmailAddressesOk = false;
+                    }
+                }
+
+                // Show error
+                this.lblEmailAddressesNotOk.Visible = ! this.AllEmailAddressesOk;
+            }
         }
 
         #endregion

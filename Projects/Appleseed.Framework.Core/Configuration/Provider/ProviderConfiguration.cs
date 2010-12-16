@@ -1,89 +1,143 @@
-using System.Collections;
-using System.Configuration;
-using System.Xml;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ProviderConfiguration.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   The provider configuration.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.Provider
 {
+    using System.Collections;
+    using System.Configuration;
+    using System.Linq;
+    using System.Xml;
+
     /// <summary>
-    /// Summary description for ProviderConfiguration.
+    /// The provider configuration.
     /// </summary>
     public class ProviderConfiguration
     {
-        private string defaultProvider;
-        private Hashtable providers = new Hashtable();
+        #region Constants and Fields
 
         /// <summary>
-        /// Gets the default provider
+        ///     The providers.
+        /// </summary>
+        private readonly Hashtable providers = new Hashtable();
+
+        /// <summary>
+        ///     The default provider.
+        /// </summary>
+        private string defaultProvider;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///     Gets the default provider
         /// </summary>
         /// <value>The default provider.</value>
         public string DefaultProvider
         {
-            get { return defaultProvider; }
+            get
+            {
+                return this.defaultProvider;
+            }
         }
 
         /// <summary>
-        /// Gets the loaded providers
+        ///     Gets the loaded providers
         /// </summary>
         /// <value>The providers.</value>
         public Hashtable Providers
         {
-            get { return providers; }
+            get
+            {
+                return this.providers;
+            }
         }
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Gets the configuration object for the specified provider
         /// </summary>
-        /// <param name="provider">Name of the provider object to retrieve</param>
-        /// <returns></returns>
+        /// <param name="provider">
+        /// Name of the provider object to retrieve
+        /// </param>
+        /// <returns>
+        /// The Provider Configuration.
+        /// </returns>
         public static ProviderConfiguration GetProviderConfiguration(string provider)
         {
-            return (ProviderConfiguration) ConfigurationManager.GetSection("providers/" + provider);
+            return (ProviderConfiguration)ConfigurationManager.GetSection(string.Format("providers/{0}", provider));
         }
 
         /// <summary>
         /// Loads provider information from the configuration node
         /// </summary>
-        /// <param name="node">Node representing configuration information</param>
+        /// <param name="node">
+        /// Node representing configuration information
+        /// </param>
         public void LoadValuesFromConfigurationXml(XmlNode node)
         {
-            XmlAttributeCollection attributeCollection = node.Attributes;
+            var attributeCollection = node.Attributes;
 
             // Get the default provider
-            defaultProvider = attributeCollection["defaultProvider"].Value;
+            if (attributeCollection != null)
+            {
+                this.defaultProvider = attributeCollection["defaultProvider"].Value;
+            }
 
             // Read child nodes
-            foreach (XmlNode child in node.ChildNodes)
+            foreach (var child in node.ChildNodes.Cast<XmlNode>().Where(child => child.Name == "providers"))
             {
-                if (child.Name == "providers")
-                    GetProviders(child);
+                this.GetProviders(child);
             }
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Configures Provider(s) based on the configuration node
         /// </summary>
-        /// <param name="node"></param>
+        /// <param name="node">
+        /// The configuration node.
+        /// </param>
         private void GetProviders(XmlNode node)
         {
             foreach (XmlNode provider in node.ChildNodes)
             {
+                if (provider.Attributes == null)
+                {
+                    continue;
+                }
+
+                var attrName = provider.Attributes["name"];
                 switch (provider.Name)
                 {
                     case "add":
-                        providers.Add(provider.Attributes["name"].Value,
-                                      new ProviderSettings(provider.Attributes["name"].Value,
-                                                           provider.Attributes["type"].Value));
+                        this.providers.Add(
+                            attrName.Value, new ProviderSettings(attrName.Value, provider.Attributes["type"].Value));
                         break;
 
                     case "remove":
-                        providers.Remove(provider.Attributes["name"].Value);
+                        this.providers.Remove(attrName.Value);
                         break;
 
                     case "clear":
-                        providers.Clear();
+                        this.providers.Clear();
                         break;
                 }
             }
         }
+
+        #endregion
     }
 }

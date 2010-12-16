@@ -171,11 +171,11 @@ namespace Appleseed.AdminAll
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {
-                ArrayList al = new ArrayList();
+                List<string> al = new List<string>();
                 al.Add("D04BB5EA-A792-4E87-BFC7-7D0ED3ADD582");
                 return al;
             }
@@ -309,7 +309,7 @@ namespace Appleseed.AdminAll
             this.btnUseInstaller.Click += new EventHandler(this.btnUseInstaller_Click);
             this.btnDescription.Click += new EventHandler(this.btnDescription_Click);
             this.chbMVCAction.Click += new EventHandler(chbMVCAction_Click);
-			this.chbPortableAreas.Click += new EventHandler(chbPortableAreas_Click);
+            this.chbPortableAreas.Click += new EventHandler(chbPortableAreas_Click);
             this.selectAllButton.Click += new EventHandler(this.selectAllButton_Click);
             this.selectNoneButton.Click += new EventHandler(this.selectNoneButton_Click);
             this.Load += new EventHandler(this.Page_Load);

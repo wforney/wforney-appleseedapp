@@ -15,6 +15,8 @@ using Label=Appleseed.Framework.Web.UI.WebControls.Label;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Edit discussion page
     /// this deals with one thred
@@ -147,10 +149,10 @@ namespace Appleseed.Content.Web.Modules
                         break;
 
                         /* case "DELETE":
-						if (PortalSecurity.HasDeletePermissions(ModuleID) == false)
-							PortalSecurity.AccessDeniedEdit();
-						break;
-						*/
+                        if (PortalSecurity.HasDeletePermissions(ModuleID) == false)
+                            PortalSecurity.AccessDeniedEdit();
+                        break;
+                        */
 
                     default:
                         // invalid mode specified
@@ -164,11 +166,11 @@ namespace Appleseed.Content.Web.Modules
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {
-                ArrayList al = new ArrayList();
+                List<string> al = new List<string>();
                 al.Add("2D86166C-4BDC-4A6F-A028-D17C2BB177C8");
                 return al;
             }

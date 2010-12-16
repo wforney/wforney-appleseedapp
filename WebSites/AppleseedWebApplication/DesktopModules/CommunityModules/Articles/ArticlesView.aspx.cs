@@ -9,6 +9,8 @@ using Appleseed.Framework.Web.UI;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     public partial class ArticlesView : ViewItemPage
     {
 
@@ -57,11 +59,11 @@ namespace Appleseed.Content.Web.Modules
         /// <summary>
         /// Set the module guids with free access to this page
         /// </summary>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {
-                ArrayList al = new ArrayList();
+                List<string> al = new List<string>();
                 al.Add("87303CF7-76D0-49B1-A7E7-A5C8E26415BA"); //Articles
                 al.Add("5B7B52D3-837C-4942-A85C-AAF4B5CC098F"); //ArticlesInline
                 al.Add("2502DB18-B580-4F90-8CB4-C15E6E531030"); // Access from portalSearch

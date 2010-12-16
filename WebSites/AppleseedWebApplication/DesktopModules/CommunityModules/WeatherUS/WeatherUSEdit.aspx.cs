@@ -8,6 +8,8 @@ using Appleseed.Framework.Web.UI;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// WeatherUSEdit Module - Edit page part
     /// Writen by: Jason Schaitel, Jason_Schaitel@hotmail.com
@@ -49,11 +51,11 @@ namespace Appleseed.Content.Web.Modules
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {
-                ArrayList al = new ArrayList();
+                List<string> al = new List<string>();
                 al.Add("2502DB18-B580-4F90-8CB4-C15E6E531006");
                 return al;
             }

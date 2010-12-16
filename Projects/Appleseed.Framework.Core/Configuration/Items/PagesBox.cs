@@ -1,30 +1,23 @@
-using System.Collections;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="PagesBox.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Box tab
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.Site.Configuration
 {
+    using System;
+    using System.Collections.ObjectModel;
+
     /// <summary>
-    /// Box tab
+    /// Pages Box is a collection of PageStripDetails.
     /// </summary>
     [History("jminond", "2005/03/10", "Tab to page conversion")]
-    public class PagesBox : CollectionBase
+    [Obsolete("Use Collection<PageStripDetails> instead.")]
+    public class PagesBox : Collection<PageStripDetails>
     {
-        /// <summary>
-        /// Add
-        /// </summary>
-        /// <param name="t">The t.</param>
-        /// <returns></returns>
-        public int Add(PageStripDetails t)
-        {
-            return InnerList.Add(t);
-        }
-
-        /// <summary>
-        /// PageStripDetails indexer
-        /// </summary>
-        /// <value></value>
-        public PageStripDetails this[int index]
-        {
-            get { return ((PageStripDetails) InnerList[index]); }
-        }
     }
 }

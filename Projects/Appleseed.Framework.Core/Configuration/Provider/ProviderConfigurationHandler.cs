@@ -1,26 +1,50 @@
-using System;
-using System.Configuration;
-using System.Xml;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ProviderConfigurationHandler.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   The provider configuration handler.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.Provider
 {
+    using System.Configuration;
+    using System.Xml;
+
     /// <summary>
-    /// Summary description for ProviderConfigurationHandler.
+    /// The provider configuration handler.
     /// </summary>
     public class ProviderConfigurationHandler : IConfigurationSectionHandler
     {
+        #region Implemented Interfaces
+
+        #region IConfigurationSectionHandler
+
         /// <summary>
         /// Creates the specified parent.
         /// </summary>
-        /// <param name="parent">The parent.</param>
-        /// <param name="context">The context.</param>
-        /// <param name="node">The node.</param>
-        /// <returns></returns>
-        public virtual object Create(Object parent, Object context, XmlNode node)
+        /// <param name="parent">
+        /// The parent.
+        /// </param>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        /// <param name="node">
+        /// The configuration node.
+        /// </param>
+        /// <returns>
+        /// The create.
+        /// </returns>
+        public virtual object Create(object parent, object context, XmlNode node)
         {
-            ProviderConfiguration config = new ProviderConfiguration();
+            var config = new ProviderConfiguration();
             config.LoadValuesFromConfigurationXml(node);
             return config;
         }
+
+        #endregion
+
+        #endregion
     }
 }

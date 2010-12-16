@@ -18,6 +18,8 @@ using Appleseed.Framework.Web.UI;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// 
     /// </summary>
@@ -72,11 +74,11 @@ namespace Appleseed.Content.Web.Modules
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {
-                ArrayList al = new ArrayList();
+                List<string> al = new List<string>();
                 al.Add("623EC4DD-BA40-421c-887D-D774ED8EBF02");
                 return al;
             }

@@ -1,53 +1,74 @@
-using System;
-using System.Security.Cryptography;
-
 namespace Appleseed.Framework.Content.Security
 {
+    using System;
+    using System.Security.Cryptography;
+
     /// <summary>
-    /// Summary description for RandomPassword.
+    /// The random password ldap.
     /// </summary>
     public class RandomPasswordLdap
     {
-        // min and max password length
-        private static int DEFAULT_MIN_PASSWORD_LENGTH = 8;
-        private static int DEFAULT_MAX_PASSWORD_LENGTH = 10;
-
-        // supported password characters
-        private static string PASSWORD_CHARS_LCASE = "abcdefgijkmnopqrstwxyz";
-        private static string PASSWORD_CHARS_UCASE = "ABCDEFGHJKLMNPQRSTWXYZ";
-        private static string PASSWORD_CHARS_NUMERIC = "23456789";
-        private static string PASSWORD_CHARS_SPECIAL = "*$-+?_&=!%{}/";
+        #region Constants and Fields
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:RandomPasswordLdap"/> class.
+        ///     The default max password length.
         /// </summary>
-        public RandomPasswordLdap()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
+        private const int DefaultMaxPasswordLength = 10;
+
+        /// <summary>
+        ///     The default min password length.
+        /// </summary>
+        private const int DefaultMinPasswordLength = 8;
+
+        /// <summary>
+        ///     The password chars lcase.
+        /// </summary>
+        private const string PasswordCharsLcase = "abcdefgijkmnopqrstwxyz";
+
+        /// <summary>
+        ///     The password chars numeric.
+        /// </summary>
+        private const string PasswordCharsNumeric = "23456789";
+
+        /// <summary>
+        ///     The password chars special.
+        /// </summary>
+        private const string PasswordCharsSpecial = "*$-+?_&=!%{}/";
+
+        /// <summary>
+        ///     The password chars ucase.
+        /// </summary>
+        private const string PasswordCharsUcase = "ABCDEFGHJKLMNPQRSTWXYZ";
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Generates a random password.
         /// </summary>
-        /// <returns>Randomly generated password.</returns>
+        /// <returns>
+        /// Randomly generated password.
+        /// </returns>
         /// <remarks>
         /// The length of the generated password will be determined at
-        /// random. It will be no shorter than the minimum default and
-        /// no longer than maximum default.
+        ///     random. It will be no shorter than the minimum default and
+        ///     no longer than maximum default.
         /// </remarks>
         public static string Generate()
         {
-            return Generate(DEFAULT_MIN_PASSWORD_LENGTH,
-                            DEFAULT_MAX_PASSWORD_LENGTH);
+            return Generate(DefaultMinPasswordLength, DefaultMaxPasswordLength);
         }
 
         /// <summary>
         /// Generates a random password of the exact length.
         /// </summary>
-        /// <param name="length">Exact password length.</param>
-        /// <returns>Randomly generated password.</returns>
+        /// <param name="length">
+        /// Exact password length.
+        /// </param>
+        /// <returns>
+        /// Randomly generated password.
+        /// </returns>
         public static string Generate(int length)
         {
             return Generate(length, length);
@@ -56,46 +77,57 @@ namespace Appleseed.Framework.Content.Security
         /// <summary>
         /// Generates a random password.
         /// </summary>
-        /// <param name="minLength">Minimum password length.</param>
-        /// <param name="maxLength">Maximum password length.</param>
-        /// <returns>Randomly generated password.</returns>
+        /// <param name="minLength">
+        /// Minimum password length.
+        /// </param>
+        /// <param name="maxLength">
+        /// Maximum password length.
+        /// </param>
+        /// <returns>
+        /// Randomly generated password.
+        /// </returns>
         /// <remarks>
         /// The length of the generated password will be determined at
-        /// random and it will fall with the range determined by the
-        /// function parameters.
+        ///     random and it will fall with the range determined by the
+        ///     function parameters.
         /// </remarks>
-        public static string Generate(int minLength,
-                                      int maxLength)
+        public static string Generate(int minLength, int maxLength)
         {
             // Make sure that input parameters are valid.
             if (minLength <= 0 || maxLength <= 0 || minLength > maxLength)
+            {
                 return null;
+            }
 
             // Create a local array containing supported password characters
             // grouped by types. You can remove character groups from this
             // array, but doing so will weaken the password strength.
-            char[][] charGroups = new char[][]
+            var charGroups = new[]
                 {
-                    PASSWORD_CHARS_LCASE.ToCharArray(),
-                    PASSWORD_CHARS_UCASE.ToCharArray(),
-                    PASSWORD_CHARS_NUMERIC.ToCharArray(),
-                    PASSWORD_CHARS_SPECIAL.ToCharArray()
+                    PasswordCharsLcase.ToCharArray(),
+                    PasswordCharsUcase.ToCharArray(),
+                    PasswordCharsNumeric.ToCharArray(),
+                    PasswordCharsSpecial.ToCharArray()
                 };
 
             // Use this array to track the number of unused characters in each
             // character group.
-            int[] charsLeftInGroup = new int[charGroups.Length];
+            var charsLeftInGroup = new int[charGroups.Length];
 
             // Initially, all characters in each group are not used.
-            for (int i = 0; i < charsLeftInGroup.Length; i++)
+            for (var i = 0; i < charsLeftInGroup.Length; i++)
+            {
                 charsLeftInGroup[i] = charGroups[i].Length;
+            }
 
             // Use this array to track (iterate through) unused character groups.
-            int[] leftGroupsOrder = new int[charGroups.Length];
+            var leftGroupsOrder = new int[charGroups.Length];
 
             // Initially, all character groups are not used.
-            for (int i = 0; i < leftGroupsOrder.Length; i++)
+            for (var i = 0; i < leftGroupsOrder.Length; i++)
+            {
                 leftGroupsOrder[i] = i;
+            }
 
             // Because we cannot use the default randomizer, which is based on the
             // current time (it will produce the same "random" number within a
@@ -104,93 +136,72 @@ namespace Appleseed.Framework.Content.Security
 
             // Use a 4-byte array to fill it with random bytes and convert it then
             // to an integer value.
-            byte[] randomBytes = new byte[4];
+            var randomBytes = new byte[4];
 
             // Generate 4 random bytes.
-            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            var rng = new RNGCryptoServiceProvider();
             rng.GetBytes(randomBytes);
 
             // Convert 4 bytes into a 32-bit integer value.
-            int seed = (randomBytes[0] & 0x7f) << 24 |
-                       randomBytes[1] << 16 |
-                       randomBytes[2] << 8 |
-                       randomBytes[3];
+            var seed = (randomBytes[0] & 0x7f) << 24 | randomBytes[1] << 16 | randomBytes[2] << 8 | randomBytes[3];
 
             // Now, this is real randomization.
-            Random random = new Random(seed);
+            var random = new Random(seed);
 
             // This array will hold password characters.
-            char[] password = null;
-
             // Allocate appropriate memory for the password.
-            if (minLength < maxLength)
-                password = new char[random.Next(minLength, maxLength + 1)];
-            else
-                password = new char[minLength];
-
-            // Index of the next character to be added to password.
-            int nextCharIdx;
-
-            // Index of the next character group to be processed.
-            int nextGroupIdx;
-
-            // Index which will be used to track not processed character groups.
-            int nextLeftGroupsOrderIdx;
-
-            // Index of the last non-processed character in a group.
-            int lastCharIdx;
+            var password = minLength < maxLength ? new char[random.Next(minLength, maxLength + 1)] : new char[minLength];
 
             // Index of the last non-processed group.
-            int lastLeftGroupsOrderIdx = leftGroupsOrder.Length - 1;
+            var lastLeftGroupsOrderIdx = leftGroupsOrder.Length - 1;
 
             // Generate password characters one at a time.
-            for (int i = 0; i < password.Length; i++)
+            for (var i = 0; i < password.Length; i++)
             {
+                // Index which will be used to track not processed character groups.
                 // If only one character group remained unprocessed, process it;
                 // otherwise, pick a random character group from the unprocessed
                 // group list. To allow a special character to appear in the
                 // first position, increment the second parameter of the Next
                 // function call by one, i.e. lastLeftGroupsOrderIdx + 1.
-                if (lastLeftGroupsOrderIdx == 0)
-                    nextLeftGroupsOrderIdx = 0;
-                else
-                    nextLeftGroupsOrderIdx = random.Next(0,
-                                                         lastLeftGroupsOrderIdx);
+                var nextLeftGroupsOrderIdx = lastLeftGroupsOrderIdx == 0 ? 0 : random.Next(0, lastLeftGroupsOrderIdx);
 
+                // Index of the next character group to be processed.
                 // Get the actual index of the character group, from which we will
                 // pick the next character.
-                nextGroupIdx = leftGroupsOrder[nextLeftGroupsOrderIdx];
+                var nextGroupIdx = leftGroupsOrder[nextLeftGroupsOrderIdx];
 
+                // Index of the last non-processed character in a group.
                 // Get the index of the last unprocessed characters in this group.
-                lastCharIdx = charsLeftInGroup[nextGroupIdx] - 1;
+                var lastCharIdx = charsLeftInGroup[nextGroupIdx] - 1;
 
+                // Index of the next character to be added to password.
                 // If only one unprocessed character is left, pick it; otherwise,
                 // get a random character from the unused character list.
-                if (lastCharIdx == 0)
-                    nextCharIdx = 0;
-                else
-                    nextCharIdx = random.Next(0, lastCharIdx + 1);
+                var nextCharIdx = lastCharIdx == 0 ? 0 : random.Next(0, lastCharIdx + 1);
 
                 // Add this character to the password.
                 password[i] = charGroups[nextGroupIdx][nextCharIdx];
 
                 // If we processed the last character in this group, start over.
                 if (lastCharIdx == 0)
-                    charsLeftInGroup[nextGroupIdx] =
-                        charGroups[nextGroupIdx].Length;
-                    // There are more unprocessed characters left.
+                {
+                    charsLeftInGroup[nextGroupIdx] = charGroups[nextGroupIdx].Length;
+                }
                 else
                 {
+                    // There are more unprocessed characters left.
+
                     // Swap processed character with the last unprocessed character
                     // so that we don't pick it until we process all characters in
                     // this group.
                     if (lastCharIdx != nextCharIdx)
                     {
-                        char temp = charGroups[nextGroupIdx][lastCharIdx];
-                        charGroups[nextGroupIdx][lastCharIdx] =
-                            charGroups[nextGroupIdx][nextCharIdx];
+                        var temp = charGroups[nextGroupIdx][lastCharIdx];
+                        charGroups[nextGroupIdx][lastCharIdx] = charGroups[nextGroupIdx][nextCharIdx];
                         charGroups[nextGroupIdx][nextCharIdx] = temp;
                     }
+
                     // Decrement the number of unprocessed characters in
                     // this group.
                     charsLeftInGroup[nextGroupIdx]--;
@@ -198,19 +209,22 @@ namespace Appleseed.Framework.Content.Security
 
                 // If we processed the last group, start all over.
                 if (lastLeftGroupsOrderIdx == 0)
+                {
                     lastLeftGroupsOrderIdx = leftGroupsOrder.Length - 1;
-                    // There are more unprocessed groups left.
+                }
                 else
                 {
+                    // There are more unprocessed groups left.
+
                     // Swap processed group with the last unprocessed group
                     // so that we don't pick it until we process all groups.
                     if (lastLeftGroupsOrderIdx != nextLeftGroupsOrderIdx)
                     {
-                        int temp = leftGroupsOrder[lastLeftGroupsOrderIdx];
-                        leftGroupsOrder[lastLeftGroupsOrderIdx] =
-                            leftGroupsOrder[nextLeftGroupsOrderIdx];
+                        var temp = leftGroupsOrder[lastLeftGroupsOrderIdx];
+                        leftGroupsOrder[lastLeftGroupsOrderIdx] = leftGroupsOrder[nextLeftGroupsOrderIdx];
                         leftGroupsOrder[nextLeftGroupsOrderIdx] = temp;
                     }
+
                     // Decrement the number of unprocessed groups.
                     lastLeftGroupsOrderIdx--;
                 }
@@ -219,5 +233,7 @@ namespace Appleseed.Framework.Content.Security
             // Convert password characters into a string and return the result.
             return new string(password);
         }
+
+        #endregion
     }
 }

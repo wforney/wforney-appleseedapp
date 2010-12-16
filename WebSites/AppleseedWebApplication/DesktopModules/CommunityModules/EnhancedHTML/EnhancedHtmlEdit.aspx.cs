@@ -15,6 +15,8 @@ using LanguageSwitcher=Appleseed.Framework.Localization.LanguageSwitcher;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Appleseed EnhancedHtml Module EditItemPage
     /// Written by: José Viladiu, jviladiu@portalServices.net
@@ -96,12 +98,11 @@ namespace Appleseed.Content.Web.Modules
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {
-                ArrayList al = new ArrayList();
-                al.Add("875254B7-2471-491f-BAF8-4AFC261CC224");
+                var al = new List<string> { "875254B7-2471-491f-BAF8-4AFC261CC224" };
                 return al;
             }
         }

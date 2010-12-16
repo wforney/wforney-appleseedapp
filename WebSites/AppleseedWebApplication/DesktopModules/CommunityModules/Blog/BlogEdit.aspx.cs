@@ -14,6 +14,8 @@ using LinkButton=Appleseed.Framework.Web.UI.WebControls.LinkButton;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     public partial class BlogEdit : AddEditItemPage
     {
         protected IHtmlEditor DesktopText;
@@ -97,12 +99,11 @@ namespace Appleseed.Content.Web.Modules
         /// <summary>
         /// Set the module guids with free access to this page
         /// </summary>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {
-                ArrayList al = new ArrayList();
-                al.Add("55EF407B-C9D6-47e3-B627-EFA6A5EEF4B2");
+                var al = new List<string> { "55EF407B-C9D6-47e3-B627-EFA6A5EEF4B2" };
                 return al;
             }
         }

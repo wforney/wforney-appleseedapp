@@ -10,6 +10,8 @@ using Label=Appleseed.Framework.Web.UI.WebControls.Label;
 
 namespace Appleseed.AdminAll
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Add/Remove modules, assign OneFileModules to portals
     /// </summary>
@@ -109,11 +111,11 @@ namespace Appleseed.AdminAll
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {
-                ArrayList al = new ArrayList();
+                List<string> al = new List<string>();
                 al.Add("D04BB5EA-A792-4E87-BFC7-7D0ED3AD1234");
                 return al;
             }
