@@ -8,6 +8,8 @@ using History=Appleseed.Framework.History;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// 
     /// </summary>
@@ -59,7 +61,7 @@ namespace Appleseed.Content.Web.Modules
                     // document to display.  For example. "application/msword"
                     // Change for translate extension-files to exact contentType
                     // Response.ContentType = (string) dBContent["ContentType"];
-                    Response.ContentType = giveMeContentType((string) dBContent["ContentType"]);
+                    Response.ContentType = GiveMeContentType((string) dBContent["ContentType"]);
 
                     // output the actual document contents to the response output stream
                     Response.OutputStream.Write((byte[]) dBContent["Content"], 0, (int) dBContent["ContentSize"]);
@@ -78,11 +80,11 @@ namespace Appleseed.Content.Web.Modules
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {
-                ArrayList al = new ArrayList();
+                List<string> al = new List<string>();
                 al.Add("F9645B82-CB45-4C4C-BB2D-72FA42FE2B75");
                 return al;
             }
@@ -93,7 +95,7 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         /// <param name="extension">file extension</param>
         /// <returns>contentType</returns>
-        private string giveMeContentType(string extension)
+        private static string GiveMeContentType(string extension)
         {
             switch (extension)
             {

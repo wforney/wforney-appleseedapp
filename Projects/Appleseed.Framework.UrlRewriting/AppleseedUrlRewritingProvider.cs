@@ -1,20 +1,32 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UrlRewritingNet.Configuration.Provider;
-using System.Web.SessionState;
+// --------------------------------------------------------------------------------------------------------------------
+// <summary>
+//   The appleseed url rewriting provider.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.UrlRewriting
 {
+    using System.Web.SessionState;
 
+    using UrlRewritingNet.Configuration.Provider;
+    using UrlRewritingNet.Web;
+
+    /// <summary>
+    /// The appleseed url rewriting provider.
+    /// </summary>
     public class AppleseedUrlRewritingProvider : UrlRewritingProvider, IRequiresSessionState
     {
+        #region Public Methods
 
-
-        public override UrlRewritingNet.Web.RewriteRule CreateRewriteRule()
+        /// <summary>
+        /// Creates the rewrite rule.
+        /// </summary>
+        /// <returns>The rewrite rule.</returns>
+        public override RewriteRule CreateRewriteRule()
         {
             return new AppleseedUrlRewritingRule();
         }
+
+        #endregion
     }
 }
-

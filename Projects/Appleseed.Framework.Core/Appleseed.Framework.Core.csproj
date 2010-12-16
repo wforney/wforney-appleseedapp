@@ -8,7 +8,7 @@
     <ProjectGuid>{552CCD6F-0A37-4366-9E3E-22B2A0221584}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Appleseed.Framework.Core</RootNamespace>
+    <RootNamespace>Appleseed.Framework</RootNamespace>
     <AssemblyName>Appleseed.Framework.Core</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>

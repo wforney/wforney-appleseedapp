@@ -12,6 +12,8 @@ using History=Appleseed.Framework.History;
 
 namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
 {
+    using System.Collections.Generic;
+
     [History("jminond", "2006/2/23", "Converted to partial class")]
     public partial class DiscussionEdit : AddEditItemPage
     {
@@ -118,10 +120,10 @@ namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
                         break;
 
                         /* case "DELETE":
-						if (PortalSecurity.HasDeletePermissions(ModuleID) == false)
-							PortalSecurity.AccessDeniedEdit();
-						break;
-						*/
+                        if (PortalSecurity.HasDeletePermissions(ModuleID) == false)
+                            PortalSecurity.AccessDeniedEdit();
+                        break;
+                        */
 
                     default:
                         // invalid mode specified
@@ -135,11 +137,11 @@ namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {
-                ArrayList al = new ArrayList();
+                List<string> al = new List<string>();
                 al.Add("2D86166C-4BDC-4A6F-A028-D17C2BB177C8");
                 return al;
             }

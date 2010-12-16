@@ -12,6 +12,8 @@ using ImageButton=System.Web.UI.WebControls.ImageButton;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Portal Survey module - Edit page part
     /// Written by: www.sysdatanet.com
@@ -91,12 +93,11 @@ namespace Appleseed.Content.Web.Modules
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {
-                ArrayList al = new ArrayList();
-                al.Add("2502DB18-B580-4F90-8CB4-C15E6E531018");
+                var al = new List<string> { "2502DB18-B580-4F90-8CB4-C15E6E531018" };
                 return al;
             }
         }

@@ -1,164 +1,159 @@
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.UI;
-using DUEMETRI.UI.WebControls.HWMenu;
-using Appleseed.Framework.Security;
-using Appleseed.Framework.Settings;
-using Appleseed.Framework.Site.Configuration;
 // Tiptopweb: 27 Jan 2003
 // modified from MenuNavigation to replace the Category module:
 // the navigation will not be effective and instead we navigate to the same page
 // and transmit the PageID as a CatID to the Product list module.
 // jviladiu@portalServices.net 21/07/2004: Clean code & added localization for "Shop home"
+// bill@billforney.com 2010/12/06: Cleaned up and converted some things to LINQ syntax.
 
 namespace Appleseed.Framework.Web.UI.WebControls
 {
+    using System;
+    using System.Collections;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Web;
+    using System.Web.UI;
+
+    using Appleseed.Framework.Security;
+    using Appleseed.Framework.Settings;
+    using Appleseed.Framework.Site.Configuration;
+
+    using DUEMETRI.UI.WebControls.HWMenu;
+
     /// <summary>
     /// Menu navigation inherits from Menu Webcontrol
-    /// and adds the 'glue' to link to tabs tree.
-    /// Bugfix #656794 'Menu rendering adds all tabs' by abain
+    ///     and adds the 'glue' to link to tabs tree.
+    ///     Bugfix #656794 'Menu rendering adds all tabs' by abain
     /// </summary>
     public class ShopNavigation : Menu, INavigation
     {
+        #region Constants and Fields
+
+        /// <summary>
+        /// The bind option.
+        /// </summary>
+        private BindOption bind = BindOption.BindOptionTop;
+
+        /// <summary>
+        /// The defined parent tab.
+        /// MH: added 29/04/2003 by mario@hartmann.net
+        /// </summary>
+        private int definedParentTab = -1;
+
+        #endregion
+
+        #region Constructors and Destructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ShopNavigation"/> class.
         /// </summary>
         public ShopNavigation()
         {
-            EnableViewState = false;
-            Load += new EventHandler(LoadControl);
+            this.EnableViewState = false;
+            this.Load += this.LoadControl;
         }
-
-        /// <summary>
-        /// Loads the control.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void LoadControl(object sender, EventArgs e)
-        {
-            if (AutoBind)
-                DataBind();
-        }
-
-        #region INavigation implementation
-
-        private BindOption _bind = BindOption.BindOptionTop;
-        private bool _autoBind = false;
-        //MH: added 29/04/2003 by mario@hartmann.net
-        private int _definedParentTab = -1;
-        //MH: end
-
-        /// <summary>
-        /// Indicates if control should bind when loads
-        /// </summary>
-        /// <value><c>true</c> if [auto bind]; otherwise, <c>false</c>.</value>
-        [
-            Category("Data"),
-                PersistenceMode(PersistenceMode.Attribute)
-            ]
-        public bool AutoBind
-        {
-            get { return _autoBind; }
-            set { _autoBind = value; }
-        }
-
-        /// <summary>
-        /// Describes how this control should bind to db data
-        /// </summary>
-        /// <value>The bind.</value>
-        [
-            Category("Data"),
-                PersistenceMode(PersistenceMode.Attribute)
-            ]
-        public BindOption Bind
-        {
-            get { return _bind; }
-            set
-            {
-                if (_bind != value)
-                {
-                    _bind = value;
-                }
-            }
-        }
-
-        //MH: added 23/05/2003 by mario@hartmann.net
-        /// <summary>
-        /// defines the parentPageID when using BindOptionDefinedParent
-        /// </summary>
-        /// <value>The parent page ID.</value>
-        [
-            Category("Data"),
-                PersistenceMode(PersistenceMode.Attribute)
-            ]
-        public int ParentPageID
-        {
-            get { return _definedParentTab; }
-            set
-            {
-                if (_definedParentTab != value)
-                {
-                    _definedParentTab = value;
-                }
-            }
-        }
-
-        //MH: end
 
         #endregion
 
+        // MH: end
+        #region Properties
+
+        /// <summary>
+        ///     Gets or sets a value indicating whether control should bind when loads
+        /// </summary>
+        /// <value><c>true</c> if [auto bind]; otherwise, <c>false</c>.</value>
+        [Category("Data")]
+        [PersistenceMode(PersistenceMode.Attribute)]
+        public bool AutoBind { get; set; }
+
+        /// <summary>
+        ///     Gets or sets how this control should bind to db data
+        /// </summary>
+        /// <value>The bind option.</value>
+        [Category("Data")]
+        [PersistenceMode(PersistenceMode.Attribute)]
+        public BindOption Bind
+        {
+            get
+            {
+                return this.bind;
+            }
+
+            set
+            {
+                this.bind = value;
+            }
+        }
+
+        /// <summary>
+        ///     Gets or sets the parentPageID when using BindOptionDefinedParent
+        /// MH: added 23/05/2003 by mario@hartmann.net
+        /// </summary>
+        /// <value>The parent page ID.</value>
+        [Category("Data")]
+        [PersistenceMode(PersistenceMode.Attribute)]
+        public int ParentPageID
+        {
+            get
+            {
+                return this.definedParentTab;
+            }
+
+            set
+            {
+                this.definedParentTab = value;
+            }
+        }
+
+        #endregion
+
+        // MH: end
+        #region Public Methods
+
         /// <summary>
         /// Do databind.
-        /// Thanks to abain for cleaning up the code
+        ///     Thanks to abain for cleaning up the code
         /// </summary>
         public override void DataBind()
         {
-            bool currentTabOnly = (Bind == BindOption.BindOptionCurrentChilds);
+            var currentTabOnly = this.Bind == BindOption.BindOptionCurrentChilds;
 
             // Obtain PortalSettings from Current Context 
-            PortalSettings portalSettings = (PortalSettings) HttpContext.Current.Items["PortalSettings"];
+            var portalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
 
             // Build list of tabs to be shown to user 
-            ArrayList authorizedTabs = new ArrayList();
-            int addedTabs = 0;
+            var authorizedTabs = new ArrayList();
 
-            for (int i = 0; i < portalSettings.DesktopPages.Count; i++)
+            foreach (var tab in
+                portalSettings.DesktopPages.Cast<PageStripDetails>().Where(tab => PortalSecurity.IsInRoles(tab.AuthorizedRoles)))
             {
-                PageStripDetails tab = (PageStripDetails) portalSettings.DesktopPages[i];
-
-                if (PortalSecurity.IsInRoles(tab.AuthorizedRoles))
-                    authorizedTabs.Add(tab);
-
-                addedTabs++;
+                authorizedTabs.Add(tab);
             }
 
-            //Menu 
+            // Menu 
 
             // add the shop home!
-            AddShopHomeNode();
+            this.AddShopHomeNode();
 
             if (!currentTabOnly)
             {
-                for (int i = 0; i < authorizedTabs.Count; i++)
+                foreach (var mytab in authorizedTabs.Cast<PageStripDetails>())
                 {
-                    PageStripDetails myTab = (PageStripDetails) authorizedTabs[i];
-                    AddMenuTreeNode(i, myTab);
+                    this.AddMenuTreeNode(mytab);
                 }
             }
             else
             {
                 if (authorizedTabs.Count >= 0)
                 {
-                    PageStripDetails myTab = PortalSettings.GetRootPage(portalSettings.ActivePage, authorizedTabs);
+                    var mytab = PortalSettings.GetRootPage(portalSettings.ActivePage, authorizedTabs);
 
-                    if (myTab.Pages.Count > 0)
+                    if (mytab.Pages.Count > 0)
                     {
-                        for (int i = 0; i < myTab.Pages.Count; i++)
+                        foreach (var mysubTab in mytab.Pages)
                         {
-                            PageStripDetails mySubTab = (PageStripDetails) myTab.Pages[i];
-                            AddMenuTreeNode(0, mySubTab);
+                            this.AddMenuTreeNode(mysubTab);
                         }
                     }
                 }
@@ -167,86 +162,121 @@ namespace Appleseed.Framework.Web.UI.WebControls
             base.DataBind();
         }
 
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Gets the client script path.
+        /// </summary>
+        /// <returns>
+        /// The get client script path.
+        /// </returns>
+        protected override string GetClientScriptPath()
+        {
+            return string.Concat(Path.ApplicationRoot, "/aspnet_client/DUEMETRI_UI_WebControls_HWMenu/1_0_0_0/");
+        }
+
+        /// <summary>
+        /// Add a Menu Tree Node if user in in the list of Authorized roles.
+        ///     Thanks to abain for fixing authorization bug.
+        /// </summary>
+        /// <param name="mytab">
+        /// Tab to add to the MenuTreeNodes collection
+        /// </param>
+        private void AddMenuTreeNode(PageStripDetails mytab)
+        {
+            if (PortalSecurity.IsInRoles(mytab.AuthorizedRoles))
+            {
+                // get index and id from this page and transmit them
+                // Obtain PortalSettings from Current Context 
+                var portalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
+                var tabIdShop = portalSettings.ActivePage.PageID;
+
+                var mn = new MenuTreeNode(mytab.PageName)
+                    {
+                        // change the link to stay on the same page and call a category product
+                        Link =
+                            HttpUrlBuilder.BuildUrl(
+                                "~/" + HttpUrlBuilder.DefaultPage, tabIdShop, "ItemID=" + mytab.PageID),
+                        Width = this.Width
+                    };
+
+                mn = this.RecourseMenu(tabIdShop, mytab.Pages, mn);
+                this.Childs.Add(mn);
+            }
+        }
+
         /// <summary>
         /// Adds the shop home node.
         /// </summary>
         private void AddShopHomeNode()
         {
-            PortalSettings portalSettings = (PortalSettings) HttpContext.Current.Items["PortalSettings"];
-            int tabIDShop = portalSettings.ActivePage.PageID;
+            var portalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
+            var tabIdShop = portalSettings.ActivePage.PageID;
 
-            MenuTreeNode mn = new MenuTreeNode(General.GetString("PRODUCT_HOME", "Shop Home"));
-            // change the link to stay on the same page and call a category product
+            var mn = new MenuTreeNode(General.GetString("PRODUCT_HOME", "Shop Home"))
+                {
+                    // change the link to stay on the same page and call a category product
+                    Link = HttpUrlBuilder.BuildUrl(tabIdShop),
+                    Width = this.Width 
+                };
 
-            mn.Link = HttpUrlBuilder.BuildUrl(tabIDShop);
-            mn.Width = Width;
-            Childs.Add(mn);
+            this.Childs.Add(mn);
         }
 
         /// <summary>
-        /// Add a Menu Tree Node if user in in the list of Authorized roles.
-        /// Thanks to abain for fixing authorization bug.
+        /// Loads the control.
         /// </summary>
-        /// <param name="tabIndex">Index of the tab</param>
-        /// <param name="myTab">Tab to add to the MenuTreeNodes collection</param>
-        private void AddMenuTreeNode(int tabIndex, PageStripDetails myTab)
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
+        private void LoadControl(object sender, EventArgs e)
         {
-            if (PortalSecurity.IsInRoles(myTab.AuthorizedRoles))
+            if (this.AutoBind)
             {
-                // get index and id from this page and transmit them
-                // Obtain PortalSettings from Current Context 
-                PortalSettings portalSettings = (PortalSettings) HttpContext.Current.Items["PortalSettings"];
-                int tabIDShop = portalSettings.ActivePage.PageID;
-
-                MenuTreeNode mn = new MenuTreeNode(myTab.PageName);
-                // change the link to stay on the same page and call a category product
-
-                mn.Link =
-                    HttpUrlBuilder.BuildUrl("~/" + HttpUrlBuilder.DefaultPage, tabIDShop, "ItemID=" + myTab.PageID);
-                mn.Width = Width;
-                mn = RecourseMenu(tabIDShop, myTab.Pages, mn);
-                Childs.Add(mn);
+                this.DataBind();
             }
         }
 
-        // modified to transmit the PageID and TabIndex for the shop page
         /// <summary>
         /// Recourses the menu.
+        /// modified to transmit the PageID and TabIndex for the shop page
         /// </summary>
-        /// <param name="tabIDShop">The tab ID shop.</param>
-        /// <param name="t">The t.</param>
-        /// <param name="mn">The mn.</param>
-        /// <returns></returns>
-        private MenuTreeNode RecourseMenu(int tabIDShop, PagesBox t, MenuTreeNode mn)
+        /// <param name="tabIdShop">
+        /// The tab ID shop.
+        /// </param>
+        /// <param name="t">
+        /// The pages box.
+        /// </param>
+        /// <param name="mn">
+        /// The menu tree node.
+        /// </param>
+        /// <returns>
+        /// A menu tree node.
+        /// </returns>
+        private MenuTreeNode RecourseMenu(int tabIdShop, Collection<PageStripDetails> t, MenuTreeNode mn)
         {
             if (t.Count > 0)
             {
-                for (int c = 0; c < t.Count; c++)
+                foreach (var mnc in from mysubTab in t
+                                    where PortalSecurity.IsInRoles(mysubTab.AuthorizedRoles)
+                                    let mnc = new MenuTreeNode(mysubTab.PageName)
+                                        {
+                                            Link = HttpUrlBuilder.BuildUrl("~/" + HttpUrlBuilder.DefaultPage, tabIdShop, "ItemID=" + mysubTab.PageID), Width = mn.Width
+                                        }
+                                    select this.RecourseMenu(tabIdShop, mysubTab.Pages, mnc))
                 {
-                    PageStripDetails mySubTab = (PageStripDetails) t[c];
-                    if (PortalSecurity.IsInRoles(mySubTab.AuthorizedRoles))
-                    {
-                        MenuTreeNode mnc = new MenuTreeNode(mySubTab.PageName);
-                        // change PageID into ItemID for the product module on the same page
-                        mnc.Link =
-                            HttpUrlBuilder.BuildUrl("~/" + HttpUrlBuilder.DefaultPage, tabIDShop,
-                                                    "ItemID=" + mySubTab.PageID);
-                        mnc.Width = mn.Width;
-                        mnc = RecourseMenu(tabIDShop, mySubTab.Pages, mnc);
-                        mn.Childs.Add(mnc);
-                    }
+                    mn.Childs.Add(mnc);
                 }
             }
+
             return mn;
         }
 
-        /// <summary>
-        /// Gets the client script path.
-        /// </summary>
-        /// <returns></returns>
-        protected override string GetClientScriptPath()
-        {
-            return string.Concat(Path.ApplicationRoot, "/aspnet_client/DUEMETRI_UI_WebControls_HWMenu/1_0_0_0/");
-        }
+        #endregion
     }
 }

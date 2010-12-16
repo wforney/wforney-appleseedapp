@@ -18,7 +18,9 @@ using Page = System.Web.UI.Page;
 
 namespace Appleseed.Content.Web.Modules 
 {
-	/// <summary>
+    using System.Collections.Generic;
+
+    /// <summary>
 	/// Users Defined Table module - Edit page part
 	/// Written by: Shaun Walker (IbuySpy Workshop)
 	/// Moved into Appleseed by Jakob Hansen, hansen3000@hotmail.com
@@ -85,11 +87,11 @@ namespace Appleseed.Content.Web.Modules
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-		protected override ArrayList AllowedModules
+		protected override List<string> AllowedModules
 		{
 			get
 			{
-				ArrayList al = new ArrayList();
+				List<string> al = new List<string>();
 				al.Add ("2502DB18-B580-4F90-8CB4-C15E6E531021");
 				return al;
 			}

@@ -13,6 +13,8 @@ using LinkButton=Appleseed.Framework.Web.UI.WebControls.LinkButton;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// 
     /// </summary>
@@ -28,12 +30,11 @@ namespace Appleseed.Content.Web.Modules
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {
-                ArrayList al = new ArrayList();
-                al.Add("0B113F51-FEA3-499A-98E7-7B83C192FDBB");
+                var al = new List<string> { "0B113F51-FEA3-499A-98E7-7B83C192FDBB" };
                 return al;
             }
         }

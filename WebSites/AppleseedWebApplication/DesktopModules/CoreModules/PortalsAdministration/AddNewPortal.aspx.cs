@@ -109,11 +109,11 @@ namespace Appleseed.AdminAll
         /// Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
-        protected override ArrayList AllowedModules
+        protected override List<string> AllowedModules
         {
             get
             {
-                ArrayList al = new ArrayList();
+                List<string> al = new List<string>();
                 al.Add("366C247D-4CFB-451D-A7AE-649C83B05841");
                 return al;
             }

@@ -1,389 +1,502 @@
-using System;
-using System.Web.UI.Design;
-using System.Diagnostics;
-using System.Web.UI.WebControls;
-using System.Text;
-using System.Web.UI;
-using System.ComponentModel;
-
-
 namespace Appleseed.Framework.Web.UI.WebControls
 {
+    using System;
+    using System.ComponentModel;
+    using System.Diagnostics;
+    using System.Text;
+    using System.Web.UI;
+    using System.Web.UI.Design;
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// DesktopPanes design support class for Visual Studio.
     /// </summary>
-	public class DesktopPanesDesigner : TemplatedControlDesigner
-	{
-		private DesktopPanes desktopPanes;
-
-		private TemplateEditingVerb[] templateVerbs;
-		private bool templateVerbsDirty;
-		
-		internal static TraceSwitch DesktopPanesDesignerSwitch;
-
-		private static string[] PaneTemplateNames;
-		private static string[] SeparatorTemplateNames;
-
-		private const int PaneTemplates = 0;
-		private const int SeparatorTemplates = 1;
-
-		private const int IDX_LEFT_PANE_TEMPLATE = 0;
-		private const int IDX_CONTENT_PANE_TEMPLATE = 1;
-		private const int IDX_RIGHT_PANE_TEMPLATE = 2;
-
-		private const int IDX_HORIZONTAL_SEPARATOR_TEMPLATE = 0;
-		private const int IDX_VERTICAL_SEPARATOR_TEMPLATE = 1;
+    public class DesktopPanesDesigner : TemplatedControlDesigner
+    {
+        #region Constants and Fields
 
         /// <summary>
-        /// Initialize components
+        /// The desktop panes designer switch.
         /// </summary>
-        /// <param name="component"></param>
-		public override void Initialize(IComponent component) 
-		{
-			desktopPanes = (DesktopPanes) component;
-
-			base.Initialize(component);
-		}
-
-		static DesktopPanesDesigner() 
-		{
-			string[] _TemplateNames;
-
-			DesktopPanesDesigner.DesktopPanesDesignerSwitch = new TraceSwitch("DESKTOPPANEDESIGNER", "Enable DesktopPanes designer general purpose traces.");
-
-			_TemplateNames = new String[3];
-			_TemplateNames[IDX_LEFT_PANE_TEMPLATE] = "Left pane template";
-			_TemplateNames[IDX_CONTENT_PANE_TEMPLATE] = "Content pane template";
-			_TemplateNames[IDX_RIGHT_PANE_TEMPLATE] = "Right pane template";
-			DesktopPanesDesigner.PaneTemplateNames = _TemplateNames;
-
-			_TemplateNames = new String[2];
-			_TemplateNames[IDX_HORIZONTAL_SEPARATOR_TEMPLATE] = "Horizontal Separator";
-			_TemplateNames[IDX_VERTICAL_SEPARATOR_TEMPLATE] = "Vertical Separator";
-			DesktopPanesDesigner.SeparatorTemplateNames = _TemplateNames;
-		}
+        internal static TraceSwitch DesktopPanesDesignerSwitch;
 
         /// <summary>
-        /// Default constructor
         /// </summary>
-		public DesktopPanesDesigner() 
-		{
-			templateVerbsDirty = true;
-		}
+        private const int IdxContentPaneTemplate = 1;
 
-		/// <summary>
-		/// Override the AllowResize property inherited
-		/// from ControlDesigner to enable the control 
-		/// to be resized. 
-		/// It is recommended that controls allow resizing 
-		/// when in template mode even if they normally 
-		/// do not allow resizing. 
-		/// </summary>
-		public override bool AllowResize 
-		{
-			get 
-			{
-				// When templates are not defined, render a read-only fixed-size block. 
-				// Once templates are defined or are being edited, the control should allow resizing.
-				if (!(desktopPanes.ContentPaneTemplate == null))
-					return this.InTemplateMode;
-				else
-					return true;
-			}
-		}
+        /// <summary>
+        /// </summary>
+        private const int IdxHorizontalSeparatorTemplate = 0;
 
-		/// <summary>
-		/// Override the GetCachedTemplateEditingVerbs method. 
-		/// A control overrides this method to return the list 
-		/// of template editing verbs applicable to the control. 
-		/// </summary>
-		/// <returns></returns>
-		protected override TemplateEditingVerb[] GetCachedTemplateEditingVerbs() 
-		{
-			if (templateVerbsDirty)
-			{
-				DisposeTemplateVerbs();
+        /// <summary>
+        /// </summary>
+        private const int IdxLeftPaneTemplate = 0;
 
-				templateVerbs = new TemplateEditingVerb[2];
-				templateVerbs[PaneTemplates] = new TemplateEditingVerb("PaneTemplates", PaneTemplates, this);
-				templateVerbs[SeparatorTemplates] = new TemplateEditingVerb("SeparatorTemplates", SeparatorTemplates, this);
-				templateVerbsDirty = false;
-			}
-			return templateVerbs;
-		}
+        /// <summary>
+        /// </summary>
+        private const int IdxRightPaneTemplate = 2;
 
-		/// <summary>
-		/// Override the CreateTemplateEditingFrame method. 
-		/// This method takes a TemplateEditingVerb instance as an argument. 
-		/// TemplateEditingVerb is a designer verb (a class that derives from DesignerVerb) 
-		/// that enables the template editor to add a command to the control at design time. 
-		/// </summary>
-		/// <param name="verb"></param>
-		/// <returns></returns>
-		protected override ITemplateEditingFrame CreateTemplateEditingFrame(TemplateEditingVerb verb) 
-		{
-			ITemplateEditingService teService = (ITemplateEditingService) GetService(typeof(ITemplateEditingService));
-			
-			Trace.Assert(teService != null, "How did we get this far without an ITemplateEditingService?");
-			Trace.Assert(verb.Index == 0 || verb.Index == SeparatorTemplates);
+        /// <summary>
+        /// </summary>
+        private const int IdxVerticalSeparatorTemplate = 1;
 
-			string[] templateNames = null;
-			System.Web.UI.WebControls.Style[] templateStyles = null;
-			ITemplateEditingFrame editingFrame;
-			System.Web.UI.WebControls.Style[] outputTemplateStyles;
+        /// <summary>
+        /// The pane templates.
+        /// </summary>
+        private const int PaneTemplates = 0;
 
-			switch (verb.Index) 
-			{
-				case PaneTemplates:
-					templateNames = DesktopPanesDesigner.PaneTemplateNames;
-					outputTemplateStyles = new Style[3];
-					outputTemplateStyles[IDX_LEFT_PANE_TEMPLATE] = desktopPanes.LeftPaneStyle;
-					outputTemplateStyles[IDX_CONTENT_PANE_TEMPLATE] = desktopPanes.ControlStyle;
-					outputTemplateStyles[IDX_RIGHT_PANE_TEMPLATE] = desktopPanes.RightPaneStyle;
-					templateStyles = outputTemplateStyles;
-					break;
-				case SeparatorTemplates:
-					templateNames = DesktopPanesDesigner.SeparatorTemplateNames;
-					outputTemplateStyles = new Style[2];
-					outputTemplateStyles[IDX_HORIZONTAL_SEPARATOR_TEMPLATE] = desktopPanes.HorizontalSeparatorStyle;
-					outputTemplateStyles[IDX_VERTICAL_SEPARATOR_TEMPLATE] = desktopPanes.VerticalSeparatorStyle;
-					templateStyles = outputTemplateStyles;
-					break;
-			}
-			editingFrame = teService.CreateFrame(this, verb.Text, templateNames, desktopPanes.ControlStyle, templateStyles);
-			//editingFrame = teService.CreateFrame(this, verb.Text, templateNames);
-			return editingFrame;
-		}
+        /// <summary>
+        /// The separator templates.
+        /// </summary>
+        private const int SeparatorTemplates = 1;
 
-		/// <summary>
-		/// A type's Dispose method should release all the resources 
-		/// that it owns. It should also release all resources owned 
-		/// by its base types by calling its parent type's Dispose 
-		/// method. 
-		/// </summary>
-		/// <param name="disposing"></param>
-		protected override void Dispose(bool disposing) 
-		{
-			if (disposing) 
-			{
-				DisposeTemplateVerbs();
-				desktopPanes = null;
-			}
-			this.Dispose(disposing);
-		}
+        /// <summary>
+        /// The pane template names.
+        /// </summary>
+        private static string[] PaneTemplateNames;
 
-		private void DisposeTemplateVerbs() 
-		{
-			if (templateVerbs != null) 
-			{
-				for(int i = 0; i < templateVerbs.Length; i++) 
-					templateVerbs[i].Dispose();
+        /// <summary>
+        /// The separator template names.
+        /// </summary>
+        private static string[] SeparatorTemplateNames;
 
-				templateVerbs = null;
-				templateVerbsDirty = true;
-			}
-		}
+        /// <summary>
+        /// The desktop panes.
+        /// </summary>
+        private DesktopPanes desktopPanes;
 
-		/// <summary>
-		/// As with any other designer, override the GetDesignTimeHtml.
-		/// Gets the HTML that is used to represent the control at design time.
-		/// </summary>
-		public override string GetDesignTimeHtml() 
-		{
-			StringBuilder designTimeHTML = new StringBuilder();
+        /// <summary>
+        /// The template verbs.
+        /// </summary>
+        private TemplateEditingVerb[] templateVerbs;
 
-		    designTimeHTML.Append("<TABLE");
-            if(!(desktopPanes.Width.IsEmpty))
+        /// <summary>
+        /// The template verbs dirty.
+        /// </summary>
+        private bool templateVerbsDirty;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes static members of the <see cref="DesktopPanesDesigner"/> class.
+        /// </summary>
+        static DesktopPanesDesigner()
+        {
+            DesktopPanesDesignerSwitch = new TraceSwitch(
+                "DESKTOPPANEDESIGNER", "Enable DesktopPanes designer general purpose traces.");
+
+            var templateNames = new string[3];
+            templateNames[IdxLeftPaneTemplate] = "Left pane template";
+            templateNames[IdxContentPaneTemplate] = "Content pane template";
+            templateNames[IdxRightPaneTemplate] = "Right pane template";
+            PaneTemplateNames = templateNames;
+
+            templateNames = new string[2];
+            templateNames[IdxHorizontalSeparatorTemplate] = "Horizontal Separator";
+            templateNames[IdxVerticalSeparatorTemplate] = "Vertical Separator";
+            SeparatorTemplateNames = templateNames;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DesktopPanesDesigner"/> class. 
+        ///     Default constructor
+        /// </summary>
+        public DesktopPanesDesigner()
+        {
+            this.templateVerbsDirty = true;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///     Override the AllowResize property inherited
+        ///     from ControlDesigner to enable the control 
+        ///     to be resized. 
+        ///     It is recommended that controls allow resizing 
+        ///     when in template mode even if they normally 
+        ///     do not allow resizing.
+        /// </summary>
+        public override bool AllowResize
+        {
+            get
             {
-		        designTimeHTML.Append(" width='");
-		        designTimeHTML.Append(desktopPanes.Width.Value);
-		        designTimeHTML.Append("'");
+                // When templates are not defined, render a read-only fixed-size block. 
+                // Once templates are defined or are being edited, the control should allow resizing.
+                return this.desktopPanes.ContentPaneTemplate == null || this.InTemplateMode;
             }
-            if(!(desktopPanes.Height.IsEmpty))
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// As with any other designer, override the GetDesignTimeHtml.
+        ///     Gets the HTML that is used to represent the control at design time.
+        /// </summary>
+        /// <returns>
+        /// The get design time html.
+        /// </returns>
+        public override string GetDesignTimeHtml()
+        {
+            var designTimeHtml = new StringBuilder();
+
+            designTimeHtml.Append("<TABLE");
+            if (!this.desktopPanes.Width.IsEmpty)
             {
-                designTimeHTML.Append(" height='");
-                designTimeHTML.Append(desktopPanes.Height.Value);
-                designTimeHTML.Append("'");
+                designTimeHtml.Append(" width='");
+                designTimeHtml.Append(this.desktopPanes.Width.Value);
+                designTimeHtml.Append("'");
             }
-		    designTimeHTML.Append(" BORDER='1'>");
-		    designTimeHTML.Append("<TR>");
 
-		    designTimeHTML.Append("<TD>");
-			if (desktopPanes.VerticalSeparatorTemplate != null)
-			{
-				designTimeHTML.Append(GetTextFromTemplate(desktopPanes.VerticalSeparatorTemplate));
-			}
-		    designTimeHTML.Append("</TD>");
-
-		    designTimeHTML.Append("<TD>");
-			if (desktopPanes.LeftPaneTemplate != null)
-			{
-				designTimeHTML.Append(GetTextFromTemplate(desktopPanes.LeftPaneTemplate));
-			}
-		    designTimeHTML.Append("</TD>");
-
-		    designTimeHTML.Append("<TD>");
-			if (desktopPanes.VerticalSeparatorTemplate != null)
-			{
-				designTimeHTML.Append(GetTextFromTemplate(desktopPanes.VerticalSeparatorTemplate));
-			}
-		    designTimeHTML.Append("</TD>");
-
-		    designTimeHTML.Append("<TD>");
-            if (desktopPanes.ContentPaneTemplate != null)
+            if (!this.desktopPanes.Height.IsEmpty)
             {
-                designTimeHTML.Append(GetTextFromTemplate(desktopPanes.ContentPaneTemplate));
+                designTimeHtml.Append(" height='");
+                designTimeHtml.Append(this.desktopPanes.Height.Value);
+                designTimeHtml.Append("'");
             }
-		    designTimeHTML.Append("</TD>");
 
-		    designTimeHTML.Append("<TD>");
-			if (desktopPanes.VerticalSeparatorTemplate != null)
-			{
-				designTimeHTML.Append(GetTextFromTemplate(desktopPanes.VerticalSeparatorTemplate));
-			}
-		    designTimeHTML.Append("</TD>");
+            designTimeHtml.Append(" BORDER='1'>");
+            designTimeHtml.Append("<TR>");
 
-		    designTimeHTML.Append("<TD>");
-            if (desktopPanes.RightPaneTemplate != null)
+            designTimeHtml.Append("<TD>");
+            if (this.desktopPanes.VerticalSeparatorTemplate != null)
             {
-                designTimeHTML.Append(GetTextFromTemplate(desktopPanes.RightPaneTemplate));
+                designTimeHtml.Append(this.GetTextFromTemplate(this.desktopPanes.VerticalSeparatorTemplate));
             }
-		    designTimeHTML.Append("</TD>");
 
-		    designTimeHTML.Append("<TD>");
-			if (desktopPanes.VerticalSeparatorTemplate != null)
-			{
-				designTimeHTML.Append(GetTextFromTemplate(desktopPanes.VerticalSeparatorTemplate));
-			}
-		    designTimeHTML.Append("</TD>");
+            designTimeHtml.Append("</TD>");
 
-		    designTimeHTML.Append("</TR>");
-		    designTimeHTML.Append("</TABLE>");
+            designTimeHtml.Append("<TD>");
+            if (this.desktopPanes.LeftPaneTemplate != null)
+            {
+                designTimeHtml.Append(this.GetTextFromTemplate(this.desktopPanes.LeftPaneTemplate));
+            }
 
-			return designTimeHTML.ToString();
-		}
+            designTimeHtml.Append("</TD>");
 
-		/// <summary>
-		/// As with any other designer, 
-		/// override the GetEmptyDesignTimeHtml.
-		/// Gets the HTML used to represent 
-		/// an empty template-based control at design time.
-		/// </summary>
-		protected override string GetEmptyDesignTimeHtml() 
-		{
-			string text;
+            designTimeHtml.Append("<TD>");
+            if (this.desktopPanes.VerticalSeparatorTemplate != null)
+            {
+                designTimeHtml.Append(this.GetTextFromTemplate(this.desktopPanes.VerticalSeparatorTemplate));
+            }
 
-			if (CanEnterTemplateMode) 
-			{
-				text = "Right click and choose a set of templates to edit their content.";
-			}
-			else 
-			{
-				text = "Switch to HTML view to edit the control's templates.";
-			}
-			return CreatePlaceHolderDesignTimeHtml(text);
-		}
+            designTimeHtml.Append("</TD>");
 
-		/// <summary>
-		/// Override the GetTemplateContent method that gets 
-		/// the template content. 
-		/// </summary>
-		public override string GetTemplateContent(ITemplateEditingFrame editingFrame, string templateName, out bool allowEditing) 
-		{
-			Trace.Assert(editingFrame.Verb.Index >= 0 && editingFrame.Verb.Index <= 2);
+            designTimeHtml.Append("<TD>");
+            if (this.desktopPanes.ContentPaneTemplate != null)
+            {
+                designTimeHtml.Append(this.GetTextFromTemplate(this.desktopPanes.ContentPaneTemplate));
+            }
+
+            designTimeHtml.Append("</TD>");
+
+            designTimeHtml.Append("<TD>");
+            if (this.desktopPanes.VerticalSeparatorTemplate != null)
+            {
+                designTimeHtml.Append(this.GetTextFromTemplate(this.desktopPanes.VerticalSeparatorTemplate));
+            }
+
+            designTimeHtml.Append("</TD>");
+
+            designTimeHtml.Append("<TD>");
+            if (this.desktopPanes.RightPaneTemplate != null)
+            {
+                designTimeHtml.Append(this.GetTextFromTemplate(this.desktopPanes.RightPaneTemplate));
+            }
+
+            designTimeHtml.Append("</TD>");
+
+            designTimeHtml.Append("<TD>");
+            if (this.desktopPanes.VerticalSeparatorTemplate != null)
+            {
+                designTimeHtml.Append(this.GetTextFromTemplate(this.desktopPanes.VerticalSeparatorTemplate));
+            }
+
+            designTimeHtml.Append("</TD>");
+
+            designTimeHtml.Append("</TR>");
+            designTimeHtml.Append("</TABLE>");
+
+            return designTimeHtml.ToString();
+        }
+
+        /// <summary>
+        /// Override the GetTemplateContent method that gets 
+        ///     the template content.
+        /// </summary>
+        /// <param name="editingFrame">
+        /// The editing Frame.
+        /// </param>
+        /// <param name="templateName">
+        /// The template Name.
+        /// </param>
+        /// <param name="allowEditing">
+        /// The allow Editing.
+        /// </param>
+        /// <returns>
+        /// The get template content.
+        /// </returns>
+        [Obsolete("Use of this method is not recommended because template editing is handled in ControlDesigner. To support template editing expose template data in the TemplateGroups property and call SetViewFlags(ViewFlags.TemplateEditing, true). http://go.microsoft.com/fwlink/?linkid=14202")]
+        public override string GetTemplateContent(
+            ITemplateEditingFrame editingFrame, string templateName, out bool allowEditing)
+        {
+            Trace.Assert(editingFrame.Verb.Index >= 0 && editingFrame.Verb.Index <= 2);
 
             allowEditing = true;
-			ITemplate template = null;
-			string templateContent = String.Empty;
+            ITemplate template = null;
+            var templateContent = String.Empty;
 
-			switch (editingFrame.Verb.Index) 
-			{
-				case PaneTemplates:
-					if (templateName == DesktopPanesDesigner.PaneTemplateNames[IDX_LEFT_PANE_TEMPLATE])
-					{
-						template = desktopPanes.LeftPaneTemplate;
-						break;
-					}
-					if (templateName == DesktopPanesDesigner.PaneTemplateNames[IDX_CONTENT_PANE_TEMPLATE])
-					{
-						template = desktopPanes.ContentPaneTemplate;
-						break;
-					}
-					if (templateName == DesktopPanesDesigner.PaneTemplateNames[IDX_RIGHT_PANE_TEMPLATE])
-					{
-						template = desktopPanes.RightPaneTemplate;
-						break;
-					}
-					break;
-
-				case SeparatorTemplates:
-                    if (templateName == DesktopPanesDesigner.PaneTemplateNames[IDX_HORIZONTAL_SEPARATOR_TEMPLATE])
+            switch (editingFrame.Verb.Index)
+            {
+                case PaneTemplates:
+                    if (templateName == PaneTemplateNames[IdxLeftPaneTemplate])
                     {
-                        template = desktopPanes.HorizontalSeparatorTemplate;
+                        template = this.desktopPanes.LeftPaneTemplate;
                         break;
                     }
-                    if (templateName == DesktopPanesDesigner.PaneTemplateNames[IDX_VERTICAL_SEPARATOR_TEMPLATE])
+
+                    if (templateName == PaneTemplateNames[IdxContentPaneTemplate])
                     {
-                        template = desktopPanes.VerticalSeparatorTemplate;
+                        template = this.desktopPanes.ContentPaneTemplate;
                         break;
                     }
+
+                    if (templateName == PaneTemplateNames[IdxRightPaneTemplate])
+                    {
+                        template = this.desktopPanes.RightPaneTemplate;
+                        break;
+                    }
+
                     break;
-			}
-			if (template != null)
-				templateContent = GetTextFromTemplate(template);
-			return templateContent;
-		}
 
-		/// <summary>
-		/// Override the SetTemplateContent method that sets 
-		/// the template content. 
-		/// </summary>
-		public override void SetTemplateContent(ITemplateEditingFrame editingFrame, string templateName, string templateContent) 
-		{
-			Trace.Assert(editingFrame.Verb.Index >= 0 && editingFrame.Verb.Index <= 2);
-
-			ITemplate template = null;
-
-			if (templateContent != null && templateContent.Length != 0) 
-			{
-				template = GetTemplateFromText(templateContent);
-			}
-
-			switch (editingFrame.Verb.Index) 
-			{
-				case PaneTemplates:
-					if (templateName == DesktopPanesDesigner.PaneTemplateNames[IDX_LEFT_PANE_TEMPLATE]) 
-					{
-						desktopPanes.LeftPaneTemplate = template;
-						return;
-					}
-                    if (templateName == DesktopPanesDesigner.PaneTemplateNames[IDX_CONTENT_PANE_TEMPLATE]) 
+                case SeparatorTemplates:
+                    if (templateName == PaneTemplateNames[IdxHorizontalSeparatorTemplate])
                     {
-                        desktopPanes.ContentPaneTemplate = template;
-                        return;
+                        template = this.desktopPanes.HorizontalSeparatorTemplate;
+                        break;
                     }
-                    if (templateName == DesktopPanesDesigner.PaneTemplateNames[IDX_RIGHT_PANE_TEMPLATE]) 
+
+                    if (templateName == PaneTemplateNames[IdxVerticalSeparatorTemplate])
                     {
-                        desktopPanes.RightPaneTemplate = template;
-                        return;
+                        template = this.desktopPanes.VerticalSeparatorTemplate;
+                        break;
                     }
+
                     break;
-				case SeparatorTemplates:
-                    if (templateName == DesktopPanesDesigner.PaneTemplateNames[IDX_HORIZONTAL_SEPARATOR_TEMPLATE]) 
-                    {
-                        desktopPanes.HorizontalSeparatorTemplate = template;
-                        return;
-                    }
-                    if (templateName == DesktopPanesDesigner.PaneTemplateNames[IDX_VERTICAL_SEPARATOR_TEMPLATE]) 
-                    {
-                        desktopPanes.VerticalSeparatorTemplate = template;
-                        return;
-                    }
-					return;
+            }
 
-				default:
-					return;
-			}
-		}
-	}
+            if (template != null)
+            {
+                templateContent = this.GetTextFromTemplate(template);
+            }
+
+            return templateContent;
+        }
+
+        /// <summary>
+        /// Initializes the designer and loads the specified component.
+        /// </summary>
+        /// <param name="component">The control element being designed.</param>
+        public override void Initialize(IComponent component)
+        {
+            this.desktopPanes = (DesktopPanes)component;
+
+            base.Initialize(component);
+        }
+
+        /// <summary>
+        /// Override the SetTemplateContent method that sets 
+        ///     the template content.
+        /// </summary>
+        /// <param name="editingFrame">
+        /// The editing Frame.
+        /// </param>
+        /// <param name="templateName">
+        /// The template Name.
+        /// </param>
+        /// <param name="templateContent">
+        /// The template Content.
+        /// </param>
+        [Obsolete("Use of this method is not recommended because template editing is handled in ControlDesigner. To support template editing expose template data in the TemplateGroups property and call SetViewFlags(ViewFlags.TemplateEditing, true). http://go.microsoft.com/fwlink/?linkid=14202")]
+        public override void SetTemplateContent(
+            ITemplateEditingFrame editingFrame, string templateName, string templateContent)
+        {
+            Trace.Assert(editingFrame.Verb.Index >= 0 && editingFrame.Verb.Index <= 2);
+
+            ITemplate template = null;
+
+            if (!string.IsNullOrEmpty(templateContent))
+            {
+                template = this.GetTemplateFromText(templateContent);
+            }
+
+            switch (editingFrame.Verb.Index)
+            {
+                case PaneTemplates:
+                    if (templateName == PaneTemplateNames[IdxLeftPaneTemplate])
+                    {
+                        this.desktopPanes.LeftPaneTemplate = template;
+                        return;
+                    }
+
+                    if (templateName == PaneTemplateNames[IdxContentPaneTemplate])
+                    {
+                        this.desktopPanes.ContentPaneTemplate = template;
+                        return;
+                    }
+
+                    if (templateName == PaneTemplateNames[IdxRightPaneTemplate])
+                    {
+                        this.desktopPanes.RightPaneTemplate = template;
+                        return;
+                    }
+
+                    break;
+                case SeparatorTemplates:
+                    if (templateName == PaneTemplateNames[IdxHorizontalSeparatorTemplate])
+                    {
+                        this.desktopPanes.HorizontalSeparatorTemplate = template;
+                        return;
+                    }
+
+                    if (templateName == PaneTemplateNames[IdxVerticalSeparatorTemplate])
+                    {
+                        this.desktopPanes.VerticalSeparatorTemplate = template;
+                        return;
+                    }
+
+                    return;
+
+                default:
+                    return;
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// When overridden in a derived class, creates a template editing frame for the specified verb.
+        /// </summary>
+        /// <param name="verb">The template editing verb to create a template editing frame for.</param>
+        /// <returns>The new template editing frame.</returns>
+        [Obsolete("Use of this method is not recommended because template editing is handled in ControlDesigner. To support template editing expose template data in the TemplateGroups property and call SetViewFlags(ViewFlags.TemplateEditing, true). http://go.microsoft.com/fwlink/?linkid=14202")]
+        protected override ITemplateEditingFrame CreateTemplateEditingFrame(TemplateEditingVerb verb)
+        {
+            var teService = (ITemplateEditingService)this.GetService(typeof(ITemplateEditingService));
+
+            Trace.Assert(teService != null, "How did we get this far without an ITemplateEditingService?");
+            Trace.Assert(verb.Index == 0 || verb.Index == SeparatorTemplates);
+
+            string[] templateNames = null;
+            Style[] templateStyles = null;
+            Style[] outputTemplateStyles;
+
+            switch (verb.Index)
+            {
+                case PaneTemplates:
+                    templateNames = PaneTemplateNames;
+                    outputTemplateStyles = new Style[3];
+                    outputTemplateStyles[IdxLeftPaneTemplate] = this.desktopPanes.LeftPaneStyle;
+                    outputTemplateStyles[IdxContentPaneTemplate] = this.desktopPanes.ControlStyle;
+                    outputTemplateStyles[IdxRightPaneTemplate] = this.desktopPanes.RightPaneStyle;
+                    templateStyles = outputTemplateStyles;
+                    break;
+                case SeparatorTemplates:
+                    templateNames = SeparatorTemplateNames;
+                    outputTemplateStyles = new Style[2];
+                    outputTemplateStyles[IdxHorizontalSeparatorTemplate] = this.desktopPanes.HorizontalSeparatorStyle;
+                    outputTemplateStyles[IdxVerticalSeparatorTemplate] = this.desktopPanes.VerticalSeparatorStyle;
+                    templateStyles = outputTemplateStyles;
+                    break;
+            }
+
+            ITemplateEditingFrame editingFrame = teService.CreateFrame(
+                this, verb.Text, templateNames, this.desktopPanes.ControlStyle, templateStyles);
+
+            // editingFrame = teService.CreateFrame(this, verb.Text, templateNames);
+            return editingFrame;
+        }
+
+        /// <summary>
+        /// Releases the unmanaged resources that are used by the <see cref="T:System.Web.UI.Design.HtmlControlDesigner"/> object and optionally releases the managed resources.
+        /// </summary>
+        /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.DisposeTemplateVerbs();
+                this.desktopPanes = null;
+            }
+
+            this.Dispose(disposing);
+        }
+
+        /// <summary>
+        /// Gets the cached template editing verbs.
+        /// </summary>
+        /// <returns>
+        /// An array of <see cref="T:System.Web.UI.Design.TemplateEditingVerb"/> objects, if any.
+        /// </returns>
+        [Obsolete("Use of this method is not recommended because template editing is handled in ControlDesigner. To support template editing expose template data in the TemplateGroups property and call SetViewFlags(ViewFlags.TemplateEditing, true). http://go.microsoft.com/fwlink/?linkid=14202")]
+        protected override TemplateEditingVerb[] GetCachedTemplateEditingVerbs()
+        {
+            if (this.templateVerbsDirty)
+            {
+                this.DisposeTemplateVerbs();
+
+                this.templateVerbs = new TemplateEditingVerb[2];
+                this.templateVerbs[PaneTemplates] = new TemplateEditingVerb("PaneTemplates", PaneTemplates, this);
+                this.templateVerbs[SeparatorTemplates] = new TemplateEditingVerb(
+                    "SeparatorTemplates", SeparatorTemplates, this);
+                this.templateVerbsDirty = false;
+            }
+
+            return this.templateVerbs;
+        }
+
+        /// <summary>
+        /// As with any other designer, 
+        ///     override the GetEmptyDesignTimeHtml.
+        ///     Gets the HTML used to represent 
+        ///     an empty template-based control at design time.
+        /// </summary>
+        /// <returns>
+        /// The get empty design time html.
+        /// </returns>
+        protected override string GetEmptyDesignTimeHtml()
+        {
+            string text = this.CanEnterTemplateMode ? "Right click and choose a set of templates to edit their content." : "Switch to HTML view to edit the control's templates.";
+
+            return this.CreatePlaceHolderDesignTimeHtml(text);
+        }
+
+        /// <summary>
+        /// The dispose template verbs.
+        /// </summary>
+        private void DisposeTemplateVerbs()
+        {
+            if (this.templateVerbs == null)
+            {
+                return;
+            }
+
+            foreach (var t in this.templateVerbs)
+            {
+                t.Dispose();
+            }
+
+            this.templateVerbs = null;
+            this.templateVerbsDirty = true;
+        }
+
+        #endregion
+    }
 }

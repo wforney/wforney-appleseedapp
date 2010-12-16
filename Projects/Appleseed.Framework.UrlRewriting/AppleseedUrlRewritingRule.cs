@@ -1,74 +1,127 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Configuration;
-using System.Globalization;
+namespace Appleseed.Framework.UrlRewriting
+{
+    using System.Configuration;
+    using System.Globalization;
+    using System.Web;
 
-using UrlRewritingNet.Web;
-using System.Web;
+    using UrlRewritingNet.Configuration;
+    using UrlRewritingNet.Web;
 
-namespace Appleseed.Framework.UrlRewriting {
+    /// <summary>
+    /// The appleseed url rewriting rule.
+    /// </summary>
+    public class AppleseedUrlRewritingRule : RewriteRule
+    {
+        #region Constants and Fields
 
-    public class AppleseedUrlRewritingRule : RewriteRule {
-
-        private string handlerFlag = "site";
+        /// <summary>
+        /// The default splitter.
+        /// </summary>
         private string defaultSplitter = "__";
-        private bool pageIdNoSplitter = false;
+
+        /// <summary>
+        /// The friendly page name.
+        /// </summary>
         private string friendlyPageName = "Default.aspx";
 
-        public override void Initialize( UrlRewritingNet.Configuration.RewriteSettings rewriteSettings ) {
-            base.Initialize( rewriteSettings );
+        /// <summary>
+        /// The handler flag.
+        /// </summary>
+        private string handlerFlag = "site";
 
-            if ( !string.IsNullOrEmpty( rewriteSettings.Attributes[ "handlerflag" ] ) ) {
-                handlerFlag = ( rewriteSettings.Attributes[ "handlerflag" ] ).ToLower( CultureInfo.InvariantCulture );
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Initializes the specified rewrite settings.
+        /// </summary>
+        /// <param name="rewriteSettings">The rewrite settings.</param>
+        public override void Initialize(RewriteSettings rewriteSettings)
+        {
+            base.Initialize(rewriteSettings);
+
+            if (!string.IsNullOrEmpty(rewriteSettings.Attributes["handlerflag"]))
+            {
+                this.handlerFlag = rewriteSettings.Attributes["handlerflag"].ToLower(CultureInfo.InvariantCulture);
             }
 
-            if ( !string.IsNullOrEmpty( rewriteSettings.Attributes[ "handlersplitter" ] ) ) {
-                defaultSplitter = rewriteSettings.Attributes[ "handlersplitter" ].ToString();
+            if (!string.IsNullOrEmpty(rewriteSettings.Attributes["handlersplitter"]))
+            {
+                this.defaultSplitter = rewriteSettings.Attributes["handlersplitter"];
             }
-            else {
-                if ( ConfigurationManager.AppSettings[ "HandlerDefaultSplitter" ] != null )
-                    defaultSplitter = ConfigurationManager.AppSettings[ "HandlerDefaultSplitter" ].ToString();
-            }
-
-            if ( !string.IsNullOrEmpty( rewriteSettings.Attributes[ "pageidnosplitter" ] ) ) {
-                pageIdNoSplitter = bool.Parse( rewriteSettings.Attributes[ "pageidnosplitter" ] );
-            }
-
-            if ( !string.IsNullOrEmpty( rewriteSettings.Attributes[ "friendlyPageName" ] ) ) {
-                friendlyPageName = rewriteSettings.Attributes[ "friendlyPageName" ];
-            }
-        }
-
-        public override bool IsRewrite( string requestUrl ) {
-            return requestUrl.Contains( "/" + handlerFlag + "/" );
-        }
-
-        public override string RewriteUrl( string url ) {
-
-            string rewrittenUrl = url.Substring( 0, url.IndexOf( "/" + handlerFlag + "/" ) );
-
-            string[] parts = url.Substring( url.IndexOf( "/" + handlerFlag + "/" ) + ( "/" + handlerFlag + "/" ).Length ).Split( '/' );
-
-            rewrittenUrl += "/" + friendlyPageName;
-            string queryString = "?pageId=" + parts[ parts.Length - 2 ];
-
-            string queryStringParam = string.Empty;
-            if ( parts.Length > 2 ) {
-                for ( int i = 0; i < (parts.Length-2); i++ ) {
-                    queryStringParam = parts[ i ];
-
-                    if (queryStringParam.IndexOf(defaultSplitter) >= 0)
-                    {
-                        queryString += "&" + queryStringParam.Substring(0, queryStringParam.IndexOf(defaultSplitter));
-                        queryString += "=" + queryStringParam.Substring(queryStringParam.IndexOf(defaultSplitter) + defaultSplitter.Length);
-                    }
+            else
+            {
+                if (ConfigurationManager.AppSettings["HandlerDefaultSplitter"] != null)
+                {
+                    this.defaultSplitter = ConfigurationManager.AppSettings["HandlerDefaultSplitter"];
                 }
             }
 
-            HttpContext.Current.RewritePath( rewrittenUrl, "", queryString );
+            if (!string.IsNullOrEmpty(rewriteSettings.Attributes["pageidnosplitter"]))
+            {
+                bool.Parse(rewriteSettings.Attributes["pageidnosplitter"]);
+            }
+
+            if (!string.IsNullOrEmpty(rewriteSettings.Attributes["friendlyPageName"]))
+            {
+                this.friendlyPageName = rewriteSettings.Attributes["friendlyPageName"];
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the specified request URL is rewrite.
+        /// </summary>
+        /// <param name="requestUrl">The request URL.</param>
+        /// <returns>
+        /// <c>true</c> if the specified request URL is rewrite; otherwise, <c>false</c>.
+        /// </returns>
+        public override bool IsRewrite(string requestUrl)
+        {
+            return requestUrl.Contains(string.Format("/{0}/", this.handlerFlag));
+        }
+
+        /// <summary>
+        /// Rewrites the URL.
+        /// </summary>
+        /// <param name="url">The URL to rewrite.</param>
+        /// <returns>The rewritten URL.</returns>
+        public override string RewriteUrl(string url)
+        {
+            var handler = string.Format("/{0}/", this.handlerFlag);
+            var rewrittenUrl = url.Substring(0, url.IndexOf(handler));
+
+            var parts =
+                url.Substring(url.IndexOf(handler) + handler.Length).Split('/');
+
+            rewrittenUrl += string.Format("/{0}", this.friendlyPageName);
+            var queryString = string.Format("?pageId={0}", parts[parts.Length - 2]);
+
+            if (parts.Length > 2)
+            {
+                for (var i = 0; i < (parts.Length - 2); i++)
+                {
+                    var queryStringParam = parts[i];
+
+                    if (queryStringParam.IndexOf(this.defaultSplitter) < 0)
+                    {
+                        continue;
+                    }
+
+                    queryString += string.Format(
+                        "&{0}",
+                        queryStringParam.Substring(0, queryStringParam.IndexOf(this.defaultSplitter)));
+                    queryString += string.Format(
+                        "={0}",
+                        queryStringParam.Substring(queryStringParam.IndexOf(this.defaultSplitter) + this.defaultSplitter.Length));
+                }
+            }
+
+            HttpContext.Current.RewritePath(rewrittenUrl, string.Empty, queryString);
 
             return rewrittenUrl + queryString;
         }
+
+        #endregion
     }
 }
