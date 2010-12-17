@@ -3946,9 +3946,6 @@
   <data name="SHOWTABID">
     <value>Desde página</value>
   </data>
-  <data name="SHOWTHUMBNAILSPANEL">
-    <value>Mostrar Panel miniaturas</value>
-  </data>
   <data name="SHOWZOOM">
     <value>Mostrar selector de Zoom?</value>
   </data>
@@ -4245,6 +4242,15 @@
   </data>
   <data name="PICTURESPERPAGE">
     <value>Imágenes por Página</value>
+  </data>
+  <data name="SHOWTHUMBNAILSPANEL">
+    <value>Mostrar Panel miniaturas</value>
+  </data>
+  <data name="AM_TOPPANEL">
+    <value>Panel Superior</value>
+  </data>
+  <data name="AM_BOTOMPANEL">
+    <value>Panel Inferior</value>
   </data>
   <data name="BG-BG">
     <value>BG-BG</value>

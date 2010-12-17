@@ -3319,6 +3319,15 @@
   <data name="PICTURESPERPAGE">
     <value>Pictures per Page</value>
   </data>
+  <data name="SHOWTHUMBNAILSPANEL">
+    <value>Show thumbnail panel</value>
+  </data>
+  <data name="AM_TOPPANEL">
+    <value>Top Pane</value>
+  </data>
+  <data name="AM_BOTOMPANEL">
+    <value>Bottom Pane</value>
+  </data>
   <data name="CONFIRM_PASSWORD">
     <value>Confirm password</value>
   </data>

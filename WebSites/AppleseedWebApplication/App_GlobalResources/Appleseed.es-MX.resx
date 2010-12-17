@@ -4060,9 +4060,6 @@
   <data name="SHOWTABID">
     <value>SHOWTABID</value>
   </data>
-  <data name="SHOWTHUMBNAILSPANEL">
-    <value>Mostrar Panel miniaturas</value>
-  </data>
   <data name="SHOWZOOM">
     <value>SHOWZOOM</value>
   </data>
@@ -4305,6 +4302,15 @@
   </data>
   <data name="PICTURESPERPAGE">
     <value>Imágenes por Página</value>
+  </data>
+  <data name="SHOWTHUMBNAILSPANEL">
+    <value>Mostrar Panel miniaturas</value>
+  </data>
+  <data name="AM_TOPPANEL">
+    <value>Panel Superior</value>
+  </data>
+  <data name="AM_BOTOMPANEL">
+    <value>Panel Inferior</value>
   </data>
   <data name="ALPHA_LIST_ITEM_DETAILS">
     <value>Details</value>

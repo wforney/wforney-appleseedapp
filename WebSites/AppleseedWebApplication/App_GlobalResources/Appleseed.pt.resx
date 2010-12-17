@@ -4174,9 +4174,6 @@
   <data name="SHOWTABID">
     <value>SHOWTABID</value>
   </data>
-  <data name="SHOWTHUMBNAILSPANEL">
-    <value>SHOWTHUMBNAILSPANEL</value>
-  </data>
   <data name="SHOWZOOM">
     <value>SHOWZOOM</value>
   </data>
@@ -5442,6 +5439,15 @@
   </data>
   <data name="PICTURESPERPAGE">
     <value>PICTURESPERPAGE</value>
+  </data>
+  <data name="SHOWTHUMBNAILSPANEL">
+    <value>SHOWTHUMBNAILSPANEL</value>
+  </data>
+  <data name="AM_TOPPANEL">
+    <value>Painel Superior</value>
+  </data>
+  <data name="AM_BOTOMPANEL">
+    <value>Painel Inferior</value>
   </data>
   <data name="CONTINUE">
     <value>Continue</value>
