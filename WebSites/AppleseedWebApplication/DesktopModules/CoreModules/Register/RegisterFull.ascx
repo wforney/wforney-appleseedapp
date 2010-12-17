@@ -40,13 +40,13 @@
                                                         textkey="DATE_OF_BIRTH"></asp:Label>
                                         </td>
                                         <td>
-                                            
-                                            <asp:DropDownList ID="ddlDay" runat="server">
+                                            <asp:PlaceHolder ID="plhBirthDate" runat="server" />
+                                            <%--<asp:DropDownList ID="ddlDay" runat="server">
                                             </asp:DropDownList>
                                             <asp:DropDownList ID="ddlMonth" runat="server">
                                             </asp:DropDownList>
                                             <asp:DropDownList ID="ddlYear" runat="server">
-                                            </asp:DropDownList>
+                                            </asp:DropDownList>--%>
                                         </td>
                                     </tr>
                                     <tr>
