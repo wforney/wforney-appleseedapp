@@ -19,10 +19,34 @@ using Appleseed.Framework.Settings;
 using Appleseed.Framework.Site.Configuration;
 using Appleseed.Framework.Web.UI;
 using System.Resources;
+using System.Globalization;
+using System.Threading;
 
 public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalModuleControl, IEditUserProfile
 {
     private string _redirectPage;
+
+    /// <summary>
+    /// ddlDay control.
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.DropDownList ddlDay;
+
+    /// <summary>
+    /// ddlMonth control.
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.DropDownList ddlMonth;
+
+    /// <summary>
+    /// ddlYear control.
+    /// </summary>
+    /// <remarks>
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.DropDownList ddlYear;
+    
 
     private bool OuterCreation
     {
@@ -38,6 +62,8 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        LoadBirthDateControls();
+
         if (!Page.IsPostBack) {
 
             BindCountry();
@@ -106,6 +132,32 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
         }
     }
 
+    private void LoadBirthDateControls()
+    {
+        ddlDay = new DropDownList();
+        ddlDay.ID = "ddlDay";
+        ddlMonth = new DropDownList();
+        ddlMonth.ID = "ddlMonth";
+        ddlYear = new DropDownList();
+        ddlYear.ID = "ddlYear";
+
+        var datePattern = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
+
+        if (datePattern.IndexOf("M") < datePattern.IndexOf("d"))
+        {
+            plhBirthDate.Controls.Add(ddlMonth);
+            plhBirthDate.Controls.Add(ddlDay);
+        }
+        else
+        {
+            plhBirthDate.Controls.Add(ddlDay);
+            plhBirthDate.Controls.Add(ddlMonth);
+        }
+
+        plhBirthDate.Controls.Add(ddlYear);
+
+    }
+
     private DateTime BirthdayField
     {
         set
@@ -142,12 +194,16 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
         ddlDay.DataSource = days;
         ddlDay.DataBind();
 
-        List<int> months = new List<int>();
+        var months = new Dictionary<int, string>();
+        CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+        TextInfo textInfo = cultureInfo.TextInfo;
         for (int j = 1; j <= 12; j++) {
-            months.Insert(j - 1, j);
+            months.Add(j,  j.ToString() + " - " + textInfo.ToTitleCase(DateTimeFormatInfo.CurrentInfo.GetMonthName(j)));
         }
 
         ddlMonth.DataSource = months;
+        ddlMonth.DataValueField = "key";
+        ddlMonth.DataTextField = "value";
         ddlMonth.DataBind();
 
         List<int> years = new List<int>();

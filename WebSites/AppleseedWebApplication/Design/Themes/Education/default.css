@@ -974,9 +974,11 @@ td.SubHead span
 {width:270px!important;}
 
 #Content_ctl00_ddlDay,
-#Content_ctl00_ddlMonth,
 #Content_ctl00_ddlYear
-{width:90px!important;}
+{width:70px!important;}
+
+#Content_ctl00_ddlMonth
+{width:130px!important;}
 
 #Content_ContentPane_ctl01_dgFile td{
 	text-align:center;
