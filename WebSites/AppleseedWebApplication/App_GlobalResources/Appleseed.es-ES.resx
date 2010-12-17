@@ -86,10 +86,10 @@
     <value>Cuenta de Usuario</value>
   </data>
   <data name="ADD">
-    <value>SECURITYCHECK_HEADERADD</value>
+    <value>Añadir</value>
   </data>
   <data name="SECURITYCHECK_HEADERADD">
-    <value>SECURITYCHECK_HEADERADD</value>
+    <value>Añadir</value>
   </data>
   <data name="ADDRESS">
     <value>Dirección</value>
@@ -239,16 +239,16 @@
     <value>Nombre Página Móvil</value>
   </data>
   <data name="AM_MODULELOCATION">
-    <value>Localización del Módulo:</value>
+    <value>Ubicación del Módulo:</value>
   </data>
   <data name="AM_MODULENAME">
     <value>Nombre del módulo:</value>
   </data>
   <data name="AM_MODULETYPE">
-    <value>SECURITYCHECK_HEADERTYPE</value>
+    <value>Tipo de Módulo</value>
   </data>
   <data name="SECURITYCHECK_HEADERTYPE">
-    <value>SECURITYCHECK_HEADERTYPE</value>
+    <value>Tipo de Módulo</value>
   </data>
   <data name="AM_MODULEVISIBLETO">
     <value>Módulo Visible a:</value>
@@ -896,10 +896,10 @@
     <value>Información Adicional</value>
   </data>
   <data name="DBTOOL_GETPROPERTIES">
-    <value>SECURITYCHECK_HEADERPROPERTIES</value>
+    <value>Propiedades</value>
   </data>
   <data name="SECURITYCHECK_HEADERPROPERTIES">
-    <value>SECURITYCHECK_HEADERPROPERTIES</value>
+    <value>Propiedades</value>
   </data>
   <data name="DBTOOL_OWNER">
     <value>Propietario</value>
@@ -938,10 +938,10 @@
     <value>Caducidad por defecto (en días)</value>
   </data>
   <data name="DELETE">
-    <value>SECURITYCHECK_HEADERDELETE</value>
+    <value>Borrar</value>
   </data>
   <data name="SECURITYCHECK_HEADERDELETE">
-    <value>SECURITYCHECK_HEADERDELETE</value>
+    <value>Borrar</value>
   </data>
   <data name="DELETEBTN">
     <value>Borrar elemento seleccionado</value>
@@ -1097,10 +1097,10 @@
     <value>Responder Mensaje</value>
   </data>
   <data name="EDIT">
-    <value>SECURITYCHECK_HEADEREDIT</value>
+    <value>Editar</value>
   </data>
   <data name="SECURITYCHECK_HEADEREDIT">
-    <value>SECURITYCHECK_HEADEREDIT</value>
+    <value>Editar</value>
   </data>
   <data name="EDITBTN">
     <value>Modificar propiedades de los elementos seleccionados</value>
@@ -1529,16 +1529,16 @@
     <value>Wire Transfer</value>
   </data>
   <data name="GOOGLE_SEARCH">
-    <value>SECURITYCHECK_SEARCH</value>
+    <value>Buscar</value>
   </data>
   <data name="PORTALSEARCH_SEARCH">
-    <value>SECURITYCHECK_SEARCH</value>
+    <value>Buscar</value>
   </data>
   <data name="SEARCH">
-    <value>SECURITYCHECK_SEARCH</value>
+    <value>Buscar</value>
   </data>
   <data name="SECURITYCHECK_SEARCH">
-    <value>SECURITYCHECK_SEARCH</value>
+    <value>Buscar</value>
   </data>
   <data name="GOOGLE_START">
     <value>Desde</value>
@@ -2255,10 +2255,10 @@
     <value>Título del Módulo</value>
   </data>
   <data name="PORTALSEARCH_TAB">
-    <value>SECURITYCHECK_HEADERTAB</value>
+    <value>Página</value>
   </data>
   <data name="SECURITYCHECK_HEADERTAB">
-    <value>SECURITYCHECK_HEADERTAB</value>
+    <value>Página</value>
   </data>
   <data name="PORTALSEARCH_TESTINFO">
     <value>Info Prueba</value>
@@ -2528,19 +2528,19 @@
     <value>SECURITY</value>
   </data>
   <data name="SECURITYCHECK_HEADERADMIN">
-    <value>SECURITYCHECK_HEADERADMIN</value>
+    <value>Admin</value>
   </data>
   <data name="SECURITYCHECK_HEADERDELMOD">
-    <value>SECURITYCHECK_HEADERDELMOD</value>
+    <value>Borrar Mod.</value>
   </data>
   <data name="SECURITYCHECK_HEADERMOVE">
-    <value>SECURITYCHECK_HEADERMOVE</value>
+    <value>Mover</value>
   </data>
   <data name="SECURITYCHECK_HEADERVIEW">
-    <value>SECURITYCHECK_HEADERVIEW</value>
+    <value>Ver</value>
   </data>
   <data name="SECURITYCHECK_ONLYADMIN">
-    <value>SECURITYCHECK_ONLYADMIN</value>
+    <value>Sólo Módulos Admin</value>
   </data>
   <data name="SECURITY_USER_SETTINGS">
     <value>Propiedades de Seguridad y usuarios</value>
@@ -4297,9 +4297,6 @@
   <data name="SignInType">
     <value>Tipo de Identificación</value>
   </data>
-  <data name="TABKEYPHRASE_ES-ES">
-    <value>Frase clave para la página (es-ES)</value>
-  </data>
   <data name="TABKEYPHRASE_ES-ES_DESCRIPTION">
     <value>Frase clave para esta página de Cultura Española (España).</value>
   </data>
@@ -5347,12 +5344,6 @@
   <data name="SURVEY_NEWQUESTION">
     <value>Nueva Pregunta</value>
   </data>
-  <data name="TABKEYPHRASE_BG-BG">
-    <value>TABKEYPHRASE_BG-BG</value>
-  </data>
-  <data name="TABKEYPHRASE_BG-BG_DESCRIPTION">
-    <value>TABKEYPHRASE_BG-BG_DESCRIPTION</value>
-  </data>
   <data name="TR">
     <value>TR</value>
   </data>
@@ -5418,6 +5409,9 @@
   </data>
   <data name="AM_BOTOMPANEL">
     <value>Panel Inferior</value>
+  </data>
+  <data name="TABKEYPHRASE_ES-ES">
+    <value>Frase clave para la página (es-ES)</value>
   </data>
   <data name="CONFIRM_PASSWORD">
     <value>Confirm password</value>

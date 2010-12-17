@@ -239,16 +239,16 @@
     <value>Nombre Página Móvil</value>
   </data>
   <data name="AM_MODULELOCATION">
-    <value>Localización del Módulo:</value>
+    <value>Ubicación del Módulo:</value>
   </data>
   <data name="AM_MODULENAME">
     <value>Nombre del módulo:</value>
   </data>
   <data name="AM_MODULETYPE">
-    <value>Tipo Módulo</value>
+    <value>Tipo de Módulo</value>
   </data>
   <data name="SECURITYCHECK_HEADERTYPE">
-    <value>Tipo Módulo</value>
+    <value>Tipo de Módulo</value>
   </data>
   <data name="AM_MODULEVISIBLETO">
     <value>Módulo Visible a:</value>
@@ -4102,9 +4102,6 @@
   <data name="SignInType">
     <value>Tipo de Identificación</value>
   </data>
-  <data name="TABKEYPHRASE_ES-ES">
-    <value>Frase clave para la página (es-ES)</value>
-  </data>
   <data name="TABKEYPHRASE_ES-ES_DESCRIPTION">
     <value>Frase clave para esta página de Cultura Española (España).</value>
   </data>
@@ -4251,6 +4248,9 @@
   </data>
   <data name="AM_BOTOMPANEL">
     <value>Panel Inferior</value>
+  </data>
+  <data name="TABKEYPHRASE_ES-ES">
+    <value>Frase clave para la página (es-ES)</value>
   </data>
   <data name="BG-BG">
     <value>BG-BG</value>
