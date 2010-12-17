@@ -343,7 +343,7 @@ MasterPageFile="~/Shared/SiteMasterDefault.master" Codebehind="PageLayout.aspx.c
                     <tr>
                         <td class="NormalBold">
                             &nbsp;
-                            <rbfwebui:Localize ID="bottomPanel" runat="server" Text="Top Pane" TextKey="AM_BOTOMPANEL">
+                            <rbfwebui:Localize ID="bottomPanel" runat="server" Text="Bottom Pane" TextKey="AM_BOTOMPANEL">
                             </rbfwebui:Localize>
                         </td>
                     </tr>
