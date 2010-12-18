@@ -182,6 +182,7 @@
     <Compile Include="KickStarter\CommonClasses\Error.cs" />
     <Compile Include="KickStarter\CommonClasses\SQLHelper.cs" />
     <Compile Include="Model\ModelServices.cs" />
+    <Compile Include="Monitoring\MonitoringAction.cs" />
     <Compile Include="Monitoring\Utility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GlobalEnums.cs" />

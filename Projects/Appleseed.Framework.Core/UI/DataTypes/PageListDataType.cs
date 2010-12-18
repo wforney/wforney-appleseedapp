@@ -1,6 +1,7 @@
 ﻿namespace Appleseed.Framework.DataTypes
 {
     using System.Collections;
+    using System.Collections.Generic;
     using System.Web;
 
     using Appleseed.Framework.Site.Configuration;
@@ -60,7 +61,7 @@
         /// Gets the page list.
         /// </summary>
         /// <returns>The page list.</returns>
-        private static ArrayList GetPageList()
+        private static List<PageItem> GetPageList()
         {
             var portalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
             return new PagesDB().GetPagesFlat(portalSettings.PortalID);
