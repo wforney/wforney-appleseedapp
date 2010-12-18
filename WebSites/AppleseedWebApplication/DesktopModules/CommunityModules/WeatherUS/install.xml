@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Modules>
+	<Module>
+		<FriendlyName>Weather US</FriendlyName>
+		<DesktopSource>DesktopModules/CommunityModules/WeatherUS/WeatherUS.ascx</DesktopSource>
+		<MobileSource></MobileSource>
+	</Module>
+</Modules>

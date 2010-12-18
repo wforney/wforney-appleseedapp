@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Modules>
+	<Module>
+		<FriendlyName>Search Site - via DB (beta, slow/unreliable use Google module instead)</FriendlyName>
+		<DesktopSource>DesktopModules/CommunityModules/PortalSearch/PortalSearch.ascx</DesktopSource>
+		<MobileSource></MobileSource>
+	</Module>
+</Modules>

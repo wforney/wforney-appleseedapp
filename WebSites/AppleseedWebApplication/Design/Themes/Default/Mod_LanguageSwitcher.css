@@ -1,0 +1,23 @@
+/* CSS for LanguageSwitcher */
+.rb_LangSw_tbl{
+text-decoration:none;
+}
+/* Important the order:link,visited,hover,focus,active. see http://www.w3.org/TR/REC-CSS2/selector.html  */
+.rb_LangSw_tbl A:link{
+text-decoration:none;
+}
+.rb_LangSw_tbl A:visited{
+text-decoration:none;
+}
+.rb_LangSw_tbl A:hover{
+color:#999999;
+}
+.rb_LangSw_tbl A:focus{
+color:#999999;
+}
+.rb_LangSw_tbl A:active{
+text-decoration:none;
+}
+.rb_LangSw_sel{
+color:#999999;
+}

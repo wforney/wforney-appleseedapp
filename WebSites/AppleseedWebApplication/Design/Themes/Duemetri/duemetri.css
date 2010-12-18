@@ -1,0 +1,934 @@
+@import url(MenuSolpart.css);
+@import url(TabControl.css);
+
+
+/* Standard HTML tags */
+BODY
+{
+	padding-left: 0px;
+	font-size: 10pt;
+	padding-bottom: 0px;
+	margin: 0px;
+	padding-top: 0px;
+	background-color: #ffffe1;
+	padding-right: 0px;
+	width:100%;
+}
+P
+{
+	margin-top: 1px;
+	font-size: 10pt;
+	color: #333333;
+	padding-top: 0px;
+	font-family: Verdana, Helvetica, sans;
+}
+/* Important the order: link, visited, hover, focus, active. see http://www.w3.org/TR/REC-CSS2/selector.html  */
+A:link
+{
+	font-size: 10pt;
+	color: #000099;
+	text-decoration: none;
+}
+A:visited
+{
+	font-size: 10pt;
+	border-left: none;
+	color: #000099;
+	text-decoration: none;
+}
+A:hover
+{
+	color: #999999;
+	text-decoration: none;
+}
+A:focus
+{
+	color: #999999;
+	text-decoration: none;
+}
+A:active
+{
+	color: #66ccff;
+	text-decoration: none;
+}
+DIV
+{
+	font-size: 10pt;
+}
+H1
+{
+	font-weight: bold;
+	font-size: 15pt;
+}
+H2
+{
+	font-weight: bold;
+	font-size: 14pt;
+}
+H3
+{
+	font-weight: bold;
+	font-size: 13pt;
+}
+H4
+{
+	font-weight: bold;
+	font-size: 12pt;
+}
+H5
+{
+	font-weight: bold;
+	font-size: 11pt;
+}
+H6
+{
+	font-weight: bold;
+	font-size: 10pt;
+}
+HR
+{
+	color: #999999;
+	height: 1pt;
+	text-align: center;
+}
+IMG
+{
+	border-right: none;
+	border-top: none;
+	border-left: none;
+	border-bottom: none;
+}
+INPUT.CommandButton
+{
+	border-right: #333333 thin solid;
+	padding-right: 3pt;
+	border-top: #cccccc thin solid;
+	padding-left: 3pt;
+	font-weight: 600;
+	font-size: 8pt;
+	padding-bottom: 3pt;
+	border-left: #cccccc thin solid;
+	color: #ffffff;
+	line-height: 7pt;
+	padding-top: 3pt;
+	border-bottom: #333333 thin solid;
+	font-family: Verdana, Helvetica, sans;
+	background-color: #999999;
+	text-decoration: none;
+}
+INPUT
+{
+	font-size: 8pt;
+	font-family: Verdana, Helvetica, sans;
+}
+TABLE
+{
+	font-size: 10pt;
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+}
+THEAD
+{
+	font-size: 10pt;
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+}
+TR
+{
+	font-size: 10pt;
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+}
+TH
+{
+	font-size: 10pt;
+	vertical-align: baseline;
+	color: #333333;
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+}
+TD
+{
+	font-size: 10pt;
+	color: #333333;
+	font-family: Verdana, Helvetica, sans;
+}
+TFOOT
+{
+	font-size: 10pt;
+}
+TEXTAREA
+{
+	font-size: 8pt;
+	font-family: Verdana, Helvetica, sans;
+}
+OL
+{
+	font-size: 10pt;
+}
+UL
+{
+	font-size: 10pt;
+	list-style-image: url(img/bulleye.gif);
+}
+
+
+/* Standard Appleseed Classes */
+
+/* Command buttons */
+.CommandButton
+{
+	font-size: 8pt;
+	font-weight: 600;
+	color: #333333;
+	font-family: Verdana, Helvetica, sans;
+	background-color: #0066cc;
+	text-decoration: none;
+	white-space: nowrap;
+	line-height: 18pt;
+	padding-right: 5px;
+	padding-left: 5px;
+	padding-bottom: 3px;
+	padding-top: 3px;
+	border-bottom: #000099 2px solid;
+	border-left: #66ccff 2px solid;
+	border-top: #66ccff 2px solid;
+	border-right: #000099 2px solid;
+	display: inline;
+}
+
+/* Important the order: link, visited, hover, focus, active. see http://www.w3.org/TR/REC-CSS2/selector.html  */
+
+A.CommandButton:link
+{
+	font-size: 8pt;
+	color: #cccccc;
+	text-decoration: none;
+}
+A.CommandButton:visited
+{
+	font-size: 8pt;
+	color: #cccccc;
+	text-decoration: none;
+}
+A.CommandButton:hover
+{
+	font-size: 8pt;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+A.CommandButton:focus
+{
+	font-size: 8pt;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+A.CommandButton:active
+{
+	font-size: 8pt;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+.EnhancedHtmlTitlePage /* Enhanced module support */
+{
+	font-weight: normal;
+	font-size: 12pt;
+	color: #333333;
+	font-family: Verdana, Helvetica, sans;
+}
+.EnhancedHtmlLink
+{
+	font-weight: bold;
+	font-size: 10pt;
+	color: #333333;
+	font-family: Verdana, Helvetica, sans;
+}
+A.EnhancedHtmlLink:link
+{
+	color: #000000;
+	text-decoration: none;
+}
+A.EnhancedHtmlLink:visited
+{
+	color: #999999;
+	text-decoration: none;
+}
+A.EnhancedHtmlLink:hover
+{
+	color: #cccccc;
+	text-decoration: none;
+}
+A.EnhancedHtmlLink:focus
+{
+	color: #cccccc;
+	text-decoration: none;
+}
+A.EnhancedHtmlLink:active
+{
+	color: #333333;
+	text-decoration: none;
+}
+
+.Error /* Error and warning messages */
+{
+	color: #FF0000;
+}
+.Grid_Header, .Grid_Header TD, .Grid_Header TH /* Search Modules */
+{
+	background-color: #999999;
+	font-weight: 600;
+}
+.Grid_Footer
+{
+}
+.Grid_Item
+{
+}
+.Grid_Item TD A
+{
+	font-weight: 600;
+}
+.Grid_AlternatingItem
+{
+	background-color: #CCCCCC;
+}
+.Grid_AlternatingItem TD A
+{
+	font-weight: 600;
+}
+.Grid_SelectedItem
+{
+}
+.Grid_Pager
+{
+}
+.Head /* Add, announcements, articles, blog, ecc ecc */
+{
+	font-weight: bold;
+	font-size: 12pt;
+	color: #999999;
+	font-family: Verdana, Helvetica, sans;
+}
+INPUT.NormalTextBox, .NormalTextBox
+{
+	font-size: 10pt;
+	font-family: Verdana, Helvetica, sans;
+}
+SELECT, SELECT.NormalTextBox
+{
+	font-size: 10pt;
+	font-family: Verdana, Helvetica, sans;
+}
+OPTION
+{
+	font-size: 10pt;
+	font-family: Verdana, Helvetica, sans;
+}
+.ItemTitle
+{
+	font-weight: bolder;
+	font-size: 10pt;
+	color: #999999;
+}
+.ItemDate
+{
+	font-size: 10pt;
+	color: #999999;
+	font-family: Verdana, Helvetica, sans;
+}
+
+.Message /* Informative messages */
+{
+	font-weight: normal;
+	font-size: 10pt;
+	color: #000099;
+	background-color: #ffcc00;
+}
+.ModuleTitle /* Title of each module */
+{
+	font-weight: 600;
+	font-size: 10pt;
+	color: #333333;
+	line-height: 14pt;
+	font-family: Verdana, Helvetica, sans;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.Module /* Module */
+{
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	background-color: #FFFFFF;
+}
+.ModuleAlt /* Module variant */
+{
+	background-color: #FFFFFF;
+}
+.Normal
+{
+	padding-right: 0pt;
+	font-size: 10pt;
+	color: #333333;
+	font-family: Verdana, Helvetica, sans;
+	line-height: normal;
+	letter-spacing: normal;
+}
+.NormalBold
+{
+	padding-left: 5pt;
+	font-weight: bold;
+	font-size: 10pt;
+	color: #333333;
+	font-family: Verdana, Helvetica, sans;
+}
+.NormalItalic
+{
+	font-size: 10pt;
+	font-style: italic;
+}
+
+.rb_LangSw_tbl /* Language switcher */
+{
+	text-decoration: none;
+}
+/* Important the order: link, visited, hover, focus, active. see http://www.w3.org/TR/REC-CSS2/selector.html  */
+.rb_LangSw_tbl A:link
+{
+	text-decoration: none;
+}
+.rb_LangSw_tbl A:visited
+{
+	text-decoration: none;
+}
+.rb_LangSw_tbl A:hover
+{
+	color: #999999;
+}
+.rb_LangSw_tbl A:focus
+{
+	color: #999999;
+}
+.rb_LangSw_tbl A:active
+{
+	text-decoration: none;
+}
+.rb_LangSw_sel
+{
+	color: #999999;
+}
+
+.rb_DefaultLayoutTable /* Styles for default Tabs */
+{
+	width:980px;
+}
+.rb_DefaultPortalHeader
+{
+	background-color: #0066cc;
+}
+.rb_DefaultLayoutDiv
+{
+	width:980px;
+}
+.rb_DefaultPortalFooter
+{
+	width:980px;
+}
+/* Alternate styles for admin and edit Tabs */
+.rb_AlternateLayoutTable
+{
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+}
+.rb_AlternatePortalHeader
+{
+	background-color: #0066cc;
+}
+.rb_AlternateLayoutDiv
+{
+}
+.rb_AlternatePortalFooter
+{
+}
+
+.rb_mod_btn /* Buttons support */
+{
+	display: block;
+	margin: 0px 0px 0px 2px;
+}
+.btn-img-txt
+{
+}
+.btn-img-only
+{
+}
+.btn-img-txt
+{
+	overflow: hidden;
+}
+.btn-img-only-css
+{
+	overflow: hidden;
+}
+DIV.btn-img-only
+{
+	display: block;
+	overflow: hidden;
+	width: 0px;
+	height: 0px;
+}
+DIV.btn-img-only-css
+{
+	display: block;
+	overflow: hidden;
+	width: 0px;
+	height: 0px;
+}
+DIV.btn-img-txt
+{
+	display: block;
+	overflow: hidden;
+	width: 0px;
+	height: 0px;
+}
+DIV.btn-txt-only
+{
+	font-size: 9pt;
+	line-height: 0.8;
+}
+.rb_mod_btn
+{
+	display: block;
+	margin: 0px 0px 0px 2px;
+}
+
+.SiteLink /* Used on Header menu in Layouts */
+{
+	font-weight: normal;
+	font-size: 7pt;
+	color: #000099;
+	font-family: Verdana, Helvetica, sans;
+	background-color: #66ccff;
+	text-align: center;
+	display: block;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+	padding-right: 4px;
+	padding-left: 4px;
+}
+
+/* Important the order: link, visited, hover, focus, active. see http://www.w3.org/TR/REC-CSS2/selector.html  */
+
+.SiteLink A:link
+{
+	display: block;
+	font-size: 7pt;
+	color: #333333;
+	text-align: center;
+	text-decoration: none;
+}
+.SiteLink A:visited
+{
+	color: #333333;
+	font-size: 7pt;
+}
+.SiteLink A:hover
+{
+	color: #000099;
+	font-size: 7pt;
+}
+.SiteLink A:focus
+{
+	color: #000099;
+	font-size: 7pt;
+}
+.SiteLink A:active
+{
+	color: #333333;
+	font-size: 7pt;
+}
+
+.SiteTitle /* Portal title in Header, in layout file */
+{
+	padding-right: 0px;
+	padding-left: 0px;
+	font-weight: bold;
+	font-size: 22pt;
+	padding-bottom: 0px;
+	color: #FFFFFF;
+	padding-top: 0px;
+	font-family: Verdana, Helvetica, sans;
+	text-decoration: none;
+}
+.SubHead
+{
+	font-weight: 600;
+	font-size: 10pt;
+	color: #333333;
+	padding-top: 4px;
+	font-family: Verdana, Helvetica, sans;
+}
+.SubSubHead
+{
+	margin-top: 10pt;
+	font-weight: 600;
+	font-size: 10pt;
+	color: #000099;
+}
+.SurveyQuestion /* Survey module support */
+{
+	padding-right: 5px;
+	padding-left: 5px;
+}
+.SurveyOption
+{
+}
+.SurveyButton
+{
+	font-weight: 600;
+}
+
+/* Three panes */
+.LeftPane
+{
+	padding-right: 0px;
+	padding-left: 10px;
+	padding-bottom: 0px;
+	margin: 0px;
+	padding-top: 10px;
+}
+.RightPane
+{
+	padding-right: 10px;
+	padding-left: 0px;
+	padding-bottom: 0px;
+	margin: 0px;
+	padding-top: 10px;
+}
+.ContentPane
+{
+	border-right: none;
+	padding-right: 10px;
+	border-top: none;
+	padding-left: 10px;
+	padding-bottom: 0px;
+	margin: 0px;
+	border-left: none;
+	padding-top: 10px;
+	border-bottom: none;
+}
+
+.DefaultBanner1 /* Graphics */
+{
+	background-color: #000099;
+}
+.DefaultBanner2 /* Graphics */
+{
+	background-color: #333333;
+}
+.DefaultTD /* Graphics */
+{
+	background-color: #cccccc;
+}
+.DefaultTDSub /* Graphics */
+{
+	background-color: #999999;
+}
+
+.Tabs /* PortalTabs in Default Layout & DefaultSubTabs Layout */
+{
+	border-right: #0066cc;
+	padding-right: 10px;
+	border-top: #0066cc;
+	padding-left: 10px;
+	font-weight: 600;
+	font-size: 8pt;
+	background-image: none;
+	padding-bottom: 2px;
+	margin: 0px;
+	overflow: visible;
+	border-left: #0066cc;
+	line-height: normal;
+	padding-top: 2px;
+	border-bottom: #0066cc;
+	background-repeat: repeat;
+	font-family: Verdana, Helvetica, sans;
+	text-align: center;
+}
+
+/* Important the order: link, visited, hover, focus, active. see http://www.w3.org/TR/REC-CSS2/selector.html  */
+.Tabs A:link
+{
+	color: #333333;
+	text-decoration: none;
+}
+.Tabs A:visited
+{
+	color: #333333;
+	text-decoration: none;
+}
+.Tabs A:hover
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.Tabs A:focus
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.Tabs A:active
+{
+	color: #333333;
+	text-decoration: none;
+}
+.SelectedTabs /* PortalTabs in Default Layout & DefaultSubTabs Layout */
+{
+	border-right: #FFFFFF;
+	padding-right: 10px;
+	border-top: #FFFFFF;
+	padding-left: 10px;
+	font-weight: 600;
+	font-size: 8pt;
+	background-image: none;
+	padding-bottom: 2px;
+	margin: 0px;
+	overflow: visible;
+	border-left: #FFFFFF;
+	line-height: normal;
+	padding-top: 2px;
+	border-bottom: #0066cc 1pt;
+	background-repeat: repeat;
+	font-family: Verdana, Helvetica, sans;
+	background-color: #999999;
+	text-align: center;
+}
+/* Important the order: link, visited, hover, focus, active. see http://www.w3.org/TR/REC-CSS2/selector.html  */
+.SelectedTabs A:link
+{
+	border-right: none;
+	padding-right: 0px;
+	border-top: none;
+	padding-left: 0px;
+	padding-bottom: 0px;
+	margin: 0px;
+	border-left: none;
+	color: #FFFFFF;
+	padding-top: 0px;
+	border-bottom: none;
+	text-decoration: none;
+}
+.SelectedTabs A:visited
+{
+	border-right: none;
+	border-top: none;
+	border-left: none;
+	color: #FFFFFF;
+	border-bottom: none;
+	text-decoration: none;
+}
+.SelectedTabs A:hover
+{
+	border-right: none;
+	border-top: none;
+	border-left: none;
+	color: #FFFFFF;
+	border-bottom: none;
+	text-decoration: none;
+}
+.SelectedTabs A:focus
+{
+	border-right: none;
+	border-top: none;
+	border-left: none;
+	color: #FFFFFF;
+	border-bottom: none;
+	text-decoration: none;
+}
+.SelectedTabs A:active
+{
+	border-right: none;
+	border-top: none;
+	border-left: none;
+	color: #FFFFFF;
+	border-bottom: none;
+	text-decoration: none;
+}
+
+.MenuItem /* Menu in Default Layout */
+{
+	border-right: #FFFFFF 1px solid;
+	font-weight: 600;
+	font-size: 10pt;
+	border-left: #FFFFFF 1px solid;
+	border-bottom: #FFFFFF 1px solid;
+	font-family: Verdana, Helvetica, sans;
+	background-color: #cccccc;
+}
+.MenuItemHi
+{
+	border-right: #FFFFFF 1px solid;
+	border-left: #FFFFFF 1px solid;
+	border-bottom: #FFFFFF 1px solid;
+	background-color: #999999;
+}
+.MenuSub
+{
+	border-bottom: #FFFFFF 1px solid;
+	background-color: #cccccc;
+}
+.MenuSubHi
+{
+	border-bottom: #FFFFFF 1px solid;
+	background-color: #999999;
+}
+
+.HWMenuItem /* Top menu in MenuHWDropDown Layout */
+{
+	font-weight: 600;
+	font-size: 10pt;
+	border-bottom: 1px #FFFFFF;
+	font-family: Verdana, Helvetica, sans;
+	background-color: #cccccc;
+}
+.HWMenuItemHi
+{
+	color: #FFFFFF;
+	background-color: #999999;
+}
+.HWMenuSub
+{
+	border-bottom: #FFFFFF 1px solid;
+	background-color: #cccccc;
+}
+.HWMenuSubHi
+{
+	color: #FFFFFF;
+	border-bottom: #FFFFFF 1px solid;
+	background-color: #999999;
+}
+
+.SubTabs /* PortalTabs in DefaultSubTabs Layout */
+{
+	border-right: #FFFFFF thin;
+	padding-right: 10px;
+	border-top: #FFFFFF thin;
+	padding-left: 10px;
+	font-weight: 600;
+	font-size: 8pt;
+	padding-bottom: 2px;
+	border-left: #FFFFFF thin;
+	color: #FFFFFF;
+	line-height: normal;
+	padding-top: 2px;
+	border-bottom: #FFFFFF thin;
+	font-family: Verdana, Helvetica, sans;
+	background-color: #999999;
+	text-align: center;
+}
+/* Important the order: link, visited, hover, focus, active. see http://www.w3.org/TR/REC-CSS2/selector.html  */
+.SubTabs A:link
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.SubTabs A:visited
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.SubTabs A:hover
+{
+	color: #666666;
+	text-decoration: none;
+}
+.SubTabs A:focus
+{
+	color: #666666;
+	text-decoration: none;
+}
+.SubTabs A:active
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.SelectedSubTabs /* PortalTabs in DefaultSubTabs Layout */
+{
+	border-right: #FFFFFF thin;
+	padding-right: 10px;
+	border-top: #FFFFFF thin;
+	padding-left: 10px;
+	font-weight: 600;
+	font-size: 8pt;
+	padding-bottom: 2px;
+	border-left: #FFFFFF thin;
+	color: #333333;
+	line-height: normal;
+	padding-top: 2px;
+	border-bottom: #FFFFFF thin;
+	font-family: Verdana, Helvetica, sans;
+	background-color: #66ccff;
+	text-align: center;
+}
+
+
+
+/* Important the order: link, visited, hover, focus, active. see http://www.w3.org/TR/REC-CSS2/selector.html  */
+.SelectedSubTabs A:link
+{
+	color: #666666;
+	text-decoration: none;
+}
+.SelectedSubTabs A:visited
+{
+	color: #666666;
+	text-decoration: none;
+}
+.SelectedSubTabs A:hover
+{
+	color: #666666;
+	text-decoration: none;
+}
+.SelectedSubTabs A:focus
+{
+	color: #666666;
+	text-decoration: none;
+}
+.SelectedSubTabs A:active
+{
+	color: #666666;
+	text-decoration: none;
+}
+
+/* ===================================================================================
+   These styles are primarily intended for use with the Task Module.
+   NOTE: Only three status change the color.
+     Complete = 100%
+     Beginning < 50%
+	 NearlyComplete >= 50% and < 100%
+   =================================================================================== */
+.Task_Complete
+{
+	color: white;
+	background-color: #ffffff;
+}
+.Task_Beginning
+{
+	background-color: #ffffff;
+}
+.Task_NearlyComplete
+{
+	background-color: #ffffff;
+}
+

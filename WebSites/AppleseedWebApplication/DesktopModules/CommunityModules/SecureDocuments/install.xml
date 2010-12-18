@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Modules>
+	<Module>
+		<FriendlyName>Secure Documents</FriendlyName>
+		<DesktopSource>DesktopModules/CommunityModules/SecureDocuments/SecureDocuments.ascx</DesktopSource>
+		<MobileSource></MobileSource>
+	</Module>
+</Modules>

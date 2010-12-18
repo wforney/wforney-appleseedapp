@@ -1,0 +1,111 @@
+<?xml version="1.0" standalone="yes" ?>
+<Theme>
+	<Name>default</Name>
+	<Css>default.css</Css>
+	<MinimizeColor>#aaaaaa</MinimizeColor>
+	<Images>
+		<ThemeImage Name="Spacer" ImageUrl="icon/Spacer.gif" Width="1" Height="1" />
+		<ThemeImage Name="Navlink" ImageUrl="icon/NavLink.gif" Width="6" Height="7" />
+		<ThemeImage Name="Checked" ImageUrl="icon/Checked.gif" Width="13" Height="13" />
+		<ThemeImage Name="Unchecked" ImageUrl="icon/Unchecked.gif" Width="13" Height="13" />
+		<ThemeImage Name="Buttons_Add" ImageUrl="icon/Add.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Security" ImageUrl="icon/Security.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Approve" ImageUrl="icon/Approve.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Back" ImageUrl="icon/Back.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Close" ImageUrl="icon/Close.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Delete" ImageUrl="icon/Delete.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_DeleteModule" ImageUrl="icon/DeleteModule.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Down" ImageUrl="icon/Down.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Edit" ImageUrl="icon/Edit.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Email" ImageUrl="icon/Email.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Help" ImageUrl="icon/Help.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Left" ImageUrl="icon/Left.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Max" ImageUrl="icon/Max.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Min" ImageUrl="icon/Min.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Print" ImageUrl="icon/Print.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Properties" ImageUrl="icon/Properties.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Publish" ImageUrl="icon/Publish.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_ReadyToApprove" ImageUrl="icon/ReadyToApprove.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Reject" ImageUrl="icon/Reject.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Revert" ImageUrl="icon/Revert.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Right" ImageUrl="icon/Right.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Save" ImageUrl="icon/Save.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_Up" ImageUrl="icon/Up.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_VersionToStaging" ImageUrl="icon/VersionToStaging.gif" Width="23" Height="19" />
+		<ThemeImage Name="Buttons_VersionToProduction" ImageUrl="icon/VersionToProduction.gif" Width="23" Height="19" />
+		<!-- Module Images -->
+		<!-- Double occurence
+		<ThemeImage Name="Spacer" ImageUrl="img/1x1.gif" />
+		-->
+		<!--
+		<ThemeImage Name="Buttons_Up" ImageUrl="img/arrow.gif" />
+		<ThemeImage Name="Buttons_Up" ImageUrl="img/arrow_down.gif" />
+		<ThemeImage Name="Buttons_Up" ImageUrl="img/arrow_left.gif" />
+		<ThemeImage Name="Buttons_Up" ImageUrl="img/discuss.gif" />
+		<ThemeImage Name="Buttons_Up" ImageUrl="img/edit.gif" />
+		<ThemeImage Name="Buttons_Up" ImageUrl="img/fileedit.jpg" />
+		<ThemeImage Name="Buttons_Up" ImageUrl="img/plus.gif" />		
+		-->
+		<ThemeImage Name="Item_Delete" ImageUrl="img/delete.png" />
+		<ThemeImage Name="Item_Edit" ImageUrl="img/edit.png" />
+		<ThemeImage Name="Folder" ImageUrl="img/dir.gif" />
+		<ThemeImage Name="Folder_Open" ImageUrl="img/dir_open.gif" />
+		<ThemeImage Name="File_Manager_Folder_New" ImageUrl="img/newfolder.gif" />
+		<ThemeImage Name="File_Manager_Folder_UP" ImageUrl="img/FolderUp.gif" />
+		<ThemeImage Name="Page_Add" ImageUrl="img/page_add.gif" />		
+		<ThemeImage Name="Page_Add_Child" ImageUrl="img/page_add_child.gif" />		
+		<ThemeImage Name="Page_Edit" ImageUrl="img/page_edit.gif" />		
+		<ThemeImage Name="Page_Remove" ImageUrl="img/page_remove.gif" />		
+		<ThemeImage Name="Discussion_Reply" ImageUrl="img/reply.png" />		
+		<ThemeImage Name="Discussion_Thread" ImageUrl="img/Thread.png" />	
+		<ThemeImage Name="Discussion_Thread_Open" ImageUrl="img/ThreadOpen.png" />	
+		<ThemeImage Name="Discussion_View_Full_Thread" ImageUrl="img/full_thread.png" />
+		<ThemeImage Name="Discussion_New_Window" ImageUrl="img/new_window.gif" />
+		<ThemeImage Name="SiteMap_I" ImageUrl="img/sm_line_i.gif" />		
+		<ThemeImage Name="SiteMap_l" ImageUrl="img/sm_line_l.gif" />		
+		<ThemeImage Name="SiteMap_t" ImageUrl="img/sm_line_t.gif" />		
+		<ThemeImage Name="SiteMap_Node" ImageUrl="img/sm_node.gif" />		
+		<ThemeImage Name="SiteMap_Root" ImageUrl="img/sm_rootnode.gif" />	
+		<ThemeImage Name="SiteMap_Spacer" ImageUrl="img/sm_spacer.gif" />	
+	</Images>
+	<StyleSheets>
+		<StyleHeet Name="Module_Blogs" Src="mod/mod_Blogs.css" />
+		<StyleHeet Name="Module_PageManager" Src="mod/mod_PageManager.css" />
+		<StyleHeet Name="Module_Discussion" Src="mod/mod_Discussion.css" />
+	</StyleSheets>
+	<Parts>
+		<ThemePart Name="TitleStart">
+			<HTML><![CDATA[<table cellspacing='0' cellpadding='0' border='0' width='100%'><tr><td width='10' height='31'><img src='img/theme_1.gif' alt='design' width='10' height='31' /></td><td width="100%" height='31' background='img/theme_2.gif'><div class='ModuleTitle'>]]></HTML>
+		</ThemePart>
+		<ThemePart Name="TitleMiddle">
+			<HTML><![CDATA[</div></td><td height='31'><img alt='design' src='img/theme_middle.gif' width='15' height='31' /></td>]]></HTML>
+		</ThemePart>
+		<ThemePart Name="TitleBeforeButton">
+			<HTML><![CDATA[<td style='padding-top: 6px' height='31' background='img/theme_2.gif'>]]></HTML>
+		</ThemePart>
+		<ThemePart Name="TitleAfterButton">
+			<HTML><![CDATA[</td>]]></HTML>
+		</ThemePart>
+		<ThemePart Name="TitleEnd">
+			<HTML><![CDATA[<td height='31' width='10'><img src='img/theme_3.gif' alt='design' height='31' width='10' /></td></tr></table></td></tr>]]></HTML>
+		</ThemePart>
+		<ThemePart Name="ControlTitleEnd">
+			<HTML><![CDATA[<tr><td colspan='3'><table cellpadding='0' cellspacing='0' width='100%'><tr><td height='30' width='10'><img src='img/theme_6.gif' alt='design' height='30' width='10' /></td><td width='100%' background='img/theme_7.gif'><img src='img/theme_7.gif' alt='design' height='30' width='10' /></td><td width='10'><img src='img/theme_8.gif' alt='design' height='30' width='25' /></td></tr></table></td></tr></table><img src="img/shim.gif" alt='design' width="10" height="10" border="0" />]]></HTML>
+		</ThemePart>
+		<ThemePart Name="ControlTitleStart">
+			<HTML><![CDATA[<table cellspacing='0' cellpadding='0' border='0' width='100%'><tr><td colspan='3'>]]></HTML>
+		</ThemePart>
+		<ThemePart Name="ControlNoTitleStart">
+			<HTML><![CDATA[<table cellspacing='0' cellpadding='0' border='0' width='100%'><tr><td style='height:14px;width:14px;'><img src='img/box_tl.gif' alt='design' width='14' height='14' /></td><td background='img/box_t.gif'><img src='img/box_t.gif' alt='design' width='10' height='14' /></td><td style='height:14px;width:10px;'><img src='img/box_tr.gif' alt='design' width='14' height='14' /></td></tr><tr><td background='img/box_l.gif'><img src='img/box_l.gif' alt='design' width='14' height='10' /></td><td class='ModuleAlt' />]]></HTML>
+		</ThemePart>
+		<ThemePart Name="ControlNoTitleEnd">
+			<HTML><![CDATA[</td><td background='img/box_r.gif'><img src='img/box_r.gif' alt='design' width='14' height='10' /></td></tr><tr><td style='height:14px;width:14px;'><img src='img/box_bl.gif' alt='design' width='14' height='14' /></td><td background='img/box_b.gif'><img src='img/box_b.gif' alt='design' width='10' height='14' /></td><td style='width:14px;'><img src='img/box_br.gif' alt='design' width='14' height='14' /></td></tr></table><img src="img/shim.gif" width="10" height="10" border="0" />]]></HTML>
+		</ThemePart>
+		<ThemePart Name="ControlTitleBeforeControl">
+			<HTML><![CDATA[<tr><td width='10' background='img/theme_4.gif'><img alt='design' src='img/theme_4.gif' height='10' width='10' /></td><td width='100%' class='Module'>]]></HTML>
+		</ThemePart>
+		<ThemePart Name="ControlTitleAfterControl">
+			<HTML><![CDATA[</td><td width='10' background='img/theme_5.gif'><img alt='design' src='img/theme_5.gif' height='10' width='10' /></td></tr>]]></HTML>
+		</ThemePart>
+	</Parts>
+</Theme>

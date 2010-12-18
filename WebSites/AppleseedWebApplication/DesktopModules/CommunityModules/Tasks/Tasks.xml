@@ -1,0 +1,569 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Appleseed.Modules.Tasks</name>
+    </assembly>
+    <members>
+        <member name="T:Appleseed.Content.Web.ModulesTasks">
+            <summary>
+            Tasks module - Task list tool
+            Based on IBS module
+            Ported to Appleseed by Jakob Hansen, hansen3000@hotmail.com
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasks.myDataGrid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasks.myDataView">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasks.sortField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasks.sortDirection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasks.Literal1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasks.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The Page_Load event handler on this User Control is used to
+            obtain a DataReader of task information from the Tasks
+            table, and then databind the results to a templated DataList
+            server control.  It uses the Appleseed.TasksDB()
+            data component to encapsulate all data functionality.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasks.SortTasks(System.Object,System.Web.UI.WebControls.DataGridSortCommandEventArgs)">
+            <summary>
+            The SortTasks event handler sorts the task list (a DataGrid control)
+            </summary>
+            <param name="source"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasks.BindGrid">
+            <summary>
+            Bind the tasks grid
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasks.PerCent(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasks.SearchSqlSelect(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Searchable module implementation
+            </summary>
+            <param name="portalID">The portal ID</param>
+            <param name="userID">ID of the user is searching</param>
+            <param name="searchString">The text to search</param>
+            <param name="searchField">The fields where perfoming the search</param>
+            <returns>The SELECT sql to perform a search on the current module</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasks.#ctor">
+            <summary>
+            Public constructor. Sets base settings for module.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasks.Install(System.Collections.IDictionary)">
+            <summary>
+            
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasks.Uninstall(System.Collections.IDictionary)">
+            <summary>
+            
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasks.OnInit(System.EventArgs)">
+            <summary>
+            Raises OnInitEvent
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesTasks.Searchable">
+            <summary>
+            If the module is searchable you
+            must override the property to return true
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesTasks.GuidID">
+            <summary>
+            General module def GUID
+            </summary>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesTasksDB">
+            <summary>
+            IBS Tasks module
+            Class that encapsulates all data logic necessary to add/query/delete
+            tasks within the Portal database.
+            Written by: ??? (the guy did not write his name in the original code)
+            Moved into Appleseed by Jakob Hansen, hansen3000@hotmail.com
+            EHN - By Mike Stone Change Description field to ntext to remove the 3000 char limit
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasksDB.GetTasks(System.Int32)">
+            <summary>
+            GetTasks
+            NOTE: A DataSet is returned from this method to allow this method to support
+            both desktop and mobile Web UI.
+            </summary>
+            <returns>A DataSet</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasksDB.GetSingleTask(System.Int32)">
+            <summary>
+            GetSingleTask
+            </summary>
+            <param name="itemID">ItemID</param>
+            <returns>A SqlDataReader</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasksDB.DeleteTask(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="itemID"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasksDB.AddTask(System.Int32,System.Int32,System.String,System.String,System.DateTime,System.String,System.String,System.String,System.String,System.DateTime,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="moduleID"></param>
+            <param name="itemID"></param>
+            <param name="userName"></param>
+            <param name="title"></param>
+            <param name="startDate"></param>
+            <param name="description"></param>
+            <param name="status"></param>
+            <param name="priority"></param>
+            <param name="assignedto"></param>
+            <param name="dueDate"></param>
+            <param name="percentComplete"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasksDB.UpdateTask(System.Int32,System.Int32,System.String,System.String,System.DateTime,System.String,System.String,System.String,System.String,System.DateTime,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="moduleID"></param>
+            <param name="itemID"></param>
+            <param name="userName"></param>
+            <param name="title"></param>
+            <param name="startDate"></param>
+            <param name="description"></param>
+            <param name="status"></param>
+            <param name="priority"></param>
+            <param name="assignedto"></param>
+            <param name="dueDate"></param>
+            <param name="percentComplete"></param>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesTasksEdit">
+            <summary>
+            Tasks Module - Edit page part
+            Writen by: ?
+            Moved into Appleseed by Jakob Hansen, hansen3000@hotmail.com
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.TitleField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.RequiredTitle">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.PercentCompleteField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.PercentValidator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.StatusField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.PriorityField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.AssignedField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.PickDateCalendarScript">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.Literal1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.Literal3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.Literal4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.Literal5">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.Literal6">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.Literal7">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.Literal8">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.Literal9">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.Literal2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.CreatedBy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.CreatedDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.CreatedLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.OnLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.ModifiedBy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.ModifiedDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.ModifiedLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.ModifiedOnLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.StartField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.DueField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.VerifyEndDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.Requiredfieldvalidator1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.Datetextboxvalidator1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.RequiredEndDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.DescriptionField">
+             <summary>
+            Chris Farrell, chris@cftechconsulting.com, 5/28/04 added support
+            for all Appleseed-supported editors.
+             </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTasksEdit.DesktopText">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasksEdit.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The Page_Load event on this Page is used to obtain the ModuleID
+            and ItemID of the task to edit.
+            It then uses the Appleseed.TasksDB() data component
+            to populate the page's edit controls with the task details.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasksEdit.OnUpdate(System.EventArgs)">
+            <summary>
+            The OnUpdate event handler on this Page is used to either
+            create or update an task. It uses the Appleseed.TasksDB()
+            data component to encapsulate all data functionality.
+            Note: This procedure is automaticall called on Update
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasksEdit.OnDelete(System.EventArgs)">
+            <summary>
+            The OnDelete event handler on this Page is used to delete
+            an task. It uses the Appleseed.TasksDB() data component to
+            encapsulate all data functionality.
+            Note:This procedure is automaticall called on Update
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasksEdit.AddListItem(System.String,System.String,System.Web.UI.WebControls.DropDownList)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="translation"></param>
+            <param name="sender"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasksEdit.OnInit(System.EventArgs)">
+            <summary>
+            Raises OnInitEvent
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTasksEdit.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesTasksEdit.AllowedModules">
+            <summary>
+            Set the module guids with free access to this page
+            </summary>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesTaskView">
+            IBS Portal Tasks Module - Display all info about single task
+            Writen by: ?
+            Moved into Appleseed by Jakob Hansen, hansen3000@hotmail.com
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.TitleField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.longdesc">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.PercentCompleteField">
+            Chris Farrell, 5/27/04, chris@cftechconsulting.com
+            fix longdesc does not wrap text.
+            protected System.Web.UI.HtmlControls.HtmlGenericControl longdesc;
+             <summary>
+             
+             </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.StatusField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.PriorityField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.AssignedField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.StartField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.DueField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.CreatedBy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.CreatedDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.ModifiedBy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.ModifiedDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.Literal1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.Literal2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.Literal3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.Literal4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.Literal5">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.Literal6">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.Literal7">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.Literal8">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.Literal9">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.CreatedLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.OnLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.ModifiedLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.ModifiedOnLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesTaskView.EditLink">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTaskView.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The Page_Load event on this Page is used to obtain the ModuleID
+            and ItemID of the task to display.
+            It then uses the Appleseed.TasksDB() data component
+            to populate the page's edit controls with the task details.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTaskView.OnInit(System.EventArgs)">
+            <summary>
+            Raises OnInitEvent
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesTaskView.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesTaskView.AllowedModules">
+            <summary>
+            Set the module guids with free access to this page
+            </summary>
+        </member>
+    </members>
+</doc>
