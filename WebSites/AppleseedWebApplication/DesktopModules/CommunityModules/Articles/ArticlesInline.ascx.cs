@@ -1,90 +1,68 @@
-using System;
-using System.Data.SqlClient;
-using System.Web.UI.WebControls;
-using Appleseed.Framework;
-using Appleseed.Framework.Content.Data;
-using HyperLink=Appleseed.Framework.Web.UI.WebControls.HyperLink;
-using LinkButton=Appleseed.Framework.Web.UI.WebControls.LinkButton;
-using Localize=Appleseed.Framework.Web.UI.WebControls.Localize;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ArticlesInline.ascx.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   ArticlesInline
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System;
+    using System.Web.UI.WebControls;
+
+    using Appleseed.Framework;
+    using Appleseed.Framework.Content.Data;
+
     /// <summary>
-    /// ArticlesInline
+    /// Articles Inline
     /// </summary>
     public partial class ArticlesInline : Articles
     {
-
-        #region General Implementation
+        #region Properties
 
         /// <summary>
-        /// Guid
+        ///   Module Guid
         /// </summary>
         public override Guid GuidID
         {
-            get { return new Guid("{5B7B52D3-837C-4942-A85C-AAF4B5CC098F}"); }
-        }
-
-        #endregion
-
-        #region Web Form Designer generated code
-
-        /// <summary>
-        /// Raises Init event
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnInit(EventArgs e)
-        {
-            InitializeComponent();
-
-            base.OnInit(e);
-        }
-
-        private void InitializeComponent()
-        {
-            this.myDataList.ItemCommand += new DataListCommandEventHandler(this.myDataList_ItemCommand);
-            this.goBackTop.Click += new EventHandler(this.goback_Click);
-            this.goBackBottom.Click += new EventHandler(this.goback_Click);
-        }
-
-        #endregion
-
-        private void myDataList_ItemCommand(object source, DataListCommandEventArgs e)
-        {
-            if (e.CommandName == "View")
+            get
             {
-                int ItemID = int.Parse(e.CommandArgument.ToString());
-
-                if (ItemID > 0)
-                {
-                    BindData(ItemID);
-                    ArticleDetail.Visible = true;
-                    myDataList.Visible = false;
-                }
+                return new Guid("{5B7B52D3-837C-4942-A85C-AAF4B5CC098F}");
             }
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// The BindData method is used to obtain details of a message
-        /// from the Articles table, and update the page with
-        /// the message content.
+        ///   from the Articles table, and update the page with
+        ///   the message content.
         /// </summary>
-        private void BindData(int ItemID)
+        /// <param name="itemId">
+        /// The Item ID.
+        /// </param>
+        private void BindData(int itemId)
         {
-            if (IsEditable)
+            if (this.IsEditable)
             {
-                editLinkDetail.NavigateUrl =
-                    HttpUrlBuilder.BuildUrl("~/DesktopModules/CommunityModules/Articles/ArticlesEdit.aspx",
-                                            "ItemID=" + ItemID + "&mid=" + ModuleID);
-                editLinkDetail.Visible = true;
+                this.editLinkDetail.NavigateUrl =
+                    HttpUrlBuilder.BuildUrl(
+                        "~/DesktopModules/CommunityModules/Articles/ArticlesEdit.aspx", 
+                        string.Format("ItemID={0}&mid={1}", itemId, this.ModuleID));
+                this.editLinkDetail.Visible = true;
             }
             else
-                editLinkDetail.Visible = false;
-
+            {
+                this.editLinkDetail.Visible = false;
+            }
 
             // Obtain the selected item from the Articles table
-            ArticlesDB Article = new ArticlesDB();
-            SqlDataReader dr = Article.GetSingleArticle(ItemID, Version);
+            var article = new ArticlesDB();
+            var dr = article.GetSingleArticle(itemId, this.Version);
 
             try
             {
@@ -92,45 +70,74 @@ namespace Appleseed.Content.Web.Modules
                 if (dr.Read())
                 {
                     // Update labels with message contents
-                    TitleDetail.Text = dr["Title"].ToString();
+                    this.TitleDetail.Text = dr["Title"].ToString();
 
-                    //Chris@cftechconsulting.com  5/24/04 added subtitle to ArticlesView.
+                    // Chris@cftechconsulting.com  5/24/04 added subtitle to ArticlesView.
                     if (dr["Subtitle"].ToString().Length > 0)
                     {
-                        SubtitleDetail.Text = dr["Subtitle"].ToString();
-                    }
-                    StartDateDetail.Text = ((DateTime) dr["StartDate"]).ToShortDateString();
-                    StartDateDetail.Visible = bool.Parse(Settings["ShowDate"].ToString());
-                    Description.Text = Server.HtmlDecode(dr["Description"].ToString());
-                    CreatedDate.Text = ((DateTime) dr["CreatedDate"]).ToShortDateString();
-                    CreatedBy.Text = dr["CreatedByUser"].ToString();
-                    // 15/7/2004 added localization by Mario Endara mario@softworks.com.uy
-                    if (CreatedBy.Text == "unknown")
-                    {
-                        CreatedBy.Text = General.GetString("UNKNOWN", "unknown");
+                        this.SubtitleDetail.Text = dr["Subtitle"].ToString();
                     }
 
-                    //Chris Farrell, chris@cftechconsulting.com, 5/24/2004
-                    if (!bool.Parse(Settings["MODULESETTINGS_SHOW_MODIFIED_BY"].ToString()))
+                    this.StartDateDetail.Text = ((DateTime)dr["StartDate"]).ToShortDateString();
+                    this.StartDateDetail.Visible = bool.Parse(this.Settings["ShowDate"].ToString());
+                    this.Description.Text = this.Server.HtmlDecode(dr["Description"].ToString());
+                    this.CreatedDate.Text = ((DateTime)dr["CreatedDate"]).ToShortDateString();
+                    this.CreatedBy.Text = dr["CreatedByUser"].ToString();
+
+                    // 15/7/2004 added localization by Mario Endara mario@softworks.com.uy
+                    if (this.CreatedBy.Text == "unknown")
                     {
-                        CreatedLabel.Visible = false;
-                        CreatedDate.Visible = false;
-                        OnLabel.Visible = false;
-                        CreatedBy.Visible = false;
+                        this.CreatedBy.Text = General.GetString("UNKNOWN", "unknown");
+                    }
+
+                    // Chris Farrell, chris@cftechconsulting.com, 5/24/2004
+                    if (!bool.Parse(this.Settings["MODULESETTINGS_SHOW_MODIFIED_BY"].ToString()))
+                    {
+                        this.CreatedLabel.Visible = false;
+                        this.CreatedDate.Visible = false;
+                        this.OnLabel.Visible = false;
+                        this.CreatedBy.Visible = false;
                     }
                 }
             }
             finally
             {
-                // close the datareader
+                // close the data reader
                 dr.Close();
             }
         }
 
-        private void goback_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Handles the Click event of the goback control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void GobackClick(object sender, EventArgs e)
         {
-            ArticleDetail.Visible = false;
-            myDataList.Visible = true;
+            this.ArticleDetail.Visible = false;
+            MyDataList.Visible = true;
         }
+
+        /// <summary>
+        /// Handles the ItemCommand event of the MyDataList control.
+        /// </summary>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.DataListCommandEventArgs"/> instance containing the event data.</param>
+        private void MyDataListItemCommand(object source, DataListCommandEventArgs e)
+        {
+            if (e.CommandName == "View")
+            {
+                var itemId = int.Parse(e.CommandArgument.ToString());
+
+                if (itemId > 0)
+                {
+                    this.BindData(itemId);
+                    this.ArticleDetail.Visible = true;
+                    MyDataList.Visible = false;
+                }
+            }
+        }
+
+        #endregion
     }
 }

@@ -10,6 +10,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Admin
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Blacklist Admin Module - Setup which users receive emails<br/>
     /// This module is typically used togeteher with the Newsletter module.
@@ -220,7 +222,7 @@ namespace Appleseed.Admin
         public override void Install(IDictionary stateSaver)
         {
             string currentScriptName = Server.MapPath(this.TemplateSourceDirectory + "/Blacklist_Install.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback
@@ -231,7 +233,7 @@ namespace Appleseed.Admin
         public override void Uninstall(IDictionary stateSaver)
         {
             string currentScriptName = Server.MapPath(this.TemplateSourceDirectory + "/Blacklist_Uninstall.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback

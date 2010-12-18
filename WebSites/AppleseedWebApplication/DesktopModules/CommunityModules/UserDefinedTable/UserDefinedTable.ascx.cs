@@ -19,8 +19,9 @@ using Path = Appleseed.Framework.Settings.Path;
 
 namespace Appleseed.Content.Web.Modules 
 {
+    using System.Collections.Generic;
 
-	/// <summary>
+    /// <summary>
 	/// Users Defined Table module
 	/// Written by: Shaun Walker (IbuySpy Workshop)
 	/// Moved into Appleseed by Jakob Hansen, hansen3000@hotmail.com
@@ -436,7 +437,7 @@ namespace Appleseed.Content.Web.Modules
 		public override void Install(IDictionary stateSaver)
 		{
 			string currentScriptName = System.IO.Path.Combine(Server.MapPath(TemplateSourceDirectory), "install.sql");
-			ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+			List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
 			if (errors.Count > 0)
 			{
 				// Call rollback
@@ -452,7 +453,7 @@ namespace Appleseed.Content.Web.Modules
 		public override void Uninstall(IDictionary stateSaver)
 		{
 			string currentScriptName = System.IO.Path.Combine(Server.MapPath(TemplateSourceDirectory), "uninstall.sql");
-			ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+			List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
 			if (errors.Count > 0)
 			{
 				// Call rollback

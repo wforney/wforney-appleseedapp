@@ -14,6 +14,8 @@ using Path=System.IO.Path;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Books module
     /// Load books from amazon
@@ -281,7 +283,7 @@ namespace Appleseed.Content.Web.Modules
         {
             string currentScriptName = Path.Combine(Server.MapPath(TemplateSourceDirectory), "install.sql");
 
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
 
             if (errors.Count > 0)
             {
@@ -297,7 +299,7 @@ namespace Appleseed.Content.Web.Modules
         {
             string currentScriptName = Path.Combine(Server.MapPath(TemplateSourceDirectory), "uninstall.sql");
 
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
 
             if (errors.Count > 0)
             {

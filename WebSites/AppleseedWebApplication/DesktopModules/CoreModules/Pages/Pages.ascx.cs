@@ -12,6 +12,8 @@ using Appleseed.Framework.Providers.AppleseedSiteMapProvider;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// 
     /// </summary>
@@ -20,7 +22,7 @@ namespace Appleseed.Content.Web.Modules
         /// <summary>
         /// 
         /// </summary>
-        protected ArrayList portalPages { get; set; }
+        protected List<PageItem> portalPages { get; set; }
 
         /// <summary>
         /// Admin Module
@@ -256,7 +258,7 @@ namespace Appleseed.Content.Web.Modules
         public override void Install(IDictionary stateSaver)
         {
             string currentScriptName = Server.MapPath(TemplateSourceDirectory + "/Install.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0) {
                 // Call rollback
                 throw new Exception("Error occurred:" + errors[0].ToString());

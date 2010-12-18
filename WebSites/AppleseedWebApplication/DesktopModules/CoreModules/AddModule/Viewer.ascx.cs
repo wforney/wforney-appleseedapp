@@ -214,7 +214,7 @@ namespace Appleseed.Content.Web.Modules.AddModule
             //PagesDB _d = new PagesDB();
             int pid = PageID;
             if (pid == 0)
-                pid = PagesDB.PortalHomePageID(PortalID);
+                pid = PagesDB.PortalHomePageId(PortalID);
 
             if (pid != 0)
             {

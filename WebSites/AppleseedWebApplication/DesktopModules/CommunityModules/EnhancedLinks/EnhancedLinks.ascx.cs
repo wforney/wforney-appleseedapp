@@ -14,6 +14,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Appleseed EnhancedLinks Module
     /// Written by: José Viladiu, jviladiu@portalServices.net
@@ -23,7 +25,7 @@ namespace Appleseed.Content.Web.Modules
         /// <summary>
         /// The Page_Load event handler on this User Control is used to
         /// obtain a DataReader of link information from the EnhancedLinks
-        /// table, and then databind the results to a templated DataList
+        /// table, and then data bind the results to a templated DataList
         /// server control.  It uses the Appleseed.EnhancedLinkDB()
         /// data component to encapsulate all data functionality.
         /// </summary>
@@ -432,7 +434,7 @@ namespace Appleseed.Content.Web.Modules
         public override void Install(IDictionary stateSaver)
         {
             string currentScriptName = Server.MapPath(this.TemplateSourceDirectory + "/Install.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback
@@ -443,7 +445,7 @@ namespace Appleseed.Content.Web.Modules
         public override void Uninstall(IDictionary stateSaver)
         {
             string currentScriptName = Server.MapPath(this.TemplateSourceDirectory + "/Uninstall.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback
