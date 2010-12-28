@@ -1,95 +1,89 @@
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Xml;
-using Appleseed.Framework.Site.Configuration;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="PictureItem.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   PictureItem
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.Design
 {
+    using System.Web;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+    using System.Xml;
 
-	/// <summary>
-	/// PictureItem
-	/// </summary>
-	public class PictureItem : UserControl 
-	{
+    using Appleseed.Framework.Site.Configuration;
 
-		/// <summary>
-		///     
-		/// </summary>
-		/// <remarks>
-		///     
-		/// </remarks>
-		protected HyperLink editLink;
+    /// <summary>
+    /// PictureItem
+    /// </summary>
+    public class PictureItem : UserControl
+    {
+        #region Constants and Fields
 
-		/// <summary>
-		///     
-		/// </summary>
-		/// <remarks>
-		///     
-		/// </remarks>
-		private XmlDocument metadata;
+        /// <summary>
+        /// The edit link.
+        /// </summary>
+        protected HyperLink editLink;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets the metadata.
+        /// </summary>
+        /// <value>The metadata.</value>
+        /// <remarks>
+        /// </remarks>
+        public XmlDocument Metadata { get; set; }
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Gets the current image from theme.
         /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="bydefault">The bydefault.</param>
-        /// <returns>A string value...</returns>
-		public string GetCurrentImageFromTheme (string name, string bydefault) 
-		{
-			// Obtain PortalSettings from Current Context
-			if (HttpContext.Current != null && HttpContext.Current.Items["PortalSettings"] != null)
-			{
-				PortalSettings pS = (PortalSettings) HttpContext.Current.Items["PortalSettings"];
-				return pS.GetCurrentTheme().GetImage(name, bydefault).ImageUrl;
-			}
-			return bydefault;
-		}
+        /// <param name="name">
+        /// The name of the image.
+        /// </param>
+        /// <param name="bydefault">
+        /// By default.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string GetCurrentImageFromTheme(string name, string bydefault)
+        {
+            // Obtain PortalSettings from Current Context
+            if (HttpContext.Current != null && HttpContext.Current.Items["PortalSettings"] != null)
+            {
+                var pS = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
+                return pS.GetCurrentTheme().GetImage(name, bydefault).ImageUrl;
+            }
 
-	    /// <summary>
-	    /// Gets the metadata.
-	    /// </summary>
-	    /// <param name="key">The key.</param>
-	    /// <returns>A string value...</returns>
-	    public string GetMetadata(string key)
-	    {
-	        XmlNode targetNode = Metadata.SelectSingleNode("/Metadata/@" + key);
+            return bydefault;
+        }
 
-	        if (targetNode == null)
-	        {
-	            return null;
-	        }
+        /// <summary>
+        /// Gets the metadata.
+        /// </summary>
+        /// <param name="key">
+        /// The key of the metadata.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string GetMetadata(string key)
+        {
+            var targetNode = this.Metadata.SelectSingleNode("/Metadata/@" + key);
 
-	        else
-	        {
-	            return targetNode.Value;
-	        }
-	    }
+            return targetNode == null ? null : targetNode.Value;
+        }
 
-	    /// <summary>
-	    /// Gets or sets the metadata.
-	    /// </summary>
-	    /// <value>The metadata.</value>
-	    /// <remarks>
-	    /// </remarks>
-	    public XmlDocument Metadata
-	    {
-	        get { return metadata; }
-	        set { metadata = value; }
-	    }
-
-	    #region Web Form Designer generated code
-	    /// <summary>
-	    /// Raises the <see cref="E:System.Web.UI.Control.Init"></see> event.
-	    /// </summary>
-	    /// <param name="e">An <see cref="T:System.EventArgs"></see> object that contains the event data.</param>
-	    override protected void OnInit(EventArgs e)
-	    {
-	        base.OnInit(e);
-	    }
-
-	    #endregion
-
-	}
+        #endregion
+    }
 }
