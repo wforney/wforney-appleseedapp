@@ -75,16 +75,14 @@ namespace Appleseed.Framework.Site.Data
         /// </returns>
         public static int PortalHomePageId(int portalId)
         {
-            // TODO: COnvert to stored procedure?
-            // TODO: Appleseed.Framwork.Application.Site.Pages API 
-            var ret = 0;
-
+            // TODO: Convert to stored procedure?
+            // TODO: Appleseed.Framwork.Application.Site.Pages API
             var sql =
                 string.Format(
                     "Select PageID  From rb_Pages  Where (PortalID = {0}) and (ParentPageID is null) and  (PageID > 0) and ( PageOrder < 2)",
                     portalId);
 
-            ret = Convert.ToInt32(DBHelper.ExecuteSqlScalar<int>(sql));
+            var ret = Convert.ToInt32(DBHelper.ExecuteSqlScalar<int>(sql));
 
             return ret;
         }
@@ -176,66 +174,69 @@ namespace Appleseed.Framework.Site.Data
             string mobilePageName)
         {
             // Create Instance of Connection and Command Object
-            using (var myConnection = Config.SqlConnectionString)
+            using (var connection = Config.SqlConnectionString)
+            using (var command = new SqlCommand("rb_AddTab", connection))
             {
-                using (var myCommand = new SqlCommand("rb_AddTab", myConnection))
+                // Mark the Command as a SPROC
+                command.CommandType = CommandType.StoredProcedure;
+
+                // Add Parameters to SPROC
+                var parameterPortalId = new SqlParameter(StrPortalId, SqlDbType.Int, 4) { Value = portalId };
+                command.Parameters.Add(parameterPortalId);
+
+                var parameterParentPageId = new SqlParameter("@ParentPageID", SqlDbType.Int, 4) { Value = parentPageId };
+                command.Parameters.Add(parameterParentPageId);
+
+                // Fixes a missing tab name
+                if (string.IsNullOrEmpty(pageName))
                 {
-                    // Mark the Command as a SPROC
-                    myCommand.CommandType = CommandType.StoredProcedure;
-
-                    // Add Parameters to SPROC
-                    var parameterPortalId = new SqlParameter(StrPortalId, SqlDbType.Int, 4) { Value = portalId };
-                    myCommand.Parameters.Add(parameterPortalId);
-
-                    var parameterParentPageId = new SqlParameter("@ParentPageID", SqlDbType.Int, 4)
-                        { Value = parentPageId };
-                    myCommand.Parameters.Add(parameterParentPageId);
-
-                    // Fixes a missing tab name
-                    if (string.IsNullOrEmpty(pageName))
-                    {
-                        pageName = "New Page";
-                    }
-
-                    var parameterTabName = new SqlParameter("@PageName", SqlDbType.NVarChar, 50)
-                        {
-                            // Fixes tab name to long
-                            Value = pageName.Length > 50 ? pageName.Substring(0, 49) : pageName
-                        };
-
-                    myCommand.Parameters.Add(parameterTabName);
-
-                    var parameterTabOrder = new SqlParameter("@PageOrder", SqlDbType.Int, 4) { Value = pageOrder };
-                    myCommand.Parameters.Add(parameterTabOrder);
-
-                    var parameterAuthRoles = new SqlParameter("@AuthorizedRoles", SqlDbType.NVarChar, 256)
-                        { Value = authorizedRoles };
-                    myCommand.Parameters.Add(parameterAuthRoles);
-
-                    var parameterShowMobile = new SqlParameter("@ShowMobile", SqlDbType.Bit, 1) { Value = showMobile };
-                    myCommand.Parameters.Add(parameterShowMobile);
-
-                    var parameterMobileTabName = new SqlParameter("@MobilePageName", SqlDbType.NVarChar, 50)
-                        { Value = mobilePageName };
-                    myCommand.Parameters.Add(parameterMobileTabName);
-
-                    var parameterPageID = new SqlParameter(StrPageId, SqlDbType.Int, 4)
-                        { Direction = ParameterDirection.Output };
-                    myCommand.Parameters.Add(parameterPageID);
-
-                    myConnection.Open();
-
-                    try
-                    {
-                        myCommand.ExecuteNonQuery();
-                    }
-                    finally
-                    {
-                        myConnection.Close();
-                    }
-
-                    return (int)parameterPageID.Value;
+                    pageName = "New Page";
                 }
+
+                var parameterTabName = new SqlParameter("@PageName", SqlDbType.NVarChar, 50)
+                    {
+                        // Fixes tab name to long
+                        Value = pageName.Length > 50 ? pageName.Substring(0, 49) : pageName
+                    };
+
+                command.Parameters.Add(parameterTabName);
+
+                var parameterTabOrder = new SqlParameter("@PageOrder", SqlDbType.Int, 4) { Value = pageOrder };
+                command.Parameters.Add(parameterTabOrder);
+
+                var parameterAuthRoles = new SqlParameter("@AuthorizedRoles", SqlDbType.NVarChar, 256)
+                    {
+                        Value = authorizedRoles 
+                    };
+                command.Parameters.Add(parameterAuthRoles);
+
+                var parameterShowMobile = new SqlParameter("@ShowMobile", SqlDbType.Bit, 1) { Value = showMobile };
+                command.Parameters.Add(parameterShowMobile);
+
+                var parameterMobileTabName = new SqlParameter("@MobilePageName", SqlDbType.NVarChar, 50)
+                    {
+                        Value = mobilePageName 
+                    };
+                command.Parameters.Add(parameterMobileTabName);
+
+                var parameterPageId = new SqlParameter(StrPageId, SqlDbType.Int, 4)
+                    {
+                        Direction = ParameterDirection.Output 
+                    };
+                command.Parameters.Add(parameterPageId);
+
+                connection.Open();
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                finally
+                {
+                    connection.Close();
+                }
+
+                return (int)parameterPageId.Value;
             }
         }
 
@@ -652,23 +653,23 @@ namespace Appleseed.Framework.Site.Data
                     pageName = "&nbsp;";
                 }
 
-                var parameterTabName = new SqlParameter("@PageName", SqlDbType.NVarChar, 50);
-
-                if (pageName.Length > 50)
-                {
-                    parameterTabName.Value = pageName.Substring(0, 49);
-                }
-                else
-                {
-                    parameterTabName.Value = pageName;
-                }
+                var parameterTabName = new SqlParameter("@PageName", SqlDbType.NVarChar, 50)
+                    {
+                        Value = pageName.Length > 50 ? pageName.Substring(0, 49) : pageName 
+                    };
 
                 sqlCommand.Parameters.Add(parameterTabName);
                 var parameterTabOrder = new SqlParameter("@PageOrder", SqlDbType.Int, 4) { Value = pageOrder };
                 sqlCommand.Parameters.Add(parameterTabOrder);
-                var parameterAuthRoles = new SqlParameter("@AuthorizedRoles", SqlDbType.NVarChar, 256) { Value = authorizedRoles };
+                var parameterAuthRoles = new SqlParameter("@AuthorizedRoles", SqlDbType.NVarChar, 256)
+                    {
+                        Value = authorizedRoles 
+                    };
                 sqlCommand.Parameters.Add(parameterAuthRoles);
-                var parameterMobileTabName = new SqlParameter("@MobilePageName", SqlDbType.NVarChar, 50) { Value = mobilePageName };
+                var parameterMobileTabName = new SqlParameter("@MobilePageName", SqlDbType.NVarChar, 50)
+                    {
+                        Value = mobilePageName 
+                    };
                 sqlCommand.Parameters.Add(parameterMobileTabName);
                 var parameterShowMobile = new SqlParameter("@ShowMobile", SqlDbType.Bit, 1) { Value = showMobile };
                 sqlCommand.Parameters.Add(parameterShowMobile);

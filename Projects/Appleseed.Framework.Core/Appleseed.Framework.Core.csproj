@@ -137,6 +137,7 @@
     <Compile Include="DAL\PagesDB.cs" />
     <Compile Include="DAL\PortalsDB.cs" />
     <Compile Include="DAL\RecyclerDB.cs" />
+    <Compile Include="DAL\SolutionModuleDefinition.cs" />
     <Compile Include="DAL\UsersDb.cs" />
     <Compile Include="DAL\WorkFlowDB.cs" />
     <Compile Include="Design\Layout.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="Exceptions\PortalsLockedException.cs" />
     <Compile Include="Exceptions\AppleseedException.cs" />
     <Compile Include="Exceptions\AppleseedRedirect.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="General.cs" />
     <Compile Include="Helpers\ADHelper.cs" />
     <Compile Include="Helpers\CryptoHelper.cs" />
@@ -173,6 +175,7 @@
     <Compile Include="Helpers\SearchHelper.cs" />
     <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="Helpers\WebPartHelper.cs" />
+    <Compile Include="Helpers\WebPartParser.cs" />
     <Compile Include="Helpers\XslHelper.cs" />
     <Compile Include="HttpUrlBuilder.cs" />
     <Compile Include="Configuration\Items\ModuleItem.cs" />

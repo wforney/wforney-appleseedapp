@@ -274,7 +274,8 @@ namespace Appleseed.Framework.Site.Configuration
                     }
                     finally
                     {
-                        result.Close(); // by Manu, fixed bug 807858
+                        // by Manu, fixed bug 807858
+                        result.Close();
                     }
 
                     return tabs;
@@ -578,8 +579,6 @@ namespace Appleseed.Framework.Site.Configuration
                         "This setting can be used by a module or by a control. It allows you to define a message/phrase for this particular Tab / Page This can be used for search engine optimisation. Enter something here to override the default portal wide setting."
                 };
             baseSettings.Add("TabKeyPhrase", tabKeyPhrase);
-
-            
 
             #region Layout and Theme
 
