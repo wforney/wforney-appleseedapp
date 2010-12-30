@@ -11,7 +11,7 @@ using Appleseed.Framework.DataTypes;
 using Appleseed.Framework.Helpers;
 using Appleseed.Framework.Settings;
 using Appleseed.Framework.Web.UI.WebControls;
-using Path=Appleseed.Framework.Settings.Path;
+using Path = Appleseed.Framework.Settings.Path;
 
 namespace Appleseed.Content.Web.Modules
 {
@@ -71,13 +71,13 @@ namespace Appleseed.Content.Web.Modules
                                            "'");
 
                         // handle on the remote ressource
-                        HttpWebRequest wr = (HttpWebRequest) WebRequest.Create(xmlsrc);
+                        HttpWebRequest wr = (HttpWebRequest)WebRequest.Create(xmlsrc);
                         //jes1111 - not needed: global proxy is set in Global class Application Start
                         //						if (ConfigurationSettings.AppSettings.Get("UseProxyServerForServerWebRequests") == "true")
                         //							wr.Proxy = PortalSettings.GetProxy();
 
                         // set the HTTP properties
-                        wr.Timeout = timeout*1000; // milliseconds to seconds
+                        wr.Timeout = timeout * 1000; // milliseconds to seconds
                         // Read the response
                         WebResponse resp = wr.GetResponse();
                         // Stream read the response
@@ -153,7 +153,7 @@ namespace Appleseed.Content.Web.Modules
             #region Module Special Settings
 
             _Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
-            _groupOrderBase = (int) SettingItemGroup.MODULE_SPECIAL_SETTINGS;
+            _groupOrderBase = (int)SettingItemGroup.MODULE_SPECIAL_SETTINGS;
 
             SettingItem XMLsrcType = new SettingItem(new ListDataType("URL;File"));
             XMLsrcType.Required = true;
@@ -237,14 +237,12 @@ namespace Appleseed.Content.Web.Modules
                     DirectoryInfo dir = new DirectoryInfo(xsltPath);
                     return dir.GetFiles("*.xslt");
                 }
-                else
-                {
-                    LogHelper.Log.Warn("Default XSLT location not found: '" + xsltPath + "'");
-                }
+
+                LogHelper.Log.Warn(string.Format("Default XSLT location not found: '{0}'", xsltPath));
             }
             catch (Exception ex)
             {
-                ErrorHandler.Publish(LogLevel.Error, "XSLT location not found: " + xsltPath, ex);
+                ErrorHandler.Publish(LogLevel.Error, string.Format("XSLT location not found: {0}", xsltPath), ex);
             }
             return null;
         }

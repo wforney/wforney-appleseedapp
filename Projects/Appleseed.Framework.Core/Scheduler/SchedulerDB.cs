@@ -1,3 +1,15 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="SchedulerDB.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Scheduler Database
+//   Author: Federico Dal Maso
+//   e-mail: ifof@libero.it
+//   date: 2003-06-17
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace Appleseed.Framework.Scheduler
 {
     using System;
@@ -9,23 +21,23 @@ namespace Appleseed.Framework.Scheduler
 
     /// <summary>
     /// Scheduler Database
-    /// Author: Federico Dal Maso
-    /// e-mail: ifof@libero.it
-    /// date: 2003-06-17
+    ///   Author: Federico Dal Maso
+    ///   e-mail: ifof@libero.it
+    ///   date: 2003-06-17
     /// </summary>
     internal class SchedulerDB
     {
         #region Constants and Fields
 
         /// <summary>
-        /// The app map path.
+        ///   The app map path.
         /// </summary>
         /// <remarks>
         /// </remarks>
         private readonly string appMapPath;
 
         /// <summary>
-        /// The data connection.
+        ///   The data connection.
         /// </summary>
         private readonly IDbConnection cn;
 
@@ -36,8 +48,12 @@ namespace Appleseed.Framework.Scheduler
         /// <summary>
         /// Initializes a new instance of the <see cref="SchedulerDB"/> class.
         /// </summary>
-        /// <param name="cn">The data connection.</param>
-        /// <param name="applicationMapPath">The application map path.</param>
+        /// <param name="cn">
+        /// The data connection.
+        /// </param>
+        /// <param name="applicationMapPath">
+        /// The application map path.
+        /// </param>
         /// <returns>
         /// A void value...
         /// </returns>
@@ -169,7 +185,7 @@ namespace Appleseed.Framework.Scheduler
             {
                 throw new SchedulerException("Module don't implement ISchedulable interface");
             }
-            
+
             return module;
         }
 

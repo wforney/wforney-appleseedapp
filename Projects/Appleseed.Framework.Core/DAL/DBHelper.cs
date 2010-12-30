@@ -349,6 +349,11 @@ namespace Appleseed.Framework.Data
             }
         }
 
+        /// <summary>
+        /// Gets the data reader.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <returns></returns>
         public static SqlDataReader GetDataReader(SqlCommand command)
         {
             try

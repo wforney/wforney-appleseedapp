@@ -662,7 +662,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
                 user.Phone = profile.GetPropertyValue("Phone").ToString();
                 user.SendNewsletter = Convert.ToBoolean(profile.GetPropertyValue("SendNewsletter"));
             }
-            catch (SettingsPropertyNotFoundException ex)
+            catch (SettingsPropertyNotFoundException)
             {
                 // TODO: loggear el error, no se que logger usar. Si referencio a alguno de los que se usa en el resto de la solucion da una referencia circular.
             }
@@ -691,7 +691,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
                 profile.SetPropertyValue("SendNewsletter", user.SendNewsletter);
                 profile.Save();
             }
-            catch (SettingsPropertyNotFoundException ex)
+            catch (SettingsPropertyNotFoundException)
             {
                 // TODO: loggear el error, no se que logger usar. Si referencio a alguno de los que se usa en el resto de la solucion da una referencia circular.
             }
