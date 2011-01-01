@@ -3,7 +3,7 @@
     <ItemTemplate>
         <div class="Normal">
             <div>
-                <rbfwebui:HyperLink TextKey="EDIT" Text="Edit" id="editLink" ImageUrl='<%# CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
+                <rbfwebui:HyperLink TextKey="EDIT" Text="Edit" id="editLink" ImageUrl='<%# this.CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
                     NavigateUrl='<%# HttpUrlBuilder.BuildUrl("~/DesktopModules/CommunityModules/Articles/ArticlesEdit.aspx",PageID,string.Format("ItemID={0}&amp;mid={1}", DataBinder.Eval(Container.DataItem,"ItemID"), this.ModuleID) )%>'
                     Visible="<%# IsEditable %>" runat="server" />
                 <rbfwebui:label id="StartDate" Visible="<%# ShowDate %>" runat="server" CssClass="ItemDate"

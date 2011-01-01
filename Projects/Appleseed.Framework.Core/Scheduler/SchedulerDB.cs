@@ -103,13 +103,13 @@ namespace Appleseed.Framework.Scheduler
         /// <summary>
         /// Gets the module instance.
         /// </summary>
-        /// <param name="idModule">
+        /// <param name="idmodule">
         /// The id module.
         /// </param>
         /// <returns>
         /// A Appleseed.Framework.Scheduler.ISchedulable value...
         /// </returns>
-        public ISchedulable GetModuleInstance(int idModule)
+        public ISchedulable GetModuleInstance(int idmodule)
         {
             this.cn.Open();
             var cmd = this.cn.CreateCommand();
@@ -118,7 +118,7 @@ namespace Appleseed.Framework.Scheduler
             var par = cmd.CreateParameter();
             par.DbType = DbType.Int32;
             par.ParameterName = "@IDModule";
-            par.Value = idModule;
+            par.Value = idmodule;
             cmd.Parameters.Add(par);
             IDataReader dr;
 
@@ -131,12 +131,7 @@ namespace Appleseed.Framework.Scheduler
                 this.cn.Close();
                 throw new SchedulerException("Unable to load assembly name from database", ex);
             }
-            catch
-            {
-                this.cn.Close();
-                throw;
-            }
-
+            
             string assemblyName;
             string typeName;
 
@@ -207,13 +202,13 @@ namespace Appleseed.Framework.Scheduler
         /// <summary>
         /// Gets the tasks by owner.
         /// </summary>
-        /// <param name="idOwner">
+        /// <param name="idowner">
         /// The id owner.
         /// </param>
         /// <returns>
         /// A System.Data.IDataReader value...
         /// </returns>
-        public IDataReader GetTasksByOwner(int idOwner)
+        public IDataReader GetTasksByOwner(int idowner)
         {
             this.cn.Open();
             var cmd = this.cn.CreateCommand();
@@ -223,7 +218,7 @@ namespace Appleseed.Framework.Scheduler
             par.ParameterName = "@IDOwner";
             par.DbType = DbType.Int32;
             par.Direction = ParameterDirection.Input;
-            par.Value = idOwner;
+            par.Value = idowner;
             cmd.Parameters.Add(par);
             var dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             return dr;
@@ -232,13 +227,13 @@ namespace Appleseed.Framework.Scheduler
         /// <summary>
         /// Gets the tasks by target.
         /// </summary>
-        /// <param name="idTarget">
+        /// <param name="idtarget">
         /// The id target.
         /// </param>
         /// <returns>
         /// A System.Data.IDataReader value...
         /// </returns>
-        public IDataReader GetTasksByTarget(int idTarget)
+        public IDataReader GetTasksByTarget(int idtarget)
         {
             this.cn.Open();
             var cmd = this.cn.CreateCommand();
@@ -248,7 +243,7 @@ namespace Appleseed.Framework.Scheduler
             par.ParameterName = "@IDTarget";
             par.DbType = DbType.Int32;
             par.Direction = ParameterDirection.Input;
-            par.Value = idTarget;
+            par.Value = idtarget;
             cmd.Parameters.Add(par);
             var dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             return dr;
@@ -258,10 +253,10 @@ namespace Appleseed.Framework.Scheduler
         /// Inserts the task.
         /// </summary>
         /// <param name="task">
-        /// The task.
+        /// The scheduler task.
         /// </param>
         /// <returns>
-        /// A int value...
+        /// An integer value...
         /// </returns>
         public int InsertTask(SchedulerTask task)
         {
@@ -280,7 +275,7 @@ namespace Appleseed.Framework.Scheduler
                 ss.Close();
             }
 
-            int idTask;
+            int idtask;
             this.cn.Open();
 
             using (var cmd = this.cn.CreateCommand())
@@ -325,26 +320,26 @@ namespace Appleseed.Framework.Scheduler
                 par.Direction = ParameterDirection.Output;
                 cmd.Parameters.Add(par);
                 cmd.ExecuteNonQuery();
-                idTask = (int)((IDataParameter)cmd.Parameters["@IDTask"]).Value;
+                idtask = (int)((IDataParameter)cmd.Parameters["@IDTask"]).Value;
             }
 
             this.cn.Close();
 
-            if (idTask == -1)
+            if (idtask == -1)
             {
                 throw new SchedulerException("Task add fail in DB");
             }
 
-            return idTask;
+            return idtask;
         }
 
         /// <summary>
         /// Removes the task.
         /// </summary>
-        /// <param name="iDTask">
-        /// The i D task.
+        /// <param name="idtask">
+        /// The id task.
         /// </param>
-        public void RemoveTask(int iDTask)
+        public void RemoveTask(int idtask)
         {
             this.cn.Open();
 
@@ -356,7 +351,7 @@ namespace Appleseed.Framework.Scheduler
                 par.ParameterName = "@IDTask";
                 par.DbType = DbType.Int32;
                 par.Direction = ParameterDirection.Input;
-                par.Value = iDTask;
+                par.Value = idtask;
                 cmd.Parameters.Add(par);
                 cmd.ExecuteNonQuery();
             }

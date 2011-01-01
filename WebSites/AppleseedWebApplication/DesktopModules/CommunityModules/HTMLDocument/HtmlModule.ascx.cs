@@ -196,7 +196,7 @@ namespace Appleseed.Content.Web.Modules
             // add Compare button
             if (CompareButton != null)
             {
-                ButtonListAdmin.Add(_btnCompare);
+                this.ButtonListAdmin.Add(_btnCompare);
                 if (IsComparing == -1)
                 {
                     // it is the time to toggle the buttons
@@ -292,14 +292,14 @@ namespace Appleseed.Content.Web.Modules
                         // will bring the content back to staging
                         _btnCompare.TranslationKey = "BackToStaging";
                         _btnCompare.EnglishName = "Back to staging";
-                        _btnCompare.Image = CurrentTheme.GetImage("Buttons_Stage", "stage.gif");
+                        _btnCompare.Image = this.CurrentTheme.GetImage("Buttons_Stage", "stage.gif");
                     }
                     else
                     {
                         // otherwise, clicking will do comparison
                         _btnCompare.TranslationKey = "Compare";
                         _btnCompare.EnglishName = "Compare staging with production";
-                        _btnCompare.Image = CurrentTheme.GetImage("Buttons_Compare", "Compare.gif");
+                        _btnCompare.Image = this.CurrentTheme.GetImage("Buttons_Compare", "Compare.gif");
                     }
                 }
 

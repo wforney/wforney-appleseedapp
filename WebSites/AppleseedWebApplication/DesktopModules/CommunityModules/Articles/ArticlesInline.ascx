@@ -4,7 +4,7 @@
     <ItemTemplate>
         <div class="Normal">
             <div>
-                <rbfwebui:HyperLink id="editLink" runat="server" imageurl='<%# CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
+                <rbfwebui:HyperLink id="editLink" runat="server" imageurl='<%# this.CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
                     navigateurl='<%# HttpUrlBuilder.BuildUrl("~/DesktopModules/CommunityModules/Articles/ArticlesEdit.aspx",PageID,string.Format("ItemID={0}&amp;mid={1}", DataBinder.Eval(Container.DataItem,"ItemID"), this.ModuleID) )%>'
                     text="Edit" textkey="EDIT" visible="<%# IsEditable %>">
                 </rbfwebui:HyperLink>

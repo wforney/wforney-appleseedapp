@@ -39,9 +39,9 @@ namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
         private void Page_Load(object sender, EventArgs e)
         {
             /*if (Page.IsPostBack == false) 
-			{
-				BindList();
-			}*/
+            {
+                BindList();
+            }*/
             BindList();
         }
 
@@ -115,11 +115,11 @@ namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
                         break;
                     }
                     /*
-					case "SelectTitle":
-					TopLevelList.SelectedIndex = e.Item.ItemIndex;
-					Response.Redirect(FormatUrlShowThread((int)DataBinder.Eval(Container.DataItem, "ItemID")));
-					break;
-				*/
+                    case "SelectTitle":
+                    TopLevelList.SelectedIndex = e.Item.ItemIndex;
+                    Response.Redirect(FormatUrlShowThread((int)DataBinder.Eval(Container.DataItem, "ItemID")));
+                    break;
+                */
                 case "delete": // the "delete" command can come from the TopLevelList or the DetailList
                     {
                         DiscussionDB discuss = new DiscussionDB();

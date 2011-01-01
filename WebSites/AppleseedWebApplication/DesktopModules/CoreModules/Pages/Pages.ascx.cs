@@ -37,10 +37,10 @@ namespace Appleseed.Content.Web.Modules
             base.OnLoad(e);
 
             // Set the ImageUrl for controls from current Theme
-            upBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Up", "Up.gif").ImageUrl;
-            downBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Down", "Down.gif").ImageUrl;
-            DeleteBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Delete", "Delete.gif").ImageUrl;
-            EditBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl;
+            upBtn.ImageUrl = this.CurrentTheme.GetImage("Buttons_Up", "Up.gif").ImageUrl;
+            downBtn.ImageUrl = this.CurrentTheme.GetImage("Buttons_Down", "Down.gif").ImageUrl;
+            DeleteBtn.ImageUrl = this.CurrentTheme.GetImage("Buttons_Delete", "Delete.gif").ImageUrl;
+            EditBtn.ImageUrl = this.CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl;
 
             // If this is the first visit to the page, bind the tab data to the page listbox
             portalPages = new PagesDB().GetPagesFlat(portalSettings.PortalID);

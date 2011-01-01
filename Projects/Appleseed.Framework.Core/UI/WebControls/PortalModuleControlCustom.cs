@@ -73,7 +73,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                                 HttpUrlBuilder.BuildUrl(
                                     "~/DesktopModules/CoreModules/Admin/CustomPropertyPage.aspx", 
                                     this.PageID, 
-                                    "mID=" + this.ModuleID);
+                                    string.Format("mID={0}", this.ModuleID));
                         }
 
                         this.customizeButton.Target = this.PropertiesTarget;

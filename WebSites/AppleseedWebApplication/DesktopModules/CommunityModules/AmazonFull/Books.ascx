@@ -7,7 +7,7 @@
         <table>
             <tr>
                 <td valign="top" width="<%# GetTdWidthPercentage(Settings["Columns"].ToString()) %>">
-                    <rbfwebui:hyperlink id="BooksEditLink" runat="server" imageurl='<%# CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
+                    <rbfwebui:hyperlink id="BooksEditLink" runat="server" imageurl='<%# this.CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
                         navigateurl='<%# Appleseed.Framework.HttpUrlBuilder.BuildUrl("~/DesktopModules/CommunityModules/AmazonFull/BooksEdit.aspx","ItemID=" + DataBinder.Eval(Container.DataItem,"ItemID") + "&amp;mid=" + ModuleID )%>'
                         text="Edit" textkey="EDIT" visible="<%# IsEditable %>">
                     </rbfwebui:hyperlink><br>

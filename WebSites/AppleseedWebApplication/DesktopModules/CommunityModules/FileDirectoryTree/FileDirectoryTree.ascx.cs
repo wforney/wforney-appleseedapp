@@ -62,7 +62,7 @@ namespace Appleseed.Content.Web.Modules
         /// <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
         private void Page_Load(object sender, EventArgs e)
         {
-            treeImageDIR = Path.WebPathCombine(CurrentTheme.WebPath, "/img/");
+            treeImageDIR = Path.WebPathCombine(this.CurrentTheme.WebPath, "/img/");
             LoadAvailableImageList();
 
             path = Settings["Directory"].ToString();

@@ -69,10 +69,9 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// Gets or sets the element at the specified index.
         /// </summary>
         /// <returns>The element at the specified index.</returns>
-        /// <exception cref="T:System.ArgumentOutOfRangeException">
-        ///   <paramref name="index"/> is not a valid index in the <see cref="T:System.Collections.IList"/>. </exception>
-        ///   
-        /// <exception cref="T:System.NotSupportedException">The property is set and the <see cref="T:System.Collections.IList"/> is read-only. </exception>
+        /// <param name="i">The index of the element.</param>
+        /// <exception cref="T:System.ArgumentOutOfRangeException">Index is not a valid index in the <see cref="T:System.Collections.IList"/>.</exception>
+        /// <exception cref="T:System.NotSupportedException">The property is set and the <see cref="T:System.Collections.IList"/> is read-only.</exception>
         public LanguageCultureItem this[int i]
         {
             get

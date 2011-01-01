@@ -13,13 +13,13 @@ using Appleseed.Framework.Web.UI;
 using Appleseed.Framework.Web.UI.WebControls;
 using Label=Appleseed.Framework.Web.UI.WebControls.Label;
 
-namespace Appleseed.Content.Web.Modules
+namespace Appleseed.Content.Web.Modules.Discussion
 {
     using System.Collections.Generic;
 
     /// <summary>
     /// Edit discussion page
-    /// this deals with one thred
+    /// this deals with one thread
     /// </summary>
     public partial class DiscussionEdit : AddEditItemPage
     {

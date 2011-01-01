@@ -14,11 +14,14 @@ namespace Appleseed.Framework.Helpers
 {
     using System;
     using System.Globalization;
+    using System.Net;
     using System.Text.RegularExpressions;
     using System.Web;
+    using System.Web.Caching;
     using System.Web.Security;
     using System.Xml;
     using System.Xml.XPath;
+    using System.Xml.Xsl;
 
     using Appleseed.Framework.Security;
     using Appleseed.Framework.Site.Configuration;
@@ -35,12 +38,12 @@ namespace Appleseed.Framework.Helpers
         #region Constants and Fields
 
         /// <summary>
-        /// The portal settings.
+        ///   The portal settings.
         /// </summary>
         private readonly PortalSettings portalSettings;
 
         /// <summary>
-        /// The membership user.
+        ///   The membership user.
         /// </summary>
         private readonly MembershipUser user;
 
@@ -49,7 +52,7 @@ namespace Appleseed.Framework.Helpers
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="XslHelper"/> class. 
+        ///   Initializes a new instance of the <see cref = "XslHelper" /> class.
         /// </summary>
         public XslHelper()
         {
@@ -67,10 +70,40 @@ namespace Appleseed.Framework.Helpers
         #region Public Methods
 
         /// <summary>
+        /// Returns a compiled XSLT transform object for an XSLT file and caches it
+        /// </summary>
+        /// <param name="xsltFile">The relative path to the XSLT file</param>
+        /// <param name="cacheKey">The cache key.</param>
+        /// <returns>
+        /// An XslCompiledTransform object for the XSLT file
+        /// </returns>
+        public static XslCompiledTransform GetXslt(string xsltFile, string cacheKey = null)
+        {
+            cacheKey = cacheKey ?? string.Format("Xslt_{0}", xsltFile);
+            if (HttpRuntime.Cache[cacheKey] != null)
+            {
+                return (XslCompiledTransform)HttpRuntime.Cache[cacheKey];
+            }
+
+            var xslt = new XslCompiledTransform();
+            using (var xslReader = new XmlTextReader(HttpContext.Current.Server.MapPath(xsltFile)))
+            {
+                xslReader.EntityHandling = EntityHandling.ExpandCharEntities;
+                var xslResolver = new XmlUrlResolver { Credentials = CredentialCache.DefaultCredentials };
+                var settings = new XsltSettings { EnableDocumentFunction = true, EnableScript = true };
+                xslt.Load(xslReader, settings, xslResolver);
+                HttpRuntime.Cache.Insert(
+                    cacheKey, xslt, new CacheDependency(HttpContext.Current.Server.MapPath(xsltFile)));
+            }
+
+            return xslt;
+        }
+
+        /// <summary>
         /// Adds to URL.
         /// </summary>
         /// <param name="url">
-        /// The URL.
+        /// The URL to add to.
         /// </param>
         /// <param name="paramKey">
         /// The key of the URL.
@@ -92,7 +125,12 @@ namespace Appleseed.Framework.Helpers
                 else
                 {
                     url = url.Trim();
-                    url = string.Format("{0}/{1}_{2}{3}", url.Substring(0, url.LastIndexOf("/")), paramKey.Trim(), paramValue.Trim(), url.Substring(url.LastIndexOf("/")));
+                    url = string.Format(
+                        "{0}/{1}_{2}{3}", 
+                        url.Substring(0, url.LastIndexOf("/")), 
+                        paramKey.Trim(), 
+                        paramValue.Trim(), 
+                        url.Substring(url.LastIndexOf("/")));
                 }
             }
 
@@ -116,7 +154,7 @@ namespace Appleseed.Framework.Helpers
             // targetPage = System.Text.RegularExpressions.Regex.Replace(targetPage,@"[\.\$\^\{\[\(\|\)\*\+\?!'""]",string.Empty);
             // targetPage = targetPage.Replace(" ","_").ToLower();
             // return Appleseed.HttpUrlBuilder.BuildUrl("~/" + targetPage + ".aspx", tabID);
-            return HttpUrlBuilder.BuildUrl(string.Concat("~/", this.Clean(targetPage), ".aspx"), pageId);
+            return HttpUrlBuilder.BuildUrl(string.Concat("~/", Clean(targetPage), ".aspx"), pageId);
         }
 
         /// <summary>
@@ -137,7 +175,7 @@ namespace Appleseed.Framework.Helpers
         public string BuildUrl(string targetPage, int pageId, string pathTrace)
         {
             return HttpUrlBuilder.BuildUrl(
-                string.Concat("~/", this.Clean(targetPage), ".aspx"), pageId, this.Clean(pathTrace));
+                string.Concat("~/", Clean(targetPage), ".aspx"), pageId, Clean(pathTrace));
         }
 
         /// <summary>
@@ -154,7 +192,7 @@ namespace Appleseed.Framework.Helpers
         /// </returns>
         public string BuildUrl(int pageId, string pathTrace)
         {
-            return HttpUrlBuilder.BuildUrl(pageId, this.Clean(pathTrace));
+            return HttpUrlBuilder.BuildUrl(pageId, Clean(pathTrace));
         }
 
         /// <summary>
@@ -323,15 +361,17 @@ namespace Appleseed.Framework.Helpers
         {
             try
             {
-                DateTime conv = dataCulture.ToLower() == this.portalSettings.PortalDataFormattingCulture.Name.ToLower()
-                                    ? DateTime.ParseExact(
-                                        dateStr,
-                                        "mm/dd/yyyy hh:mm:ss",
-                                        new CultureInfo(dataCulture, false),
-                                        DateTimeStyles.AdjustToUniversal)
-                                    : DateTime.Parse(dateStr, new CultureInfo(dataCulture, false), DateTimeStyles.None);
+                var conv = dataCulture.ToLower() == this.portalSettings.PortalDataFormattingCulture.Name.ToLower()
+                               ? DateTime.ParseExact(
+                                   dateStr, 
+                                   "mm/dd/yyyy hh:mm:ss", 
+                                   new CultureInfo(dataCulture, false), 
+                                   DateTimeStyles.AdjustToUniversal)
+                               : DateTime.Parse(dateStr, new CultureInfo(dataCulture, false), DateTimeStyles.None);
 
-                return outputCulture.ToLower() == this.portalSettings.PortalDataFormattingCulture.Name.ToLower() ? conv.ToString(formatStr) : conv.ToString(formatStr, new CultureInfo(outputCulture, false));
+                return outputCulture.ToLower() == this.portalSettings.PortalDataFormattingCulture.Name.ToLower()
+                           ? conv.ToString(formatStr)
+                           : conv.ToString(formatStr, new CultureInfo(outputCulture, false));
             }
             catch
             {
@@ -342,24 +382,24 @@ namespace Appleseed.Framework.Helpers
         /// <summary>
         /// Formats the money.
         /// </summary>
-        /// <param name="myAmount">
-        /// My amount.
+        /// <param name="amount">
+        /// The amount.
         /// </param>
-        /// <param name="myCurrency">
-        /// My currency.
+        /// <param name="currency">
+        /// The currency.
         /// </param>
         /// <returns>
         /// A string value...
         /// </returns>
-        public string FormatMoney(string myAmount, string myCurrency)
+        public string FormatMoney(string amount, string currency)
         {
             try
             {
-                // Jonathan - im not sure what namespace this comes from?
-                // TODO: FIX TIHS
-                return myAmount;
+                // Jonathan - I'm not sure what namespace this comes from?
+                // TODO: FIX THIS
+                return amount;
 
-                // return new Money(Decimal.Parse(myAmount, CultureInfo.InvariantCulture.NumberFormat), myCurrency).ToString();
+                // return new Money(Decimal.Parse(amount, CultureInfo.InvariantCulture.NumberFormat), currency).ToString();
             }
             catch
             {
@@ -417,9 +457,13 @@ namespace Appleseed.Framework.Helpers
         {
             try
             {
-                var conv = dataCulture.ToLower() == this.portalSettings.PortalDataFormattingCulture.Name.ToLower() ? Double.Parse(numberStr) : Double.Parse(numberStr, new CultureInfo(dataCulture, false));
+                var conv = dataCulture.ToLower() == this.portalSettings.PortalDataFormattingCulture.Name.ToLower()
+                               ? Double.Parse(numberStr)
+                               : Double.Parse(numberStr, new CultureInfo(dataCulture, false));
 
-                return outputCulture.ToLower() == this.portalSettings.PortalDataFormattingCulture.Name.ToLower() ? conv.ToString(formatStr) : conv.ToString(formatStr, new CultureInfo(outputCulture, false));
+                return outputCulture.ToLower() == this.portalSettings.PortalDataFormattingCulture.Name.ToLower()
+                           ? conv.ToString(formatStr)
+                           : conv.ToString(formatStr, new CultureInfo(outputCulture, false));
             }
             catch
             {
@@ -453,7 +497,7 @@ namespace Appleseed.Framework.Helpers
                     conv = double.Parse(tempStr, new CultureInfo(string.Empty));
                     return conv.ToString("F0") + Convert.ToChar(176) + outputScale;
                 }
-                
+
                 if (outputScale.ToUpper() == "C")
                 {
                     conv = this.F2C(double.Parse(tempStr, new CultureInfo(string.Empty)));
@@ -640,7 +684,8 @@ namespace Appleseed.Framework.Helpers
                 }
                 catch (Exception ex)
                 {
-                    ErrorHandler.Publish(LogLevel.Warn, string.Format("XSL failed. Metadata Was: '{0}'", metadataXml), ex);
+                    ErrorHandler.Publish(
+                        LogLevel.Warn, string.Format("XSL failed. Metadata Was: '{0}'", metadataXml), ex);
                 }
             }
 
@@ -696,25 +741,25 @@ namespace Appleseed.Framework.Helpers
         #region Methods
 
         /// <summary>
-        /// Cleans the specified my text.
+        /// Cleans the specified text.
         /// </summary>
-        /// <param name="myText">
-        /// My text.
+        /// <param name="text">
+        /// The text to clean.
         /// </param>
         /// <returns>
-        /// The clean.
+        /// The cleaned text.
         /// </returns>
-        private string Clean(string myText)
+        private static string Clean(string text)
         {
             // is this faster/slower than using iteration over string?
-            var mySeparator = '_';
-            var singleSeparator = "_";
-            var doubleSeparator = "__";
+            const char Separator = '_';
+            const string SingleSeparator = "_";
+            const string DoubleSeparator = "__";
 
-            // myText = Regex.Replace(myText.ToLower(), @"[^-'/\p{L}\p{N}]",singleSeparator);
-            myText = Regex.Replace(myText.ToLower(), @"[^-\p{L}\p{N}]", singleSeparator);
+            // text = Regex.Replace(text.ToLower(), @"[^-'/\p{L}\p{N}]", SingleSeparator);
+            text = Regex.Replace(text.ToLower(), @"[^-\p{L}\p{N}]", SingleSeparator);
 
-            return myText.Replace(doubleSeparator, singleSeparator).Trim(mySeparator);
+            return text.Replace(DoubleSeparator, SingleSeparator).Trim(Separator);
         }
 
         #endregion
