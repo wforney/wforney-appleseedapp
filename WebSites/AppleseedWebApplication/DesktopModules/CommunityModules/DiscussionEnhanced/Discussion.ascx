@@ -1,122 +1,127 @@
-<%@ control autoeventwireup="false" inherits="Appleseed.Content.Web.Modules.Discussion"
-    language="c#" Codebehind="Discussion.ascx.cs" %>
-<%-- list of threads, URL must have a Parent="parent from dataabse" --%>
-<asp:datalist id="TopLevelList" runat="server" datakeyfield="ItemID" enableviewstate="false"
-    itemstyle-cssclass="Normal" onitemdatabound="OnItemDataBound" width="98%">
-    <headertemplate>
+<%@ Control Inherits="Appleseed.Content.Web.Modules.DiscussionEnhanced.Discussion" Language="c#" CodeBehind="Discussion.ascx.cs" %>
+<%-- list of threads, URL must have a Parent="parent from database" --%>
+<asp:DataList ID="TopLevelList" runat="server" DataKeyField="ItemID" EnableViewState="false"
+    ItemStyle-CssClass="Normal" OnItemDataBound="OnItemDataBound" Width="98%">
+    <HeaderTemplate>
         <tr>
             <td width="50%">
-                <rbfwebui:label id="Label14" runat="server" cssclass="NormalBold" textkey="DISCUSION_TITLE">Titulo</rbfwebui:label></td>
+                <rbfwebui:Label ID="Label14" runat="server" CssClass="NormalBold" TextKey="DISCUSION_TITLE">Titulo</rbfwebui:Label>
+            </td>
             <td align="right" width="25%">
                 &nbsp;
-                <rbfwebui:label id="Label13" runat="server" cssclass="NormalBold" textkey="DISCUSION_AUTHOR">Autor</rbfwebui:label></td>
+                <rbfwebui:Label ID="Label13" runat="server" CssClass="NormalBold" TextKey="DISCUSION_AUTHOR">Autor</rbfwebui:Label>
+            </td>
             <td align="right" width="25%">
-                <rbfwebui:label id="Label12" runat="server" cssclass="NormalBold" textkey="DISCUSSION_LAST_UPDATE">Ultima Actualizacion</rbfwebui:label></td>
+                <rbfwebui:Label ID="Label12" runat="server" CssClass="NormalBold" TextKey="DISCUSSION_LAST_UPDATE">Ultima Actualizacion</rbfwebui:Label>
+            </td>
         </tr>
         <tr>
             <td colspan="3">
                 <hr>
             </td>
         </tr>
-    </headertemplate>
-    <selecteditemtemplate>
+    </HeaderTemplate>
+    <SelectedItemTemplate>
         <tr bgcolor="WhiteSmoke">
             <td colspan="3">
-                <rbfwebui:imagebutton id="btnCollapse" runat="server" commandname="CollapseThread"
-                    imageurl='<%# getLocalImage("minus.gif") %>' />
-                <rbfwebui:label id="Label1" runat="server" cssclass="Normal" text='<%# DataBinder.Eval(Container.DataItem, "ChildCount") %>'
-                    tooltip="Number of replys to this topic">
-                </rbfwebui:label>/
-                <rbfwebui:label id="Label2" runat="server" cssclass="Normal" text='<%# DataBinder.Eval(Container.DataItem, "ViewCount") %>'
-                    tooltip="Number of times this topic has been viewed">
-                </rbfwebui:label>&nbsp;
-                <rbfwebui:linkbutton id="LinkButton2" runat="server" commandname="CollapseThread"
-                    cssclass="ItemTitle" text='<%# DataBinder.Eval(Container.DataItem, "Title") %>'>
-                </rbfwebui:linkbutton><%-- add the property 'Target="_new"' to the following hyperlink to have edits occur up in a new browser window --%>
-                <rbfwebui:hyperlink id="HyperLink2" runat="server" imageurl="<%# GetReplyImage() %>"
-                    navigateurl='<%# FormatUrlEditItem((int)DataBinder.Eval(Container.DataItem, "ItemID"), "REPLY") %>'
-                    text="Reply to this message_" textkey="DS_REPLYTHISMSG" visible="True">
-                </rbfwebui:hyperlink>
-                <rbfwebui:hyperlink id="HyperLink1" runat="server" imageurl='<%# GetEditImage((string)DataBinder.Eval(Container.DataItem,"CreatedByUser")) %>'
-                    navigateurl='<%# FormatUrlEditItem((int)DataBinder.Eval(Container.DataItem, "ItemID"), "EDIT") %>'
-                    text="Edit this message" textkey="EDIT" visible="True">
-                </rbfwebui:hyperlink>
-                <rbfwebui:imagebutton id="deleteBtn" runat="server" commandargument='<%# DataBinder.Eval(Container.DataItem, "ItemID") %>'
-                    commandname="delete" imageurl='<%# GetDeleteImage((int)DataBinder.Eval(Container.DataItem, "ItemID"),(string)DataBinder.Eval(Container.DataItem,"CreatedByUser")) %>'
-                    textkey="DELETE_THIS_ITEM" />
-                <rbfwebui:label id="Label11" runat="server" cssclass="Normal" text="Posted by" textkey="POSTED_BY"></rbfwebui:label>
-                <rbfwebui:label id="Label10" runat="server" cssclass="NormalBI" text='<%# DataBinder.Eval(Container.DataItem,"CreatedByUser") %>'>
-                </rbfwebui:label>,
-                <rbfwebui:label id="Label9" runat="server" cssclass="Normal" text="posted on" textkey="POSTED_DATE"></rbfwebui:label>
-                <rbfwebui:label id="Label8" runat="server" cssclass="NormalBI" text='<%# DataBinder.Eval(Container.DataItem,"CreatedDate", "{0:g}") %>'>
-                </rbfwebui:label><br>
-                <rbfwebui:label id="Label7" runat="server" cssclass="NormalBold" text='<%# DataBinder.Eval(Container.DataItem,"Body") %>'>
-                </rbfwebui:label>
+                <rbfwebui:ImageButton ID="btnCollapse" runat="server" CommandName="CollapseThread"
+                    ImageUrl='<%# this.GetLocalImage("minus.gif") %>' />
+                <rbfwebui:Label ID="Label1" runat="server" CssClass="Normal" Text='<%# DataBinder.Eval(Container.DataItem, "ChildCount") %>'
+                    ToolTip="Number of replys to this topic">
+                </rbfwebui:Label>/
+                <rbfwebui:Label ID="Label2" runat="server" CssClass="Normal" Text='<%# DataBinder.Eval(Container.DataItem, "ViewCount") %>'
+                    ToolTip="Number of times this topic has been viewed">
+                </rbfwebui:Label>&nbsp;
+                <rbfwebui:LinkButton ID="LinkButton2" runat="server" CommandName="CollapseThread"
+                    CssClass="ItemTitle" Text='<%# DataBinder.Eval(Container.DataItem, "Title") %>'>
+                </rbfwebui:LinkButton><%-- add the property 'Target="_new"' to the following hyperlink to have edits occur up in a new browser window --%>
+                <rbfwebui:HyperLink ID="HyperLink2" runat="server" ImageUrl="<%# GetReplyImage() %>"
+                    NavigateUrl='<%# FormatUrlEditItem((int)DataBinder.Eval(Container.DataItem, "ItemID"), "REPLY") %>'
+                    Text="Reply to this message_" TextKey="DS_REPLYTHISMSG" Visible="True">
+                </rbfwebui:HyperLink>
+                <rbfwebui:HyperLink ID="HyperLink1" runat="server" ImageUrl='<%# GetEditImage((string)DataBinder.Eval(Container.DataItem,"CreatedByUser")) %>'
+                    NavigateUrl='<%# FormatUrlEditItem((int)DataBinder.Eval(Container.DataItem, "ItemID"), "EDIT") %>'
+                    Text="Edit this message" TextKey="EDIT" Visible="True">
+                </rbfwebui:HyperLink>
+                <rbfwebui:ImageButton ID="deleteBtn" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ItemID") %>'
+                    CommandName="delete" ImageUrl='<%# GetDeleteImage((int)DataBinder.Eval(Container.DataItem, "ItemID"),(string)DataBinder.Eval(Container.DataItem,"CreatedByUser")) %>'
+                    TextKey="DELETE_THIS_ITEM" />
+                <rbfwebui:Label ID="Label11" runat="server" CssClass="Normal" Text="Posted by" TextKey="POSTED_BY"></rbfwebui:Label>
+                <rbfwebui:Label ID="Label10" runat="server" CssClass="NormalBI" Text='<%# DataBinder.Eval(Container.DataItem,"CreatedByUser") %>'>
+                </rbfwebui:Label>,
+                <rbfwebui:Label ID="Label9" runat="server" CssClass="Normal" Text="posted on" TextKey="POSTED_DATE"></rbfwebui:Label>
+                <rbfwebui:Label ID="Label8" runat="server" CssClass="NormalBI" Text='<%# DataBinder.Eval(Container.DataItem,"CreatedDate", "{0:g}") %>'>
+                </rbfwebui:Label><br>
+                <rbfwebui:Label ID="Label7" runat="server" CssClass="NormalBold" Text='<%# DataBinder.Eval(Container.DataItem,"Body") %>'>
+                </rbfwebui:Label>
                 <p>
                 </p>
                 <%-- expanded responses to main thread --%>
-                <asp:datalist id="DetailList" runat="server" datasource="<%# GetThreadMessages() %>"
-                    onitemcommand="TopLevelListOrDetailList_Select" onitemdatabound="OnItemDataBound">
-                    <itemtemplate>
+                <asp:DataList ID="DetailList" runat="server" DataSource="<%# GetThreadMessages() %>"
+                    OnItemCommand="TopLevelListOrDetailListSelect" OnItemDataBound="OnItemDataBound">
+                    <ItemTemplate>
                         <%# DataBinder.Eval(Container.DataItem, "BlockQuoteStart") %>
-                        <rbfwebui:label id="Label3" runat="server" cssclass="ItemTitle" text='<%# DataBinder.Eval(Container.DataItem, "Title") %>'>
-                        </rbfwebui:label>
-                        <rbfwebui:hyperlink id="Hyperlink1" runat="server" imageurl='<%# GetReplyImage() %>'
-                            navigateurl='<%# FormatUrlEditItem((int)DataBinder.Eval(Container.DataItem, "ItemID"), "REPLY") %>'
-                            text='Reply to this message_' textkey="DS_REPLYTHISMSG" visible="True">
-                        </rbfwebui:hyperlink>
-                        <rbfwebui:hyperlink id="Hyperlink2" runat="server" imageurl='<%# GetEditImage((string)DataBinder.Eval(Container.DataItem,"CreatedByUser")) %>'
-                            navigateurl='<%# FormatUrlEditItem((int)DataBinder.Eval(Container.DataItem, "ItemID"), "EDIT") %>'
-                            text="Edit this message" textkey="EDIT" visible="True">
-                        </rbfwebui:hyperlink>
-                        <rbfwebui:imagebutton id="deleteBtnExpanded" runat="server" commandargument='<%# DataBinder.Eval(Container.DataItem, "ItemID") %>'
-                            commandname="delete" imageurl='<%# GetDeleteImage((int)DataBinder.Eval(Container.DataItem, "ItemID"),(string)DataBinder.Eval(Container.DataItem,"CreatedByUser")) %>'
-                            textkey="DELETE_THIS_ITEM" />
-                        <rbfwebui:label id="Label4" runat="server" cssclass="Normal" text="Posted by" textkey="POSTED_BY">
-                        </rbfwebui:label>
-                        <rbfwebui:label id="Label5" runat="server" cssclass="Normal" text='<%# DataBinder.Eval(Container.DataItem,"CreatedByUser") %>'>
-                        </rbfwebui:label>
+                        <rbfwebui:Label ID="Label3" runat="server" CssClass="ItemTitle" Text='<%# DataBinder.Eval(Container.DataItem, "Title") %>'>
+                        </rbfwebui:Label>
+                        <rbfwebui:HyperLink ID="Hyperlink1" runat="server" ImageUrl='<%# GetReplyImage() %>'
+                            NavigateUrl='<%# FormatUrlEditItem((int)DataBinder.Eval(Container.DataItem, "ItemID"), "REPLY") %>'
+                            Text='Reply to this message_' TextKey="DS_REPLYTHISMSG" Visible="True">
+                        </rbfwebui:HyperLink>
+                        <rbfwebui:HyperLink ID="Hyperlink2" runat="server" ImageUrl='<%# GetEditImage((string)DataBinder.Eval(Container.DataItem,"CreatedByUser")) %>'
+                            NavigateUrl='<%# FormatUrlEditItem((int)DataBinder.Eval(Container.DataItem, "ItemID"), "EDIT") %>'
+                            Text="Edit this message" TextKey="EDIT" Visible="True">
+                        </rbfwebui:HyperLink>
+                        <rbfwebui:ImageButton ID="deleteBtnExpanded" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ItemID") %>'
+                            CommandName="delete" ImageUrl='<%# GetDeleteImage((int)DataBinder.Eval(Container.DataItem, "ItemID"),(string)DataBinder.Eval(Container.DataItem,"CreatedByUser")) %>'
+                            TextKey="DELETE_THIS_ITEM" />
+                        <rbfwebui:Label ID="Label4" runat="server" CssClass="Normal" Text="Posted by" TextKey="POSTED_BY">
+                        </rbfwebui:Label>
+                        <rbfwebui:Label ID="Label5" runat="server" CssClass="Normal" Text='<%# DataBinder.Eval(Container.DataItem,"CreatedByUser") %>'>
+                        </rbfwebui:Label>
                         ,
-                        <rbfwebui:label id="Label6" runat="server" cssclass="Normal" text="posted on" textkey="POSTED_DATE">
-                        </rbfwebui:label>
-                        <rbfwebui:label id="Label15" runat="server" cssclass="Normal" text='<%# DataBinder.Eval(Container.DataItem,"CreatedDate", "{0:g}") %>'>
-                        </rbfwebui:label>
+                        <rbfwebui:Label ID="Label6" runat="server" CssClass="Normal" Text="posted on" TextKey="POSTED_DATE">
+                        </rbfwebui:Label>
+                        <rbfwebui:Label ID="Label15" runat="server" CssClass="Normal" Text='<%# DataBinder.Eval(Container.DataItem,"CreatedDate", "{0:g}") %>'>
+                        </rbfwebui:Label>
                         <br>
-                        <rbfwebui:label id="Label16" runat="server" cssclass="Normal" text='<%# DataBinder.Eval(Container.DataItem,"Body") %>'>
-                        </rbfwebui:label>
+                        <rbfwebui:Label ID="Label16" runat="server" CssClass="Normal" Text='<%# DataBinder.Eval(Container.DataItem,"Body") %>'>
+                        </rbfwebui:Label>
                         <%# DataBinder.Eval(Container.DataItem, "BlockQuoteEnd") %>
-                    </itemtemplate>
-                </asp:datalist></td>
+                    </ItemTemplate>
+                </asp:DataList>
+            </td>
         </tr>
-    </selecteditemtemplate>
-    <itemstyle cssclass="Normal" />
-    <itemtemplate>
+    </SelectedItemTemplate>
+    <ItemStyle CssClass="Normal" />
+    <ItemTemplate>
         <tr>
             <td width="60%">
-                <rbfwebui:imagebutton id="btnSelect" runat="server" commandargument='<%# DataBinder.Eval(Container.DataItem, "ItemID") %>'
-                    commandname="ExpandThread" imageurl='<%# NodeImage((int)DataBinder.Eval(Container.DataItem, "ChildCount")) %>'
-                    tooltip="Expand the thread of this topic inside this browser page" />
-                <rbfwebui:imagebutton id="btnNewWindow" runat="server" commandargument='<%# DataBinder.Eval(Container.DataItem, "ItemID") %>'
-                    commandname="ShowThreadNewWindow" imageurl='<%# getLocalImage("new_window.gif") %>'
-                   tooltip="Open the thread of this topic in a new browser page" />
-                <rbfwebui:label id="Label6" runat="server" cssclass="Normal" text='<%# DataBinder.Eval(Container.DataItem, "ChildCount") %>'
-                    tooltip="Number of replys to this topic">
-                </rbfwebui:label>/
-                <rbfwebui:label id="Label5" runat="server" cssclass="Normal" text='<%# DataBinder.Eval(Container.DataItem, "ViewCount") %>'
-                    tooltip="Number of times this topic has been viewed">
-                </rbfwebui:label>&nbsp;
-                <rbfwebui:linkbutton id="LinkButton1" runat="server" commandargument='<%# DataBinder.Eval(Container.DataItem, "ItemID") %>'
-                    commandname="ExpandThread" cssclass="ItemTitle" text='<%# DataBinder.Eval(Container.DataItem, "Title") %>'>
-                </rbfwebui:linkbutton></td>
-            <td align="right" width="20%">
-                <rbfwebui:label id="Label4" runat="server" cssclass="Normal" text='<%# DataBinder.Eval(Container.DataItem,"CreatedByUser") %>'
-                    tooltip="Author of this post">
-                </rbfwebui:label>&nbsp;
+                <rbfwebui:ImageButton ID="btnSelect" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ItemID") %>'
+                    CommandName="ExpandThread" ImageUrl='<%# NodeImage((int)DataBinder.Eval(Container.DataItem, "ChildCount")) %>'
+                    ToolTip="Expand the thread of this topic inside this browser page" />
+                <rbfwebui:ImageButton ID="btnNewWindow" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ItemID") %>'
+                    CommandName="ShowThreadNewWindow" ImageUrl='<%# this.GetLocalImage("new_window.gif") %>'
+                    ToolTip="Open the thread of this topic in a new browser page" />
+                <rbfwebui:Label ID="Label6" runat="server" CssClass="Normal" Text='<%# DataBinder.Eval(Container.DataItem, "ChildCount") %>'
+                    ToolTip="Number of replys to this topic">
+                </rbfwebui:Label>/
+                <rbfwebui:Label ID="Label5" runat="server" CssClass="Normal" Text='<%# DataBinder.Eval(Container.DataItem, "ViewCount") %>'
+                    ToolTip="Number of times this topic has been viewed">
+                </rbfwebui:Label>&nbsp;
+                <rbfwebui:LinkButton ID="LinkButton1" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ItemID") %>'
+                    CommandName="ExpandThread" CssClass="ItemTitle" Text='<%# DataBinder.Eval(Container.DataItem, "Title") %>'>
+                </rbfwebui:LinkButton>
             </td>
             <td align="right" width="20%">
-                <rbfwebui:label id="Label3" runat="server" cssclass="Normal" text='<%# DataBinder.Eval(Container.DataItem,"DateofLastReply", "{0:g}") %>'
-                    tooltip="Date of most recent reply">
-                </rbfwebui:label></td>
+                <rbfwebui:Label ID="Label4" runat="server" CssClass="Normal" Text='<%# DataBinder.Eval(Container.DataItem,"CreatedByUser") %>'
+                    ToolTip="Author of this post">
+                </rbfwebui:Label>&nbsp;
+            </td>
+            <td align="right" width="20%">
+                <rbfwebui:Label ID="Label3" runat="server" CssClass="Normal" Text='<%# DataBinder.Eval(Container.DataItem,"DateofLastReply", "{0:g}") %>'
+                    ToolTip="Date of most recent reply">
+                </rbfwebui:Label>
+            </td>
         </tr>
-    </itemtemplate>
-</asp:datalist>
+    </ItemTemplate>
+</asp:DataList>

@@ -8,7 +8,7 @@
                     width="100%">
                     <itemtemplate>
                         <div class="BlogTitle">
-                            <rbfwebui:hyperlink id="editLink" runat="server" imageurl='<%# CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
+                            <rbfwebui:hyperlink id="editLink" runat="server" imageurl='<%# this.CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
                                 navigateurl='<%# Appleseed.Framework.HttpUrlBuilder.BuildUrl("~/DesktopModules/CommunityModules/Blog/BlogEdit.aspx",PageID,"ItemID=" + DataBinder.Eval(Container.DataItem,"ItemID") + "&amp;mid=" + ModuleID )%>'
                                 text="Edit" textkey="EDIT" visible="<%# IsEditable %>">
                             </rbfwebui:hyperlink>

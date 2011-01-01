@@ -79,7 +79,7 @@ namespace Appleseed.Content.Web.Modules
                 if (IsEditable)
                 {
                     listStr.Append("<td><a href=\"" + GetLinkUrl(dr["ItemID"].ToString(), linkStr, true) +
-                                   "\"><img src='" + CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl +
+                                   "\"><img src='" + this.CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl +
                                    "' border=0></a>&nbsp;</td>");
                 }
                 string auxImage;
@@ -93,7 +93,7 @@ namespace Appleseed.Content.Web.Modules
                 }
                 else
                 {
-                    auxImage = CurrentTheme.GetImage("NavLink", "navlink.gif").ImageUrl;
+                    auxImage = this.CurrentTheme.GetImage("NavLink", "navlink.gif").ImageUrl;
                 }
                 string altStr = string.Empty;
                 if ((descStr != null) && (descStr.Length > 0))

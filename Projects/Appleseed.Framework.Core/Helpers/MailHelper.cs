@@ -13,20 +13,18 @@
 namespace Appleseed.Framework.Helpers
 {
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.IO;
     using System.Linq;
     using System.Net.Mail;
     using System.Security.Principal;
     using System.Web;
-    using System.Web.Mail;
 
     using Appleseed.Framework.Data;
     using Appleseed.Framework.DataTypes;
     using Appleseed.Framework.Exceptions;
     using Appleseed.Framework.Settings;
     using Appleseed.Framework.Site.Configuration;
-
-    using MailMessage = System.Net.Mail.MailMessage;
 
     /// <summary>
     /// This class contains functions for mailing to 
@@ -39,7 +37,7 @@ namespace Appleseed.Framework.Helpers
         #region Public Methods
 
         /// <summary>
-        /// It writes emailaddresse only, if javascript is enabled (needs a really user-agent),
+        /// It writes email address only, if JavaScript is enabled (needs a really user-agent),
         ///   if not, an address like meyert[at]geschichte.hu-berlin.de is returned.
         /// </summary>
         /// <param name="email">
@@ -184,7 +182,7 @@ namespace Appleseed.Framework.Helpers
                 adaptedRoles[i] = roles[i].Replace("'", "''");
             }
 
-            var delimitedRoleList = "N'" + string.Join("', N'", adaptedRoles) + "'";
+            var delimitedRoleList = string.Format("N'{0}'", string.Join("', N'", adaptedRoles));
             var sql =
                 string.Format(
                     "SELECT DISTINCT rb_Users.Email FROM rb_UserRoles INNER JOIN  rb_Users ON rb_UserRoles.UserID = rb_Users.UserID INNER JOIN  rb_Roles ON rb_UserRoles.RoleID = rb_Roles.RoleID WHERE (rb_Users.PortalID = {0})  AND (rb_Roles.RoleName IN ({1}))", 
@@ -334,8 +332,8 @@ namespace Appleseed.Framework.Helpers
         /// <param name="smtpServer">
         /// SMTP Server to send mail thru (optional, if not specified local machine is used)
         /// </param>
-        /// <param name="mf">
-        /// Optional, mail format (text/html)
+        /// <param name="bodyIsHtml">
+        /// Optional, mail format (text/html) true if is html, false if text
         /// </param>
         public static void SendEMail(
             string from, 
@@ -346,14 +344,14 @@ namespace Appleseed.Framework.Helpers
             string cc, 
             string bcc, 
             string smtpServer, 
-            MailFormat mf = MailFormat.Text)
+            bool bodyIsHtml = false)
         {
             var mailMessage = new MailMessage();
             mailMessage.To.Add(sendTo);
             mailMessage.From = new MailAddress(from);
             mailMessage.Subject = subject;
             mailMessage.Body = body;
-            mailMessage.IsBodyHtml = mf == MailFormat.Html ? true : false;
+            mailMessage.IsBodyHtml = bodyIsHtml;
 
             if (cc.Length != 0)
             {
@@ -379,8 +377,8 @@ namespace Appleseed.Framework.Helpers
             }
 
             var smtp = new SmtpClient(smtpServer);
-
-            smtp.Send(mailMessage);
+            smtp.SendCompleted += SmtpSendCompleted;
+            smtp.SendAsync(mailMessage, null);
         }
 
         /// <summary>
@@ -491,6 +489,27 @@ namespace Appleseed.Framework.Helpers
             string smtpServer)
         {
             SendEMail(from, sendTo, subject, body, attachmentFile, cc, bcc, smtpServer);
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the SendCompleted event of the SMTP control.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.ComponentModel.AsyncCompletedEventArgs"/> instance containing the event data.
+        /// </param>
+        private static void SmtpSendCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                ErrorHandler.Publish(LogLevel.Error, e.Error);
+            }
         }
 
         #endregion
