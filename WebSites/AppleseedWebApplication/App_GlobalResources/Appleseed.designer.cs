@@ -10530,6 +10530,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must select a country.
+        /// </summary>
+        internal static string MUST_SELECT_COUNTRY {
+            get {
+                return ResourceManager.GetString("MUST_SELECT_COUNTRY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string NAME {
