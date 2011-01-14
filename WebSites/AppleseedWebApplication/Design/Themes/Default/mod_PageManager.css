@@ -1,0 +1,34 @@
+/* CSS for PageManager */
+#page_manager_table{
+}
+#page_manager_table .cp_lapeb{
+padding-left:5px;
+font-weight:bold;
+color:Black;
+}
+/*#page_manager_table TD{
+border-right:White 1px solid;
+border-top:White 1px solid;
+border-left:White 1px solid;
+color:Navy;
+border-bottom:White 1px solid;
+}
+*/
+.pm_panels{
+border-right:White 1px solid;
+border-top:White 1px solid;
+border-left:White 1px solid;
+border-bottom:White 1px solid;
+}
+.panel_toggle{
+font-size:13pt;
+font-family:Arial;
+}
+.pmtd{
+vertical-align:top;
+}
+/* label cell */
+.pmtd1{
+vertical-align:top;
+width:150px;
+}

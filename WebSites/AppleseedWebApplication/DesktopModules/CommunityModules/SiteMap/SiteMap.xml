@@ -1,0 +1,304 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Appleseed.Modules.SiteMap</name>
+    </assembly>
+    <members>
+        <member name="T:Appleseed.Content.Web.ModulesSitemap.ISitemapRenderer">
+            <summary>
+            This defines an interface for a Sitemap renderer.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.ISitemapRenderer.Render(Appleseed.Content.Web.ModulesSitemap.SitemapItems)">
+            <summary>
+            The Render interface function
+            </summary>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesSitemap.Sitemap">
+            <summary>
+            Summary description for Sitemap.
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesSitemap.Sitemap.PlaceHolder1">
+            <summary>
+            Site map place holder
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesSitemap.Sitemap.list">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesSitemap.Sitemap.showTabID">
+            <summary>
+            Controls which tab is displayed. When 0 the current tab is displyed.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.Sitemap.#ctor">
+            <summary>
+            Sitemap Constructor
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.Sitemap.DataBind">
+            <summary>
+            Do databind.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.Sitemap.CreateChildControls">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.Sitemap.MakeSitemap">
+            <summary>
+            This function creates from the PortalSettings structure a list with the tabs in the right order
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.Sitemap.RecurseSitemap(Appleseed.Framework.Site.Configuration.PageStripDetails,System.Int32)">
+            <summary>
+            This is the recursive function to add all tabs with it's child tabs
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.Sitemap.Install(System.Collections.IDictionary)">
+            <summary>
+            Install
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.Sitemap.Uninstall(System.Collections.IDictionary)">
+            <summary>
+            Uninstall
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.Sitemap.OnInit(System.EventArgs)">
+            <summary>
+            Module OnInit
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.Sitemap.InitializeComponent">
+            <summary>
+            	Required method for Designer support - do not modify
+            	the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesSitemap.Sitemap.AutoBind">
+            <summary> 
+            Indicates if control should bind when loads 
+            </summary> 
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesSitemap.Sitemap.Bind">
+            <summary> 
+            Describes how this control should bind to db data 
+            </summary> 
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesSitemap.Sitemap.ParentPageID">
+            <summary>
+            Defines the ParentTabID when using BindOptionDefinedParent
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesSitemap.Sitemap.GuidID">
+            <summary>
+            General Module Def GUID
+            </summary>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesSitemap.SitemapItem">
+            <summary>
+            A sitemap item. This just defines the simple data needed for the sitemap items.
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesSitemap.SitemapItem.ID">
+            <summary>
+            Item Id
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesSitemap.SitemapItem.Name">
+            <summary>
+            Item Name
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesSitemap.SitemapItem.Url">
+            <summary>
+            Item URL
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesSitemap.SitemapItem.NestLevel">
+            <summary>
+            Item Nest Level
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.SitemapItem.#ctor">
+            <summary>
+            SitemapItem Contstructor
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.SitemapItem.#ctor(System.Int32,System.String,System.String,System.Int32)">
+            <summary>
+            SitemapItem Contstructor
+            </summary>
+            <param name="id"></param>
+            <param name="name"></param>
+            <param name="url"></param>
+            <param name="nestlevel"></param>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesSitemap.SitemapItems">
+            <summary>
+            Summary description for SitemapItems.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.SitemapItems.Add(Appleseed.Content.Web.ModulesSitemap.SitemapItem)">
+            <summary>
+            Adds a SitemapItem item to the collection
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.SitemapItems.Add(System.Object)">
+            <summary>
+            Adds an object to the collection (must be of type SitemapItem)
+            </summary>
+            <param name="o"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesSitemap.SitemapItems.Item(System.Int32)">
+            <summary>
+            Indexer
+            </summary>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer">
+            <summary>
+            A concrete sitemaprenderer. This class takes een SitemapItems class and generates
+            a Table from it.
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer._rootNodeUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer._nodeUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer._spacerUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer._straightLineUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer._crossedLineUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer._lastNodeLineUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer._imagesHeight">
+            <summary>
+            all images should have the same height and width
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer._imagesWidth">
+            <summary>
+            all images should have the same height and width
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer._tableWidth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer._cssStyle">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer.#ctor">
+            <summary>
+            TableSitemapRenderer constructor
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer.InitVariables">
+            <summary>
+            set default values
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer.Render(Appleseed.Content.Web.ModulesSitemap.SitemapItems)">
+            <summary>
+            Render
+            This function creates a treeview in a table from the SitemapItems list
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer.LastItemAtLevel(System.Int32,Appleseed.Content.Web.ModulesSitemap.SitemapItems)">
+            <summary>
+            Returns true if node is last node for the current branch on that level
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer.MaxLevel(Appleseed.Content.Web.ModulesSitemap.SitemapItems)">
+            <summary>
+            MaxLevel
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer.ImageRootNodeUrl">
+            <summary>
+            Url for the RootNode image
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer.ImageNodeUrl">
+            <summary>
+            Url for the other Nodes image
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer.ImageSpacerUrl">
+            <summary>
+            Url for the spacer image
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer.ImageStraightLineUrl">
+            <summary>
+            Url for the straightline image
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer.ImageCrossedLineUrl">
+            <summary>
+            Url for the Crossed line image
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer.ImageLastNodeLineUrl">
+            <summary>
+            Url for the Last Node Line image
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer.CssStyle">
+            <summary>
+            CSS style for the hyperlinks
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer.ImagesHeight">
+            <summary>
+            Height of the images. All images should have the same height
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer.ImagesWidth">
+            <summary>
+            Width of the images. All images should have the same width
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesSitemap.TableSitemapRenderer.TableWidth">
+            <summary>
+            Width of the table. defaults to 98%
+            </summary>
+        </member>
+    </members>
+</doc>
