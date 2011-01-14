@@ -1,7 +1,6 @@
 using System;
 using System.Data.SqlClient;
 using System.Text;
-using System.Web.Mail;
 using Appleseed.Framework;
 using Appleseed.Framework.Content.Security;
 using Appleseed.Framework.DataTypes;
@@ -14,6 +13,7 @@ using Appleseed.Framework.Web.UI.WebControls;
 using System.Web.Security;
 using System.Web.Profile;
 using System.Data;
+using System.Net.Mail;
 
 namespace Appleseed.Content.Web.Modules
 {
@@ -88,7 +88,7 @@ namespace Appleseed.Content.Web.Modules
             MembershipUser memberUser = usersDB.GetSingleUser(email.Text, portalSettings.PortalAlias);
             //ProfileCommon profile = usersDB.GetSingleUserProfile( email.Text, portalSettings.PortalID );
 
-            if (true)
+            if (memberUser != null)
             {
                 string Pswrd;
                 string AppName = portalSettings.PortalName;
@@ -106,22 +106,28 @@ namespace Appleseed.Content.Web.Modules
                 string LoginUrl = Path.ApplicationFullPath + "DesktopModules/Admin/Logon.aspx?Usr=" + Name + "&Pwd=" +
                                   Pswrd + "&Alias=" + portalSettings.PortalAlias;
                 MailMessage mail = new MailMessage();
-
-                // Geert.Audenaert@Syntegra.Com
-                // Date 19 March 2003
-                // We have to use a correct sender address, 
-                // because most SMTP servers reject it otherwise
-                //jes1111 - mail.From = ConfigurationSettings.AppSettings["EmailFrom"].ToString();
+                
+                //we check the PortalSettings in order to get if it has an sender registered 
                 if (portalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_FROM"] != null)
                 {
                     var sf = portalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_FROM"];
-                    mail.From = sf is SettingItem ? ((SettingItem)sf).Value : (string)sf;
+                    var mailFrom =  sf is SettingItem ? ((SettingItem)sf).Value : (string)sf;
+                    try
+                    {
+                        mail.From = new MailAddress(mailFrom);
+                    }
+                    catch //if the address is not well formed, a warning is logged.
+                    {
+                        LogHelper.Logger.Log(LogLevel.Warn, string.Format(
+                            @"This is the current email address used as sender when someone want to retrieve his/her password: '{0}'. 
+Is not well formed. Check the setting SITESETTINGS_ON_REGISTER_SEND_FROM of portal '{1}' in order to change this value (it's a portal setting).",
+                            mailFrom, portalSettings.PortalAlias
+                        ));
+                    }
                 }
-                else
-                {
-                    mail.From = Config.EmailFrom;
-                }
-                mail.To = email.Text;
+                //if there is not a correct email in the portalSettings, we use the default sender specified on the web.config file in the mailSettings tag.
+                
+                mail.To.Add(new MailAddress(email.Text));
                 mail.Subject = AppName + " - " + General.GetString("SIGNIN_SEND_PWD", "Send me password", this);
 
                 StringBuilder sb = new StringBuilder();
@@ -152,15 +158,29 @@ namespace Appleseed.Content.Web.Modules
                                       this));
 
                 mail.Body = sb.ToString();
-                mail.BodyFormat = MailFormat.Text;
+                mail.IsBodyHtml = false;
 
-                SmtpMail.SmtpServer = Config.SmtpServer;
-                SmtpMail.Send(mail);
+                using (SmtpClient client = new SmtpClient())
+                {
+                    try
+                    {
+                        client.Send(mail);
 
-                Message.Text =
-                    General.GetString("SIGNIN_PWD_WAS_SENT", "Your password was sent to the addess you provided",
-                                      this);
-                Message.TextKey = "SIGNIN_PWD_WAS_SENT";
+                        Message.Text =
+                            General.GetString("SIGNIN_PWD_WAS_SENT", "Your password was sent to the addess you provided",
+                                              this);
+                        Message.TextKey = "SIGNIN_PWD_WAS_SENT";
+                    }
+                    catch (Exception exception)
+                    {
+                        Message.Text = General.GetString("SIGNIN_SMTP_SENDING_PWD_MAIL_ERROR", "We can't send you your password. There were problems while trying to do so.");
+                        Message.TextKey = "SIGNIN_SMTP_SENDING_PWD_MAIL_ERROR";
+                        LogHelper.Logger.Log(
+                            LogLevel.Error, 
+                            string.Format("Error while trying to send the password to '{0}'. Perhaps you should check your smtp server configuration in the web.config.", email.Text), 
+                            exception);
+                    }
+                }
             }
             else
             {
