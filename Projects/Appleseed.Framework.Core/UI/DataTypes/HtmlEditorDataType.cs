@@ -237,6 +237,7 @@ namespace Appleseed.Framework.DataTypes
                     sckvtb.ImageFolder = moduleImageFolder;
                     sckvtb.BaseContentUrl = Path.WebPathCombine(Path.ApplicationRoot, "aspnet_client/ckeditor/");
                     sckvtb.Resizable = false;
+                    sckvtb.Language = portalSettings.PortalUILanguage.TwoLetterISOLanguageName;
 
                     DesktopText = ((IHtmlEditor)sckvtb);
                     break;
