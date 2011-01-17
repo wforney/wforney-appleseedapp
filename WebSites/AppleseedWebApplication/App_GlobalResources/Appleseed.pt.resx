@@ -425,7 +425,7 @@
     <value>AT_SHOWMOBILE</value>
   </data>
   <data name="AT_TABPARENT">
-    <value>AT_TABPARENT</value>
+    <value>Página Pai</value>
   </data>
   <data name="AT_TABTITLE">
     <value>AT_TABTITLE</value>
@@ -2248,6 +2248,9 @@
   <data name="PIVA">
     <value>Company number</value>
   </data>
+  <data name="PM_ASSIGN_AS_PARENT_PAGE">
+    <value>Espacificar esta página como pai das páginas seleccionadas.</value>
+  </data>
   <data name="PORTALS">
     <value>Portais</value>
   </data>
@@ -2912,10 +2915,10 @@
     <value>SM_MENU_REPEATDIRECTION_DESCRIPTION</value>
   </data>
   <data name="SM_PARENTTABID">
-    <value>SM_PARENTTABID</value>
+    <value>Id Página Pai</value>
   </data>
   <data name="SM_PARENTTABID_DESCRIPTION">
-    <value>SM_PARENTTABID_DESCRIPTION</value>
+    <value>Estabelecê o identificador da página pai</value>
   </data>
   <data name="SORTFIELD">
     <value>SORTFIELD</value>
@@ -3032,7 +3035,7 @@
     <value>Novo Painel (inserir nome)</value>
   </data>
   <data name="TAB_PARENT">
-    <value>Painel Superior</value>
+    <value>Página pai</value>
   </data>
   <data name="TAB_TITLE_Appleseed_HELP">
     <value>TAB_TITLE_Appleseed_HELP</value>
@@ -3762,9 +3765,6 @@
   </data>
   <data name="ERROR_FILE_NAME">
     <value>ERROR_FILE_NAME</value>
-  </data>
-  <data name="ERROR_NOT_ALLOWED_PARENT">
-    <value>ERROR_NOT_ALLOWED_PARENT</value>
   </data>
   <data name="ERROR_VALID_EXPIRE_DATE">
     <value>ERROR_VALID_EXPIRE_DATE</value>
@@ -5443,6 +5443,9 @@
   <data name="TABKEYPHRASE_ES-ES">
     <value>Frase chave da página (es-ES)</value>
   </data>
+  <data name="ERROR_NOT_ALLOWED_PARENT">
+    <value>Nao e permitido seleccionar este pai</value>
+  </data>
   <data name="CONTINUE">
     <value>Continue</value>
   </data>
@@ -5463,9 +5466,6 @@
   </data>
   <data name="PM_ADD_PAGE_FULL_DETAILED">
     <value>Add Page with full details</value>
-  </data>
-  <data name="PM_ASSIGN_AS_PARENT_PAGE">
-    <value>Assign this page as parent to selected pages.</value>
   </data>
   <data name="PM_BELOW_SELECTED">
     <value>Below Selected</value>
