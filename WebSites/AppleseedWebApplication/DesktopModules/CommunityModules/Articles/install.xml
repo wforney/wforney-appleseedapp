@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Modules>
+	<Module>
+		<FriendlyName>Articles Inline</FriendlyName>
+		<DesktopSource>DesktopModules/CommunityModules/Articles/ArticlesInline.ascx</DesktopSource>
+		<MobileSource></MobileSource>
+	</Module>
+	<Module>
+		<FriendlyName>Articles</FriendlyName>
+		<DesktopSource>DesktopModules/CommunityModules/Articles/Articles.ascx</DesktopSource>
+		<MobileSource></MobileSource>
+	</Module>
+</Modules>
