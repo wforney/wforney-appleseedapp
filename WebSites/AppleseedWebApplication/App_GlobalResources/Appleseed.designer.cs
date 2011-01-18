@@ -15939,6 +15939,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The security text doesn&apos;t match the image provided. Please try again..
+        /// </summary>
+        internal static string USER_SAVING_WRONG_CAPTCHA {
+            get {
+                return ResourceManager.GetString("USER_SAVING_WRONG_CAPTCHA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User updated succesfully.
         /// </summary>
         internal static string USER_UPDATED_SUCCESFULLY {

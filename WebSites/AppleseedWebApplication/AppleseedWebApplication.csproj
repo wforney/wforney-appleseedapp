@@ -180,6 +180,9 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\Libs\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Recaptcha">
+      <HintPath>..\..\Libs\Recaptcha.dll</HintPath>
+    </Reference>
     <Reference Include="SgmlReaderDll">
       <HintPath>..\..\Libs\SgmlReaderDll.dll</HintPath>
     </Reference>

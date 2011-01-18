@@ -1,4 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RegisterFull.ascx.cs" Inherits="DesktopModules_CoreModules_Register_RegisterFull" %>
+<%@ Register TagPrefix="recaptcha" Namespace="Recaptcha" Assembly="Recaptcha" %>
 <table border="0" cellpadding="0" cellspacing="0" class="registerTable">
         <tr>
         <td align="left" valign="top" width="30">
@@ -120,6 +121,17 @@
                                         </td>
                                         <td>
                                             <asp:CheckBox ID="chbSendNotification" runat="server" Checked="true" Visible="false" />
+                                        </td>
+                                    </tr>
+                                    <tr id="trCaptcha" runat="server">
+                                        <td colspan="2">
+                                            <recaptcha:RecaptchaControl
+                                                  ID="recaptcha"
+                                                  runat="server"
+                                                  Theme="clean"
+                                                  PublicKey="6LeQmsASAAAAAIx9ZoRJXA44sajtJjPl2L_MFrTS"
+                                                  PrivateKey="6LeQmsASAAAAADS-WeMyg9mKo5l3ERKcB4LSQieI"
+                                                  />
                                         </td>
                                     </tr>
                                     <%--<tr>

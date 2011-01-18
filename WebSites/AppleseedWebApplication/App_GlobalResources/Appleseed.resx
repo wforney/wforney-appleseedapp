@@ -5549,4 +5549,7 @@ function confirmDelete()
   <data name="MUST_SELECT_COUNTRY" xml:space="preserve">
     <value>You must select a country</value>
   </data>
+  <data name="USER_SAVING_WRONG_CAPTCHA" xml:space="preserve">
+    <value>The security text doesn't match the image provided. Please try again.</value>
+  </data>
 </root>
