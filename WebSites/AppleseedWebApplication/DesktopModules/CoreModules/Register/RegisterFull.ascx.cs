@@ -79,25 +79,26 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
                 tfEmail.Text = Request.QueryString["email"];
             }
 
+            trCaptcha.Visible = false;
             if (EditMode && !OuterCreation) {
-                trCaptcha.Visible = false;
                 lblTitle.Text = (string)GetGlobalResourceObject("Appleseed","USER_MODIFICATION");
                 lblChPwd.Visible = true;
                 rfvPwd.Enabled = false;
             } else {
-                trCaptcha.Visible = true;
-                recaptcha.Language = portalSettings.PortalContentLanguage.TwoLetterISOLanguageName;
                 lblTitle.Text = (string)GetGlobalResourceObject("Appleseed", "USER_REGISTRY");
                 //                this.BirthdayField.Date = DateTime.Today.AddYears(-18);
                 if (OuterCreation) {
-                    //TODO Cuando un usuario está creando a otro usuario...
+                    //When a user is creating another user
                     lblSendNotification.Visible = true;
                     chbSendNotification.Visible = true;
                     chbSendNotification.Checked = true;
 
                     //lblAssignCategory.Visible = true;
                     //ddlAssignCategory.Visible = true;
-                   // BindCategory();
+                    // BindCategory();
+                } else {
+                    trCaptcha.Visible = true;
+                    recaptcha.Language = portalSettings.PortalContentLanguage.TwoLetterISOLanguageName;
                 }
             }
 
@@ -221,9 +222,18 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
         ddlYear.SelectedValue = DateTime.Today.AddYears(-18).Year.ToString();
     }
 
+
+    protected void cvCaptcha_ServerValidate(object source, ServerValidateEventArgs args)
+    {
+        args.IsValid = recaptcha.IsValid;
+    }
+
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        SaveUserData();
+        if (Page.IsValid)
+        {
+            SaveUserData();
+        }
     }
 
     private string UserName
@@ -269,37 +279,30 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
     {
         if (!EditMode) {
             Guid result = Guid.Empty;
-            if (Page.IsValid)
+            
+            MembershipCreateStatus status = MembershipCreateStatus.Success;
+            MembershipUser user = Membership.Provider.CreateUser(tfEmail.Text, tfPwd.Text, tfEmail.Text, "question", "answer", true, Guid.NewGuid(), out status);
+            this.lblError.Text = string.Empty;
+
+            switch (status)
             {
-
-
-                MembershipCreateStatus status = MembershipCreateStatus.Success;
-                MembershipUser user = Membership.Provider.CreateUser(tfEmail.Text, tfPwd.Text, tfEmail.Text, "question", "answer", true, Guid.NewGuid(), out status);
-                this.lblError.Text = string.Empty;
-
-                switch (status)
-                {
-                    case MembershipCreateStatus.DuplicateEmail:
-                    case MembershipCreateStatus.DuplicateUserName:
-                        this.lblError.Text = Resources.Appleseed.USER_ALREADY_EXISTS;
-                        break;
-                    case MembershipCreateStatus.ProviderError:
-                        break;
-                    case MembershipCreateStatus.Success:
-                        UpdateProfile();
-                        result = (Guid)user.ProviderUserKey;
-                        break;
-                    //Todos los otros...
-                    default:
-                        this.lblError.Text = Resources.Appleseed.USER_SAVING_ERROR;
-                        break;
-                }
-            }
-            else
-            {
-                this.lblError.Text = Resources.Appleseed.USER_SAVING_WRONG_CAPTCHA;
+                case MembershipCreateStatus.DuplicateEmail:
+                case MembershipCreateStatus.DuplicateUserName:
+                    this.lblError.Text = Resources.Appleseed.USER_ALREADY_EXISTS;
+                    break;
+                case MembershipCreateStatus.ProviderError:
+                    break;
+                case MembershipCreateStatus.Success:
+                    UpdateProfile();
+                    result = (Guid)user.ProviderUserKey;
+                    break;
+                //Todos los otros...
+                default:
+                    this.lblError.Text = Resources.Appleseed.USER_SAVING_ERROR;
+                    break;
             }
             return result;
+
         } else {
             if (!String.IsNullOrEmpty(tfPwd.Text)) {
                 string oldPwd = string.Empty;
@@ -326,6 +329,8 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
             return (Guid)Membership.GetUser(tfEmail.Text).ProviderUserKey;
         }
     }
+
+   
 
     private void UpdateProfile()
     {

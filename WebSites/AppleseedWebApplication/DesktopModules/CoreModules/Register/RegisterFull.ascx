@@ -132,6 +132,11 @@
                                                   PublicKey="6LeQmsASAAAAAIx9ZoRJXA44sajtJjPl2L_MFrTS"
                                                   PrivateKey="6LeQmsASAAAAADS-WeMyg9mKo5l3ERKcB4LSQieI"
                                                   />
+                                            <div>
+                                                <asp:CustomValidator ID="cvCaptcha" runat="server" Display="Dynamic"
+                                                Text="<%$ Resources:Appleseed, USER_SAVING_WRONG_CAPTCHA %>" textkey="USER_SAVING_WRONG_CAPTCHA" Font-Size="11px"
+                                                OnServerValidate="cvCaptcha_ServerValidate" ></asp:CustomValidator>
+                                            </div>
                                         </td>
                                     </tr>
                                     <%--<tr>
