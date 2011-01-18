@@ -414,7 +414,7 @@
     <value>AT_SHOWMOBILE</value>
   </data>
   <data name="AT_TABPARENT">
-    <value>AT_TABPARENT</value>
+    <value>Página Padre</value>
   </data>
   <data name="AT_TABTITLE">
     <value>AT_TABTITLE</value>
@@ -447,7 +447,7 @@
     <value>BIND_OPTION_CURRENT_CHILDS</value>
   </data>
   <data name="BIND_OPTION_DEFINED_PARENT">
-    <value>BIND_OPTION_DEFINED_PARENT</value>
+    <value>Cargar Hijos de un Padre</value>
   </data>
   <data name="BIND_OPTION_NONE">
     <value>BIND_OPTION_NONE</value>
@@ -2216,6 +2216,9 @@
   <data name="PIVA">
     <value>Numero Fiscal Empresa</value>
   </data>
+  <data name="PM_ASSIGN_AS_PARENT_PAGE">
+    <value>Asignar esta página como padre de las páginas seleccionadas.</value>
+  </data>
   <data name="PORTALS">
     <value>Portales</value>
   </data>
@@ -2883,10 +2886,10 @@
     <value>SM_MENU_REPEATDIRECTION_DESCRIPTION</value>
   </data>
   <data name="SM_PARENTTABID">
-    <value>SM_PARENTTABID</value>
+    <value>Id Página Padre</value>
   </data>
   <data name="SM_PARENTTABID_DESCRIPTION">
-    <value>SM_PARENTTABID_DESCRIPTION</value>
+    <value>Establece el identificador de la página padre</value>
   </data>
   <data name="SORTFIELD">
     <value>Campo de Ordenacion</value>
@@ -3667,9 +3670,6 @@
   <data name="ERROR_FILE_NAME">
     <value>ERROR_FILE_NAME</value>
   </data>
-  <data name="ERROR_NOT_ALLOWED_PARENT">
-    <value>ERROR_NOT_ALLOWED_PARENT</value>
-  </data>
   <data name="ERROR_VALID_EXPIRE_DATE">
     <value>Ingrese una fecha correcta de expiracion.</value>
   </data>
@@ -4312,6 +4312,9 @@
   <data name="TABKEYPHRASE_ES-ES">
     <value>Frase clave para la página (es-ES)</value>
   </data>
+  <data name="ERROR_NOT_ALLOWED_PARENT">
+    <value>No se permite seleccionar este padre</value>
+  </data>
   <data name="ALPHA_LIST_ITEM_DETAILS">
     <value>Details</value>
   </data>
@@ -4368,9 +4371,6 @@
   </data>
   <data name="PM_ADD_PAGE_FULL_DETAILED">
     <value>Add Page with full details</value>
-  </data>
-  <data name="PM_ASSIGN_AS_PARENT_PAGE">
-    <value>Assign this page as parent to selected pages.</value>
   </data>
   <data name="PM_BELOW_SELECTED">
     <value>Below Selected</value>
