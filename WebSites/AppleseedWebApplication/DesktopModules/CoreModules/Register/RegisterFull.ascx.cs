@@ -60,10 +60,17 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
         }
     }
 
+    protected override void OnInit(EventArgs e)
+    {
+        recaptcha.PublicKey = Convert.ToString(portalSettings.CustomSettings["SITESETTINGS_RECAPTCHA_PUBLIC_KEY"]);
+        recaptcha.PrivateKey = Convert.ToString(portalSettings.CustomSettings["SITESETTINGS_RECAPTCHA_PRIVATE_KEY"]);
+        recaptcha.Language = portalSettings.PortalContentLanguage.TwoLetterISOLanguageName;
+        base.OnInit(e);
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         LoadBirthDateControls();
-
         if (!Page.IsPostBack) {
 
             BindCountry();
@@ -79,7 +86,9 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
                 tfEmail.Text = Request.QueryString["email"];
             }
 
-            trCaptcha.Visible = false;
+            //captcha will only be displayed if the user is not authenticated.
+            trCaptcha.Visible = !Context.User.Identity.IsAuthenticated;
+            
             if (EditMode && !OuterCreation) {
                 lblTitle.Text = (string)GetGlobalResourceObject("Appleseed","USER_MODIFICATION");
                 lblChPwd.Visible = true;
@@ -87,8 +96,8 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
             } else {
                 lblTitle.Text = (string)GetGlobalResourceObject("Appleseed", "USER_REGISTRY");
                 //                this.BirthdayField.Date = DateTime.Today.AddYears(-18);
-                if (OuterCreation) {
-                    //When a user is creating another user
+                if (OuterCreation)
+                {
                     lblSendNotification.Visible = true;
                     chbSendNotification.Visible = true;
                     chbSendNotification.Checked = true;
@@ -96,9 +105,6 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
                     //lblAssignCategory.Visible = true;
                     //ddlAssignCategory.Visible = true;
                     // BindCategory();
-                } else {
-                    trCaptcha.Visible = true;
-                    recaptcha.Language = portalSettings.PortalContentLanguage.TwoLetterISOLanguageName;
                 }
             }
 

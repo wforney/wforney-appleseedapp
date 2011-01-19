@@ -129,8 +129,8 @@
                                                   ID="recaptcha"
                                                   runat="server"
                                                   Theme="clean"
-                                                  PublicKey="6LeQmsASAAAAAIx9ZoRJXA44sajtJjPl2L_MFrTS"
-                                                  PrivateKey="6LeQmsASAAAAADS-WeMyg9mKo5l3ERKcB4LSQieI"
+                                                  PrivateKey="some_private_key"
+                                                  PublicKey="some_public_key"
                                                   />
                                             <div>
                                                 <asp:CustomValidator ID="cvCaptcha" runat="server" Display="Dynamic"
