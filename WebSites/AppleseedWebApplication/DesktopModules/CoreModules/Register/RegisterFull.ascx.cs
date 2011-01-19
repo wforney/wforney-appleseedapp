@@ -301,8 +301,13 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
                 case MembershipCreateStatus.Success:
                     UpdateProfile();
                     result = (Guid)user.ProviderUserKey;
+                    //if the user is registering himself (thus, is not yet authenticated) we will sign him on and send him to the home page.
+                    if (!Context.User.Identity.IsAuthenticated)
+                    {
+                        PortalSecurity.SignOn(tfEmail.Text, tfPwd.Text, false, HttpUrlBuilder.BuildUrl());
+                    }
                     break;
-                //Todos los otros...
+                // for every other error message...
                 default:
                     this.lblError.Text = Resources.Appleseed.USER_SAVING_ERROR;
                     break;
@@ -330,8 +335,6 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
             }
 
             UpdateProfile();
-
-
             return (Guid)Membership.GetUser(tfEmail.Text).ProviderUserKey;
         }
     }
