@@ -37,7 +37,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
         private bool _showTabMan = true; // Ozan, 2 June 2004: add link for tab management 
         private bool _showRegister = false;
         private bool _showDragNDrop = false;
-        
+        private string _logonLinkClientId = "logon_link";
 
 
         // 26 October 2003 john.mandia@whitelightsolutions.com - Start
@@ -104,6 +104,20 @@ namespace Appleseed.Framework.Web.UI.WebControls
         {
             get { return _showDragNDrop; }
             set { _showDragNDrop = value; }
+        }
+
+        /// <summary>
+        /// Gets or Sets the logon's anchor client id. The default value is: logon_link.
+        /// </summary>
+        [Category("Data"),
+            PersistenceMode(PersistenceMode.Attribute),
+            DefaultValue("logon_link")
+            ]
+        public string LogonLinkClientId
+        {
+            get { return _logonLinkClientId; }
+            set { _logonLinkClientId = value; }
+
         }
 
         /// <summary>
@@ -445,6 +459,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                         if (CssClass.Length != 0)
                             menuLink = menuLink + " class=\"" + CssClass + "\"";
 
+                        menuLink += string.Concat(" id=\"", LogonLinkClientId, "\"");
                         menuLink = menuLink + " href='" + HttpUrlBuilder.BuildUrl("~/DesktopModules/CoreModules/Admin/Logon.aspx") +
                                    "'>" + General.GetString("LOGON", "Logon", null) + "</a>";
                         list.Add(menuLink);
