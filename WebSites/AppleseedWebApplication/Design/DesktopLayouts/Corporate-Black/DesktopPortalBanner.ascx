@@ -21,7 +21,7 @@
 		.dialog({
 		    autoOpen: false,
 		    modal: true,
-            maxWidth: 200,
+		    width: 350, 
 		    open: function (type, data) { $(this).parent().appendTo("form"); }
 		});
 
@@ -31,7 +31,7 @@
             return false;
         });
 
-        if ($("#loguin_dialog span.Error").html() != "") {
+        if ($("#loguin_dialog span.Error").html()) {
             $dialog.dialog('open');
         }
     });
