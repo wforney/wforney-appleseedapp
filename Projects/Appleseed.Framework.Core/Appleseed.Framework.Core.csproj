@@ -270,6 +270,7 @@
     <Compile Include="UI\WebControls\BindEnum.cs" />
     <Compile Include="UI\WebControls\BreadCrumbs.cs" />
     <Compile Include="UI\WebControls\CachedPortalModuleControl.cs" />
+    <Compile Include="UI\WebControls\CodeMirrorTextBox.cs" />
     <Compile Include="UI\WebControls\MVCModuleControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

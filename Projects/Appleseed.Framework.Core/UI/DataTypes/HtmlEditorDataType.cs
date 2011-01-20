@@ -5,6 +5,7 @@ using System.Web.UI;
 using Appleseed.Framework.Settings;
 using Appleseed.Framework.Site.Configuration;
 using Appleseed.Framework.Web.UI.WebControls;
+using Appleseed.Framework.UI.WebControls.CodeMirror;
 
 namespace Appleseed.Framework.DataTypes
 {
@@ -126,7 +127,7 @@ namespace Appleseed.Framework.DataTypes
         /// <value></value>
         public override object DataSource
         {
-            get { return "Plain Text;FCKeditor;SyrinxCkEditor;FreeTextBox".Split(';'); }
+            get { return "Plain Text;FCKeditor;SyrinxCkEditor;FreeTextBox;CodeMirrorHtmlEditor".Split(';'); }
         }
 
         /// <summary>
@@ -261,7 +262,12 @@ namespace Appleseed.Framework.DataTypes
 
                     DesktopText = ((IHtmlEditor) freeText);
                     break;
-                
+
+                case "CodeMirrorHtmlEditor":
+                    var codeMirrorTextBox = new CodeMirrorTextBox();
+                    DesktopText = codeMirrorTextBox;
+                    break;
+
                 case "Plain Text":
                 default:
                     DesktopText = (new TextEditor());
