@@ -6,35 +6,7 @@
         PortalHeaderMenu.DataBind();
 		PortalTitle.DataBind();
         PortalImage.DataBind();
-        var signInControl = (Appleseed.Content.Web.Modules.Signin)LoadControl("~/DesktopModules/CoreModules/SignIn/SignIn.ascx");
-        loguinPlaceHolder.Controls.Add(signInControl);
     }
-</script>
-
-<div id="loguin_dialog" style="display:none">
-    <asp:PlaceHolder ID="loguinPlaceHolder" runat="server"></asp:PlaceHolder>
-</div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        var $dialog = $('#loguin_dialog')
-		.dialog({
-		    autoOpen: false,
-		    modal: true,
-		    width: 350, 
-		    open: function (type, data) { $(this).parent().appendTo("form"); }
-		});
-
-        $('#logon_link').click(function () {
-            $dialog.dialog('open');
-            // prevent the default action, e.g., following a link
-            return false;
-        });
-
-        if ($("#loguin_dialog span.Error").html()) {
-            $dialog.dialog('open');
-        }
-    });
 </script>
 
 <div class="header">
@@ -53,7 +25,8 @@
 			<rbfwebui:HeaderMenu 	ID="PortalHeaderMenu" runat="server" 
 									CssClass="SiteLink" RepeatDirection="Horizontal" cellspacing="0"
 									CellPadding="0" ShowHelp="False" ShowHome="False" 
-									ShowLogon="true" ShowRegister="true" ShowDragNDrop="True">
+									ShowLogon="true" ShowRegister="true" ShowDragNDrop="True"
+                                    DialogLogon="true" >
 				<ItemStyle Wrap="False"></ItemStyle>
 				<ItemTemplate>
 					<!-- used to stylize the left border ex: border with images-->
