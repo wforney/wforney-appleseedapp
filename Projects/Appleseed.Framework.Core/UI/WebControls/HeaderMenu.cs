@@ -518,13 +518,14 @@ namespace Appleseed.Framework.Web.UI.WebControls
             base.DataBind();
             if (ShowLogon && DialogLogon)
             {
+                //this new list control won't appear in the list, since it has no DataItem. However we need it for "holding" the Signin Control.
                 var newItem = new DataListItem(this.Controls.Count, ListItemType.Item);
                 this.Controls.Add(newItem);
                 
                 var logonDialogPlaceHolder = new PlaceHolder();
                 newItem.Controls.Add(logonDialogPlaceHolder);
 
-                if (_logonControl == null)
+                if (_logonControl == null) //we ask this in case someone call the Databind more than once.
                 {
                     _logonControl = Page.LoadControl(DialogLogonControlPath);
                     _logonControl.ViewStateMode = System.Web.UI.ViewStateMode.Enabled;
@@ -533,7 +534,8 @@ namespace Appleseed.Framework.Web.UI.WebControls
             }
         }
 
-
+        //we added this private attribute for store a reference to the signin control. 
+        //Its assigned during the binding (and the con
         private Control _logonControl = null;
 
         /// <summary>
