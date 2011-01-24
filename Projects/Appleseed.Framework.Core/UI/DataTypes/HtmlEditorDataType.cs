@@ -127,7 +127,7 @@ namespace Appleseed.Framework.DataTypes
         /// <value></value>
         public override object DataSource
         {
-            get { return "Plain Text;FCKeditor;SyrinxCkEditor;FreeTextBox;CodeMirrorHtmlEditor".Split(';'); }
+            get { return "Code Mirror Plain Text;FCKeditor;Syrinx CkEditor;FreeTextBox".Split(';'); }
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace Appleseed.Framework.DataTypes
                     break;
 
 
-                case "SyrinxCkEditor":
+                case "Syrinx CkEditor":
                     SyrinxCkTextBox.CkEditorJS = Path.WebPathCombine(Path.ApplicationRoot,
                                             "aspnet_client/ckeditor/ckeditor.js");
                     
@@ -263,14 +263,10 @@ namespace Appleseed.Framework.DataTypes
                     DesktopText = ((IHtmlEditor) freeText);
                     break;
 
-                case "CodeMirrorHtmlEditor":
+                case "Code Mirror Plain Text":
+                default: 
                     var codeMirrorTextBox = new CodeMirrorTextBox();
                     DesktopText = codeMirrorTextBox;
-                    break;
-
-                case "Plain Text":
-                default:
-                    DesktopText = (new TextEditor());
                     break;
             }
             PlaceHolderHTMLEditor.Controls.Add(((Control) DesktopText));
