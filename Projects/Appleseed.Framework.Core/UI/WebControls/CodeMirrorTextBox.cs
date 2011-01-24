@@ -8,8 +8,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 namespace Appleseed.Framework.UI.WebControls.CodeMirror
 {
     /// <summary>
-    /// TextEditor is a simple implementation for an html editor. 
-    /// Currently implements text only.
+    /// CodeMirrorTextBox is a simple implementation for an html editor. 
+    /// It implements text only, but in a nice and colored way.
     /// </summary>
     public class CodeMirrorTextBox : TextBox, IHtmlEditor
     {

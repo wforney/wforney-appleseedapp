@@ -6,6 +6,7 @@ using Appleseed.Framework.Settings;
 using Appleseed.Framework.Site.Configuration;
 using Appleseed.Framework.Web.UI.WebControls;
 using Appleseed.Framework.UI.WebControls.CodeMirror;
+using Appleseed.Framework.UI.WebControls.TinyMCE;
 
 namespace Appleseed.Framework.DataTypes
 {
@@ -127,7 +128,7 @@ namespace Appleseed.Framework.DataTypes
         /// <value></value>
         public override object DataSource
         {
-            get { return "Code Mirror Plain Text;FCKeditor;Syrinx CkEditor;FreeTextBox".Split(';'); }
+            get { return "Code Mirror Plain Text;TinyMCE Editor;FCKeditor;Syrinx CkEditor;FreeTextBox".Split(';'); }
         }
 
         /// <summary>
@@ -209,6 +210,12 @@ namespace Appleseed.Framework.DataTypes
 
             switch (Value)
             {
+                case "TinyMCE Editor":
+                    var tinyMCE = new TinyMCETextBox();
+                    tinyMCE.ImageFolder = moduleImageFolder;
+                    DesktopText = tinyMCE;
+                    break;
+
                 case "FCKeditor": // 9/8/2010
                     FCKTextBoxV2 fckv2 = new FCKTextBoxV2();
                     fckv2.ImageFolder = moduleImageFolder;
