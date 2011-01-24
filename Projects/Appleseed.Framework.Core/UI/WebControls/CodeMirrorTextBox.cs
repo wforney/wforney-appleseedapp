@@ -52,7 +52,7 @@ namespace Appleseed.Framework.UI.WebControls.CodeMirror
         protected override void Render(System.Web.UI.HtmlTextWriter writer)
         {
             this.Attributes["id"] = this.ClientID;
-            writer.Write(string.Concat("<div style=\"border: 1px solid grey; padding: 3px; width: ", new Unit(this.Width.Value + 3, UnitType.Pixel), "\">"));
+            writer.Write(string.Concat("<div style=\"border: 1px solid grey; padding: 3px 0px 3px 3px; width: ", new Unit(this.Width.Value + 3, UnitType.Pixel), "\">"));
             base.Render(writer);
             var rootPath = string.Concat(Appleseed.Framework.Settings.Path.ApplicationRoot, @"/aspnet_client/CodeMirror/");
             var jsToAdd = string.Concat(@"
