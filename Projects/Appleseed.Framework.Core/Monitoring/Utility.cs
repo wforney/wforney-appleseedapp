@@ -73,10 +73,10 @@ namespace Appleseed.Framework.Monitoring
         {
 
             // Read from the cache if available
-            if (true)
-                //HttpContext.Current.Cache["WhoIsOnlineAnonUserCount"] == null ||
-                //HttpContext.Current.Cache["WhoIsOnlineRegUserCount"] == null ||
-                //HttpContext.Current.Cache["WhoIsOnlineRegUsersString"] == null)
+            if (
+                HttpContext.Current.Cache["WhoIsOnlineAnonUserCount"] == null ||
+                HttpContext.Current.Cache["WhoIsOnlineRegUserCount"] == null ||
+                HttpContext.Current.Cache["WhoIsOnlineRegUsersString"] == null)
             {
                 // Firstly get the logged in users
                 SqlCommand sqlComm1 = new SqlCommand();
