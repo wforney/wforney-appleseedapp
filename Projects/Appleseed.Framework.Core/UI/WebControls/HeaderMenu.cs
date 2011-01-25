@@ -567,6 +567,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
 		                    .dialog({
 		                        autoOpen: false,
 		                        modal: true,
+                                resizable: false,
 		                        open: function (type, data) { $(this).parent().appendTo('form'); }
 		                    });
 
