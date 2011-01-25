@@ -43,7 +43,7 @@
                             </td>
                             <td valign="top">
                                 <rbfwebui:HeaderMenu ID="PortalHeaderMenu" runat="server" CellPadding="4" CssClass="SiteLink"
-                                    RepeatDirection="Horizontal" ShowHelp="True" ShowHome="False">
+                                    RepeatDirection="Horizontal" ShowHelp="True" ShowHome="False" ShowLogon="true" DialogLogon="true" >
                                     <SeparatorStyle />
                                     <ItemTemplate>
                                         <span class="SiteLink">

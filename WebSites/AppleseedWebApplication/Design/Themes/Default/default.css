@@ -7,6 +7,8 @@
 /* CSS Control Adapters */
 @import url(Menu.css);
 
+@import url(jquery-ui-1.8.9.custom.css);
+
 /* Standard HTML tags */
 BODY{
 padding-left:0px;
