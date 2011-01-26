@@ -326,50 +326,63 @@ namespace AppleseedWebApplication.Installer
                                     dirty = true;
                                 }
                             }
-                            else
-                                if (attrName.Value == "Providers.ConnectionString")
+                            else if (attrName.Value == "Providers.ConnectionString")
+                            {
+                                System.Xml.XmlAttribute attrPCSTRValue = connString.Attributes["connectionString"];
+                                if (attrPCSTRValue != null)
                                 {
-                                    System.Xml.XmlAttribute attrPCSTRValue = connString.Attributes["connectionString"];
-                                    if (attrPCSTRValue != null)
-                                    {
-                                        attrPCSTRValue.Value = GetDatabaseConnectionString();
-                                        dirty = true;
-                                    }
+                                    attrPCSTRValue.Value = GetDatabaseConnectionString();
+                                    dirty = true;
                                 }
-                                else if (attrName.Value == "AppleseedProviders.ConnectionString")
+                            }
+                            else if (attrName.Value == "AppleseedProviders.ConnectionString")
+                            {
+                                System.Xml.XmlAttribute attrRPCSTRValue = connString.Attributes["connectionString"];
+                                if (attrRPCSTRValue != null)
                                 {
-                                    System.Xml.XmlAttribute attrRPCSTRValue = connString.Attributes["connectionString"];
-                                    if (attrRPCSTRValue != null)
-                                    {
-                                        attrRPCSTRValue.Value = GetDatabaseConnectionString();
-                                        dirty = true;
-                                    }
+                                    attrRPCSTRValue.Value = GetDatabaseConnectionString();
+                                    dirty = true;
                                 }
-                                else if (attrName.Value == "Main.ConnectionString")
+                            }
+                            else if (attrName.Value == "Main.ConnectionString")
+                            {
+                                System.Xml.XmlAttribute attrMCSTRValue = connString.Attributes["connectionString"];
+                                if (attrMCSTRValue != null)
                                 {
-                                    System.Xml.XmlAttribute attrMCSTRValue = connString.Attributes["connectionString"];
-                                    if (attrMCSTRValue != null)
-                                    {
-                                        attrMCSTRValue.Value = GetDatabaseConnectionString();
-                                        dirty = true;
-                                    }
+                                    attrMCSTRValue.Value = GetDatabaseConnectionString();
+                                    dirty = true;
                                 }
-                                else if (attrName.Value == "AppleseedDBContext")
+                            }
+                            else if (attrName.Value == "AppleseedDBContext")
+                            {
+                                System.Xml.XmlAttribute attrMCSTRValue = connString.Attributes["connectionString"];
+                                if (attrMCSTRValue != null)
                                 {
-                                    System.Xml.XmlAttribute attrMCSTRValue = connString.Attributes["connectionString"];
-                                    if (attrMCSTRValue != null)
-                                    {
-                                        attrMCSTRValue.Value = GetEntityModelConnectionString();
-                                        dirty = true;
-                                    }
-                                    System.Xml.XmlAttribute attrPVValue = connString.Attributes["providerName"];
-                                    if (attrPVValue != null)
-                                    {
-                                        attrPVValue.Value = "System.Data.EntityClient";
-                                        dirty = true;
-                                    }
+                                    attrMCSTRValue.Value = GetEntityModelConnectionString();
+                                    dirty = true;
                                 }
-
+                                System.Xml.XmlAttribute attrPVValue = connString.Attributes["providerName"];
+                                if (attrPVValue != null)
+                                {
+                                    attrPVValue.Value = "System.Data.EntityClient";
+                                    dirty = true;
+                                }
+                            }
+                            else if (attrName.Value == "AppleseedMembershipEntities")
+                            {
+                                System.Xml.XmlAttribute attrMCSTRValue = connString.Attributes["connectionString"];
+                                if (attrMCSTRValue != null)
+                                {
+                                    attrMCSTRValue.Value = GetMembershipModelConectionString();
+                                    dirty = true;
+                                }
+                                System.Xml.XmlAttribute attrPVValue = connString.Attributes["providerName"];
+                                if (attrPVValue != null)
+                                {
+                                    attrPVValue.Value = "System.Data.EntityClient";
+                                    dirty = true;
+                                }
+                            }
                         }
 
                     }
@@ -482,6 +495,12 @@ namespace AppleseedWebApplication.Installer
         {
             return string.Format("metadata=res://*/Models.AppleseedModel.csdl|res://*/Models.AppleseedModel.ssdl|res://*/Models.AppleseedModel.msl;provider=System.Data.SqlClient;provider connection string=\"Data Source={0};Initial Catalog={1};User ID={2};pwd={3};Trusted_Connection={4};MultipleActiveResultSets=True\"", db_server.Text, db_name_list.SelectedValue, db_login.Text, db_password.Text, (db_Connect.SelectedIndex == 0 ? "yes" : "no"));
         }
+
+        private string GetMembershipModelConectionString() 
+        {
+            return string.Format("metadata=res://*/Models.AppleseedMembershipModel.csdl|res://*/AppleseedMembershipModel.ssdl|res://*/AppleseedMembershipModel.msl;provider=System.Data.SqlClient;provider connection string=\"Data Source={0};Initial Catalog={1};User ID={2};pwd={3};Trusted_Connection={4};MultipleActiveResultSets=True\"", db_server.Text, db_name_list.SelectedValue, db_login.Text, db_password.Text, (db_Connect.SelectedIndex == 0 ? "yes" : "no"));
+        }
+
 
         private bool Validate_ConnectToDb(out string errorMessage)
         {

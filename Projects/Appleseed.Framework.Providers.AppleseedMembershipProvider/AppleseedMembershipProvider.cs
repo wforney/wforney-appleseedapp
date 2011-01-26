@@ -4,6 +4,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
     using System.Configuration;
     using System.Web.Profile;
     using System.Web.Security;
+using System.Collections.Generic;
 
     /// <summary>
     /// Appleseed-specific membership provider API, implements ASP.NET's membership plus extra funcionality Appleseed needs.
@@ -279,6 +280,26 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// </returns>
         public abstract MembershipUserCollection GetAllUsers(
             string portalAlias, int pageIndex, int pageSize, out int totalRecords);
+
+
+
+        /// <summary>
+        /// Returns the usernames of all the users that are currently online; that is, whose LastActivityDate is 
+        ///     greater than the current date and time minus the value of the membership service's 
+        ///     UserIsOnlineTimeWindow property, which can be read from Membership.UserIsOnlineTimeWindow.
+        ///     UserIsOnlineTimeWindow specifies a time in minutes and is set using the  
+        /// <code>
+        /// &lt;membership&gt;
+        /// </code>
+        /// element's userIsOnlineTimeWindow attribute.
+        /// </summary>
+        /// <returns>
+        /// Returns a list containing the usernames of all the users that are currently online
+        /// </returns>
+        public abstract IList<string> GetOnlineUsers();
+        
+
+
 
         /// <summary>
         /// Gets the error message.

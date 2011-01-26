@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 using Appleseed.Framework.Providers.AppleseedMembershipProvider;
 using System.Web.Security;
@@ -11,6 +12,7 @@ using System.Security.Cryptography;
 using System.Diagnostics;
 using System.Web;
 using Appleseed.Framework.Site.Data;
+using Appleseed.Framework.Providers.AppleseedSqlMembershipProvider;
 
 namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
 {
@@ -1592,6 +1594,20 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
             }
 
             return totalNumberOfUsers;
+        }
+
+
+        public override IList<string> GetOnlineUsers() {
+            var dateActive = DateTime.Now.ToUniversalTime().AddMinutes(-1 * Membership.UserIsOnlineTimeWindow);
+            using (var entities = new AppleseedMembershipEntities()) {
+                var users = entities.aspnet_Users
+                    .Include("aspnet_Membership").Include("aspnet_Application"); //to avoid lazy loading
+                return users
+                    .Where(u => u.aspnet_Applications.LoweredApplicationName == this.ApplicationName.ToLower())
+                    .Where(u => u.LastActivityDate > dateActive)
+                    .Select(u => u.UserName)
+                    .ToList();
+            }
         }
     }
 }

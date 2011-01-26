@@ -33,9 +33,9 @@
 		</httpCompress>
 	</blowery.web>
 	<connectionStrings>
-
 		<add name="ConnectionString" connectionString="foo" providerName="System.Data.SqlClient" />
 		<add name="AppleseedDBContext" connectionString="foo" providerName="System.Data.EntityClient" />
+		<add name="AppleseedMembershipEntities" connectionString="foo" providerName="System.Data.EntityClient" />
 	</connectionStrings>
 	<cachingConfiguration defaultCacheManager="CacheManager">
 		<cacheManagers>

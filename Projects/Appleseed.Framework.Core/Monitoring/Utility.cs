@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web;
@@ -73,92 +74,19 @@ namespace Appleseed.Framework.Monitoring
         {
 
             // Read from the cache if available
-            if (
+            if (true /* for test purposes, lets comment the chache functionality
                 HttpContext.Current.Cache["WhoIsOnlineAnonUserCount"] == null ||
                 HttpContext.Current.Cache["WhoIsOnlineRegUserCount"] == null ||
-                HttpContext.Current.Cache["WhoIsOnlineRegUsersString"] == null)
+                HttpContext.Current.Cache["WhoIsOnlineRegUsersString"] == null */)
             {
-                // Firstly get the logged in users
-                SqlCommand sqlComm1 = new SqlCommand();
-                SqlConnection sqlConn1 = new SqlConnection(Config.ConnectionString);
-                sqlComm1.Connection = sqlConn1;
-                sqlComm1.CommandType = CommandType.StoredProcedure;
-                sqlComm1.CommandText = "rb_GetLoggedOnUsers";
-                SqlDataReader result;
 
-                // Add Parameters to SPROC
-                SqlParameter parameterPortalID = new SqlParameter("@PortalID", SqlDbType.Int, 4);
-                parameterPortalID.Value = portalID;
-                sqlComm1.Parameters.Add(parameterPortalID);
+                var onlineUsers = ((AppleseedMembershipProvider)Membership.Provider).GetOnlineUsers();
+                regUsersString = string.Join(", ", onlineUsers);
+                regUsersOnlineCount = onlineUsers.Count;
 
-                SqlParameter parameterMinutesToCheck = new SqlParameter("@MinutesToCheck", SqlDbType.Int, 4);
-                parameterMinutesToCheck.Value = minutesToCheckForUsers;
-                sqlComm1.Parameters.Add(parameterMinutesToCheck);
-
-                sqlConn1.Open();
-                result = sqlComm1.ExecuteReader();
-
-                string onlineUsers = string.Empty;
-                int onlineUsersCount = ((AppleseedMembershipProvider)Membership.Provider).GetNumberOfUsersOnline(portalID);
-                try
-                {
-                    while (result.Read())
-                    {
-                        if (Convert.ToString(result.GetValue(2)) != "Logoff")
-                        {
-                            //onlineUsersCount++;
-                            onlineUsers += Membership.GetUser(result.GetValue(1)).UserName + ", ";
-                        }
-                    }
-                }
-                finally
-                {
-                    result.Close(); //by Manu, fixed bug 807858
-                }
-
-                if (onlineUsers.Length > 0)
-                {
-                    onlineUsers = onlineUsers.Remove(onlineUsers.Length - 2, 2);
-                }
-
-                regUsersString = onlineUsers;
-                regUsersOnlineCount = onlineUsersCount;
-
-                result.Close();
-
-
-                // Add Parameters to SPROC
-                SqlParameter parameterNumberOfUsers = new SqlParameter("@NoOfUsers", SqlDbType.Int, 4);
-                parameterNumberOfUsers.Direction = ParameterDirection.Output;
-                sqlComm1.Parameters.Add(parameterNumberOfUsers);
-
-                // Re-use the same result set to get the no of unregistered users
-                sqlComm1.CommandText = "rb_GetNumberOfActiveUsers";
-
-                // [The Bitland Prince] 8-1-2005
-                // If this query generates an exception, connection might be left open
-                try
-                {
-                    sqlComm1.ExecuteNonQuery();
-                }
-                catch (Exception Ex)
-                {
-                    // This takes care to close connection then throws a new
-                    // exception (because I don't know if it's safe to go on...)
-                    sqlConn1.Close();
-                    throw new Exception("Unable to retrieve logged users. Error : " + Ex.Message);
-                }
-
-                int allUsersCount = Convert.ToInt32(parameterNumberOfUsers.Value);
-
-                sqlConn1.Close();
-
-                anonUserCount = allUsersCount - onlineUsersCount;
-                if (anonUserCount < 0)
-                {
-                    anonUserCount = 0;
-                }
-
+                //until we get an efficient method to obtain all the profiles online (including users and not users), we are going to return zero anonymus users.
+                anonUserCount = onlineUsers.Count - onlineUsers.Count;
+                
                 // Add to the Cache
                 HttpContext.Current.Cache.Insert("WhoIsOnlineAnonUserCount", anonUserCount, null,
                                                  DateTime.Now.AddMinutes(cacheTimeout), TimeSpan.Zero);
