@@ -498,7 +498,7 @@ namespace AppleseedWebApplication.Installer
 
         private string GetMembershipModelConectionString() 
         {
-            return string.Format("metadata=res://*/Models.AppleseedMembershipModel.csdl|res://*/AppleseedMembershipModel.ssdl|res://*/AppleseedMembershipModel.msl;provider=System.Data.SqlClient;provider connection string=\"Data Source={0};Initial Catalog={1};User ID={2};pwd={3};Trusted_Connection={4};MultipleActiveResultSets=True\"", db_server.Text, db_name_list.SelectedValue, db_login.Text, db_password.Text, (db_Connect.SelectedIndex == 0 ? "yes" : "no"));
+            return string.Format("metadata=res://*/AppleseedMembershipModel.csdl|res://*/AppleseedMembershipModel.ssdl|res://*/AppleseedMembershipModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source={0};Initial Catalog={1};Persist Security Info=True;User ID={2};Password={3};MultipleActiveResultSets=True&quot;", db_server.Text, db_name_list.SelectedValue, db_login.Text, db_password.Text);
         }
 
 
