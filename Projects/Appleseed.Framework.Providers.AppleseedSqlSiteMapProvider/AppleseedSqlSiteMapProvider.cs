@@ -9,6 +9,7 @@ using System.Configuration.Provider;
 using System.Security.Permissions;
 using System.Data.Common;
 using System.Data;
+using System.Linq;
 using System.Web.Caching;
 using Appleseed.Framework;
 using System.Collections;
@@ -371,12 +372,11 @@ namespace Appleseed.Framework.Providers.AppleseedSiteMapProvider
 
         public override bool IsAccessibleToUser(HttpContext context, SiteMapNode node)
         {
-
             bool isVisible = false;
 
             if (node.Roles != null) {
                 if (context.User.Identity.IsAuthenticated) {
-                    if (node.Roles.Contains("All Users")) {
+                    if (node.Roles.Contains("All Users") || node.Roles.Contains("Authenticated Users")) {
                         isVisible = true;
                     } else {
                         IEnumerator enumerator = node.Roles.GetEnumerator();
@@ -385,7 +385,7 @@ namespace Appleseed.Framework.Providers.AppleseedSiteMapProvider
                         }
                     }
                 } else {
-                    isVisible = (node.Roles.Contains("All Users") || node.Roles.Contains("Unauthenticated users"));
+                    isVisible = (node.Roles.Contains("All Users") || node.Roles.Contains("Unauthenticated Users"));
                 }
             }
             return isVisible;
