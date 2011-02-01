@@ -347,7 +347,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
             cmd.Connection = new SqlConnection(connectionString);
 
             cmd.Parameters.Add("@UserId", SqlDbType.UniqueIdentifier).Value = providerUserKey;
-            cmd.Parameters.Add("@CurrentTimeUtc", SqlDbType.DateTime).Value = DateTime.Now.ToUniversalTime();
+            cmd.Parameters.Add("@CurrentTimeUtc", SqlDbType.DateTime).Value = DateTime.UtcNow;
             if (userIsOnline)
             {
                 cmd.Parameters.Add("@UpdateLastActivity", SqlDbType.Bit).Value = 1;
@@ -510,7 +510,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
             cmd.Parameters.Add("@Username", SqlDbType.NVarChar, 255).Value = username;
             cmd.Parameters.Add("@NewPassword", SqlDbType.NVarChar, 255).Value = encodedPassword;
             cmd.Parameters.Add("@PasswordSalt", SqlDbType.NVarChar, 255).Value = passwordSalt;
-            cmd.Parameters.Add("@CurrentTimeUtc", SqlDbType.DateTime).Value = DateTime.Now.ToUniversalTime();
+            cmd.Parameters.Add("@CurrentTimeUtc", SqlDbType.DateTime).Value = DateTime.UtcNow;
             cmd.Parameters.Add("@PasswordFormat", SqlDbType.Int).Value = PasswordFormat;
 
             SqlParameter returnCode = cmd.Parameters.Add("@ReturnCode", SqlDbType.Int);
@@ -630,7 +630,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
             cmd.Parameters.Add("@UniqueEmail", SqlDbType.Int).Value = RequiresUniqueEmail;
             cmd.Parameters.Add("@PasswordFormat", SqlDbType.Int).Value = PasswordFormat;
             cmd.Parameters.Add("@CreateDate", SqlDbType.DateTime).Value = DateTime.Now;
-            cmd.Parameters.Add("@CurrentTimeUTC", SqlDbType.DateTime).Value = DateTime.Now.ToUniversalTime();
+            cmd.Parameters.Add("@CurrentTimeUTC", SqlDbType.DateTime).Value = DateTime.UtcNow;
 
             SqlParameter newUserIdParam = cmd.Parameters.Add("@UserId", SqlDbType.UniqueIdentifier);
             newUserIdParam.Direction = ParameterDirection.Output;
@@ -799,7 +799,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
 
             cmd.Parameters.Add("@ApplicationName", SqlDbType.NVarChar, 256).Value = portalAlias;
             cmd.Parameters.Add("@MinutesSinceLastInActive", SqlDbType.Int).Value = Membership.UserIsOnlineTimeWindow;
-            cmd.Parameters.Add("@CurrentTimeUtc", SqlDbType.DateTime).Value = DateTime.Now.ToUniversalTime();
+            cmd.Parameters.Add("@CurrentTimeUtc", SqlDbType.DateTime).Value = DateTime.UtcNow;
 
             int numOnline = 0;
 
@@ -848,7 +848,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
             cmd.Parameters.Add("@UserName", SqlDbType.NVarChar, 256).Value = username;
             cmd.Parameters.Add("@MaxInvalidPasswordAttempts", SqlDbType.Int).Value = MaxInvalidPasswordAttempts;
             cmd.Parameters.Add("@PasswordAttemptWindow", SqlDbType.Int).Value = PasswordAttemptWindow;
-            cmd.Parameters.Add("@CurrentTimeUtc", SqlDbType.DateTime).Value = DateTime.Now.ToUniversalTime();
+            cmd.Parameters.Add("@CurrentTimeUtc", SqlDbType.DateTime).Value = DateTime.UtcNow;
             cmd.Parameters.Add("@PasswordAnswer", SqlDbType.NVarChar, 128).Value = answer;
 
             SqlParameter returnCodeParam = cmd.Parameters.Add("@ReturnCode", SqlDbType.Int);
@@ -925,7 +925,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
 
             cmd.Parameters.Add("@ApplicationName", SqlDbType.NVarChar, 256).Value = portalAlias;
             cmd.Parameters.Add("@UserName", SqlDbType.NVarChar, 256).Value = username;
-            cmd.Parameters.Add("@CurrentTimeUtc", SqlDbType.DateTime).Value = DateTime.Now.ToUniversalTime();
+            cmd.Parameters.Add("@CurrentTimeUtc", SqlDbType.DateTime).Value = DateTime.UtcNow;
             if (userIsOnline)
             {
                 cmd.Parameters.Add("@UpdateLastActivity", SqlDbType.Bit).Value = 1;
@@ -1082,7 +1082,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
             cmd.Parameters.Add("@LastLoginDate", SqlDbType.DateTime).Value = user.LastLoginDate;
             cmd.Parameters.Add("@LastActivityDate", SqlDbType.DateTime).Value = user.LastActivityDate;
             cmd.Parameters.Add("@UniqueEmail", SqlDbType.Bit).Value = RequiresUniqueEmail;
-            cmd.Parameters.Add("@CurrentTimeUtc", SqlDbType.DateTime).Value = DateTime.Now.ToUniversalTime();
+            cmd.Parameters.Add("@CurrentTimeUtc", SqlDbType.DateTime).Value = DateTime.UtcNow;
 
             SqlParameter totalRecordsParam = cmd.Parameters.Add("@TotalRecords", SqlDbType.Int);
             totalRecordsParam.Direction = ParameterDirection.ReturnValue;
@@ -1135,7 +1135,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
             cmd.Parameters.Add("@ApplicationName", SqlDbType.NVarChar, 256).Value = portalAlias;
             cmd.Parameters.Add("@UserName", SqlDbType.NVarChar, 256).Value = username;
             cmd.Parameters.Add("@UpdateLastLoginActivityDate", SqlDbType.Int).Value = 1;
-            cmd.Parameters.Add("@CurrentTimeUtc", SqlDbType.DateTime).Value = DateTime.Now.ToUniversalTime();
+            cmd.Parameters.Add("@CurrentTimeUtc", SqlDbType.DateTime).Value = DateTime.UtcNow;
 
             SqlParameter returnCode = cmd.Parameters.Add("@ReturnCode", SqlDbType.Int);
             returnCode.Direction = ParameterDirection.ReturnValue;
@@ -1368,7 +1368,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
             cmd.Parameters.Add("@MaxInvalidPasswordAttempts", SqlDbType.Int).Value = MaxInvalidPasswordAttempts;
             cmd.Parameters.Add("@PasswordAttemptWindow", SqlDbType.Int).Value = PasswordAttemptWindow;
             cmd.Parameters.Add("@PasswordSalt", SqlDbType.NVarChar, 128).Value = passwordSalt;
-            cmd.Parameters.Add("@CurrentTimeUtc", SqlDbType.DateTime).Value = DateTime.Now.ToUniversalTime();
+            cmd.Parameters.Add("@CurrentTimeUtc", SqlDbType.DateTime).Value = DateTime.UtcNow;
             cmd.Parameters.Add("@PasswordFormat", SqlDbType.Int).Value = PasswordFormat;
             cmd.Parameters.Add("@PasswordAnswer", SqlDbType.NVarChar, 128).Value = answer;
 
@@ -1598,7 +1598,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
 
 
         public override IList<string> GetOnlineUsers() {
-            var dateActive = DateTime.Now.ToUniversalTime().AddMinutes(-1 * Membership.UserIsOnlineTimeWindow);
+            var dateActive = DateTime.UtcNow.AddMinutes(-1 * Membership.UserIsOnlineTimeWindow);
             using (var entities = new AppleseedMembershipEntities()) {
                 var users = entities.aspnet_Users
                     .Include("aspnet_Membership").Include("aspnet_Application"); //to avoid lazy loading
@@ -1609,5 +1609,6 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
                     .ToList();
             }
         }
+        
     }
 }

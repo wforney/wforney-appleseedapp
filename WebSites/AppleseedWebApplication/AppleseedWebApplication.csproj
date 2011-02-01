@@ -6125,6 +6125,7 @@
     <Content Include="Setup\Scripts\2.0.0.1886.sql" />
     <Content Include="Setup\Scripts\2.0.0.1887.sql" />
     <Content Include="Setup\Scripts\2.0.0.1888.sql" />
+    <Content Include="Setup\Scripts\2.0.0.1889.sql" />
     <Content Include="Setup\Scripts\History.xml" />
     <Content Include="Shared\PanesMasterDefault.master" />
     <Content Include="Shared\SiteMasterDefault.master" />
@@ -6154,7 +6155,16 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>8792</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://appleseed.local/</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

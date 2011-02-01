@@ -333,10 +333,9 @@ namespace Appleseed
                 context.Response.Cookies["refreshed"].Value = "false";
                 context.Response.Cookies["refreshed"].Expires = DateTime.Now.AddMinutes(1);
             }
-
-
-
+           
         }
+
 
         protected void Application_Error(object sender, EventArgs e)
         {
