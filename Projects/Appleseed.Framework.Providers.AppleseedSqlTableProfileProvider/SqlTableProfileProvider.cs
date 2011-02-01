@@ -263,7 +263,6 @@ namespace Microsoft.Samples {
                         reader = null;
                     }
 
-                    UpdateLastActivityDate(conn, userId);
                 }
             }
             finally {
@@ -273,17 +272,7 @@ namespace Microsoft.Samples {
             }
         }
 
-        private static void UpdateLastActivityDate(SqlConnection conn, Guid userId) {
-            SqlCommand cmd = new SqlCommand("UPDATE aspnet_Users SET LastActivityDate = @LastUpdatedDate WHERE UserId = '" + userId + "'", conn);
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@LastUpdatedDate", DateTime.UtcNow);
-            try {
-                cmd.ExecuteNonQuery();
-            }
-            finally {
-                cmd.Dispose();
-            }
-        }
+        
 
         public override SettingsPropertyValueCollection GetPropertyValues(SettingsContext context, SettingsPropertyCollection collection) {
             SettingsPropertyValueCollection svc = new SettingsPropertyValueCollection();
@@ -495,8 +484,6 @@ namespace Microsoft.Samples {
                     reader.Close();
                     reader = null;
                 }
-
-                UpdateLastActivityDate(conn, userId);
             }
             finally {
                 if (reader != null)
