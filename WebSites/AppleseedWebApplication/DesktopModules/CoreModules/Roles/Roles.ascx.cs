@@ -131,9 +131,6 @@ namespace Appleseed.Content.Web.Modules
             //http://sourceforge.net/tracker/index.php?func=detail&aid=828580&group_id=66837&atid=515929
             UsersDB users = new UsersDB();
 
-            // Apply changes
-            AppleseedRole selectedRole = (AppleseedRole)e.Item.DataItem;
-
             bool enable = true; // enable add - bja
 
             if (e.CommandName == "edit")
@@ -149,10 +146,11 @@ namespace Appleseed.Content.Web.Modules
             else if (e.CommandName == "apply")
             {
 
-                string _roleName = ((TextBox)e.Item.FindControl("roleName")).Text;
+                var _roleName = ((TextBox)e.Item.FindControl("roleName")).Text;
+                var _roleId = ((System.Web.UI.WebControls.Label)e.Item.FindControl("roleId")).Text;
 
                 // update database
-                users.UpdateRole(selectedRole.Id, _roleName, portalSettings.PortalAlias);
+                users.UpdateRole(new Guid(_roleId), _roleName, portalSettings.PortalAlias);
 
                 // Disable editable list item access
                 rolesList.EditItemIndex = -1;
