@@ -1,12 +1,7 @@
 <%@ Control AutoEventWireup="false" Inherits="Appleseed.Content.Web.Modules.Roles"
     Language="c#" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" Codebehind="Roles.ascx.cs" %>
 <table border="0" cellpadding="2" cellspacing="0">
-    <tr>
-        <td class="Normal">
-            <rbfwebui:Localize ID="label_description" runat="server" Text="Roles" TextKey="ROLES_DESCRIPTION">
-            </rbfwebui:Localize>
-        </td>
-    </tr>
+   
     <tr>
         <td>
             <asp:DataList ID="rolesList" runat="server" OnItemCommand="rolesList_ItemCommand" OnItemDataBound="RolesList_ItemDataBound" DataKeyField="Id" >

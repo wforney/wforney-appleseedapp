@@ -13,15 +13,6 @@ namespace Appleseed.Content.Web.Modules {
     public partial class Roles {
         
         /// <summary>
-        /// label_description control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Appleseed.Framework.Web.UI.WebControls.Localize label_description;
-        
-        /// <summary>
         /// rolesList control.
         /// </summary>
         /// <remarks>
