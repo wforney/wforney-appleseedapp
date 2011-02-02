@@ -335,7 +335,7 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
             }
 
             UpdateProfile();
-            return (Guid)Membership.GetUser(tfEmail.Text).ProviderUserKey;
+            return (Guid)Membership.GetUser(tfEmail.Text, false).ProviderUserKey;
         }
     }
 

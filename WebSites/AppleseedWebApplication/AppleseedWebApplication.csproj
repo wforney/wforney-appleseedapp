@@ -6126,6 +6126,7 @@
     <Content Include="Setup\Scripts\2.0.0.1887.sql" />
     <Content Include="Setup\Scripts\2.0.0.1888.sql" />
     <Content Include="Setup\Scripts\2.0.0.1889.sql" />
+    <Content Include="Setup\Scripts\2.0.0.1890.sql" />
     <Content Include="Setup\Scripts\History.xml" />
     <Content Include="Shared\PanesMasterDefault.master" />
     <Content Include="Shared\SiteMasterDefault.master" />

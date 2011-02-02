@@ -357,7 +357,7 @@ namespace Appleseed.Framework.Users.Data
         public IList<AppleseedRole> GetRoles(string email, string portalAlias)
         {
             var userName = MembershipProvider.GetUserNameByEmail(portalAlias, email);
-            var user = (AppleseedUser)MembershipProvider.GetUser(portalAlias, userName, true);
+            var user = (AppleseedUser)MembershipProvider.GetUser(portalAlias, userName, false);
             return RoleProvider.GetRolesForUser(portalAlias, user.ProviderUserKey);
         }
 
@@ -375,7 +375,7 @@ namespace Appleseed.Framework.Users.Data
         /// </returns>
         public IList<AppleseedRole> GetRolesByUser(Guid userId, string portalAlias)
         {
-            var user = (AppleseedUser)MembershipProvider.GetUser(userId, true);
+            var user = (AppleseedUser)MembershipProvider.GetUser(userId, false);
             return user != null ? RoleProvider.GetRolesForUser(portalAlias, user.ProviderUserKey) : new List<AppleseedRole>();
         }
 
@@ -579,7 +579,7 @@ namespace Appleseed.Framework.Users.Data
                 throw new ApplicationException("UpdateUser: oldUserID != userID");
             }
 
-            var user = MembershipProvider.GetUser(userId, true) as AppleseedUser;
+            var user = MembershipProvider.GetUser(userId, false) as AppleseedUser;
             if (user != null)
             {
                 user.Email = email;
@@ -660,7 +660,7 @@ namespace Appleseed.Framework.Users.Data
             bool sendNewsletter,
             string portalAlias)
         {
-            var user = MembershipProvider.GetUser(userId, true) as AppleseedUser;
+            var user = MembershipProvider.GetUser(userId, false) as AppleseedUser;
             if (user == null)
             {
                 return;
@@ -737,7 +737,7 @@ namespace Appleseed.Framework.Users.Data
             string email,
             bool sendNewsletter)
         {
-            var user = MembershipProvider.GetUser(userId, true) as AppleseedUser;
+            var user = MembershipProvider.GetUser(userId, false) as AppleseedUser;
             if (user == null)
             {
                 return;
