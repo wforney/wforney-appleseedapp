@@ -455,7 +455,8 @@ namespace AppleseedWebApplication.Installer
                     System.Xml.XmlTextWriter writer = new System.Xml.XmlTextWriter(configFile, System.Text.Encoding.UTF8);
                     writer.Formatting = System.Xml.Formatting.Indented;
                     doc.Save(writer);
-               
+                    writer.Flush();
+                    writer.Close();
                 }
             }
             catch (Exception e)
@@ -731,23 +732,6 @@ namespace AppleseedWebApplication.Installer
                 case WizardPanel.Install:
                     if (InstallConfig())
                     {
-                        //check server status (to avoid an 500.19 error for modifying the web.config). we will try at least 3 times.
-                        for (int i = 0; i < 3; i++) {
-                            var urlToCheck = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
-                            var request = (HttpWebRequest)WebRequest.Create(urlToCheck);
-                            try
-                            {
-                                var response = (HttpWebResponse)request.GetResponse();
-                                if (response.StatusCode != HttpStatusCode.InternalServerError)
-                                {
-                                    break;
-                                }
-                            }
-                            catch (WebException)
-                            {
-                                continue;
-                            }
-                        }
                         SetActivePanel(WizardPanel.Done, Done);
                     }
                     else
@@ -766,6 +750,7 @@ namespace AppleseedWebApplication.Installer
 
             }
         }
+
 
 
         public void PreviousPanel(Object sender, EventArgs e)
