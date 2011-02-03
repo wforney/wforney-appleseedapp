@@ -8,6 +8,7 @@ using System.Collections;
 using System.IO;
 using System.Data.SqlClient;
 using Appleseed.Framework.Settings.Cache;
+using System.Net;
 
 namespace AppleseedWebApplication.Installer
 {
@@ -730,6 +731,23 @@ namespace AppleseedWebApplication.Installer
                 case WizardPanel.Install:
                     if (InstallConfig())
                     {
+                        //check server status (to avoid an 500.19 error for modifying the web.config). we will try at least 3 times.
+                        for (int i = 0; i < 3; i++) {
+                            var urlToCheck = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
+                            var request = (HttpWebRequest)WebRequest.Create(urlToCheck);
+                            try
+                            {
+                                var response = (HttpWebResponse)request.GetResponse();
+                                if (response.StatusCode != HttpStatusCode.InternalServerError)
+                                {
+                                    break;
+                                }
+                            }
+                            catch (WebException)
+                            {
+                                continue;
+                            }
+                        }
                         SetActivePanel(WizardPanel.Done, Done);
                     }
                     else
