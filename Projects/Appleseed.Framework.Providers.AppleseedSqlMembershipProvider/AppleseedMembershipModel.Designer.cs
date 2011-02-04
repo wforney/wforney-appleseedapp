@@ -41,6 +41,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("Appleseed.Framework.Providers.AppleseedMembershipProvider", "FK__aspnet_Us__RoleI__727BF387", "aspnet_Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Appleseed.Framework.Providers.AppleseedSqlMembershipProvider.aspnet_Roles), "aspnet_UsersInRoles", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Appleseed.Framework.Providers.AppleseedSqlMembershipProvider.aspnet_UsersInRoles), true)]
 [assembly: EdmRelationshipAttribute("Appleseed.Framework.Providers.AppleseedMembershipProvider", "FK__aspnet_Us__UserI__4297D63B", "aspnet_Users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Appleseed.Framework.Providers.AppleseedSqlMembershipProvider.aspnet_Users), "aspnet_UsersInRoles", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Appleseed.Framework.Providers.AppleseedSqlMembershipProvider.aspnet_UsersInRoles), true)]
 [assembly: EdmRelationshipAttribute("Appleseed.Framework.Providers.AppleseedMembershipProvider", "FK__aspnet_Us__UserI__7187CF4E", "aspnet_Users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Appleseed.Framework.Providers.AppleseedSqlMembershipProvider.aspnet_Users), "aspnet_UsersInRoles", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Appleseed.Framework.Providers.AppleseedSqlMembershipProvider.aspnet_UsersInRoles), true)]
+[assembly: EdmRelationshipAttribute("Appleseed.Framework.Providers.AppleseedMembershipProvider", "FK_aspnet_ResetPasswordTokens_aspnet_Membership", "aspnet_Membership", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Appleseed.Framework.Providers.AppleseedSqlMembershipProvider.aspnet_Membership), "aspnet_ResetPasswordTokens", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Appleseed.Framework.Providers.AppleseedSqlMembershipProvider.aspnet_ResetPasswordTokens), true)]
 
 #endregion
 
@@ -283,6 +284,22 @@ namespace Appleseed.Framework.Providers.AppleseedSqlMembershipProvider
             }
         }
         private ObjectSet<aspnet_WebEvent_Events> _aspnet_WebEvent_Events;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<aspnet_ResetPasswordTokens> aspnet_ResetPasswordTokens
+        {
+            get
+            {
+                if ((_aspnet_ResetPasswordTokens == null))
+                {
+                    _aspnet_ResetPasswordTokens = base.CreateObjectSet<aspnet_ResetPasswordTokens>("aspnet_ResetPasswordTokens");
+                }
+                return _aspnet_ResetPasswordTokens;
+            }
+        }
+        private ObjectSet<aspnet_ResetPasswordTokens> _aspnet_ResetPasswordTokens;
 
         #endregion
         #region AddTo Methods
@@ -381,6 +398,14 @@ namespace Appleseed.Framework.Providers.AppleseedSqlMembershipProvider
         public void AddToaspnet_WebEvent_Events(aspnet_WebEvent_Events aspnet_WebEvent_Events)
         {
             base.AddObject("aspnet_WebEvent_Events", aspnet_WebEvent_Events);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the aspnet_ResetPasswordTokens EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToaspnet_ResetPasswordTokens(aspnet_ResetPasswordTokens aspnet_ResetPasswordTokens)
+        {
+            base.AddObject("aspnet_ResetPasswordTokens", aspnet_ResetPasswordTokens);
         }
 
         #endregion
@@ -1849,6 +1874,28 @@ namespace Appleseed.Framework.Providers.AppleseedSqlMembershipProvider
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Appleseed.Framework.Providers.AppleseedMembershipProvider", "FK_aspnet_ResetPasswordTokens_aspnet_Membership", "aspnet_ResetPasswordTokens")]
+        public EntityCollection<aspnet_ResetPasswordTokens> aspnet_ResetPasswordTokens
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<aspnet_ResetPasswordTokens>("Appleseed.Framework.Providers.AppleseedMembershipProvider.FK_aspnet_ResetPasswordTokens_aspnet_Membership", "aspnet_ResetPasswordTokens");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<aspnet_ResetPasswordTokens>("Appleseed.Framework.Providers.AppleseedMembershipProvider.FK_aspnet_ResetPasswordTokens_aspnet_Membership", "aspnet_ResetPasswordTokens", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -2912,6 +2959,154 @@ namespace Appleseed.Framework.Providers.AppleseedSqlMembershipProvider
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<aspnet_Users>("Appleseed.Framework.Providers.AppleseedMembershipProvider.FK__aspnet_Pr__UserI__6EAB62A3", "aspnet_Users", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Appleseed.Framework.Providers.AppleseedMembershipProvider", Name="aspnet_ResetPasswordTokens")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class aspnet_ResetPasswordTokens : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new aspnet_ResetPasswordTokens object.
+        /// </summary>
+        /// <param name="tokenId">Initial value of the TokenId property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="creationDate">Initial value of the CreationDate property.</param>
+        public static aspnet_ResetPasswordTokens Createaspnet_ResetPasswordTokens(global::System.Guid tokenId, global::System.Guid userId, global::System.DateTime creationDate)
+        {
+            aspnet_ResetPasswordTokens aspnet_ResetPasswordTokens = new aspnet_ResetPasswordTokens();
+            aspnet_ResetPasswordTokens.TokenId = tokenId;
+            aspnet_ResetPasswordTokens.UserId = userId;
+            aspnet_ResetPasswordTokens.CreationDate = creationDate;
+            return aspnet_ResetPasswordTokens;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid TokenId
+        {
+            get
+            {
+                return _TokenId;
+            }
+            set
+            {
+                if (_TokenId != value)
+                {
+                    OnTokenIdChanging(value);
+                    ReportPropertyChanging("TokenId");
+                    _TokenId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("TokenId");
+                    OnTokenIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _TokenId;
+        partial void OnTokenIdChanging(global::System.Guid value);
+        partial void OnTokenIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Guid _UserId;
+        partial void OnUserIdChanging(global::System.Guid value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime CreationDate
+        {
+            get
+            {
+                return _CreationDate;
+            }
+            set
+            {
+                OnCreationDateChanging(value);
+                ReportPropertyChanging("CreationDate");
+                _CreationDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreationDate");
+                OnCreationDateChanged();
+            }
+        }
+        private global::System.DateTime _CreationDate;
+        partial void OnCreationDateChanging(global::System.DateTime value);
+        partial void OnCreationDateChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Appleseed.Framework.Providers.AppleseedMembershipProvider", "FK_aspnet_ResetPasswordTokens_aspnet_Membership", "aspnet_Membership")]
+        public aspnet_Membership aspnet_Membership
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<aspnet_Membership>("Appleseed.Framework.Providers.AppleseedMembershipProvider.FK_aspnet_ResetPasswordTokens_aspnet_Membership", "aspnet_Membership").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<aspnet_Membership>("Appleseed.Framework.Providers.AppleseedMembershipProvider.FK_aspnet_ResetPasswordTokens_aspnet_Membership", "aspnet_Membership").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<aspnet_Membership> aspnet_MembershipReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<aspnet_Membership>("Appleseed.Framework.Providers.AppleseedMembershipProvider.FK_aspnet_ResetPasswordTokens_aspnet_Membership", "aspnet_Membership");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<aspnet_Membership>("Appleseed.Framework.Providers.AppleseedMembershipProvider.FK_aspnet_ResetPasswordTokens_aspnet_Membership", "aspnet_Membership", value);
                 }
             }
         }

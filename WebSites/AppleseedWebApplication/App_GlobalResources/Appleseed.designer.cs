@@ -1483,6 +1483,96 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New password.
+        /// </summary>
+        internal static string CHANGE_PWD_ENTER_NEW_PWD {
+            get {
+                return ResourceManager.GetString("CHANGE_PWD_ENTER_NEW_PWD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New password again.
+        /// </summary>
+        internal static string CHANGE_PWD_ENTER_NEW_PWD_AGAIN {
+            get {
+                return ResourceManager.GetString("CHANGE_PWD_ENTER_NEW_PWD_AGAIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to home page.
+        /// </summary>
+        internal static string CHANGE_PWD_GO_TO_HOME_PAGE {
+            get {
+                return ResourceManager.GetString("CHANGE_PWD_GO_TO_HOME_PAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change your password.
+        /// </summary>
+        internal static string CHANGE_PWD_HEADER {
+            get {
+                return ResourceManager.GetString("CHANGE_PWD_HEADER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not allowed to use this functionality witout the correct parameters..
+        /// </summary>
+        internal static string CHANGE_PWD_INVALID_URL_ERROR {
+            get {
+                return ResourceManager.GetString("CHANGE_PWD_INVALID_URL_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your new password has been set. You can logon with it now..
+        /// </summary>
+        internal static string CHANGE_PWD_NEW_PWD_SET_MSG {
+            get {
+                return ResourceManager.GetString("CHANGE_PWD_NEW_PWD_SET_MSG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The second password entered is not the same as the first one. Please write them again..
+        /// </summary>
+        internal static string CHANGE_PWD_NOT_SAME_TWICE_ERROR {
+            get {
+                return ResourceManager.GetString("CHANGE_PWD_NOT_SAME_TWICE_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The link that brought you here either was not created by us, or it it was already used for changing that account password. .
+        /// </summary>
+        internal static string CHANGE_PWD_NO_TOKEN_ERROR {
+            get {
+                return ResourceManager.GetString("CHANGE_PWD_NO_TOKEN_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error ocurred while trying to update your password..
+        /// </summary>
+        internal static string CHANGE_PWD_UNEXPECTED_ERROR {
+            get {
+                return ResourceManager.GetString("CHANGE_PWD_UNEXPECTED_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert your new password for your account. Once you save the changes you would be able to logon with it..
+        /// </summary>
+        internal static string CHANGE_PWD_USR_EXPLANATION {
+            get {
+                return ResourceManager.GetString("CHANGE_PWD_USR_EXPLANATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check out.
         /// </summary>
         internal static string CHECKOUT {
@@ -13500,6 +13590,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I lost my password.
+        /// </summary>
+        internal static string SIGNIN_PWD_LOST {
+            get {
+                return ResourceManager.GetString("SIGNIN_PWD_LOST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We received your request regarding the loss of your password..
+        /// </summary>
+        internal static string SIGNIN_PWD_LOST_REQUEST_RECEIVED {
+            get {
+                return ResourceManager.GetString("SIGNIN_PWD_LOST_REQUEST_RECEIVED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your password was not found in the database..
         /// </summary>
         internal static string SIGNIN_PWD_MISSING_IN_DB {
@@ -13550,6 +13658,15 @@ namespace Resources {
         internal static string SIGNIN_SEND_PWD {
             get {
                 return ResourceManager.GetString("SIGNIN_SEND_PWD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can set a new password for your account going to the following link:.
+        /// </summary>
+        internal static string SIGNIN_SET_NEW_PWD_MSG {
+            get {
+                return ResourceManager.GetString("SIGNIN_SET_NEW_PWD_MSG", resourceCulture);
             }
         }
         
