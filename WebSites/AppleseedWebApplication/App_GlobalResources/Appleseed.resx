@@ -5574,7 +5574,7 @@ function confirmDelete()
     <value>The second password entered is not the same as the first one. Please write them again.</value>
   </data>
   <data name="CHANGE_PWD_NO_TOKEN_ERROR" xml:space="preserve">
-    <value>The link that brought you here either was not created by us, or it it was already used for changing that account password. </value>
+    <value>The link that brought you here either was not created by us, or it it was already used for changing the password. </value>
   </data>
   <data name="CHANGE_PWD_UNEXPECTED_ERROR" xml:space="preserve">
     <value>An error ocurred while trying to update your password.</value>

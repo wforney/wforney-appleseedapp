@@ -1546,7 +1546,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The link that brought you here either was not created by us, or it it was already used for changing that account password. .
+        ///   Looks up a localized string similar to The link that brought you here either was not created by us, or it it was already used for changing the password. .
         /// </summary>
         internal static string CHANGE_PWD_NO_TOKEN_ERROR {
             get {
