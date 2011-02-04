@@ -1170,15 +1170,14 @@
     </Scripts>
   </Release>	
   
-  <!--Start over as Appleseed-->
-  <!--<Release>
-    <ID>1886</ID>
-    <Version>1.0.0.0</Version>
-    <Date>2010-09-02T00:00:00.0000000-03:00</Date>
+  <Release>
+    <ID>1891</ID>
+    <Version>2.0.0.1891</Version>
+    <Date>2011-02-03T00:00:00.0000000-03:00</Date>
     <Scripts>
-      <Script> 1.0.0.0_01_Appleseed.sql</Script>
+      <Script>2.0.0.1891.sql</Script>
     </Scripts>
-  </Release>-->
+  </Release>
   
  
 </History>

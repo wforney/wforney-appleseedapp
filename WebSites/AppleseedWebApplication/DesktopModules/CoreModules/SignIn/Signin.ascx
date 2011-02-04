@@ -35,7 +35,7 @@
     <tr>
         <td nowrap="nowrap">
             <rbfwebui:button id="SendPasswordBtn" runat="server" cssclass="CommandButton" enableviewstate="False"
-                text="Forgotten Password?" textkey="SIGNIN_SEND_PWD" /></td>
+                text="Forgotten Password?" textkey="SIGNIN_PWD_LOST" /></td>
     </tr>
     <tr>
         <td>
