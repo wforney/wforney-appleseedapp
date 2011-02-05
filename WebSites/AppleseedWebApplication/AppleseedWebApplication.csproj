@@ -207,6 +207,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Design" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DataVisualization.Design" />
     <Reference Include="System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
@@ -252,6 +254,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\IPortalServices.cs" />
+    <Compile Include="API\Portal.svc.cs">
+      <DependentUpon>Portal.svc</DependentUpon>
+    </Compile>
     <Compile Include="app_support\FCK.filemanager\imagegallery.aspx.designer.cs">
       <DependentUpon>imagegallery.aspx</DependentUpon>
     </Compile>
@@ -1418,6 +1424,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="API\Portal.svc" />
     <Content Include="App_Browsers\CSSFriendlyAdapters.browser">
       <SubType>Designer</SubType>
     </Content>
@@ -6141,9 +6148,7 @@
     </Content>
     <Content Include="Shared\PanesMasterDefault.master" />
     <Content Include="Shared\SiteMasterDefault.master" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\Appleseed.vi.resx">
@@ -6174,7 +6179,7 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>True</UseCustomServer>
+          <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://appleseed.local/</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
