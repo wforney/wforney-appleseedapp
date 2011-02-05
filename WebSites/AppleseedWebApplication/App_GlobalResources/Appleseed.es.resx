@@ -1,0 +1,4303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ABI">
+    <value>ABI</value>
+  </data>
+  <data name="ABSTRACT">
+    <value>Resúmen</value>
+  </data>
+  <data name="ACCEPT">
+    <value>Acepto Términos y Condiciones</value>
+  </data>
+  <data name="ACCEPT_TERMS">
+    <value>Acepto Términos y Condiciones</value>
+  </data>
+  <data name="ACCESSDENIED">
+    <value>Acceso Denegado</value>
+  </data>
+  <data name="ACCESS_DENIED">
+    <value>Acceso Denegado</value>
+  </data>
+  <data name="ACCESS_DENIED_MESSAGE">
+    <value>No tienes acceso para acceder a esta página. Probablemente tu sesión ha caducado. Si este no es el caso, contacta con el administrador del portal.</value>
+  </data>
+  <data name="ACCOUNT_INFO">
+    <value>Información de la cuenta</value>
+  </data>
+  <data name="ACCOUNT_LOGIN">
+    <value>Cuenta de Usuario</value>
+  </data>
+  <data name="ADD">
+    <value>Añadir</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERADD">
+    <value>Añadir</value>
+  </data>
+  <data name="ADDRESS">
+    <value>Dirección</value>
+  </data>
+  <data name="CONTACTS_ADDRESS">
+    <value>Dirección</value>
+  </data>
+  <data name="ADDTAB">
+    <value>Añadir nueva página</value>
+  </data>
+  <data name="ADDUSER">
+    <value>Añadir Usuario al Rol</value>
+  </data>
+  <data name="ADD_ARTICLE">
+    <value>Añadir Artículo</value>
+  </data>
+  <data name="ADD_DOCUMENT">
+    <value>Añadir nuevo documento</value>
+  </data>
+  <data name="ADD_NEW">
+    <value>Añadir nuevo</value>
+  </data>
+  <data name="ADD_NEW_USER">
+    <value>Añadir Nuevo Usuario</value>
+  </data>
+  <data name="ADD_PORTAL">
+    <value>Añadir Portal</value>
+  </data>
+  <data name="ADD_VEHICLE">
+    <value>Agregue El Vehículo</value>
+  </data>
+  <data name="ADMIN_MODULE">
+    <value>Módulo de administración?</value>
+  </data>
+  <data name="ADVPAYM">
+    <value>Anticipo</value>
+  </data>
+  <data name="ALBUMPATH">
+    <value>Carpeta de Imágenes</value>
+  </data>
+  <data name="ALL">
+    <value>Todo</value>
+  </data>
+  <data name="PORTALSEARCH_ALL">
+    <value>Todo</value>
+  </data>
+  <data name="ALLOWBULKLOAD">
+    <value>Permitir Descargar Directorios?</value>
+  </data>
+  <data name="ALLOWNEWREGISTRATIONS">
+    <value>¿Permitir nuevos registros?</value>
+  </data>
+  <data name="SITESETTINGS_ALLOW_NEW_REGISTRATION">
+    <value>¿Permitir nuevos registros?</value>
+  </data>
+  <data name="SITESETTINGS_ALLOW_NEW_REGISTRATION_DESCRIPTION">
+    <value>Marcado permite que los usuarios se autoregistren. Desmarcado permite únicamente al administrador del portal registrar nuevos usuarios.</value>
+  </data>
+  <data name="ALLOWNEWREGISTRATIONS_DESCRIPTION">
+    <value>Marcado permite que los usuarios se autoregistren. Desmarcado permite únicamente al administrador del portal registrar nuevos usuarios.</value>
+  </data>
+  <data name="ALPHA_LIST_DESCRIPTION">
+    <value>Descripción</value>
+  </data>
+  <data name="ANNOUNCES_DESCRIPTION">
+    <value>Descripción</value>
+  </data>
+  <data name="DESCRIPTION">
+    <value>Descripción</value>
+  </data>
+  <data name="EVENTS_DESCRIPTION">
+    <value>Descripción</value>
+  </data>
+  <data name="TASK_DESCRIPTION">
+    <value>Descripción</value>
+  </data>
+  <data name="ALPHA_LIST_ITEM_DETAILS">
+    <value>ALPHA_LIST_ITEM_DETAILS</value>
+  </data>
+  <data name="ALPHA_LIST_LABEL1">
+    <value>ALPHA_LIST_LABEL1</value>
+  </data>
+  <data name="ALPHA_LIST_LABEL2">
+    <value>ALPHA_LIST_LABEL2</value>
+  </data>
+  <data name="ALPHA_LIST_READMORELINK">
+    <value>ALPHA_LIST_READMORELINK</value>
+  </data>
+  <data name="ALPHA_LIST_TITLE">
+    <value>Título</value>
+  </data>
+  <data name="BLOG_TITLE">
+    <value>Título</value>
+  </data>
+  <data name="ANNOUNCES_TITLE">
+    <value>Título</value>
+  </data>
+  <data name="DISCUSION_TITLE">
+    <value>Título</value>
+  </data>
+  <data name="EVENTS_TITLE">
+    <value>Título</value>
+  </data>
+  <data name="MILESTONES_TITLE">
+    <value>Título</value>
+  </data>
+  <data name="TASK_TITLE">
+    <value>Título</value>
+  </data>
+  <data name="PORTALSEARCH_TITLE">
+    <value>Título</value>
+  </data>
+  <data name="TITLE">
+    <value>Título</value>
+  </data>
+  <data name="USERTABLE_TITLE">
+    <value>Título</value>
+  </data>
+  <data name="ALREADY_REGISTERED">
+    <value>Ya está registrado</value>
+  </data>
+  <data name="ALREADY_REGISTERED1">
+    <value>Si ya tiene una cuenta</value>
+  </data>
+  <data name="AM_ADDMODULE">
+    <value>Añadir módulo:</value>
+  </data>
+  <data name="AM_ADDMODULEBELOW">
+    <value>Añadir el módulo a la lista siguiente</value>
+  </data>
+  <data name="AM_ADDMODULETOTAB">
+    <value>Añade este módulo a la página</value>
+  </data>
+  <data name="AM_ADDROLE">
+    <value>Crear nuevo rol</value>
+  </data>
+  <data name="AM_BASESOLUTION">
+    <value>Solución Base</value>
+  </data>
+  <data name="AM_CENTERPANEL">
+    <value>Panel Central</value>
+  </data>
+  <data name="AM_LEFTPANEL">
+    <value>Panel Izquierdo</value>
+  </data>
+  <data name="AM_MOBILETAB">
+    <value>Nombre Página Móvil</value>
+  </data>
+  <data name="AM_MODULELOCATION">
+    <value>Ubicación del Módulo:</value>
+  </data>
+  <data name="AM_MODULENAME">
+    <value>Nombre del módulo:</value>
+  </data>
+  <data name="AM_MODULETYPE">
+    <value>Tipo de Módulo</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERTYPE">
+    <value>Tipo de Módulo</value>
+  </data>
+  <data name="AM_MODULEVISIBLETO">
+    <value>Módulo Visible a:</value>
+  </data>
+  <data name="AM_ORGANIZEMODULE">
+    <value>Organiza módulos</value>
+  </data>
+  <data name="AM_PORTALALIAS">
+    <value>Nombre del Portal</value>
+  </data>
+  <data name="AM_PORTALID">
+    <value>Identificador del Portal</value>
+  </data>
+  <data name="AM_RIGHTPANEL">
+    <value>Panel Derecho</value>
+  </data>
+  <data name="AM_ROLESAUTH">
+    <value>Roles autorizados</value>
+  </data>
+  <data name="AM_SHOWEDIT">
+    <value>¿Mostrar siempre el botón de edición?</value>
+  </data>
+  <data name="AM_SHOWMOBILE">
+    <value>Mostrar a usuarios móviles:</value>
+  </data>
+  <data name="AM_SITEPATH">
+    <value>Ruta del Portal</value>
+  </data>
+  <data name="SITESETTINGS_SITE_PATH">
+    <value>Ruta del Portal</value>
+  </data>
+  <data name="SITE_PATH">
+    <value>Ruta del Portal</value>
+  </data>
+  <data name="SITE_TITLE">
+    <value>Título del Portal</value>
+  </data>
+  <data name="SITESETTINGS_SITE_TITLE">
+    <value>Título del Portal</value>
+  </data>
+  <data name="AM_SITETITLE">
+    <value>Título del Portal</value>
+  </data>
+  <data name="AM_TABNAME">
+    <value>Nombre y formato de la página</value>
+  </data>
+  <data name="AM_TABNAME1">
+    <value>Nombre de la página</value>
+  </data>
+  <data name="AM_TABS">
+    <value>Páginas</value>
+  </data>
+  <data name="AM_THEME">
+    <value>Tema Principal</value>
+  </data>
+  <data name="MODULESETTINGS_THEME">
+    <value>Tema Principal</value>
+  </data>
+  <data name="THEME">
+    <value>Tema Principal</value>
+  </data>
+  <data name="SITESETTINGS_THEME">
+    <value>Tema Principal</value>
+  </data>
+  <data name="ANNOUNCES_ADD">
+    <value>Añadir Nuevo Anuncio</value>
+  </data>
+  <data name="ANNOUNCES_DETAILS">
+    <value>Detalles del Anuncio</value>
+  </data>
+  <data name="ANNOUNCES_EXPIRES">
+    <value>Fecha de Caducidad</value>
+  </data>
+  <data name="EVENTS_EXPIRES">
+    <value>Fecha de Caducidad</value>
+  </data>
+  <data name="ANNOUNCES_READ_MORE_LINK">
+    <value>Ampliar</value>
+  </data>
+  <data name="ANNOUNCES_READ_MORE_MOBILE">
+    <value>Ampliar (Móvil)</value>
+  </data>
+  <data name="ANNOUNCES_VALID_DESCRIPTION">
+    <value>Debe entrar una descripción válida</value>
+  </data>
+  <data name="EVENTS_VALID_DESCRIPTION">
+    <value>Debe entrar una descripción válida</value>
+  </data>
+  <data name="EVENTS_VALID_EXPIRE">
+    <value>La fecha fin de validez debe ser válida</value>
+  </data>
+  <data name="ANNOUNCES_VALID_EXPIRE">
+    <value>La fecha fin de validez debe ser válida</value>
+  </data>
+  <data name="ANNOUNCES_VALID_TITLE">
+    <value>Entre un URL correcta</value>
+  </data>
+  <data name="ERROR_VALID_MILESTONE_TITLE">
+    <value>Entre un URL correcta</value>
+  </data>
+  <data name="EVENTS_VALID_TITLE">
+    <value>Entre un URL correcta</value>
+  </data>
+  <data name="TASK_TITLE_ERROR">
+    <value>Entre un URL correcta</value>
+  </data>
+  <data name="VALIDTITLE">
+    <value>Entre un URL correcta</value>
+  </data>
+  <data name="VALIDURL">
+    <value>Entre un URL correcta</value>
+  </data>
+  <data name="VALID_TITLE">
+    <value>Entre un URL correcta</value>
+  </data>
+  <data name="APOLOGISE">
+    <value>Disculpen los inconvenientes</value>
+  </data>
+  <data name="APPLY">
+    <value>Grabar Cambios</value>
+  </data>
+  <data name="APPLYBUTTON">
+    <value>Grabar Cambios</value>
+  </data>
+  <data name="APPLY_CHANGES">
+    <value>Grabar Cambios</value>
+  </data>
+  <data name="APPLY_MODULE_CHANGES">
+    <value>Aplicar cambios en el módulo</value>
+  </data>
+  <data name="APPLYMODULECHANGES">
+    <value>Aplicar cambios en el módulo</value>
+  </data>
+  <data name="APPLYNAME">
+    <value>Actualizar Cambios en Nombre y Contraseña</value>
+  </data>
+  <data name="APPLYTHEME">
+    <value>Aplicar tema</value>
+  </data>
+  <data name="MODULESETTINGS_APPLY_THEME">
+    <value>Aplicar tema</value>
+  </data>
+  <data name="MODULESETTINGS_APPLY_THEME_DESCRIPTION">
+    <value>Marcar para aplicar tema a este módulo</value>
+  </data>
+  <data name="APPLYTHEME_DESCRIPTION">
+    <value>Marcar para aplicar tema a este módulo</value>
+  </data>
+  <data name="APPROVE_MODULE_CONTENT">
+    <value>Aprobar Contenido de un Módulo</value>
+  </data>
+  <data name="AREA">
+    <value>Área</value>
+  </data>
+  <data name="DOCUMENT_AREA">
+    <value>Área</value>
+  </data>
+  <data name="ARTICLE_DETAIL">
+    <value>Detalle</value>
+  </data>
+  <data name="AT_ADDTAB">
+    <value>Añade Página</value>
+  </data>
+  <data name="PM_ADD_PAGE">
+    <value>Añade Página</value>
+  </data>
+  <data name="AT_JUMPTOTAB">
+    <value>Salta a la Página</value>
+  </data>
+  <data name="AT_MOBILETABNAME">
+    <value>Nombre de la página para móviles</value>
+  </data>
+  <data name="AT_SHOWMOBILE">
+    <value>Mostrar a usuarios de Móviles</value>
+  </data>
+  <data name="AT_TABPARENT">
+    <value>Página Padre</value>
+  </data>
+  <data name="AT_TABTITLE">
+    <value>Título de la Página</value>
+  </data>
+  <data name="AUTHOR">
+    <value>Autor</value>
+  </data>
+  <data name="DISCUSION_AUTHOR">
+    <value>Autor</value>
+  </data>
+  <data name="Appleseed_RUNNING_VERSION">
+    <value>La versión actual del portal es </value>
+  </data>
+  <data name="BACK">
+    <value>Atrás</value>
+  </data>
+  <data name="USERTABLE_BACK">
+    <value>Atrás</value>
+  </data>
+  <data name="BANK">
+    <value>Banco</value>
+  </data>
+  <data name="BINDTOTAB">
+    <value>Comenzar desde una página concreta?</value>
+  </data>
+  <data name="BIND_OPTION_CHILDREN">
+    <value>Cargar Hijos</value>
+  </data>
+  <data name="BIND_OPTION_CURRENT_CHILDS">
+    <value>Cargar Hijos de esta Página</value>
+  </data>
+  <data name="BIND_OPTION_DEFINED_PARENT">
+    <value>Cargar Hijos de un Padre</value>
+  </data>
+  <data name="BIND_OPTION_NONE">
+    <value>No cargar nada</value>
+  </data>
+  <data name="BIND_OPTION_SIBLINGS">
+    <value>Cargar los del mismo nivel</value>
+  </data>
+  <data name="BIND_OPTION_SUBTAB_SIBLING">
+    <value>Cargar los del nivel inferior</value>
+  </data>
+  <data name="BIND_OPTION_TABSIBLING">
+    <value>Cargar los del mismo nivel que esta página</value>
+  </data>
+  <data name="BIND_OPTION_TOP">
+    <value>Cargar todo</value>
+  </data>
+  <data name="BLACKLIST">
+    <value>Lista negra</value>
+  </data>
+  <data name="BLACKLISTED">
+    <value>Enlistado</value>
+  </data>
+  <data name="BLACKLIST_ADD">
+    <value>Agregar/Quitar usuarios de la lista negra</value>
+  </data>
+  <data name="BLACKLIST_ALL">
+    <value>Todos</value>
+  </data>
+  <data name="BLACKLIST_DATE">
+    <value>Fecha</value>
+  </data>
+  <data name="BLACKLIST_EMAIL">
+    <value>Correo electrónico</value>
+  </data>
+  <data name="BLACKLIST_LASTSEND">
+    <value>Último envío</value>
+  </data>
+  <data name="BLACKLIST_NAME">
+    <value>Nombre</value>
+  </data>
+  <data name="BLACKLIST_NONE">
+    <value>Ninguno</value>
+  </data>
+  <data name="BLACKLIST_REASON">
+    <value>Razón</value>
+  </data>
+  <data name="BLACKLIST_SENDNEWSLETTER">
+    <value>Enviar Noticias</value>
+  </data>
+  <data name="BLACKLIST_SHOWALLUSERS">
+    <value>Mostrar Todos los Usuarios</value>
+  </data>
+  <data name="BLACKLIST_SHOWCOLUMNDATE">
+    <value>Mostrar Fecha</value>
+  </data>
+  <data name="BLACKLIST_SHOWCOLUMNEMAIL">
+    <value>Mostrar Email</value>
+  </data>
+  <data name="BLACKLIST_SHOWCOLUMNLASTSEND">
+    <value>Mostrar Ultimo Envío</value>
+  </data>
+  <data name="BLACKLIST_SHOWCOLUMNREASON">
+    <value>Mostrar Razón</value>
+  </data>
+  <data name="BLACKLIST_SHOWCOLUMNSENDNEWSLETTER">
+    <value>Mostrar Enviar Noticias</value>
+  </data>
+  <data name="BLACKLIST_SHOWSUBSCRIBERSONLY">
+    <value>Mostrar sólo los subscriptos</value>
+  </data>
+  <data name="BLACKLIST_SORTFIELD">
+    <value>Ordenar por </value>
+  </data>
+  <data name="BLOG_ARCHIVES">
+    <value>Archivos</value>
+  </data>
+  <data name="BLOG_COMMENTS">
+    <value>Comentarios</value>
+  </data>
+  <data name="BLOG_ENTRIES">
+    <value>Entradas</value>
+  </data>
+  <data name="BLOG_ENTRY">
+    <value>Entrada en el Blog</value>
+  </data>
+  <data name="BLOG_FEEDBACK">
+    <value>Comentarios (</value>
+  </data>
+  <data name="BLOG_NAME">
+    <value>Nombre</value>
+  </data>
+  <data name="CONTACTS_NAME">
+    <value>Nombre</value>
+  </data>
+  <data name="NAME">
+    <value>Nombre</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERNAME">
+    <value>Nombre</value>
+  </data>
+  <data name="SENDTHTS_NAME">
+    <value>Nombre</value>
+  </data>
+  <data name="PRODUCT_NAME">
+    <value>Nombre</value>
+  </data>
+  <data name="POSTED_DATE">
+    <value>Fecha Publicacion</value>
+  </data>
+  <data name="BLOG_POSTED">
+    <value>Fecha Publicacion</value>
+  </data>
+  <data name="BLOG_POSTSFROM">
+    <value>Publicado desde:</value>
+  </data>
+  <data name="BLOG_REMEMBER_ME">
+    <value>Me recuerda?</value>
+  </data>
+  <data name="BLOG_STATISTICS">
+    <value>Estadísticas</value>
+  </data>
+  <data name="BLOG_SYNDICATION">
+    <value>Sindicar</value>
+  </data>
+  <data name="BLOG_TITLE_FEEDBACK">
+    <value>Comentarios</value>
+  </data>
+  <data name="BLOG_URL">
+    <value>URL</value>
+  </data>
+  <data name="URL">
+    <value>URL</value>
+  </data>
+  <data name="BOTTOM">
+    <value>Pie de Página</value>
+  </data>
+  <data name="BTN_HELP">
+    <value>Mostrar Ayuda sobre este tipo de módulo</value>
+  </data>
+  <data name="BTN_PRINT">
+    <value>Imprimir</value>
+  </data>
+  <data name="BUTTON_DISPLAY_SETTINGS">
+    <value>Propiedades de los botones y el display</value>
+  </data>
+  <data name="BUYNOW">
+    <value>Comprar ahora</value>
+  </data>
+  <data name="CA">
+    <value>Título en Catalán (ca)</value>
+  </data>
+  <data name="CAB">
+    <value>CAB</value>
+  </data>
+  <data name="CACHETIMEOUT">
+    <value>Tiempo antes del cual no se reenviará la información desde el servidor.</value>
+  </data>
+  <data name="CACHETIMEOUT_DESCRIPTION">
+    <value>Tiempo antes del cual no se reenviará la información desde el servidor.</value>
+  </data>
+  <data name="CANCEL">
+    <value>Cancelar</value>
+  </data>
+  <data name="CAPTION">
+    <value>Título</value>
+  </data>
+  <data name="PICTURES_CAPTION">
+    <value>Título</value>
+  </data>
+  <data name="EVENTS_CATEGORY">
+    <value>Categoría</value>
+  </data>
+  <data name="CAT">
+    <value>Categoría</value>
+  </data>
+  <data name="CATEGORY">
+    <value>Categoría</value>
+  </data>
+  <data name="CATS">
+    <value>Categorías</value>
+  </data>
+  <data name="CA_DESCRIPTION">
+    <value>Establecer el Título en Catalán</value>
+  </data>
+  <data name="CENTER">
+    <value>Centro</value>
+  </data>
+  <data name="CFISCALE">
+    <value>Código Fiscal</value>
+  </data>
+  <data name="CHANGE_DATE">
+    <value>Cambiar fecha</value>
+  </data>
+  <data name="CHANGE_LANGUAGE">
+    <value>Cambiar</value>
+  </data>
+  <data name="CHANGE_PASSWORD">
+    <value>Escriba la contraseña únicamente si desea cambiarla:</value>
+  </data>
+  <data name="CHECKOUT">
+    <value>Confirmar</value>
+  </data>
+  <data name="PRODUCT_CHECKOUT">
+    <value>Confirmar</value>
+  </data>
+  <data name="CHECKOUT_AUTHORIZE">
+    <value>Confirmar pedido</value>
+  </data>
+  <data name="CHECKOUT_CART_IS_EMPTY">
+    <value>No hay artículos en su carro de compra!</value>
+  </data>
+  <data name="CHECKOUT_CC_EXPIRY">
+    <value>Fecha de Caducidad</value>
+  </data>
+  <data name="CHECKOUT_CC_NAME">
+    <value>Tarjeta a nombre de:</value>
+  </data>
+  <data name="CHECKOUT_CC_NUMBER">
+    <value>Número de Tarjeta:</value>
+  </data>
+  <data name="CHECKOUT_CC_TYPE">
+    <value>Tipo de Tarjeta:</value>
+  </data>
+  <data name="CHECKOUT_COPY_TO_SHIPPING_INFO">
+    <value>Establecer mis datos personales como datos de envío.</value>
+  </data>
+  <data name="CHECKOUT_MAKE_SURE_ADDRESS_IS_CORRECT">
+    <value>Por favor asegurese que la dirección de Email es correcta, ya que será usada para enviarle una copia de su pedido.</value>
+  </data>
+  <data name="CHECKOUT_MAKE_SURE_ADDRESS_IS_CORRECT_2">
+    <value>Si este no es el caso, por favor.</value>
+  </data>
+  <data name="CHECKOUT_SELECT_PAYMENT">
+    <value>Seleccione la forma de pago</value>
+  </data>
+  <data name="CHECKOUT_STEP1">
+    <value>Paso 1/4: Información Personal</value>
+  </data>
+  <data name="CHECKOUT_STEP2">
+    <value>Paso 2/4: Información de Compra</value>
+  </data>
+  <data name="CHECKOUT_STEP3">
+    <value>Paso 3/4: Calcular el precio Final</value>
+  </data>
+  <data name="CHECKOUT_STEP4">
+    <value>Paso 4/4: Proceso de Pago</value>
+  </data>
+  <data name="CHECKOUT_TOTAL_PRODUCT">
+    <value>Total Productos:</value>
+  </data>
+  <data name="CHECKOUT_TOTAL_SHIPPING">
+    <value>Total Compra:</value>
+  </data>
+  <data name="CHECKOUT_VERIFY_INFORMATION">
+    <value>Verifique que la información anterior es correcta</value>
+  </data>
+  <data name="CHECKOUT_VERIFY_INFORMATION_CLICK_BACK">
+    <value>Pulse el botón &lt;atrás&gt; para ir al paso anterior. Pulse &lt;continuar&gt; para ir al paso siguiente</value>
+  </data>
+  <data name="CITY">
+    <value>Ciudad</value>
+  </data>
+  <data name="COLLECTION_PROPERTIES">
+    <value>Propiedades del módulo</value>
+  </data>
+  <data name="COMPANY">
+    <value>Empresa</value>
+  </data>
+  <data name="CONDITIONS">
+    <value>Condiciones de Uso</value>
+  </data>
+  <data name="TERMSOFSERVICE">
+    <value>Condiciones de Uso</value>
+  </data>
+  <data name="CONFIRM">
+    <value>Confirmar</value>
+  </data>
+  <data name="CONFIRM_DELETE">
+    <value>¿Desea borrar este elemento?</value>
+  </data>
+  <data name="CONFIRM_PASSWORD">
+    <value>Confirmar Contraseña</value>
+  </data>
+  <data name="CONTACT">
+    <value>Contacto</value>
+  </data>
+  <data name="CONTACTS_ADD">
+    <value>Añadir nuevo contacto</value>
+  </data>
+  <data name="CONTACTS_CONTACT1">
+    <value>Teléfono Fijo</value>
+  </data>
+  <data name="CONTACTS_CONTACT2">
+    <value>Teléfono Móvil</value>
+  </data>
+  <data name="CONTACTS_DETAILS">
+    <value>Detalle</value>
+  </data>
+  <data name="CONTACTS_EMAIL">
+    <value>Email</value>
+  </data>
+  <data name="CONTACTS_FAX">
+    <value>Fax</value>
+  </data>
+  <data name="FAX">
+    <value>Fax</value>
+  </data>
+  <data name="CONTACTS_ROLE">
+    <value>Cargo</value>
+  </data>
+  <data name="CONTACTS_VALID_NAME">
+    <value>Entre un nombre correcto.</value>
+  </data>
+  <data name="VALID_NAME">
+    <value>Entre un nombre correcto.</value>
+  </data>
+  <data name="CONTINUE">
+    <value>Continuar</value>
+  </data>
+  <data name="COULD_NOT_CHANGE_PASSWORD">
+    <value>No se pudo cambiar el password</value>
+  </data>
+  <data name="COUNTRIESFILTER">
+    <value>Países permitidos</value>
+  </data>
+  <data name="SITESETTINGS_COUNTRY_FILTER">
+    <value>Países permitidos</value>
+  </data>
+  <data name="COUNTRIESFILTER_DESCRIPTION">
+    <value>Puede limitar la lista de países de la página de registro a los seleccionados, o deje en blanco para todos.</value>
+  </data>
+  <data name="COUNTRY">
+    <value>País</value>
+  </data>
+  <data name="CREATEDBY">
+    <value>Creado por</value>
+  </data>
+  <data name="CREATED_BY">
+    <value>Creado por</value>
+  </data>
+  <data name="OWNER">
+    <value>Creado por</value>
+  </data>
+  <data name="MODULESETTINGS_CULTURE">
+    <value>Cultura</value>
+  </data>
+  <data name="CULTURE">
+    <value>Cultura</value>
+  </data>
+  <data name="CULTUREIMGPORTAL">
+    <value>Usar Banderas Personalizadas?</value>
+  </data>
+  <data name="LANGUAGESWITCHER_CUSTOMFLAGS">
+    <value>Usar Banderas Personalizadas?</value>
+  </data>
+  <data name="CULTUREIMGPORTAL_DESCRIPTION">
+    <value>Marcar si quieres usar banderas personalizadas</value>
+  </data>
+  <data name="CULTURELIST">
+    <value>Lista de Culturas</value>
+  </data>
+  <data name="CULTURE_DESCRIPTION">
+    <value>Escoger cultura</value>
+  </data>
+  <data name="MODULESETTINGS_CULTURE_DESCRIPTION">
+    <value>Escoger cultura</value>
+  </data>
+  <data name="CULTURE_SETTINGS">
+    <value>Características de Cultura</value>
+  </data>
+  <data name="CUSTOMLAYOUT">
+    <value>Diseño Personal</value>
+  </data>
+  <data name="CUSTOMLAYOUT_DESCRIPTION">
+    <value>Usar Diseño personalizado sólo en esta página</value>
+  </data>
+  <data name="CUSTOMMENUIMAGE">
+    <value>Imagen menú personalizada</value>
+  </data>
+  <data name="CUSTOMMENUIMAGE_DESCRIPTION">
+    <value>Permite seleccionar una imagen personalizada a esta página</value>
+  </data>
+  <data name="CUSTOMTHEME">
+    <value>Tema Personal</value>
+  </data>
+  <data name="CUSTOMTHEMEALT">
+    <value>Tema Personal Alternativo</value>
+  </data>
+  <data name="CUSTOMTHEMEALT_DESCRIPTION">
+    <value>Usar Tema personal alternativo sólo en esta página</value>
+  </data>
+  <data name="CUSTOMTHEME_DESCRIPTION">
+    <value>Usar Tema personalizado sólo en esta página</value>
+  </data>
+  <data name="DA-DK">
+    <value>Título (da-DK)</value>
+  </data>
+  <data name="DA-DK_DESCRIPTION">
+    <value>Establecer Titulo para cultura danesa (de-DK)</value>
+  </data>
+  <data name="DATE">
+    <value>Fecha</value>
+  </data>
+  <data name="USERTABLE_TYPE_DATETIME">
+    <value>Fecha</value>
+  </data>
+  <data name="DATE_OF_BIRTH">
+    <value>Fecha de nacimiento</value>
+  </data>
+  <data name="DBTOOL_GETDATA">
+    <value>Datos</value>
+  </data>
+  <data name="DBTOOL_GETINFO">
+    <value>Información</value>
+  </data>
+  <data name="DBTOOL_GETINFOEXTENDED">
+    <value>Información Adicional</value>
+  </data>
+  <data name="DBTOOL_GETPROPERTIES">
+    <value>Propiedades</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERPROPERTIES">
+    <value>Propiedades</value>
+  </data>
+  <data name="DBTOOL_OWNER">
+    <value>Propietario</value>
+  </data>
+  <data name="DOCUMENT_OWNER">
+    <value>Propietario</value>
+  </data>
+  <data name="DBTOOL_QUERYEXECUTE">
+    <value>Ejecutar Búsqueda</value>
+  </data>
+  <data name="DE-CH">
+    <value>Título</value>
+  </data>
+  <data name="DE-CH_DESCRIPTION">
+    <value>Establecer Titulo para cultura alemana (Suiza)</value>
+  </data>
+  <data name="DE-DE">
+    <value>Título (de-DE)</value>
+  </data>
+  <data name="DE-DE_DESCRIPTION">
+    <value>Establecer Titulo para cultura alemana (Alemania)</value>
+  </data>
+  <data name="DECLINE">
+    <value>No, gracias</value>
+  </data>
+  <data name="DEFAULTEMAIL">
+    <value>Correo de envío</value>
+  </data>
+  <data name="DEFAULTNAME">
+    <value>Nombre de envío</value>
+  </data>
+  <data name="DEFAULTVISIBLEDAYS">
+    <value>Días Del Defecto Visibles</value>
+  </data>
+  <data name="DELAYEXPIRE">
+    <value>Caducidad por defecto (en días)</value>
+  </data>
+  <data name="DELETE">
+    <value>Borrar</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERDELETE">
+    <value>Borrar</value>
+  </data>
+  <data name="DELETEBTN">
+    <value>Borrar elemento seleccionado</value>
+  </data>
+  <data name="DELETEITEM">
+    <value>Borrar elemento seleccionado</value>
+  </data>
+  <data name="DELETEMODULE">
+    <value>Borrar este módulo</value>
+  </data>
+  <data name="DELETE_PORTAL">
+    <value>Eliminar Portal</value>
+  </data>
+  <data name="DELETE_THIS_ITEM">
+    <value>Borrar este elemento</value>
+  </data>
+  <data name="DELETE_THIS_MODULE_TYPE">
+    <value>Borrar este tipo de Módulo</value>
+  </data>
+  <data name="DELETE_USER">
+    <value>Borrar este usuario</value>
+  </data>
+  <data name="DELUSER">
+    <value>Eliminar usuario de este Rol</value>
+  </data>
+  <data name="DESKTOP_SOURCE">
+    <value>Origen del Módulo</value>
+  </data>
+  <data name="DIRECTURL">
+    <value>Dirección url que puede ser usada para identificarse automáticamente</value>
+  </data>
+  <data name="NEWSLETTER_DIRECTURL">
+    <value>Dirección url que puede ser usada para identificarse automáticamente</value>
+  </data>
+  <data name="DISCUSSION_LAST_UPDATE">
+    <value>Última Actualización</value>
+  </data>
+  <data name="DISCUSSION_MSGEXPAND">
+    <value>Expandir el hilo de este tema en la ventana actual de su navegador</value>
+  </data>
+  <data name="DISCUSSION_MSGSELECT">
+    <value>Abrir el hilo de este tema en una nueva ventana de su navegador</value>
+  </data>
+  <data name="DISCUSSION_REPLYS">
+    <value>Cantidad de respuestas de este Tema</value>
+  </data>
+  <data name="DISCUSSION_VIEWED">
+    <value>Cantidad de veces que este tema ha sido visto</value>
+  </data>
+  <data name="DOCUMENTPATH">
+    <value>Carpeta de documentos</value>
+  </data>
+  <data name="DOCUMENTPATH_DESCRIPTION">
+    <value>Carpeta donde se guardarán los documentos si no se guardan en la base de datos</value>
+  </data>
+  <data name="DOCUMENTS_DBSAVE">
+    <value>Salvar en la base de Datos?</value>
+  </data>
+  <data name="DOCUMENTS_DBSAVE_DESCRIPTION">
+    <value>Marcar si quiere que los documentos sean guardados en la base de datos. Desmarcar para guardar en el servidor.</value>
+  </data>
+  <data name="DOCUMENTS_FOLDER">
+    <value>Carpeta de documentos</value>
+  </data>
+  <data name="DOCUMENTS_SHOWAREA">
+    <value>Mostrar Área?</value>
+  </data>
+  <data name="DOCUMENTS_SHOWAREA_DESCRIPTION">
+    <value>Marcar para ver la columna de Área de los documentos</value>
+  </data>
+  <data name="DOCUMENTS_SHOWIMAGES">
+    <value>Mostrar Imágenes?</value>
+  </data>
+  <data name="DOCUMENTS_SHOWIMAGES_DESCRIPTION">
+    <value>Marcar para ver Iconos con el Tipo de Documento </value>
+  </data>
+  <data name="DOCUMENTS_SHOWLASTUPDATED">
+    <value>Mostrar Fecha?</value>
+  </data>
+  <data name="DOCUMENTS_SHOWLASTUPDATED_DESCRIPTION">
+    <value>Marcar para ver la columna de fecha de la última actualización de cada documento</value>
+  </data>
+  <data name="DOCUMENTS_SHOWOWNER">
+    <value>Mostrar Propietario?</value>
+  </data>
+  <data name="DOCUMENTS_SHOWOWNER_DESCRIPTION">
+    <value>Marcar para ver la columna de Propietario de los documentos</value>
+  </data>
+  <data name="DOCUMENTS_SHOWTITLE">
+    <value>Mostrar Título?</value>
+  </data>
+  <data name="DOCUMENTS_SHOWTITLE_DESCRIPTION">
+    <value>Marcar para ver la columna de Títulos de los documentos</value>
+  </data>
+  <data name="DOCUMENTS_SORTBY_DIRECTION">
+    <value>Ordenación?</value>
+  </data>
+  <data name="DOCUMENTS_SORTBY_DIRECTION_DESCRIPTION">
+    <value>Selecciona si los documentos se ordenarán inicialmente de manera ascendente o descendente</value>
+  </data>
+  <data name="DOCUMENTS_SORTBY_DIRECTION_LIST">
+    <value>Ascendente;Descendente</value>
+  </data>
+  <data name="DOCUMENTS_SORTBY_FIELD">
+    <value>Ordenado por</value>
+  </data>
+  <data name="DOCUMENTS_SORTBY_FIELD_DESCRIPTION">
+    <value>Selecciona como se ordenarán inicialmente los documentos</value>
+  </data>
+  <data name="DOCUMENTS_SORTBY_FIELD_LIST">
+    <value>Título;Última Actualización</value>
+  </data>
+  <data name="DOCUMENTS_SOURCE">
+    <value>Fuente de los documentos</value>
+  </data>
+  <data name="DOCUMENT_DETAILS">
+    <value>Detalle del documento</value>
+  </data>
+  <data name="DOCUMENT_LAST_UPDATED">
+    <value>Última actualización</value>
+  </data>
+  <data name="LAST_UPDATED">
+    <value>Última actualización</value>
+  </data>
+  <data name="DONOTRESENDWITHIN">
+    <value>No vuelva a enviar hasta dentro de (dias)</value>
+  </data>
+  <data name="DONOTRESENDWITHIN_DESCRIPTION">
+    <value>Para evitar el spam y correos duplicados, no se puede enviar más de un mail a la misma dirección en el lapso de tiempo especificado.</value>
+  </data>
+  <data name="DONT_RESIZE">
+    <value>No cambiar tamaño</value>
+  </data>
+  <data name="PICTURES_DONT_RESIZE">
+    <value>No cambiar tamaño</value>
+  </data>
+  <data name="DRAGNDROP">
+    <value>DragNDrop</value>
+  </data>
+  <data name="DS_BODY">
+    <value>Mensaje</value>
+  </data>
+  <data name="DS_LASTREPLYDATE">
+    <value>Fecha de la Ultima respuesta</value>
+  </data>
+  <data name="DS_MSGDETAILS">
+    <value>Detalle</value>
+  </data>
+  <data name="DS_NEWTHREAD">
+    <value>Nuevo Mensaje</value>
+  </data>
+  <data name="DS_ORIGINALMSG">
+    <value>Mensaje Original</value>
+  </data>
+  <data name="DS_REPLYTHISMSG">
+    <value>Responder Mensaje</value>
+  </data>
+  <data name="EDIT">
+    <value>Editar</value>
+  </data>
+  <data name="SECURITYCHECK_HEADEREDIT">
+    <value>Editar</value>
+  </data>
+  <data name="EDITBTN">
+    <value>Modificar propiedades de los elementos seleccionados</value>
+  </data>
+  <data name="EDITOR">
+    <value>Editor</value>
+  </data>
+  <data name="EDITOR_DESCRIPTION">
+    <value>Selecciona el editor Html que se utilizará en este módulo</value>
+  </data>
+  <data name="EDIT_ACCESS_DENIED">
+    <value>Acceso en modo edición no autorizado</value>
+  </data>
+  <data name="EDIT_ACCESS_DENIED_MESSAGE">
+    <value>No es posible modificar la página si  sus credenciales no lo permiten. Contacte con el administrador del portal para obtener acceso.</value>
+  </data>
+  <data name="EDIT_PORTAL">
+    <value>Modificar Portal</value>
+  </data>
+  <data name="EDIT_PROFILE">
+    <value>Editar Perfil</value>
+  </data>
+  <data name="HEADER_EDIT_PROFILE">
+    <value>Editar Perfil</value>
+  </data>
+  <data name="EDIT_THIS_ITEM">
+    <value>Editar este elemento</value>
+  </data>
+  <data name="EDIT_USER">
+    <value>Editar este usuario</value>
+  </data>
+  <data name="ELECTRONICDELIVERY">
+    <value>Envío Electronico</value>
+  </data>
+  <data name="ELECTRONICDELIVERY_DESCRIPTION">
+    <value>Descripción Envio Electronico</value>
+  </data>
+  <data name="EMAIL">
+    <value>E-Mail</value>
+  </data>
+  <data name="MAIL">
+    <value>E-Mail</value>
+  </data>
+  <data name="EMAILORWINDOW">
+    <value>Correo electrónico (o nombre del usuario del dominio Windows)</value>
+  </data>
+  <data name="EN">
+    <value>Título (en)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_EN">
+    <value>Título (en)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_EN-US">
+    <value>Título (en-US)</value>
+  </data>
+  <data name="EN-US">
+    <value>Título (en-US)</value>
+  </data>
+  <data name="EN-US_DESCRIPTION">
+    <value>Establecer Titulo para cultura inglesa (Estados Unidos)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_EN-US_DESCRIPTION">
+    <value>Establecer Titulo para cultura inglesa (Estados Unidos)</value>
+  </data>
+  <data name="END_DATE">
+    <value>Fecha de Fin</value>
+  </data>
+  <data name="EVENTS_END_DATE">
+    <value>Fecha de Fin</value>
+  </data>
+  <data name="ENHANCEDHTML_ADDINVARIANTCULTURE">
+    <value>Añadir Páginas Invariantes?</value>
+  </data>
+  <data name="ENHANCEDHTML_ADDINVARIANTCULTURE_DESCRIPTION">
+    <value>Marcar si quieren mostrarse las páginas cuyo lenguaje seleccionado sea invariante despues de las páginas del lenguaje del usuario</value>
+  </data>
+  <data name="ENHANCEDHTML_ALIGNDOWNMENU">
+    <value>Alineación Menú Navegación</value>
+  </data>
+  <data name="ENHANCEDHTML_ALIGNDOWNMENU_DESCRIPTION">
+    <value>Seleccionar aquí la alineación del índice</value>
+  </data>
+  <data name="ENHANCEDHTML_ALIGNUPMENU_DESCRIPTION">
+    <value>Seleccionar aquí la alineación del índice</value>
+  </data>
+  <data name="ENHANCEDHTML_ALIGNUPMENU">
+    <value>Alineación Indice</value>
+  </data>
+  <data name="ENHANCEDHTML_GET_CONTENTS_FROM_PORTALS">
+    <value>¿Permitir seleccionar otros Portales?</value>
+  </data>
+  <data name="ENHANCEDHTML_GET_CONTENTS_FROM_PORTALS_DESCRIPTION">
+    <value>Marcar si se permite seleccionar contenidos desde módulos de otros portales en la misma base de datos</value>
+  </data>
+  <data name="ENHANCEDHTML_OF">
+    <value>de</value>
+  </data>
+  <data name="OF">
+    <value>de</value>
+  </data>
+  <data name="PAGE">
+    <value>Página</value>
+  </data>
+  <data name="ENHANCEDHTML_PAGE">
+    <value>Página</value>
+  </data>
+  <data name="ENHANCEDHTML_SELECT_MODULE">
+    <value>Seleccionar un módulo de este portal  para mostrar su contenido en esta página</value>
+  </data>
+  <data name="ENHANCEDHTML_SELECT_MODULE_PORTAL">
+    <value>Seleccionar un módulo de la base de datos para mostrar su contenido en esta página</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWDOWNMENU">
+    <value>Mostrar Menú de Navegación?</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWDOWNMENU_DESCRIPTION">
+    <value>Marcar la casilla para ver un menú de navegación con la página anterior y posterior a la actual</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWMULTIMODE">
+    <value>Mostrar Icono Multimodo</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWMULTIMODE_DESCRIPTION">
+    <value>Si se muestra aparece un icono a la derecha del contenido que permite cambiar a modo completo o paginado</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWTITLEPAGE">
+    <value>Mostrar Titulo?</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWTITLEPAGE_DESCRIPTION">
+    <value>Marcar si quiere mostrarse el título de la página</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWUPMENU">
+    <value>Mostrar Menú Indice?</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWUPMENU_DESCRIPTION">
+    <value>Marcar si quiere verse un índice con los títulos de todas las páginas</value>
+  </data>
+  <data name="ENHANCEDHTML_SINGLEPAGEMODE">
+    <value>Cambiar a modo Completo</value>
+  </data>
+  <data name="ENHANCEDLINKS_DEFAULTIMAGE">
+    <value>Imagen por defecto</value>
+  </data>
+  <data name="ENHANCEDLINKS_DEFAULTIMAGE_DESCRIPTION">
+    <value>Seleccione la imagen que utilizarán todos los enlaces que no tengan una asignada.</value>
+  </data>
+  <data name="ENHANCEDLINKS_DROPDOWNLIST">
+    <value>Lista Desplegable</value>
+  </data>
+  <data name="LANGSWITCHTYPE_DROPDOWNLIST">
+    <value>Lista Desplegable</value>
+  </data>
+  <data name="ENHANCEDLINKS_EXPANDALL">
+    <value>Mostrar Descripción</value>
+  </data>
+  <data name="ENHANCEDLINKS_EXPANDALL_DESCRIPTION">
+    <value>Marcar para ver la descripción debajo del enlace</value>
+  </data>
+  <data name="ENHANCEDLINKS_ICONPATH">
+    <value>Almacén de Iconos</value>
+  </data>
+  <data name="ENHANCEDLINKS_ICONPATH_DESCRIPTION">
+    <value>Directorio del Portal para descargar los iconos utilizados</value>
+  </data>
+  <data name="ENHANCEDLINKS_LINKS">
+    <value>Enlaces</value>
+  </data>
+  <data name="LANGSWITCHTYPE_LINKS">
+    <value>Enlaces</value>
+  </data>
+  <data name="ENHANCEDLINKS_MAXCOLUMS">
+    <value>Total Columnas</value>
+  </data>
+  <data name="ENHANCEDLINKS_MAXCOLUMS_DESCRIPTION">
+    <value>Número Máximo de Columnas</value>
+  </data>
+  <data name="ENHANCEDLINKS_SWITCHERTYPES">
+    <value>Estilo de Enlaces</value>
+  </data>
+  <data name="ENHANCEDLINKS_SWITCHERTYPES_DESCRIPTION">
+    <value>Seleccione aquí como debe verse el resultado</value>
+  </data>
+  <data name="ENTER_THROUGH_HOMEPAGE">
+    <value>Ya puede ingresar al sitio en la página de inicio</value>
+  </data>
+  <data name="EN_DESCRIPTION">
+    <value>Establecer Titulo para cultura inglesa</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_EN_DESCRIPTION">
+    <value>Establecer Titulo para cultura inglesa</value>
+  </data>
+  <data name="ERROR_COMPLETION_DATE">
+    <value>Escriba la fecha estimada de finalización</value>
+  </data>
+  <data name="ERROR_VALID_COMPLETION_DATE">
+    <value>Escriba la fecha estimada de finalización</value>
+  </data>
+  <data name="ERROR_ENTER_A_FILE_NAME">
+    <value>Escriba un nombre de fichero</value>
+  </data>
+  <data name="ERROR_ENTER_A_MODULE_NAME">
+    <value>Entre el Nombre de un Módulo</value>
+  </data>
+  <data name="ERROR_ENTER_A_SOURCE_PATH">
+    <value>Debe entrar una ruta correcta para el Módulo</value>
+  </data>
+  <data name="ERROR_INVALID_MODULE">
+    <value>Módulo Incorrecto</value>
+  </data>
+  <data name="ERROR_QUIZ_ANSWER">
+    <value>Por favor elija una respuesta.</value>
+  </data>
+  <data name="ERROR_SUBJECT">
+    <value>Debe escribir el Asunto del Mensaje.</value>
+  </data>
+  <data name="ERROR_VALID_DATE">
+    <value>Entra una fecha válida</value>
+  </data>
+  <data name="ERROR_VALID_DESCRIPTION">
+    <value>Descripción incorrecta</value>
+  </data>
+  <data name="ERROR_VALID_EMAIL">
+    <value>Entra una dirección de correo válida</value>
+  </data>
+  <data name="ERROR_VALID_ENDDATE">
+    <value>Debe escribir una fecha final valida.</value>
+  </data>
+  <data name="ERROR_VALID_ID">
+    <value>El ID debe ser un número entero</value>
+  </data>
+  <data name="ERROR_VALID_MESSAGE_TEXT">
+    <value>Texto del mensaje</value>
+  </data>
+  <data name="SENDTHTS_BODY_ERR">
+    <value>Texto del mensaje</value>
+  </data>
+  <data name="ERROR_VALID_MILESTONE_STATUS">
+    <value>Escriba el estado de este mojón</value>
+  </data>
+  <data name="ERROR_VALID_NAME">
+    <value>Nombre incorrecto</value>
+  </data>
+  <data name="ERROR_VALID_STARTDATE">
+    <value>Debe entrar una fecha de inicio correcta</value>
+  </data>
+  <data name="TASK_STARTDATE_ERROR">
+    <value>Debe entrar una fecha de inicio correcta</value>
+  </data>
+  <data name="ERROR_VALID_TITLE">
+    <value>Título incorrecto</value>
+  </data>
+  <data name="ERROR_VALID_URL">
+    <value>URL no válida</value>
+  </data>
+  <data name="ERROR_VALID_VIEWORDER">
+    <value>Entre un orden de visualizacion correcto.</value>
+  </data>
+  <data name="VALID_VIEWORDER">
+    <value>Entre un orden de visualizacion correcto.</value>
+  </data>
+  <data name="VALIDORDER">
+    <value>Entre un orden de visualizacion correcto.</value>
+  </data>
+  <data name="ERROR_VALID_WHEREWHEN">
+    <value>Escriba una fecha y lugar correctos.</value>
+  </data>
+  <data name="ERROR_VALID_WHERE_WHEN">
+    <value>Escriba una fecha y lugar correctos.</value>
+  </data>
+  <data name="ES">
+    <value>Titulo (es)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_ES">
+    <value>Titulo (es)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_ES_DESCRIPTION">
+    <value>Título en Español</value>
+  </data>
+  <data name="ES_DESCRIPTION">
+    <value>Título en Español</value>
+  </data>
+  <data name="EVENTS_ADD">
+    <value>Agregar evento</value>
+  </data>
+  <data name="EVENTS_ALLDAY">
+    <value>Todo el Día</value>
+  </data>
+  <data name="EVENTS_BOOKING_REQUIRED">
+    <value>Requiere reserva</value>
+  </data>
+  <data name="EVENTS_DETAILS">
+    <value>Detalles</value>
+  </data>
+  <data name="EVENTS_EMAIL">
+    <value>Correo Electrónico</value>
+  </data>
+  <data name="EVENTS_ENABLED">
+    <value>Activado</value>
+  </data>
+  <data name="EVENTS_GROUP">
+    <value>Grupo</value>
+  </data>
+  <data name="EVENTS_PAYMENT">
+    <value>Pago</value>
+  </data>
+  <data name="EVENTS_PLACE">
+    <value>Lugar</value>
+  </data>
+  <data name="EVENTS_PRICES">
+    <value>Precios</value>
+  </data>
+  <data name="EVENTS_SITEURL">
+    <value>URL del Portal</value>
+  </data>
+  <data name="LOGINHOMEPAGE">
+    <value>URL del Portal</value>
+  </data>
+  <data name="EVENTS_STARTAT">
+    <value>Empieza: </value>
+  </data>
+  <data name="EVENTS_STARTDATE">
+    <value>Fecha de Inicio</value>
+  </data>
+  <data name="EVENTS_START_DATE">
+    <value>Fecha de Inicio</value>
+  </data>
+  <data name="TASK_STARTDATE">
+    <value>Fecha de Inicio</value>
+  </data>
+  <data name="START_DATE">
+    <value>Fecha de Inicio</value>
+  </data>
+  <data name="EVENTS_STARTTIME">
+    <value>Hora de Inicio</value>
+  </data>
+  <data name="EVENTS_TIMETABLE">
+    <value>Horarios</value>
+  </data>
+  <data name="EVENTS_VALID_WHEN-WHERE">
+    <value>Debe entrar un lugar y hora correctos.</value>
+  </data>
+  <data name="EVENTS_WHEN-WHERE">
+    <value>Donde / Cuando</value>
+  </data>
+  <data name="EVENTS_WHEREWHEN">
+    <value>Donde / Cuando</value>
+  </data>
+  <data name="EXCERPT">
+    <value>Resumen</value>
+  </data>
+  <data name="EXPIRE_DATE">
+    <value>Fecha de Caducidad</value>
+  </data>
+  <data name="FAQ_ANSWER">
+    <value>Respuesta</value>
+  </data>
+  <data name="FAQ_Q">
+    <value>Pregunta</value>
+  </data>
+  <data name="FAQ_QUESTION">
+    <value>Pregunta</value>
+  </data>
+  <data name="SURVEY_QUESTION">
+    <value>Pregunta</value>
+  </data>
+  <data name="FILEMAN_FILENAME">
+    <value>Nombre de Fichero</value>
+  </data>
+  <data name="FILEMAN_MODIFIED">
+    <value>Fecha de Modificación</value>
+  </data>
+  <data name="FILEMAN_SIZE">
+    <value>Tamaño</value>
+  </data>
+  <data name="FILE_NAME">
+    <value>Nombre del archivo</value>
+  </data>
+  <data name="FILE_NOT_FOUND">
+    <value>Archivo %1% no encontrado</value>
+  </data>
+  <data name="FILE_UPLOAD">
+    <value>Descargar Fichero</value>
+  </data>
+  <data name="FILE_UPLOAD_ERROR">
+    <value>El fichero descargado no es válido</value>
+  </data>
+  <data name="FIXED_WIDTH_AND_HEIGHT">
+    <value>Fijar ancho y alto</value>
+  </data>
+  <data name="PICTURES_FIXED_WIDTH_AND_HEIGHT">
+    <value>Fijar ancho y alto</value>
+  </data>
+  <data name="FLASH_GALLERY">
+    <value>Galeria Flash</value>
+  </data>
+  <data name="FLASH_PATH">
+    <value>Ruta del archivo flash</value>
+  </data>
+  <data name="FLASH_SELECT_FILE">
+    <value>1. Seleccionar la imágen</value>
+  </data>
+  <data name="FLASH_SETTINGS">
+    <value>Configuracion del Modulo Flash</value>
+  </data>
+  <data name="FLASH_UPLOAD_FILE">
+    <value>2. Descargar los archivos (*.swf)</value>
+  </data>
+  <data name="FLASH_UPLOAD_TITLE">
+    <value>Descargar el archivo Flash</value>
+  </data>
+  <data name="FRIENDLY_NAME">
+    <value>Nombre a mostrar</value>
+  </data>
+  <data name="FROM">
+    <value>Enviado por</value>
+  </data>
+  <data name="POSTED_BY">
+    <value>Enviado por</value>
+  </data>
+  <data name="FUEL">
+    <value>FUEL</value>
+  </data>
+  <data name="GOOGLE_SEARCH">
+    <value>Buscar</value>
+  </data>
+  <data name="PORTALSEARCH_SEARCH">
+    <value>Buscar</value>
+  </data>
+  <data name="SEARCH">
+    <value>Buscar</value>
+  </data>
+  <data name="SECURITYCHECK_SEARCH">
+    <value>Buscar</value>
+  </data>
+  <data name="GOOGLE_START">
+    <value>Desde</value>
+  </data>
+  <data name="GOTO_PAGE">
+    <value>Ir a página:</value>
+  </data>
+  <data name="GUID">
+    <value>GUID</value>
+  </data>
+  <data name="HEADER_HELP">
+    <value>Ayuda</value>
+  </data>
+  <data name="HEADER_LOGOFF">
+    <value>Salir</value>
+  </data>
+  <data name="LOGOFF">
+    <value>Salir</value>
+  </data>
+  <data name="HEADER_MANAGE_TAB">
+    <value>Gestiona Página</value>
+  </data>
+  <data name="HEADER_SAVE_DESKTOP">
+    <value>Salvar Configuración</value>
+  </data>
+  <data name="HEADER_WELCOME">
+    <value>Bienvenido</value>
+  </data>
+  <data name="WELCOME">
+    <value>Bienvenido</value>
+  </data>
+  <data name="HEIGHT">
+    <value>Alto</value>
+  </data>
+  <data name="HEIGHT_DESCRIPTION">
+    <value>La altura en puntos que ocupará el control</value>
+  </data>
+  <data name="HERE">
+    <value>Aquí</value>
+  </data>
+  <data name="HOME">
+    <value>Inicio</value>
+  </data>
+  <data name="PORTAL_HOME">
+    <value>Inicio</value>
+  </data>
+  <data name="HORIZONTAL">
+    <value>Horizontal</value>
+  </data>
+  <data name="PICTURES_HORIZONTAL">
+    <value>Horizontal</value>
+  </data>
+  <data name="HTMLDOCUMENT_TODO_ADDCONTENT">
+    <value>Agregar contenido ...</value>
+  </data>
+  <data name="HTMLTEMPLATE">
+    <value>Plantilla Html</value>
+  </data>
+  <data name="HTMLTEMPLATEURL">
+    <value>Plantilla Html</value>
+  </data>
+  <data name="HTMLTEMPLATE_DESCRIPTION">
+    <value>Seleccione un módulo Html que será usado como base para el envío de este email</value>
+  </data>
+  <data name="HTML_DESKTOP_CONTENT">
+    <value>Contenido Html</value>
+  </data>
+  <data name="HTML_EDITOR">
+    <value>Editor Html</value>
+  </data>
+  <data name="HTML_MOBILE_DETAILS">
+    <value>Móvil: Detalle</value>
+  </data>
+  <data name="HTML_MOBILE_SUMMARY">
+    <value>Móvil: Resumen</value>
+  </data>
+  <data name="ICONFILE">
+    <value>Carpeta de iconos</value>
+  </data>
+  <data name="IMAGE">
+    <value>Imágen</value>
+  </data>
+  <data name="IMAGELOGO">
+    <value>Logo</value>
+  </data>
+  <data name="IMAGELOGO_DESCRIPTION">
+    <value>URL Logo</value>
+  </data>
+  <data name="IMAGE_DETAIL">
+    <value>Vista completa</value>
+  </data>
+  <data name="IMAGE_UPLOAD_ERROR">
+    <value>La imágen seleccionada no es válida. Por favor verifique que el tipo de archivo sea correcto.</value>
+  </data>
+  <data name="IN">
+    <value>en</value>
+  </data>
+  <data name="INSERT_CONFIRM">
+    <value>Debe confirmar la contraseña.</value>
+  </data>
+  <data name="INSERT_EMAIL">
+    <value>Email no puede dejarse en blanco</value>
+  </data>
+  <data name="SENDTHTS_EMAILBLANK">
+    <value>Email no puede dejarse en blanco</value>
+  </data>
+  <data name="INSERT_NAME">
+    <value>’Nombre’ es obligatorio.</value>
+  </data>
+  <data name="INSERT_PASSWORD">
+    <value>’Contraseña’ es obligatoria.</value>
+  </data>
+  <data name="IT">
+    <value>Título (it)</value>
+  </data>
+  <data name="IT-IT">
+    <value>Título (it-IT)</value>
+  </data>
+  <data name="IT-IT_DESCRIPTION">
+    <value>Establecer titulo para cultura italiana (Italia).</value>
+  </data>
+  <data name="IT_DESCRIPTION">
+    <value>Establecer titulo para cultura italiana.</value>
+  </data>
+  <data name="KEYWORD">
+    <value>Palabra clave:</value>
+  </data>
+  <data name="LANGSWITCHTDISPLAY_CULTURELIST">
+    <value>Usando cultura</value>
+  </data>
+  <data name="LANGSWITCHTDISPLAY_NONE">
+    <value>Ninguno</value>
+  </data>
+  <data name="NONE">
+    <value>Ninguno</value>
+  </data>
+  <data name="LANGSWITCHTDISPLAY_UICULTURELIST">
+    <value>Utilizar referencia Cultural</value>
+  </data>
+  <data name="LANGSWITCHTNAMES_DISPLAYNAME">
+    <value>Nombre</value>
+  </data>
+  <data name="LANGSWITCHTNAMES_ENGLISHNAME">
+    <value>Nombre Inglés</value>
+  </data>
+  <data name="LANGSWITCHTNAMES_NATIVENAME">
+    <value>Nombre Nativo</value>
+  </data>
+  <data name="LANGSWITCHTYPE_DISABLED">
+    <value>Desactivado</value>
+  </data>
+  <data name="LANGSWITCHTYPE_FLAGS">
+    <value>Sólo banderas</value>
+  </data>
+  <data name="LANGSWITCHTYPE_FLAGSHORIZONTAL">
+    <value>Sólo banderas horizontalmente</value>
+  </data>
+  <data name="LANGSWITCHTYPE_FORM">
+    <value>Formulario</value>
+  </data>
+  <data name="LANGSWITCHTYPE_LINKSHORIZONTAL">
+    <value>Enlace Horizontal</value>
+  </data>
+  <data name="LANGUAGESWITCHER_CUSTOMFLAGS_DESCRIPTION">
+    <value>Marcar si quiere utilizar banderas personalizadas desde la carpeta de imágenes del Portal. Las banderas personalizadas están localizadas en la carpeta del portal. /images/flags/</value>
+  </data>
+  <data name="LANGUAGESWITCHER_FLAGS">
+    <value>Mostrar Banderas como</value>
+  </data>
+  <data name="LANGUAGESWITCHER_FLAGS_DESCRIPTION">
+    <value>Seleccione aquí como quiere los iconos de las banderas.</value>
+  </data>
+  <data name="LANGUAGESWITCHER_LABELS">
+    <value>Mostrar Etiquetas como</value>
+  </data>
+  <data name="LANGUAGESWITCHER_LABELS_DESCRIPTION">
+    <value>Seleccione aquí como quiere ver las etiquetas.</value>
+  </data>
+  <data name="LANGUAGESWITCHER_NAMES">
+    <value>Mostrar Nombres como</value>
+  </data>
+  <data name="LANGUAGESWITCHER_NAMES_DESCRIPTION">
+    <value>Seleccione aquí como quiere ver los nombres.</value>
+  </data>
+  <data name="LANGUAGESWITCHER_TYPES">
+    <value>Tipo de Selector de Lenguaje</value>
+  </data>
+  <data name="LANGUAGESWITCHTYPE">
+    <value>Tipo de Selector de Lenguaje</value>
+  </data>
+  <data name="LANGUAGESWITCHTYPE_DESCRIPTION">
+    <value>Selecciona aquí como quieres ver tu selector de lenguajes.</value>
+  </data>
+  <data name="LANGUAGESWITCHER_TYPES_DESCRIPTION">
+    <value>Selecciona aquí como quieres ver tu selector de lenguajes.</value>
+  </data>
+  <data name="LASTNAME">
+    <value>Apellido</value>
+  </data>
+  <data name="LAYOUT">
+    <value>Diseño</value>
+  </data>
+  <data name="LEFT">
+    <value>Izquierda</value>
+  </data>
+  <data name="LET_USER_CHOOSE">
+    <value>Permitir que el usuario elija</value>
+  </data>
+  <data name="LINKDETAILS">
+    <value>Detalles del Enlace</value>
+  </data>
+  <data name="LINKEDMODULE">
+    <value>Módulo enlazado</value>
+  </data>
+  <data name="LINKGROUP">
+    <value>Link del Grupo</value>
+  </data>
+  <data name="LOAD_THEME_ERROR">
+    <value>No se ha podido cargar el tema %1%. El módulo por defecto no está disponible.</value>
+  </data>
+  <data name="LOGINHOMEPAGE_DESCRIPTION">
+    <value>La dirección URL de la página de identificación del usuario. Deje el espacio en blanco si utiliza el lugar actual.</value>
+  </data>
+  <data name="LOGIN_FAILED">
+    <value>Acceso rechazado. No le hemos podido identificar.</value>
+  </data>
+  <data name="LOGON">
+    <value>Entrar</value>
+  </data>
+  <data name="MAINTAIN_ASPECT_FIXED_HEIGHT">
+    <value>Fijar alto manteniendo proporciones</value>
+  </data>
+  <data name="PICTURES_MAINTAIN_ASPECT_FIXED_HEIGHT">
+    <value>Fijar alto manteniendo proporciones</value>
+  </data>
+  <data name="PICTURES_MAINTAIN_ASPECT_FIXED_WIDTH">
+    <value>Fijar ancho manteniendo proporciones</value>
+  </data>
+  <data name="MAINTAIN_ASPECT_FIXED_WIDTH">
+    <value>Fijar ancho manteniendo proporciones</value>
+  </data>
+  <data name="MARK">
+    <value>Marcar</value>
+  </data>
+  <data name="MAXHITS">
+    <value>Ocurrencias</value>
+  </data>
+  <data name="MERCHANT">
+    <value>ID Comercio</value>
+  </data>
+  <data name="META_SETTINGS">
+    <value>Meta-Información</value>
+  </data>
+  <data name="MIDDLE">
+    <value>Medio</value>
+  </data>
+  <data name="MILESTONES_COMPLETION_DATE">
+    <value>Fecha Estimada</value>
+  </data>
+  <data name="MILESTONES_DETAIL">
+    <value>Detalles del Mojón</value>
+  </data>
+  <data name="MILESTONES_STATUS">
+    <value>Estado</value>
+  </data>
+  <data name="TASK_STATUS">
+    <value>Estado</value>
+  </data>
+  <data name="MISC_SETTINGS">
+    <value>Información varia</value>
+  </data>
+  <data name="MOBILEURL">
+    <value>URL dispositivos moviles</value>
+  </data>
+  <data name="MOBILE_SOURCE">
+    <value>Origen Modulo dispositivos moviles</value>
+  </data>
+  <data name="MODEL">
+    <value>Modelo</value>
+  </data>
+  <data name="MODIFIED_BY">
+    <value>Modificado por</value>
+  </data>
+  <data name="MODULENAME">
+    <value>Nombre del Módulo</value>
+  </data>
+  <data name="MODULESETTINGS_MODULE_NAME">
+    <value>Nombre del Módulo</value>
+  </data>
+  <data name="MODULESETTINGS">
+    <value>Características del módulo</value>
+  </data>
+  <data name="MODULESETTINGS_SETTINGS">
+    <value>Características del módulo</value>
+  </data>
+  <data name="MODULESETTINGS_BASE_SETTINGS">
+    <value>Características Generales</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY">
+    <value>Mostrar Botones como:</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY_BOTH">
+    <value>Imagen y Texto (CSS)</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY_DESCRIPTION">
+    <value>Escoger cómo deben verse los botones del módulo. Puede requerir especial tratamiento en el tema seleccionado.</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY_IMAGE">
+    <value>Solo Imagen</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY_IMAGECSS">
+    <value>Solo Imagen (CSS)</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY_TEXT">
+    <value>Solo Texto</value>
+  </data>
+  <data name="MODULESETTINGS_CACHE_TIMEOUT">
+    <value>Tiempo de Caché</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_HEIGHT">
+    <value>Altura</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_HEIGHT_DESCRIPTION">
+    <value>Altura mínima en pixels que ocupará el contenido de este módulo (0 --&gt; No hay mínimos)</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_SCROLLING">
+    <value>Permitir Scroll?</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_SCROLLING_DESCRIPTION">
+    <value>Marcado activa el scroll basado en los mínimos establecidos</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_WIDTH">
+    <value>Anchura</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_WIDTH_DESCRIPTION">
+    <value>Ancho mínimo en pixels que ocupará el contenido de este módulo (0 --&gt; No hay mínimos)</value>
+  </data>
+  <data name="MODULESETTINGS_MOVE_TO_TAB">
+    <value>Mover a la Página</value>
+  </data>
+  <data name="MOVE_TO_TAB">
+    <value>Mover a la Página</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_ADD">
+    <value>Roles que pueden añadir</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_APPROVING">
+    <value>Roles de Aprobación</value>
+  </data>
+  <data name="SWI_ROLESAPPROVING">
+    <value>Roles de Aprobación</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_DELETE">
+    <value>Roles que pueden borrar</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_DELETE_MODULES">
+    <value>Roles que pueden eliminar módulos</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_EDIT">
+    <value>Roles que pueden editar</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_EDIT_COLLECTION">
+    <value>Roles que pueden editar propiedades</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_MOVE_MODULES">
+    <value>Roles que pueden mover módulos</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_PUBLISHING">
+    <value>Roles que pueden publicar cambios</value>
+  </data>
+  <data name="MODULESETTINGS_ROLE_VIEW">
+    <value>Roles que pueden visualizar</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_ARROW_BUTTONS">
+    <value>Permitir Mover el Módulo?</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_ARROW_BUTTONS_DESCRIPTION">
+    <value>Permite a los administradores mostrar botones para cambiar la ubicación del módulo</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_COLLAPSABLE">
+    <value>Permitir minimizar módulo?</value>
+  </data>
+  <data name="SHOWCOLLAPSABLE">
+    <value>Permitir minimizar módulo?</value>
+  </data>
+  <data name="SHOWEVERYWHERE">
+    <value>Mostrar en cada Página?</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_EVERYWHERE">
+    <value>Mostrar en cada Página?</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_HELP_BUTTON">
+    <value>¿Mostrar botón de Ayuda?</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_HELP_BUTTON_DESCRIPTION">
+    <value>Muestra un botón de ayuda en el título si existe documentación disponible para este tipo de módulo</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_MODIFIED_BY">
+    <value>Mostrar modificado por</value>
+  </data>
+  <data name="SHOWMODIFIEDBY">
+    <value>Mostrar modificado por</value>
+  </data>
+  <data name="SITESETTINGS_SHOW_MODIFIED_BY">
+    <value>Mostrar modificado por</value>
+  </data>
+  <data name="SHOWMODIFIEDBY_DESCRIPTION">
+    <value>Muestra ’Modificado por’</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_MODIFIED_BY_DESCRIPTION">
+    <value>Muestra ’Modificado por’</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_PRINT_BUTTION">
+    <value>Mostrar el botón de Impresión</value>
+  </data>
+  <data name="SHOWPRINTBUTTON">
+    <value>Mostrar el botón de Impresión</value>
+  </data>
+  <data name="SHOWPRINTBUTTON_DESCRIPTION">
+    <value>Muestra el botón de Impresión a la derecha del título del módulo</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_PRINT_BUTTION_DESCRIPTION">
+    <value>Muestra el botón de Impresión a la derecha del título del módulo</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_TITLE">
+    <value>Mostrar Título</value>
+  </data>
+  <data name="SHOWTITLE">
+    <value>Mostrar Título</value>
+  </data>
+  <data name="SHOWTITLE_DESCRIPTION">
+    <value>Mostar título</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_TITLE_DESCRIPTION">
+    <value>Mostar título</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_TITLE_PRINT">
+    <value>¿Mostrar Título al Imprimir?</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_TITLE_PRINT_DESCRIPTION">
+    <value>Seleccionado muestra el título del módulo en la ventana de impresión</value>
+  </data>
+  <data name="MODULESETTINGS_SUPPORT_WORKFLOW">
+    <value>¿Habilitar control de cambios?</value>
+  </data>
+  <data name="MODULESETTINGS__SUPPORT_WORKFLOW">
+    <value>¿Habilitar control de cambios?</value>
+  </data>
+  <data name="MODULESETTINGS_THEME_ALT">
+    <value>Alternativo</value>
+  </data>
+  <data name="MODULESETTINGS_THEME_DEFAULT">
+    <value>Principal</value>
+  </data>
+  <data name="MODULESETTINGS_THEME_DESCRIPTION">
+    <value>Descripción del Tema</value>
+  </data>
+  <data name="THEME_DESCRIPTION">
+    <value>Descripción del Tema</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_FR">
+    <value>Título (fr)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_FR_DESCRIPTION">
+    <value>Fijar título para la Cultura Francesa.</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_ZH-CN">
+    <value>Titulo (zh-CN)</value>
+  </data>
+  <data name="ZH-CN">
+    <value>Titulo (zh-CN)</value>
+  </data>
+  <data name="ZH-CN_DESCRIPTION">
+    <value>Establecer titulo para la cultura china (Republica Popular)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_ZH-CN_DESCRIPTION">
+    <value>Establecer titulo para la cultura china (Republica Popular)</value>
+  </data>
+  <data name="MODULESETTINGS_WIDTH_STRETCHING">
+    <value>¿Auto-ajustable?</value>
+  </data>
+  <data name="MODULESETTINGS_WIDTH_STRETCHING_DESCRIPTION">
+    <value>Marcado rellena el área vacía a la derecha del módulo basado en el ancho mínimo establecido</value>
+  </data>
+  <data name="MODULE_IMAGE_FOLDER">
+    <value>Carpeta de imágenes por defecto</value>
+  </data>
+  <data name="SITESETTINGS_DEFAULT_IMAGE_FOLDER">
+    <value>Carpeta de imágenes por defecto</value>
+  </data>
+  <data name="MODULE_IMAGE_FOLDER_DESCRIPTION">
+    <value>Esta carpeta es usada por el editor en este módulo para cargar y descargar imágenes</value>
+  </data>
+  <data name="MODULE_SPECIAL_SETTINGS">
+    <value>Características Específicas del Módulo</value>
+  </data>
+  <data name="MODULE_TITLE">
+    <value>Nombre del Módulo</value>
+  </data>
+  <data name="MODULE_TYPE_DEFINITION">
+    <value>Tipo de módulo</value>
+  </data>
+  <data name="MOVEDOWN">
+    <value>Desplazar hacia arriba</value>
+  </data>
+  <data name="MOVEUP">
+    <value>Desplazar hacia arriba</value>
+  </data>
+  <data name="MOVELEFT">
+    <value>Desplazar a la izquierda</value>
+  </data>
+  <data name="MOVERIGHT">
+    <value>Desplazar a la derecha</value>
+  </data>
+  <data name="MOVE_DOWN">
+    <value>Desplazar hacia abajo</value>
+  </data>
+  <data name="MOVE_LEFT">
+    <value>Desplazar a la izquierda</value>
+  </data>
+  <data name="MOVE_RIGHT">
+    <value>Desplazar a la derecha</value>
+  </data>
+  <data name="MOVE_TO">
+    <value>Mover a </value>
+  </data>
+  <data name="MOVE_UP">
+    <value>Desplazar hacia arriba</value>
+  </data>
+  <data name="MUST_ENTER_MAIL">
+    <value>Debe ingresar una dirección de mail</value>
+  </data>
+  <data name="MUST_ENTER_NAME">
+    <value>Debe ingresar un nombre</value>
+  </data>
+  <data name="MUST_ENTER_PASSWORD">
+    <value>Debe ingresar un password</value>
+  </data>
+  <data name="NAVIGATION_SETTINGS">
+    <value>Características de Navegación</value>
+  </data>
+  <data name="NEWSLETTER_BLACKLISTED">
+    <value>Añadido por </value>
+  </data>
+  <data name="NEWSLETTER_HTML_MODE">
+    <value>Modo HTML</value>
+  </data>
+  <data name="NEWSLETTER_INSERT_BREAK_LINES">
+    <value>Insertar Saltos de Línea</value>
+  </data>
+  <data name="NEWSLETTER_MESSAGE_BODY">
+    <value>Mensaje</value>
+  </data>
+  <data name="NEWSLETTER_MSG">
+    <value>Este mensaje sera enviado a {1} usuarios registrados que estan suscritos al Boletin:</value>
+  </data>
+  <data name="NEWSLETTER_MSG_TEST">
+    <value>Mensaje de prueba enviado a: {1} [{2}] - Modo Prueba</value>
+  </data>
+  <data name="NEWSLETTER_PASSWORD">
+    <value>Contraseña</value>
+  </data>
+  <data name="PASSWORD">
+    <value>Contraseña</value>
+  </data>
+  <data name="NEWSLETTER_SENDER_EMAIL_ADDRESS">
+    <value>Direccion del remitente</value>
+  </data>
+  <data name="NEWSLETTER_SENDER_OPTIONAL_NAME">
+    <value>Su Nombre (opcional)</value>
+  </data>
+  <data name="NEWSLETTER_SUBJECT">
+    <value>Asunto</value>
+  </data>
+  <data name="SUBJECT">
+    <value>Asunto</value>
+  </data>
+  <data name="NEWSLETTER_TITLE">
+    <value>Boletin a Subscriptores</value>
+  </data>
+  <data name="NEWSLETTER_USEREMAIL">
+    <value>eMail del Usuario</value>
+  </data>
+  <data name="USEREMAIL">
+    <value>eMail del Usuario</value>
+  </data>
+  <data name="USERNAME">
+    <value>Nombre de Usuario</value>
+  </data>
+  <data name="NEWSLETTER_USERNAME">
+    <value>Nombre de Usuario</value>
+  </data>
+  <data name="NEW_FOLDER">
+    <value>Nueva Carpeta</value>
+  </data>
+  <data name="NEW_PORTAL_ERROR">
+    <value>No se ha podido crear el nuevo portal. Intenta modificar el nombre.</value>
+  </data>
+  <data name="NEW_USER_CREATED">
+    <value>Un nuevo usuario le ha sido creado en el sitio de</value>
+  </data>
+  <data name="NEXT">
+    <value>Siguiente</value>
+  </data>
+  <data name="NOTE">
+    <value>Notas</value>
+  </data>
+  <data name="NO_ACCOUNT">
+    <value>Si no eres usuario registrado</value>
+  </data>
+  <data name="NO_FILE_MESSAGE">
+    <value>Debe escribir un nombre de archivo válido.</value>
+  </data>
+  <data name="NO_FOLDER_SPECIFIED_MESSAGE">
+    <value>No se ha podido crear el directorio.</value>
+  </data>
+  <data name="NO_IMAGE_MESSAGE">
+    <value>No hay archivos para mostrar.</value>
+  </data>
+  <data name="NO_MODULE">
+    <value>No es un módulo</value>
+  </data>
+  <data name="OK">
+    <value>OK</value>
+  </data>
+  <data name="ON">
+    <value>en fecha</value>
+  </data>
+  <data name="ONLY_FEATURED">
+    <value>Mostrar solo características</value>
+  </data>
+  <data name="OR">
+    <value>o</value>
+  </data>
+  <data name="ORDER_OK">
+    <value>Su pedido ha sido enviado correctamente</value>
+  </data>
+  <data name="ORDER_RECEIPT_NUMBER">
+    <value>Recibo número </value>
+  </data>
+  <data name="ORDER_WAIT_CONFIRM">
+    <value>Por favor, espere nuestra confirmación por email</value>
+  </data>
+  <data name="OVERWRITE_VALUE">
+    <value>Ingrese valor para modificar el existente</value>
+  </data>
+  <data name="PASSWORD_DO_NOT_MATCH">
+    <value>Las contraseñas no coinciden.</value>
+  </data>
+  <data name="PASSWORD_NOT_MATCH">
+    <value>Las contraseñas no coinciden.</value>
+  </data>
+  <data name="PHONE">
+    <value>Teléfono</value>
+  </data>
+  <data name="PICTURES_DISPLAY_ORDER">
+    <value>Orden de Visualización</value>
+  </data>
+  <data name="PICTURES_FILE">
+    <value>Fichero</value>
+  </data>
+  <data name="USERTABLE_TYPE_FILE">
+    <value>Fichero</value>
+  </data>
+  <data name="PICTURES_FLIP">
+    <value>Sesgar</value>
+  </data>
+  <data name="PICTURES_INCLUDE_EXIF">
+    <value>¿Incluír EXIF?</value>
+  </data>
+  <data name="PICTURES_KEYWORDS">
+    <value>Palabras clave</value>
+  </data>
+  <data name="PICTURES_LONG_DESCRIPTION">
+    <value>Descripción Ampliada</value>
+  </data>
+  <data name="PICTURES_ROTATE">
+    <value>Girar</value>
+  </data>
+  <data name="PICTURES_SHORT_DESCRIPTION">
+    <value>Descripción Corta</value>
+  </data>
+  <data name="PICTURES_VERTICAL">
+    <value>Vertical</value>
+  </data>
+  <data name="VERTICAL">
+    <value>Vertical</value>
+  </data>
+  <data name="PIVA">
+    <value>Numero Fiscal Empresa</value>
+  </data>
+  <data name="PM_ABOVE_SELECTED">
+    <value>Arriba seleccionado</value>
+  </data>
+  <data name="PM_ADD_PAGES">
+    <value>Añadir Páginas</value>
+  </data>
+  <data name="PM_ADD_PAGE_AS">
+    <value>Añadir página como:</value>
+  </data>
+  <data name="PM_ADD_PAGE_FULL_DETAILED">
+    <value>Añadir página con detalles completos</value>
+  </data>
+  <data name="PM_ASSIGN_AS_PARENT_PAGE">
+    <value>Asignar esta página como padre de las páginas seleccionadas.</value>
+  </data>
+  <data name="PM_BELOW_SELECTED">
+    <value>Abajo el seleccionado</value>
+  </data>
+  <data name="PM_CHILD_TO_SELECTED">
+    <value>Hijo del seleccionado</value>
+  </data>
+  <data name="PM_DELETE_PAGE">
+    <value>Borrar la página seleccionada</value>
+  </data>
+  <data name="PM_EDIT_PAGE">
+    <value>Editar página</value>
+  </data>
+  <data name="PM_ORDER_PAGES">
+    <value>Ordenar Páginas</value>
+  </data>
+  <data name="PM_PAGE_ACTIONS">
+    <value>Acciones sobre Páginas</value>
+  </data>
+  <data name="PM_SAVE_PAGE_ORDER">
+    <value>Guardar la ordenación de las páginas</value>
+  </data>
+  <data name="PM_SELECTED_PAGE">
+    <value>Página seleccionada:</value>
+  </data>
+  <data name="PM_SHOW_PAGE_ACTIONS">
+    <value>Mostrar el panel de acciones de las páginas</value>
+  </data>
+  <data name="PM_SHOW_SORT_TREE_ACTIONS">
+    <value>Mostrar el panel de ordenación</value>
+  </data>
+  <data name="PORTALS">
+    <value>Portales</value>
+  </data>
+  <data name="PORTALSEARCH_FIELD">
+    <value>Campo</value>
+  </data>
+  <data name="PORTALSEARCH_HIT">
+    <value>Encontrado</value>
+  </data>
+  <data name="PORTALSEARCH_HITS">
+    <value>Encontrados</value>
+  </data>
+  <data name="PORTALSEARCH_LINK">
+    <value>Enlace</value>
+  </data>
+  <data name="PORTALSEARCH_MISSING">
+    <value>Falta</value>
+  </data>
+  <data name="PORTALSEARCH_MODULE">
+    <value>Módulo</value>
+  </data>
+  <data name="PORTALSEARCH_MODULETITLE">
+    <value>Título del Módulo</value>
+  </data>
+  <data name="PORTALSEARCH_TAB">
+    <value>Página</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERTAB">
+    <value>Página</value>
+  </data>
+  <data name="PORTALSEARCH_TESTINFO">
+    <value>Info Prueba</value>
+  </data>
+  <data name="PORTALSEARCH_TOPIC">
+    <value>Tópico</value>
+  </data>
+  <data name="TOPICNAME">
+    <value>Tópico</value>
+  </data>
+  <data name="USER">
+    <value>Usuario</value>
+  </data>
+  <data name="PORTALSEARCH_USER">
+    <value>Usuario</value>
+  </data>
+  <data name="PREVIEW">
+    <value>Previsualizar</value>
+  </data>
+  <data name="PREVIOUS">
+    <value>Anterior</value>
+  </data>
+  <data name="PRICE">
+    <value>Precio</value>
+  </data>
+  <data name="PRICE_FROM">
+    <value>Precio desde:</value>
+  </data>
+  <data name="PRODUCTS_DISPLAYING_ORDER">
+    <value>Visualizando Pedido:</value>
+  </data>
+  <data name="PRODUCTS_INSTRUCTIONS">
+    <value>Puede seleccionar familias de productos en el menu de abajo.</value>
+  </data>
+  <data name="PRODUCTS_NO_ORDERS_TO_DISPLAY">
+    <value>No tiene pedidos para mostrar.</value>
+  </data>
+  <data name="PRODUCTS_ORDER_HISTORY_DISPLAY">
+    <value>Mostrar las ordenes de su lista. Haga Click en el ID de la orden para mostrar los detalles de la orden correspondiente</value>
+  </data>
+  <data name="PRODUCT_ADD_TO_CART">
+    <value>Añadir a la compra</value>
+  </data>
+  <data name="PRODUCT_CATEGORY_NOT_FOUND">
+    <value>Familia no encontrada</value>
+  </data>
+  <data name="PRODUCT_CONTINUE_SHOPPING">
+    <value>Continuar comprando</value>
+  </data>
+  <data name="PRODUCT_DISPLAY_FEATURED_ITEMS">
+    <value>Mostrar artículos destacados</value>
+  </data>
+  <data name="PRODUCT_EMPTY_CART">
+    <value>No hay artículos en su carro de compra</value>
+  </data>
+  <data name="PRODUCT_ID">
+    <value>Identificador de Producto</value>
+  </data>
+  <data name="PRODUCT_INCLUDING_TAXES">
+    <value>(impuestos incluídos)</value>
+  </data>
+  <data name="PRODUCT_INPUT_PROBLEM">
+    <value>Ha habido un problema con alguno de sus datos.</value>
+  </data>
+  <data name="PRODUCT_MUST_LOG_IN_FOR_CHECKOUT">
+    <value>Debe registrarse antes !</value>
+  </data>
+  <data name="PRODUCT_ORDER_DATE_CREATED">
+    <value>Fecha compra</value>
+  </data>
+  <data name="PRODUCT_ORDER_DATE_MODIFIED">
+    <value>Última modificación</value>
+  </data>
+  <data name="PRODUCT_ORDER_REFERENCE">
+    <value>Referencia</value>
+  </data>
+  <data name="PRODUCT_ORDER_TOTAL">
+    <value>Total</value>
+  </data>
+  <data name="PRODUCT_TOTAL">
+    <value>Total</value>
+  </data>
+  <data name="TOTAL">
+    <value>Total</value>
+  </data>
+  <data name="PRODUCT_PAYMENT_METHOD">
+    <value>Forma de Pago</value>
+  </data>
+  <data name="PRODUCT_PRICE">
+    <value>Precio</value>
+  </data>
+  <data name="PRODUCT_PRICE_NOT_AVAILABLE">
+    <value>Contacte con nosotros para comprar este artículo.</value>
+  </data>
+  <data name="PRODUCT_PRICE_WITH_TAX">
+    <value>Precio con Impuestos</value>
+  </data>
+  <data name="PRODUCT_QUANTITY">
+    <value>Cantidad</value>
+  </data>
+  <data name="PRODUCT_REFERENCE">
+    <value>Referencia</value>
+  </data>
+  <data name="PRODUCT_REMOVE">
+    <value>Borrar</value>
+  </data>
+  <data name="PRODUCT_SHIPPING">
+    <value>Envio</value>
+  </data>
+  <data name="PRODUCT_SHIPPING_INFORMATION">
+    <value>Informacion de Envio</value>
+  </data>
+  <data name="PRODUCT_SHIPPING_METHOD">
+    <value>Forma de Envio</value>
+  </data>
+  <data name="PRODUCT_SHOP_HOME">
+    <value>Inicio Tienda</value>
+  </data>
+  <data name="PRODUCT_SUBTOTAL">
+    <value>Subtotal</value>
+  </data>
+  <data name="PRODUCT_TOTAL_EXPENSES">
+    <value>Total de Gastos</value>
+  </data>
+  <data name="PRODUCT_TOTAL_PRICE_(INC._TAXES)">
+    <value>Precio Total (impuestos.incl)</value>
+  </data>
+  <data name="PRODUCT_TOTAL_TAXES">
+    <value>Total Impuestos</value>
+  </data>
+  <data name="PRODUCT_TOTAL_WEIGHT">
+    <value>Peso Total</value>
+  </data>
+  <data name="PRODUCT_TOTAL_WITH_TAXES">
+    <value>Total con Impuestos</value>
+  </data>
+  <data name="PRODUCT_UNIT">
+    <value>Unidad</value>
+  </data>
+  <data name="PRODUCT_UPDATE">
+    <value>Actualizar</value>
+  </data>
+  <data name="UPDATE">
+    <value>Actualizar</value>
+  </data>
+  <data name="PRODUCT_VIEW_ACCOUNT">
+    <value>Ver cuenta</value>
+  </data>
+  <data name="PRODUCT_VIEW_CART">
+    <value>Ver carro de compra</value>
+  </data>
+  <data name="PROFILE_COUNTRY_WRONG_ID">
+    <value>El perfil del usuario tiene un id de país incorrecto</value>
+  </data>
+  <data name="PROFILE_INFO">
+    <value>Información Personal</value>
+  </data>
+  <data name="PROPERTIES">
+    <value>Modificar propiedades del módulo</value>
+  </data>
+  <data name="PROV_STATE">
+    <value>Estado / Provincia</value>
+  </data>
+  <data name="READ_FULL_ANNOUNCE">
+    <value>Acceder al contenido completo</value>
+  </data>
+  <data name="REASON">
+    <value>Razón</value>
+  </data>
+  <data name="RECEIVE_NEWS">
+    <value>Recibir noticias</value>
+  </data>
+  <data name="REGISTER">
+    <value>Registro</value>
+  </data>
+  <data name="SITESETTINGS_REGISTER_SIMPLE">
+    <value>Registro</value>
+  </data>
+  <data name="REGISTERED_USERS">
+    <value>Usuarios registrados</value>
+  </data>
+  <data name="REGISTER_DESCRIPTION">
+    <value>Escoge la página de Registro de usuarios que te guste.</value>
+  </data>
+  <data name="SITESETTINGS_REGISTER_TYPE_DESCRIPTION">
+    <value>Escoge la página de Registro de usuarios que te guste.</value>
+  </data>
+  <data name="REGISTER_DIFFERENT">
+    <value>Por favor, registrese utilizando un email diferente.</value>
+  </data>
+  <data name="REGISTER_NOW">
+    <value>Registrese y acceda ahora</value>
+  </data>
+  <data name="REGISTER_REQUIRED">
+    <value>Para usar este módulo debe ser un usuario registrado.</value>
+  </data>
+  <data name="REGISTRATION_FAILED">
+    <value>Error al registrar</value>
+  </data>
+  <data name="REMEMBER_LOGIN">
+    <value>Recordar la cuenta</value>
+  </data>
+  <data name="RETURN">
+    <value>Volver</value>
+  </data>
+  <data name="RETURNHOME">
+    <value>Volver a la página principal</value>
+  </data>
+  <data name="RETURN_HOME">
+    <value>Volver a la página principal</value>
+  </data>
+  <data name="RIGHT">
+    <value>Derecha</value>
+  </data>
+  <data name="ROLESADD">
+    <value>Roles que pueden añadir contenido</value>
+  </data>
+  <data name="ROLESCOLLECTION">
+    <value>Roles que pueden editar listas de contenido</value>
+  </data>
+  <data name="ROLESDELETE">
+    <value>Roles que pueden borrar contenido</value>
+  </data>
+  <data name="ROLESEDIT">
+    <value>Roles que pueden editar contenido</value>
+  </data>
+  <data name="ROLESVIEW">
+    <value>Roles que pueden consultar contenido</value>
+  </data>
+  <data name="ROLES_DESCRIPTION">
+    <value>Roles</value>
+  </data>
+  <data name="ROLE_ADD_NEW_USER">
+    <value>Crear un nuevo Usuario y Agregarlo al Rol</value>
+  </data>
+  <data name="ROLE_ADD_USER">
+    <value>Agregar Usuario al Rol</value>
+  </data>
+  <data name="ROLE_CHANGE_MEMBERS">
+    <value>Cambiar Miembros</value>
+  </data>
+  <data name="ROLE_ERROR_ADD">
+    <value>Error al Agregar!  Ya existe el usuario &lt;u&gt;%1%&lt;/u&gt; en la base de datos.&lt;br&gt;Por favor seleccione la opción Agregar Usuario.</value>
+  </data>
+  <data name="ROLE_MEMBERSHIP">
+    <value>Miembros del Rol: </value>
+  </data>
+  <data name="ROLE_NEW_ROLE">
+    <value>Rol Nuevo</value>
+  </data>
+  <data name="ROLE_SAVE_CHANGES">
+    <value>Grabar Cambios del Rol</value>
+  </data>
+  <data name="ROOM_NUMBER">
+    <value>Número de habitaciones</value>
+  </data>
+  <data name="ROOT_LEVEL">
+    <value>Nivel Principal</value>
+  </data>
+  <data name="SAVE">
+    <value>Guardar Cambios</value>
+  </data>
+  <data name="SAVE_CHANGES">
+    <value>Guardar Cambios</value>
+  </data>
+  <data name="SAVEUSER">
+    <value>Guardar Cambios</value>
+  </data>
+  <data name="SAVE_AND_CLOSE">
+    <value>Guardar y Cerrar</value>
+  </data>
+  <data name="SECURITY">
+    <value>Seguridad</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERADMIN">
+    <value>Admin</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERDELMOD">
+    <value>Borrar Mod.</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERMOVE">
+    <value>Mover</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERVIEW">
+    <value>Ver</value>
+  </data>
+  <data name="SECURITYCHECK_ONLYADMIN">
+    <value>Sólo Módulos Admin</value>
+  </data>
+  <data name="SECURITY_USER_SETTINGS">
+    <value>Propiedades de Seguridad y usuarios</value>
+  </data>
+  <data name="SELECT_ALL">
+    <value>Selecciona todo</value>
+  </data>
+  <data name="SELECT_NONE">
+    <value>Deseleccionar todo</value>
+  </data>
+  <data name="SENDNEWSLETTER">
+    <value>Enviar Noticias</value>
+  </data>
+  <data name="SEND_NEWSLETTER">
+    <value>Enviar Noticias</value>
+  </data>
+  <data name="SENDTHTS_BODY">
+    <value>Mensaje:</value>
+  </data>
+  <data name="SENDTHTS_CLEAR">
+    <value>Limpiar</value>
+  </data>
+  <data name="SENDTHTS_DES_TXT">
+    <value>Escriba una descripcion aquí ...</value>
+  </data>
+  <data name="SENDTHTS_EMAILVALID">
+    <value>Email incorrecto</value>
+  </data>
+  <data name="SENDTHTS_RECIPIENT">
+    <value>Debe escribir el Email del Destinatario.</value>
+  </data>
+  <data name="SENDTHTS_REMAIL">
+    <value>Direccion de Email real</value>
+  </data>
+  <data name="SENDTHTS_SEND">
+    <value>Enviar</value>
+  </data>
+  <data name="SENDTHTS_SENT">
+    <value>El mensaje ha sido enviado.</value>
+  </data>
+  <data name="SENDTHTS_SUBJECT">
+    <value>Asunto (opcional):</value>
+  </data>
+  <data name="SENDTHTS_YREMAIL">
+    <value>Su dirección email</value>
+  </data>
+  <data name="SENDTHTS_YRNAME">
+    <value>Su nombre (opcional):</value>
+  </data>
+  <data name="SEND_NOTIFICATION">
+    <value>Enviar notificacion</value>
+  </data>
+  <data name="SETTINGS">
+    <value>Propiedades</value>
+  </data>
+  <data name="SETTING_BETWEEN">
+    <value>Entre</value>
+  </data>
+  <data name="SETTING_REQUIRED">
+    <value>%1% requerido</value>
+  </data>
+  <data name="SHARE">
+    <value>Compartir</value>
+  </data>
+  <data name="SHOWABSTRACT">
+    <value>Mostrar Resumen</value>
+  </data>
+  <data name="SHOWCREATEDBYUSER">
+    <value>Mostrar creado por</value>
+  </data>
+  <data name="SHOWCREATEDDATE">
+    <value>Mostrar Fecha de Creación</value>
+  </data>
+  <data name="SHOWDATE">
+    <value>Mostrar Fecha?</value>
+  </data>
+  <data name="SHOWLINK">
+    <value>Mostrar enlace</value>
+  </data>
+  <data name="SHOWMOBILE">
+    <value>Disponible a usuarios móviles?</value>
+  </data>
+  <data name="SHOWMODULENAME">
+    <value>Mostrar nombre del módulo</value>
+  </data>
+  <data name="SHOWMODULETITLE">
+    <value>Mostrar título del módulo</value>
+  </data>
+  <data name="SHOWSEARCHTITLE">
+    <value>Mostrar titulo</value>
+  </data>
+  <data name="SHOWTABNAME">
+    <value>Mostrar nombre de la página</value>
+  </data>
+  <data name="SHOWTESTINFO">
+    <value>Mostrar test info</value>
+  </data>
+  <data name="SHOWUPLOAD">
+    <value>Mostrar Descargas?</value>
+  </data>
+  <data name="SITESETTINGS_SHOWUPLOAD">
+    <value>Mostrar Descargas?</value>
+  </data>
+  <data name="SITESETTINGS_SHOWUPLOAD_DESCRIPTION">
+    <value>Valor por defecto que permite visualizar en el editor el botón de descarga de imágenes.</value>
+  </data>
+  <data name="SHOWUPLOAD_DESCRIPTION">
+    <value>Valor por defecto que permite visualizar en el editor el botón de descarga de imágenes.</value>
+  </data>
+  <data name="SHOW_COLUMN_ADDRESS_DESCRIPTION">
+    <value>Mostrar Dirección?</value>
+  </data>
+  <data name="SHOW_COLUMN_CONTACT1_DESCRIPTION">
+    <value>Mostrar Teléfono Fijo?</value>
+  </data>
+  <data name="SHOW_COLUMN_CONTACT2_DESCRIPTION">
+    <value>Mostar Teléfono Móvil?</value>
+  </data>
+  <data name="SHOW_COLUMN_EMAIL_DESCRIPTION">
+    <value>Mostrar Email?</value>
+  </data>
+  <data name="SHOW_COLUMN_FAX_DESCRIPTION">
+    <value>Mostrar Fax?</value>
+  </data>
+  <data name="SHOW_FLASH_GALLERY">
+    <value>Ver Galeria Flash</value>
+  </data>
+  <data name="SIGNIN">
+    <value>Entrar</value>
+  </data>
+  <data name="SIGNIN_ALLOW_REMEMBER_LOGIN">
+    <value>Permitir recordar usuario</value>
+  </data>
+  <data name="SIGNIN_ALLOW_REMEMBER_LOGIN_DESCRIPTION">
+    <value>Si lo marca, permite recordar usuario y password automáticamente</value>
+  </data>
+  <data name="SIGNIN_ALLOW_SEND_PASSWORD">
+    <value>Permitir enviar password</value>
+  </data>
+  <data name="SIGNIN_ALLOW_SEND_PASSWORD_DESCRIPTION">
+    <value>Si lo marca, permite al usuario solicitar su password por Email si la ha olvidado</value>
+  </data>
+  <data name="SIGNIN_ENTER_EMAIL_ADDR">
+    <value>Entra una dirección de Correo Electrónico</value>
+  </data>
+  <data name="SIGNIN_PWD_MISSING_IN_DB">
+    <value>Su contraseña no ha sido encontrada en la base de datos</value>
+  </data>
+  <data name="SIGNIN_PWD_REQUESTED">
+    <value>La Contraseña que ha solicitado es:</value>
+  </data>
+  <data name="SIGNIN_PWD_TO">
+    <value>Contraseña a:</value>
+  </data>
+  <data name="SIGNIN_PWD_WAS_SENT">
+    <value>Su Contraseña ha sido enviada a su dirección de correo</value>
+  </data>
+  <data name="SIGNIN_SEND_PWD">
+    <value>Enviar Contraseña</value>
+  </data>
+  <data name="SIGNIN_THANK_YOU">
+    <value>Gracias. Esperamos que disfrute de su visita.</value>
+  </data>
+  <data name="SIGNIN_YOU_CAN_LOGIN_FROM">
+    <value>Puede entrar desde</value>
+  </data>
+  <data name="SITESETTINGS_ALLOW_MODULE_CUSTOM_THEMES">
+    <value>¿Temas en Módulos?</value>
+  </data>
+  <data name="SITESETTINGS_ALLOW_MODULE_CUSTOM_THEMES_DESCRIPTION">
+    <value>Seleccionado permite elegir temas personalizados para cada módulo</value>
+  </data>
+  <data name="SITESETTINGS_ALT_THEME">
+    <value>Tema Alternativo</value>
+  </data>
+  <data name="THEMEALT">
+    <value>Tema Alternativo</value>
+  </data>
+  <data name="SITESETTINGS_ALT_THEME_DESCRIPTION">
+    <value>Especifique el tema alternativo del portal</value>
+  </data>
+  <data name="SITESETTINGS_BODYATTS">
+    <value>Atributos body</value>
+  </data>
+  <data name="SITESETTINGS_BODYATTS_DESCRIPTION">
+    <value>Permite asignar directamente atributos en el tag Body de la página Html generada. Por ejemplo leftmargin=\"0\" bottommargin=\"0\", etc </value>
+  </data>
+  <data name="SITESETTINGS_COUNTRY_FILTER_DESCRIPTION">
+    <value>Permite limitar la lista de países de la página de registro. Seleccione ’World’ para no limitar.</value>
+  </data>
+  <data name="SITESETTINGS_DEFAULT_EDITOR">
+    <value>Editor por defecto</value>
+  </data>
+  <data name="SITESETTINGS_DEFAULT_EDITOR_DESCRIPTION">
+    <value>Este editor es usado por los sistemas de workflow y es el valor por defecto para nuevos módulos.</value>
+  </data>
+  <data name="SITESETTINGS_DEFAULT_IMAGE_FOLDER_DESCRIPTION">
+    <value>Carpeta de Imágenes por defecto para nuevos módulos.</value>
+  </data>
+  <data name="SITESETTINGS_DOCTYPE">
+    <value>DOCTYPE</value>
+  </data>
+  <data name="SITESETTINGS_DOCTYPE_DESCRIPTION">
+    <value>Permite asignar el Tipo de Documento que se generará en la primera línea del código html.NOTA: Esta característica es obligada si se utiliza un tema o layout generado por Appleseed.Zen. Usar esto fuerza al navegador a utilizar modos standares, particularmente en Internet Explorer. Ver &lt;a href="\"http://gutfeldt.ch/matthias/articles/doctypeswitch/table.html\" target="\"_blank\"&gt;aquí&lt;/a&gt; para más detalles. </value>
+  </data>
+  <data name="SITESETTINGS_EDITOR_HEIGHT">
+    <value>Alto</value>
+  </data>
+  <data name="SITESETTINGS_EDITOR_HEIGHT_DESCRIPTION">
+    <value>Altura del editor por defecto para nuevos módulos.</value>
+  </data>
+  <data name="SITESETTINGS_EDITOR_WIDTH">
+    <value>Ancho</value>
+  </data>
+  <data name="SITESETTINGS_EDITOR_WIDTH_DESCRIPTION">
+    <value>Ancho del editor por defecto para nuevos módulos.</value>
+  </data>
+  <data name="SITESETTINGS_LANGLIST">
+    <value>Lista de Lenguajes</value>
+  </data>
+  <data name="SITESETTINGS_LANGLIST_DESCRIPTION">
+    <value>Lista de lenguajes que soporta el portal. Puede seleccionar con el mouse múltiples lenguajes presionando la tecla mayúsculas en su teclado.</value>
+  </data>
+  <data name="SITESETTINGS_LOGO">
+    <value>Logo</value>
+  </data>
+  <data name="SITESETTINGS_LOGO_DESCRIPTION">
+    <value>Archivo conteniendo el logo</value>
+  </data>
+  <data name="SITESETTINGS_ON_REGISTER_SEND_TO">
+    <value>Enviar mail a</value>
+  </data>
+  <data name="SITESETTINGS_ON_REGISTER_SEND_TO_DESCRIPTION">
+    <value>En cualquier nuevo registro de usuario, un mail será enviado a la dirección aquí indicada si el Tipo de Registro seleccionado lo permite.</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_KEY_PHRASE">
+    <value>Frase clave de la Página</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_KEY_PHRASE_DESCRIPTION">
+    <value>Esta característica puede ser usada por un módulo o un control. Permite definir un mensaje común para todo el portal. Por ejemplo ’Bienvenido al Portal!’ Esto tambien puede ser usado para optimizar las búsquedas.</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_LAYOUT">
+    <value>Diseño de Página</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_LAYOUT_DESCRIPTION">
+    <value>Especifique el diseño de la página</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_DESCRIPTION">
+    <value>Descripción de la página</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_DESCRIPTION_DESCRIPTION">
+    <value>Esta descripción ayuda a la optimización del apartado de busqueda. Entrar una descripción (No demasiado larga. Un párrafo es suficiente)  describe esta página en particular. Entrar algo aquí significa sobreescribir las características generales.</value>
+  </data>
+  <data name="TABMETADESCRIPTION_DESCRIPTION">
+    <value>Esta descripción ayuda a la optimización del apartado de busqueda. Entrar una descripción (No demasiado larga. Un párrafo es suficiente)  describe esta página en particular. Entrar algo aquí significa sobreescribir las características generales.</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_ENCODING">
+    <value>Codificación de la Página</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_ENCODING_DESCRIPTION">
+    <value>Cada vez que tu navegador devuelva una página observa en que formato de la devuelve. Esto permite que especifiques el tipo de contenido para esta particular pàgina. Entrar algo aquí significa sobreescribir las características generales.</value>
+  </data>
+  <data name="TABMETAENCODING_DESCRIPTION">
+    <value>Cada vez que tu navegador devuelva una página observa en que formato de la devuelve. Esto permite que especifiques el tipo de contenido para esta particular pàgina. Entrar algo aquí significa sobreescribir las características generales.</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_KEYWORDS">
+    <value>Palabras clave por defecto</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_KEYWORDS_DESCRIPTION">
+    <value>Esta característica ayuda a la optimización de las búsquedas. Ingrese de 1 a 15 palabras claves por defecto que representen su portal.</value>
+  </data>
+  <data name="TABMETAKEYWORDS_DESCRIPTION">
+    <value>Esta característica ayuda a la optimización de las búsquedas. Ingrese de 1 a 15 palabras claves por defecto que representen su portal.</value>
+  </data>
+  <data name="TABMETAOTHER">
+    <value>Otras Claves</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_OTHERS">
+    <value>Otras Claves</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_OTHERS_DESCRIPTION">
+    <value>Esta característica permite entrar nuevos tags dentro de la cabecera de una página. Como por  ejemplo se puede añadir el número de versión o una referencia a una hoja de estilos css, etc.</value>
+  </data>
+  <data name="TABMETAOTHER_DESCRIPTION">
+    <value>Esta característica permite entrar nuevos tags dentro de la cabecera de una página. Como por  ejemplo se puede añadir el número de versión o una referencia a una hoja de estilos css, etc.</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_TITLE">
+    <value>Título de la página</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_TITLE_DESCRIPTION">
+    <value>Permite entrar un Título (Se muestra en la cabecera del navegador) para esta página específica. Entrar algo aquí significa sobreescribir las características generales.</value>
+  </data>
+  <data name="TABTITLE_DESCRIPTION">
+    <value>Permite entrar un Título (Se muestra en la cabecera del navegador) para esta página específica. Entrar algo aquí significa sobreescribir las características generales.</value>
+  </data>
+  <data name="TABURLKEYWORD">
+    <value>Clave URL de la Página</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_URL_KEYWORD">
+    <value>Clave URL de la Página</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_URL_KEYWORD_DESCRIPTION">
+    <value>Esta característica permite que una clave aparezca en la url de esta página</value>
+  </data>
+  <data name="TABURLKEYWORD_DESCRIPTION">
+    <value>Esta característica permite que una clave aparezca en la url de esta página</value>
+  </data>
+  <data name="SITESETTINGS_REGISTER_FULL">
+    <value>Registro Completo</value>
+  </data>
+  <data name="SITESETTINGS_REGISTER_MODULEID">
+    <value>ID Módulo de Registro</value>
+  </data>
+  <data name="SITESETTINGS_REGISTER_MODULEID_DESCRIPTION">
+    <value>Algunos formularios de registro personalizados requieren configuraciones adicionales. Añadir aquí el ID del módulo que realizará el registro de los usuarios (0=no usar). Generalmente este módulo se agrega en un área oculta.</value>
+  </data>
+  <data name="SITESETTINGS_REGISTER_TYPE">
+    <value>Tipo de registro</value>
+  </data>
+  <data name="SITESETTINGS_SHOW_MODIFIED_BY_DESCRIPTION">
+    <value>Marcar para mostrar quien ha realizado la última modificación.</value>
+  </data>
+  <data name="SITESETTINGS_SHOW_MODULE_ARROWS">
+    <value>Mover Módulos?</value>
+  </data>
+  <data name="SITESETTINGS_SHOW_MODULE_ARROWS_DESCRIPTION">
+    <value>Muestra en la barra de título los botones de movimiento de módulos.</value>
+  </data>
+  <data name="SITESETTINGS_TERMS_OF_SERVICE">
+    <value>Fichero con las condiciones de uso</value>
+  </data>
+  <data name="SITESETTINGS_TERMS_OF_SERVICE_DESCRIPTION">
+    <value>Entre el nombre de un fichero usado para mostrar los términos y condiciones en las páginas de registro. Se puede tener este fichero independizado para cada cultura si se le añade el sufijo del lenguaje correspondiente p.e. terminos.txt (genérico) y terminos_en.txt (inglés)</value>
+  </data>
+  <data name="TERMSOFSERVICE_DESCRIPTION">
+    <value>Entre el nombre de un fichero usado para mostrar los términos y condiciones en las páginas de registro. Se puede tener este fichero independizado para cada cultura si se le añade el sufijo del lenguaje correspondiente p.e. terminos.txt (genérico) y terminos_en.txt (inglés)</value>
+  </data>
+  <data name="SITESETTINGS_THEME_DESCRIPTION">
+    <value>Especifique el tema del portal aquí</value>
+  </data>
+  <data name="SM_MENUBINDINGTYPE">
+    <value>Cómo carga el menú</value>
+  </data>
+  <data name="SM_MENUTYPE">
+    <value>Tipo de menú</value>
+  </data>
+  <data name="SM_MENUTYPE_DESCRIPTION">
+    <value>Establece el tipo de menú que se utilizará</value>
+  </data>
+  <data name="SM_MENU_REPEATDIRECTION">
+    <value>Establece la direción del menú</value>
+  </data>
+  <data name="SM_MENU_REPEATDIRECTION_DESCRIPTION">
+    <value>Establece cómo de dibujará en la pantalla el menú</value>
+  </data>
+  <data name="SM_PARENTTABID">
+    <value>Id Página Padre</value>
+  </data>
+  <data name="SM_PARENTTABID_DESCRIPTION">
+    <value>Establece el identificador de la página padre</value>
+  </data>
+  <data name="SORTFIELD">
+    <value>Ordenar por </value>
+  </data>
+  <data name="SORTORDER">
+    <value>Tipo de Ordenación</value>
+  </data>
+  <data name="SUBMIT">
+    <value>Enviar</value>
+  </data>
+  <data name="SURVEY_SUBMIT">
+    <value>Enviar</value>
+  </data>
+  <data name="SUBTITLE">
+    <value>Subtítulo</value>
+  </data>
+  <data name="SURVEY_ADDNEWOPTION">
+    <value>Agregar Nueva Opción</value>
+  </data>
+  <data name="SURVEY_ADDOPTBELOW">
+    <value>Agregar a ’Opciones’ debajo</value>
+  </data>
+  <data name="SURVEY_DETAILSOPTIONS">
+    <value>Detalle de Opciones de Encuesta</value>
+  </data>
+  <data name="SURVEY_NEWOPTION">
+    <value>Nueva Opción</value>
+  </data>
+  <data name="SURVEY_OPTIONS">
+    <value>Opciones</value>
+  </data>
+  <data name="SURVEY_OPTION_ERR">
+    <value>Escriba una opción correcta.</value>
+  </data>
+  <data name="SWI_BUTTON_MIN">
+    <value>Ocultar Contenido</value>
+  </data>
+  <data name="SWI_PUBLISH">
+    <value>Publicar</value>
+  </data>
+  <data name="SWI_READYTOAPPROVE">
+    <value>Solicitar aprobación</value>
+  </data>
+  <data name="SWI_REVERT">
+    <value>Deshacer Cambios</value>
+  </data>
+  <data name="SWI_ROLESPUBLISHING">
+    <value>Roles Autorizados a Publicar</value>
+  </data>
+  <data name="SWI_SUPPORTWORKFLOW">
+    <value>Habilitar soporte workflow</value>
+  </data>
+  <data name="SWI_SWAPTOPRODUCTION">
+    <value>Cambiar a la versión de producción</value>
+  </data>
+  <data name="SWI_SWAPTOSTAGING">
+    <value>Cambiar a la versión de Pruebas</value>
+  </data>
+  <data name="TABKEYPHRASE">
+    <value>Frase clave de la Página</value>
+  </data>
+  <data name="TABKEYPHRASE_DESCRIPTION">
+    <value>Esta frase puede ser usada por un módulo o por un control. Esto permite que definas un mesaje/frase para esta Página Esto puede ser usado para optimizar el apartado de busqueda. Entrar algo aquí significa sobreescribir las características generales.</value>
+  </data>
+  <data name="TABKEYPHRASE_EN">
+    <value>Frase clave para la página (en)</value>
+  </data>
+  <data name="TABKEYPHRASE_EN_DESCRIPTION">
+    <value>Frase clave para esta página de Cultura Inglesa.</value>
+  </data>
+  <data name="TABKEYPHRASE_ES">
+    <value>Frase clave de la Página (es)</value>
+  </data>
+  <data name="TABKEYPHRASE_ES_DESCRIPTION">
+    <value>Key Phrase this Tab/Page for Spanish culture.</value>
+  </data>
+  <data name="TABLAYOUT">
+    <value>Diseño de Página</value>
+  </data>
+  <data name="TABLEEDIT_MSG_CONNECT">
+    <value>Conectese a la Base de Datos... (configuracion del modulo)</value>
+  </data>
+  <data name="TABLEEDIT_SELECT_TABLE">
+    <value>Elija una Tabla </value>
+  </data>
+  <data name="TABLINK">
+    <value>Enlace Estático</value>
+  </data>
+  <data name="TABLINK_DESCRIPTION">
+    <value>Permite a este campo del Menú actuar como un enlace a cualquier URL</value>
+  </data>
+  <data name="TABMETADESCRIPTION">
+    <value>Descripción Meta de la Página</value>
+  </data>
+  <data name="TABMETAENCODING">
+    <value>Tipo de codificación de la página</value>
+  </data>
+  <data name="TABMETAKEYWORDS">
+    <value>Palabras Clave para buscadores</value>
+  </data>
+  <data name="TABPLACEHOLDER">
+    <value>Es un Título?</value>
+  </data>
+  <data name="TABPLACEHOLDER_DESCRIPTION">
+    <value>Permite a este campo del menú mostrarse como un título sin navegación.</value>
+  </data>
+  <data name="TABTITLE">
+    <value>Título de la Página</value>
+  </data>
+  <data name="TAB_DELETE_FAILED">
+    <value>No se ha podido borrar. Intente borrar primero todo el contenido.</value>
+  </data>
+  <data name="TAB_NAME">
+    <value>Nueva página (insertar nombre)</value>
+  </data>
+  <data name="TAB_PARENT">
+    <value>Página padre</value>
+  </data>
+  <data name="TAB_TITLE_Appleseed_HELP">
+    <value>Ayuda del Portal</value>
+  </data>
+  <data name="TARGET">
+    <value>Página de Destino</value>
+  </data>
+  <data name="TASK_ASSIGNEDTO">
+    <value>Asignado a </value>
+  </data>
+  <data name="TASK_COMPLETION">
+    <value>% Completado</value>
+  </data>
+  <data name="TASK_COMPLETION_ERROR">
+    <value>Debe ser un entero entre 0 y 100</value>
+  </data>
+  <data name="TASK_DETAIL">
+    <value>Detalle de la Tarea</value>
+  </data>
+  <data name="TASK_DUEDATE">
+    <value>Fecha Prometida</value>
+  </data>
+  <data name="TASK_DUEDATE_ERROR">
+    <value>Debe entrar una fecha correcta</value>
+  </data>
+  <data name="TASK_PRIORITY">
+    <value>Prioridad</value>
+  </data>
+  <data name="TASK_PRIORITY_0">
+    <value>Alta</value>
+  </data>
+  <data name="TASK_PRIORITY_1">
+    <value>Normal</value>
+  </data>
+  <data name="TASK_PRIORITY_2">
+    <value>Bajo</value>
+  </data>
+  <data name="TASK_STATE_0">
+    <value>Sin comenzar</value>
+  </data>
+  <data name="TASK_STATE_1">
+    <value>En progreso</value>
+  </data>
+  <data name="TASK_STATE_2">
+    <value>Completado</value>
+  </data>
+  <data name="TELEPHONE">
+    <value>Telefono</value>
+  </data>
+  <data name="TESTMODE">
+    <value>Modo Pruebas</value>
+  </data>
+  <data name="TESTMODE_DESCRIPTION">
+    <value>Usar el modo de pruebas para testear las características. Únicamente se enviará un email a la dirección especificada.</value>
+  </data>
+  <data name="TESTUSERID">
+    <value>Test user ID</value>
+  </data>
+  <data name="THEME_LAYOUT_SETTINGS">
+    <value>Propiedades Tema y Diseño</value>
+  </data>
+  <data name="THUMBNAILHEIGHT">
+    <value>Alto del Indice</value>
+  </data>
+  <data name="THUMBNAILLAYOUT">
+    <value>Diseño del Indice</value>
+  </data>
+  <data name="THUMBNAILRESIZE">
+    <value>Generación de Indice</value>
+  </data>
+  <data name="THUMBNAILWIDTH">
+    <value>Ancho del Indice</value>
+  </data>
+  <data name="TI_ROLEADMINISTRATIONADDTOROLE">
+    <value>Añadir el usuario al rol seleccionado</value>
+  </data>
+  <data name="TI_ROLEADMINISTRATIONTITLE">
+    <value>Bienvenido al administrador de roles. Use esta herramienta para seleccionar usuarios y añadirlos a un rol o borrarlos del mismo.</value>
+  </data>
+  <data name="TO">
+    <value>a</value>
+  </data>
+  <data name="TOP">
+    <value>Arriba</value>
+  </data>
+  <data name="TOPICNAME_DESCRIPTION">
+    <value>Las palabras aquí incluídas permiten al motor de búsqueda relacionarlas directamente</value>
+  </data>
+  <data name="TOURISTIC_AUTO">
+    <value>Automático</value>
+  </data>
+  <data name="TOURISTIC_NOFILTER">
+    <value>Sin filtrar</value>
+  </data>
+  <data name="TOURISTIC_THISMONTH">
+    <value>Sólo este mes</value>
+  </data>
+  <data name="TOURISTIC_THISYEAR">
+    <value>Únicamente este año</value>
+  </data>
+  <data name="TRANSLATOR">
+    <value>José Viladiu</value>
+  </data>
+  <data name="TRANSLATOR_EMAIL">
+    <value>jviladiu@portalServices.net</value>
+  </data>
+  <data name="TYPE">
+    <value>Tipo</value>
+  </data>
+  <data name="USERTABLE_TYPE">
+    <value>Tipo</value>
+  </data>
+  <data name="UNCHECKED_USERS">
+    <value>Usuarios no registrados</value>
+  </data>
+  <data name="UPDATE_YOUR_PROFILE">
+    <value>Actualiza tu Perfil</value>
+  </data>
+  <data name="UPLOAD_FILE">
+    <value>Descargar fichero</value>
+  </data>
+  <data name="UPLOAD_IMAGE">
+    <value>Descargar Imágen</value>
+  </data>
+  <data name="UPLOAD_SUCCESS_MESSAGE">
+    <value>Archivo descargado !</value>
+  </data>
+  <data name="UPLOAD_TO_WEB">
+    <value>Descargar al servidor Web</value>
+  </data>
+  <data name="UP_TO">
+    <value>arriba</value>
+  </data>
+  <data name="URL_TO_BROWSE">
+    <value>URL</value>
+  </data>
+  <data name="USERBLOCK">
+    <value>Máximo Nº Usuarios</value>
+  </data>
+  <data name="USERBLOCK_DESCRIPTION">
+    <value>Seleccione el número máximo de usuarios. Para enviar correos a todos los usuarios registrados debe repetir el proceso. Use valores pequeños para evitar caidas del servidor.</value>
+  </data>
+  <data name="USERTABLE_EDITROW">
+    <value>Editar fila de la tabla</value>
+  </data>
+  <data name="USERTABLE_INASCORDER">
+    <value>En orden ascendente</value>
+  </data>
+  <data name="USERTABLE_INDSCORDER">
+    <value>En orden descendente</value>
+  </data>
+  <data name="USERTABLE_MANAGETABLE">
+    <value>Administrar Tabla        </value>
+  </data>
+  <data name="USERTABLE_MOVEFIELDDOWN">
+    <value>Mover el campo abajo</value>
+  </data>
+  <data name="USERTABLE_MOVEFIELDUP">
+    <value>Mover el campo arriba</value>
+  </data>
+  <data name="USERTABLE_NEWFIELD">
+    <value>Añadir nuevo campo</value>
+  </data>
+  <data name="USERTABLE_SORTEDBY">
+    <value>Ordenar por</value>
+  </data>
+  <data name="USERTABLE_TYPE_BOOLEAN">
+    <value>Verdadero/Falso</value>
+  </data>
+  <data name="USERTABLE_TYPE_DECIMAL">
+    <value>Decimal</value>
+  </data>
+  <data name="USERTABLE_TYPE_INT32">
+    <value>Entero</value>
+  </data>
+  <data name="USERTABLE_TYPE_STRING">
+    <value>Texto</value>
+  </data>
+  <data name="USERTABLE_VISIBLE">
+    <value>Visible</value>
+  </data>
+  <data name="USER_ALREADY_EXISTS">
+    <value>El usuario ya existe</value>
+  </data>
+  <data name="USER_MANAGE">
+    <value>Gestionar Usuario</value>
+  </data>
+  <data name="USER_MESSAGE1">
+    <value>Los usuarios deben estar registrados para ver el contenido seguro.</value>
+  </data>
+  <data name="USER_MESSAGE2">
+    <value>Los usuarios pueden registrarse ellos mismos utilizando el formulario de registro. Los administradores podrán añadir roles específicos según el nivel de seguridad.</value>
+  </data>
+  <data name="USER_MESSAGE3">
+    <value>Esta sección permite a los administradores modificar usuarios y sus roles de seguridad directamente.</value>
+  </data>
+  <data name="USER_MESSAGE_DOMAIN3">
+    <value>Esta sección permite a los administradores modificar usuarios y sus roles de seguridad directamente.</value>
+  </data>
+  <data name="USER_MESSAGE_DOMAIN1">
+    <value>Los usuarios de dominio no necesitan estar registrados para acceder al contenido disponible a todos los usuarios.</value>
+  </data>
+  <data name="USER_MESSAGE_DOMAIN2">
+    <value>Los administradores pueden añadir usuarios de dominio a roles específicos usando la función "Roles de Seguridad"</value>
+  </data>
+  <data name="USER_MODIFICATION">
+    <value>Modificación de usuario</value>
+  </data>
+  <data name="USER_NEW_USER">
+    <value>Usuario Nuevo creado el </value>
+  </data>
+  <data name="USER_REGISTRY">
+    <value>Registro de usuario</value>
+  </data>
+  <data name="USER_SAVING_ERROR">
+    <value>Ocurrió un error al salvar su usuario. Intente nuevamente</value>
+  </data>
+  <data name="USER_UPDATED_SUCCESFULLY">
+    <value>El usuario se actualizo con exito</value>
+  </data>
+  <data name="USE_INSTALLER">
+    <value>Use el instalador</value>
+  </data>
+  <data name="VALID_ADDRESS">
+    <value>Entre una dirección correcta.</value>
+  </data>
+  <data name="VALID_CITY">
+    <value>Entre una ciudad correcta.</value>
+  </data>
+  <data name="VALID_CODE">
+    <value>Entre un código correcto.</value>
+  </data>
+  <data name="VALID_DATE">
+    <value>Entre una fecha correcta.</value>
+  </data>
+  <data name="VALID_EMAIL">
+    <value>Entre un Email correcto.</value>
+  </data>
+  <data name="VALID_FIELD">
+    <value>Entre un valor correcto.</value>
+  </data>
+  <data name="VALID_FILE_NAME">
+    <value>Entre un nombre de archivo correcto.</value>
+  </data>
+  <data name="VALID_NUMBER">
+    <value>Entre un número correcto.</value>
+  </data>
+  <data name="VALID_PHONE">
+    <value>entre un número de teléfono correcto.</value>
+  </data>
+  <data name="VALID_ZIP">
+    <value>Entre un codigo postal correcto.</value>
+  </data>
+  <data name="VIEWORDER">
+    <value>Orden de visualización</value>
+  </data>
+  <data name="VIEW_ORDER">
+    <value>Orden de visualización</value>
+  </data>
+  <data name="WEBSITE">
+    <value>Sitio Web</value>
+  </data>
+  <data name="WEB_FARM_SUPPORT">
+    <value>Almacenar en la base de datos (soporte de web-farm)</value>
+  </data>
+  <data name="WHOSLOGGEDONCACHETIMEOUT">
+    <value>Especifica la cantidad de tiempo de espera desde que un usuario se ha identificado antes de chequear si está activo (0 - 60000)</value>
+  </data>
+  <data name="WHOS_LOGGED_ON_1">
+    <value>En estos momentos hay</value>
+  </data>
+  <data name="WHOS_LOGGED_ON_2">
+    <value>usuarios anónimos conectados</value>
+  </data>
+  <data name="WHOS_LOGGED_ON_3">
+    <value>usuarios registrados conectados</value>
+  </data>
+  <data name="WIDTH">
+    <value>Ancho</value>
+  </data>
+  <data name="WIDTH_DESCRIPTION">
+    <value>El ancho que ocupará el editor</value>
+  </data>
+  <data name="XMLSRC">
+    <value>Fichero Origen XML</value>
+  </data>
+  <data name="XSLSRC">
+    <value>Fichero Transformador XSL</value>
+  </data>
+  <data name="YEAR">
+    <value>Año:</value>
+  </data>
+  <data name="YEARS">
+    <value>Años</value>
+  </data>
+  <data name="ZIP">
+    <value>Código Postal</value>
+  </data>
+  <data name="BLACKLIST_SHOWCOLUMNNAME">
+    <value>Mostrar Nombre</value>
+  </data>
+  <data name="CHECKOUT_ADDRESS">
+    <value>Dirección</value>
+  </data>
+  <data name="CHECKOUT_CFISCALE">
+    <value>Código Fiscal</value>
+  </data>
+  <data name="CHECKOUT_CITY">
+    <value>Ciudad</value>
+  </data>
+  <data name="CHECKOUT_COMPANY">
+    <value>Empresa</value>
+  </data>
+  <data name="CHECKOUT_COUNTRY">
+    <value>País</value>
+  </data>
+  <data name="CHECKOUT_EMAIL">
+    <value>Dirección de Correo Electrónico</value>
+  </data>
+  <data name="CHECKOUT_ERROR_PROCESSING_CART">
+    <value>Error procesando la información del carrito.</value>
+  </data>
+  <data name="CHECKOUT_ERROR_PROCESSING_SHIPPING">
+    <value>Error procesando la información de envío.</value>
+  </data>
+  <data name="CHECKOUT_FAX">
+    <value>Fax</value>
+  </data>
+  <data name="CHECKOUT_NAME">
+    <value>Nombre</value>
+  </data>
+  <data name="CHECKOUT_PHONE">
+    <value>Teléfono</value>
+  </data>
+  <data name="CHECKOUT_PIVA">
+    <value>Numero Fiscal Empresa</value>
+  </data>
+  <data name="CHECKOUT_PROV_STATE">
+    <value>Provincia/Estado</value>
+  </data>
+  <data name="CHECKOUT_SEND_NEWSLETTER">
+    <value>Enviar Boletín de Noticias</value>
+  </data>
+  <data name="CHECKOUT_ZIP">
+    <value>Código Postal</value>
+  </data>
+  <data name="CONTACT_ADDRESS">
+    <value>Address</value>
+  </data>
+  <data name="CONTACT_CONTACT1">
+    <value>Office</value>
+  </data>
+  <data name="CONTACT_CONTACT2">
+    <value>Mobile</value>
+  </data>
+  <data name="CONTACT_EMAIL">
+    <value>Email</value>
+  </data>
+  <data name="CONTACT_FAX">
+    <value>Fax</value>
+  </data>
+  <data name="CONTACT_NAME">
+    <value>Name</value>
+  </data>
+  <data name="CONTACT_ROLE">
+    <value>Role</value>
+  </data>
+  <data name="CONTENTTYPE">
+    <value>Content Type</value>
+  </data>
+  <data name="DISCUSION_LAST_UPDATE">
+    <value>Última Actualización</value>
+  </data>
+  <data name="DISCUSSION_DELETE_RESPONSE">
+    <value>Desea borrar el mensaje seleccionado y TODAS sus respuestas ?</value>
+  </data>
+  <data name="DISCUSSION_MSGCOLLAPSE">
+    <value>Colapsar el hilo de este tema</value>
+  </data>
+  <data name="DS_AUTHOR">
+    <value>Autor</value>
+  </data>
+  <data name="DS_DATE">
+    <value>Fecha</value>
+  </data>
+  <data name="DS_DISPLAY_THREADS">
+    <value>Visualizando todos los hilos de este tema</value>
+  </data>
+  <data name="DS_RETURN_LIST">
+    <value>Volver a la lista de temas</value>
+  </data>
+  <data name="ECOMMERCE_ACCOUNT_LOGIN">
+    <value>Entrada</value>
+  </data>
+  <data name="ECOMMERCE_GATEWAY_CARIGE_TITLE">
+    <value>Gateway Carige???</value>
+  </data>
+  <data name="ECOMMERCE_GATEWAY_TITLE">
+    <value>Pasarela Financiera</value>
+  </data>
+  <data name="ECOMMERCE_KO_MSG1">
+    <value>Su información NO ha sido actualizada.</value>
+  </data>
+  <data name="ECOMMERCE_KO_MSG2">
+    <value>Clickee en el botón ’Continuar’ para dirigirse al área no segura.</value>
+  </data>
+  <data name="ECOMMERCE_KO_MSG3">
+    <value>Dependiendo de su navegador, puede tener que aceptar un diálogo que le advertirá que está dejando un área segura.</value>
+  </data>
+  <data name="ECOMMERCE_LOGIN_EMAILSUBJECTOK">
+    <value>Su clave de acceso en nuestro portal</value>
+  </data>
+  <data name="ECOMMERCE_LOGIN_ENTEREMAIL">
+    <value>Por favor entre su dirección de correo electrónico</value>
+  </data>
+  <data name="ECOMMERCE_LOGIN_FAILED">
+    <value>No se ha reconocido su código de usuario o clave de acceso, por favor reintente.</value>
+  </data>
+  <data name="ECOMMERCE_LOGON_MSGCANCEL">
+    <value>, volver a la página inicial</value>
+  </data>
+  <data name="ECOMMERCE_LOGON_MSGREGISTER">
+    <value>, si usted no tiene una cuenta, por favor regístrese.</value>
+  </data>
+  <data name="ECOMMERCE_OK_MSG1">
+    <value>Su información ha sido actualizada en la base de datos</value>
+  </data>
+  <data name="ECOMMERCE_OK_MSG2">
+    <value>Clickee en el botón ’Continuar’ para dirigirse al área no segura.</value>
+  </data>
+  <data name="ECOMMERCE_OK_MSG3">
+    <value>Dependiendo de su navegador, puede tener que aceptar un diálogo que le advertirá que está dejando un área segura.</value>
+  </data>
+  <data name="ECOMMERCE_SECURE_TITLE">
+    <value>Servidor Seguro de Comercio</value>
+  </data>
+  <data name="EMF_HTMLBODY_ERROR">
+    <value>Debe entrar el texto HTML del cuerpo del mensaje.</value>
+  </data>
+  <data name="EMF_SUBJECT_ERROR">
+    <value>Debe entrar el asunto del mensaje.</value>
+  </data>
+  <data name="EMF_TEXTBODY_ERROR">
+    <value>Debe entrar el texto del cuerpo del mensaje.</value>
+  </data>
+  <data name="ENHANCEDHTML_CANCEL">
+    <value>Cancelar</value>
+  </data>
+  <data name="ENHANCEDHTML_CONFIRMDELETEMESSAGE">
+    <value>¿Está seguro de Borrar esta Página?</value>
+  </data>
+  <data name="ENHANCEDHTML_CONTENT_FROM">
+    <value>Obtener contenido del módulo</value>
+  </data>
+  <data name="ENHANCEDHTML_DELETEPAGE">
+    <value>Borrar</value>
+  </data>
+  <data name="ENHANCEDHTML_EDITOR">
+    <value>Editor</value>
+  </data>
+  <data name="ENHANCEDHTML_EDITOR_DESCRIPTION">
+    <value>Seleccionar aquí el Editor que utilizará el Módulo</value>
+  </data>
+  <data name="ENHANCEDHTML_EDITPAGE">
+    <value>Editar</value>
+  </data>
+  <data name="ENHANCEDHTML_LANGUAGE">
+    <value>Lenguaje</value>
+  </data>
+  <data name="ENHANCEDHTML_MULTIPAGEMODE">
+    <value>Cambiar a modo Página</value>
+  </data>
+  <data name="ENHANCEDHTML_NEWPAGE">
+    <value>Nueva</value>
+  </data>
+  <data name="ENHANCEDHTML_PAGENAME">
+    <value>Título Página</value>
+  </data>
+  <data name="ENHANCEDHTML_RETURN">
+    <value>Volver</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWALLPAGES">
+    <value>Todas las Páginas</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWUPLOAD">
+    <value>Descargar?</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWUPLOAD_DESCRIPTION">
+    <value>Únicamente se utiliza si el editor seleccionado es ActiveUp HtmlTextBox</value>
+  </data>
+  <data name="ENHANCEDHTML_UPDATE">
+    <value>Aceptar</value>
+  </data>
+  <data name="ENHANCEDHTML_VIEWORDER">
+    <value>Orden de Visualización</value>
+  </data>
+  <data name="ENHANCEDLINKS_EDITLINK">
+    <value>Editar Link</value>
+  </data>
+  <data name="ENHANCEDLINKS_LINKSHORIZONTAL">
+    <value>Enlaces Horizontales</value>
+  </data>
+  <data name="ENHANCEDLINK_GALLERYTITLE">
+    <value>Galería de Iconos</value>
+  </data>
+  <data name="ENHANCEDLINK_ICON">
+    <value>Descargar Fichero de Iconos</value>
+  </data>
+  <data name="ENHANCEDLINK_SELECT">
+    <value>1. Seleccionar imagen</value>
+  </data>
+  <data name="ENHANCEDLINK_UPLOAD">
+    <value>2. Descargar el Fichero</value>
+  </data>
+  <data name="ERROR">
+    <value>Error</value>
+  </data>
+  <data name="ERROR_403">
+    <value>Los derechos de Acceso / Edición han sido denegados</value>
+  </data>
+  <data name="ERROR_403_MESSAGE">
+    <value>La zona a la que ha querido acceder ha denegado el acceso por no tener los suficientes privilegios</value>
+  </data>
+  <data name="ERROR_404">
+    <value>La dirección solicitada no existe</value>
+  </data>
+  <data name="ERROR_404_MESSAGE">
+    <value>La página solicitada no existe o ha sido movida</value>
+  </data>
+  <data name="ERROR_FILE_NAME">
+    <value>Nombre de fichero erróneo</value>
+  </data>
+  <data name="ERROR_VALID_EXPIRE_DATE">
+    <value>Entra una fecha válida</value>
+  </data>
+  <data name="ES-ES_DESCRIPTION">
+    <value>Establecer Titulo para cultura española (España).</value>
+  </data>
+  <data name="FAQ_QUESTION_ERR">
+    <value>Pregunta equivocada</value>
+  </data>
+  <data name="FILE_CATEGORY">
+    <value>Categoría</value>
+  </data>
+  <data name="FIXEDSHIPPING">
+    <value>Color de Fondo</value>
+  </data>
+  <data name="GATEWAY_CREDIT_TRANSFER_MESSAGE">
+    <value>Wire Transfer</value>
+  </data>
+  <data name="GENERAL_ERROR_MESSAGE">
+    <value>Esta Sección está en Mantenimiento</value>
+  </data>
+  <data name="IDLISTTYPE">
+    <value>Tipo de Lista</value>
+  </data>
+  <data name="INSTALLER_FILE">
+    <value>Fichero de instalación</value>
+  </data>
+  <data name="INSTALL_MANUALLY">
+    <value>Instalar manualmente</value>
+  </data>
+  <data name="ITEMS_FOUND">
+    <value>Campos encontrados</value>
+  </data>
+  <data name="ITEM_FOUND">
+    <value>Campo encontado</value>
+  </data>
+  <data name="ITEM_ORDER">
+    <value>Orden de los Campos</value>
+  </data>
+  <data name="LABEL_NO_DATA">
+    <value>No hay datos disponibles</value>
+  </data>
+  <data name="LANGLIST">
+    <value>Lista de Lenguajes</value>
+  </data>
+  <data name="LANGLOCK">
+    <value>Bloquear Lenguajes</value>
+  </data>
+  <data name="LANGSWITCHAPPLYTHEME">
+    <value>Aplicar Tema?</value>
+  </data>
+  <data name="LANGSWITCHER_FLAGS">
+    <value>Banderas</value>
+  </data>
+  <data name="LANGSWITCHER_FLAGSHORIZONTAL">
+    <value>Banderas Horizontales</value>
+  </data>
+  <data name="LANGSWITCHER_FORM">
+    <value>Formulario</value>
+  </data>
+  <data name="LANGSWITCHER_LINKS">
+    <value>Enlaces</value>
+  </data>
+  <data name="LANGSWITCHER_LINKSHORIZONTAL">
+    <value>Enlaces Horizontales</value>
+  </data>
+  <data name="LANGSWITCHLOCATION">
+    <value>Ubicación</value>
+  </data>
+  <data name="LANGSWITCHLOCATION_EVERYPAGE">
+    <value>Ubicar en cualquier Página</value>
+  </data>
+  <data name="LANGSWITCHLOCATION_HOMEONLY">
+    <value>Ubicar solo en Página Inicio</value>
+  </data>
+  <data name="LANGSWITCHPOSITION">
+    <value>Posición</value>
+  </data>
+  <data name="LANGSWITCHPOSITION_CONTENT">
+    <value>Ubicar en Contenido</value>
+  </data>
+  <data name="LANGSWITCHPOSITION_LEFT">
+    <value>Ubicar a la Izquierda</value>
+  </data>
+  <data name="LANGSWITCHPOSITION_RIGHT">
+    <value>Ubicar a la Derecha</value>
+  </data>
+  <data name="LANGSWITCHSHOWTITLE">
+    <value>Mostrar Titulo</value>
+  </data>
+  <data name="LANGSWITCHTHEME">
+    <value>Tema</value>
+  </data>
+  <data name="LANGSWITCHTYPE">
+    <value>Tipo</value>
+  </data>
+  <data name="LANGSWITCH_TITLE">
+    <value>Título del Selector de Lenguajes</value>
+  </data>
+  <data name="LANGUSER">
+    <value>Usuario</value>
+  </data>
+  <data name="LASTSEND">
+    <value>Último envío</value>
+  </data>
+  <data name="LOCALMODE">
+    <value>Modo Local</value>
+  </data>
+  <data name="LOCATION">
+    <value>Nombre del Lugar</value>
+  </data>
+  <data name="MACHINENAME">
+    <value>Ordenador</value>
+  </data>
+  <data name="MILESTONE_COMPL_DATE">
+    <value>Fecha Estimada</value>
+  </data>
+  <data name="MILESTONE_STATUS">
+    <value>Estado</value>
+  </data>
+  <data name="MILESTONE_TITLE">
+    <value>Título</value>
+  </data>
+  <data name="MOBILEONLY">
+    <value>Sólo para móviles</value>
+  </data>
+  <data name="MODULESETTINGS_MODULE_THEME">
+    <value>Tema Personalizado</value>
+  </data>
+  <data name="MODULESETTINGS_MODULE_THEME_DESCRIPTION">
+    <value>Permite seleccionar un tema concreto para utilizarse en este módulo</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_CA">
+    <value>Título (Catalán)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_CA_DESCRIPTION">
+    <value>Título en Catalán</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_ES-ES">
+    <value>Título (es-ES)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_ES-ES_DESCRIPTION">
+    <value>Establecer Título en Español (España)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_IT">
+    <value>Título (IT)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_IT_DESCRIPTION">
+    <value>Título en Italiano</value>
+  </data>
+  <data name="MODULE_DEFINITIONS_DELETE_ERROR">
+    <value>Un error ha ocurrido al intentar borrar el módulo.</value>
+  </data>
+  <data name="MODULE_DEFINITIONS_INSTALLING">
+    <value>Un error ha ocurrido al intentar instalar el módulo.</value>
+  </data>
+  <data name="MODULE_DEFS_ADMIN">
+    <value>Módulos Administrativos</value>
+  </data>
+  <data name="MODULE_DEFS_USER">
+    <value>Módulos de Usuario</value>
+  </data>
+  <data name="NEWSLETTER_DEFAULTEMAIL">
+    <value>Correo de envío</value>
+  </data>
+  <data name="NEWSLETTER_DEFAULTNAME">
+    <value>Nombre de envío</value>
+  </data>
+  <data name="NEWSLETTER_DONOTRESENDWITHIN">
+    <value>No vuelva a enviar hasta dentro de (dias)</value>
+  </data>
+  <data name="NEWSLETTER_DONOTRESENDWITHIN_DESCRIPTION">
+    <value>Para evitar el spam y correos duplicados, no se puede enviar más de un mail a la misma dirección en el lapso de tiempo especificado.</value>
+  </data>
+  <data name="NEWSLETTER_ERROR">
+    <value>Error al enviar el Boletín: </value>
+  </data>
+  <data name="NEWSLETTER_HTMLTEMPLATE">
+    <value>Plantilla Html</value>
+  </data>
+  <data name="NEWSLETTER_HTMLTEMPLATE_DESCRIPTION">
+    <value>Seleccione un módulo Html que será usado como base para el envío de este email</value>
+  </data>
+  <data name="NEWSLETTER_INVALID_RECIPIENTS">
+    <value>Destinatarios no válidos:&lt;br&gt;</value>
+  </data>
+  <data name="NEWSLETTER_LOCALTIME">
+    <value>Fecha Local: </value>
+  </data>
+  <data name="NEWSLETTER_LOGINHOMEPAGE">
+    <value>URL del Portal</value>
+  </data>
+  <data name="NEWSLETTER_LOGINHOMEPAGE_DESCRIPTION">
+    <value>La dirección URL de la página de identificación del usuario. Deje el espacio en blanco si utiliza el lugar actual.</value>
+  </data>
+  <data name="NEWSLETTER_NORECIPIENTS">
+    <value>Debe configurar las direcciones de correo</value>
+  </data>
+  <data name="NEWSLETTER_SENDDATE">
+    <value>Mensaje enviado: </value>
+  </data>
+  <data name="NEWSLETTER_SENDINGTO">
+    <value>El mensaje ha sido enviado a {1} usuarios registrados.</value>
+  </data>
+  <data name="NEWSLETTER_SENDTO">
+    <value>&lt;b&gt;Mensaje:&lt;/b&gt; enviado a:&lt;br&gt;</value>
+  </data>
+  <data name="NEWSLETTER_TESTSENDTO">
+    <value>Mensaje Test enviado a: </value>
+  </data>
+  <data name="NEWSLETTER_USERBLOCK">
+    <value>Grupo de Usuarios</value>
+  </data>
+  <data name="NEWSLETTER_USERBLOCK_DESCRIPTION">
+    <value>Seleccione el número máximo de usuarios. Para enviar correos a todos los usuarios registrados debe repetir el proceso. Use valores pequeños para evitar caidas del servidor.</value>
+  </data>
+  <data name="NOITEMS">
+    <value>No hay campos</value>
+  </data>
+  <data name="PAGELAYOUTENABLE">
+    <value>Diseño de página activado</value>
+  </data>
+  <data name="PICTURES_FAILED_TO_LOAD">
+    <value>Error al cargar la plantilla. Revise la configuración del módulo</value>
+  </data>
+  <data name="POSTALCODE">
+    <value>Código Postal</value>
+  </data>
+  <data name="PRODUCT_ACCOUNT_INFORMATION">
+    <value>Informacion de la Cuenta</value>
+  </data>
+  <data name="PRODUCT_ADD_OPTION">
+    <value>Añadir Opción</value>
+  </data>
+  <data name="PRODUCT_CANNOT_UPDATE">
+    <value>No se puede actualizar el Producto</value>
+  </data>
+  <data name="PRODUCT_CATEGORY">
+    <value>Familia</value>
+  </data>
+  <data name="PRODUCT_CATEGORY_DESCRIPTION">
+    <value>Antes de añadir productos, cree Familias de Productos. Estas son creadas simplemente añadiendo páginas a la página principal que contiene el módulo de Productos.</value>
+  </data>
+  <data name="PRODUCT_DELETE_OPTION">
+    <value>Borrar Opción</value>
+  </data>
+  <data name="PRODUCT_FEATURED_ITEM">
+    <value>¿Producto Destacado?</value>
+  </data>
+  <data name="PRODUCT_FEATURED_ITEM_DESCRIPTION">
+    <value>Los Productos Destacados serán mostrados en la Página Principal</value>
+  </data>
+  <data name="PRODUCT_HOME">
+    <value>Inicio Tienda</value>
+  </data>
+  <data name="PRODUCT_MODELNAME">
+    <value>Nombre del Producto</value>
+  </data>
+  <data name="PRODUCT_MODELNUMBER">
+    <value>Código del Producto</value>
+  </data>
+  <data name="PRODUCT_OPTIONS">
+    <value>Opciones</value>
+  </data>
+  <data name="PRODUCT_SELECT_CATEGORY">
+    <value>Por favor, Seleccione una Familia de Productos</value>
+  </data>
+  <data name="PRODUCT_TAXRATE">
+    <value>Impuesto Aplicable (%)</value>
+  </data>
+  <data name="PRODUCT_UNITPRICE">
+    <value>Precio Unitario</value>
+  </data>
+  <data name="PRODUCT_WEIGHT">
+    <value>Peso (gr)</value>
+  </data>
+  <data name="PROFILE_INFO_ERROR">
+    <value>Error: No se puede acceder a la información personal del usuario</value>
+  </data>
+  <data name="QUICKSEARCH">
+    <value>Busqueda Rápida</value>
+  </data>
+  <data name="REGION">
+    <value>Región</value>
+  </data>
+  <data name="REGISTRATION_FAILED_EXISTING_EMAIL_ADDRESS">
+    <value>Error al registrar: La dirección de correo suministrada ya está utilizada. Use otra dirección de correo o pulse el botón ’Enviar Contraseña’ en la página de identificación si ha olvidado su actual contraseña.&lt;p&gt;</value>
+  </data>
+  <data name="REJECT_MODULE_CONTENT">
+    <value>Rechazar Contenido del un Módulo</value>
+  </data>
+  <data name="REPORT_TYPE">
+    <value>Tipo de Informe</value>
+  </data>
+  <data name="REQUEST_MODULE_CONTENTAPPROVAL">
+    <value>Pedir Aprobación del Contenido de un Módulo</value>
+  </data>
+  <data name="ROLE_DELETE_FAILED">
+    <value>No se ha podido borrar el rol seleccionado. Asegúrese de que no hay usuarios asignados a este rol</value>
+  </data>
+  <data name="RegisterApplyTheme">
+    <value>Aplicar Tema en Página de Registro?</value>
+  </data>
+  <data name="RegisterShowTitle">
+    <value>Mostrar Título en Página de Registro?</value>
+  </data>
+  <data name="RegisterTheme">
+    <value>Tema de la Página de Registro</value>
+  </data>
+  <data name="SAVE_DESKTOP">
+    <value>Guardar Configuración</value>
+  </data>
+  <data name="SEARCHFIELD">
+    <value>Campo de Búsqueda</value>
+  </data>
+  <data name="SEARCH_BTN">
+    <value>Botón de Búsqueda</value>
+  </data>
+  <data name="SEARCH_STRING">
+    <value>Frase a buscar</value>
+  </data>
+  <data name="SELECT">
+    <value>Seleccionar</value>
+  </data>
+  <data name="SHOWADDRESS">
+    <value>Mostrar Dirección?</value>
+  </data>
+  <data name="SHOWBORDER">
+    <value>Encuadrar?</value>
+  </data>
+  <data name="SHOWCALENDAR">
+    <value>Mostrar Calendario?</value>
+  </data>
+  <data name="SHOWDDFIELD">
+    <value>Mostrar Lista de Campos</value>
+  </data>
+  <data name="SHOWDDFIELD_DESCRIPTION">
+    <value>Permite seleccionar los campos que intervendrán en la consulta</value>
+  </data>
+  <data name="SHOWDDMODULE">
+    <value>Mostrar Lista de Módulos</value>
+  </data>
+  <data name="SHOWDDMODULE_DESCRIPTION">
+    <value>Permite seleccionar los módulos sobre los que se realizará la consulta</value>
+  </data>
+  <data name="SHOWDDTOPIC">
+    <value>Mostrar Lista de Tópicos</value>
+  </data>
+  <data name="SHOWDDTOPIC_DESCRIPTION">
+    <value>Permite seleccionar los Tópicos (Palabras clave definidas en cada módulo) sobre los que se realizará la consulta</value>
+  </data>
+  <data name="SHOWID">
+    <value>Mostrar ID</value>
+  </data>
+  <data name="SHOWMAP">
+    <value>Mostrar Mapa?</value>
+  </data>
+  <data name="SHOWMODULEFRIENDLYNAME">
+    <value>Mostrar nombre del módulo</value>
+  </data>
+  <data name="SHOWTABID">
+    <value>Desde página</value>
+  </data>
+  <data name="SHOWZOOM">
+    <value>Mostrar selector de Zoom?</value>
+  </data>
+  <data name="SHOW_COLUMN_ADDRESS">
+    <value>Mostrar Dirección?</value>
+  </data>
+  <data name="SHOW_COLUMN_CONTACT1">
+    <value>Mostrar Teléfono Fijo?</value>
+  </data>
+  <data name="SHOW_COLUMN_CONTACT2">
+    <value>Mostar Teléfono Móvil?</value>
+  </data>
+  <data name="SHOW_COLUMN_EMAIL">
+    <value>Mostrar Email?</value>
+  </data>
+  <data name="SHOW_COLUMN_FAX">
+    <value>Mostrar Fax?</value>
+  </data>
+  <data name="SIGNINLOCATION_EVERYPAGE">
+    <value>Mostrar en todas las Páginas</value>
+  </data>
+  <data name="SIGNINLOCATION_HOMEONLY">
+    <value>Sólo en la Página de Inicio</value>
+  </data>
+  <data name="SIGNINPOSITION_CONTENT">
+    <value>Panel de Contenido</value>
+  </data>
+  <data name="SIGNINPOSITION_LEFT">
+    <value>Panel Izquierdo</value>
+  </data>
+  <data name="SIGNINPOSITION_RIGHT">
+    <value>Panel Derecho</value>
+  </data>
+  <data name="SIGNINTYPE_COOLFORM">
+    <value>Formulario de Registro Apaisado</value>
+  </data>
+  <data name="SIGNINTYPE_DISABLED">
+    <value>Usuarios desactivados</value>
+  </data>
+  <data name="SIGNINTYPE_FORM">
+    <value>Formulario</value>
+  </data>
+  <data name="SIGNINTYPE_LINK">
+    <value>Enlace</value>
+  </data>
+  <data name="SIGNIN_ALLOW_AUTOCOMPLETE">
+    <value>Permitir Autocompletar</value>
+  </data>
+  <data name="SIGNIN_ALLOW_AUTOCOMPLETE_DESCRIPTION">
+    <value>Marcar Permitir AutoCompletar recuerda en el ordenador las entradas realizadas anteriormente</value>
+  </data>
+  <data name="SIGNIN_AUTOMATICALLYHIDE">
+    <value>Ocultar automáticamente al registrarse</value>
+  </data>
+  <data name="SIGNIN_PWD_WAS_SEND">
+    <value>Su Contraseña ha sido enviada a su dirección de correo</value>
+  </data>
+  <data name="SIGNIN_URL_WARNING">
+    <value>NOTA: La dirección puede no mostrarse en una sola línea en tu pantalla. Esto impide que pueda usarse como enlace de acceso. Si esto ocurriera únicamente haz cortar y pegar para unir las dos partes de la dirección.</value>
+  </data>
+  <data name="SIGNIN_USE_DIRECT_URL">
+    <value>o usa un enlace directo</value>
+  </data>
+  <data name="SINGNINLOCATION">
+    <value>Localización de la Identificación</value>
+  </data>
+  <data name="SORTDIRECTION">
+    <value>Ordenación</value>
+  </data>
+  <data name="STREET">
+    <value>Dirección</value>
+  </data>
+  <data name="SURVEY_ADDBELOW">
+    <value>Agregar</value>
+  </data>
+  <data name="SURVEY_ADDNEWQUESTION">
+    <value>Agregar nueva Pregunta</value>
+  </data>
+  <data name="SURVEY_CHECKBOXES">
+    <value>CheckBoxes</value>
+  </data>
+  <data name="SURVEY_DETAILS">
+    <value>Detalles</value>
+  </data>
+  <data name="SURVEY_OPTIONTYPE">
+    <value>Tipo de Opcion</value>
+  </data>
+  <data name="SURVEY_QUESTIONS">
+    <value>Preguntas</value>
+  </data>
+  <data name="SURVEY_QUESTION_ERR">
+    <value>Ingrese la Pregunta</value>
+  </data>
+  <data name="SURVEY_RADIOBUTTONS">
+    <value>RadioButtons</value>
+  </data>
+  <data name="SURVEY_TITLE">
+    <value>Titulo</value>
+  </data>
+  <data name="SURVEY_VOTES">
+    <value>Votos</value>
+  </data>
+  <data name="SWI_APPROVE">
+    <value>Aprobar</value>
+  </data>
+  <data name="SWI_APPROVESENDMAIL">
+    <value>Aprobar y enviar Email</value>
+  </data>
+  <data name="SWI_BUTTON_MAX">
+    <value>Ver Contenido</value>
+  </data>
+  <data name="SWI_READYTOAPPROVESENDMAIL">
+    <value>Solicitar aprobación y enviar email</value>
+  </data>
+  <data name="SWI_REJECT">
+    <value>Rechazar</value>
+  </data>
+  <data name="SWI_REJECTSENDMAIL">
+    <value>Rechazar y enviar Email</value>
+  </data>
+  <data name="SWI_REJECT_BODY">
+    <value>Puede encontrar el contenido rechazado en: </value>
+  </data>
+  <data name="SWI_REJECT_SUBJECT1">
+    <value>El nuevo contenido de </value>
+  </data>
+  <data name="SWI_REJECT_SUBJECT2">
+    <value>ha sido rechazado.</value>
+  </data>
+  <data name="SWI_REQUEST_APPROVAL_SUBJECT">
+    <value>Petición de aprobación del nuevo contenido de </value>
+  </data>
+  <data name="SWI_REQUEST_BODY">
+    <value>Puede encontrar el nuevo contenido en: </value>
+  </data>
+  <data name="SWI_REQUEST_PUBLISH_SUBJECT">
+    <value>Petición de publicación del nuevo contenido de </value>
+  </data>
+  <data name="SignInApplyTheme">
+    <value>Aplicar Tema en la Identificación</value>
+  </data>
+  <data name="SignInLocation">
+    <value>Localización:</value>
+  </data>
+  <data name="SignInPosition">
+    <value>Posición de la Identificación</value>
+  </data>
+  <data name="SignInShowTitle">
+    <value>Mostrar Título en Identificación?</value>
+  </data>
+  <data name="SignInTheme">
+    <value>Aplicar Tema en Identificación?</value>
+  </data>
+  <data name="SignInType">
+    <value>Tipo de Identificación</value>
+  </data>
+  <data name="TABKEYPHRASE_ES-ES_DESCRIPTION">
+    <value>Frase clave para esta página de Cultura Española (España).</value>
+  </data>
+  <data name="TI_ROLEADMINISTRATIONREMOVEFROMROLE">
+    <value>Borrar el rol seleccionado del usuario</value>
+  </data>
+  <data name="TI_ROLEADMINISTRATIONSELECTIONADDLABEL">
+    <value>Los usuarios seleccionados serán añadidos a:</value>
+  </data>
+  <data name="TI_ROLEADMINISTRATIONSELECTIONREMOVELABEL">
+    <value>Los usuarios seleccionados serán borrados de:</value>
+  </data>
+  <data name="TI_ROLEADMINISTRATIONSELECTIONROLENAME">
+    <value>No tiene ningún rol asignado - Seleccione un rol de la lista desplegable</value>
+  </data>
+  <data name="TI_ROLEADMINISTRATIONSELECTIONWARNING">
+    <value>Seleccione uno o más usuarios</value>
+  </data>
+  <data name="UNKNOWN">
+    <value>Desconocido</value>
+  </data>
+  <data name="URLPAGENAME">
+    <value>Url mostrada</value>
+  </data>
+  <data name="URLPAGENAME_DESCRIPTION">
+    <value>Este característica permite especificar un nombre para esta página que se mostrará en la url en lugar de la estandard</value>
+  </data>
+  <data name="XMLFORM_CLEAR">
+    <value>Limpiar Formulario</value>
+  </data>
+  <data name="XMLFORM_NEW">
+    <value>Nuevo Formulario</value>
+  </data>
+  <data name="XMLFORM_NO_EMAIL">
+    <value>Formulario sin email</value>
+  </data>
+  <data name="XMLFORM_SEND">
+    <value>Enviar</value>
+  </data>
+  <data name="XMLFORM_SUBMITTED">
+    <value>Enviado</value>
+  </data>
+  <data name="COPYALL">
+    <value>Copiar Todo</value>
+  </data>
+  <data name="COPYITEM">
+    <value>Copiar Elemento</value>
+  </data>
+  <data name="CREATED_ON">
+    <value>Creado por</value>
+  </data>
+  <data name="CREDITTRANSFER">
+    <value>CREDITTRANSFER</value>
+  </data>
+  <data name="CREDITTRANSFER_DESCRIPTION">
+    <value>CREDITTRANSFER_DESCRIPTION</value>
+  </data>
+  <data name="EMF_ADDRESSES_NOT_OK">
+    <value>Debe entrar direcciones de correo electrónico válidas</value>
+  </data>
+  <data name="EMF_BCC">
+    <value>CC Oculta</value>
+  </data>
+  <data name="EMF_CC">
+    <value>CC</value>
+  </data>
+  <data name="EMF_SUBJECT">
+    <value>Asunto</value>
+  </data>
+  <data name="EMF_TO">
+    <value>Para</value>
+  </data>
+  <data name="ES-ES">
+    <value>Título (es-ES)</value>
+  </data>
+  <data name="FAQ_A">
+    <value>Respuesta</value>
+  </data>
+  <data name="FAQ_ANSWER_ERR">
+    <value>Respuesta equivocada</value>
+  </data>
+  <data name="FAQ_DETAILS">
+    <value>Detalle</value>
+  </data>
+  <data name="MOVEITEM">
+    <value>Mover</value>
+  </data>
+  <data name="SURVEY_NEWQUESTION">
+    <value>Nueva Pregunta</value>
+  </data>
+  <data name="WINDOWSADMINS">
+    <value>Admitir Administradores Windows?</value>
+  </data>
+  <data name="WINDOWSADMINS_DESCRIPTION">
+    <value>Mostrar entrada para administradores del portal cuando se utiliza Windows Autenticacion y Multiportal</value>
+  </data>
+  <data name="MVC_ACTION">
+    <value>Acción MVC</value>
+  </data>
+  <data name="SELECT_ACTION">
+    <value>Seleccionar acción</value>
+  </data>
+  <data name="ORIGINALHEIGHT">
+    <value>Alto del Original</value>
+  </data>
+  <data name="ORIGINALRESIZE">
+    <value>Generación de Originales</value>
+  </data>
+  <data name="ORIGINALWIDTH">
+    <value>Ancho del Original</value>
+  </data>
+  <data name="REPEATCOLUMNS">
+    <value>Imágenes por Columna</value>
+  </data>
+  <data name="REPEATDIRECTION">
+    <value>Despliegue</value>
+  </data>
+  <data name="REPEATDIRECTIONSETTING">
+    <value>Despliegue</value>
+  </data>
+  <data name="DEFAULT_IMAGE_EDITOR">
+    <value>Editor de Imágenes por defecto</value>
+  </data>
+  <data name="IMAGELAYOUT">
+    <value>Diseño del Original</value>
+  </data>
+  <data name="ENHANCEDLINKS_GENERALIMAGE">
+    <value>Imagen General </value>
+  </data>
+  <data name="ENHANCEDLINKS_GENERALIMAGE_DESCRIPTION">
+    <value>Seleccione una Imágen general para todo el módulo</value>
+  </data>
+  <data name="INSERT_IMAGE_FROM_GALLERY">
+    <value>Insertar una imagen desde la galería</value>
+  </data>
+  <data name="PICTURESPERPAGE">
+    <value>Imágenes por Página</value>
+  </data>
+  <data name="SHOWTHUMBNAILSPANEL">
+    <value>Mostrar Panel miniaturas</value>
+  </data>
+  <data name="AM_TOPPANEL">
+    <value>Panel Superior</value>
+  </data>
+  <data name="AM_BOTOMPANEL">
+    <value>Panel Inferior</value>
+  </data>
+  <data name="TABKEYPHRASE_ES-ES">
+    <value>Frase clave para la página (es-ES)</value>
+  </data>
+  <data name="ERROR_NOT_ALLOWED_PARENT">
+    <value>No se permite seleccionar este padre</value>
+  </data>
+  <data name="BG-BG">
+    <value>BG-BG</value>
+  </data>
+  <data name="BG-BG_DESCRIPTION">
+    <value>BG-BG_DESCRIPTION</value>
+  </data>
+  <data name="COUNTRY_AD">
+    <value>Andorra</value>
+  </data>
+  <data name="COUNTRY_AF">
+    <value>Afghanistan</value>
+  </data>
+  <data name="COUNTRY_AG">
+    <value>Antigua And Barbuda</value>
+  </data>
+  <data name="COUNTRY_AI">
+    <value>Anguilla</value>
+  </data>
+  <data name="COUNTRY_AL">
+    <value>Albania</value>
+  </data>
+  <data name="COUNTRY_AN">
+    <value>Netherlands Antilles</value>
+  </data>
+  <data name="COUNTRY_AO">
+    <value>Angola</value>
+  </data>
+  <data name="F010">
+    <value>F010</value>
+  </data>
+  <data name="FLASH_BACKGROUNDCOLOR">
+    <value>Background Color</value>
+  </data>
+  <data name="GATEWAY_WIRE_TRANSFER">
+    <value>Wire Transfer</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_EN-GB">
+    <value>Title (en-GB)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_EN-GB_DESCRIPTION">
+    <value>Set title for English (United Kingdom) culture.</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_NL-BE">
+    <value>Title (nl-BE)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_NL-BE_DESCRIPTION">
+    <value>Set title for Dutch (Belgium) culture.</value>
+  </data>
+</root>

@@ -1,0 +1,312 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Appleseed.Modules.Contacts</name>
+    </assembly>
+    <members>
+        <member name="T:Appleseed.Content.Web.ModulesContacts">
+            <summary>
+            Contacts module
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContacts.myDataGrid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContacts.myDataView">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContacts.sortField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContacts.sortDirection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesContacts.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The Page_Load event handler on this User Control is used to
+            obtain a DataReader of contact information from the Contacts
+            table, and then databind the results to a DataGrid
+            server control.  It uses the Appleseed.ContactsDB()
+            data component to encapsulate all data functionality.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesContacts.BindGrid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesContacts.#ctor">
+            <summary>
+            Construcotor - set module settings
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesContacts.SearchSqlSelect(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Searchable module implementation
+            </summary>
+            <param name="portalID">The portal ID</param>
+            <param name="userID">ID of the user is searching</param>
+            <param name="searchString">The text to search</param>
+            <param name="searchField">The fields where perfoming the search</param>
+            <returns>The SELECT sql to perform a search on the current module</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesContacts.Install(System.Collections.IDictionary)">
+            <summary>
+            
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesContacts.Uninstall(System.Collections.IDictionary)">
+            <summary>
+            
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesContacts.OnInit(System.EventArgs)">
+            <summary>
+            Raises Init event
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesContacts.GuidID">
+            <summary>
+            GuidID
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesContacts.Searchable">
+            <summary>
+            Searchable module
+            </summary>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesContactsDB">
+            <summary>
+            Class that encapsulates all data logic necessary to add/query/delete
+            contacts within the Portal database.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesContactsDB.GetContacts(System.Int32,Appleseed.Framework.Site.Configuration.Appleseed.Framework.WorkFlowVersion)">
+            <summary>
+            The GetContacts method returns a DataSet containing all of the
+            contacts for a specific portal module from the contacts
+            database.
+            
+            NOTE: A DataSet is returned from this method to allow this method to support
+            both desktop and mobile Web UI.
+            </summary>
+            <param name="moduleID"></param>
+            <param name="version"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesContactsDB.GetSingleContact(System.Int32,Appleseed.Framework.Site.Configuration.Appleseed.Framework.WorkFlowVersion)">
+            <summary>
+            The GetSingleContact method returns a SqlDataReader containing details
+            about a specific contact from the Contacts database table.
+            </summary>
+            <param name="itemID"></param>
+            <param name="version"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesContactsDB.DeleteContact(System.Int32)">
+            <summary>
+            The DeleteContact method deletes the specified contact from
+            the Contacts database table.
+            </summary>
+            <param name="itemID"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesContactsDB.AddContact(System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            The AddContact method adds a new contact to the Contacts
+            database table, and returns the ItemID value as a result.
+            </summary>
+            <param name="moduleID"></param>
+            <param name="itemID"></param>
+            <param name="userName"></param>
+            <param name="name"></param>
+            <param name="role"></param>
+            <param name="email"></param>
+            <param name="contact1"></param>
+            <param name="contact2"></param>
+            <param name="Fax"></param>
+            <param name="Address"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesContactsDB.UpdateContact(System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            The UpdateContact method updates the specified contact within
+            the Contacts database table.
+            </summary>
+            <param name="moduleID"></param>
+            <param name="itemID"></param>
+            <param name="userName"></param>
+            <param name="name"></param>
+            <param name="role"></param>
+            <param name="email"></param>
+            <param name="contact1"></param>
+            <param name="contact2"></param>
+            <param name="Fax"></param>
+            <param name="Address"></param>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesContactsEdit">
+            <summary>
+            Page for editing contacts
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.NameField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.RequiredName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.RoleField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.EmailField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.Contact1Field">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.Contact2Field">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.FaxField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.AddressField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.CreatedDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.CreatedBy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.CreatedLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.OnLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.Literal1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.Literal2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.Literal3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.Literal4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.Literal5">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.Literal6">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.Literal7">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.Literal8">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesContactsEdit.ValidEmail">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesContactsEdit.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The Page_Load event on this Page is used to obtain the ModuleID
+            and ItemID of the contact to edit.
+            
+            It then uses the Appleseed.ContactsDB() data component
+            to populate the page's edit controls with the contact details.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesContactsEdit.OnUpdate(System.EventArgs)">
+            <summary>
+            The UpdateBtn_Click event handler on this Page is used to either
+            create or update a contact.  It  uses the Appleseed.ContactsDB()
+            data component to encapsulate all data functionality.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesContactsEdit.OnDelete(System.EventArgs)">
+            <summary>
+            The DeleteBtn_Click event handler on this Page is used to delete an
+            a contact.  It  uses the Appleseed.ContactsDB()
+            data component to encapsulate all data functionality.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesContactsEdit.OnInit(System.EventArgs)">
+            <summary>
+            Raises OnInitEvent
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesContactsEdit.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesContactsEdit.AllowedModules">
+            <summary>
+            Set the module guids with free access to this page
+            </summary>
+        </member>
+    </members>
+</doc>

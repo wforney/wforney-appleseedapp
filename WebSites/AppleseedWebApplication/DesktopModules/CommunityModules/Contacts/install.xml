@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Modules>
+	<Module>
+		<FriendlyName>Contacts</FriendlyName>
+		<DesktopSource>DesktopModules/CommunityModules/Contacts/Contacts.ascx</DesktopSource>
+		<MobileSource></MobileSource>
+	</Module>
+</Modules>
