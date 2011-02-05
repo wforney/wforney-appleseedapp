@@ -554,6 +554,34 @@ using System.Collections.Generic;
         /// </returns>
         public abstract bool ValidateUser(string portalAlias, string username, string password);
 
+
+
+        /// <summary>
+        /// Create a reset password token for the user in order to allow him to change his password if he lost it. 
+        /// </summary>
+        /// <param name="userId">The user id</param>
+        /// <returns>The token created.</returns>
+        public abstract Guid CreateResetPasswordToken(Guid userId);
+
+
+        /// <summary>
+        /// Checks if the users has that token associated.
+        /// </summary>
+        /// <param name="userId">The user id</param>
+        /// <param name="tokenId">The token</param>
+        /// <returns>True if the user has the token specified or false otherwise</returns>
+        public abstract bool VerifyTokenForUser(Guid userId, Guid tokenId);
+
+        /// <summary>
+        /// Changes the user password. 
+        /// </summary>
+        /// <param name="username">The user username</param>
+        /// <param name="tokenId">The token</param>
+        /// <param name="newPassword">The new password the user wants</param>
+        /// <returns>True if the password is changed, false otherwise</returns>
+        public abstract bool ChangePassword(string username, Guid tokenId, string newPassword);
+
+
         #endregion
 
         #region Methods

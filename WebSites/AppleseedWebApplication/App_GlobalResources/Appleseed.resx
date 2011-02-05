@@ -5552,4 +5552,43 @@ function confirmDelete()
   <data name="USER_SAVING_WRONG_CAPTCHA" xml:space="preserve">
     <value>The security text doesn't match the image provided. Please try again.</value>
   </data>
+  <data name="CHANGE_PWD_ENTER_NEW_PWD" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="CHANGE_PWD_ENTER_NEW_PWD_AGAIN" xml:space="preserve">
+    <value>New password again</value>
+  </data>
+  <data name="CHANGE_PWD_GO_TO_HOME_PAGE" xml:space="preserve">
+    <value>Go to home page</value>
+  </data>
+  <data name="CHANGE_PWD_HEADER" xml:space="preserve">
+    <value>Change your password</value>
+  </data>
+  <data name="CHANGE_PWD_INVALID_URL_ERROR" xml:space="preserve">
+    <value>You are not allowed to use this functionality witout the correct parameters.</value>
+  </data>
+  <data name="CHANGE_PWD_NEW_PWD_SET_MSG" xml:space="preserve">
+    <value>Your new password has been set. You can logon with it now.</value>
+  </data>
+  <data name="CHANGE_PWD_NOT_SAME_TWICE_ERROR" xml:space="preserve">
+    <value>The second password entered is not the same as the first one. Please write them again.</value>
+  </data>
+  <data name="CHANGE_PWD_NO_TOKEN_ERROR" xml:space="preserve">
+    <value>The link that brought you here either was not created by us, or it it was already used for changing the password. </value>
+  </data>
+  <data name="CHANGE_PWD_UNEXPECTED_ERROR" xml:space="preserve">
+    <value>An error ocurred while trying to update your password.</value>
+  </data>
+  <data name="CHANGE_PWD_USR_EXPLANATION" xml:space="preserve">
+    <value>Insert your new password for your account. Once you save the changes you would be able to logon with it.</value>
+  </data>
+  <data name="SIGNIN_PWD_LOST" xml:space="preserve">
+    <value>I lost my password</value>
+  </data>
+  <data name="SIGNIN_PWD_LOST_REQUEST_RECEIVED" xml:space="preserve">
+    <value>We received your request regarding the loss of your password.</value>
+  </data>
+  <data name="SIGNIN_SET_NEW_PWD_MSG" xml:space="preserve">
+    <value>You can set a new password for your account going to the following link:</value>
+  </data>
 </root>
