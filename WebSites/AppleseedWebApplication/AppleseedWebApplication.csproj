@@ -6130,9 +6130,6 @@
     <Content Include="Setup\Scripts\History.xml" />
     <Content Include="Shared\PanesMasterDefault.master" />
     <Content Include="Shared\SiteMasterDefault.master" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\Appleseed.vi.resx">
