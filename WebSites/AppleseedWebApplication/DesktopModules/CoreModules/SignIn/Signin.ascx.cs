@@ -20,20 +20,25 @@
 namespace AppleseedWebApplication.DesktopModules.CoreModules.SignIn
 {
     using System;
-    using System.Net.Mail;
+using System.Data.SqlClient;
     using System.Text;
     using System.Web.Security;
     using System.Web.UI.WebControls;
 
     using Appleseed.Framework;
+using Appleseed.Framework.Content.Security;
     using Appleseed.Framework.DataTypes;
     using Appleseed.Framework.Helpers;
     using Appleseed.Framework.Providers.AppleseedMembershipProvider;
     using Appleseed.Framework.Security;
     using Appleseed.Framework.Settings;
+using Appleseed.Framework.Users.Data;
     using Appleseed.Framework.Web.UI.WebControls;
 
     using Resources;
+using System.Web.Profile;
+using System.Data;
+using System.Net.Mail;
 
     using Localize = Appleseed.Framework.Web.UI.WebControls.Localize;
 
