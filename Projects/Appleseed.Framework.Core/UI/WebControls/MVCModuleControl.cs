@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MVCModuleControl.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   The MVC module control.
@@ -10,7 +10,7 @@
 namespace Appleseed.Framework.Web.UI.WebControls
 {
     using System;
-    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using System.Web.Routing;
@@ -74,14 +74,14 @@ namespace Appleseed.Framework.Web.UI.WebControls
                 var hashtable2 = GetMVCModuleSettingsDefinitions(
                     strArray[0], this.AreaName, this.ControllerName, this.ActionName);
 
-                foreach (var key in hashtable2.Keys.Cast<string>().Where(key => !this._baseSettings.ContainsKey(key)))
+                foreach (var key in hashtable2.Keys.Where(key => !this._baseSettings.ContainsKey(key)))
                 {
                     this._baseSettings.Add(key, hashtable2[key]);
                 }
             }
 
             this.ModuleID = this.ModID;
-            
+
             // var s = this.Settings;
         }
 
@@ -107,10 +107,10 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// <returns>
         /// A hash table of the settings.
         /// </returns>
-        private static Hashtable GetMVCModuleSettingsDefinitions(
+        private static Dictionary<string, ISettingItem> GetMVCModuleSettingsDefinitions(
             string controllerNamespace, string areaName, string controllerName, string actionName)
         {
-            var hashtable = new Hashtable();
+            var hashtable = new Dictionary<string, ISettingItem>();
             var index = controllerNamespace.ToLower().IndexOf(".mvc");
             if (index < 0)
             {
@@ -135,7 +135,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                     if (target != null)
                     {
                         var hashtable2 =
-                            (Hashtable)
+                            (Dictionary<string, ISettingItem>)
                             target.GetType().InvokeMember(
                                 actionName + "_SettingsDefinitions", BindingFlags.InvokeMethod, null, target, null, null);
                         hashtable = hashtable2;

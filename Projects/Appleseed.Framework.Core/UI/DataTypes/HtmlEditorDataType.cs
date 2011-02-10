@@ -10,6 +10,7 @@
 namespace Appleseed.Framework.DataTypes
 {
     using System.Collections;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Web;
     using System.Web.UI;
@@ -90,7 +91,7 @@ namespace Appleseed.Framework.DataTypes
         /// </param>
         /// <remarks>
         /// </remarks>
-        public static void HtmlEditorSettings(Hashtable editorSettings, SettingItemGroup group)
+        public static void HtmlEditorSettings(Dictionary<string, ISettingItem> editorSettings, SettingItemGroup group)
         {
             var pS = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
 

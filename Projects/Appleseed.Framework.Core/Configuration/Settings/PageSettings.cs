@@ -12,6 +12,7 @@ namespace Appleseed.Framework.Site.Configuration
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Data;
@@ -87,7 +88,7 @@ namespace Appleseed.Framework.Site.Configuration
         /// <summary>
         ///     The custom settings.
         /// </summary>
-        private Hashtable customSettings;
+        private Dictionary<string, ISettingItem> customSettings;
 
         // Jes1111
         // public int TemplateId;
@@ -111,7 +112,7 @@ namespace Appleseed.Framework.Site.Configuration
         ///     Gets Page Settings For Search Engines
         /// </summary>
         /// <value>The custom settings.</value>
-        public Hashtable CustomSettings
+        public Dictionary<string, ISettingItem> CustomSettings
         {
             get
             {
@@ -346,9 +347,9 @@ namespace Appleseed.Framework.Site.Configuration
         /// <returns>
         /// The hash table.
         /// </returns>
-        public Hashtable GetPageCustomSettings(int pageId)
+        public Dictionary<string, ISettingItem> GetPageCustomSettings(int pageId)
         {
-            Hashtable baseSettings;
+            Dictionary<string, ISettingItem> baseSettings;
 
             if (!CurrentCache.Exists(Key.TabSettings(pageId)))
             {
@@ -420,7 +421,7 @@ namespace Appleseed.Framework.Site.Configuration
             }
             else
             {
-                baseSettings = (Hashtable)CurrentCache.Get(Key.TabSettings(pageId));
+                baseSettings = (Dictionary<string, ISettingItem>)CurrentCache.Get(Key.TabSettings(pageId));
             }
 
             return baseSettings;
@@ -487,10 +488,10 @@ namespace Appleseed.Framework.Site.Configuration
         /// <returns>
         /// A System.Collections.Hashtable value...
         /// </returns>
-        private Hashtable GetPageBaseSettings()
+        private Dictionary<string, ISettingItem> GetPageBaseSettings()
         {
             // Define base settings
-            var baseSettings = new Hashtable();
+            var baseSettings = new Dictionary<string, ISettingItem>();
 
             // 2_aug_2004 Cory Isakson
             var groupOrderBase = (int)SettingItemGroup.NAVIGATION_SETTINGS;

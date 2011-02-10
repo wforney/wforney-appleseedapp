@@ -339,7 +339,7 @@ namespace Appleseed.FCKeditorV2
 				{
 					PortalSettings portalSettings = (PortalSettings) HttpContext.Current.Items["PortalSettings"];
 					if (portalSettings == null) return null;
-					Hashtable ms = ModuleSettings.GetModuleSettings(portalSettings.ActiveModule);
+					var ms = ModuleSettings.GetModuleSettings(portalSettings.ActiveModule);
 					string DefaultImageFolder = "default";
 					if (ms["MODULE_IMAGE_FOLDER"] != null) 
 					{
