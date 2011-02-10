@@ -10,7 +10,6 @@
 namespace Appleseed.Framework.DataTypes
 {
     using System.Collections;
-    using System.Text;
     using System.Web;
     using System.Web.UI;
     using System.Web.UI.WebControls;
@@ -86,7 +85,7 @@ namespace Appleseed.Framework.DataTypes
 
             var editor = new SettingItem<string, DropDownList>(new HtmlEditorDataType())
                 {
-                    // 1; modified by Hongwei Shen(hongwei.shen@gmail.com) 11/9/2005
+                    // Order = 1; modified by Hongwei Shen(hongwei.shen@gmail.com) 11/9/2005
                     Order = (int)group + 1, 
                     Group = group, 
                     EnglishName = "Editor", 
@@ -95,8 +94,8 @@ namespace Appleseed.Framework.DataTypes
 
             var controlWidth = new SettingItem<int, TextBox>(new IntegerDataType())
                 {
-                    Value = 700,
-                    // 2; modified by Hongwei Shen
+                    // Order = 2; modified by Hongwei Shen
+                    Value = 700, 
                     Order = (int)group + 2, 
                     Group = group, 
                     EnglishName = "Editor Width", 
@@ -105,8 +104,8 @@ namespace Appleseed.Framework.DataTypes
 
             var controlHeight = new SettingItem<int, TextBox>(new IntegerDataType())
                 {
+                    // Order = 3; modified by Hongwei Shen
                     Value = 400, 
-                    // 3; modified by Hongwei Shen
                     Order = (int)group + 3, 
                     Group = group, 
                     EnglishName = "Editor Height", 
@@ -115,8 +114,8 @@ namespace Appleseed.Framework.DataTypes
 
             var showUpload = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
+                    // Order = 4;  modified by Hongwei Shen
                     Value = true, 
-                    // 4;  modified by Hongwei Shen
                     Order = (int)group + 4, 
                     Group = group, 
                     EnglishName = "Upload?", 
@@ -134,8 +133,8 @@ namespace Appleseed.Framework.DataTypes
                                 HttpContext.Current.Server.MapPath(string.Format("{0}/images", pS.PortalFullPath)), 
                                 "default"))
                             {
+                                // Order = 5;  modified by Hongwei Shen
                                 Value = "default", 
-                                // 5;  modified by Hongwei Shen
                                 Order = (int)group + 5, 
                                 Group = group, 
                                 EnglishName = "Default Image Folder", 
@@ -193,100 +192,13 @@ namespace Appleseed.Framework.DataTypes
         }
 
         /// <summary>
-        /// </summary>
-        protected override void InitializeComponents()
-        {
-            base.InitializeComponents();
-            // Default
-            Value = "FreeTextBox";
-            // Change the default value to Portal Default Editor Value by jviladiu@portalServices.net 13/07/2004
-
-            if (HttpContext.Current != null && HttpContext.Current.Items["PortalSettings"] != null)
-            {
-                PortalSettings pS = (PortalSettings) HttpContext.Current.Items["PortalSettings"];
-                if (pS.CustomSettings != null)
-                {
-                    if (pS.CustomSettings["SITESETTINGS_DEFAULT_EDITOR"] != null)
-                        Value = pS.CustomSettings["SITESETTINGS_DEFAULT_EDITOR"].ToString();
-                }
-            }
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <value></value>
-        public override object DataSource
-        {
-            get { return "Plain Text;FCKeditor;SyrinxCkEditor;FreeTextBox".Split(';'); }
-        }
-
-        /// <summary>
-        /// Gets the description.
-        /// </summary>
-        /// <value>The description.</value>
-        public override string Description
-        {
-            get { return "HtmlEditor List"; }
-        }
-
-        /// <summary>
-        /// Gets the FTB language.
-        /// </summary>
-        /// <param name="AppleseedLanguage">The Appleseed language.</param>
-        /// <returns></returns>
-        private static string getFtbLanguage(string AppleseedLanguage)
-        {
-            switch (AppleseedLanguage.Substring(AppleseedLanguage.Length - 2).ToLower())
-            {
-                case "en":
-                    return "en-US";
-                case "us":
-                    return "en-US";
-                case "es":
-                    return "es-ES";
-                case "cn":
-                    return "zh-cn";
-                case "cz":
-                    return "cz-CZ";
-                case "fi":
-                    return "fi-fi";
-                case "nl":
-                    return "nl-NL";
-                case "de":
-                    return "de-de";
-                case "il":
-                    return "he-IL";
-                case "it":
-                    return "it-IT";
-                case "jp":
-                    return "ja-JP";
-                case "kr":
-                    return "ko-kr";
-                case "no":
-                    return "nb-NO";
-                case "pt":
-                    return "pt-pt";
-                case "ro":
-                    return "ro-RO";
-                case "ru":
-                    return "ru-ru";
-                case "se":
-                    return "sv-se";
-                case "tw":
-                    return "zh-TW";
-                default:
-                    return "en-US";
-            }
-        }
-
-        /// <summary>
         /// Gets the editor.
         /// </summary>
         /// <param name="placeHolderHtmlEditor">
         /// The place holder HTML editor.
         /// </param>
         /// <param name="moduleId">
-        /// The module ID.
+        /// The module id.
         /// </param>
         /// <param name="showUpload">
         /// if set to <c>true</c> [show upload].
@@ -295,87 +207,95 @@ namespace Appleseed.Framework.DataTypes
         /// The portal settings.
         /// </param>
         /// <returns>
-        /// An html editor interface.
+        /// An HTML editor interface.
         /// </returns>
-        /// </summary>
-        /// <param name="PlaceHolderHTMLEditor">The place holder HTML editor.</param>
-        /// <param name="moduleID">The module ID.</param>
-        /// <param name="showUpload">if set to <c>true</c> [show upload].</param>
-        /// <param name="portalSettings">The portal settings.</param>
-        /// <returns></returns>
-        public IHtmlEditor GetEditor(Control PlaceHolderHTMLEditor, int moduleID, bool showUpload,
-                                     PortalSettings portalSettings)
+        /// <remarks>
+        /// </remarks>
+        public IHtmlEditor GetEditor(
+            Control placeHolderHtmlEditor, int moduleId, bool showUpload, PortalSettings portalSettings)
         {
-            IHtmlEditor DesktopText;
-            string moduleImageFolder = ModuleSettings.GetModuleSettings(moduleID)["MODULE_IMAGE_FOLDER"].ToString();
+            IHtmlEditor desktopText;
+            var moduleImageFolder = ModuleSettings.GetModuleSettings(moduleId)["MODULE_IMAGE_FOLDER"].ToString();
 
             // Grabs ID from the place holder so that a unique editor is on the page if more than one
             // But keeps same ID so that the information can be submitted to be saved. [CDT]
-            string uniqueID = PlaceHolderHTMLEditor.ID;
+            var uniqueId = placeHolderHtmlEditor.ID;
 
-            switch (Value)
+            switch (this.Value)
             {
                 case "FCKeditor": // 9/8/2010
-                    FCKTextBoxV2 fckv2 = new FCKTextBoxV2();
-                    fckv2.ImageFolder = moduleImageFolder;
-                    fckv2.BasePath = Path.WebPathCombine(Path.ApplicationRoot, "aspnet_client/FCKeditorV2.6.6/");
-                    fckv2.AutoDetectLanguage = false;
-                    fckv2.DefaultLanguage = portalSettings.PortalUILanguage.Name.Substring(0, 2);
-//					fckv2.EditorAreaCSS = portalSettings.GetCurrentTheme().CssFile;
-                    fckv2.ID = string.Concat("FCKTextBox", uniqueID);
-                    string conector = Path.ApplicationRootPath("/app_support/FCKconnectorV2.aspx");
-                    fckv2.ImageBrowserURL =
-                        Path.WebPathCombine(Path.ApplicationRoot,
-                                            "aspnet_client/FCKeditorV2.6.6/editor/filemanager/browser/default/" +
-                                            "browser.html?Type=Image%26Connector=" + conector);
-                    fckv2.LinkBrowserURL =
-                        Path.WebPathCombine(Path.ApplicationRoot,
-                                            "aspnet_client/FCKeditorV2.6.6/editor/filemanager/browser/default/" +
-                                            "browser.html?Connector=" + conector);
-                    DesktopText = ((IHtmlEditor) fckv2);
+                    var conector = Path.ApplicationRootPath("/app_support/FCKconnectorV2.aspx");
+                    var fckv2 = new FCKTextBoxV2
+                        {
+                            ImageFolder = moduleImageFolder, 
+                            BasePath = Path.WebPathCombine(Path.ApplicationRoot, "aspnet_client/FCKeditorV2.6.6/"), 
+                            AutoDetectLanguage = false, 
+                            DefaultLanguage = portalSettings.PortalUILanguage.Name.Substring(0, 2), 
+                            ID = string.Concat("FCKTextBox", uniqueId), 
+                            ImageBrowserURL =
+                                Path.WebPathCombine(
+                                    Path.ApplicationRoot, 
+                                    string.Format(
+                                        "aspnet_client/FCKeditorV2.6.6/editor/filemanager/browser/default/browser.html?Type=Image%26Connector={0}", 
+                                        conector)), 
+                            LinkBrowserURL =
+                                Path.WebPathCombine(
+                                    Path.ApplicationRoot, 
+                                    string.Format(
+                                        "aspnet_client/FCKeditorV2.6.6/editor/filemanager/browser/default/browser.html?Connector={0}", 
+                                        conector))
+                        };
+
+                    // fckv2.EditorAreaCSS = portalSettings.GetCurrentTheme().CssFile;
+                    desktopText = fckv2;
                     break;
 
-
                 case "SyrinxCkEditor":
-                    SyrinxCkTextBox.CkEditorJS = Path.WebPathCombine(Path.ApplicationRoot,
-                                            "aspnet_client/ckeditor/ckeditor.js");
-                    
-                    SyrinxCkTextBox sckvtb = new SyrinxCkTextBox();
-                    sckvtb.ImageFolder = moduleImageFolder;
-                    sckvtb.BaseContentUrl = Path.WebPathCombine(Path.ApplicationRoot, "aspnet_client/ckeditor/");
-                    sckvtb.Resizable = false;
-                    sckvtb.Language = portalSettings.PortalUILanguage.TwoLetterISOLanguageName;
+                    CkEditor.CkEditorJS = Path.WebPathCombine(
+                        Path.ApplicationRoot, "aspnet_client/ckeditor/ckeditor.js");
 
-                    DesktopText = ((IHtmlEditor)sckvtb);
+                    var sckvtb = new SyrinxCkTextBox
+                        {
+                            ImageFolder = moduleImageFolder, 
+                            BaseContentUrl = Path.WebPathCombine(Path.ApplicationRoot, "aspnet_client/ckeditor/"), 
+                            Resizable = false, 
+                            Language = portalSettings.PortalUILanguage.TwoLetterISOLanguageName
+                        };
+
+                    desktopText = sckvtb;
                     break;
 
                 case "FreeTextBox":
-                    FreeTextBox freeText = new FreeTextBox();
-                    //freeText.ToolbarLayout =
-                    //    "ParagraphMenu,FontFacesMenu,FontSizesMenu,FontForeColorPicker,FontBackColorPicker,FontForeColorsMenu|Bold,Italic,Underline,Strikethrough;Superscript,Subscript,RemoveFormat;CreateLink,Unlink|JustifyLeft,JustifyRight,JustifyCenter,JustifyFull;BulletedList,NumberedList,Indent,Outdent;InsertRule|Delete,Cut,Copy,Paste;Undo,Redo,Print;InsertTable,InsertTableColumnAfter,InsertTableColumnBefore,InsertTableRowAfter,InsertTableRowBefore,DeleteTableColumn,DeleteTableRow,InsertImageFromGallery";
-                    freeText.ImageGalleryUrl =
-                        Path.WebPathCombine(Path.ApplicationFullPath,
-                                            "app_support/ftb.imagegallery.aspx?rif={0}&cif={0}&mID=" +
-                                            moduleID.ToString());
-                    freeText.ImageFolder = moduleImageFolder;
-                    freeText.ImageGalleryPath = Path.WebPathCombine(portalSettings.PortalFullPath, freeText.ImageFolder);
-                    freeText.ID = string.Concat("FreeText", uniqueID);
-                    freeText.Language = getFtbLanguage(portalSettings.PortalUILanguage.Name);
-                    freeText.JavaScriptLocation = FreeTextBoxControls.ResourceLocation.ExternalFile;
-                    freeText.ButtonImagesLocation = FreeTextBoxControls.ResourceLocation.ExternalFile;
-                    freeText.ToolbarImagesLocation = FreeTextBoxControls.ResourceLocation.ExternalFile;
-                    freeText.SupportFolder = Path.WebPathCombine(Path.ApplicationFullPath,"aspnet_client/FreeTextBox");
+                    var freeText = new FreeTextBox
+                        {
+                            ImageGalleryUrl =
+                                Path.WebPathCombine(
+                                    Path.ApplicationFullPath, 
+                                    string.Format(
+                                        "app_support/ftb.imagegallery.aspx?rif={{0}}&cif={{0}}&mID={0}", moduleId)), 
+                            ImageFolder = moduleImageFolder, 
+                            ImageGalleryPath = Path.WebPathCombine(portalSettings.PortalFullPath, moduleImageFolder), 
+                            ID = string.Concat("FreeText", uniqueId), 
+                            Language = GetFtbLanguage(portalSettings.PortalUILanguage.Name), 
+                            JavaScriptLocation = ResourceLocation.ExternalFile, 
+                            ButtonImagesLocation = ResourceLocation.ExternalFile, 
+                            ToolbarImagesLocation = ResourceLocation.ExternalFile, 
+                            SupportFolder = Path.WebPathCombine(Path.ApplicationFullPath, "aspnet_client/FreeTextBox")
+                        };
 
-                    DesktopText = ((IHtmlEditor) freeText);
+                    // freeText.ToolbarLayout =
+                    // "ParagraphMenu,FontFacesMenu,FontSizesMenu,FontForeColorPicker,FontBackColorPicker,FontForeColorsMenu|Bold,Italic,Underline,Strikethrough;Superscript,Subscript,RemoveFormat;CreateLink,Unlink|JustifyLeft,JustifyRight,JustifyCenter,JustifyFull;BulletedList,NumberedList,Indent,Outdent;InsertRule|Delete,Cut,Copy,Paste;Undo,Redo,Print;InsertTable,InsertTableColumnAfter,InsertTableColumnBefore,InsertTableRowAfter,InsertTableRowBefore,DeleteTableColumn,DeleteTableRow,InsertImageFromGallery";
+                    desktopText = freeText;
                     break;
-                
-                case "Plain Text":
+
+                    // case "Plain Text":
                 default:
-                    DesktopText = (new TextEditor());
+                    desktopText = new TextEditor();
                     break;
             }
-            PlaceHolderHTMLEditor.Controls.Add(((Control) DesktopText));
-            return DesktopText;
+
+            placeHolderHtmlEditor.Controls.Add((Control)desktopText);
+            return desktopText;
         }
 
         #endregion
