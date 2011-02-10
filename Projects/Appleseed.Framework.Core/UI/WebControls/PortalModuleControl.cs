@@ -371,12 +371,12 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// </summary>
         private bool supportsCollapsible;
 
-/*
-        /// <summary>
-        /// The supports help.
-        /// </summary>
-        private bool supportsHelp;
-*/
+        /*
+                /// <summary>
+                /// The supports help.
+                /// </summary>
+                private bool supportsHelp;
+        */
 
         /// <summary>
         ///   The title text.
@@ -431,21 +431,22 @@ namespace Appleseed.Framework.Web.UI.WebControls
             var group = SettingItemGroup.THEME_LAYOUT_SETTINGS;
             var groupOrderBase = (int)SettingItemGroup.THEME_LAYOUT_SETTINGS;
 
-            var applyTheme = new SettingItem(new BooleanDataType())
+            var applyTheme = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
                     Order = groupOrderBase + 10,
                     Group = group,
-                    Value = "True",
+                    Value = true,
                     EnglishName = "Apply Theme",
                     Description = "Check this box to apply theme to this module"
                 };
             this._baseSettings.Add("MODULESETTINGS_APPLY_THEME", applyTheme);
 
-            var themeOptions = new List<SettingOption> {
-                    new SettingOption((int)ThemeList.Default, General.GetString("MODULESETTINGS_THEME_DEFAULT")), 
+            var themeOptions = new List<SettingOption>
+                {
+                    new SettingOption((int)ThemeList.Default, General.GetString("MODULESETTINGS_THEME_DEFAULT")),
                     new SettingOption((int)ThemeList.Alt, General.GetString("MODULESETTINGS_THEME_ALT"))
                 };
-            var theme = new SettingItem(new CustomListDataType(themeOptions, "Name", "Val"))
+            var theme = new SettingItem<string, ListControl>(new CustomListDataType(themeOptions, "Name", "Val"))
                 {
                     Order = groupOrderBase + 20,
                     Group = group,
@@ -478,7 +479,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
                         var customThemeNo = new ThemeItem { Name = string.Empty };
                         themeList.Insert(0, customThemeNo);
-                        var moduleTheme = new SettingItem(new CustomListDataType(themeList, "Name", "Name"))
+                        var moduleTheme = new SettingItem<string, ListControl>(new CustomListDataType(themeList, "Name", "Name"))
                             {
                                 Order = groupOrderBase + 25,
                                 Group = group,
@@ -491,22 +492,22 @@ namespace Appleseed.Framework.Web.UI.WebControls
             }
 
             // switches title display on/off
-            var showTitle = new SettingItem(new BooleanDataType())
+            var showTitle = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
                     Order = groupOrderBase + 30,
                     Group = group,
-                    Value = "True",
+                    Value = true,
                     EnglishName = "Show Title",
                     Description = "Switches title display on/off"
                 };
             this._baseSettings.Add("MODULESETTINGS_SHOW_TITLE", showTitle);
 
             // switches last modified summary on/off
-            var showModifiedBy = new SettingItem(new BooleanDataType())
+            var showModifiedBy = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
                     Order = groupOrderBase + 40,
                     Group = group,
-                    Value = "False",
+                    Value = false,
                     EnglishName = "Show Modified by",
                     Description = "Switches 'Show Modified by' display on/off"
                 };
@@ -516,9 +517,9 @@ namespace Appleseed.Framework.Web.UI.WebControls
             // - implement width, height, and content scrolling options for all modules 
             // - implement auto-stretch option
             // Windows height
-            var controlHeight = new SettingItem(new IntegerDataType())
+            var controlHeight = new SettingItem<int, TextBox>(new IntegerDataType())
                 {
-                    Value = "0",
+                    Value = 0,
                     MinValue = 0,
                     MaxValue = 3000,
                     Required = true,
@@ -530,9 +531,9 @@ namespace Appleseed.Framework.Web.UI.WebControls
             this._baseSettings.Add("MODULESETTINGS_CONTENT_HEIGHT", controlHeight);
 
             // Windows width
-            var controlWidth = new SettingItem(new IntegerDataType())
+            var controlWidth = new SettingItem<int, TextBox>(new IntegerDataType())
                 {
-                    Value = "0",
+                    Value = 0,
                     MinValue = 0,
                     MaxValue = 3000,
                     Required = true,
@@ -544,9 +545,9 @@ namespace Appleseed.Framework.Web.UI.WebControls
             this._baseSettings.Add("MODULESETTINGS_CONTENT_WIDTH", controlWidth);
 
             // Content scrolling option
-            var scrollingSetting = new SettingItem(new BooleanDataType())
+            var scrollingSetting = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
-                    Value = "false",
+                    Value = false,
                     Order = groupOrderBase + 70,
                     Group = group,
                     EnglishName = "Content Scrolling",
@@ -555,9 +556,9 @@ namespace Appleseed.Framework.Web.UI.WebControls
             this._baseSettings.Add("MODULESETTINGS_CONTENT_SCROLLING", scrollingSetting);
 
             // Module Stretching option
-            var stretchSetting = new SettingItem(new BooleanDataType())
+            var stretchSetting = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
-                    Value = "true",
+                    Value = true,
                     Order = groupOrderBase + 80,
                     Group = group,
                     EnglishName = "Module Auto Stretch",
@@ -573,9 +574,9 @@ namespace Appleseed.Framework.Web.UI.WebControls
             groupOrderBase = (int)SettingItemGroup.BUTTON_DISPLAY_SETTINGS;
 
             // Show print button in view mode?
-            var printButton1 = new SettingItem(new BooleanDataType())
+            var printButton1 = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
-                    Value = "False",
+                    Value = false,
                     Order = groupOrderBase + 20,
                     Group = group,
                     EnglishName = "Show Print Button",
@@ -585,9 +586,9 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
             // added: Jes1111 2004-08-29 - choice! Default is 'true' for backward compatibility
             // Show Title for print?
-            var showTitlePrint = new SettingItem(new BooleanDataType())
+            var showTitlePrint = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
-                    Value = "True",
+                    Value = true,
                     Order = groupOrderBase + 25,
                     Group = group,
                     EnglishName = "Show Title for Print",
@@ -596,21 +597,22 @@ namespace Appleseed.Framework.Web.UI.WebControls
             this._baseSettings.Add("MODULESETTINGS_SHOW_TITLE_PRINT", showTitlePrint);
 
             // added: Jes1111 2004-08-02 - choices for Button display on module
-            var buttonDisplayOptions = new List<SettingOption> {
+            var buttonDisplayOptions = new List<SettingOption>
+                {
                     new SettingOption(
-                        (int)ModuleButton.RenderOptions.ImageOnly, 
-                        General.GetString("MODULESETTINGS_BUTTON_DISPLAY_IMAGE")), 
+                        (int)ModuleButton.RenderOptions.ImageOnly,
+                        General.GetString("MODULESETTINGS_BUTTON_DISPLAY_IMAGE")),
                     new SettingOption(
-                        (int)ModuleButton.RenderOptions.TextOnly, 
-                        General.GetString("MODULESETTINGS_BUTTON_DISPLAY_TEXT")), 
+                        (int)ModuleButton.RenderOptions.TextOnly,
+                        General.GetString("MODULESETTINGS_BUTTON_DISPLAY_TEXT")),
                     new SettingOption(
-                        (int)ModuleButton.RenderOptions.ImageAndTextCSS, 
-                        General.GetString("MODULESETTINGS_BUTTON_DISPLAY_BOTH")), 
+                        (int)ModuleButton.RenderOptions.ImageAndTextCSS,
+                        General.GetString("MODULESETTINGS_BUTTON_DISPLAY_BOTH")),
                     new SettingOption(
-                        (int)ModuleButton.RenderOptions.ImageOnlyCSS, 
+                        (int)ModuleButton.RenderOptions.ImageOnlyCSS,
                         General.GetString("MODULESETTINGS_BUTTON_DISPLAY_IMAGECSS"))
                 };
-            var buttonDisplay = new SettingItem(new CustomListDataType(buttonDisplayOptions, "Name", "Val"))
+            var buttonDisplay = new SettingItem<string, ListControl>(new CustomListDataType(buttonDisplayOptions, "Name", "Val"))
                 {
                     Order = groupOrderBase + 30,
                     Group = group,
@@ -623,16 +625,16 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
             // Jes1111 - not implemented yet
             // // Show email button in view mode?
-            // SettingItem EmailButton = new SettingItem(new BooleanDataType());
+            // SettingItem EmailButton = new SettingItem<bool, CheckBox>(new BooleanDataType());
             // EmailButton.Value = "False";
             // EmailButton.Order = _groupOrderBase + 30;
             // EmailButton.Group = _Group;
             // this._baseSettings.Add("ShowEmailButton",EmailButton);
 
             // Show arrows buttons to move modules (admin only, property authorise)
-            var arrowButtons = new SettingItem(new BooleanDataType())
+            var arrowButtons = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
-                    Value = "True",
+                    Value = true,
                     Order = groupOrderBase + 40,
                     Group = group,
                     EnglishName = "Show Arrow Admin Buttons",
@@ -641,9 +643,9 @@ namespace Appleseed.Framework.Web.UI.WebControls
             this._baseSettings.Add("MODULESETTINGS_SHOW_ARROW_BUTTONS", arrowButtons);
 
             // Show help button if exists
-            var helpButton1 = new SettingItem(new BooleanDataType())
+            var helpButton1 = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
-                    Value = "True",
+                    Value = true,
                     Order = groupOrderBase + 50,
                     Group = group,
                     EnglishName = "Show Help Button",
@@ -657,7 +659,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
             var cultureList = Localization.LanguageSwitcher.GetLanguageList(true);
 
-            var culture = new SettingItem(new MultiSelectListDataType(cultureList, "DisplayName", "Name"))
+            var culture = new SettingItem<string, ListControl>(new MultiSelectListDataType(cultureList, "DisplayName", "Name"))
                 {
                     Value = string.Empty,
                     Order = groupOrderBase + 10,
@@ -672,12 +674,10 @@ namespace Appleseed.Framework.Web.UI.WebControls
             var counter = groupOrderBase + 11;
 
             // Ignore invariant
-            foreach (
-                var c in
-                    cultureList.Where(c => c != CultureInfo.InvariantCulture && !this._baseSettings.ContainsKey(c.Name))
-                )
+            foreach (var c in
+                cultureList.Where(c => c != CultureInfo.InvariantCulture && !this._baseSettings.ContainsKey(c.Name)))
             {
-                var localizedTitle = new SettingItem(new StringDataType())
+                var localizedTitle = new SettingItem<string, TextBox>(new StringDataType())
                     {
                         Order = counter,
                         Group = group,
@@ -694,10 +694,11 @@ namespace Appleseed.Framework.Web.UI.WebControls
                 groupOrderBase = (int)SettingItemGroup.MODULE_SPECIAL_SETTINGS;
                 group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
 
-                var topicName = new SettingItem(new StringDataType())
+                var topicName = new SettingItem<string, TextBox>(new StringDataType())
                     {
                         Required = false,
                         Value = string.Empty,
+
                         // modified by Hongwei Shen(hongwei.shen@gmail.com) 11/9/2005
                         // group base and order is not specified
                         Group = group,
@@ -715,9 +716,9 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
             this.moduleConfiguration = new ModuleSettings();
 
-            var share = new SettingItem(new BooleanDataType())
+            var share = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
-                    Value = "False",
+                    Value = false,
                     Order = groupOrderBase + 51,
                     Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS,
                     EnglishName = "ShareModule",
@@ -3063,8 +3064,8 @@ namespace Appleseed.Framework.Web.UI.WebControls
         public string GetLastModified()
         {
             // CHANGE by david.verberckmoes@syntegra.com on june, 2 2003
-            if (bool.Parse(((SettingItem)this.portalSettings.CustomSettings["SITESETTINGS_SHOW_MODIFIED_BY"]).Value) &&
-                bool.Parse(((SettingItem)this.Settings["MODULESETTINGS_SHOW_MODIFIED_BY"]).Value))
+            if (((SettingItem<bool, CheckBox>)this.portalSettings.CustomSettings["SITESETTINGS_SHOW_MODIFIED_BY"]).Value &&
+                ((SettingItem<bool, CheckBox>)this.Settings["MODULESETTINGS_SHOW_MODIFIED_BY"]).Value)
             {
                 // Get stuff from database
                 var email = string.Empty;
@@ -5059,10 +5060,8 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
                     break;
                 case "ShowModifiedBy":
-                    if (
-                        bool.Parse(
-                            ((SettingItem)this.portalSettings.CustomSettings["SITESETTINGS_SHOW_MODIFIED_BY"]).Value) &&
-                        bool.Parse(((SettingItem)this.Settings["MODULESETTINGS_SHOW_MODIFIED_BY"]).Value))
+                    if (((SettingItem<bool, CheckBox>)this.portalSettings.CustomSettings["SITESETTINGS_SHOW_MODIFIED_BY"]).Value &&
+                        ((SettingItem<bool, CheckBox>)this.Settings["MODULESETTINGS_SHOW_MODIFIED_BY"]).Value)
                     {
                         returnVal = true;
                     }

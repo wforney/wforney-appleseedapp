@@ -43,13 +43,12 @@ namespace Appleseed.Content.Web.Modules
             SettingItemGroup group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             int groupBase = (int) group;
 
-            SettingItem setSortField =
-                new SettingItem(
-                    new ListDataType("ActivityTime;ActivityType;Name;PortalName;TabName;UserHostAddress;UserAgent"));
-            setSortField.Required = true;
-            setSortField.Value = "ActivityTime";
-            setSortField.Group = group;
-            setSortField.Order = groupBase + 20; //1;
+            var setSortField =
+                new SettingItem<string, ListControl>(
+                    new ListDataType<string, ListControl>("ActivityTime;ActivityType;Name;PortalName;TabName;UserHostAddress;UserAgent"))
+                    { Required = true, Value = "ActivityTime", Group = group, Order = groupBase + 20 };
+
+            // 1;
             _baseSettings.Add("SortField", setSortField);
         }
 

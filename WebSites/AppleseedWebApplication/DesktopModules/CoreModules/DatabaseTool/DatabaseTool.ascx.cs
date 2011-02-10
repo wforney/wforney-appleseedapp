@@ -8,6 +8,8 @@ using Label=System.Web.UI.WebControls.Label;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// DatabaseTool Module
     /// Based on VB code Written by Sreedhar Koganti (w3coder)
@@ -372,58 +374,58 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public DatabaseTool()
         {
-            SettingItem Trusted_Connection = new SettingItem(new BooleanDataType());
+            var Trusted_Connection = new SettingItem<bool, CheckBox>(new BooleanDataType());
             Trusted_Connection.Order = 1;
             //Trusted_Connection.Required = true;   // hmmm... problem here! Dont set to true!" 
-            Trusted_Connection.Value = "True";
+            Trusted_Connection.Value = true;
             _baseSettings.Add("Trusted Connection", Trusted_Connection);
 
-            SettingItem ServerName = new SettingItem(new StringDataType());
+            var ServerName = new SettingItem<string, TextBox>(new StringDataType());
             ServerName.Order = 2;
             ServerName.Required = true;
             ServerName.Value = "localhost";
             _baseSettings.Add("ServerName", ServerName);
 
-            SettingItem DatabaseName = new SettingItem(new StringDataType());
+            var DatabaseName = new SettingItem<string, TextBox>(new StringDataType());
             DatabaseName.Order = 3;
             DatabaseName.Required = true;
             DatabaseName.Value = "Appleseed";
             _baseSettings.Add("DatabaseName", DatabaseName);
 
-            SettingItem UserID = new SettingItem(new StringDataType());
+            var UserID = new SettingItem<string, TextBox>(new StringDataType());
             UserID.Order = 4;
             UserID.Required = false;
             UserID.Value = string.Empty;
             _baseSettings.Add("UserID", UserID);
 
-            SettingItem Password = new SettingItem(new StringDataType());
+            var Password = new SettingItem<string, TextBox>(new StringDataType());
             Password.Order = 5;
             Password.Required = false;
             Password.Value = string.Empty;
             _baseSettings.Add("Password", Password);
 
-            SettingItem InfoFields = new SettingItem(new StringDataType());
+            var InfoFields = new SettingItem<string, TextBox>(new StringDataType());
             InfoFields.Order = 6;
             InfoFields.Required = true;
             InfoFields.Value = "name,id,xtype,uid"; // for table sysobjects
             _baseSettings.Add("InfoFields", InfoFields);
 
-            SettingItem InfoExtendedFields = new SettingItem(new StringDataType());
+            var InfoExtendedFields = new SettingItem<string, TextBox>(new StringDataType());
             InfoExtendedFields.Order = 7;
             InfoExtendedFields.Required = true;
             InfoExtendedFields.Value = "*"; // for table sysobjects
             _baseSettings.Add("InfoExtendedFields", InfoExtendedFields);
 
-            SettingItem ShowQueryBox = new SettingItem(new BooleanDataType());
+            var ShowQueryBox = new SettingItem<bool, CheckBox>(new BooleanDataType());
             ShowQueryBox.Order = 8;
             //ShowQueryBox.Required = true;   // hmmm... problem here! Dont set to true!" 
-            ShowQueryBox.Value = "True";
+            ShowQueryBox.Value = true;
             _baseSettings.Add("Show Query Box", ShowQueryBox);
 
-            SettingItem QueryBoxHeight = new SettingItem(new IntegerDataType());
+            var QueryBoxHeight = new SettingItem<int, TextBox>(new IntegerDataType());
             QueryBoxHeight.Order = 9;
             QueryBoxHeight.Required = true;
-            QueryBoxHeight.Value = "150";
+            QueryBoxHeight.Value = 150;
             QueryBoxHeight.MinValue = 10;
             QueryBoxHeight.MaxValue = 2000;
             _baseSettings.Add("Query Box Height", QueryBoxHeight);

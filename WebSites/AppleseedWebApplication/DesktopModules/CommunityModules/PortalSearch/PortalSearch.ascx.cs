@@ -464,109 +464,100 @@ namespace Appleseed.Content.Web.Modules
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:PortalSearch"/> class.
+        /// Initializes a new instance of the <see cref="PortalSearch"/> class.
         /// </summary>
         public PortalSearch()
         {
-            SettingItem setSortOrder =
-                new SettingItem(new ListDataType("ModuleName;Title;CreatedByUser;CreatedDate;TabName"));
-            setSortOrder.Required = true;
-            setSortOrder.Value = "ModuleName";
-            setSortOrder.Order = 1;
+            var setSortOrder =
+                new SettingItem<string, ListControl>(
+                    new ListDataType<string, ListControl>("ModuleName;Title;CreatedByUser;CreatedDate;TabName"))
+                    {
+                        Required = true, Value = "ModuleName", Order = 1 
+                    };
             _baseSettings.Add("SortOrder", setSortOrder);
 
-            //SettingItem showImage = new SettingItem(new BooleanDataType());
+            //var showImage = new SettingItem<bool, CheckBox>(new BooleanDataType());
             //showImage.Order = 2;
             //showImage.Value = "True";
             //this._baseSettings.Add("ShowImage", showImage);
 
-            SettingItem showModuleName = new SettingItem(new BooleanDataType());
-            showModuleName.Order = 3;
-            showModuleName.Value = "True";
-            _baseSettings.Add("ShowModuleName", showModuleName);
+            var showModuleName1 = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 3, Value = true };
+            _baseSettings.Add("ShowModuleName", showModuleName1);
 
-            SettingItem showSearchTitle = new SettingItem(new BooleanDataType());
-            showSearchTitle.Order = 4;
-            showSearchTitle.Value = "True";
+            var showSearchTitle = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 4, Value = true };
             _baseSettings.Add("ShowSearchTitle", showSearchTitle);
 
-            SettingItem showAbstract = new SettingItem(new BooleanDataType());
-            showAbstract.Order = 5;
-            showAbstract.Value = "True";
-            _baseSettings.Add("ShowAbstract", showAbstract);
+            var showAbstract1 = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 5, Value = true };
+            _baseSettings.Add("ShowAbstract", showAbstract1);
 
-            SettingItem showCreatedByUser = new SettingItem(new BooleanDataType());
-            showCreatedByUser.Order = 6;
-            showCreatedByUser.Value = "True";
-            _baseSettings.Add("ShowCreatedByUser", showCreatedByUser);
+            var showCreatedByUser1 = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 6, Value = true };
+            _baseSettings.Add("ShowCreatedByUser", showCreatedByUser1);
 
-            SettingItem showCreatedDate = new SettingItem(new BooleanDataType());
-            showCreatedDate.Order = 7;
-            showCreatedDate.Value = "True";
-            _baseSettings.Add("ShowCreatedDate", showCreatedDate);
+            var showCreatedDate1 = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 7, Value = true };
+            _baseSettings.Add("ShowCreatedDate", showCreatedDate1);
 
-            SettingItem showLink = new SettingItem(new BooleanDataType());
-            showLink.Order = 8;
-            showLink.Value = "False";
-            _baseSettings.Add("ShowLink", showLink);
+            var showLink1 = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 8, Value = false };
+            _baseSettings.Add("ShowLink", showLink1);
 
-            SettingItem showTabName = new SettingItem(new BooleanDataType());
-            showTabName.Order = 9;
-            showTabName.Value = "True";
-            _baseSettings.Add("ShowTabName", showTabName);
+            var showTabName1 = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 9, Value = true };
+            _baseSettings.Add("ShowTabName", showTabName1);
 
-            SettingItem showTestInfo = new SettingItem(new BooleanDataType());
-            showTestInfo.Order = 10;
-            showTestInfo.Value = "False";
-            _baseSettings.Add("ShowTestInfo", showTestInfo);
+            var showTestInfo1 = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 10, Value = false };
+            _baseSettings.Add("ShowTestInfo", showTestInfo1);
 
-            SettingItem maxHits = new SettingItem(new IntegerDataType());
-            maxHits.Required = true;
-            maxHits.Order = 11;
-            maxHits.Value = "100";
+            var maxHits1 = new SettingItem<int, TextBox>(new IntegerDataType())
+                {
+                    Required = true, Order = 11, Value = 100 
+                };
             //maxHits.MinValue = 1;
             //maxHits.MaxValue = 1000;
-            _baseSettings.Add("MaxHits", maxHits);
+            _baseSettings.Add("MaxHits", maxHits1);
 
-            SettingItem showModuleTitle = new SettingItem(new BooleanDataType());
-            showModuleTitle.Order = 12;
-            showModuleTitle.Value = "False";
-            _baseSettings.Add("ShowModuleTitle", showModuleTitle);
+            var showModuleTitle1 = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 12, Value = false };
+            _baseSettings.Add("ShowModuleTitle", showModuleTitle1);
 
-            SettingItem testUserID = new SettingItem(new IntegerDataType());
-            testUserID.Required = true;
-            testUserID.Order = 13;
-            testUserID.Value = "-1";
-            _baseSettings.Add("TestUserID", testUserID);
+            var testUserId = new SettingItem<int, TextBox>(new IntegerDataType())
+                {
+                    Required = true, Order = 13, Value = -1 
+                };
+            _baseSettings.Add("TestUserID", testUserId);
 
-            SettingItem showddModule = new SettingItem(new BooleanDataType());
-            showddModule.Value = "true";
-            showddModule.Order = 14;
-            showddModule.EnglishName = "Show Module list";
-            showddModule.Description = "Show the module drop down list.";
+            var showddModule = new SettingItem<bool, CheckBox>(new BooleanDataType())
+                {
+                    Value = true,
+                    Order = 14,
+                    EnglishName = "Show Module list",
+                    Description = "Show the module drop down list."
+                };
             _baseSettings.Add("showddModule", showddModule);
 
-            SettingItem showddTopic = new SettingItem(new BooleanDataType());
-            showddTopic.Value = "true";
-            showddTopic.Order = 15;
-            showddTopic.EnglishName = "Show Topics list";
-            showddTopic.Description = "Show the topics drop down list.";
+            var showddTopic = new SettingItem<bool, CheckBox>(new BooleanDataType())
+                {
+                    Value = true,
+                    Order = 15,
+                    EnglishName = "Show Topics list",
+                    Description = "Show the topics drop down list."
+                };
             _baseSettings.Add("showddTopic", showddTopic);
 
             //Added by Rob Siera - 19 aug 2004 - Provide default Topic to search for
-            SettingItem defaultTopic = new SettingItem(new StringDataType());
-            defaultTopic.Value = "All";
-            defaultTopic.Order = 16;
-            defaultTopic.EnglishName = "Default Topic";
-            defaultTopic.Description = "Set the default Topic to search.";
+            var defaultTopic = new SettingItem<string, TextBox>(new StringDataType())
+                {
+                    Value = "All",
+                    Order = 16,
+                    EnglishName = "Default Topic",
+                    Description = "Set the default Topic to search."
+                };
             _baseSettings.Add("defaultTopic", defaultTopic);
             //End addition Rob Siera
 
-            SettingItem showddField = new SettingItem(new BooleanDataType());
-            showddField.Value = "true";
-            showddField.Order = 17;
-            showddField.EnglishName = "Show Field list";
-            showddField.Description = "Show the field drop down list.";
+            var showddField = new SettingItem<bool, CheckBox>(new BooleanDataType())
+                {
+                    Value = true,
+                    Order = 17,
+                    EnglishName = "Show Field list",
+                    Description = "Show the field drop down list."
+                };
             _baseSettings.Add("showddField", showddField);
         }
 

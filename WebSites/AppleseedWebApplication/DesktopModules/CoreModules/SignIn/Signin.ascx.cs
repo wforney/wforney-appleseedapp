@@ -22,8 +22,8 @@ namespace Appleseed.Content.Web.Modules
     using System;
     using System.Net.Mail;
     using System.Text;
-    using System.Web.Mail;
     using System.Web.Security;
+    using System.Web.UI.WebControls;
 
     using Appleseed.Framework;
     using Appleseed.Framework.Content.Security;
@@ -36,6 +36,7 @@ namespace Appleseed.Content.Web.Modules
 
     using Resources;
 
+    using Localize = Appleseed.Framework.Web.UI.WebControls.Localize;
     using MailMessage = System.Net.Mail.MailMessage;
 
     /// <summary>
@@ -69,9 +70,9 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public Signin()
         {
-            var hideAutomatically = new SettingItem(new BooleanDataType())
+            var hideAutomatically = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
-                    Value = "True",
+                    Value = true,
                     EnglishName = "Hide automatically",
                     Order = 20
                 };
@@ -82,27 +83,27 @@ namespace Appleseed.Content.Web.Modules
             // If you uncheck this setting IE will not remember user name and passwords. 
             // Note that users who have memorized passwords will not be effected until their computer 
             // is reset, only new users and/or computers will honor this. 
-            var autoComplete = new SettingItem(new BooleanDataType())
+            var autoComplete = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
-                    Value = "True",
+                    Value = true,
                     EnglishName = "Allow IE Auto-complete",
                     Description = "If Checked IE Will try to remember logins",
                     Order = 30
                 };
             this._baseSettings.Add("SIGNIN_ALLOW_AUTOCOMPLETE", autoComplete);
 
-            var rememberLogin = new SettingItem(new BooleanDataType())
+            var rememberLogin = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
-                    Value = "True",
+                    Value = true,
                     EnglishName = "Allow Remember Login",
                     Description = "If Checked allows to remember logins",
                     Order = 40
                 };
             this._baseSettings.Add("SIGNIN_ALLOW_REMEMBER_LOGIN", rememberLogin);
 
-            var sendPassword = new SettingItem(new BooleanDataType())
+            var sendPassword = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
-                    Value = "True",
+                    Value = true,
                     EnglishName = "Allow Send Password",
                     Description = "If Checked allows user to ask to get password by email if he forgotten",
                     Order = 50
@@ -175,7 +176,7 @@ namespace Appleseed.Content.Web.Modules
             var autocomplete = false;
             if (this.ModuleID == 0)
             {
-                ((SettingItem)this.Settings["MODULESETTINGS_SHOW_TITLE"]).Value = "false";
+                ((SettingItem<bool, CheckBox>)this.Settings["MODULESETTINGS_SHOW_TITLE"]).Value = false;
             }
 
             if (this.portalSettings.CustomSettings["SITESETTINGS_ALLOW_NEW_REGISTRATION"] != null)
@@ -312,7 +313,7 @@ namespace Appleseed.Content.Web.Modules
             if (this.portalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_FROM"] != null)
             {
                 var sf = this.portalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_FROM"];
-                mail.From = new MailAddress(sf is SettingItem ? ((SettingItem)sf).Value : (string)sf);
+                mail.From = new MailAddress(sf is SettingItem<string, TextBox> ? ((SettingItem<string, TextBox>)sf).Value : (string)sf);
             }
             else
             {

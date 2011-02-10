@@ -1,20 +1,21 @@
-using System;
-using System.Collections;
-using System.Data;
-using System.Data.SqlClient;
-using System.Globalization;
-using System.Text;
-using System.Web;
-using Appleseed.Framework;
-using Appleseed.Framework.Content.Data;
-using Appleseed.Framework.Data;
-using Appleseed.Framework.DataTypes;
-using Appleseed.Framework.Helpers;
-using Appleseed.Framework.Web.UI.WebControls;
-
 namespace Appleseed.Content.Web.Modules
 {
+    using System;
+    using System.Collections;
     using System.Collections.Generic;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.Globalization;
+    using System.Text;
+    using System.Web;
+    using System.Web.UI.WebControls;
+
+    using Appleseed.Framework;
+    using Appleseed.Framework.Content.Data;
+    using Appleseed.Framework.Data;
+    using Appleseed.Framework.DataTypes;
+    using Appleseed.Framework.Helpers;
+    using Appleseed.Framework.Web.UI.WebControls;
 
     /// <summary>
     /// Appleseed EnhancedLinks Module
@@ -269,77 +270,94 @@ namespace Appleseed.Content.Web.Modules
             int groupBase = (int) group;
             // end of modification
 
-            SettingItem IconPath = null;
+            SettingItem<string, Panel> iconPath = null;
             if (portalSettings != null)
             {
-                IconPath =
-                    new SettingItem(
-                        new FolderDataType(HttpContext.Current.Server.MapPath(portalSettings.PortalFullPath),
-                                           "IconContainer"));
-                IconPath.Value = "IconContainer";
+                iconPath =
+                    new SettingItem<string, Panel>(
+                        new FolderDataType(
+                            HttpContext.Current.Server.MapPath(portalSettings.PortalFullPath), "IconContainer"))
+                        {
+                            Value = "IconContainer", 
+                            Order = groupBase + 15, 
+                            Group = group, 
+                            EnglishName = "Container for Icons", 
+                            Description = "Portal directory for upload used icons"
+                        };
+
                 // Modified by Hongwei Shen
                 // IconPath.Order = 5;
                 // IconPath.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
-                IconPath.Order = groupBase + 15;
-                IconPath.Group = group;
                 // end of modification
-                IconPath.EnglishName = "Container for Icons";
-                IconPath.Description = "Portal directory for upload used icons";
             }
-            _baseSettings.Add("ENHANCEDLINKS_ICONPATH", IconPath);
 
-            ArrayList styleLink = new ArrayList();
-            styleLink.Add(new SettingOption(1, General.GetString("ENHANCEDLINKS_DROPDOWNLIST", "DropDownList", null)));
-            styleLink.Add(new SettingOption(2, General.GetString("ENHANCEDLINKS_LINKS", "Links", null)));
+            _baseSettings.Add("ENHANCEDLINKS_ICONPATH", iconPath);
 
+            var styleLink = new List<SettingOption>
+                {
+                    new SettingOption(1, General.GetString("ENHANCEDLINKS_DROPDOWNLIST", "DropDownList", null)), 
+                    new SettingOption(2, General.GetString("ENHANCEDLINKS_LINKS", "Links", null))
+                };
 
-            SettingItem MaxColums = new SettingItem(new IntegerDataType());
-            MaxColums.Value = "1";
-            MaxColums.EnglishName = "Max Colums";
-            MaxColums.Description = "Maximun number of colums";
+            var maxColums = new SettingItem<int, TextBox>(new IntegerDataType())
+                {
+                    Value = 1, 
+                    EnglishName = "Max Colums", 
+                    Description = "Maximun number of colums", 
+                    Group = group, 
+                    Order = groupBase + 20
+                };
+
             // Modified by Hongwei Shen
             // MaxColums.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // MaxColums.Order = 10;
-            MaxColums.Group = group;
-            MaxColums.Order = groupBase + 20;
             // end of modification
-            _baseSettings.Add("ENHANCEDLINKS_MAXCOLUMS", MaxColums);
+            _baseSettings.Add("ENHANCEDLINKS_MAXCOLUMS", maxColums);
 
-            SettingItem labelStyleLink = new SettingItem(new CustomListDataType(styleLink, "Name", "Val"));
-            labelStyleLink.Description = "Select here how your module should look like";
-            labelStyleLink.EnglishName = "Style Links";
-            labelStyleLink.Value = "2";
+            var labelStyleLink = new SettingItem<string, ListControl>(new CustomListDataType(styleLink, "Name", "Val"))
+                {
+                    Description = "Select here how your module should look like",
+                    EnglishName = "Style Links",
+                    Value = "2",
+                    Group = group,
+                    Order = groupBase + 25
+                };
+
             // Modified by Hongwei Shen
             // abelStyleLink.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // labelStyleLink.Order = 15;
-            labelStyleLink.Group = group;
-            labelStyleLink.Order = groupBase + 25;
             // end of modification
             _baseSettings.Add("ENHANCEDLINKS_SWITCHERTYPES", labelStyleLink);
 
-            SettingItem ImageDefault = new SettingItem(new StringDataType());
-            ImageDefault.Value = "navLink.gif";
-            ImageDefault.EnglishName = "Default Image for link";
-            ImageDefault.Description = "Select here a image for links with no special setting image";
+            var imageDefault = new SettingItem<string, TextBox>(new StringDataType())
+                {
+                    Value = "navLink.gif",
+                    EnglishName = "Default Image for link",
+                    Description = "Select here a image for links with no special setting image",
+                    Group = group,
+                    Order = groupBase + 30
+                };
+
             // Modified by Hongwei Shen
             // ImageDefault.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // ImageDefault.Order = 20;
-            ImageDefault.Group = group;
-            ImageDefault.Order = groupBase + 30;
             // end of modification
-            _baseSettings.Add("ENHANCEDLINKS_DEFAULTIMAGE", ImageDefault);
+            _baseSettings.Add("ENHANCEDLINKS_DEFAULTIMAGE", imageDefault);
 
-            SettingItem ExpandAll = new SettingItem(new BooleanDataType());
-            ExpandAll.Value = "false";
-            ExpandAll.EnglishName = "Show Description";
-            ExpandAll.Description = "Mark this if you like to see the description down the link";
+            var expandAll = new SettingItem<bool, CheckBox>(new BooleanDataType())
+                {
+                    Value = false,
+                    EnglishName = "Show Description",
+                    Description = "Mark this if you like to see the description down the link",
+                    Group = group,
+                    Order = groupBase + 35
+                };
+
             // Modified by Hongwei Shen
             // ExpandAll.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // ExpandAll.Order = 25;
-            ExpandAll.Group = group;
-            ExpandAll.Order = groupBase + 35;
             // end of modification
-            _baseSettings.Add("ENHANCEDLINKS_EXPANDALL", ExpandAll);
+            _baseSettings.Add("ENHANCEDLINKS_EXPANDALL", expandAll);
         }
 
         /// <summary>

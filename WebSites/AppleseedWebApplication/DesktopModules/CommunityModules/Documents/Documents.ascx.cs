@@ -55,7 +55,7 @@ namespace Appleseed.Content.Web.Modules
             int groupBase = (int)group;
             // end of modification
 
-            SettingItem DocumentPath = new SettingItem(new PortalUrlDataType());
+            var DocumentPath = new SettingItem<string, TextBox>(new PortalUrlDataType());
             DocumentPath.Required = true;
             DocumentPath.Value = "Documents";
             // Modified by Hongwei Shen
@@ -68,8 +68,8 @@ namespace Appleseed.Content.Web.Modules
             this._baseSettings.Add("DocumentPath", DocumentPath);
 
             // Add new functionalities by jviladiu@portalServices.net (02/07/2004)
-            SettingItem ShowImages = new SettingItem(new BooleanDataType());
-            ShowImages.Value = "true";
+            var ShowImages = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            ShowImages.Value = true;
             // Modified by Hongwei Shen
             // ShowImages.Order = 5;
             ShowImages.Group = group;
@@ -79,8 +79,8 @@ namespace Appleseed.Content.Web.Modules
             ShowImages.Description = "Mark this if you like see Image Icons";
             this._baseSettings.Add("DOCUMENTS_SHOWIMAGES", ShowImages);
 
-            SettingItem SaveInDataBase = new SettingItem(new BooleanDataType());
-            SaveInDataBase.Value = "false";
+            var SaveInDataBase = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            SaveInDataBase.Value = false;
             // Modified by Hongwei Shen
             // SaveInDataBase.Order = 10;
             SaveInDataBase.Group = group;
@@ -91,7 +91,7 @@ namespace Appleseed.Content.Web.Modules
             this._baseSettings.Add("DOCUMENTS_DBSAVE", SaveInDataBase);
 
             // Added sort by fields by Chris Thames [icecold_2@hotmail.com] (11/17/2004)
-            SettingItem	SortByField	= new SettingItem(new ListDataType(General.GetString("DOCUMENTS_SORTBY_FIELD_LIST", "File Name;Created Date")));
+            var	SortByField	= new SettingItem<string, ListControl>(new ListDataType<string, ListControl>(General.GetString("DOCUMENTS_SORTBY_FIELD_LIST", "File Name;Created Date")));
             SortByField.Required=true;
             SortByField.Value =	"File Name";
             // Modified by Hongwei Shen
@@ -103,7 +103,7 @@ namespace Appleseed.Content.Web.Modules
             SortByField.Description = "Sort by File Name or by Created Date?";
             this._baseSettings.Add("DOCUMENTS_SORTBY_FIELD", SortByField);
 
-            SettingItem SortByDirection = new SettingItem(new ListDataType(General.GetString("DOCUMENTS_SORTBY_DIRECTION_LIST", "Ascending;Descending")));
+            var SortByDirection = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>(General.GetString("DOCUMENTS_SORTBY_DIRECTION_LIST", "Ascending;Descending")));
             SortByDirection.Value = "Ascending";
             // Modified by Hongwei Shen
             // SortByDirection.Order = 12;
@@ -116,8 +116,8 @@ namespace Appleseed.Content.Web.Modules
             // End
 
             // Added by Jakob Hansen 07/07/2004
-            SettingItem showTitle = new SettingItem(new BooleanDataType());
-            showTitle.Value = "true";
+            var showTitle = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            showTitle.Value = true;
             // Modified by Hongwei Shen
             // showTitle.Order = 15;
             showTitle.Group = group;
@@ -127,8 +127,8 @@ namespace Appleseed.Content.Web.Modules
             showTitle.Description = "Mark this if the title column should be displayed";
             this._baseSettings.Add("DOCUMENTS_SHOWTITLE", showTitle);
 
-            SettingItem showOwner = new SettingItem(new BooleanDataType());
-            showOwner.Value = "true";
+            var showOwner = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            showOwner.Value = true;
             // Modified by Hongwei Shen
             // showOwner.Order = 16;
             showOwner.Group = group;
@@ -138,8 +138,8 @@ namespace Appleseed.Content.Web.Modules
             showOwner.Description = "Mark this if the owner column should be displayed";
             this._baseSettings.Add("DOCUMENTS_SHOWOWNER", showOwner);
 
-            SettingItem showArea = new SettingItem(new BooleanDataType());
-            showArea.Value = "true";
+            var showArea = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            showArea.Value = true;
             // Modified by Hongwei Shen
             // showArea.Order = 17;
             showArea.Group = group;
@@ -149,8 +149,8 @@ namespace Appleseed.Content.Web.Modules
             showArea.Description = "Mark this if the area column should be displayed";
             this._baseSettings.Add("DOCUMENTS_SHOWAREA", showArea);
 
-            SettingItem showLastUpdated = new SettingItem(new BooleanDataType());
-            showLastUpdated.Value = "true";
+            var showLastUpdated = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            showLastUpdated.Value = true;
             // Modified by Hongwei Shen
             // showLastUpdated.Order = 18;
             showLastUpdated.Group = group;

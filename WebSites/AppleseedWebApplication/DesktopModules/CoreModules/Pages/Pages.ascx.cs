@@ -13,6 +13,9 @@ using Appleseed.Framework.Providers.AppleseedSiteMapProvider;
 namespace Appleseed.Content.Web.Modules
 {
     using System.Collections.Generic;
+    using System.Web.UI.WebControls;
+
+    using ImageButton = Appleseed.Framework.Web.UI.WebControls.ImageButton;
 
     /// <summary>
     /// 
@@ -71,13 +74,15 @@ namespace Appleseed.Content.Web.Modules
         {
             // EHN: Add new version control for tabs module. 
             //      Mike Stone - 19/12/2004
-            SettingItem PageVersion = new SettingItem(new BooleanDataType());
-            PageVersion.Value = "True";
-            PageVersion.EnglishName = "Use Old Version?";
-            PageVersion.Description =
-                "If Checked the module acts has it always did. If not it uses the new short form which allows security to be set so the new tab will not be seen by all users.";
-            PageVersion.Order = 10;
-            _baseSettings.Add("TAB_VERSION", PageVersion);
+            var pageVersion = new SettingItem<bool, CheckBox>(new BooleanDataType())
+                {
+                    Value = true,
+                    EnglishName = "Use Old Version?",
+                    Description =
+                        "If Checked the module acts has it always did. If not it uses the new short form which allows security to be set so the new tab will not be seen by all users.",
+                    Order = 10
+                };
+            _baseSettings.Add("TAB_VERSION", pageVersion);
         }
 
         /// <summary>

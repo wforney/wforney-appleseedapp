@@ -12,6 +12,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
 {
     using System.Collections;
     using System.Web;
+    using System.Web.UI.WebControls;
 
     using Appleseed.Framework.Settings.Cache;
     using Appleseed.Framework.Site.Configuration;
@@ -100,8 +101,6 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
                 var tempSettings = new Hashtable();
 
-                SettingItem thedefault;
-
                 // refresh this module's settings on every call in case they logged off, so it will
                 // retrieve the 'default' settings from the database.
                 // Invalidate cache
@@ -110,11 +109,14 @@ namespace Appleseed.Framework.Web.UI.WebControls
                 // this._baseSettings = ModuleSettings.GetModuleSettings(this.ModuleID, this._baseSettings);
                 foreach (string str in this.Settings.Keys)
                 {
-                    thedefault = (SettingItem)this.Settings[str];
-                    if (thedefault.Group == SettingItemGroup.CUSTOM_USER_SETTINGS)
+                    var thedefault = this.Settings[str] as SettingItem<string, TextBox>;
+                    if (thedefault != null)
                     {
-                        // It's one we want to customize
-                        tempSettings.Add(str, thedefault); // insert the 'default' value
+                        if (thedefault.Group == SettingItemGroup.CUSTOM_USER_SETTINGS)
+                        {
+                            // It's one we want to customize
+                            tempSettings.Add(str, thedefault); // insert the 'default' value
+                        }
                     }
                 }
 

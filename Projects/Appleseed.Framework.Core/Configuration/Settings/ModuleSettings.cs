@@ -11,9 +11,11 @@ namespace Appleseed.Framework.Site.Configuration
 {
     using System;
     using System.Collections;
+    using System.ComponentModel;
     using System.Data;
     using System.Data.SqlClient;
     using System.Web.UI;
+    using System.Web.UI.WebControls;
 
     using Appleseed.Framework.Settings;
     using Appleseed.Framework.Settings.Cache;
@@ -162,19 +164,19 @@ namespace Appleseed.Framework.Site.Configuration
         /// </summary>
         public WorkflowState WorkflowStatus;
 
-/*
-        /// <summary>
-        /// The str at module id.
-        /// </summary>
-        private const string strATModuleID = "@ModuleID";
-*/
+        /*
+                /// <summary>
+                /// The str at module id.
+                /// </summary>
+                private const string strATModuleID = "@ModuleID";
+        */
 
-/*
-        /// <summary>
-        /// The str admin.
-        /// </summary>
-        private const string strAdmin = "Admin;";
-*/
+        /*
+                /// <summary>
+                /// The str admin.
+                /// </summary>
+                private const string strAdmin = "Admin;";
+        */
 
         /// <summary>
         /// The str desktop src.
@@ -198,7 +200,7 @@ namespace Appleseed.Framework.Site.Configuration
             var sqlConnectionString = Config.SqlConnectionString;
             var command = new SqlCommand("rb_GetModuleDefinitionByID", sqlConnectionString)
                 {
-                    CommandType = CommandType.StoredProcedure 
+                    CommandType = CommandType.StoredProcedure
                 };
             var parameter = new SqlParameter("@ModuleID", SqlDbType.Int) { Value = moduleId };
             command.Parameters.Add(parameter);
@@ -277,17 +279,30 @@ namespace Appleseed.Framework.Site.Configuration
                     }
                 }
 
-                foreach (string str in baseSettings.Keys)
+                foreach (string key in baseSettings.Keys)
                 {
-                    if (hashtable[str] == null)
+                    if (hashtable[key] == null)
                     {
                         continue;
                     }
 
-                    var item = (SettingItem)baseSettings[str];
-                    if (hashtable[str].ToString().Length != 0)
+                    var s = baseSettings[key];
+
+                    if (hashtable[key].ToString().Length == 0)
                     {
-                        item.Value = hashtable[str].ToString();
+                        continue;
+                    }
+
+                    var conv = TypeDescriptor.GetConverter(typeof(SettingItem<string, TextBox>));
+                    if (conv == null)
+                    {
+                        continue;
+                    }
+
+                    var setting = (SettingItem<string, TextBox>)conv.ConvertFrom(s);
+                    if (setting != null)
+                    {
+                        setting.Value = hashtable[key].ToString();
                     }
                 }
 

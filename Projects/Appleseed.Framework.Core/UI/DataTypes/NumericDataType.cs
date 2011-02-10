@@ -9,28 +9,21 @@
 
 namespace Appleseed.Framework.DataTypes
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
-    /// NumericDataType
+    /// Numeric Data Type
     /// </summary>
-    public class NumericDataType : BaseDataType
+    public class NumericDataType : BaseDataType<double, TextBox>
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The inner value.
-        /// </summary>
-        protected new string innerValue = "0";
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "NumericDataType" /> class.
+        /// Initializes a new instance of the <see cref="NumericDataType"/> class.
         /// </summary>
         public NumericDataType()
         {
-            this.InnerDataType = PropertiesDataType.Double;
+            this.Type = PropertiesDataType.Double;
 
             // InitializeComponents();
         }
@@ -55,19 +48,7 @@ namespace Appleseed.Framework.DataTypes
         ///   Gets or sets the value.
         /// </summary>
         /// <value>The value.</value>
-        public override string Value
-        {
-            get
-            {
-                return this.innerValue;
-            }
-
-            set
-            {
-                // Type check
-                this.innerValue = double.Parse(value).ToString();
-            }
-        }
+        public override double Value { get; set; }
 
         #endregion
     }

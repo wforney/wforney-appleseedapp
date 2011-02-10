@@ -1,20 +1,21 @@
-using System;
-using System.Collections;
-using System.Data.SqlClient;
-using System.IO;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Appleseed.Framework;
-using Appleseed.Framework.Content.Data;
-using Appleseed.Framework.Data;
-using Appleseed.Framework.DataTypes;
-using Appleseed.Framework.Web.UI.WebControls;
-using Label=Appleseed.Framework.Web.UI.WebControls.Label;
-using LinkButton=Appleseed.Framework.Web.UI.WebControls.LinkButton;
-
 namespace Appleseed.Content.Web.Modules
 {
+    using System;
+    using System.Collections;
     using System.Collections.Generic;
+    using System.Data.SqlClient;
+    using System.IO;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+
+    using Appleseed.Framework;
+    using Appleseed.Framework.Content.Data;
+    using Appleseed.Framework.Data;
+    using Appleseed.Framework.DataTypes;
+    using Appleseed.Framework.Web.UI.WebControls;
+
+    using Label = Appleseed.Framework.Web.UI.WebControls.Label;
+    using LinkButton = Appleseed.Framework.Web.UI.WebControls.LinkButton;
 
     /// <summary>
     /// Portal Survey module - Vote tool
@@ -336,29 +337,24 @@ namespace Appleseed.Content.Web.Modules
         }
 
         /// <summary>
-        /// Public constructor. Sets base settings for module.
+        /// Initializes a new instance of the <see cref="Survey"/> class.
         /// </summary>
         public Survey()
         {
-            SettingItem itmVoteDayPeriod = new SettingItem(new IntegerDataType());
-            itmVoteDayPeriod.Required = true;
-            itmVoteDayPeriod.Order = 1;
-            itmVoteDayPeriod.Value = "7";
-            itmVoteDayPeriod.MinValue = 1;
-            itmVoteDayPeriod.MaxValue = 365;
+            var itmVoteDayPeriod = new SettingItem<int, TextBox>(new IntegerDataType())
+                {
+                    Required = true, Order = 1, Value = 7, MinValue = 1, MaxValue = 365 
+                };
             _baseSettings.Add("VoteDayPeriod", itmVoteDayPeriod);
 
-            SettingItem itmTest = new SettingItem(new IntegerDataType());
-            itmTest.Required = true;
-            itmTest.Order = 2;
-            itmTest.Value = "0";
+            var itmTest = new SettingItem<int, TextBox>(new IntegerDataType()) { Required = true, Order = 2, Value = 0 };
             _baseSettings.Add("Test", itmTest);
         }
 
         /// <summary>
-        /// Unknown
+        /// Installs the specified state saver.
         /// </summary>
-        /// <param name="stateSaver"></param>
+        /// <param name="stateSaver">The state saver.</param>
         public override void Install(IDictionary stateSaver)
         {
             string currentScriptName = Path.Combine(Server.MapPath(TemplateSourceDirectory), "install.sql");

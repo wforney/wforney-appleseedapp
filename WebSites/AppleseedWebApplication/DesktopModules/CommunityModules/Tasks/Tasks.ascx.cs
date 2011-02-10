@@ -200,14 +200,14 @@ namespace Appleseed.Content.Web.Modules
             // Set Editor Settings jviladiu@portalservices.net 2004/07/30
             HtmlEditorDataType.HtmlEditorSettings(_baseSettings, SettingItemGroup.MODULE_SPECIAL_SETTINGS);
 
-            SettingItem setSortField =
-                new SettingItem(new ListDataType("Title;Status;Priority;DueDate;AssignedTo;PercentComplete"));
+            var setSortField =
+                new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("Title;Status;Priority;DueDate;AssignedTo;PercentComplete"));
             setSortField.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             setSortField.Required = true;
             setSortField.Value = "DueDate";
             _baseSettings.Add("TASKS_SORT_FIELD", setSortField);
 
-            SettingItem defaultAssignee = new SettingItem(new StringDataType());
+            var defaultAssignee = new SettingItem<string, TextBox>(new StringDataType());
             defaultAssignee.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             defaultAssignee.Value = "nobody";
             defaultAssignee.EnglishName = "Default Assignee";
@@ -236,8 +236,8 @@ namespace Appleseed.Content.Web.Modules
                     r.Close();
             }
 
-            SettingItem linkedModules =
-                new SettingItem(new MultiSelectListDataType(taskModulesListOptions, "Name", "Val"));
+            var linkedModules =
+                new SettingItem<string, ListControl>(new MultiSelectListDataType(taskModulesListOptions, "Name", "Val"));
             linkedModules.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             linkedModules.Value = "0";
             linkedModules.EnglishName = "Linked Modules";

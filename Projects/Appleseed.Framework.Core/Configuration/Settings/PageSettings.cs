@@ -13,6 +13,7 @@ namespace Appleseed.Framework.Site.Configuration
     using System;
     using System.Collections;
     using System.Collections.ObjectModel;
+    using System.ComponentModel;
     using System.Data;
     using System.Data.SqlClient;
     using System.Globalization;
@@ -20,6 +21,7 @@ namespace Appleseed.Framework.Site.Configuration
     using System.Linq;
     using System.Threading;
     using System.Web;
+    using System.Web.UI.WebControls;
 
     using Appleseed.Framework.DataTypes;
     using Appleseed.Framework.Design;
@@ -386,26 +388,31 @@ namespace Appleseed.Framework.Site.Configuration
 
                 // Thierry (Tiptopweb)
                 // TODO : put back the cache in GetPageBaseSettings() and reset values not found in the database
+                // REVIEW: This code is duplicated in portal settings.
                 foreach (string key in baseSettings.Keys)
                 {
-                    if (settings[key] != null)
+                    if (settings[key] == null)
                     {
-                        var s = (SettingItem)baseSettings[key];
-
-                        if (settings[key].ToString().Length != 0)
-                        {
-                            s.Value = settings[key].ToString();
-                        }
+                        continue;
                     }
-                    else
+
+                    var s = baseSettings[key];
+
+                    if (settings[key].ToString().Length == 0)
                     {
-                        // by Manu
-                        // Thierry (Tiptopweb), see the comment in Hashtable GetPageBaseSettings()
+                        continue;
+                    }
 
-                        // this is not resetting key not found in the database
-                        var s = (SettingItem)baseSettings[key];
+                    var conv = TypeDescriptor.GetConverter(typeof(SettingItem<string, TextBox>));
+                    if (conv == null)
+                    {
+                        continue;
+                    }
 
-                        // s.Value = string.Empty; 3_aug_2004 Cory Isakson.  This line caused an error with booleans
+                    var setting = (SettingItem<string, TextBox>)conv.ConvertFrom(s);
+                    if (setting != null)
+                    {
+                        setting.Value = settings[key].ToString();
                     }
                 }
 
@@ -489,17 +496,17 @@ namespace Appleseed.Framework.Site.Configuration
             var groupOrderBase = (int)SettingItemGroup.NAVIGATION_SETTINGS;
             var group = SettingItemGroup.NAVIGATION_SETTINGS;
 
-            var tabPlaceholder = new SettingItem(new BooleanDataType())
+            var tabPlaceholder = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
                     Group = group, 
                     Order = groupOrderBase, 
-                    Value = "False", 
+                    Value = false, 
                     EnglishName = "Act as a Placeholder?", 
                     Description = "Allows this tab to act as a navigation placeholder only."
                 };
             baseSettings.Add("TabPlaceholder", tabPlaceholder);
 
-            var tabLink = new SettingItem(new StringDataType())
+            var tabLink = new SettingItem<string, TextBox>(new StringDataType())
                 {
                     Group = group, 
                     Value = string.Empty, 
@@ -509,28 +516,28 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("TabLink", tabLink);
 
-            var tabUrlKeyword = new SettingItem(new StringDataType())
+            var tabUrlKeyword = new SettingItem<string, TextBox>(new StringDataType())
                 {
                     Group = group, 
                     Order = groupOrderBase + 2, 
-                    EnglishName = "Url Keyword", 
-                    Description = "Allows you to specify a keyword that would appear in your url."
+                    EnglishName = "URL Keyword", 
+                    Description = "Allows you to specify a keyword that would appear in your URL."
                 };
             baseSettings.Add("TabUrlKeyword", tabUrlKeyword);
 
-            var urlPageName = new SettingItem(new StringDataType())
+            var urlPageName = new SettingItem<string, TextBox>(new StringDataType())
                 {
                     Group = group, 
                     Order = groupOrderBase + 3, 
-                    EnglishName = "Url Page Name", 
+                    EnglishName = "URL Page Name", 
                     Description =
-                        "This setting allows you to specify a name for this tab that will show up in the url instead of default.aspx"
+                        "This setting allows you to specify a name for this tab that will show up in the URL instead of default.aspx"
                 };
             baseSettings.Add("UrlPageName", urlPageName);
 
             // groupOrderBase = (int)SettingItemGroup.META_SETTINGS;
             group = SettingItemGroup.META_SETTINGS;
-            var tabTitle = new SettingItem(new StringDataType())
+            var tabTitle = new SettingItem<string, TextBox>(new StringDataType())
                 {
                     Group = group, 
                     EnglishName = "Tab / Page Title", 
@@ -539,23 +546,23 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("TabTitle", tabTitle);
 
-            var tabMetaKeyWords = new SettingItem(new StringDataType())
+            var tabMetaKeyWords = new SettingItem<string, TextBox>(new StringDataType())
                 {
                     Group = group, 
                     EnglishName = "Tab / Page Keywords", 
                     Description =
-                        "This setting is to help with search engine optimisation. Enter 1-15 Default Keywords that represent what this Tab / Page is about.Enter something here to override the default portal wide setting."
+                        "This setting is to help with search engine optimization. Enter 1-15 Default Keywords that represent what this Tab / Page is about.Enter something here to override the default portal wide setting."
                 };
             baseSettings.Add("TabMetaKeyWords", tabMetaKeyWords);
-            var tabMetaDescription = new SettingItem(new StringDataType())
+            var tabMetaDescription = new SettingItem<string, TextBox>(new StringDataType())
                 {
                     Group = group, 
                     EnglishName = "Tab / Page Description", 
                     Description =
-                        "This setting is to help with search engine optimisation. Enter a description (Not too long though. 1 paragraph is enough) that describes this particular Tab / Page. Enter something here to override the default portal wide setting."
+                        "This setting is to help with search engine optimization. Enter a description (Not too long though. 1 paragraph is enough) that describes this particular Tab / Page. Enter something here to override the default portal wide setting."
                 };
             baseSettings.Add("TabMetaDescription", tabMetaDescription);
-            var tabMetaEncoding = new SettingItem(new StringDataType())
+            var tabMetaEncoding = new SettingItem<string, TextBox>(new StringDataType())
                 {
                     Group = group, 
                     EnglishName = "Tab / Page Encoding", 
@@ -563,7 +570,7 @@ namespace Appleseed.Framework.Site.Configuration
                         "Every time your browser returns a page it looks to see what format it is retrieving. This allows you to specify the content type for this particular Tab / Page. Enter something here to override the default portal wide setting."
                 };
             baseSettings.Add("TabMetaEncoding", tabMetaEncoding);
-            var tabMetaOther = new SettingItem(new StringDataType())
+            var tabMetaOther = new SettingItem<string, TextBox>(new StringDataType())
                 {
                     Group = group, 
                     EnglishName = "Additional Meta Tag Entries", 
@@ -571,7 +578,7 @@ namespace Appleseed.Framework.Site.Configuration
                         "This setting allows you to enter new tags into this Tab / Page's HEAD Tag. Enter something here to override the default portal wide setting."
                 };
             baseSettings.Add("TabMetaOther", tabMetaOther);
-            var tabKeyPhrase = new SettingItem(new StringDataType())
+            var tabKeyPhrase = new SettingItem<string, TextBox>(new StringDataType())
                 {
                     Group = group, 
                     EnglishName = "Tab / Page Keyphrase", 
@@ -599,7 +606,7 @@ namespace Appleseed.Framework.Site.Configuration
             themesList.Insert(0, noCustomTheme);
 
             // changed: Jes1111 - 2004-08-06
-            var customLayout = new SettingItem(new CustomListDataType(layoutsList, "Name", "Name"))
+            var customLayout = new SettingItem<string, ListControl>(new CustomListDataType(layoutsList, "Name", "Name"))
                 {
                     Group = group, 
                     Order = groupOrderBase + 11, 
@@ -608,9 +615,9 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("CustomLayout", customLayout);
 
-            // SettingItem CustomTheme = new SettingItem(new StringDataType());
+            // SettingItem CustomTheme = new SettingItem<string, TextBox>(new StringDataType());
             // changed: Jes1111 - 2004-08-06
-            var customTheme = new SettingItem(new CustomListDataType(themesList, "Name", "Name"))
+            var customTheme = new SettingItem<string, ListControl>(new CustomListDataType(themesList, "Name", "Name"))
                 {
                     Group = group, 
                     Order = groupOrderBase + 12, 
@@ -619,9 +626,9 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("CustomTheme", customTheme);
 
-            // SettingItem CustomThemeAlt = new SettingItem(new StringDataType());
+            // SettingItem CustomThemeAlt = new SettingItem<string, TextBox>(new StringDataType());
             // changed: Jes1111 - 2004-08-06
-            var customThemeAlt = new SettingItem(new CustomListDataType(themesList, "Name", "Name"))
+            var customThemeAlt = new SettingItem<string, ListControl>(new CustomListDataType(themesList, "Name", "Name"))
                 {
                     Group = group, 
                     Order = groupOrderBase + 13, 
@@ -630,7 +637,7 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("CustomThemeAlt", customThemeAlt);
 
-            var customMenuImage = new SettingItem(new CustomListDataType(this.GetImageMenu(), "Key", "Value"))
+            var customMenuImage = new SettingItem<string, ListControl>(new CustomListDataType(this.GetImageMenu(), "Key", "Value"))
                 {
                     Group = group, 
                     Order = groupOrderBase + 14, 
@@ -654,7 +661,7 @@ namespace Appleseed.Framework.Site.Configuration
             foreach (
                 var c in cultureList.Where(c => c != CultureInfo.InvariantCulture && !baseSettings.ContainsKey(c.Name)))
             {
-                var localizedTabKeyPhrase = new SettingItem(new StringDataType())
+                var localizedTabKeyPhrase = new SettingItem<string, TextBox>(new StringDataType())
                     {
                         Order = counter, 
                         Group = group, 
@@ -662,7 +669,7 @@ namespace Appleseed.Framework.Site.Configuration
                         Description = string.Format("Key Phrase this Tab/Page for {0} culture.", c.EnglishName)
                     };
                 baseSettings.Add(string.Format("TabKeyPhrase_{0}", c.Name), localizedTabKeyPhrase);
-                var localizedTitle = new SettingItem(new StringDataType())
+                var localizedTitle = new SettingItem<string, TextBox>(new StringDataType())
                     {
                         Order = counter, 
                         Group = group, 
