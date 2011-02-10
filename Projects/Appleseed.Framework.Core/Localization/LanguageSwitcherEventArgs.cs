@@ -1,50 +1,67 @@
-// Esperantus - The Web translator
-// Copyright (C) 2003 Emmanuele De Andreis
-//
-// This library is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Lesser General Public
-// License as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
-//
-// This library is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// Lesser General Public License for more details.
-//
-// You should have received a copy of the GNU Lesser General Public
-// License along with this library; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-//
-// Emmanuele De Andreis (manu-dea@hotmail dot it)
-
-using System;
-using System.Globalization;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="LanguageSwitcherEventArgs.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+// Language Switcher Event Arguments
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.Web.UI.WebControls
 {
+    using System;
+    using System.Globalization;
+
     /// <summary>
-    /// LanguageSwitcherEventArgs
+    /// Language Switcher Event Arguments
     /// </summary>
     public class LanguageSwitcherEventArgs : EventArgs
     {
-        private LanguageCultureItem cultureItem;
+        #region Constants and Fields
 
-        public LanguageSwitcherEventArgs(CultureInfo uiCulture, CultureInfo culture) : base()
+        /// <summary>
+        /// The culture item.
+        /// </summary>
+        private readonly LanguageCultureItem cultureItem;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LanguageSwitcherEventArgs"/> class.
+        /// </summary>
+        /// <param name="uiCulture">The UI culture.</param>
+        /// <param name="culture">The culture.</param>
+        public LanguageSwitcherEventArgs(CultureInfo uiCulture, CultureInfo culture)
         {
-            cultureItem = new LanguageCultureItem(uiCulture, culture);
+            this.cultureItem = new LanguageCultureItem(uiCulture, culture);
         }
 
-        public LanguageSwitcherEventArgs(LanguageCultureItem cultureItem) : base()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LanguageSwitcherEventArgs"/> class.
+        /// </summary>
+        /// <param name="cultureItem">The culture item.</param>
+        public LanguageSwitcherEventArgs(LanguageCultureItem cultureItem)
         {
             this.cultureItem = cultureItem;
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
-        /// Returns the language to change
+        /// Gets the culture item.
         /// </summary>
         public LanguageCultureItem CultureItem
         {
-            get { return cultureItem; }
+            get
+            {
+                return this.cultureItem;
+            }
         }
+
+        #endregion
     }
 }

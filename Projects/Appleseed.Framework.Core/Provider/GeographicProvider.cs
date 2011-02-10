@@ -1,54 +1,85 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Configuration.Provider;
-using System.Web;
-using System.Web.Caching;
-using Appleseed.Framework.Provider;
-using System.Configuration;
-using System.Collections;
-using System.Globalization;
-using Appleseed.Framework.Helpers;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="GeographicProvider.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Defines the types of countries lists that can be retrieved using Country.GetCountries
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-namespace Appleseed.Framework.Providers.Geographic {
+namespace Appleseed.Framework.Providers.Geographic
+{
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Configuration.Provider;
+    using System.Globalization;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Caching;
+
+    using Appleseed.Framework.Helpers;
+    using Appleseed.Framework.Provider;
 
     /// <summary>
     /// Defines the types of countries lists that can be retrieved using Country.GetCountries
     /// </summary>
     [Serializable]
-    public enum CountryFields {
+    public enum CountryFields
+    {
         /// <summary>
-        /// None
+        ///   None
         /// </summary>
-        None,
+        None, 
 
         /// <summary>
-        /// NeutralName
+        ///   NeutralName
         /// </summary>
-        NeutralName,
+        NeutralName, 
 
         /// <summary>
-        /// CountryID
+        ///   CountryID
         /// </summary>
-        CountryID,
+        CountryID, 
 
         /// <summary>
-        /// Name
+        ///   Name
         /// </summary>
         Name
     }
 
     #region Country comparers
 
-    internal class CountryNameComparer : IComparer<Country> {
+    /// <summary>
+    /// The country name comparer.
+    /// </summary>
+    internal class CountryNameComparer : IComparer<Country>
+    {
+        #region Implemented Interfaces
 
-        #region IComparer<Country> Members
+        #region IComparer<Country>
 
-        public int Compare( Country x, Country y ) {
-            string xName = x.Name;
-            string yName = y.Name;
-            return new CaseInsensitiveComparer( System.Globalization.CultureInfo.CurrentUICulture ).Compare( xName, yName );
+        /// <summary>
+        /// Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.
+        /// </summary>
+        /// <param name="x">
+        /// The first object to compare.
+        /// </param>
+        /// <param name="y">
+        /// The second object to compare.
+        /// </param>
+        /// <returns>
+        /// Value Condition Less than zero x is less than y. Zero x equals y. Greater than zero x is greater than y.
+        /// </returns>
+        public int Compare(Country x, Country y)
+        {
+            var xName = x.Name;
+            var yName = y.Name;
+            return new CaseInsensitiveComparer(CultureInfo.CurrentUICulture).Compare(xName, yName);
         }
+
+        #endregion
 
         #endregion
     }
@@ -56,226 +87,356 @@ namespace Appleseed.Framework.Providers.Geographic {
     #endregion
 
     /// <summary>
-    /// Geographic prvodider API 
+    /// Geographic provider API
     /// </summary>
-    public abstract class GeographicProvider : ProviderBase {
+    public abstract class GeographicProvider : ProviderBase
+    {
+        #region Constants and Fields
 
         /// <summary>
-        /// Camel case. Must match web.config section name
+        ///   The current cache.
         /// </summary>
-        private const string providerType = "geographic";
+        protected static Cache _currentCache;
 
         /// <summary>
-        /// filteredCountries attribute from config
+        ///   Camel case. Must match web.config section name
         /// </summary>
-        protected string countriesFilter = string.Empty;
+        private const string ProviderType = "geographic";
+
+        #endregion
+
+        #region Constructors and Destructors
 
         /// <summary>
-        /// Returns the a string of comma separated country IDs. This list is used when retrieving lists of countries.
+        ///   Initializes a new instance of the <see cref = "GeographicProvider" /> class.
         /// </summary>
-        public string CountriesFilter {
-            get {
-                return countriesFilter;
-            }
-            set {
-                countriesFilter = value;
-            }
+        public GeographicProvider()
+        {
+            this.CountriesFilter = string.Empty;
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
-        /// Instances this instance.
+        ///   Instances this instance.
         /// </summary>
         /// <returns></returns>
-        public static GeographicProvider Current {
-            get {
+        public static GeographicProvider Current
+        {
+            get
+            {
                 // Get the names of providers
-                ProviderConfiguration config = ProviderConfiguration.GetProviderConfiguration( providerType );
-                // Read specific configuration information for this provider
-                ProviderSettings providerSettings = ( ProviderSettings )config.Providers[config.DefaultProvider];
-                // In the cache?
-                string cacheKey = "Appleseed::Web::GeographicProvider::" + config.DefaultProvider;
+                var config = ProviderConfiguration.GetProviderConfiguration(ProviderType);
 
-                if ( CurrentCache[cacheKey] == null ) {
+                // Read specific configuration information for this provider
+                var providerSettings = (ProviderSettings)config.Providers[config.DefaultProvider];
+
+                // In the cache?
+                var cacheKey = "Appleseed::Web::GeographicProvider::" + config.DefaultProvider;
+
+                if (CurrentCache[cacheKey] == null)
+                {
                     // The assembly should be in \bin or GAC, so we simply need
 
                     // to get an instance of the type
-                    try {
-                        CurrentCache.Insert( cacheKey, ProviderHelper.InstantiateProvider( providerSettings, typeof( GeographicProvider ) ) );
+                    try
+                    {
+                        CurrentCache.Insert(
+                            cacheKey, ProviderHelper.InstantiateProvider(providerSettings, typeof(GeographicProvider)));
                     }
-                    catch ( Exception e ) {
-                        throw new Exception( "Unable to load provider", e );
+                    catch (Exception e)
+                    {
+                        throw new Exception("Unable to load provider", e);
                     }
                 }
-                return ( GeographicProvider )CurrentCache[cacheKey];
+
+                return (GeographicProvider)CurrentCache[cacheKey];
             }
         }
 
-        protected static Cache _currentCache = null;
+        /// <summary>
+        ///   Returns the a string of comma separated country IDs. This list is used when retrieving lists of countries.
+        /// </summary>
+        public string CountriesFilter { get; set; }
 
         /// <summary>
-        /// Gets the current cache.
+        ///   Get a Country objects that represents the country of the current thread
+        /// </summary>
+        public Country CurrentCountry
+        {
+            get
+            {
+                return Current.GetCountry(RegionInfo.CurrentRegion.Name);
+            }
+        }
+
+        /// <summary>
+        ///   Gets the current cache.
         /// </summary>
         /// <value>The current cache.</value>
-        protected static Cache CurrentCache {
-            get {
-                if ( _currentCache == null ) {
-                    if ( System.Web.HttpContext.Current != null ) {
-                        _currentCache = System.Web.HttpContext.Current.Cache;
+        protected static Cache CurrentCache
+        {
+            get
+            {
+                if (_currentCache == null)
+                {
+                    if (HttpContext.Current != null)
+                    {
+                        _currentCache = HttpContext.Current.Cache;
                     }
-                    else {
+                    else
+                    {
                         // I'm in a test environment
-                        System.Web.HttpRuntime r = new System.Web.HttpRuntime();
-                        _currentCache = System.Web.HttpRuntime.Cache;
+                        var r = new HttpRuntime();
+                        _currentCache = HttpRuntime.Cache;
                     }
                 }
+
                 return _currentCache;
             }
         }
 
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Gets the administrative division's name in the specified language if available. It not, gets the default one.
+        /// </summary>
+        /// <param name="administrativeDivisionName">
+        /// The administrative Division Name.
+        /// </param>
+        /// <param name="c">
+        /// a 
+        ///   <code>
+        /// System.Globalization.CultureInfo
+        ///   </code>
+        /// describing the language we want the name for
+        /// </param>
+        /// <returns>
+        /// A 
+        ///   <code>
+        /// string
+        ///   </code>
+        /// containing the localized name.
+        /// </returns>
+        public abstract string GetAdministrativeDivisionName(string administrativeDivisionName, CultureInfo c);
+
+        /// <summary>
+        /// The get countries.
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        public abstract IList<Country> GetCountries();
+
+        /// <summary>
+        /// The get countries.
+        /// </summary>
+        /// <param name="sortBy">
+        /// The sort by.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public abstract IList<Country> GetCountries(CountryFields sortBy);
+
+        /// <summary>
+        /// The get countries.
+        /// </summary>
+        /// <param name="filter">
+        /// The filter.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public abstract IList<Country> GetCountries(string filter);
+
+        /// <summary>
+        /// The get countries.
+        /// </summary>
+        /// <param name="filter">
+        /// The filter.
+        /// </param>
+        /// <param name="sortBy">
+        /// The sort by.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public abstract IList<Country> GetCountries(string filter, CountryFields sortBy);
+
+        /// <summary>
+        /// Returns a 
+        ///   <code>
+        /// Country
+        ///   </code>
+        /// object
+        /// </summary>
+        /// <param name="countryId">
+        /// The country's id
+        /// </param>
+        /// <returns>
+        /// A 
+        ///   <code>
+        /// Country
+        ///   </code>
+        /// object containing the country info, or null if the country doesn't exist
+        /// </returns>
+        /// <exception cref="CountryNotFoundException">
+        /// If the country is not found
+        /// </exception>
+        public abstract Country GetCountry(string countryId);
+
+        /// <summary>
+        /// Gets the country's name in the specified language if available. It not, gets the default one.
+        /// </summary>
+        /// <param name="countryId">
+        /// The country's id
+        /// </param>
+        /// <param name="c">
+        /// a 
+        ///   <code>
+        /// System.Globalization.CultureInfo
+        ///   </code>
+        /// describing the language we want the name for
+        /// </param>
+        /// <returns>
+        /// A 
+        ///   <code>
+        /// string
+        ///   </code>
+        /// containing the localized name.
+        /// </returns>
+        /// <exception cref="CountryNotFoundException">
+        /// If the country is not found
+        /// </exception>
+        public abstract string GetCountryDisplayName(string countryId, CultureInfo c);
+
+        /// <summary>
+        /// Returns a list of states for a specified country.
+        /// </summary>
+        /// <param name="countryId">
+        /// The country code
+        /// </param>
+        /// <returns>
+        /// The list of states for the specified country
+        /// </returns>
+        public abstract IList<State> GetCountryStates(string countryId);
+
+        /// <summary>
+        /// Returns a 
+        ///   <code>
+        /// State
+        ///   </code>
+        /// object
+        /// </summary>
+        /// <param name="stateId">
+        /// The state's id
+        /// </param>
+        /// <returns>
+        /// A 
+        ///   <code>
+        /// State
+        ///   </code>
+        /// object containing the State info, or null if the state doesn't exist
+        /// </returns>
+        /// <exception cref="StateNotFoundException">
+        /// If the state is not found
+        /// </exception>
+        public abstract State GetState(int stateId);
+
+        /// <summary>
+        /// Gets the states's name in the specified language if available. It not, gets the default one.
+        /// </summary>
+        /// <param name="stateId">
+        /// The state ID.
+        /// </param>
+        /// <param name="c">
+        /// a 
+        ///   <code>
+        /// System.Globalization.CultureInfo
+        ///   </code>
+        /// describing the language we want the name for
+        /// </param>
+        /// <returns>
+        /// A 
+        ///   <code>
+        /// string
+        ///   </code>
+        /// containing the localized name.
+        /// </returns>
+        /// <exception cref="StateNotFoundException">
+        /// If the state is not found
+        /// </exception>
+        public abstract string GetStateDisplayName(int stateId, CultureInfo c);
+
+        /// <summary>
+        /// Gets the unfiltered countries.
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        public abstract IList<Country> GetUnfilteredCountries();
+
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Builds the countries filter.
         /// </summary>
-        /// <param name="configFilter">The config filter.</param>
-        /// <param name="additionalFilter">The additional filter.</param>
-        /// <returns>a string of comma-separated country codes, representing the built filter</returns>
-        protected static string BuildCountriesFilter( string configFilter, string additionalFilter ) {
-            string[] configFilterArray = configFilter.Trim().Split( ',' );
-            string[] additionalFilterArray = additionalFilter.Trim().Split( ',' );
-            string[] filterArray = null;
+        /// <param name="configFilter">
+        /// The configuration filter.
+        /// </param>
+        /// <param name="additionalFilter">
+        /// The additional filter.
+        /// </param>
+        /// <returns>
+        /// a string of comma-separated country codes, representing the built filter
+        /// </returns>
+        protected static string BuildCountriesFilter(string configFilter, string additionalFilter)
+        {
+            var configFilterArray = configFilter.Trim().Split(',');
+            var additionalFilterArray = additionalFilter.Trim().Split(',');
+            string[] filterArray;
 
-            foreach ( string s in configFilterArray ) {
-                if ( ( !s.Equals( string.Empty ) ) && ( s.Length != 2 ) ) {
-                    // this is not a valid country code
-                    throw new ArgumentException( string.Format( "{0} is not a valid country code", s ) );
-                }
+            foreach (var s in configFilterArray.Where(s => (!s.Equals(string.Empty)) && (s.Length != 2)))
+            {
+                // this is not a valid country code
+                throw new ArgumentException(string.Format("{0} is not a valid country code", s));
             }
 
-            foreach ( string s in additionalFilterArray ) {
-                if ( ( !s.Equals( string.Empty ) ) && ( s.Length != 2 ) ) {
-                    // this is not a valid country code
-                    throw new ArgumentException( string.Format( "{0} is not a valid country code", s ) );
-                }
+            foreach (var s in additionalFilterArray.Where(s => (!s.Equals(string.Empty)) && (s.Length != 2)))
+            {
+                // this is not a valid country code
+                throw new ArgumentException(string.Format("{0} is not a valid country code", s));
             }
 
-            if ( ( configFilterArray.Length > 1 ) && ( additionalFilterArray.Length > 1 ) ) {
-                filterArray = Utilities.IntersectArrays( configFilterArray, additionalFilterArray );
+            if ((configFilterArray.Length > 1) && (additionalFilterArray.Length > 1))
+            {
+                filterArray = Utilities.IntersectArrays(configFilterArray, additionalFilterArray);
             }
-            else if ( configFilterArray.Length > 1 ) {
+            else if (configFilterArray.Length > 1)
+            {
                 filterArray = configFilterArray;
             }
-            else if ( additionalFilterArray.Length > 1 ) {
+            else if (additionalFilterArray.Length > 1)
+            {
                 filterArray = additionalFilterArray;
             }
-            else {
+            else
+            {
                 filterArray = new string[0];
             }
 
-            string filter = string.Empty;
-            foreach ( string s in filterArray ) {
-                filter = filter + s + ",";
-            }
+            var filter = filterArray.Aggregate(string.Empty, (current, s) => string.Format("{0}{1},", current, s));
 
-            if ( filter.EndsWith( "," ) ) {
-                filter = filter.Substring( 0, filter.Length - 1 );
+            if (filter.EndsWith(","))
+            {
+                filter = filter.Substring(0, filter.Length - 1);
             }
 
             return filter;
         }
 
-
-        /// <summary>
-        /// Gets the list of countries
-        /// </summary>
-        /// <returns>a <code>IList<Country></code> containing a list of all countries. 
-        /// This method ignores the CountriesFilter property.</returns>
-        public abstract IList<Country> GetUnfilteredCountries();
-
-        /// <summary>
-        /// Gets the list of countries
-        /// </summary>
-        /// <returns>a <code>IList<Country></code> containing a list of all countries. 
-        /// This method takes into account the CountriesFilter property.</returns>
-        public abstract IList<Country> GetCountries();
-
-        /// <summary>
-        /// Gets the list of countries sorted by a certain field.
-        /// This method takes into account the CountriesFilter property.</returns>
-        /// <param name="types">CountryTypes enum value</param>
-        /// <returns>The list of countries</returns>
-        public abstract IList<Country> GetCountries( CountryFields sortBY );
-
-        /// <summary>
-        /// Gets the list of countries filtered by the specified filter.
-        /// This method takes into account the CountriesFilter property.</returns>
-        /// <param name="filter">A colon separated string of TwoLetterISONames</param>
-        /// <exception cref="ArgumentException">If the the filter is not valid (comma-separated two-letter codes)</exception>
-        /// <returns>The list of countries</returns>
-        public abstract IList<Country> GetCountries( string filter );
-
-        /// <summary>
-        /// Gets the list of countries filtered by the specified filter and sorted by a certain field. 
-        /// This method takes into account the CountriesFilter property.</returns>
-        /// <param name="filter">A colon separated string of TwoLetterISONames</param>
-        /// <exception cref="ArgumentException">If the the filter is not valid (comma-separated two-letter codes)</exception>
-        /// <returns>The list of countries</returns>
-        public abstract IList<Country> GetCountries( string filter, CountryFields sortBY );
-
-        /// <summary>
-        /// Returns a list of states for a specified country.
-        /// </summary>
-        /// <param name="countryID">The country code</param>
-        /// <returns>The list of states for the specified country</returns>
-        public abstract IList<State> GetCountryStates( string countryID );
-
-        /// <summary>
-        /// Gets the country's name in the specified language if available. It not, gets the default one.
-        /// </summary>
-        /// <param name="countryID">The country's id</param>
-        /// <param name="c">a <code>System.Globalization.CultureInfo</code> describing the language we want the name for</param>
-        /// <returns>A <code>string</code> containing the localized name.</returns>
-        /// <exception cref="CountryNotFoundException">If the country is not found</exception>
-        public abstract string GetCountryDisplayName( string countryID, System.Globalization.CultureInfo c );
-
-        /// <summary>
-        /// Gets the states's name in the specified language if available. It not, gets the default one.
-        /// </summary>
-        /// <param name="countryCode">The state's id</param>
-        /// <param name="c">a <code>System.Globalization.CultureInfo</code> describing the language we want the name for</param>
-        /// <returns>A <code>string</code> containing the localized name.</returns>
-        /// <exception cref="StateNotFoundException">If the state is not found</exception>
-        public abstract string GetStateDisplayName( int stateID, System.Globalization.CultureInfo c );
-
-        /// <summary>
-        /// Gets the administrative division's name in the specified language if available. It not, gets the default one.
-        /// </summary>
-        /// <param name="countryCode">The administrative division's neutral name</param>
-        /// <param name="c">a <code>System.Globalization.CultureInfo</code> describing the language we want the name for</param>
-        /// <returns>A <code>string</code> containing the localized name.</returns>
-        public abstract string GetAdministrativeDivisionName( string administrativeDivisionName, System.Globalization.CultureInfo c );
-
-        /// <summary>
-        /// Returns a <code>Country</code> object
-        /// </summary>
-        /// <param name="countryID">The country's id</param>
-        /// <returns>A <code>Country</code> object containing the country info, or null if the country doesn't exist</returns>
-        /// <exception cref="CountryNotFoundException">If the country is not found</exception>
-        public abstract Country GetCountry( string countryID );
-
-        /// <summary>
-        /// Returns a <code>State</code> object
-        /// </summary>
-        /// <param name="stateID">The state's id</param>
-        /// <returns>A <code>State</code> object containing the State info, or null if the state doesn't exist</returns>
-        /// <exception cref="StateNotFoundException">If the state is not found</exception>
-        public abstract State GetState( int stateID );
-
-        /// <summary>
-        /// Get a Country objects that represents the country of the current thread
-        /// </summary>
-        public Country CurrentCountry {
-            get {
-                return GeographicProvider.Current.GetCountry( RegionInfo.CurrentRegion.Name );
-            }
-        }
+        #endregion
     }
 }

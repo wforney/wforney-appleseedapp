@@ -14,6 +14,9 @@ using Path=System.IO.Path;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// Books module
     /// Load books from amazon
@@ -29,43 +32,37 @@ namespace Appleseed.Content.Web.Modules
         }
 
         /// <summary>
-        /// Books consturctor
+        /// Initializes a new instance of the <see cref="AmazonBooks"/> class.
         /// </summary>
         public AmazonBooks()
         {
-            SettingItem Columns = new SettingItem(new IntegerDataType());
-            Columns.Required = true;
-            Columns.Value = "3";
-            Columns.MinValue = 1;
-            Columns.MaxValue = 10;
+            var Columns = new SettingItem<int, TextBox>(new IntegerDataType())
+                { Required = true, Value = 3, MinValue = 1, MaxValue = 10 };
             _baseSettings.Add("Columns", Columns);
 
-            SettingItem Width = new SettingItem(new IntegerDataType());
-            Width.Value = "110";
-            Width.MinValue = 50;
-            Width.MaxValue = 250;
+            var Width = new SettingItem<int, TextBox>(new IntegerDataType())
+                { Value = 110, MinValue = 50, MaxValue = 250 };
             _baseSettings.Add("Width", Width);
 
-            SettingItem PromoCode = new SettingItem(new StringDataType());
+            var PromoCode = new SettingItem<string, TextBox>(new StringDataType()) { Value = Config.AmazonPromoCode };
             //jes1111
             //if (ConfigurationSettings.AppSettings["AmazonPromoCode"] != null && ConfigurationSettings.AppSettings["AmazonPromoCode"].Length != 0)
             //	PromoCode.Value = ConfigurationSettings.AppSettings["AmazonPromoCode"].ToString();
             //else 
             //	PromoCode.Value = string.Empty;
-            PromoCode.Value = Config.AmazonPromoCode;
             _baseSettings.Add("Promotion Code", PromoCode);
 
-            SettingItem ShowDetails = new SettingItem(new StringDataType());
-            ShowDetails.Value = "ProductName,OurPrice,Author";
+            var ShowDetails = new SettingItem<string, TextBox>(new StringDataType())
+                { Value = "ProductName,OurPrice,Author" };
             _baseSettings.Add("Show Details", ShowDetails);
 
-            SettingItem AmazonDevToken = new SettingItem(new StringDataType());
+            var AmazonDevToken = new SettingItem<string, TextBox>(new StringDataType())
+                { Value = Config.AmazonDevToken };
             //jes1111
             //if (ConfigurationSettings.AppSettings["AmazonDevToken"] != null && ConfigurationSettings.AppSettings["AmazonDevToken"].Length != 0)
             //	AmazonDevToken.Value = ConfigurationSettings.AppSettings["AmazonDevToken"].ToString();
             //else 
             //	AmazonDevToken.Value = string.Empty;
-            AmazonDevToken.Value = Config.AmazonDevToken;
             _baseSettings.Add("Amazon Dev Token", AmazonDevToken);
 
             //Choose your editor here
@@ -281,7 +278,7 @@ namespace Appleseed.Content.Web.Modules
         {
             string currentScriptName = Path.Combine(Server.MapPath(TemplateSourceDirectory), "install.sql");
 
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
 
             if (errors.Count > 0)
             {
@@ -297,7 +294,7 @@ namespace Appleseed.Content.Web.Modules
         {
             string currentScriptName = Path.Combine(Server.MapPath(TemplateSourceDirectory), "uninstall.sql");
 
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
 
             if (errors.Count > 0)
             {

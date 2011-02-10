@@ -121,10 +121,10 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         private void InitImages()
         {
-            imgroot = Path.WebPathCombine(CurrentTheme.WebPath, "/img/");
-            btnDelete.ImageUrl = CurrentTheme.GetModuleImageSRC("delete.png");
-            btnGoUp.ImageUrl = CurrentTheme.GetModuleImageSRC("FolderUp.gif");
-            btnNewFolder.ImageUrl = CurrentTheme.GetModuleImageSRC("newfolder.gif");
+            imgroot = Path.WebPathCombine(this.CurrentTheme.WebPath, "/img/");
+            btnDelete.ImageUrl = this.CurrentTheme.GetModuleImageSRC("delete.png");
+            btnGoUp.ImageUrl = this.CurrentTheme.GetModuleImageSRC("FolderUp.gif");
+            btnNewFolder.ImageUrl = this.CurrentTheme.GetModuleImageSRC("newfolder.gif");
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace Appleseed.Content.Web.Modules
             SettingItemGroup group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             int groupBase = (int) group;
 
-            SettingItem directory = new SettingItem(new StringDataType());
+            var directory = new SettingItem<string, TextBox>(new StringDataType());
             directory.EnglishName = "Directory Path";
             directory.Required = false;
             directory.Group = group;
@@ -174,7 +174,7 @@ namespace Appleseed.Content.Web.Modules
                 directory.Value = string.Empty;
             _baseSettings.Add("FM_DIRECTORY", directory);
 
-            SettingItem DownloadableExt = new SettingItem(new StringDataType());
+            var DownloadableExt = new SettingItem<string, TextBox>(new StringDataType());
             DownloadableExt.EnglishName = "Downloadable extentions";
             DownloadableExt.Group = group;
             DownloadableExt.Order = groupBase + 25; //2;
@@ -305,7 +305,7 @@ namespace Appleseed.Content.Web.Modules
 
                 //HyperLink for Edit Text
                 HyperLink hlImgEdit = new HyperLink();
-                hlImgEdit.ImageUrl = CurrentTheme.GetModuleImageSRC("btnEdit.gif");
+                hlImgEdit.ImageUrl = this.CurrentTheme.GetModuleImageSRC("btnEdit.gif");
                 hlImgEdit.NavigateUrl = Path.ApplicationFullPath + "Desktopmodules/Filemanager/EditFile.aspx?ID=" +
                                         GetCurDir() + "\\" + DataBinder.Eval(e.Item.DataItem, "filename");
                 //----
@@ -313,7 +313,7 @@ namespace Appleseed.Content.Web.Modules
                 int type = int.Parse(DataBinder.Eval(e.Item.DataItem, "type", "{0}"));
                 if (type == 0)
                 {
-                    imgType.ImageUrl = CurrentTheme.GetModuleImageSRC("dir.gif");
+                    imgType.ImageUrl = this.CurrentTheme.GetModuleImageSRC("dir.gif");
                     e.Item.Cells[2].Text = "";
                     e.Item.Cells[3].Text = "";
                 }

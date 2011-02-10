@@ -12,9 +12,11 @@ namespace Appleseed.Framework.Site.Configuration
 {
     using System;
     using System.Collections;
+    using System.ComponentModel;
     using System.Data;
     using System.Data.SqlClient;
     using System.Web.UI;
+    using System.Web.UI.WebControls;
 
     using Appleseed.Framework.Exceptions;
     using Appleseed.Framework.Settings;
@@ -132,7 +134,6 @@ namespace Appleseed.Framework.Site.Configuration
                 }
             }
 
-            // foreach (string key in _customSettings.Keys)
             foreach (string key in customSettings.Keys)
             {
                 if (settings[key] == null)
@@ -140,13 +141,24 @@ namespace Appleseed.Framework.Site.Configuration
                     continue;
                 }
 
-                var s = (SettingItem)customSettings[key];
-                if (settings[key].ToString().Length != 0)
+                var s = customSettings[key];
+
+                if (settings[key].ToString().Length == 0)
                 {
-                    s.Value = settings[key].ToString();
+                    continue;
                 }
 
-                // _customSettings[key] = s;
+                var conv = TypeDescriptor.GetConverter(typeof(SettingItem<string, TextBox>));
+                if (conv == null)
+                {
+                    continue;
+                }
+
+                var setting = (SettingItem<string, TextBox>)conv.ConvertFrom(s);
+                if (setting != null)
+                {
+                    setting.Value = settings[key].ToString();
+                }
             }
 
             return customSettings;

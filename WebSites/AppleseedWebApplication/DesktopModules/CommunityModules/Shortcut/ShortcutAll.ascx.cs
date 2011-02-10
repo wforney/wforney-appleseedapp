@@ -6,6 +6,8 @@ using History=Appleseed.Framework.History;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// ShortcutAll module provide a quick way to duplicate
     /// a module content in different page from different portals 
@@ -19,8 +21,8 @@ namespace Appleseed.Content.Web.Modules
         public ShortcutAll()
         {
             // Get a list of modules of all portals
-            SettingItem LinkedModule =
-                new SettingItem(
+            var LinkedModule =
+                new SettingItem<string, ListControl>(
                     new CustomListDataType(new ModulesDB().GetModulesAllPortals(), "ModuleTitle", "ModuleID"));
             LinkedModule.Required = true;
             LinkedModule.Order = 0;

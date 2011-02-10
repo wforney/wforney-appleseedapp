@@ -6,6 +6,10 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
+    using Appleseed.Framework;
+
     public partial class SiteSettingsmod : PortalModuleControl
     {
         /// <summary>
@@ -64,8 +68,8 @@ namespace Appleseed.Content.Web.Modules
 
         private void EditTable_UpdateControl(object sender, SettingsTableEventArgs e)
         {
-            PortalSettings.UpdatePortalSetting(portalSettings.PortalID, e.CurrentItem.EditControl.ID,
-                                               e.CurrentItem.Value);
+            PortalSettings.UpdatePortalSetting(portalSettings.PortalID, ((SettingItem<string, TextBox>)e.CurrentItem).EditControl.ID,
+                                               ((SettingItem<string, TextBox>)e.CurrentItem).Value);
         }
 
         public override Guid GuidID

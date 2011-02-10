@@ -1,45 +1,45 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ApplicationUrlDataType.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Application URL Data Type
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace Appleseed.Framework.DataTypes
 {
-	/// <summary>
-	/// ApplicationUrlDataType
-	/// </summary>
-	public class ApplicationUrlDataType : UrlDataType
-	{
-		/// <summary>
-		/// ApplicationUrlDataType
-		/// </summary>
-		public ApplicationUrlDataType()
-		{
-			InnerDataType = PropertiesDataType.String;
-		}
+    /// <summary>
+    /// Application URL Data Type
+    /// </summary>
+    public class ApplicationUrlDataType : UrlDataType
+    {
+        #region Constructors and Destructors
 
         /// <summary>
-        /// Gets or sets the value.
+        ///   Initializes a new instance of the <see cref = "ApplicationUrlDataType" /> class.
         /// </summary>
-        /// <value>The value.</value>
-		public override string Value
-		{
-			get
-			{
-				return base.Value;
-			}
-			set
-			{
-				base.Value = value;
-			}
-		}
+        public ApplicationUrlDataType()
+        {
+            this.Type = PropertiesDataType.String;
+        }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
-        /// Url relative to Application
+        ///   URL relative to Application
         /// </summary>
         /// <value>The description.</value>
-		public override string Description
-		{
-			get
-			{
-				return "Url relative to Application";
-			}
-		}
-	}
+        public override string Description
+        {
+            get
+            {
+                return "URL relative to Application";
+            }
+        }
 
+        #endregion
+    }
 }

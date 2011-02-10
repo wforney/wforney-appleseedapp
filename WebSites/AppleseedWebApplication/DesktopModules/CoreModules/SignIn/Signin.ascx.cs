@@ -1,3 +1,16 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Signin.ascx.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   The SignIn User Control enables clients to authenticate themselves using
+//   the ASP.NET Forms based authentication system.
+//   When a client enters their username/password within the appropriate
+//   textboxes and clicks the "Login" button, the LoginBtn_Click event
+//   handler executes on the server and attempts to validate their
+//   credentials against a SQL database.
+//   If the password check succeeds, then the LoginBtn_Click event handler
+//   sets the customers username in an encrypted cookieID and redirects
 using System;
 using System.Data.SqlClient;
 using System.Text;
@@ -24,12 +37,11 @@ namespace Appleseed.Content.Web.Modules
     ///
     /// When a client enters their username/password within the appropriate
     /// textboxes and clicks the "Login" button, the LoginBtn_Click event
-    /// handler executes on the server and attempts to validate their
-    /// credentials against a SQL database.
-    ///
-    /// If the password check succeeds, then the LoginBtn_Click event handler
-    /// sets the customers username in an encrypted cookieID and redirects
-    /// back to the portal home page.
+    ///   handler executes on the server and attempts to validate their
+    ///   credentials against a SQL database.
+    ///   If the password check succeeds, then the LoginBtn_Click event handler
+    ///   sets the customers username in an encrypted cookieID and redirects
+    ///   back to the portal home page.
     /// 
     /// If the password check fails, then an appropriate error message
     /// is displayed.
