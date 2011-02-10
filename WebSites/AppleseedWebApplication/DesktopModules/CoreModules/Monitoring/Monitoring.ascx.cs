@@ -16,6 +16,8 @@ using Path=System.IO.Path;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Appleseed Monitoring Module - Shows website usage stats
     /// Written by: Paul Yarrow, paul@paulyarrow.com
@@ -41,13 +43,12 @@ namespace Appleseed.Content.Web.Modules
             SettingItemGroup group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             int groupBase = (int) group;
 
-            SettingItem setSortField =
-                new SettingItem(
-                    new ListDataType("ActivityTime;ActivityType;Name;PortalName;TabName;UserHostAddress;UserAgent"));
-            setSortField.Required = true;
-            setSortField.Value = "ActivityTime";
-            setSortField.Group = group;
-            setSortField.Order = groupBase + 20; //1;
+            var setSortField =
+                new SettingItem<string, ListControl>(
+                    new ListDataType<string, ListControl>("ActivityTime;ActivityType;Name;PortalName;TabName;UserHostAddress;UserAgent"))
+                    { Required = true, Value = "ActivityTime", Group = group, Order = groupBase + 20 };
+
+            // 1;
             _baseSettings.Add("SortField", setSortField);
         }
 
@@ -310,7 +311,7 @@ namespace Appleseed.Content.Web.Modules
         public override void Install(IDictionary stateSaver)
         {
             string currentScriptName = Path.Combine(Server.MapPath(TemplateSourceDirectory), "install.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback
@@ -325,7 +326,7 @@ namespace Appleseed.Content.Web.Modules
         public override void Uninstall(IDictionary stateSaver)
         {
             string currentScriptName = Path.Combine(Server.MapPath(TemplateSourceDirectory), "uninstall.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback

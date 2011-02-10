@@ -14,6 +14,8 @@ using Label=Appleseed.Framework.Web.UI.WebControls.Label;
 
 namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
 {
+    using System.Collections.Generic;
+
     [History("jminond", "2006/2/23", "Converted to partial class")]
     public partial class Discussion : PortalModuleControl
     {
@@ -37,9 +39,9 @@ namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
         private void Page_Load(object sender, EventArgs e)
         {
             /*if (Page.IsPostBack == false) 
-			{
-				BindList();
-			}*/
+            {
+                BindList();
+            }*/
             BindList();
         }
 
@@ -113,11 +115,11 @@ namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
                         break;
                     }
                     /*
-					case "SelectTitle":
-					TopLevelList.SelectedIndex = e.Item.ItemIndex;
-					Response.Redirect(FormatUrlShowThread((int)DataBinder.Eval(Container.DataItem, "ItemID")));
-					break;
-				*/
+                    case "SelectTitle":
+                    TopLevelList.SelectedIndex = e.Item.ItemIndex;
+                    Response.Redirect(FormatUrlShowThread((int)DataBinder.Eval(Container.DataItem, "ItemID")));
+                    break;
+                */
                 case "delete": // the "delete" command can come from the TopLevelList or the DetailList
                     {
                         DiscussionDB discuss = new DiscussionDB();
@@ -363,7 +365,7 @@ namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
         public override void Install(System.Collections.IDictionary stateSaver)
         {
             string currentScriptName = System.IO.Path.Combine(Server.MapPath(TemplateSourceDirectory), "install.sql");
-            ArrayList errors = Appleseed.Framework.Data.DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = Appleseed.Framework.Data.DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback
@@ -378,7 +380,7 @@ namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
         public override void Uninstall(System.Collections.IDictionary stateSaver)
         {
             string currentScriptName = System.IO.Path.Combine(Server.MapPath(TemplateSourceDirectory), "uninstall.sql");
-            ArrayList errors = Appleseed.Framework.Data.DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = Appleseed.Framework.Data.DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback

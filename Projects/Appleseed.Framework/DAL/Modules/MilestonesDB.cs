@@ -1,241 +1,318 @@
-using System;
-using System.Data;
-using System.Data.SqlClient;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="MilestonesDB.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   The milestones db.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using Appleseed.Framework;
-using Appleseed.Framework.Settings;
-using Appleseed.Framework.Data;
 namespace Appleseed.Framework.Content.Data
 {
-	public class MilestonesDB
-	{
-        /// <summary>
-        /// GetSingleMilestones
-        /// </summary>
-        /// <param name="ItemID">ItemID</param>
-        /// <param name="version">The version.</param>
-        /// <returns>A SqlDataReader</returns>
-		
-		// change by David.Verberckmoes@syntegra.com in order to support workflow
-		// Date: 20030324
-		public SqlDataReader GetSingleMilestones(int ItemID, WorkFlowVersion version)
-		{
-			// Create Instance of Connection and Command Object
-			SqlConnection myConnection = Config.SqlConnectionString;
-			SqlCommand myCommand = new SqlCommand("rb_GetSingleMilestones", myConnection);
+    using System;
+    using System.Data;
+    using System.Data.SqlClient;
 
-			// Mark the Command as a SPROC
-			myCommand.CommandType = CommandType.StoredProcedure;
+    using Appleseed.Framework.Settings;
 
-			// Add Parameters to SPROC
-			SqlParameter parameterItemID = new SqlParameter("@ItemID", SqlDbType.Int);
-			parameterItemID.Value = ItemID;
-			myCommand.Parameters.Add(parameterItemID);
-
-			// Change by David.Verberckmoes@Syntegra.com on 20030324
-			SqlParameter parameterWorkflowVersion = new SqlParameter("@WorkflowVersion", SqlDbType.Int, 4);
-			parameterWorkflowVersion.Value = (int)version;
-			myCommand.Parameters.Add(parameterWorkflowVersion);
-			// End Change David.Verberckmoes@Syntegra.com 
-
-			// Execute the command
-			myConnection.Open();
-			SqlDataReader result = myCommand.ExecuteReader(CommandBehavior.CloseConnection);
-
-			// Return the datareader
-			return result;
-		}
-
+    /// <summary>
+    /// The milestones db.
+    /// </summary>
+    public class MilestonesDB
+    {
+        #region Public Methods
 
         /// <summary>
-        /// GetMilestones
+        /// Add Milestones
         /// </summary>
-        /// <param name="ModuleID">The module ID.</param>
-        /// <param name="version">The version.</param>
-        /// <returns>A SqlDataReader</returns>
+        /// <param name="itemId">
+        /// The ItemID
+        /// </param>
+        /// <param name="moduleId">
+        /// The module ID.
+        /// </param>
+        /// <param name="createdByUser">
+        /// The created by user.
+        /// </param>
+        /// <param name="createdDate">
+        /// The created date.
+        /// </param>
+        /// <param name="title">
+        /// The title.
+        /// </param>
+        /// <param name="estCompleteDate">
+        /// The estimated complete date.
+        /// </param>
+        /// <param name="status">
+        /// The status.
+        /// </param>
+        /// <returns>
+        /// The newly created ID
+        /// </returns>
+        public int AddMilestones(
+            int itemId, 
+            int moduleId, 
+            string createdByUser, 
+            DateTime createdDate, 
+            string title, 
+            DateTime estCompleteDate, 
+            string status)
+        {
+            // Create Instance of Connection and Command Object
+            var connection = Config.SqlConnectionString;
+            var command = new SqlCommand("rb_AddMilestones", connection)
+                {
+                    // Mark the Command as a SPROC
+                    CommandType = CommandType.StoredProcedure
+                };
 
-		// change by David.Verberckmoes@syntegra.com in order to support workflow
-		// Date: 20030324
-		public SqlDataReader GetMilestones(int ModuleID, WorkFlowVersion version)
-		{
-			// Create Instance of Connection and Command Object
-			SqlConnection myConnection = Config.SqlConnectionString;
-			SqlCommand myCommand = new SqlCommand("rb_GetMilestones", myConnection);
+            // Add Parameters to SPROC
+            var parameterItemId = new SqlParameter("@ItemID", SqlDbType.Int) { Direction = ParameterDirection.Output };
+            command.Parameters.Add(parameterItemId);
 
-			// Mark the Command as a SPROC
-			myCommand.CommandType = CommandType.StoredProcedure;
+            var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int) { Value = moduleId };
+            command.Parameters.Add(parameterModuleId);
 
-			// Add Parameters to SPROC
-			SqlParameter parameterModuleID = new SqlParameter("@ModuleID", SqlDbType.Int);
-			parameterModuleID.Value = ModuleID;
-			myCommand.Parameters.Add(parameterModuleID);
+            var parameterCreatedByUser = new SqlParameter("@CreatedByUser", SqlDbType.NVarChar, 100)
+                {
+                   Value = createdByUser 
+                };
+            command.Parameters.Add(parameterCreatedByUser);
 
-			// Change by David.Verberckmoes@Syntegra.com on 20030324
-			SqlParameter parameterWorkflowVersion = new SqlParameter("@WorkflowVersion", SqlDbType.Int, 4);
-			parameterWorkflowVersion.Value = (int)version;
-			myCommand.Parameters.Add(parameterWorkflowVersion);
-			// End Change David.Verberckmoes@Syntegra.com 
+            var parameterCreatedDate = new SqlParameter("@CreatedDate", SqlDbType.DateTime) { Value = createdDate };
+            command.Parameters.Add(parameterCreatedDate);
 
-			// Execute the command
-			myConnection.Open();
-			SqlDataReader result = myCommand.ExecuteReader(CommandBehavior.CloseConnection);
+            var parameterTitle = new SqlParameter("@Title", SqlDbType.NVarChar, 100) { Value = title };
+            command.Parameters.Add(parameterTitle);
 
-			// Return the datareader
-			return result;
-		}
+            var parameterEstCompleteDate = new SqlParameter("@EstCompleteDate", SqlDbType.DateTime)
+                {
+                   Value = estCompleteDate 
+                };
+            command.Parameters.Add(parameterEstCompleteDate);
 
+            var parameterStatus = new SqlParameter("@Status", SqlDbType.NVarChar, 100) { Value = status };
+            command.Parameters.Add(parameterStatus);
+
+            // Execute the command
+            connection.Open();
+            
+            // var result =
+                command.ExecuteReader(CommandBehavior.CloseConnection);
+
+            // Return the data reader
+            return (int)parameterItemId.Value;
+        }
 
         /// <summary>
-        /// DeleteMilestones
+        /// Delete Milestones
         /// </summary>
-        /// <param name="ItemID">ItemID</param>
-		public void DeleteMilestones(int ItemID)
-		{
-			// Create Instance of Connection and Command Object
-			SqlConnection myConnection = Config.SqlConnectionString;
-			SqlCommand myCommand = new SqlCommand("rb_DeleteMilestones", myConnection);
+        /// <param name="itemId">
+        /// The ItemID
+        /// </param>
+        public void DeleteMilestones(int itemId)
+        {
+            // Create Instance of Connection and Command Object
+            var connection = Config.SqlConnectionString;
+            var sqlCommand = new SqlCommand("rb_DeleteMilestones", connection)
+                {
+                    // Mark the Command as a SPROC
+                    CommandType =
+                        CommandType.StoredProcedure
+                };
 
-			// Mark the Command as a SPROC
-			myCommand.CommandType = CommandType.StoredProcedure;
+            // Add Parameters to SPROC
+            var parameterItemId = new SqlParameter("@ItemID", SqlDbType.Int) { Value = itemId };
+            sqlCommand.Parameters.Add(parameterItemId);
 
-			// Add Parameters to SPROC
-			SqlParameter parameterItemID = new SqlParameter("@ItemID", SqlDbType.Int);
-			parameterItemID.Value = ItemID;
-			myCommand.Parameters.Add(parameterItemID);
-
-			// Execute the command
-			myConnection.Open();
-			try
-			{
-				myCommand.ExecuteNonQuery();
-			}
-			finally
-			{
-				myConnection.Close();
-			}
-		}
-
+            // Execute the command
+            connection.Open();
+            try
+            {
+                sqlCommand.ExecuteNonQuery();
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
 
         /// <summary>
-        /// AddMilestones
+        /// Get Milestones
         /// </summary>
-        /// <param name="ItemID">ItemID</param>
-        /// <param name="ModuleID">The module ID.</param>
-        /// <param name="CreatedByUser">The created by user.</param>
-        /// <param name="CreatedDate">The created date.</param>
-        /// <param name="Title">The title.</param>
-        /// <param name="EstCompleteDate">The est complete date.</param>
-        /// <param name="Status">The status.</param>
-        /// <returns>The newly created ID</returns>
-		public int AddMilestones(int ItemID, int ModuleID, string CreatedByUser, DateTime CreatedDate, string Title, DateTime EstCompleteDate, string Status)
-		{
-			// Create Instance of Connection and Command Object
-			SqlConnection myConnection = Config.SqlConnectionString;
-			SqlCommand myCommand = new SqlCommand("rb_AddMilestones", myConnection);
+        /// <param name="moduleId">
+        /// The module ID.
+        /// </param>
+        /// <param name="version">
+        /// The version.
+        /// </param>
+        /// <returns>
+        /// A SqlDataReader
+        /// </returns>
+        /// <remarks>
+        /// change by David.Verberckmoes@syntegra.com in order to support workflow
+        ///   Date: 20030324
+        /// </remarks>
+        public SqlDataReader GetMilestones(int moduleId, WorkFlowVersion version)
+        {
+            // Create Instance of Connection and Command Object
+            var connection = Config.SqlConnectionString;
+            var command = new SqlCommand("rb_GetMilestones", connection)
+                {
+                    // Mark the Command as a SPROC
+                    CommandType =
+                        CommandType.StoredProcedure
+                };
 
-			// Mark the Command as a SPROC
-			myCommand.CommandType = CommandType.StoredProcedure;
+            // Add Parameters to SPROC
+            var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int) { Value = moduleId };
+            command.Parameters.Add(parameterModuleId);
 
-			// Add Parameters to SPROC
-			SqlParameter parameterItemID = new SqlParameter("@ItemID", SqlDbType.Int);
-			parameterItemID.Direction = ParameterDirection.Output;
-			myCommand.Parameters.Add(parameterItemID);
+            // Change by David.Verberckmoes@Syntegra.com on 20030324
+            var parameterWorkflowVersion = new SqlParameter("@WorkflowVersion", SqlDbType.Int, 4)
+                {
+                   Value = (int)version 
+                };
+            command.Parameters.Add(parameterWorkflowVersion);
 
-			SqlParameter parameterModuleID = new SqlParameter("@ModuleID", SqlDbType.Int);
-			parameterModuleID.Value = ModuleID;
-			myCommand.Parameters.Add(parameterModuleID);
+            // End Change David.Verberckmoes@Syntegra.com 
+            // Execute the command
+            connection.Open();
+            var result = command.ExecuteReader(CommandBehavior.CloseConnection);
 
-			SqlParameter parameterCreatedByUser = new SqlParameter("@CreatedByUser", SqlDbType.NVarChar, 100);
-			parameterCreatedByUser.Value = CreatedByUser;
-			myCommand.Parameters.Add(parameterCreatedByUser);
-
-			SqlParameter parameterCreatedDate = new SqlParameter("@CreatedDate", SqlDbType.DateTime);
-			parameterCreatedDate.Value = CreatedDate;
-			myCommand.Parameters.Add(parameterCreatedDate);
-
-			SqlParameter parameterTitle = new SqlParameter("@Title", SqlDbType.NVarChar, 100);
-			parameterTitle.Value = Title;
-			myCommand.Parameters.Add(parameterTitle);
-
-			SqlParameter parameterEstCompleteDate = new SqlParameter("@EstCompleteDate", SqlDbType.DateTime);
-			parameterEstCompleteDate.Value = EstCompleteDate;
-			myCommand.Parameters.Add(parameterEstCompleteDate);
-
-			SqlParameter parameterStatus = new SqlParameter("@Status", SqlDbType.NVarChar, 100);
-			parameterStatus.Value = Status;
-			myCommand.Parameters.Add(parameterStatus);
-
-
-			// Execute the command
-			myConnection.Open();
-			SqlDataReader result = myCommand.ExecuteReader(CommandBehavior.CloseConnection);
-
-			// Return the datareader
-			return (int)parameterItemID.Value;
-		}
-
+            // Return the data reader
+            return result;
+        }
 
         /// <summary>
-        /// UpdateMilestones
+        /// Get Single Milestones
         /// </summary>
-        /// <param name="ItemID">ItemID</param>
-        /// <param name="ModuleID">The module ID.</param>
-        /// <param name="CreatedByUser">The created by user.</param>
-        /// <param name="CreatedDate">The created date.</param>
-        /// <param name="Title">The title.</param>
-        /// <param name="EstCompleteDate">The est complete date.</param>
-        /// <param name="Status">The status.</param>
-		public void UpdateMilestones(int ItemID, int ModuleID, string CreatedByUser, DateTime CreatedDate, string Title, DateTime EstCompleteDate, string Status)
-		{
-			// Create Instance of Connection and Command Object
-			SqlConnection myConnection = Config.SqlConnectionString;
-			SqlCommand myCommand = new SqlCommand("rb_UpdateMilestones", myConnection);
+        /// <param name="itemId">
+        /// The ItemID
+        /// </param>
+        /// <param name="version">
+        /// The version.
+        /// </param>
+        /// <returns>
+        /// A SqlDataReader
+        /// </returns>
+        /// <remarks>
+        /// change by David.Verberckmoes@syntegra.com in order to support workflow
+        ///   Date: 20030324
+        /// </remarks>
+        public SqlDataReader GetSingleMilestones(int itemId, WorkFlowVersion version)
+        {
+            // Create Instance of Connection and Command Object
+            var connection = Config.SqlConnectionString;
+            var command = new SqlCommand("rb_GetSingleMilestones", connection)
+                {
+                    // Mark the Command as a SPROC
+                    CommandType =
+                        CommandType.StoredProcedure
+                };
 
-			// Mark the Command as a SPROC
-			myCommand.CommandType = CommandType.StoredProcedure;
+            // Add Parameters to SPROC
+            var parameterItemId = new SqlParameter("@ItemID", SqlDbType.Int) { Value = itemId };
+            command.Parameters.Add(parameterItemId);
 
-			// Update Parameters to SPROC
-			SqlParameter parameterItemID = new SqlParameter("@ItemID", SqlDbType.Int);
-			parameterItemID.Value = ItemID;
-			myCommand.Parameters.Add(parameterItemID);
+            // Change by David.Verberckmoes@Syntegra.com on 20030324
+            var parameterWorkflowVersion = new SqlParameter("@WorkflowVersion", SqlDbType.Int, 4)
+                {
+                   Value = (int)version 
+                };
+            command.Parameters.Add(parameterWorkflowVersion);
 
-			SqlParameter parameterModuleID = new SqlParameter("@ModuleID", SqlDbType.Int);
-			parameterModuleID.Value = ModuleID;
-			myCommand.Parameters.Add(parameterModuleID);
+            // End Change David.Verberckmoes@Syntegra.com 
+            // Execute the command
+            connection.Open();
+            var result = command.ExecuteReader(CommandBehavior.CloseConnection);
 
-			SqlParameter parameterCreatedByUser = new SqlParameter("@CreatedByUser", SqlDbType.NVarChar, 100);
-			parameterCreatedByUser.Value = CreatedByUser;
-			myCommand.Parameters.Add(parameterCreatedByUser);
+            // Return the data reader
+            return result;
+        }
 
-			SqlParameter parameterCreatedDate = new SqlParameter("@CreatedDate", SqlDbType.DateTime);
-			parameterCreatedDate.Value = CreatedDate;
-			myCommand.Parameters.Add(parameterCreatedDate);
+        /// <summary>
+        /// Update Milestones
+        /// </summary>
+        /// <param name="itemId">
+        /// The ItemID
+        /// </param>
+        /// <param name="moduleId">
+        /// The module ID.
+        /// </param>
+        /// <param name="createdByUser">
+        /// The created by user.
+        /// </param>
+        /// <param name="createdDate">
+        /// The created date.
+        /// </param>
+        /// <param name="title">
+        /// The title.
+        /// </param>
+        /// <param name="estCompleteDate">
+        /// The estimated complete date.
+        /// </param>
+        /// <param name="status">
+        /// The status.
+        /// </param>
+        public void UpdateMilestones(
+            int itemId, 
+            int moduleId, 
+            string createdByUser, 
+            DateTime createdDate, 
+            string title, 
+            DateTime estCompleteDate, 
+            string status)
+        {
+            // Create Instance of Connection and Command Object
+            var connection = Config.SqlConnectionString;
+            var command = new SqlCommand("rb_UpdateMilestones", connection)
+                {
+                    // Mark the Command as a SPROC
+                    CommandType =
+                        CommandType.StoredProcedure
+                };
 
-			SqlParameter parameterTitle = new SqlParameter("@Title", SqlDbType.NVarChar, 100);
-			parameterTitle.Value = Title;
-			myCommand.Parameters.Add(parameterTitle);
+            // Update Parameters to SPROC
+            var parameterItemId = new SqlParameter("@ItemID", SqlDbType.Int) { Value = itemId };
+            command.Parameters.Add(parameterItemId);
 
-			SqlParameter parameterEstCompleteDate = new SqlParameter("@EstCompleteDate", SqlDbType.DateTime);
-			parameterEstCompleteDate.Value = EstCompleteDate;
-			myCommand.Parameters.Add(parameterEstCompleteDate);
+            var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int) { Value = moduleId };
+            command.Parameters.Add(parameterModuleId);
 
-			SqlParameter parameterStatus = new SqlParameter("@Status", SqlDbType.NVarChar, 100);
-			parameterStatus.Value = Status;
-			myCommand.Parameters.Add(parameterStatus);
+            var parameterCreatedByUser = new SqlParameter("@CreatedByUser", SqlDbType.NVarChar, 100)
+                {
+                   Value = createdByUser 
+                };
+            command.Parameters.Add(parameterCreatedByUser);
 
+            var parameterCreatedDate = new SqlParameter("@CreatedDate", SqlDbType.DateTime) { Value = createdDate };
+            command.Parameters.Add(parameterCreatedDate);
 
-			// Execute the command
-			myConnection.Open();
-			try
-			{
-				myCommand.ExecuteNonQuery();
-			}
-			finally
-			{
-				myConnection.Close();
-			}
-		}
+            var parameterTitle = new SqlParameter("@Title", SqlDbType.NVarChar, 100) { Value = title };
+            command.Parameters.Add(parameterTitle);
 
+            var parameterEstCompleteDate = new SqlParameter("@EstCompleteDate", SqlDbType.DateTime)
+                {
+                   Value = estCompleteDate 
+                };
+            command.Parameters.Add(parameterEstCompleteDate);
 
-	}
+            var parameterStatus = new SqlParameter("@Status", SqlDbType.NVarChar, 100) { Value = status };
+            command.Parameters.Add(parameterStatus);
+
+            // Execute the command
+            connection.Open();
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        #endregion
+    }
 }

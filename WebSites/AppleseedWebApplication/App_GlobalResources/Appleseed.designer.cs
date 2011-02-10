@@ -6174,6 +6174,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to unknown.
+        /// </summary>
+        internal static string Discussion_unknown {
+            get {
+                return ResourceManager.GetString("Discussion_unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of times this topic has been viewed.
         /// </summary>
         internal static string DISCUSSION_VIEWED {
@@ -13500,6 +13509,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login failed.
+        /// </summary>
+        internal static string Signin_LoginBtnClick_Login_failed {
+            get {
+                return ResourceManager.GetString("Signin_LoginBtnClick_Login_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your password was not found in the database..
         /// </summary>
         internal static string SIGNIN_PWD_MISSING_IN_DB {
@@ -13541,6 +13559,15 @@ namespace Resources {
         internal static string SIGNIN_PWD_WAS_SENT {
             get {
                 return ResourceManager.GetString("SIGNIN_PWD_WAS_SENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter you email address.
+        /// </summary>
+        internal static string Signin_SendPasswordBtnClick_Please_enter_you_email_address {
+            get {
+                return ResourceManager.GetString("Signin_SendPasswordBtnClick_Please_enter_you_email_address", resourceCulture);
             }
         }
         
@@ -15935,15 +15962,6 @@ namespace Resources {
         internal static string USER_SAVING_ERROR {
             get {
                 return ResourceManager.GetString("USER_SAVING_ERROR", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The security text doesn&apos;t match the image provided. Please try again..
-        /// </summary>
-        internal static string USER_SAVING_WRONG_CAPTCHA {
-            get {
-                return ResourceManager.GetString("USER_SAVING_WRONG_CAPTCHA", resourceCulture);
             }
         }
         

@@ -8,6 +8,8 @@ using System.Collections.Generic;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// The IframeModule provides an IFRAME where you can set the
     /// source URL and the height of the frame using the settings system.
@@ -98,7 +100,7 @@ namespace Appleseed.Content.Web.Modules
 
             //MH:canged to support relativ url
             //SettingItem url = new SettingItem(new UrlDataType());
-            SettingItem url = new SettingItem(new StringDataType());
+            var url = new SettingItem<string, TextBox>(new StringDataType());
             url.Required = true;
             url.Group = group;
             url.Order = groupBase + 20; //1;
@@ -106,7 +108,7 @@ namespace Appleseed.Content.Web.Modules
             _baseSettings.Add("URL", url);
 
             //MH: added to support width values
-            SettingItem width = new SettingItem(new StringDataType());
+            var width = new SettingItem<string, TextBox>(new StringDataType());
             width.Required = true;
             width.Group = group;
             width.Order = groupBase + 25; //2;
@@ -116,8 +118,8 @@ namespace Appleseed.Content.Web.Modules
             _baseSettings.Add("Width", width);
 
             //MH: changed to StringDataType to support  percent or pixel values
-            //SettingItem width = new SettingItem(new IntegerDataType());
-            SettingItem height = new SettingItem(new StringDataType());
+            //SettingItem width = new SettingItem<int, TextBox>(new IntegerDataType());
+            var height = new SettingItem<string, TextBox>(new StringDataType());
             height.Required = true;
             height.Group = group;
             height.Order = groupBase + 30; //3;

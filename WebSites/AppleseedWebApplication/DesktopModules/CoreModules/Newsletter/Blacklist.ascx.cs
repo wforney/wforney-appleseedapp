@@ -10,6 +10,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Admin
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Blacklist Admin Module - Setup which users receive emails<br/>
     /// This module is typically used togeteher with the Newsletter module.
@@ -67,8 +69,8 @@ namespace Appleseed.Admin
             }
             else
             {
-                sortField = (string) ViewState["SortField"];
-                sortDirection = (string) ViewState["sortDirection"];
+                sortField = (string)ViewState["SortField"];
+                sortDirection = (string)ViewState["sortDirection"];
             }
 
 
@@ -146,51 +148,51 @@ namespace Appleseed.Admin
         /// </summary>
         public Blacklist()
         {
-            SettingItem setSortField =
-                new SettingItem(new ListDataType("Name;Email;SendNewsletter;Reason;Date;LastSend"));
+            var setSortField =
+                new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("Name;Email;SendNewsletter;Reason;Date;LastSend"));
             setSortField.Required = true;
             setSortField.Value = "Name";
             setSortField.Order = 1;
             _baseSettings.Add("BLACKLIST_SORTFIELD", setSortField);
 
-            SettingItem showColumnName = new SettingItem(new BooleanDataType());
+            var showColumnName = new SettingItem<bool, CheckBox>(new BooleanDataType());
             showColumnName.Order = 2;
-            showColumnName.Value = "True";
+            showColumnName.Value = true;
             _baseSettings.Add("BLACKLIST_SHOWCOLUMNNAME", showColumnName);
 
-            SettingItem showColumnEmail = new SettingItem(new BooleanDataType());
+            var showColumnEmail = new SettingItem<bool, CheckBox>(new BooleanDataType());
             showColumnEmail.Order = 3;
-            showColumnEmail.Value = "True";
+            showColumnEmail.Value = true;
             _baseSettings.Add("BLACKLIST_SHOWCOLUMNEMAIL", showColumnEmail);
 
-            SettingItem showColumnSendNewsletter = new SettingItem(new BooleanDataType());
+            var showColumnSendNewsletter = new SettingItem<bool, CheckBox>(new BooleanDataType());
             showColumnSendNewsletter.Order = 4;
-            showColumnSendNewsletter.Value = "False";
+            showColumnSendNewsletter.Value = false;
             _baseSettings.Add("BLACKLIST_SHOWCOLUMNSENDNEWSLETTER", showColumnSendNewsletter);
 
-            SettingItem showColumnReason = new SettingItem(new BooleanDataType());
+            var showColumnReason = new SettingItem<bool, CheckBox>(new BooleanDataType());
             showColumnReason.Order = 5;
-            showColumnReason.Value = "True";
+            showColumnReason.Value = true;
             _baseSettings.Add("BLACKLIST_SHOWCOLUMNREASON", showColumnReason);
 
-            SettingItem showColumnDate = new SettingItem(new BooleanDataType());
+            var showColumnDate = new SettingItem<bool, CheckBox>(new BooleanDataType());
             showColumnDate.Order = 6;
-            showColumnDate.Value = "True";
+            showColumnDate.Value = true;
             _baseSettings.Add("BLACKLIST_SHOWCOLUMNDATE", showColumnDate);
 
-            SettingItem showColumnLastSend = new SettingItem(new BooleanDataType());
+            var showColumnLastSend = new SettingItem<bool, CheckBox>(new BooleanDataType());
             showColumnLastSend.Order = 7;
-            showColumnLastSend.Value = "True";
+            showColumnLastSend.Value = true;
             _baseSettings.Add("BLACKLIST_SHOWCOLUMNLASTSEND", showColumnLastSend);
 
-            SettingItem showAllUsers = new SettingItem(new BooleanDataType());
+            var showAllUsers = new SettingItem<bool, CheckBox>(new BooleanDataType());
             showAllUsers.Order = 8;
-            showAllUsers.Value = "False";
+            showAllUsers.Value = false;
             _baseSettings.Add("BLACKLIST_SHOWALLUSERS", showAllUsers);
 
-            SettingItem showSubscribersOnly = new SettingItem(new BooleanDataType());
+            var showSubscribersOnly = new SettingItem<bool, CheckBox>(new BooleanDataType());
             showSubscribersOnly.Order = 9;
-            showSubscribersOnly.Value = "False";
+            showSubscribersOnly.Value = false;
             _baseSettings.Add("BLACKLIST_SHOWSUBSCRIBERSONLY", showSubscribersOnly);
         }
 
@@ -220,7 +222,7 @@ namespace Appleseed.Admin
         public override void Install(IDictionary stateSaver)
         {
             string currentScriptName = Server.MapPath(this.TemplateSourceDirectory + "/Blacklist_Install.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback
@@ -231,7 +233,7 @@ namespace Appleseed.Admin
         public override void Uninstall(IDictionary stateSaver)
         {
             string currentScriptName = Server.MapPath(this.TemplateSourceDirectory + "/Blacklist_Uninstall.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback

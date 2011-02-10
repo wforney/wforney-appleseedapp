@@ -3,7 +3,7 @@
 <%@ register assembly="Appleseed.Framework" Namespace="Appleseed.Framework.Web.UI.WebControls" tagprefix="cc2" %>
 <asp:datalist id="myDataList" runat="server" cellpadding="4">
     <itemtemplate>
-        <rbfwebui:hyperlink id="editLink" runat="server" imageurl='<%# CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
+        <rbfwebui:hyperlink id="editLink" runat="server" imageurl='<%# this.CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
             navigateurl='<%# Appleseed.Framework.HttpUrlBuilder.BuildUrl("~/DesktopModules/CommunityModules/Announcements/AnnouncementsEdit.aspx",PageID,"ItemID=" + DataBinder.Eval(Container.DataItem,"ItemID") + "&mid=" + ModuleID )%>'
             text="Edit" textkey="EDIT" visible="<%# IsEditable %>">
         </rbfwebui:hyperlink>

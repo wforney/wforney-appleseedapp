@@ -1,15 +1,25 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ModuleListDataType.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Module List Data Type
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace Appleseed.Framework.DataTypes
 {
     using System;
     using System.Web;
+    using System.Web.UI.WebControls;
 
     using Appleseed.Framework.Site.Configuration;
     using Appleseed.Framework.Site.Data;
 
     /// <summary>
-    /// ModuleListDataType
+    /// Module List Data Type
     /// </summary>
-    public class ModuleListDataType : ListDataType
+    public class ModuleListDataType : ListDataType<string, ListControl>
     {
         #region Constructors and Destructors
 
@@ -31,10 +41,12 @@ namespace Appleseed.Framework.DataTypes
         #region Properties
 
         /// <summary>
-        ///     Gets DataSource
-        ///     Should be overrided from inherited classes
+        ///   Gets DataSource
+        ///   Should be overridden from inherited classes
         /// </summary>
-        /// <value>The data source.</value>
+        /// <value>
+        ///   The data source.
+        /// </value>
         public override object DataSource
         {
             get
@@ -46,7 +58,7 @@ namespace Appleseed.Framework.DataTypes
         }
 
         /// <summary>
-        ///     Gets or sets the data text field.
+        ///   Gets or sets the data text field.
         /// </summary>
         /// <value>The data text field.</value>
         public override string DataTextField
@@ -63,7 +75,7 @@ namespace Appleseed.Framework.DataTypes
         }
 
         /// <summary>
-        ///     Gets or sets the data value field.
+        ///   Gets or sets the data value field.
         /// </summary>
         /// <value>The data value field.</value>
         public override string DataValueField
@@ -80,7 +92,7 @@ namespace Appleseed.Framework.DataTypes
         }
 
         /// <summary>
-        ///     Gets the description.
+        ///   Gets the description.
         /// </summary>
         /// <value>The description.</value>
         public override string Description

@@ -10,6 +10,9 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Framework.Localization
 {
+    using System.Collections.Generic;
+    using System.Web.UI.WebControls;
+
     /// <summary>
     ///	Summary description for LanguageSwitcher.
     /// </summary>
@@ -84,88 +87,107 @@ namespace Appleseed.Framework.Localization
             // Language Switcher Module - Type
             ArrayList languageSwitcherTypesOptions = new ArrayList();
             languageSwitcherTypesOptions.Add(
-                new SettingOption((int) LanguageSwitcherType.DropDownList,
-                                  General.GetString("LANGSWITCHTYPE_DROPDOWNLIST", "DropDownList", null)));
+                new SettingOption(
+                    (int)LanguageSwitcherType.DropDownList,
+                    General.GetString("LANGSWITCHTYPE_DROPDOWNLIST", "DropDownList", null)));
             languageSwitcherTypesOptions.Add(
-                new SettingOption((int) LanguageSwitcherType.VerticalLinksList,
-                                  General.GetString("LANGSWITCHTYPE_LINKS", "Links", null)));
+                new SettingOption(
+                    (int)LanguageSwitcherType.VerticalLinksList,
+                    General.GetString("LANGSWITCHTYPE_LINKS", "Links", null)));
             languageSwitcherTypesOptions.Add(
-                new SettingOption((int) LanguageSwitcherType.HorizontalLinksList,
-                                  General.GetString("LANGSWITCHTYPE_LINKSHORIZONTAL", "Links Horizontal", null)));
+                new SettingOption(
+                    (int)LanguageSwitcherType.HorizontalLinksList,
+                    General.GetString("LANGSWITCHTYPE_LINKSHORIZONTAL", "Links Horizontal", null)));
 
-            SettingItem languageSwitchType =
-                new SettingItem(new CustomListDataType(languageSwitcherTypesOptions, "Name", "Val"));
-            languageSwitchType.EnglishName = "Language Switcher Type";
-            languageSwitchType.Description = "Select here how your language switcher should look like.";
-            languageSwitchType.Value = ((int) LanguageSwitcherType.VerticalLinksList).ToString();
-            languageSwitchType.Order = (int) SettingItemGroup.THEME_LAYOUT_SETTINGS + 910;
-            languageSwitchType.Group = SettingItemGroup.THEME_LAYOUT_SETTINGS;
+            var languageSwitchType =
+                new SettingItem<string, ListControl>(
+                    new CustomListDataType(languageSwitcherTypesOptions, "Name", "Val"))
+                    {
+                        EnglishName = "Language Switcher Type",
+                        Description = "Select here how your language switcher should look like.",
+                        Value = ((int)LanguageSwitcherType.VerticalLinksList).ToString(),
+                        Order = (int)SettingItemGroup.THEME_LAYOUT_SETTINGS + 910,
+                        Group = SettingItemGroup.THEME_LAYOUT_SETTINGS
+                    };
             _baseSettings.Add("LANGUAGESWITCHER_TYPES", languageSwitchType);
 
             // Language Switcher Module - DisplayOptions
-            ArrayList languageSwitcherDisplayOptions = new ArrayList();
-            languageSwitcherDisplayOptions.Add(
-                new SettingOption((int) LanguageSwitcherDisplay.DisplayCultureList,
-                                  General.GetString("LANGSWITCHTDISPLAY_CULTURELIST", "Using Culture Name", null)));
-            languageSwitcherDisplayOptions.Add(
-                new SettingOption((int) LanguageSwitcherDisplay.DisplayUICultureList,
-                                  General.GetString("LANGSWITCHTDISPLAY_UICULTURELIST", "Using UI Culture Name", null)));
-            languageSwitcherDisplayOptions.Add(
-                new SettingOption((int) LanguageSwitcherDisplay.DisplayNone,
-                                  General.GetString("LANGSWITCHTDISPLAY_NONE", "None", null)));
+            var languageSwitcherDisplayOptions = new List<SettingOption>
+                {
+                    new SettingOption(
+                        (int)LanguageSwitcherDisplay.DisplayCultureList,
+                        General.GetString("LANGSWITCHTDISPLAY_CULTURELIST", "Using Culture Name", null)),
+                    new SettingOption(
+                        (int)LanguageSwitcherDisplay.DisplayUICultureList,
+                        General.GetString("LANGSWITCHTDISPLAY_UICULTURELIST", "Using UI Culture Name", null)),
+                    new SettingOption(
+                        (int)LanguageSwitcherDisplay.DisplayNone,
+                        General.GetString("LANGSWITCHTDISPLAY_NONE", "None", null))
+                };
 
             // Flags
-            SettingItem languageSwitchFlags =
-                new SettingItem(new CustomListDataType(languageSwitcherDisplayOptions, "Name", "Val"));
-            languageSwitchFlags.EnglishName = "Show Flags as";
-            languageSwitchFlags.Description = "Select here how flags should look like.";
-            languageSwitchFlags.Value = ((int) LanguageSwitcherDisplay.DisplayCultureList).ToString();
-            languageSwitchFlags.Order = (int) SettingItemGroup.THEME_LAYOUT_SETTINGS + 920;
-            languageSwitchFlags.Group = SettingItemGroup.THEME_LAYOUT_SETTINGS;
+            var languageSwitchFlags =
+                new SettingItem<string, ListControl>(
+                    new CustomListDataType(languageSwitcherDisplayOptions, "Name", "Val"))
+                    {
+                        EnglishName = "Show Flags as",
+                        Description = "Select here how flags should look like.",
+                        Value = ((int)LanguageSwitcherDisplay.DisplayCultureList).ToString(),
+                        Order = (int)SettingItemGroup.THEME_LAYOUT_SETTINGS + 920,
+                        Group = SettingItemGroup.THEME_LAYOUT_SETTINGS
+                    };
             _baseSettings.Add("LANGUAGESWITCHER_FLAGS", languageSwitchFlags);
 
             // Labels
-            SettingItem languageSwitchLabels =
-                new SettingItem(new CustomListDataType(languageSwitcherDisplayOptions, "Name", "Val"));
-            languageSwitchLabels.EnglishName = "Show Labels as";
-            languageSwitchLabels.Description = "Select here how Labels should look like.";
-            languageSwitchLabels.Value = ((int) LanguageSwitcherDisplay.DisplayCultureList).ToString();
-            languageSwitchLabels.Order = (int) SettingItemGroup.THEME_LAYOUT_SETTINGS + 930;
-            languageSwitchLabels.Group = SettingItemGroup.THEME_LAYOUT_SETTINGS;
+            var languageSwitchLabels =
+                new SettingItem<string, ListControl>(
+                    new CustomListDataType(languageSwitcherDisplayOptions, "Name", "Val"))
+                    {
+                        EnglishName = "Show Labels as",
+                        Description = "Select here how Labels should look like.",
+                        Value = ((int)LanguageSwitcherDisplay.DisplayCultureList).ToString(),
+                        Order = (int)SettingItemGroup.THEME_LAYOUT_SETTINGS + 930,
+                        Group = SettingItemGroup.THEME_LAYOUT_SETTINGS
+                    };
             _baseSettings.Add("LANGUAGESWITCHER_LABELS", languageSwitchLabels);
 
             // Language Switcher Module - NamesOptions
-            ArrayList languageSwitcherNamesOptions = new ArrayList();
-            languageSwitcherNamesOptions.Add(
-                new SettingOption((int) LanguageSwitcherName.NativeName,
-                                  General.GetString("LANGSWITCHTNAMES_NATIVENAME", "Native Name", null)));
-            languageSwitcherNamesOptions.Add(
-                new SettingOption((int) LanguageSwitcherName.EnglishName,
-                                  General.GetString("LANGSWITCHTNAMES_ENGLISHNAME", "English Name", null)));
-            languageSwitcherNamesOptions.Add(
-                new SettingOption((int) LanguageSwitcherName.DisplayName,
-                                  General.GetString("LANGSWITCHTNAMES_DISPLAYNAME", "Display Name", null)));
+            var languageSwitcherNamesOptions = new List<SettingOption>
+                {
+                    new SettingOption(
+                        (int)LanguageSwitcherName.NativeName,
+                        General.GetString("LANGSWITCHTNAMES_NATIVENAME", "Native Name", null)),
+                    new SettingOption(
+                        (int)LanguageSwitcherName.EnglishName,
+                        General.GetString("LANGSWITCHTNAMES_ENGLISHNAME", "English Name", null)),
+                    new SettingOption(
+                        (int)LanguageSwitcherName.DisplayName,
+                        General.GetString("LANGSWITCHTNAMES_DISPLAYNAME", "Display Name", null))
+                };
 
             // Names
-            SettingItem languageSwitcherName =
-                new SettingItem(new CustomListDataType(languageSwitcherNamesOptions, "Name", "Val"));
-            languageSwitcherName.EnglishName = "Show names as";
-            languageSwitcherName.Description = "Select here how names should look like.";
-            languageSwitcherName.Value = ((int) LanguageSwitcherName.NativeName).ToString();
-            languageSwitcherName.Order = (int) SettingItemGroup.THEME_LAYOUT_SETTINGS + 940;
-            languageSwitcherName.Group = SettingItemGroup.THEME_LAYOUT_SETTINGS;
+            var languageSwitcherName =
+                new SettingItem<string, ListControl>(new CustomListDataType(languageSwitcherNamesOptions, "Name", "Val"))
+                    {
+                        EnglishName = "Show names as",
+                        Description = "Select here how names should look like.",
+                        Value = ((int)LanguageSwitcherName.NativeName).ToString(),
+                        Order = (int)SettingItemGroup.THEME_LAYOUT_SETTINGS + 940,
+                        Group = SettingItemGroup.THEME_LAYOUT_SETTINGS
+                    };
             _baseSettings.Add("LANGUAGESWITCHER_NAMES", languageSwitcherName);
 
             // Use flag images from portal's images folder?
-            SettingItem customFlags = new SettingItem(new BooleanDataType());
-            customFlags.Order = (int) SettingItemGroup.THEME_LAYOUT_SETTINGS + 950;
-            customFlags.Group = SettingItemGroup.THEME_LAYOUT_SETTINGS;
-            customFlags.EnglishName = "Use custom flags?";
-            customFlags.Description =
-                "Check this if you want to use custom flags from portal's images folder. Custom flags are located in portal folder. /images/flags/";
-            customFlags.Value = "False";
+            var customFlags = new SettingItem<bool, CheckBox>(new BooleanDataType())
+                {
+                    Order = (int)SettingItemGroup.THEME_LAYOUT_SETTINGS + 950,
+                    Group = SettingItemGroup.THEME_LAYOUT_SETTINGS,
+                    EnglishName = "Use custom flags?",
+                    Description =
+                        "Check this if you want to use custom flags from portal's images folder. Custom flags are located in portal folder. /images/flags/",
+                    Value = false
+                };
             _baseSettings.Add("LANGUAGESWITCHER_CUSTOMFLAGS", customFlags);
-
 
             SupportsWorkflow = false;
         }
