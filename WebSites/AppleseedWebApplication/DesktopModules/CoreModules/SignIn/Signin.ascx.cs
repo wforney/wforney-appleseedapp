@@ -42,11 +42,11 @@ namespace AppleseedWebApplication.DesktopModules.CoreModules.SignIn
     ///   the ASP.NET Forms based authentication system.
     ///   When a client enters their username/password within the appropriate
     ///   textboxes and clicks the "Login" button, the LoginBtn_Click event
-    ///   handler executes on the server and attempts to validate their
-    ///   credentials against a SQL database.
-    ///   If the password check succeeds, then the LoginBtn_Click event handler
-    ///   sets the customers username in an encrypted cookieID and redirects
-    ///   back to the portal home page.
+    ///  handler executes on the server and attempts to validate their
+    ///  credentials against a SQL database.
+    ///  If the password check succeeds, then the LoginBtn_Click event handler
+    ///  sets the customers username in an encrypted cookieID and redirects
+    ///  back to the portal home page.
     ///   If the password check fails, then an appropriate error message
     ///   is displayed.
     /// </summary>
