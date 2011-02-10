@@ -62,7 +62,7 @@ namespace Appleseed.Content.Web.Modules
         /// <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
         private void Page_Load(object sender, EventArgs e)
         {
-            treeImageDIR = Path.WebPathCombine(CurrentTheme.WebPath, "/img/");
+            treeImageDIR = Path.WebPathCombine(this.CurrentTheme.WebPath, "/img/");
             LoadAvailableImageList();
 
             path = Settings["Directory"].ToString();
@@ -301,27 +301,28 @@ namespace Appleseed.Content.Web.Modules
             SettingItemGroup group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             int groupBase = (int) group;
 
-            SettingItem directory = new SettingItem(new StringDataType());
-            directory.EnglishName = "Directory Path";
-            directory.Required = true;
-            directory.Order = groupBase + 20; //1;
-            directory.Group = group;
-
+            var directory = new SettingItem<string, TextBox>(new StringDataType())
+                {
+                    EnglishName = "Directory Path",
+                    Required = true,
+                    Order = groupBase + 20,
+                    Group = group,
+                    Value = Path.ApplicationRoot + "/portals"
+                };
 
             // Changed to virutal root from physical
-            directory.Value = Path.ApplicationRoot + "/portals";
 
             //directory.Value = Path.ApplicationPhysicalPath;
             _baseSettings.Add("Directory", directory);
 
-            SettingItem LinkType = new SettingItem(new ListDataType("Downloadable Link;Network Share"));
+            var LinkType = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("Downloadable Link;Network Share"));
             LinkType.EnglishName = "Link Type";
             LinkType.Group = group;
             LinkType.Order = groupBase + 25; //2;
             LinkType.Value = "Downloadable Link";
             _baseSettings.Add("LinkType", LinkType);
 
-            SettingItem Target = new SettingItem(new ListDataType("blank;parent;self;top"));
+            var Target = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("blank;parent;self;top"));
             Target.EnglishName = "Target Window";
             Target.Required = false;
             Target.Group = group;
@@ -329,14 +330,14 @@ namespace Appleseed.Content.Web.Modules
             Target.Value = "blank";
             _baseSettings.Add("Target", Target);
 
-            SettingItem Collapsed = new SettingItem(new BooleanDataType());
+            var Collapsed = new SettingItem<bool, CheckBox>(new BooleanDataType());
             Collapsed.EnglishName = "Collapsed View";
             Collapsed.Group = group;
             Collapsed.Order = groupBase + 35; //4;
-            Collapsed.Value = "true";
+            Collapsed.Value = true;
             _baseSettings.Add("Collapsed", Collapsed);
 
-            SettingItem Style = new SettingItem(new StringDataType());
+            var Style = new SettingItem<string, TextBox>(new StringDataType());
             Style.EnglishName = "Style";
             Style.Required = false;
             Style.Group = group;
@@ -344,7 +345,7 @@ namespace Appleseed.Content.Web.Modules
             Style.Value = string.Empty;
             _baseSettings.Add("Style", Style);
 
-            SettingItem Indent = new SettingItem(new StringDataType());
+            var Indent = new SettingItem<string, TextBox>(new StringDataType());
             Indent.EnglishName = "SubDirectory Indent (px)";
             Indent.Required = false;
             Indent.Group = group;

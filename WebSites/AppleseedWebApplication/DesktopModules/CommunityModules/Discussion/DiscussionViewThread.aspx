@@ -1,4 +1,4 @@
-<%@ page autoeventwireup="false" inherits="Appleseed.Content.Web.Modules.DiscussionViewThread"
+<%@ page autoeventwireup="false" inherits="Appleseed.Content.Web.Modules.Discussion.DiscussionViewThread"
     language="c#" Codebehind="DiscussionViewThread.aspx.cs" %>
 
 <%@ register src="~/Design/DesktopLayouts/DesktopFooter.ascx" tagname="Footer" tagprefix="foot" %>

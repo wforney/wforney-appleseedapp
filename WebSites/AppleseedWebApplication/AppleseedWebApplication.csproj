@@ -252,6 +252,181 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\Appleseed.ar.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.ar.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.bg.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.bg.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.ca.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.ca.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.cs.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.cs.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.da.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.da.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.de.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.el.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.el.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.en-GB.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.en-GB.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.en.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.en.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.es-ES.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.es-ES.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.es-MX.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.es-MX.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.es.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.es.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.fr-FR.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.fr-FR.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.fr.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.he.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.hi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.hi.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.hr.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.hr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.is.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.is.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.it.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.ja.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.ja.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.ko.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.ko.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.nl-BE.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.nl-BE.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.nl.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.nl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.no.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.no.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.pl.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.pt.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.pt.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.sl.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.sl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.sv.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.sv.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.tr.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.tr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.uk.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.vi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.vi.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.zh-TW.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.zh-TW.resx</DependentUpon>
+    </Compile>
     <Compile Include="app_support\FCK.filemanager\imagegallery.aspx.designer.cs">
       <DependentUpon>imagegallery.aspx</DependentUpon>
     </Compile>

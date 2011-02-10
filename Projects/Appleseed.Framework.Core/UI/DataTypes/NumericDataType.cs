@@ -1,42 +1,55 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="NumericDataType.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   NumericDataType
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace Appleseed.Framework.DataTypes
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
-    /// NumericDataType
+    /// Numeric Data Type
     /// </summary>
-    public class NumericDataType : BaseDataType
+    public class NumericDataType : BaseDataType<double, TextBox>
     {
-        protected new string innerValue = "0";
+        #region Constructors and Destructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NumericDataType"/> class.
         /// </summary>
         public NumericDataType()
         {
-            InnerDataType = PropertiesDataType.Double;
-            //InitializeComponents();
+            this.Type = PropertiesDataType.Double;
+
+            // InitializeComponents();
         }
 
-        /// <summary>
-        /// Gets or sets the value.
-        /// </summary>
-        /// <value>The value.</value>
-        public override string Value
-        {
-            get { return (innerValue); }
-            set
-            {
-                //Type check
-                innerValue = double.Parse(value).ToString();
-            }
-        }
+        #endregion
+
+        #region Properties
 
         /// <summary>
-        /// Gets the description.
+        ///   Gets the description.
         /// </summary>
         /// <value>The description.</value>
         public override string Description
         {
-            get { return "Numeric"; }
+            get
+            {
+                return "Numeric";
+            }
         }
+
+        /// <summary>
+        ///   Gets or sets the value.
+        /// </summary>
+        /// <value>The value.</value>
+        public override double Value { get; set; }
+
+        #endregion
     }
 }

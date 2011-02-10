@@ -1,3 +1,6 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Utility.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -29,7 +32,9 @@ namespace Appleseed.Framework.Monitoring
     /// Utility Helper class for Appleseed Framework Monitoring purposes.
     /// You get some static methods like
     /// <list type="string">
-    /// <item>int GetTotalPortalHits(int portalID)</item>
+    /// int GetTotalPortalHits(int portalID)
+    ///     </item>
+    /// <item>
     /// <item>DataSet GetMonitoringStats(DateTime startDate</item>
     /// </list>
     /// </summary>
@@ -57,12 +62,20 @@ namespace Appleseed.Framework.Monitoring
         /// Add to the Cache
         /// HttpContext.Current.Cache.Insert("WhoIsOnlineAnonUserCount", anonUserCount, null, DateTime.Now.AddMinutes(cacheTimeout), TimeSpan.Zero);
         /// HttpContext.Current.Cache.Insert("WhoIsOnlineRegUserCount", regUsersOnlineCount, null, DateTime.Now.AddMinutes(cacheTimeout), TimeSpan.Zero);
-        /// HttpContext.Current.Cache.Insert("WhoIsOnlineRegUsersString", regUsersString, null, DateTime.Now.AddMinutes(cacheTimeout), TimeSpan.Zero);
+        ///   HttpContext.Current.Cache.Insert("WhoIsOnlineRegUsersString", regUsersString, null, DateTime.Now.AddMinutes(cacheTimeout), TimeSpan.Zero);
         /// </summary>
-        /// <param name="portalID">The portal ID.</param>
-        /// <param name="minutesToCheckForUsers">The minutes to check for users.</param>
-        /// <param name="cacheTimeout">The cache timeout.</param>
-        /// <param name="anonUserCount">The anon user count.</param>
+        /// <param name="portalId">
+        /// The portal ID.
+        /// </param>
+        /// <param name="minutesToCheckForUsers">
+        /// The minutes to check for users.
+        /// </param>
+        /// <param name="cacheTimeout">
+        /// The cache timeout.
+        /// </param>
+        /// <param name="anonUserCount">
+        /// The anon user count.
+        /// </param>
         /// <param name="regUsersOnlineCount">The reg users online count.</param>
         /// <param name="regUsersString">The reg users string.</param>
         public static void FillUsersOnlineCache(int portalID,
@@ -105,18 +118,35 @@ namespace Appleseed.Framework.Monitoring
 
         /// <summary>
         /// Return a dataset of stats for a given data range and portal
-        /// Written by Paul Yarrow, paul@paulyarrow.com
+        ///   Written by Paul Yarrow, paul@paulyarrow.com
         /// </summary>
-        /// <param name="startDate">the first date you want to see stats from</param>
-        /// <param name="endDate">the last date you want to see stats up to</param>
-        /// <param name="reportType">type of report you are requesting</param>
-        /// <param name="currentTabID">page id you are requesting stats for</param>
-        /// <param name="includeMonitoringPage">include the monitoring page in the stats</param>
-        /// <param name="includeAdminUser">include hits by admin users</param>
-        /// <param name="includePageRequests">include page hits</param>
-        /// <param name="includeLogon">include the logon page</param>
-        /// <param name="includeLogoff">inlcude logogg page</param>
-        /// <param name="includeMyIPAddress">include the current ip address</param>
+        /// <param name="startDate">
+        /// the first date you want to see stats from
+        /// </param>
+        /// <param name="endDate">
+        /// the last date you want to see stats up to
+        /// </param>
+        /// <param name="reportType">
+        /// type of report you are requesting
+        /// </param>
+        /// <param name="currentTabId">
+        /// page id you are requesting stats for
+        /// </param>
+        /// <param name="includeMonitoringPage">
+        /// include the monitoring page in the stats
+        /// </param>
+        /// <param name="includePageRequests">
+        /// include page hits
+        /// </param>
+        /// <param name="includeLogon">
+        /// include the logon page
+        /// </param>
+        /// <param name="includeLogoff">
+        /// include logoff page
+        /// </param>
+        /// <param name="includeMyIpAddress">
+        /// include the current IP address
+        /// </param>
         /// <param name="portalID">portal id to get stats for</param>
         /// <returns></returns>
         public static DataSet GetMonitoringStats(DateTime startDate,

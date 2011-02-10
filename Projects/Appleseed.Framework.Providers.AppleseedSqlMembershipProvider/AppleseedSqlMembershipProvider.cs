@@ -1,3 +1,10 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="AppleseedSqlMembershipProvider.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   SQL-specific implementation of
+//   <code>
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -33,13 +40,24 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         private string eventLog = "Application";
 
         protected string connectionString;
+        /// <summary>
+        ///   The p application name.
+        /// </summary>
         protected string pApplicationName;
+
+        /// <summary>
+        ///   The p enable password reset.
+        /// </summary>
         protected bool pEnablePasswordReset;
         protected bool pEnablePasswordRetrieval;
         protected bool pRequiresQuestionAndAnswer;
         protected bool pRequiresUniqueEmail;
         protected int pMaxInvalidPasswordAttempts;
+        /// </summary>
         protected int pPasswordAttemptWindow;
+
+        /// <summary>
+        ///   The p password format.
         protected MembershipPasswordFormat pPasswordFormat;
 
         #region System.Web.Security.MembershipProvider overriden properties
@@ -94,6 +112,10 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         }
 
         /// <summary>
+        ///   to the provider for a given user reaches MaxInvalidPasswordAttempts within the number of minutes specified 
+        ///   by PasswordAttemptWindow, the user is locked out of the system. The user remains locked out until the 
+        ///   provider's UnlockUser method is called to remove the lock.
+        ///   The count of consecutive invalid attempts is incremented when an invalid password or password answer is 
         /// Indicates whether a password answer must be supplied when calling the provider's GetPassword and ResetPassword methods. This property is read-only.
         /// </summary>
         public override bool RequiresQuestionAndAnswer
@@ -118,10 +140,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// <summary>
         /// Works in conjunction with PasswordAttemptWindow to provide a safeguard against password guessing. 
         /// If the number of consecutive invalid passwords or password questions ("invalid attempts") submitted 
-        /// to the provider for a given user reaches MaxInvalidPasswordAttempts within the number of minutes specified 
-        /// by PasswordAttemptWindow, the user is locked out of the system. The user remains locked out until the 
-        /// provider's UnlockUser method is called to remove the lock.
-        /// The count of consecutive invalid attempts is incremented when an invalid password or password answer is 
+        ///   The minimum number of characters required in a password. This property is read-only.
         /// submitted to the provider's ValidateUser, ChangePassword, ChangePasswordQuestionAndAnswer, GetPassword, and ResetPassword methods.
         /// If a valid password or password answer is supplied before the MaxInvalidPasswordAttempts is reached, 
         /// the count of consecutive invalid attempts is reset to zero. 
@@ -310,6 +329,9 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
 
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
+        /// The user's old password
+        /// </param>
+        /// <param name="newPassword">
             return CreateUser(ApplicationName, username, password, email, passwordQuestion, passwordAnswer, isApproved, out status);
         }
 
@@ -538,6 +560,30 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
             }
         }
 
+        /// <summary>
+        /// Processes a request to update the password question and answer for a membership user.
+        /// </summary>
+        /// <param name="username">
+        /// The user to change the password question and answer for.
+        /// </param>
+        /// <param name="password">
+        /// The password for the specified user.
+        /// </param>
+        /// <param name="newPasswordQuestion">
+        /// The new password question for the specified user.
+        /// </param>
+        /// Appleseed's portal alias
+        /// </param>
+        /// <param name="username">
+        /// The user's name
+        /// </param>
+        /// <param name="password">
+        /// The user's password
+        /// </param>
+        /// <param name="newPasswordQuestion">
+        /// The user's new password question
+        /// </param>
+        /// <param name="newPasswordAnswer">
         public override bool ChangePasswordQuestionAndAnswer(string portalAlias, string username, string password, string newPasswordQuestion, string newPasswordAnswer)
         {
             if (!ValidateUser(username, password))
@@ -580,7 +626,51 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         }
 
         public override MembershipUser CreateUser(string portalAlias, string username, string password, string email,
+        /// The password for the new user.
+        /// </param>
+        /// <param name="email">
+        /// The e-mail address for the new user.
+        /// </param>
+        /// <param name="passwordQuestion">
+        /// The password question for the new user.
+        /// </param>
+        /// <param name="passwordAnswer">
+        /// The password answer for the new user
+        /// </param>
+        /// <param name="approved">
+        /// Whether or not the new user is approved to be validated.
+        /// </param>
+        /// <param name="providerUserKey">
+        /// The unique identifier from the membership data source for the user.
+        /// </param>
             string passwordQuestion, string passwordAnswer, bool isApproved, out MembershipCreateStatus status)
+        /// </summary>
+        /// <param name="portalAlias">
+        /// Appleseed's portal alias
+        /// </param>
+        /// <param name="username">
+        /// New user's name
+        /// </param>
+        /// <param name="password">
+        /// New user's password
+        /// </param>
+        /// <param name="email">
+        /// New user's email
+        /// </param>
+        /// <param name="passwordQuestion">
+        /// The password question
+        /// </param>
+        /// <param name="passwordAnswer">
+        /// The password answer
+        /// </param>
+        /// <param name="approved">
+        /// Whether the user is approved or not
+        /// </param>
+        /// <param name="status">
+        /// An out parameter (in Visual Basic, ByRef) that returns a MembershipCreateStatus value indicating whether the user was
+        ///   successfully created or, if the user was not created, the reason why.
+        /// </param>
+        /// <returns>
         {
             if (username == null || username.Trim().Equals(string.Empty)) {
                 status = MembershipCreateStatus.InvalidUserName;
@@ -674,6 +764,21 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
             }
         }
 
+        /// <summary>
+        /// Removes a user from the membership data source.
+        /// </summary>
+        /// <param name="username">
+        /// The name of the user to delete.
+        /// </param>
+        /// </param>
+        /// <param name="username">
+        /// The user's name
+        /// </param>
+        /// <param name="deleteAllRelatedData">
+        /// Specifies whether
+        ///   related data for that user should be deleted also. If deleteAllRelatedData is true, DeleteUser
+        ///   should delete role data, profile data, and all other data associated with that user.
+        /// </param>
         public override bool DeleteUser(string portalAlias, string username, bool deleteAllRelatedData)
         {
             bool profileDeleted = this.DeleteUserProfile(username);
@@ -723,6 +828,18 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
             }
         }
 
+        /// <summary>
+        /// Gets a collection of membership users where the e-mail address contains the specified e-mail address to match.
+        /// </summary>
+        /// <param name="emailToMatch">
+        /// The e-mail address to search for.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The index of the page of results to return. <paramref name="pageIndex"/> is zero-based.
+        /// </param>
+        /// <param name="pageSize">
+        /// The size of the page of results to return.
+        /// </param>
         public override MembershipUserCollection GetAllUsers(string portalAlias)
         {
             int records;
@@ -883,6 +1000,13 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
                         case _errorCode_IncorrectPasswordAnswer:
                             throw new MembershipPasswordException("Incorrect password answer.");
                         case _errorCode_UserLockedOut:
+        /// </param>
+        /// <param name="pageSize">
+        /// Page size
+        /// </param>
+        /// <param name="totalRecords">
+        /// Holds a count of all records.
+        /// </param>
                             throw new MembershipPasswordException("User is currently locked out");
                         case -1:
                             throw new AppleseedMembershipProviderException("Error executing aspnet_Membership_GetPassword stored proc");
@@ -1313,6 +1437,85 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
             return users;
         }
 
+        /// <summary>
+        /// Gets a collection of membership users where the user name contains the specified user name to match.
+        /// </summary>
+        /// <param name="usernameToMatch">
+        /// The user name to search for.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The index of the page of results to return. <paramref name="pageIndex"/> is zero-based.
+        /// </param>
+        /// <param name="pageSize">
+        /// The size of the page of results to return.
+        /// </param>
+        /// </summary>
+        /// <param name="portalAlias">
+        /// Appleseed's portal alias
+        /// </param>
+        /// <param name="usernameToMatch">
+        /// The username to match.
+        /// </param>
+        /// <param name="pageIndex">
+        /// Page index to retrieve
+        /// </param>
+        /// <param name="pageSize">
+        /// Page size
+        /// </param>
+        /// <param name="totalRecords">
+        /// Holds a count of all records.
+        /// </param>
+        /// <returns>
+        /// A
+        /// </param>
+        /// <param name="pageSize">
+        /// The size of the page of results to return.
+        /// </param>
+        /// </summary>
+        /// <param name="portalAlias">
+        /// </summary>
+        /// <param name="portalAlias">
+        /// Appleseed's portal alias
+        /// </param>
+        /// <param name="pageIndex">
+        /// Page index to retrieve
+        /// </param>
+        /// <param name="pageSize">
+        /// Page size.
+        /// </param>
+        /// <param name="totalRecords">
+        ///   <code>
+        /// &lt;membership&gt;
+        ///   </code>
+        /// element's userIsOnlineTimeWindow attribute.
+        /// </summary>
+        /// </param>
+        ///   and throws a MembershipPasswordException if the two don't match.
+        /// </summary>
+        /// <param name="portalAlias">
+        /// Appleseed's portal alias
+        /// </param>
+        /// <param name="username">
+        /// The user's name
+        /// </param>
+        /// <param name="answer">
+        /// The password answer
+        /// </param>
+        /// <returns>
+        /// Returns the user's password
+        /// </returns>
+        /// <exception cref="System.Configuration.Provider.ProviderException">
+        /// If the user name is not valid, GetPassword throws a ProviderException.
+        /// </exception>
+        /// <exception cref="NotSupportedException">
+        /// If EnablePasswordRetrieval is false, GetPassword throws a NotSupportedException.
+        /// </exception>
+        /// <exception cref="System.Configuration.Provider.ProviderException">
+        /// If EnablePasswordRetrieval  is true but the password format is hashed, GetPassword throws a
+        ///   ProviderException since hashed passwords cannot, by definition, be retrieved.
+        /// </exception>
+        /// <exception cref="System.Web.Security.MembershipPasswordException">
+        /// GetPassword also throws a MembershipPasswordException
         public override string ResetPassword(string portalAlias, string username, string answer)
         {
             if (!EnablePasswordReset)
@@ -1327,11 +1530,20 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
 
             string newPassword = Membership.GeneratePassword(_newPasswordLength, MinRequiredNonAlphanumericCharacters);
 
+        /// </param>
             ValidatePasswordEventArgs args = new ValidatePasswordEventArgs(username, newPassword, false);
 
             OnValidatingPassword(args);
 
             if (args.Cancel)
+        /// </param>
+        /// Appleseed's portal alias
+        /// </param>
+        /// <param name="username">
+        /// The user's name
+        /// </param>
+        /// <param name="userIsOnline">
+        /// Whether the user is online
             {
                 if (args.FailureInformation != null)
                 {
@@ -1347,6 +1559,34 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
             string encodedPassword;
             if (PasswordFormat == MembershipPasswordFormat.Hashed)
             {
+        /// </param>
+        ///   Before resetting a password, ResetPassword calls the provider's virtual OnValidatingPassword method to
+        ///   validate the new password. It then resets the password or cancels the action based on the outcome of
+        ///   the call.
+        ///   Following a successful password reset, ResetPassword updates the user's LastPasswordChangedDate.
+        /// </summary>
+        /// <param name="portalAlias">
+        /// Appleseed's portal alias
+        /// </param>
+        /// <param name="username">
+        /// The user's name
+        /// </param>
+        /// <param name="answer">
+        /// The password answer
+        /// </param>
+        /// <returns>
+        /// ResetPassword then returns the new password.
+        /// </returns>
+        /// <exception cref="NotSupportedException">
+        /// If EnablePasswordReset is false, ResetPassword throws a NotSupportedException.
+        /// </exception>
+        /// <exception cref="System.Configuration.Provider.ProviderException">
+        /// If the user name is not valid, ResetPassword throws a ProviderException.
+        /// </exception>
+        /// <exception cref="System.Configuration.Provider.ProviderException">
+        /// If the new password is invalid, ResetPassword throws a ProviderException.
+        /// </exception>
+        /// <exception cref="System.Web.Security.MembershipPasswordException">
                 encodedPassword = EncodePassword(passwordSalt + newPassword);
             }
             else
@@ -1404,6 +1644,24 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
                     WriteToEventLog(e, "ResetPassword");
                 }
 
+        /// </param>
+        /// <param name="username">
+        /// </summary>
+        /// <param name="portalAlias">
+        /// Appleseed's portal alias
+        /// </param>
+        /// <param name="user">
+        /// </param>
+        ///   Following a successful validation, ValidateUser updates the user's LastLoginDate and fires an
+        ///   AuditMembershipAuthenticationSuccess Web event. Following a failed validation, it fires an
+        ///   AuditMembershipAuthenticationFailure Web event.
+        /// </summary>
+        /// <param name="portalAlias">
+        /// Appleseed's portal alias
+        /// </param>
+        /// <param name="username">
+        /// The user's name
+        /// </param>
                 throw new AppleseedMembershipProviderException("Error executing aspnet_Membership_ResetPassword stored proc", e);
             }
             finally
@@ -1420,6 +1678,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// A helper function to retrieve config values from the configuration file. 
         /// </summary>
         /// <param name="configValue"></param>
+        /// </param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
         private string GetConfigValue(string configValue, string defaultValue)
@@ -1427,6 +1686,13 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
             if (String.IsNullOrEmpty(configValue))
                 return defaultValue;
 
+        /// </param>
+        /// <param name="dbpassword">
+        /// The database password.
+        /// </param>
+        /// <param name="passwordSalt">
+        /// The password Salt.
+        /// </param>
             return configValue;
         }
 
@@ -1434,6 +1700,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// Encrypts, Hashes, or leaves the password clear based on the PasswordFormat.
         /// </summary>
         /// <param name="password">the password</param>
+        /// the password
         /// <returns></returns>
         private string EncodePassword(string password)
         {
@@ -1461,7 +1728,8 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// <summary>
         /// Decrypts or leaves the password clear based on the PasswordFormat.
         /// </summary>
-        /// <param name="encodedPassword"></param>
+        /// <param name="encodedPassword">
+        /// The encoded password.
         /// <returns></returns>
         private string UnEncodePassword(string encodedPassword)
         {
@@ -1484,7 +1752,6 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
             return password;
         }
 
-        /// <summary>
         /// A helper function that writes exception detail to the event log. Exceptions are written to the event log as a security 
         /// measure to avoid private database details from being returned to the browser. If a method does not return a status
         /// or boolean indicating the action succeeded or failed, a generic exception is also thrown by the caller.

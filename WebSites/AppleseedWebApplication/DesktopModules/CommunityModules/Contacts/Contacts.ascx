@@ -5,7 +5,7 @@
     <columns>
         <rbfwebui:templatecolumn>
             <itemtemplate>
-                <rbfwebui:HyperLink id="HyperLink1" runat="server" imageurl='<%# CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
+                <rbfwebui:HyperLink id="HyperLink1" runat="server" imageurl='<%# this.CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
                     navigateurl='<%# Appleseed.Framework.HttpUrlBuilder.BuildUrl("~/DesktopModules/CommunityModules/Contacts/ContactsEdit.aspx",PageID,"ItemID=" + DataBinder.Eval(Container.DataItem,"ItemID") + "&mid=" + ModuleID)%>'
                     text="Edit" textkey="EDIT" visible='<%# IsEditable %>'>
                 </rbfwebui:HyperLink>

@@ -8,6 +8,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Content.Web.ModulesVersion
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     ///		Summary description for VisaClassic.
     /// </summary>
@@ -65,23 +67,18 @@ namespace Appleseed.Content.Web.ModulesVersion
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:WeatherCom"/> class.
+        /// Initializes a new instance of the <see cref="WeatherCom"/> class.
         /// </summary>
         public WeatherCom()
         {
-            SettingItem cityCode = new SettingItem(new StringDataType());
-            cityCode.Required = false;
-            cityCode.Value = "BKXX0001";
+            var cityCode = new SettingItem<string, TextBox>(new StringDataType())
+                { Required = false, Value = "BKXX0001" };
             _baseSettings.Add("CityCode", cityCode);
 
-            SettingItem forecast = new SettingItem(new StringDataType());
-            forecast.Required = false;
-            forecast.Value = "3";
+            var forecast = new SettingItem<string, TextBox>(new StringDataType()) { Required = false, Value = "3" };
             BaseSettings.Add("Forecast", forecast);
 
-            SettingItem setUnit = new SettingItem(new StringDataType());
-            setUnit.Required = false;
-            setUnit.Value = "m";
+            var setUnit = new SettingItem<string, TextBox>(new StringDataType()) { Required = false, Value = "m" };
             _baseSettings.Add("Unit", setUnit);
         }
 

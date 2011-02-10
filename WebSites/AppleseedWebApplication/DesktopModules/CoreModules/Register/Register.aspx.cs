@@ -11,6 +11,8 @@ using Page=Appleseed.Framework.Web.UI.Page;
 
 namespace Appleseed.Admin
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// Summary description for Register.
     /// </summary>    
@@ -112,9 +114,10 @@ namespace Appleseed.Admin
             //p.ModuleID = int.Parse(portalSettings.CustomSettings["SITESETTINGS_REGISTER_MODULEID"].ToString());
             p.ModuleID = moduleID;
             if (p.ModuleID == 0)
-                ((SettingItem)p.Settings["MODULESETTINGS_SHOW_TITLE"]).Value = "false";
+            {
+                ((SettingItem<bool, CheckBox>)p.Settings["MODULESETTINGS_SHOW_TITLE"]).Value = false;
+            }
             return ((Control)p);
-
         }
     }
 }

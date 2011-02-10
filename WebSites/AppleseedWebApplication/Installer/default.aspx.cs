@@ -1,4 +1,7 @@
-﻿using System;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="default.aspx.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -30,7 +33,6 @@ namespace AppleseedWebApplication.Installer
 
         ***************************************************************/
 
-
         /**************************************************************
         To enable the web based installer change the
         line beneath this section to ‘true’.
@@ -55,6 +57,10 @@ namespace AppleseedWebApplication.Installer
         // that have happened on each page request
         private ArrayList messages;
 
+*/
+
+        /*
+        /// <summary>
         // Class to encapsulate the module (method) along with the error message that occurred within the module(method)
         public class InstallerMessage
         {
@@ -471,16 +477,19 @@ namespace AppleseedWebApplication.Installer
         {
                     byte[] bytes = new byte[len];
                     new RNGCryptoServiceProvider().GetBytes(bytes);
-			
+            
                     StringBuilder sb = new StringBuilder();
                     for(int i = 0; i < bytes.Length; i++)
                     {	
                         sb.Append(string.Format("{0:X2}",bytes[i]));
                     }
-			
+            
                     return sb.ToString();
         }
         */
+
+        /// <summary>
+        /// Gets the connection string.
         private string GetConnectionString()
         {
             return String.Format("server={0};uid={1};pwd={2};Trusted_Connection={3}", db_server.Text, db_login.Text, db_password.Text, (db_Connect.SelectedIndex == 0 ? "yes" : "no"));
@@ -502,6 +511,10 @@ namespace AppleseedWebApplication.Installer
         }
 
 
+        /// </param>
+        /// <returns>
+        /// The validate_ connect to db.
+        /// </returns>
         private bool Validate_ConnectToDb(out string errorMessage)
         {
 
@@ -523,9 +536,17 @@ namespace AppleseedWebApplication.Installer
                 errorMessage = e.Message;
                 return false;
             }
-
         }
 
+        /// <summary>
+        /// Validates the select db.
+        /// </summary>
+        /// <param name="errorMessage">
+        /// The error message.
+        /// </param>
+        /// <returns>
+        /// The validate_ select db.
+        /// </returns>
         private bool Validate_SelectDb(out string errorMessage)
         {
 
@@ -569,6 +590,14 @@ namespace AppleseedWebApplication.Installer
             }
         }
 
+        /// <summary>
+        /// The validate_ select db_ list databases.
+        /// </summary>
+        /// <param name="errorMessage">
+        /// The error message.
+        /// </param>
+        /// <returns>
+        /// The validate_ select db_ list databases.
         private bool Validate_SelectDb_ListDatabases(out string errorMessage)
         {
 

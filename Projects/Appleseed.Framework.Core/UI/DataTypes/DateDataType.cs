@@ -1,43 +1,49 @@
-using System;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DateDataType.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Date Data Type
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.DataTypes
 {
+    using System;
+    using System.Web.UI.WebControls;
+
     /// <summary>
-    /// DateDataType
+    /// Date Data Type
     /// </summary>
-    public class DateDataType : StringDataType
+    public class DateDataType : BaseDataType<DateTime, TextBox>
     {
+        #region Constructors and Destructors
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="DateDataType"/> class.
+        ///   Initializes a new instance of the <see cref = "DateDataType" /> class.
         /// </summary>
         public DateDataType()
         {
-            InnerDataType = PropertiesDataType.Date;
-            //InitializeComponents();
+            this.Type = PropertiesDataType.Date;
+
+            // InitializeComponents();
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
-        /// Gets or sets the value.
+        ///   Gets the description.
         /// </summary>
-        /// <value>The value.</value>
-        public override string Value
+        public override string Description
         {
-            get { return base.Value; }
-            set
+            get
             {
-                //Check type
-                DateTime.Parse(value);
-                base.Value = value;
+                return "DateTime";
             }
         }
 
-        /// <summary>
-        /// String
-        /// </summary>
-        /// <value></value>
-        public override string Description
-        {
-            get { return "DateTime"; }
-        }
+        #endregion
     }
 }
