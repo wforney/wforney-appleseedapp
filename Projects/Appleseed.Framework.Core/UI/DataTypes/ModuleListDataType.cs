@@ -11,6 +11,7 @@ namespace Appleseed.Framework.DataTypes
 {
     using System;
     using System.Web;
+    using System.Web.UI.WebControls;
 
     using Appleseed.Framework.Site.Configuration;
     using Appleseed.Framework.Site.Data;
@@ -18,7 +19,7 @@ namespace Appleseed.Framework.DataTypes
     /// <summary>
     /// Module List Data Type
     /// </summary>
-    public class ModuleListDataType : ListDataType
+    public class ModuleListDataType : ListDataType<string, ListControl>
     {
         #region Constructors and Destructors
 

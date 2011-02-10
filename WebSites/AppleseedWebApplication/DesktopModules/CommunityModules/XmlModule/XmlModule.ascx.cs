@@ -12,6 +12,7 @@ namespace Appleseed.Content.Web.Modules
     using System;
     using System.IO;
     using System.Web.UI;
+    using System.Web.UI.WebControls;
 
     using Appleseed.Framework;
     using Appleseed.Framework.DataTypes;
@@ -29,10 +30,10 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public XmlModule()
         {
-            var xmlSrc = new SettingItem(new PortalUrlDataType()) { Required = true, Order = 1 };
+            var xmlSrc = new SettingItem<string, TextBox>(new PortalUrlDataType()) { Required = true, Order = 1 };
             this._baseSettings.Add("XMLsrc", xmlSrc);
 
-            var xslSrc = new SettingItem(new PortalUrlDataType()) { Required = true, Order = 2 };
+            var xslSrc = new SettingItem<string, TextBox>(new PortalUrlDataType()) { Required = true, Order = 2 };
             this._baseSettings.Add("XSLsrc", xslSrc);
         }
 

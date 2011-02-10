@@ -1,17 +1,20 @@
 namespace Appleseed.Framework.DataTypes
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
-    /// StringDataType
+    /// String Data Type
     /// </summary>
-    public class StringDataType : BaseDataType
+    public class StringDataType : BaseDataType<string, TextBox>
     {
         /// <summary>
-        /// StringDataType
+        /// Initializes a new instance of the <see cref="StringDataType"/> class.
         /// </summary>
         public StringDataType()
         {
-            InnerDataType = PropertiesDataType.String;
-            //InitializeComponents();
+            this.Type = PropertiesDataType.String;
+            
+            // InitializeComponents();
         }
 
         /// <summary>
@@ -20,15 +23,14 @@ namespace Appleseed.Framework.DataTypes
         /// <param name="value">The value.</param>
         public StringDataType(string value)
         {
-            InnerDataType = PropertiesDataType.String;
-            Value = value;
+            this.Type = PropertiesDataType.String;
+            this.Value = value;
             InitializeComponents();
         }
 
         /// <summary>
-        /// String
+        /// Gets the description.
         /// </summary>
-        /// <value>The description.</value>
         public override string Description
         {
             get { return "String"; }

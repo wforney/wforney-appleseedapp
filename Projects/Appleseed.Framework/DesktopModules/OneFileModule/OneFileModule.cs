@@ -14,6 +14,7 @@ namespace Appleseed.Content.Web.Modules
 {
     using System.IO;
     using System.Web.UI;
+    using System.Web.UI.WebControls;
     using System.Xml;
 
     using Appleseed.Framework;
@@ -71,7 +72,7 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public OneFileModule()
         {
-            var setting = new SettingItem(new StringDataType())
+            var setting = new SettingItem<string, TextBox>(new StringDataType())
                 {
                     Required = false, 
                     Order = 1, 
@@ -81,7 +82,7 @@ namespace Appleseed.Content.Web.Modules
                 };
             this._baseSettings.Add("Settings string", setting);
 
-            var xmlFile = new SettingItem(new PortalUrlDataType())
+            var xmlFile = new SettingItem<string, TextBox>(new PortalUrlDataType())
                 {
                     Required = false, 
                     Order = 2, 
@@ -91,10 +92,10 @@ namespace Appleseed.Content.Web.Modules
                 };
             this._baseSettings.Add("XML settings file", xmlFile);
 
-            var debugMode = new SettingItem(new BooleanDataType())
+            var debugMode = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
                     Order = 3, 
-                    Value = "True", 
+                    Value = true, 
                     EnglishName = "Debug Mode", 
                     Description = "Primarily for the developer. Controls property DebugMode"
                 };

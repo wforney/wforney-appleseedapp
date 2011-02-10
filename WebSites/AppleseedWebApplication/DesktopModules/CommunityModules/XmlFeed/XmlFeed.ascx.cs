@@ -14,6 +14,7 @@ namespace Appleseed.Content.Web.Modules
     using System.Net;
     using System.Web;
     using System.Web.UI;
+    using System.Web.UI.WebControls;
     using System.Xml;
 
     using Appleseed.Framework;
@@ -38,46 +39,46 @@ namespace Appleseed.Content.Web.Modules
             const SettingItemGroup Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             const int GroupOrderBase = (int)SettingItemGroup.MODULE_SPECIAL_SETTINGS;
 
-            var xmlSrcType = new SettingItem(new ListDataType("URL;File"))
+            var xmlSrcType = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("URL;File"))
                 {
                    Required = true, Value = "URL", Group = Group, Order = GroupOrderBase + 1 
                 };
             this._baseSettings.Add("XML Type", xmlSrcType);
 
-            var xmlSrcUrl = new SettingItem(new UrlDataType())
+            var xmlSrcUrl = new SettingItem<Uri, TextBox>(new UrlDataType())
                 {
                    Required = false, Group = Group, Order = GroupOrderBase + 2 
                 };
             this._baseSettings.Add("XML URL", xmlSrcUrl);
 
-            var xmlSrcFile = new SettingItem(new PortalUrlDataType())
+            var xmlSrcFile = new SettingItem<string, TextBox>(new PortalUrlDataType())
                 {
                    Required = false, Group = Group, Order = GroupOrderBase + 3 
                 };
             this._baseSettings.Add("XML File", xmlSrcFile);
 
-            var xslSrcType = new SettingItem(new ListDataType("Predefined;File"))
+            var xslSrcType = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("Predefined;File"))
                 {
                    Required = true, Value = "Predefined", Order = GroupOrderBase + 4, Group = Group 
                 };
             this._baseSettings.Add("XSL Type", xslSrcType);
 
-            var xsltFileList = new ListDataType(this.GetXSLListForFeedTransformations());
-            var xslSrcPredefined = new SettingItem(xsltFileList)
+            var xsltFileList = new ListDataType<string, ListControl>(this.GetXSLListForFeedTransformations());
+            var xslSrcPredefined = new SettingItem<string, ListControl>(xsltFileList)
                 {
                    Required = true, Value = "RSS91", Group = Group, Order = GroupOrderBase + 5 
                 };
             this._baseSettings.Add("XSL Predefined", xslSrcPredefined);
 
-            var xslSrcFile = new SettingItem(new PortalUrlDataType())
+            var xslSrcFile = new SettingItem<string, TextBox>(new PortalUrlDataType())
                 {
                    Required = false, Group = Group, Order = GroupOrderBase + 6 
                 };
             this._baseSettings.Add("XSL File", xslSrcFile);
 
-            var timeout = new SettingItem(new IntegerDataType())
+            var timeout = new SettingItem<int, TextBox>(new IntegerDataType())
                 {
-                   Required = true, Group = Group, Order = GroupOrderBase + 7, Value = "15" 
+                   Required = true, Group = Group, Order = GroupOrderBase + 7, Value = 15 
                 };
             this._baseSettings.Add("Timeout", timeout);
         }

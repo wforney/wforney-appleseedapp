@@ -10,6 +10,7 @@ using Appleseed.Framework.Web.UI.WebControls;
 namespace Appleseed.Content.Web.Modules
 {
     using System.Collections.Generic;
+    using System.Web.UI.WebControls;
 
     public partial class ContentManager : PortalModuleControl
     {
@@ -405,15 +406,17 @@ namespace Appleseed.Content.Web.Modules
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:ContentManager"/> class.
+        /// Initializes a new instance of the <see cref="ContentManager"/> class.
         /// </summary>
         public ContentManager()
         {
-            //setting item for show portals
-            SettingItem showPortals = new SettingItem(new BooleanDataType());
-            showPortals.Value = "false";
-            showPortals.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
-            showPortals.Description = "Enable or Disable Multi-Portal Support";
+            // setting item for show portals
+            var showPortals = new SettingItem<bool, CheckBox>(new BooleanDataType())
+                {
+                    Value = false,
+                    Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS,
+                    Description = "Enable or Disable Multi-Portal Support"
+                };
             _baseSettings.Add("MultiPortalSupport", showPortals);
         }
 

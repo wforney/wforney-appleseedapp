@@ -194,12 +194,12 @@ namespace Appleseed.Content.Web.Modules
                 if (moduleID == 0)
                 {
                     p.ModuleID = ModuleID;
-                    ((SettingItem)p.Settings["MODULESETTINGS_SHOW_TITLE"]).Value = "false";
+                    ((SettingItem<bool, CheckBox>)p.Settings["MODULESETTINGS_SHOW_TITLE"]).Value = false;
                 }
                 else
                     p.ModuleID = moduleID;
 
-                return ((Control)p);
+                return p;
             }
 
             return (null);

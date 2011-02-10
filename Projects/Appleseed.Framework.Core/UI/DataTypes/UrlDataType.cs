@@ -3,28 +3,20 @@
 //   Copyright © -- 2010. All Rights Reserved.
 // </copyright>
 // <summary>
-//   Url Data Type
+//   URL Data Type
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.DataTypes
 {
     using System;
+    using System.Web.UI.WebControls;
 
     /// <summary>
-    /// Url Data Type
+    /// URL Data Type
     /// </summary>
-    public class UrlDataType : BaseDataType
+    public class UrlDataType : BaseDataType<Uri, TextBox>
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The inner value.
-        /// </summary>
-        protected new string innerValue = "http://localhost";
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -32,7 +24,8 @@ namespace Appleseed.Framework.DataTypes
         /// </summary>
         public UrlDataType()
         {
-            this.InnerDataType = PropertiesDataType.String;
+            this.Type = PropertiesDataType.String;
+            this.Value = new Uri("http://localhost");
 
             // InitializeComponents();
         }
@@ -50,25 +43,6 @@ namespace Appleseed.Framework.DataTypes
             get
             {
                 return "Full valid URI";
-            }
-        }
-
-        /// <summary>
-        ///   Gets or sets the value.
-        /// </summary>
-        /// <value>The value.</value>
-        public override string Value
-        {
-            get
-            {
-                return base.Value;
-            }
-
-            set
-            {
-                // Check type
-                // Check by Bill (blarm)
-                base.Value = !string.IsNullOrEmpty(value) ? new Uri(value).ToString() : value;
             }
         }
 

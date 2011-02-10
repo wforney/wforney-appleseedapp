@@ -264,7 +264,7 @@ namespace Appleseed.Content.Web.Modules
             int groupBase = (int) group;
             // end of modification
 
-            SettingItem setMachineName = new SettingItem(new StringDataType());
+            var setMachineName = new SettingItem<string, TextBox>(new StringDataType());
             setMachineName.Required = true;
             setMachineName.Value = ".";
             // Modified by Hongwei Shen
@@ -275,8 +275,8 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             _baseSettings.Add("MachineName", setMachineName);
 
-            SettingItem setSortField =
-                new SettingItem(new ListDataType("EntryType;TimeGenerated;Source;EventID;Message"));
+            var setSortField =
+                new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("EntryType;TimeGenerated;Source;EventID;Message"));
             setSortField.Required = true;
             setSortField.Value = "TimeGenerated";
             // Modified by Hongwei Shen
@@ -287,7 +287,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             _baseSettings.Add("SortField", setSortField);
 
-            SettingItem setSortDirection = new SettingItem(new ListDataType("ASC;DESC"));
+            var setSortDirection = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("ASC;DESC"));
             setSortDirection.Required = true;
             setSortDirection.Value = "DESC";
             // Modified by Hongwei Shen

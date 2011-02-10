@@ -163,7 +163,7 @@ namespace Appleseed.Content.Web.Modules
             SettingItemGroup group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             int groupBase = (int) group;
 
-            SettingItem directory = new SettingItem(new StringDataType());
+            var directory = new SettingItem<string, TextBox>(new StringDataType());
             directory.EnglishName = "Directory Path";
             directory.Required = false;
             directory.Group = group;
@@ -174,7 +174,7 @@ namespace Appleseed.Content.Web.Modules
                 directory.Value = string.Empty;
             _baseSettings.Add("FM_DIRECTORY", directory);
 
-            SettingItem DownloadableExt = new SettingItem(new StringDataType());
+            var DownloadableExt = new SettingItem<string, TextBox>(new StringDataType());
             DownloadableExt.EnglishName = "Downloadable extentions";
             DownloadableExt.Group = group;
             DownloadableExt.Order = groupBase + 25; //2;

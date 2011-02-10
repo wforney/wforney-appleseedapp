@@ -276,61 +276,59 @@ namespace Appleseed.Content.Web.Modules
         public SendNewsletter()
         {
             // modified by Hongwei Shen
-            SettingItemGroup group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
-            int groupBase = (int) group;
+            const SettingItemGroup Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
+            const int GroupBase = (int)Group;
 
-            SettingItem DefaultEmail = new SettingItem(new StringDataType());
-            DefaultEmail.EnglishName = "Sender Email";
-            DefaultEmail.Group = group;
-            DefaultEmail.Order = groupBase + 20;
-            _baseSettings.Add("NEWSLETTER_DEFAULTEMAIL", DefaultEmail);
+            var defaultEmail = new SettingItem<string, TextBox>(new StringDataType())
+                { EnglishName = "Sender Email", Group = Group, Order = GroupBase + 20 };
+            _baseSettings.Add("NEWSLETTER_DEFAULTEMAIL", defaultEmail);
 
-            SettingItem DefaultName = new SettingItem(new StringDataType());
-            DefaultName.Group = group;
-            DefaultName.Order = groupBase + 25;
-            DefaultName.EnglishName = "Sender Name";
-            _baseSettings.Add("NEWSLETTER_DEFAULTNAME", DefaultName);
+            var defaultName = new SettingItem<string, TextBox>(new StringDataType())
+                { Group = Group, Order = GroupBase + 25, EnglishName = "Sender Name" };
+            _baseSettings.Add("NEWSLETTER_DEFAULTNAME", defaultName);
 
-            SettingItem TestMode = new SettingItem(new BooleanDataType());
-            TestMode.Value = "False";
-            TestMode.Group = group;
-            TestMode.Order = groupBase + 30;
-            TestMode.EnglishName = "Test Mode";
-            TestMode.Description =
-                "Use Test Mode for testing your settings. It will send only one email to the address specified as sender. Useful for testing";
-            _baseSettings.Add("TestMode", TestMode);
+            var testMode = new SettingItem<bool, CheckBox>(new BooleanDataType())
+                {
+                    Value = false,
+                    Group = Group,
+                    Order = GroupBase + 30,
+                    EnglishName = "Test Mode",
+                    Description =
+                        "Use Test Mode for testing your settings. It will send only one email to the address specified as sender. Useful for testing"
+                };
+            _baseSettings.Add("TestMode", testMode);
 
             //SettingItem HTMLTemplate = new SettingItem(new CustomListDataType(new Appleseed.Framework.Site.Configuration.ModulesDB().GetModuleDefinitionByGuid(p, new Guid("{0B113F51-FEA3-499A-98E7-7B83C192FDBB}")), "ModuleTitle", "ModuleID"));
-            SettingItem HTMLTemplate = new SettingItem(new ModuleListDataType("Html Document"));
+            var HTMLTemplate = new SettingItem<string, ListControl>(new ModuleListDataType("Html Document"));
             HTMLTemplate.Value = "0";
-            HTMLTemplate.Group = group;
-            HTMLTemplate.Order = groupBase + 35;
+            HTMLTemplate.Group = Group;
+            HTMLTemplate.Order = GroupBase + 35;
             HTMLTemplate.EnglishName = "HTML Template";
             HTMLTemplate.Description =
                 "Select an HTML module that the will be used as base for this newsletter sent with this module.";
             _baseSettings.Add("NEWSLETTER_HTMLTEMPLATE", HTMLTemplate);
 
-            SettingItem LoginHomePage = new SettingItem(new StringDataType());
+            var LoginHomePage = new SettingItem<string, TextBox>(new StringDataType());
             LoginHomePage.EnglishName = "Site URL";
-            LoginHomePage.Group = group;
-            LoginHomePage.Order = groupBase + 40;
+            LoginHomePage.Group = Group;
+            LoginHomePage.Order = GroupBase + 40;
             LoginHomePage.Description =
                 "The Url or the Home page of the site used for build the instant login url. Leave blank if using the current site.";
             _baseSettings.Add("NEWSLETTER_LOGINHOMEPAGE", LoginHomePage);
 
-            SettingItem DoNotResendWithin = new SettingItem(new ListDataType("1;2;3;4;5;6;7;10;15;30;60;90"));
+            var DoNotResendWithin = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("1;2;3;4;5;6;7;10;15;30;60;90"));
             DoNotResendWithin.Value = "7";
-            DoNotResendWithin.Group = group;
-            DoNotResendWithin.Order = groupBase + 45;
+            DoNotResendWithin.Group = Group;
+            DoNotResendWithin.Order = GroupBase + 45;
             DoNotResendWithin.EnglishName = "Do not resend within (days)";
             DoNotResendWithin.Description =
                 "To avoid spam and duplicate sent you cannot email an user more than one time in specifed number of days.";
             _baseSettings.Add("NEWSLETTER_DONOTRESENDWITHIN", DoNotResendWithin);
 
-            SettingItem UserBlock = new SettingItem(new ListDataType("50;100;200;250;300;1000;1500;5000"));
+            var UserBlock = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("50;100;200;250;300;1000;1500;5000"));
             UserBlock.EnglishName = "Group users";
-            UserBlock.Group = group;
-            UserBlock.Order = groupBase + 50;
+            UserBlock.Group = Group;
+            UserBlock.Order = GroupBase + 50;
             UserBlock.Description =
                 "Select the maximum number of users. For sending emails to all you have to repeat the process. Use small values to avoid server timeouts.";
             UserBlock.Value = "250";

@@ -11,11 +11,12 @@ namespace Appleseed.Framework.DataTypes
 {
     using System;
     using System.Collections;
+    using System.Web.UI.WebControls;
 
     /// <summary>
     /// The custom list delegate data type.
     /// </summary>
-    public class CustomListDelegateDataType : ListDataType
+    public class CustomListDelegateDataType : ListDataType<string, ListControl>
     {
         #region Constructors and Destructors
 
@@ -34,7 +35,7 @@ namespace Appleseed.Framework.DataTypes
         public CustomListDelegateDataType(
             InitializeCustomSettingsDelegate function, string dataTextField, string dataValueField)
         {
-            this.InnerDataType = PropertiesDataType.List;
+            this.Type = PropertiesDataType.List;
             this.InnerDataSource = function;
             this.DataValueField = dataValueField;
             this.DataTextField = dataTextField;

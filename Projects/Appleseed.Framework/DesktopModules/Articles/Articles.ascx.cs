@@ -67,9 +67,9 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
 
             // Switches date display on/off
-            var showDate = new SettingItem(new BooleanDataType())
+            var showDate = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
-                    Value = "True", EnglishName = "Show Date", Group = Group, Order = GroupBase + 20 
+                    Value = true, EnglishName = "Show Date", Group = Group, Order = GroupBase + 20 
                 };
 
             // modified by Hongwei Shen
@@ -80,9 +80,9 @@ namespace Appleseed.Content.Web.Modules
             this._baseSettings.Add("ShowDate", showDate);
 
             // Added by Rob Siera
-            var defaultVisibleDays = new SettingItem(new IntegerDataType())
+            var defaultVisibleDays = new SettingItem<int, TextBox>(new IntegerDataType())
                 {
-                    Value = "90", EnglishName = "Default Days Visible", Group = Group, Order = GroupBase + 25 
+                    Value = 90, EnglishName = "Default Days Visible", Group = Group, Order = GroupBase + 25 
                 };
 
             // modified by Hongwei Shen
@@ -92,9 +92,9 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             this._baseSettings.Add("DefaultVisibleDays", defaultVisibleDays);
 
-            var richAbstract = new SettingItem(new BooleanDataType())
+            var richAbstract = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
-                    Value = "True",
+                    Value = true,
                     EnglishName = "Rich Abstract",
                     Description = "User rich editor for abstract",
                     Group = Group,
@@ -110,7 +110,7 @@ namespace Appleseed.Content.Web.Modules
 
             var users = new UsersDB();
             var rolesViewExpiredItems =
-                new SettingItem(
+                new SettingItem<string, CheckBoxList>(
                     new CheckBoxListDataType(
                         users.GetPortalRoles(this.portalSettings.PortalAlias), "RoleName", "RoleName"))
                     {
