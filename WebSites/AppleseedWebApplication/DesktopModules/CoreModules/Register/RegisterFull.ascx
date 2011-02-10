@@ -100,6 +100,8 @@
                                             <asp:DropDownList Width="70%" ID="ddlCountry" runat="server" DataTextField="Name"
                                                 DataValueField="CountryID">
                                             </asp:DropDownList>
+                                            <asp:RequiredFieldValidator ID="rfvCountry" runat="server" ControlToValidate="ddlCountry" Display="Dynamic"
+                                                Text="<%$ Resources:Appleseed, MUST_SELECT_COUNTRY%>" textkey="MUST_SELECT_COUNTRY" Font-Size="11px"></asp:RequiredFieldValidator>
                                         </td>
                                     </tr>
                                     <tr>

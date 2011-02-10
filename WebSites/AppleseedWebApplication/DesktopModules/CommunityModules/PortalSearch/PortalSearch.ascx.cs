@@ -67,7 +67,11 @@ namespace Appleseed.Content.Web.Modules
             ddSearchModule.Visible = "True" == Settings["showddModule"].ToString();
             lblModule.Visible = "True" == Settings["showddModule"].ToString();
 
-            testUserID = new Guid(Settings["TestUserID"].ToString());
+            var testUserIdGuid = Settings["TestUserID"].ToString();
+            if (!Guid.TryParse(testUserIdGuid, out testUserID))
+            {
+                testUserID = Guid.Empty;
+            }
 
             // Jes1111
             if (Cacheable)

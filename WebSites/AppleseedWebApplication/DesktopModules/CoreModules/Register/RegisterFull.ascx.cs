@@ -68,7 +68,6 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
 
             BindCountry();
             BindDateCombos();
-            this.ddlCountry.SelectedValue = "UY";
             this.lblError.Text = string.Empty;
             this.lblSuceeded.Text = string.Empty;
             this.pnlSuceeded.Visible = false;
@@ -128,6 +127,9 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
                     this.tfPhone.Text = (string)profileCommon.GetPropertyValue("Phone");
                     this.chbReceiveNews.Checked = (bool)profileCommon.GetPropertyValue("SendNewsletter");
                 }
+            } else {
+                var firstOptionText = General.GetString("REGISTER_SELECT_COUNTRY", "Select Country", this);
+                this.ddlCountry.Items.Insert(0, new ListItem(string.Concat("-- ",firstOptionText), string.Empty));
             }
         }
     }

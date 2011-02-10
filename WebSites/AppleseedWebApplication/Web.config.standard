@@ -146,7 +146,7 @@
 	</appSettings>
 	<system.net>
 		<mailSettings>
-			<smtp from="info@Appleseedportal.net">
+			<smtp deliveryMethod="network" from="info@Appleseedportal.net">
 				<network host="127.0.0.1">
 				</network>
 			</smtp>
@@ -161,7 +161,7 @@
 				<add name="AppleseedMembershipProvider" type="Appleseed.Framework.Providers.AppleseedMembershipProvider.AppleseedSqlMembershipProvider, Appleseed.Framework.Providers.AppleseedSqlMembershipProvider" connectionStringName="ConnectionString" applicationName="Appleseed" enablePasswordRetrieval="true" enablePasswordReset="true" requiresQuestionAndAnswer="false" requiresUniqueEmail="true" passwordFormat="Clear" maxInvalidPasswordAttempts="5" minRequiredPasswordLength="5" minRequiredNonalphanumericCharacters="0" passwordAttemptWindow="10" passwordStrengthRegularExpression="" />
 			</providers>
 		</membership>
-		<roleManager enabled="true" defaultProvider="AppleseedSqlRoleProvider" cacheRolesInCookie="true" cookieName=".AppleseedRolesCookie" cookieTimeout="30" cookieSlidingExpiration="true" cookieProtection="All">
+		<roleManager enabled="true" defaultProvider="AppleseedSqlRoleProvider" cacheRolesInCookie="false" cookieName=".AppleseedRolesCookie" cookieTimeout="30" cookieSlidingExpiration="true" cookieProtection="All">
 			<providers>
 				<clear />
 				<add name="AppleseedSqlRoleProvider" type="Appleseed.Framework.Providers.AppleseedRoleProvider.AppleseedSqlRoleProvider, Appleseed.Framework.Providers.AppleseedSqlRoleProvider" connectionStringName="ConnectionString" applicationName="Appleseed" />

@@ -34,5 +34,18 @@ namespace Appleseed.Framework.Web.UI.WebControls
             }
             set { _imageFolder = value; }
         }
+
+        /// <summary>
+        /// Returns the html as a string that will be rendered to the client
+        /// </summary>
+        /// <returns>The html that is going to be rendered</returns>
+        protected override string getTextForRender()
+        {
+            var result = base.getTextForRender();
+            //this is a hack in order to allow the SyrinxCkTextBox to render scripts.
+            return result.Replace("</script>", "</scr\" + \"ipt>");
+        }
+
+
     }
 }

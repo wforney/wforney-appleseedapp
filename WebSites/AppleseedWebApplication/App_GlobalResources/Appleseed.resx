@@ -5546,6 +5546,9 @@ function confirmDelete()
   <data name="DRAGNDROP" xml:space="preserve">
     <value>DragNDrop</value>
   </data>
+  <data name="MUST_SELECT_COUNTRY" xml:space="preserve">
+    <value>You must select a country</value>
+  </data>
   <data name="Signin_SendPasswordBtnClick_Please_enter_you_email_address">
     <value xml:space="preserve">Please enter you email address</value>
   </data>
