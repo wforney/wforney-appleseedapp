@@ -87,7 +87,7 @@ namespace Appleseed.Framework.DataTypes
 
             var editor = new SettingItem<string, DropDownList>(new HtmlEditorDataType())
                 {
-                    // 1; modified by Hongwei Shen(hongwei.shen@gmail.com) 11/9/2005
+                    // Order = 1; modified by Hongwei Shen(hongwei.shen@gmail.com) 11/9/2005
                     Order = (int)group + 1, 
                     Group = group, 
                     EnglishName = "Editor", 
@@ -96,7 +96,6 @@ namespace Appleseed.Framework.DataTypes
 
             var controlWidth = new SettingItem<int, TextBox>(new IntegerDataType())
                 {
-                    // 2; modified by Hongwei Shen
                     Value = 700, 
                     Order = (int)group + 2, 
                     Group = group, 
@@ -106,7 +105,6 @@ namespace Appleseed.Framework.DataTypes
 
             var controlHeight = new SettingItem<int, TextBox>(new IntegerDataType())
                 {
-                    // 3; modified by Hongwei Shen
                     Value = 400, 
                     Order = (int)group + 3, 
                     Group = group, 
@@ -116,7 +114,6 @@ namespace Appleseed.Framework.DataTypes
 
             var showUpload = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
-                    // 4;  modified by Hongwei Shen
                     Value = true, 
                     Order = (int)group + 4, 
                     Group = group, 
@@ -135,7 +132,6 @@ namespace Appleseed.Framework.DataTypes
                                 HttpContext.Current.Server.MapPath(string.Format("{0}/images", pS.PortalFullPath)), 
                                 "default"))
                             {
-                                // 5;  modified by Hongwei Shen
                                 Value = "default", 
                                 Order = (int)group + 5, 
                                 Group = group, 
@@ -196,12 +192,13 @@ namespace Appleseed.Framework.DataTypes
         /// <summary>
         /// Gets the editor.
         /// </summary>
-        /// <param name="placeHolderHtmlEditor">The place holder HTML editor.</param>
-        /// <param name="moduleId">The module id.</param>
-        /// <param name="showUpload">if set to <c>true</c> [show upload].</param>
-        /// <param name="portalSettings">The portal settings.</param>
+        /// The module ID.
+        /// An html editor interface.
+        /// </summary>
+        /// <param name="PlaceHolderHTMLEditor">The place holder HTML editor.</param>
+        /// <param name="moduleID">The module ID.</param>
         /// <returns>The HTML editor interface.</returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         public IHtmlEditor GetEditor(
             Control placeHolderHtmlEditor, int moduleId, bool showUpload, PortalSettings portalSettings)
         {
