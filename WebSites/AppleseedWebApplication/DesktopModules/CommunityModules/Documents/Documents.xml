@@ -1,0 +1,362 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Appleseed.Modules.Documents</name>
+    </assembly>
+    <members>
+        <member name="T:Appleseed.Content.Web.ModulesDocumentDB">
+            <summary>
+            Class that encapsulates all data logic necessary to add/query/delete
+            documents within the Portal database.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocumentDB.GetDocuments(System.Int32)">
+            <summary>
+            The GetDocuments method returns a DataSet containing all of the
+            documents for a specific portal module from the documents datatable.
+            </summary>
+            <param name="moduleID"></param>
+            <returns>The required DataSet</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocumentDB.GetDocuments(System.Int32,Appleseed.Framework.Site.Configuration.Appleseed.Framework.WorkFlowVersion)">
+            <summary>
+            The GetDocuments method returns a DataSet containing all of the
+            documents for a specific portal module from the documents datatable.
+            </summary>
+            <param name="moduleID"></param>
+            <param name="version"></param>
+            <returns>The required DataSet</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocumentDB.GetSingleDocument(System.Int32)">
+            <summary>
+            Returns a SqlDataReader containing details about a 
+            specific document from the Documents database table.
+            </summary>
+            <param name="itemID"></param>
+            <returns>The SqlDataReader</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocumentDB.GetSingleDocument(System.Int32,Appleseed.Framework.Site.Configuration.Appleseed.Framework.WorkFlowVersion)">
+            <summary>
+            Returns a SqlDataReader containing details about a 
+            specific document from the Documents database table.
+            </summary>
+            <param name="itemID"></param>
+            <param name="version"></param>
+            <returns>The SqlDataReader</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocumentDB.GetDocumentContent(System.Int32)">
+            <summary>
+            Return the specified document content from datatable
+            </summary>
+            <param name="itemID"></param>
+            <returns>The SqlDataReader</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocumentDB.GetDocumentContent(System.Int32,Appleseed.Framework.Site.Configuration.Appleseed.Framework.WorkFlowVersion)">
+            <summary>
+            Return the specified document content from datatable
+            </summary>
+            <param name="itemID"></param>
+            <param name="version"></param>
+            <returns>The SqlDataReader</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocumentDB.DeleteDocument(System.Int32,System.String)">
+            <summary>
+            Deletes the specified document from the Documents database table
+            and delete if exists the phisycal file from disk
+            </summary>
+            <param name="itemID"></param>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocumentDB.UpdateDocument(System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.Byte[],System.Int32,System.String)">
+            <summary>
+            Insert or update the specified document within the Documents database table.
+            </summary>
+            <param name="moduleID"></param>
+            <param name="itemID"></param>
+            <param name="userName"></param>
+            <param name="name"></param>
+            <param name="url"></param>
+            <param name="category"></param>
+            <param name="content"></param>
+            <param name="size"></param>
+            <param name="contentType"></param>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesDocuments">
+            <summary>
+            Documents
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocuments.myDataGrid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocuments.myDataView">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocuments.sortField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocuments.sortDirection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocuments.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocuments.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The Page_Load event handler on this User Control is used to
+            obtain a SqlDataReader of document information from the 
+            Documents table, and then databind the results to a DataGrid
+            server control.  It uses the Appleseed.DocumentDB()
+            data component to encapsulate all data functionality.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocuments.BindGrid">
+            <summary>
+            Bind the grid
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocuments.GetBrowsePath(System.String,System.Object,System.Int32)">
+            <summary>
+            GetBrowsePath() is a helper method used to create the url   
+            to the document.  If the size of the content stored in the   
+            database is non-zero, it creates a path to browse that.   
+            Otherwise, the FileNameUrl value is used.
+            
+            This method is used in the databinding expression for
+            the browse Hyperlink within the DataGrid, and is called 
+            for each row when DataGrid.DataBind() is called.  It is 
+            defined as a helper method here (as opposed to inline 
+            within the template) to improve code organization and
+            avoid embedding logic within the content template.
+            </summary>
+            <param name="url"></param>
+            <param name="size"></param>
+            <param name="documentID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocuments.SearchSqlSelect(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Searchable module implementation
+            </summary>
+            <param name="portalID">The portal ID</param>
+            <param name="userID">ID of the user is searching</param>
+            <param name="searchString">The text to search</param>
+            <param name="searchField">The fields where perfoming the search</param>
+            <returns>The SELECT sql to perform a search on the current module</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocuments.Install(System.Collections.IDictionary)">
+            <summary>
+            Install
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocuments.Uninstall(System.Collections.IDictionary)">
+            <summary>
+            Uninstall
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocuments.OnInit(System.EventArgs)">
+            <summary>
+            Raises Init event
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesDocuments.GuidID">
+            <summary>
+            General Module Def GUID
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesDocuments.Searchable">
+            <summary>
+            Searchable module
+            </summary>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesDocumentsEdit">
+            <summary>
+            Update and edit documents.
+            Update 14 nov 2002 - Bug on buttonclick events
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocumentsEdit.RequiredFieldValidator1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocumentsEdit.NameField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocumentsEdit.CategoryField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocumentsEdit.PathField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocumentsEdit.FileUpload">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocumentsEdit.PageTitleLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocumentsEdit.FileNameLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocumentsEdit.CategoryLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocumentsEdit.UrlLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocumentsEdit.OrLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocumentsEdit.UploadLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocumentsEdit.CreatedLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocumentsEdit.OnLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocumentsEdit.CreatedBy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocumentsEdit.CreatedDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocumentsEdit.Message">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDocumentsEdit.PathToSave">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocumentsEdit.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The Page_Load event on this Page is used to obtain the ModuleID
+            and ItemID of the document to edit.
+            It then uses the DocumentDB() data component
+            to populate the page's edit controls with the document details.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocumentsEdit.OnUpdate(System.EventArgs)">
+            <summary>
+            The UpdateBtn_Click event handler on this Page is used to either
+            create or update an document.  It  uses the DocumentDB()
+            data component to encapsulate all data functionality.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocumentsEdit.OnDelete(System.EventArgs)">
+            <summary>
+            The DeleteBtn_Click event handler on this Page is used to delete an
+            a document. It uses the Appleseed.DocumentsDB()
+            data component to encapsulate all data functionality.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocumentsEdit.OnInit(System.EventArgs)">
+            <summary>
+            Raises OnInitEvent
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocumentsEdit.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesDocumentsEdit.AllowedModules">
+            <summary>
+            Set the module guids with free access to this page
+            </summary>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesDocumentsView">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocumentsView.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The Page_Load event handler on this Page is used to
+            obtain obtain the contents of a document from the 
+            Documents table, construct an HTTP Response of the
+            correct type for the document, and then stream the 
+            document contents to the response.  It uses the 
+            Appleseed.DocumentDB() data component to encapsulate 
+            the data access functionality.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocumentsView.giveMeContentType(System.String)">
+            <summary>
+            Return the contentType for a especific extension
+            </summary>
+            <param name="extension">file extension</param>
+            <returns>contentType</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocumentsView.OnInit(System.EventArgs)">
+            <summary>
+            Raises the Init event.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDocumentsView.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesDocumentsView.AllowedModules">
+            <summary>
+            Set the module guids with free access to this page
+            </summary>
+        </member>
+    </members>
+</doc>

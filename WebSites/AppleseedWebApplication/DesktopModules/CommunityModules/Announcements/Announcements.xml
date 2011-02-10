@@ -1,0 +1,313 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Appleseed.Modules.Announcements</name>
+    </assembly>
+    <members>
+        <member name="T:Appleseed.Content.Web.ModulesAnnouncements">
+            <summary>
+            <p>Announcements module</p>
+            <p>this User Control is used to
+            obtain a DataSet of announcement information from the Announcements
+            table, and then databind the results to a templated DataList
+            server control.</p>
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncements.myDataList">
+            <summary>
+            Announcements datalist
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncements.pgModules">
+            <summary>
+            Paging Control buttons
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesAnnouncements.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The Page_Load event handler on this User Control is used to
+            obtain a DataSet of announcement information from the Announcements
+            table, and then databind the results to a templated DataList
+            server control.  It uses the Appleseed.AnnouncementsDB()
+            data component to encapsulate all data functionality. 
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesAnnouncements.#ctor">
+            <summary>
+            Public constructor. Sets base settings for module.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesAnnouncements.SearchSqlSelect(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Searchable module implementation
+            </summary>
+            <param name="portalID">The portal ID</param>
+            <param name="userID">ID of the user is searching</param>
+            <param name="searchString">The text to search</param>
+            <param name="searchField">The fields where perfoming the search</param>
+            <returns>The SELECT sql to perform a search on the current module</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesAnnouncements.Install(System.Collections.IDictionary)">
+            <summary>
+            
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesAnnouncements.Uninstall(System.Collections.IDictionary)">
+            <summary>
+            
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesAnnouncements.OnInit(System.EventArgs)">
+            <summary>
+            Raises Init event
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesAnnouncements.GuidID">
+            <summary>
+            GuidID 
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesAnnouncements.Searchable">
+            <summary>
+            Searchable module
+            </summary>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesAnnouncementsDB">
+            <summary>
+            Class that encapsulates all data logic necessary to add/query/delete
+            announcements within the Portal database.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesAnnouncementsDB.GetAnnouncements(System.Int32,Appleseed.Framework.Site.Configuration.Appleseed.Framework.WorkFlowVersion,System.Int32,System.Int32)">
+            <summary>
+            The GetAnnouncements method returns a DataSet containing all of the
+            announcements for a specific portal module from the Announcements
+            database table.
+            </summary>
+            <remarks>
+            A DataSet is returned from this method to allow 
+            this method to support both desktop and mobile Web UI.
+            </remarks>
+            <remarks>
+            GetAnnouncements Stored Procedure
+            </remarks>
+            <param name="moduleID"></param>
+            <param name="version"></param>
+            <param name="RecordsPerPage"></param>
+            <param name="Page"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesAnnouncementsDB.GetSingleAnnouncement(System.Int32,Appleseed.Framework.Site.Configuration.Appleseed.Framework.WorkFlowVersion)">
+            <summary>
+            The GetSingleAnnouncement method returns a SqlDataReader containing details
+            about a specific announcement from the Announcements database table.
+            </summary>
+            <remarks>
+            GetSingleAnnouncement Stored Procedure
+            </remarks>
+            <param name="itemID"></param>
+            <param name="version"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesAnnouncementsDB.DeleteAnnouncement(System.Int32)">
+            <summary>
+            The DeleteAnnouncement method deletes the specified announcement from
+            the Announcements database table.
+            </summary>
+            <remarks>
+            DeleteAnnouncement Stored Procedure
+            </remarks>
+            <param name="itemID"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesAnnouncementsDB.AddAnnouncement(System.Int32,System.Int32,System.String,System.String,System.DateTime,System.String,System.String,System.String)">
+            <summary>
+            AddAnnouncement Method
+            
+            The AddAnnouncement method adds a new announcement to the
+            Announcements database table, and returns the ItemID value as a result.
+            
+            Other relevant sources:
+                + <a href="AddAnnouncement.htm" style="color:green">AddAnnouncement Stored Procedure</a>
+            </summary>
+            <param name="moduleID"></param>
+            <param name="itemID"></param>
+            <param name="userName"></param>
+            <param name="title"></param>
+            <param name="expireDate"></param>
+            <param name="description"></param>
+            <param name="moreLink"></param>
+            <param name="mobileMoreLink"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesAnnouncementsDB.UpdateAnnouncement(System.Int32,System.Int32,System.String,System.String,System.DateTime,System.String,System.String,System.String)">
+            <summary>
+            UpdateAnnouncement Method
+            
+            The UpdateAnnouncement method updates the specified announcement within
+            the Announcements database table.
+            
+            Other relevant sources:
+                + <a href="UpdateAnnouncement.htm" style="color:green">UpdateAnnouncement Stored Procedure</a>
+            </summary>
+            <param name="moduleID"></param>
+            <param name="itemID"></param>
+            <param name="userName"></param>
+            <param name="title"></param>
+            <param name="expireDate"></param>
+            <param name="description"></param>
+            <param name="moreLink"></param>
+            <param name="mobileMoreLink"></param>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesAnnouncementsEdit">
+            <summary>
+            Announcmeent Edit
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.Literal1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.Literal2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.TitleField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.RequiredTitle">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.Literal3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.MoreLinkField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.Literal4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.MobileMoreField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.Literal5">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.Literal6">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.ExpireField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.RequiredExpireDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.VerifyExpireDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.CreatedLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.CreatedBy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.OnLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.PlaceHolderHTMLEditor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.CreatedDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.PlaceHolderButtons">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesAnnouncementsEdit.DesktopText">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesAnnouncementsEdit.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The Page_Load event on this Page is used to obtain the ModuleID
+            and ItemID of the announcement to edit.
+            It then uses the Appleseed.AnnouncementsDB() data component
+            to populate the page's edit controls with the annoucement details.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesAnnouncementsEdit.OnUpdate(System.EventArgs)">
+            <summary>
+            The UpdateBtn_Click event handler on this Page is used to either
+            create or update an announcement.  It  uses the Appleseed.AnnouncementsDB()
+            data component to encapsulate all data functionality.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesAnnouncementsEdit.OnDelete(System.EventArgs)">
+            <summary>
+            The DeleteBtn_Click event handler on this Page is used to delete an
+            an announcement.  It  uses the Appleseed.AnnouncementsDB()
+            data component to encapsulate all data functionality.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesAnnouncementsEdit.OnInit(System.EventArgs)">
+            <summary>
+            Raises OnInitEvent
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesAnnouncementsEdit.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesAnnouncementsEdit.AllowedModules">
+            <summary>
+            Set the module guids with free access to this page
+            </summary>
+        </member>
+    </members>
+</doc>

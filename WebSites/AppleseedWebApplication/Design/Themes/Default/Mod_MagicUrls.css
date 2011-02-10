@@ -1,0 +1,38 @@
+/* CSS for MagicUrls Module */
+div.MagicUrls_ascx table.Grid{
+background-color:Silver;
+color:Black;
+border:2px solid Black;
+padding:0px;
+margin:0px;
+border-collapse:collapse;
+}
+div.MagicUrls_ascx table.Grid td{
+padding:1px 3px 1px 3px;
+}
+div.MagicUrls_ascx table.Grid tr.Header td{
+border-bottom:2px solid Black;
+font-weight:bold;
+}
+div.MagicUrls_ascx table.Grid tr.Footer td{
+border-top:2px solid Black;
+}
+div.MagicUrls_ascx table.Grid tr.Item td{
+background-color:White;
+}
+div.MagicUrls_ascx table.Grid tr.AltItem td{
+background-color:#E4E4E4;
+}
+div.MagicUrls_ascx table.Grid tr.EditItem td{
+background-color:Pink;
+}
+div.MagicUrls_ascx table.Grid a.CommandButton{
+background:Gray;
+color:White;
+border:1px solid Gray;
+}
+div.MagicUrls_ascx table.Grid a.CommandButton:hover{
+background:White;
+color:Gray;
+border:1px solid Gray;
+}

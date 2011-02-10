@@ -1,0 +1,14 @@
+/* CSS for Blog Module */
+div.div_blog{
+}
+div.div_blog_stats{
+	margin-right: 70%;
+	font-size:.8em;
+}
+div.div_blog_stats > ul{list-style:none;margin-left:0px;}
+div.div_blog_stats > li{margin-bottom:3px;font-size:.8em;}
+div.div_blog_stats > a{font-size:.8em;}
+div.div_blog_messeges{
+	width: 68%;
+	float: right;
+}
