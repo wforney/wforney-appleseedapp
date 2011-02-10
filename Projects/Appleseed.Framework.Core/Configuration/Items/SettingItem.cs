@@ -1,48 +1,166 @@
-using System;
-using System.Web.UI;
-using Appleseed.Framework.DataTypes;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="SettingItem.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   This class holds a single setting in the hash table,
+//   providing information about data type, constraints.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework
 {
+    using System;
+    using System.Web.UI.WebControls;
+
+    using Appleseed.Framework.DataTypes;
+
     /// <summary>
-    /// This class holds a single setting in the hashtable,
-    /// providing information about datatype, costrains.
+    /// This class holds a single setting in the hash table,
+    /// providing information about data type, constraints.
     /// </summary>
-    public class SettingItem : IComparable
+    /// <typeparam name="T">
+    /// The type of the setting item.
+    /// </typeparam>
+    /// <typeparam name="TEditControl">
+    /// The edit control for the value.
+    /// </typeparam>
+    /// <author>
+    /// by Manu
+    /// </author>
+    public class SettingItem<T, TEditControl> : ISettingItem<T, TEditControl>
+        where TEditControl : class
     {
-        private BaseDataType _datatype;
-        private int _minValue;
-        private int _maxValue;
-        private int _order = 0;
-        private bool _required = false;
+        #region Constants and Fields
 
-        //by Manu
-        private string m_description = string.Empty;
-        private string m_englishName = string.Empty;
-        private SettingItemGroup m_Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
-
-        // Jes1111
         /// <summary>
-        /// Allows grouping of settings in SettingsTable - use
-        /// Appleseed.Framework.Configuration.SettingItemGroup enum (convert to string)
+        /// The data type.
         /// </summary>
-        /// <value>The group.</value>
-        public SettingItemGroup Group
+        private readonly BaseDataType<T, TEditControl> datatype;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SettingItem&lt;T, TEditControl&gt;"/> class.
+        /// </summary>
+        /// <param name="dataType">Type of the data.</param>
+        /// <param name="value">The value.</param>
+        public SettingItem(BaseDataType<T, TEditControl> dataType, T value)
         {
-            get { return m_Group; }
-            set { m_Group = value; }
+            this.EnglishName = string.Empty;
+            this.Description = string.Empty;
+            this.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
+            this.datatype = dataType;
+            this.datatype.Value = value;
         }
 
         /// <summary>
-        /// It provides a description in plain English for
-        /// Group Key (readonly)
+        /// Initializes a new instance of the <see cref="SettingItem&lt;T, TEditControl&gt;"/> class.
+        /// </summary>
+        /// <param name="dataType">Type of the data.</param>
+        public SettingItem(BaseDataType<T, TEditControl> dataType)
+        {
+            this.EnglishName = string.Empty;
+            this.Description = string.Empty;
+            this.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
+            this.datatype = dataType;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets the data source.
+        /// </summary>
+        public object DataSource
+        {
+            get
+            {
+                return this.datatype.DataSource;
+            }
+        }
+
+        /// <summary>
+        ///   Gets the type of the data.
+        /// </summary>
+        /// <value>
+        ///   The type of the data.
+        /// </value>
+        public PropertiesDataType DataType
+        {
+            get
+            {
+                return this.datatype.Type;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets Provide help for parameter.
+        ///   Should be a brief, descriptive text that explains what
+        ///   this setting should do.
+        /// </summary>
+        /// <value>The description.</value>
+        public string Description { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the edit control.
+        /// </summary>
+        /// <value>
+        ///   The edit control.
+        /// </value>
+        public TEditControl EditControl
+        {
+            get
+            {
+                return this.datatype.EditControl;
+            }
+
+            set
+            {
+                this.datatype.EditControl = value;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets the name of the parameter in plain English.
+        /// </summary>
+        /// <value>The name of the English.</value>
+        public string EnglishName { get; set; }
+
+        /// <summary>
+        ///   Gets the full path.
+        /// </summary>
+        public string FullPath
+        {
+            get
+            {
+                return this.datatype.FullPath;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets Allows grouping of settings in SettingsTable - use
+        ///   Appleseed.Framework.Configuration.SettingItemGroup enum (convert to string)
+        /// </summary>
+        /// <value>The group.</value>
+        /// <author>
+        ///   Jes1111
+        /// </author>
+        public SettingItemGroup Group { get; set; }
+
+        /// <summary>
+        ///   Gets a description in plain English for
+        ///   Group Key (read only)
         /// </summary>
         /// <value>The group description.</value>
         public string GroupDescription
         {
             get
             {
-                switch (m_Group)
+                switch (this.Group)
                 {
                     case SettingItemGroup.NONE:
                         return "Generic settings";
@@ -74,181 +192,125 @@ namespace Appleseed.Framework
                     case SettingItemGroup.CUSTOM_USER_SETTINGS:
                         return "Custom User Settings";
                 }
+
                 return "Settings";
             }
         }
 
         /// <summary>
-        /// Provide help for parameter.
-        /// Should be a brief, descriptive text that explains what
-        /// this setting should do.
+        ///   Gets or sets the max value.
         /// </summary>
-        /// <value>The description.</value>
-        public string Description
-        {
-            get { return m_description; }
-            set { m_description = value; }
-        }
+        /// <value>
+        ///   The max value.
+        /// </value>
+        public int MaxValue { get; set; }
 
         /// <summary>
-        /// It is the name of the parameter in plain english.
+        ///   Gets or sets the min value.
         /// </summary>
-        /// <value>The name of the english.</value>
-        public string EnglishName
-        {
-            get { return m_englishName; }
-            set { m_englishName = value; }
-        }
+        /// <value>
+        ///   The min value.
+        /// </value>
+        public int MinValue { get; set; }
 
         /// <summary>
-        /// SettingItem
+        ///   Gets or sets the Display Order - use Appleseed.Framework.Configuration.SettingItemGroup enum
+        ///   (add integer in range 1-999)
         /// </summary>
-        /// <param name="dt">The dt.</param>
-        /// <param name="value">The value.</param>
-        public SettingItem(BaseDataType dt, string value)
-        {
-            _datatype = dt;
-            _datatype.Value = value;
-        }
+        /// <value>The order.</value>
+        public int Order { get; set; }
 
         /// <summary>
-        /// SettingItem
+        /// Gets or sets a value indicating whether this <see cref="SettingItem&lt;T, TEditControl&gt;"/> is required.
         /// </summary>
-        /// <param name="dt">The dt.</param>
-        public SettingItem(BaseDataType dt)
-        {
-            _datatype = dt;
-        }
+        /// <value>
+        ///   <c>true</c> if required; otherwise, <c>false</c>.
+        /// </value>
+        public bool Required { get; set; }
 
         /// <summary>
-        /// ToString converter operator
+        ///   Gets or sets the value.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <value>
+        ///   The value.
+        /// </value>
+        public T Value
+        {
+            get
+            {
+                return this.datatype.Value;
+            }
+
+            set
+            {
+                this.datatype.Value = value;
+            }
+        }
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        ///   ToString converter operator
+        /// </summary>
+        /// <param name = "value">The value.</param>
         /// <returns></returns>
-        public static implicit operator string(SettingItem value)
+        public static implicit operator string(SettingItem<T, TEditControl> value)
         {
-            return (value.ToString());
+            return value.ToString();
         }
 
+        #endregion
+
+        #region Public Methods
+        
         /// <summary>
-        /// ToString
+        /// Returns a <see cref="System.String"/> that represents this instance.
         /// </summary>
         /// <returns>
-        /// A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+        /// A <see cref="System.String"/> that represents this instance.
         /// </returns>
         public override string ToString()
         {
-            if (_datatype.Value != null)
-                return _datatype.Value;
-            else
-                return string.Empty;
+            return this.datatype.Value.ToString();
         }
 
-        /// <summary>
-        /// Value
-        /// </summary>
-        /// <value>The value.</value>
-        public string Value
-        {
-            get { return _datatype.Value; }
-            set { _datatype.Value = value; }
-        }
+        #endregion
 
-        /// <summary>
-        /// FullPath
-        /// </summary>
-        /// <value>The full path.</value>
-        public string FullPath
-        {
-            get { return _datatype.FullPath; }
-        }
+        #region Implemented Interfaces
 
-        /// <summary>
-        /// Required
-        /// </summary>
-        /// <value><c>true</c> if required; otherwise, <c>false</c>.</value>
-        public bool Required
-        {
-            get { return _required; }
-            set { _required = value; }
-        }
-
-        /// <summary>
-        /// DataType
-        /// </summary>
-        /// <value>The type of the data.</value>
-        public PropertiesDataType DataType
-        {
-            get { return _datatype.Type; }
-        }
-
-        /// <summary>
-        /// EditControl
-        /// </summary>
-        /// <value>The edit control.</value>
-        public Control EditControl
-        {
-            get { return _datatype.EditControl; }
-            set { _datatype.EditControl = value; }
-        }
-
-        /// <summary>
-        /// MinValue
-        /// </summary>
-        /// <value>The min value.</value>
-        public int MinValue
-        {
-            get { return _minValue; }
-            set { _minValue = value; }
-        }
-
-        /// <summary>
-        /// MaxValue
-        /// </summary>
-        /// <value>The max value.</value>
-        public int MaxValue
-        {
-            get { return _maxValue; }
-            set { _maxValue = value; }
-        }
-
-        /// <summary>
-        /// DataSource
-        /// </summary>
-        /// <value>The data source.</value>
-        public object DataSource
-        {
-            get { return _datatype.DataSource; }
-        }
-
-        /// <summary>
-        /// Display Order - use Appleseed.Framework.Configuration.SettingItemGroup enum
-        /// (add integer in range 1-999)
-        /// </summary>
-        /// <value>The order.</value>
-        public int Order
-        {
-            get { return _order; }
-            set { _order = value; }
-        }
+        #region IComparable
 
         /// <summary>
         /// Public comparer
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <returns>
+        /// The compare to.
+        /// </returns>
         public int CompareTo(object value)
         {
-            if (value == null) return 1;
-            //Modified by Hongwei Shen(hongwei.shen@gmail.com) 10/9/2005
+            if (value == null)
+            {
+                return 1;
+            }
+
+            // Modified by Hongwei Shen(hongwei.shen@gmail.com) 10/9/2005
             // the "value" should be casted to SettingItem instead of ModuleItem 
-            //			int compareOrder = ((ModuleItem) value).Order;
-            int compareOrder = ((SettingItem) value).Order;
+            // int compareOrder = ((ModuleItem) value).Order;
+            var compareOrder = ((SettingItem<T, TEditControl>)value).Order;
+
             // end of modification            
-            if (Order == compareOrder) return 0;
-            if (Order < compareOrder) return -1;
-            if (Order > compareOrder) return 1;
-            return 0;
+            return this.Order != compareOrder
+                       ? (this.Order < compareOrder ? -1 : (this.Order > compareOrder ? 1 : 0))
+                       : 0;
         }
+
+        #endregion
+
+        #endregion
     }
 }

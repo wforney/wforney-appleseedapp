@@ -89,7 +89,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// <param name="passwordAnswer">
         /// The password answer
         /// </param>
-        /// <param name="isApproved">
+        /// <param name="approved">
         /// Whether the user is approved or not
         /// </param>
         /// <param name="status">
@@ -110,7 +110,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
             string email, 
             string passwordQuestion, 
             string passwordAnswer, 
-            bool isApproved, 
+            bool approved, 
             out MembershipCreateStatus status);
 
         /// <summary>
@@ -143,18 +143,16 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
             var membershipUser =
                 (AppleseedUser)
                 this.CreateUser(
-                    user.UserName, 
-                    password, 
-                    user.Email, 
-                    user.PasswordQuestion, 
-                    passwordAnswer, 
-                    user.IsApproved, 
-                    user.ProviderUserKey, 
+                    user.UserName,
+                    password,
+                    user.Email,
+                    user.PasswordQuestion,
+                    passwordAnswer,
+                    user.IsApproved,
+                    user.ProviderUserKey,
                     out status);
-            if (user != null)
-            {
-                this.SaveUserProfile(membershipUser);
-            }
+            
+            this.SaveUserProfile(membershipUser);
 
             return membershipUser;
         }
@@ -188,12 +186,13 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// Appleseed's portal alias
         /// </param>
         /// <param name="emailToMatch">
+        /// The email to match.
         /// </param>
         /// <param name="pageIndex">
         /// Page index to retrieve
         /// </param>
         /// <param name="pageSize">
-        /// Page size
+        /// Page size.
         /// </param>
         /// <param name="totalRecords">
         /// Holds a count of all records.
@@ -219,12 +218,13 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// Appleseed's portal alias
         /// </param>
         /// <param name="usernameToMatch">
+        /// The username to match.
         /// </param>
         /// <param name="pageIndex">
         /// Page index to retrieve
         /// </param>
         /// <param name="pageSize">
-        /// Page size
+        /// Page size.
         /// </param>
         /// <param name="totalRecords">
         /// Holds a count of all records.
@@ -268,7 +268,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// Page index to retrieve
         /// </param>
         /// <param name="pageSize">
-        /// Page size
+        /// Page size.
         /// </param>
         /// <param name="totalRecords">
         /// Holds a count of all records.
@@ -287,7 +287,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// The status.
         /// </param>
         /// <returns>
-        /// The get error message.
+        /// The error message.
         /// </returns>
         public string GetErrorMessage(MembershipCreateStatus status)
         {
@@ -356,13 +356,13 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// </code>
         /// element's userIsOnlineTimeWindow attribute.
         /// </summary>
-        /// <param name="portalID">
+        /// <param name="portalId">
         /// Appleseed's portal id
         /// </param>
         /// <returns>
         /// Returns a count of users that are currently online
         /// </returns>
-        public abstract int GetNumberOfUsersOnline(int portalID);
+        public abstract int GetNumberOfUsersOnline(int portalId);
 
         /// <summary>
         /// Takes, as input, a user name and a password answer and returns that user's password.
@@ -414,6 +414,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// The user's name
         /// </param>
         /// <param name="userIsOnline">
+        /// Whether user is online.
         /// </param>
         /// <returns>
         /// GetUser returns a
@@ -430,6 +431,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// Appleseed's portal alias
         /// </param>
         /// <param name="email">
+        /// The email address.
         /// </param>
         /// <returns>
         /// The first registered user name whose e-mail address matches the one supplied.
@@ -552,13 +554,13 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         }
 
         /// <summary>
-        /// Instanciates a new user.
+        /// Instantiates a new user.
         /// </summary>
         /// <param name="providerName">
         /// Name of the provider.
         /// </param>
         /// <param name="name">
-        /// The name.
+        /// The user name.
         /// </param>
         /// <param name="providerUserKey">
         /// The provider user key.
@@ -572,10 +574,10 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// <param name="comment">
         /// The comment.
         /// </param>
-        /// <param name="isApproved">
+        /// <param name="approved">
         /// if set to <c>true</c> [is approved].
         /// </param>
-        /// <param name="isLockedOut">
+        /// <param name="lockedOut">
         /// if set to <c>true</c> [is locked out].
         /// </param>
         /// <param name="creationDate">
@@ -594,16 +596,17 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// The last lockout date.
         /// </param>
         /// <returns>
+        /// The Appleseed user.
         /// </returns>
-        protected virtual AppleseedUser InstanciateNewUser(
+        protected virtual AppleseedUser InstantiateNewUser(
             string providerName, 
             string name, 
             Guid providerUserKey, 
             string email, 
             string passwordQuestion, 
             string comment, 
-            bool isApproved, 
-            bool isLockedOut, 
+            bool approved, 
+            bool lockedOut, 
             DateTime creationDate, 
             DateTime lastLoginDate, 
             DateTime lastActivityDate, 
@@ -617,8 +620,8 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
                 email, 
                 passwordQuestion, 
                 comment, 
-                isApproved, 
-                isLockedOut, 
+                approved, 
+                lockedOut, 
                 creationDate, 
                 lastLoginDate, 
                 lastActivityDate, 
@@ -627,14 +630,11 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         }
 
         /// <summary>
-        /// Instanciates a new user.
+        /// Instantiates the new user.
         /// </summary>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        protected virtual AppleseedUser InstanciateNewUser(string name)
+        /// <param name="name">The user name.</param>
+        /// <returns>The new Appleseed user.</returns>
+        protected virtual AppleseedUser InstantiateNewUser(string name)
         {
             return new AppleseedUser(name);
         }
@@ -643,7 +643,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// Loads the user profile.
         /// </summary>
         /// <param name="user">
-        /// The user.
+        /// The Appleseed user.
         /// </param>
         protected virtual void LoadUserProfile(AppleseedUser user)
         {
@@ -662,7 +662,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
                 user.Phone = profile.GetPropertyValue("Phone").ToString();
                 user.SendNewsletter = Convert.ToBoolean(profile.GetPropertyValue("SendNewsletter"));
             }
-            catch (SettingsPropertyNotFoundException ex)
+            catch (SettingsPropertyNotFoundException)
             {
                 // TODO: loggear el error, no se que logger usar. Si referencio a alguno de los que se usa en el resto de la solucion da una referencia circular.
             }
@@ -672,7 +672,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// Saves the user profile.
         /// </summary>
         /// <param name="user">
-        /// The user.
+        /// The Appleseed user.
         /// </param>
         protected virtual void SaveUserProfile(AppleseedUser user)
         {
@@ -691,7 +691,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
                 profile.SetPropertyValue("SendNewsletter", user.SendNewsletter);
                 profile.Save();
             }
-            catch (SettingsPropertyNotFoundException ex)
+            catch (SettingsPropertyNotFoundException)
             {
                 // TODO: loggear el error, no se que logger usar. Si referencio a alguno de los que se usa en el resto de la solucion da una referencia circular.
             }

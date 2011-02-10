@@ -1,17 +1,19 @@
-using System;
-using System.Collections;
-using System.Web.UI.WebControls;
-using Appleseed.Framework;
-using Appleseed.Framework.Settings.Cache;
-using Appleseed.Framework.Site.Configuration;
-using Appleseed.Framework.Web.UI;
-using Appleseed.Framework.Web.UI.WebControls;
-using History=Appleseed.Framework.History;
-using HyperLink=Appleseed.Framework.Web.UI.WebControls.HyperLink;
-using LinkButton=Appleseed.Framework.Web.UI.WebControls.LinkButton;
-
 namespace Appleseed.Content.Web.Modules
 {
+    using System;
+    using System.Collections;
+    using System.Web.UI.WebControls;
+
+    using Appleseed.Framework;
+    using Appleseed.Framework.Settings.Cache;
+    using Appleseed.Framework.Site.Configuration;
+    using Appleseed.Framework.Web.UI;
+    using Appleseed.Framework.Web.UI.WebControls;
+
+    using History = Appleseed.Framework.History;
+    using HyperLink = Appleseed.Framework.Web.UI.WebControls.HyperLink;
+    using LinkButton = Appleseed.Framework.Web.UI.WebControls.LinkButton;
+
     /// <summary>
     /// Summary description for Property Page
     /// </summary>
@@ -126,7 +128,7 @@ namespace Appleseed.Content.Web.Modules
 
         private void PagePropertyPage_Load(object sender, EventArgs e)
         {
-            //We reset cache before dispay page to ensure dropdown shows actual data
+            //We reset cache before display page to ensure dropdown shows actual data
             //by Pekka Ylenius
             CurrentCache.Remove(Key.ModuleSettings(ModuleID));
             // Using settings grouping tabs or not is set in config file. --Hongwei Shen
@@ -186,7 +188,7 @@ namespace Appleseed.Content.Web.Modules
         private void EditTable_UpdateControl(object sender,
                                              Appleseed.Framework.Web.UI.WebControls.SettingsTableEventArgs e)
         {
-            ModuleSettings.UpdateModuleSetting(ModuleID, e.CurrentItem.EditControl.ID, e.CurrentItem.Value);
+            ModuleSettings.UpdateModuleSetting(ModuleID, ((SettingItem<string, TextBox>)e.CurrentItem).EditControl.ID, ((SettingItem<string, TextBox>)e.CurrentItem).Value);
         }
     }
 }

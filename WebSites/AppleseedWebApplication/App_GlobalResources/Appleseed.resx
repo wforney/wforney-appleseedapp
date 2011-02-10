@@ -5549,4 +5549,13 @@ function confirmDelete()
   <data name="MUST_SELECT_COUNTRY" xml:space="preserve">
     <value>You must select a country</value>
   </data>
+  <data name="Signin_SendPasswordBtnClick_Please_enter_you_email_address">
+    <value xml:space="preserve">Please enter you email address</value>
+  </data>
+  <data name="Signin_LoginBtnClick_Login_failed">
+    <value xml:space="preserve">Login failed</value>
+  </data>
+	<data name="Discussion_unknown">
+		<value xml:space="preserve">unknown</value>
+	</data>
 </root>

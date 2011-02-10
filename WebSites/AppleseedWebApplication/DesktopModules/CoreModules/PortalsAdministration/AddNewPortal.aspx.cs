@@ -18,6 +18,8 @@ using System.IO;
 
 namespace Appleseed.AdminAll
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// New portal wizard
     /// </summary>
@@ -212,8 +214,8 @@ namespace Appleseed.AdminAll
         /// <param name="e">The <see cref="T:Appleseed.Framework.Web.UI.WebControls.SettingsTableEventArgs"/> instance containing the event data.</param>
         private void EditTable_UpdateControl(object sender, SettingsTableEventArgs e)
         {
-            SettingsTable edt = (SettingsTable)sender;
-            PortalSettings.UpdatePortalSetting(edt.ObjectID, e.CurrentItem.EditControl.ID, e.CurrentItem.Value);
+            var edt = (SettingsTable)sender;
+            PortalSettings.UpdatePortalSetting(edt.ObjectID, ((SettingItem<string, TextBox>)e.CurrentItem).EditControl.ID, ((SettingItem<string, TextBox>)e.CurrentItem).Value);
         }
 
         /// <summary>

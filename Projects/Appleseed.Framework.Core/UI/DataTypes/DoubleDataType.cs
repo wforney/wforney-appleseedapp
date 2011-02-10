@@ -1,41 +1,47 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DoubleDataType.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Double Data Type
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace Appleseed.Framework.DataTypes
 {
     /// <summary>
-    /// DoubleDataType
+    /// Double Data Type
     /// </summary>
     public class DoubleDataType : NumericDataType
     {
+        #region Constructors and Destructors
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="DoubleDataType"/> class.
+        ///   Initializes a new instance of the <see cref = "DoubleDataType" /> class.
         /// </summary>
         public DoubleDataType()
         {
-            InnerDataType = PropertiesDataType.Double;
-            //InitializeComponents();
+            this.Type = PropertiesDataType.Double;
+
+            // InitializeComponents();
         }
 
-        /// <summary>
-        /// Gets or sets the value.
-        /// </summary>
-        /// <value>The value.</value>
-        public override string Value
-        {
-            get { return base.Value; }
-            set
-            {
-                //Check type
-                double i = double.Parse(value);
-                base.Value = value;
-            }
-        }
+        #endregion
+
+        #region Properties
 
         /// <summary>
-        /// Gets the description.
+        ///   Gets the description.
         /// </summary>
         /// <value>The description.</value>
         public override string Description
         {
-            get { return "Double"; }
+            get
+            {
+                return "Double";
+            }
         }
+
+        #endregion
     }
 }

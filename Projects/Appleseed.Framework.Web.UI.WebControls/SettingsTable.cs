@@ -39,7 +39,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// <returns>
         /// A void value...
         /// </returns>
-        public SettingsTableEventArgs(SettingItem item)
+        public SettingsTableEventArgs(object item)
         {
             this.CurrentItem = item;
         }
@@ -52,7 +52,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
         ///     CurrentItem
         /// </summary>
         /// <value>The current item.</value>
-        public SettingItem CurrentItem { get; set; }
+        public object CurrentItem { get; set; }
 
         #endregion
     }
@@ -71,14 +71,14 @@ namespace Appleseed.Framework.Web.UI.WebControls
     #region SettingsTable control
 
     /// <summary>
-    /// A databound control that takes in custom settings list in a SortedList
+    /// A data bound control that takes in custom settings list in a SortedList
     ///    object and creates the hierarchy of the settings controls in two different
     ///    ways. One shows the grouped settings flat and the other shows the grouped 
     ///    settings in selectable tabs.  
     ///    Notes and Credits:
     ///    Motive: 
     ///    In the property page of Appleseed modules, there are groups of settings.
-    ///    Some people like the old way of look and feel of the settings (befoer 
+    ///    Some people like the old way of look and feel of the settings (before 
     ///    svn version 313, some like the new way of grouping the settings into 
     ///    tabs. This modification handles over the power to make choice to the end 
     ///    user by providing an attribute "UseGrouingTabs" which in turn will get 
@@ -87,7 +87,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
     /// 
     ///    What is changed: 
     ///    Many changes in order to implement the functionality and make the control
-    ///    an nice databound control. However, the child control creating logic is
+    ///    an nice data bound control. However, the child control creating logic is
     ///    NOT changed. Basically, these logic was in the DataBind() function of the 
     ///    previous implementation. Event processing logic is NOT changed.
     /// 
@@ -292,8 +292,8 @@ namespace Appleseed.Framework.Web.UI.WebControls
             foreach (string key in this.EditControls.Keys)
             {
                 var c = (Control)this.EditControls[key];
-                var currentItem = (SettingItem)this.settings[c.ID];
-                currentItem.EditControl = c;
+                var currentItem = (SettingItem<string, TextBox>)this.settings[c.ID];
+                currentItem.EditControl = (TextBox)c;
                 this.OnUpdateControl(new SettingsTableEventArgs(currentItem));
             }
         }
@@ -430,14 +430,14 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
             foreach (var key in this.settings.GetKeyList().Cast<string>().Where(key => this.settings[key] != null))
             {
-                if (!(this.settings[key] is SettingItem))
+                if (!(this.settings[key] is SettingItem<string, TextBox>))
                 {
                     // TODO: FIX THIS
                     // ErrorHandler.Publish(Appleseed.Framework.LogLevel.Debug, "Unexpected '" + Settings[key].GetType().FullName + "' in settings table.");
                 }
                 else
                 {
-                    var order = ((SettingItem)this.settings[key]).Order;
+                    var order = ((SettingItem<int, TextBox>)this.settings[key]).Order;
 
                     while (settingsOrder.ContainsKey(order))
                     {
@@ -462,7 +462,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// <returns>
         /// Fieldset control
         /// </returns>
-        private static HtmlGenericControl CreateNewFieldSet(SettingItem currentItem)
+        private static HtmlGenericControl CreateNewFieldSet(SettingItem<string, TextBox> currentItem)
         {
             // start a new fieldset
             var fieldset = new HtmlGenericControl("fieldset");
@@ -508,7 +508,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
             foreach (string currentSetting in settingsOrder.GetValueList())
             {
-                var currentItem = (SettingItem)this.settings[currentSetting];
+                var currentItem = (SettingItem<string, TextBox>)this.settings[currentSetting];
 
                 if (currentItem.Group != currentGroup)
                 {
@@ -576,7 +576,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
             foreach (string currentSetting in settingsOrder.GetValueList())
             {
-                var currentItem = (SettingItem)this.settings[currentSetting];
+                var currentItem = (SettingItem<string, TextBox>)this.settings[currentSetting];
 
                 if (tabDefault.InnerText.Length == 0)
                 {
@@ -644,7 +644,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// <returns>
         /// A table row.
         /// </returns>
-        private TableRow CreateOneSettingRow(string currentSetting, SettingItem currentItem)
+        private TableRow CreateOneSettingRow(string currentSetting, SettingItem<string, TextBox> currentItem)
         {
             // the table row is going to have three cells 
             var row = new TableRow();

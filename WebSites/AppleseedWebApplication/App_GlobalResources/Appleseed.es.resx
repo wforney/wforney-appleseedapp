@@ -2927,7 +2927,7 @@
     <value>Establece cómo de dibujará en la pantalla el menú</value>
   </data>
   <data name="SM_PARENTTABID">
-    <value>Id Padre</value>
+    <value>Id Página Padre</value>
   </data>
   <data name="SM_PARENTTABID_DESCRIPTION">
     <value>Establece el identificador de la página padre</value>
@@ -3579,9 +3579,6 @@
   </data>
   <data name="ERROR_FILE_NAME">
     <value>Nombre de fichero erróneo</value>
-  </data>
-  <data name="ERROR_NOT_ALLOWED_PARENT">
-    <value>No se permite seleccionar este padre</value>
   </data>
   <data name="ERROR_VALID_EXPIRE_DATE">
     <value>Entra una fecha válida</value>
@@ -4251,6 +4248,9 @@
   </data>
   <data name="TABKEYPHRASE_ES-ES">
     <value>Frase clave para la página (es-ES)</value>
+  </data>
+  <data name="ERROR_NOT_ALLOWED_PARENT">
+    <value>No se permite seleccionar este padre</value>
   </data>
   <data name="BG-BG">
     <value>BG-BG</value>
