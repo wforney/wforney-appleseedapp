@@ -12,6 +12,7 @@ using Path=Appleseed.Framework.Settings.Path;
 namespace Appleseed.Content.Web.Modules
 {
     using System.Collections.Generic;
+    using System.Web.UI.WebControls;
 
     /// <summary>
     /// Update and edit documents.
@@ -47,7 +48,7 @@ namespace Appleseed.Content.Web.Modules
             if (!Page.IsPostBack)
             {
                 if (ModuleID > 0)
-                    PathToSave = ((SettingItem) moduleSettings["DocumentPath"]).FullPath;
+                    PathToSave = ((SettingItem<string, TextBox>) moduleSettings["DocumentPath"]).FullPath;
 
                 if (ItemID > 0)
                 {
@@ -134,7 +135,7 @@ namespace Appleseed.Content.Web.Modules
                     }
                     else
                     {
-                        PathToSave = ((SettingItem) moduleSettings["DocumentPath"]).FullPath;
+                        PathToSave = ((SettingItem<string, TextBox>)moduleSettings["DocumentPath"]).FullPath;
                         // jviladiu@portalServices.net (02/07/2004). Create the Directory if not exists.
                         if (!Directory.Exists(Server.MapPath(PathToSave)))
                             Directory.CreateDirectory(Server.MapPath(PathToSave));

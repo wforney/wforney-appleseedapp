@@ -36,13 +36,10 @@ namespace Appleseed.Content.Web.Modules
             {
                 if (ModuleID > 0)
                 {
-                    if (moduleSettings["Zip"] != null)
-                        Zip.Text = ((SettingItem) moduleSettings["Zip"]).ToString();
-                    else
-                        Zip.Text = "10001";
+                    this.Zip.Text = this.moduleSettings["Zip"] != null ? this.moduleSettings["Zip"].ToString() : "10001";
 
                     if (moduleSettings["Option"] != null)
-                        Option.SelectedIndex = int.Parse(((SettingItem) moduleSettings["Option"]).ToString());
+                        Option.SelectedIndex = int.Parse(this.moduleSettings["Option"].ToString());
                 }
             }
         }

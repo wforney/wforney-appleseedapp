@@ -1,99 +1,155 @@
-using System;
-using System.IO;
-using System.Text;
-using System.Web;
-using Appleseed.Framework.Site.Configuration;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CssHelper.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   CssHelper object (Jes1111)
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.Helpers
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Web;
+
+    using Appleseed.Framework.Site.Configuration;
+
     /// <summary>
     /// CssHelper object (Jes1111)
     /// </summary>
     public class CssHelper
     {
-        /// <summary>
-        ///     
-        /// </summary>
-        private const bool ALLOW_IMPORTS = true;
+        #region Constants and Fields
 
         /// <summary>
-        ///     
+        /// The allow imports.
         /// </summary>
-        private const bool INCLUDE_COMMENTS = true;
+        private const bool AllowImports = true;
 
         /// <summary>
-        ///     
+        /// The include comments.
         /// </summary>
-        private const bool PARSE_IMPORTS = true;
+        private const bool IncludeComments = true;
 
         /// <summary>
-        ///     
+        /// The parse imports.
         /// </summary>
-        private const string SELECTOR_PREFIX = "";
+        private const bool ParseImports = true;
 
         /// <summary>
-        ///     
+        /// The selector prefix.
+        /// </summary>
+        private const string SelectorPrefix = "";
+
+        /// <summary>
+        ///   The portal settings.
         /// </summary>
         private PortalSettings portalSettings;
 
+        #endregion
+
+        #region Constructors and Destructors
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:CssHelper"/> class.
+        ///   Initializes a new instance of the <see cref = "CssHelper" /> class.
         /// </summary>
-        /// <returns>
-        /// A void value...
-        /// </returns>
         public CssHelper()
         {
             if (HttpContext.Current != null)
             {
-                portalSettings = (PortalSettings) HttpContext.Current.Items["PortalSettings"];
+                this.portalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
             }
         }
 
+        #endregion
+
+        #region Public Methods
+
         /// <summary>
         /// Parses the CSS.
         /// </summary>
-        /// <param name="cssFileName">Name of the CSS file.</param>
-        /// <returns>A string value...</returns>
+        /// <param name="cssFileName">
+        /// Name of the CSS file.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
         public string ParseCss(string cssFileName)
         {
-            return ParseCss(cssFileName, SELECTOR_PREFIX);
+            return this.ParseCss(cssFileName, SelectorPrefix);
         }
 
         /// <summary>
         /// Parses the CSS.
         /// </summary>
-        /// <param name="cssFileName">Name of the CSS file.</param>
-        /// <param name="selectorPrefix">The selector prefix.</param>
-        /// <param name="allowImports">if set to <c>true</c> [allow imports].</param>
-        /// <param name="parseImports">if set to <c>true</c> [parse imports].</param>
-        /// <param name="includeComments">if set to <c>true</c> [include comments].</param>
-        /// <returns>A string value...</returns>
-        public string ParseCss(string cssFileName, string selectorPrefix, bool allowImports, bool parseImports,
-                               bool includeComments)
+        /// <param name="cssFileName">
+        /// Name of the CSS file.
+        /// </param>
+        /// <param name="selectorPrefix">
+        /// The selector prefix.
+        /// </param>
+        /// <param name="allowImports">
+        /// if set to <c>true</c> [allow imports].
+        /// </param>
+        /// <param name="parseImports">
+        /// if set to <c>true</c> [parse imports].
+        /// </param>
+        /// <param name="includeComments">
+        /// if set to <c>true</c> [include comments].
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string ParseCss(
+            string cssFileName, string selectorPrefix, bool allowImports, bool parseImports, bool includeComments)
         {
-            return (ParseCss(cssFileName, selectorPrefix, allowImports, parseImports, includeComments, null));
+            return this.ParseCss(cssFileName, selectorPrefix, allowImports, parseImports, includeComments, null);
         }
 
         /// <summary>
         /// Parses the CSS.
         /// </summary>
-        /// <param name="cssFileName">Name of the CSS file.</param>
-        /// <param name="selectorPrefix">The selector prefix.</param>
-        /// <param name="allowImports">if set to <c>true</c> [allow imports].</param>
-        /// <param name="parseImports">if set to <c>true</c> [parse imports].</param>
-        /// <param name="includeComments">if set to <c>true</c> [include comments].</param>
-        /// <param name="sb">The sb.</param>
-        /// <returns>A string value...</returns>
-        public string ParseCss(string cssFileName, string selectorPrefix, bool allowImports, bool parseImports,
-                               bool includeComments, StringBuilder sb)
+        /// <param name="cssFileName">
+        /// Name of the CSS file.
+        /// </param>
+        /// <param name="selectorPrefix">
+        /// The selector prefix.
+        /// </param>
+        /// <param name="allowImports">
+        /// if set to <c>true</c> [allow imports].
+        /// </param>
+        /// <param name="parseImports">
+        /// if set to <c>true</c> [parse imports].
+        /// </param>
+        /// <param name="includeComments">
+        /// if set to <c>true</c> [include comments].
+        /// </param>
+        /// <param name="sb">
+        /// The sb.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string ParseCss(
+            string cssFileName, 
+            string selectorPrefix, 
+            bool allowImports, 
+            bool parseImports, 
+            bool includeComments, 
+            StringBuilder sb)
         {
-            using (StreamReader sr = new StreamReader(cssFileName))
+            using (var sr = new StreamReader(cssFileName))
             {
-                StringTokenizer st = new StringTokenizer(sr);
+                var st = new StringTokenizer(sr);
 
                 if (sb == null)
+                {
                     sb = new StringBuilder();
+                }
+
                 Token token;
 
                 try
@@ -109,21 +165,25 @@ namespace Appleseed.Framework.Helpers
                                 if (includeComments)
                                 {
                                     sb.Append(token.Value);
-                                    //sb.Append("\n");
+
+                                    // sb.Append("\n");
                                 }
+
                                 break;
 
                             case TokenKind.Selector:
 
                                 if (selectorPrefix == string.Empty)
+                                {
                                     sb.Append(token.Value);
-
+                                }
                                 else
                                 {
                                     sb.Append(selectorPrefix);
                                     sb.Append(" ");
                                     sb.Append(token.Value);
                                 }
+
                                 break;
 
                             case TokenKind.AtRule:
@@ -137,44 +197,47 @@ namespace Appleseed.Framework.Helpers
                                 if (allowImports && parseImports)
                                 {
                                     // temp
-                                    //sb.Append(token.Value);
-                                    string _filename = token.Value.Replace("@import", string.Empty);
-                                    _filename = _filename.Replace("url", string.Empty);
-                                    _filename = _filename.Replace("(", string.Empty);
-                                    _filename = _filename.Replace(")", string.Empty);
-                                    _filename = _filename.Replace("'", string.Empty);
-                                    _filename = _filename.Replace("\"", string.Empty);
-                                    _filename = _filename.Replace(";", string.Empty).Trim();
-                                    _filename =
-                                        string.Concat(cssFileName.Substring(0, cssFileName.LastIndexOf(@"\")).Trim(),
-                                                      "\\", _filename);
-                                    CssHelper _loop = new CssHelper();
-                                    _loop.ParseCss(_filename, selectorPrefix, allowImports, parseImports,
-                                                   includeComments, sb);
+                                    // sb.Append(token.Value);
+                                    var filename = token.Value.Replace("@import", string.Empty);
+                                    filename = filename.Replace("url", string.Empty);
+                                    filename = filename.Replace("(", string.Empty);
+                                    filename = filename.Replace(")", string.Empty);
+                                    filename = filename.Replace("'", string.Empty);
+                                    filename = filename.Replace("\"", string.Empty);
+                                    filename = filename.Replace(";", string.Empty).Trim();
+                                    filename =
+                                        string.Concat(
+                                            cssFileName.Substring(0, cssFileName.LastIndexOf(@"\")).Trim(), 
+                                            "\\", 
+                                            filename);
+                                    var loop = new CssHelper();
+                                    loop.ParseCss(
+                                        filename, selectorPrefix, allowImports, parseImports, includeComments, sb);
                                 }
-
                                 else if (allowImports && !parseImports)
                                 {
                                     sb.Append(token.Value);
                                 }
+
                                 break;
                             default:
                                 sb.Append(token.Value);
                                 break;
                         }
-                    } while (token.Kind != TokenKind.EOF);
+                    }
+                    while (token.Kind != TokenKind.EOF);
                 }
-
                 catch (Exception ex)
                 {
-                    ErrorHandler.Publish(LogLevel.Error,
-                                         "Error in parsing CSS file: " + cssFileName + " Message was: " + ex.Message);
+                    ErrorHandler.Publish(
+                        LogLevel.Error, 
+                        string.Format("Error in parsing CSS file: {0} Message was: {1}", cssFileName, ex.Message));
                 }
-
                 finally
                 {
                     sr.Close();
                 }
+
                 return sb.ToString();
             }
         }
@@ -182,101 +245,224 @@ namespace Appleseed.Framework.Helpers
         /// <summary>
         /// Parses the CSS.
         /// </summary>
-        /// <param name="cssFileName">Name of the CSS file.</param>
-        /// <param name="selectorPrefix">The selector prefix.</param>
-        /// <param name="allowImports">if set to <c>true</c> [allow imports].</param>
-        /// <param name="parseImports">if set to <c>true</c> [parse imports].</param>
-        /// <returns>A string value...</returns>
+        /// <param name="cssFileName">
+        /// Name of the CSS file.
+        /// </param>
+        /// <param name="selectorPrefix">
+        /// The selector prefix.
+        /// </param>
+        /// <param name="allowImports">
+        /// if set to <c>true</c> [allow imports].
+        /// </param>
+        /// <param name="parseImports">
+        /// if set to <c>true</c> [parse imports].
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
         public string ParseCss(string cssFileName, string selectorPrefix, bool allowImports, bool parseImports)
         {
-            return (ParseCss(cssFileName, selectorPrefix, allowImports, parseImports, INCLUDE_COMMENTS));
+            return this.ParseCss(cssFileName, selectorPrefix, allowImports, parseImports, IncludeComments);
         }
 
         /// <summary>
         /// Parses the CSS.
         /// </summary>
-        /// <param name="cssFileName">Name of the CSS file.</param>
-        /// <param name="selectorPrefix">The selector prefix.</param>
-        /// <param name="allowImports">if set to <c>true</c> [allow imports].</param>
-        /// <returns>A string value...</returns>
+        /// <param name="cssFileName">
+        /// Name of the CSS file.
+        /// </param>
+        /// <param name="selectorPrefix">
+        /// The selector prefix.
+        /// </param>
+        /// <param name="allowImports">
+        /// if set to <c>true</c> [allow imports].
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
         public string ParseCss(string cssFileName, string selectorPrefix, bool allowImports)
         {
-            return ParseCss(cssFileName, selectorPrefix, allowImports, PARSE_IMPORTS);
+            return this.ParseCss(cssFileName, selectorPrefix, allowImports, ParseImports);
         }
 
         /// <summary>
         /// Parses the CSS.
         /// </summary>
-        /// <param name="cssFileName">Name of the CSS file.</param>
-        /// <param name="selectorPrefix">The selector prefix.</param>
-        /// <returns>A string value...</returns>
+        /// <param name="cssFileName">
+        /// Name of the CSS file.
+        /// </param>
+        /// <param name="selectorPrefix">
+        /// The selector prefix.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
         public string ParseCss(string cssFileName, string selectorPrefix)
         {
-            return ParseCss(cssFileName, selectorPrefix, ALLOW_IMPORTS);
+            return this.ParseCss(cssFileName, selectorPrefix, AllowImports);
         }
+
+        #endregion
     }
 
     /// <summary>
     /// StringTokenizer tokenized string (or stream) into tokens.
     /// 
-    /// ********************************************************
-    /// *	Author: Andrew Deren
-    /// *	Date: July, 2004
-    /// *	http://www.adersoftware.com
-    /// * 
-    /// *	StringTokenizer class. You can use this class in any way you want
-    /// * as long as this header remains in this file.
-    /// * 
-    /// **********************************************************
+    ///   ********************************************************
+    ///   *	Author: Andrew Deren
+    ///   *	Date: July, 2004
+    ///   *	http://www.adersoftware.com
+    ///   * 
+    ///   *	StringTokenizer class. You can use this class in any way you want
+    ///   * as long as this header remains in this file.
+    ///   * 
+    ///   **********************************************************
     /// </summary>
     /// <remarks>
     /// modified by Jes1111 to be specific to CSS
     /// </remarks>
     public class StringTokenizer
     {
-        private const char EOF = (char) 0;
-        private int column;
-        private string data;
-        private bool ignoreWhiteSpace;
-        private int line;
-        private int pos; // position within data
-        private int saveCol;
-        private int saveLine;
-        private int savePos;
-        private char[] symbolChars;
+        #region Constants and Fields
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:StringTokenizer"/> class.
+        ///   The EOF.
         /// </summary>
-        /// <param name="data">The data.</param>
+        private const char EOF = (char)0;
+
+        /// <summary>
+        ///   The data.
+        /// </summary>
+        private readonly string data;
+
+        /// <summary>
+        ///   The column.
+        /// </summary>
+        private int column;
+
+        /// <summary>
+        ///   The ignore white space.
+        /// </summary>
+        private bool ignoreWhiteSpace;
+
+        /// <summary>
+        ///   The line.
+        /// </summary>
+        private int line;
+
+        /// <summary>
+        ///   The pos.
+        /// </summary>
+        private int pos; // position within data
+
+        /// <summary>
+        ///   The save col.
+        /// </summary>
+        private int saveCol;
+
+        /// <summary>
+        ///   The save line.
+        /// </summary>
+        private int saveLine;
+
+        /// <summary>
+        ///   The save pos.
+        /// </summary>
+        private int savePos;
+
+        /// <summary>
+        ///   The symbol chars.
+        /// </summary>
+        private char[] symbolChars;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StringTokenizer"/> class.
+        /// </summary>
+        /// <param name="data">
+        /// The data.
+        /// </param>
         /// <returns>
         /// A void value...
         /// </returns>
         public StringTokenizer(string data)
         {
             if (data == null)
+            {
                 throw new ArgumentNullException("data");
+            }
+
             this.data = data;
-            Reset();
+            this.Reset();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:StringTokenizer"/> class.
+        /// Initializes a new instance of the <see cref="StringTokenizer"/> class.
         /// </summary>
-        /// <param name="reader">The reader.</param>
+        /// <param name="reader">
+        /// The reader.
+        /// </param>
         /// <returns>
         /// A void value...
         /// </returns>
         public StringTokenizer(StreamReader reader)
         {
             if (reader == null)
+            {
                 throw new ArgumentNullException("reader");
-            data = reader.ReadToEnd();
-            Reset();
+            }
+
+            this.data = reader.ReadToEnd();
+            this.Reset();
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   if set to true, white space characters will be ignored,
+        ///   but EOL and whitespace inside of string will still be tokenized
+        /// </summary>
+        /// <value><c>true</c> if [ignore white space]; otherwise, <c>false</c>.</value>
+        public bool IgnoreWhiteSpace
+        {
+            get
+            {
+                return this.ignoreWhiteSpace;
+            }
+
+            set
+            {
+                this.ignoreWhiteSpace = value;
+            }
         }
 
         /// <summary>
-        /// Nexts this instance.
+        ///   gets or sets which characters are part of TokenKind.Symbol
+        /// </summary>
+        public char[] SymbolChars
+        {
+            get
+            {
+                return this.symbolChars;
+            }
+
+            set
+            {
+                this.symbolChars = value;
+            }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Next this instance.
         /// </summary>
         /// <returns>
         /// A Appleseed.Framework.Helpers.Token value...
@@ -284,160 +470,172 @@ namespace Appleseed.Framework.Helpers
         public Token Next()
         {
             ReadToken:
-            char ch = LA(0);
+            var ch = this.LA(0);
 
             switch (ch)
             {
                 case EOF:
-                    return CreateToken(TokenKind.EOF, string.Empty);
+                    return this.CreateToken(TokenKind.EOF, string.Empty);
 
                 case ' ':
 
                 case '\t':
                     {
-                        if (ignoreWhiteSpace)
+                        if (this.ignoreWhiteSpace)
                         {
-                            Consume();
+                            this.Consume();
                             goto ReadToken;
                         }
 
-                        else
-                            return ReadWhitespace();
+                        return this.ReadWhitespace();
                     }
 
                 case '\r':
                     {
-                        StartRead();
-                        Consume();
+                        this.StartRead();
+                        this.Consume();
 
-                        if (LA(0) == '\n')
-                            Consume(); // on DOS/Windows we have \r\n for new line
-                        line++;
-                        column = 1;
-                        return CreateToken(TokenKind.EOL);
+                        if (this.LA(0) == '\n')
+                        {
+                            this.Consume(); // on DOS/Windows we have \r\n for new line
+                        }
+
+                        this.line++;
+                        this.column = 1;
+                        return this.CreateToken(TokenKind.EOL);
                     }
 
                 case '\n':
                     {
-                        StartRead();
-                        Consume();
-                        line++;
-                        column = 1;
-                        return CreateToken(TokenKind.EOL);
+                        this.StartRead();
+                        this.Consume();
+                        this.line++;
+                        this.column = 1;
+                        return this.CreateToken(TokenKind.EOL);
                     }
 
                 case '@':
                     {
-                        if (LA(1) == 'i' || LA(1) == 'I') // import rule
-                            return ReadImportRule();
-
-                        else
-                            return ReadAtRule();
+                        return this.LA(1) == 'i' || this.LA(1) == 'I' ? this.ReadImportRule() : this.ReadAtRule();
                     }
 
                 case '/':
                     {
-                        if (LA(1) == '*') // comment
-                            return ReadComment();
-
-                        else
+                        if (this.LA(1) == '*')
                         {
-                            Consume();
-                            return CreateToken(TokenKind.Symbol);
+                            // comment
+                            return this.ReadComment();
                         }
+
+                        this.Consume();
+                        return this.CreateToken(TokenKind.Symbol);
                     }
 
-                case '{': // block
+                case '{':
                     {
-                        return ReadBlock();
+                        // block
+                        return this.ReadBlock();
                     }
-                default: // selector
+
+                default:
                     {
-                        return ReadSelector();
-                        //					if (Char.IsLetter(ch) || ch == '_')
-                        //						return ReadWord();
-                        //					else if (IsSymbol(ch))
-                        //					{
-                        //						StartRead();
-                        //						Consume();
-                        //						return CreateToken(TokenKind.Symbol);
-                        //					}
-                        //					else
-                        //					{
-                        //						StartRead();
-                        //						Consume();
-                        //						return CreateToken(TokenKind.Unknown);						
-                        //					}
+                        // selector
+                        return this.ReadSelector();
+
+                        // 					if (Char.IsLetter(ch) || ch == '_')
+                        // 						return ReadWord();
+                        // 					else if (IsSymbol(ch))
+                        // 					{
+                        // 						StartRead();
+                        // 						Consume();
+                        // 						return CreateToken(TokenKind.Symbol);
+                        // 					}
+                        // 					else
+                        // 					{
+                        // 						StartRead();
+                        // 						Consume();
+                        // 						return CreateToken(TokenKind.Unknown);						
+                        // 					}
                     }
             }
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Consumes this instance.
         /// </summary>
-        /// <returns>A char value...</returns>
+        /// <returns>
+        /// A char value...
+        /// </returns>
         protected char Consume()
         {
-            char ret = data[pos];
-            pos++;
-            column++;
+            var ret = this.data[this.pos];
+            this.pos++;
+            this.column++;
             return ret;
         }
 
         /// <summary>
         /// Creates the token.
         /// </summary>
-        /// <param name="kind">The kind.</param>
+        /// <param name="kind">
+        /// The kind.
+        /// </param>
         /// <returns>
         /// A Appleseed.Framework.Helpers.Token value...
         /// </returns>
         protected Token CreateToken(TokenKind kind)
         {
-            string tokenData = data.Substring(savePos, pos - savePos);
-            return new Token(kind, tokenData, saveLine, saveCol);
+            var tokenData = this.data.Substring(this.savePos, this.pos - this.savePos);
+            return new Token(kind, tokenData, this.saveLine, this.saveCol);
         }
 
         /// <summary>
         /// Creates the token.
         /// </summary>
-        /// <param name="kind">The kind.</param>
-        /// <param name="value">The value.</param>
+        /// <param name="kind">
+        /// The kind.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
         /// <returns>
         /// A Appleseed.Framework.Helpers.Token value...
         /// </returns>
         protected Token CreateToken(TokenKind kind, string value)
         {
-            return new Token(kind, value, line, column);
+            return new Token(kind, value, this.line, this.column);
         }
 
         /// <summary>
         /// checks whether c is a symbol character.
         /// </summary>
-        /// <param name="c">The c.</param>
+        /// <param name="c">
+        /// The c.
+        /// </param>
         /// <returns>
-        /// 	<c>true</c> if the specified c is symbol; otherwise, <c>false</c>.
+        /// <c>true</c> if the specified c is symbol; otherwise, <c>false</c>.
         /// </returns>
         protected bool IsSymbol(char c)
         {
-            for (int i = 0; i < symbolChars.Length; i++)
-
-                if (symbolChars[i] == c)
-                    return true;
-            return false;
+            return this.symbolChars.Any(t => t == c);
         }
 
         /// <summary>
         /// LAs the specified count.
         /// </summary>
-        /// <param name="count">The count.</param>
-        /// <returns>A char value...</returns>
+        /// <param name="count">
+        /// The count.
+        /// </param>
+        /// <returns>
+        /// A char value...
+        /// </returns>
         protected char LA(int count)
         {
-            if (pos + count >= data.Length)
-                return EOF;
-
-            else
-                return data[pos + count];
+            return this.pos + count >= this.data.Length ? EOF : this.data[this.pos + count];
         }
 
         /// <summary>
@@ -448,46 +646,56 @@ namespace Appleseed.Framework.Helpers
         /// </returns>
         protected Token ReadAtRule()
         {
-            StartRead();
-            Consume(); // read '@'
+            this.StartRead();
+            this.Consume(); // read '@'
 
             while (true)
             {
-                char ch = LA(0);
+                var ch = this.LA(0);
 
                 if (ch == EOF)
+                {
                     break;
-
-                else if (ch == '\r') // handle CR in strings
-                {
-                    Consume();
-
-                    if (LA(0) == '\n') // for DOS & windows
-                        Consume();
-                    line++;
-                    column = 1;
                 }
 
-                else if (ch == '\n') // new line in quoted string
+                if (ch == '\r')
                 {
-                    Consume();
-                    line++;
-                    column = 1;
-                }
+                    // handle CR in strings
+                    this.Consume();
 
+                    if (this.LA(0) == '\n')
+                    {
+                        // for DOS & windows
+                        this.Consume();
+                    }
+
+                    this.line++;
+                    this.column = 1;
+                }
+                else if (ch == '\n')
+                {
+                    // new line in quoted string
+                    this.Consume();
+                    this.line++;
+                    this.column = 1;
+                }
                 else if (ch == ';')
                 {
-                    Consume(); // read ';'
+                    // read ';'
+                    this.Consume();
                     break;
                 }
-
                 else if (ch == '{')
+                {
                     break;
-
+                }
                 else
-                    Consume();
+                {
+                    this.Consume();
+                }
             }
-            return CreateToken(TokenKind.AtRule);
+
+            return this.CreateToken(TokenKind.AtRule);
         }
 
         /// <summary>
@@ -498,43 +706,51 @@ namespace Appleseed.Framework.Helpers
         /// </returns>
         protected Token ReadBlock()
         {
-            StartRead();
-            Consume(); // read '{'
+            this.StartRead();
+            this.Consume(); // read '{'
 
             while (true)
             {
-                char ch = LA(0);
+                var ch = this.LA(0);
 
                 if (ch == EOF)
+                {
                     break;
-
-                else if (ch == '\r') // handle CR in strings
-                {
-                    Consume();
-
-                    if (LA(0) == '\n') // for DOS & windows
-                        Consume();
-                    line++;
-                    column = 1;
                 }
 
-                else if (ch == '\n') // new line in quoted string
+                if (ch == '\r')
                 {
-                    Consume();
-                    line++;
-                    column = 1;
-                }
+                    // handle CR in strings
+                    this.Consume();
 
+                    if (this.LA(0) == '\n')
+                    {
+                        // for DOS & windows
+                        this.Consume();
+                    }
+
+                    this.line++;
+                    this.column = 1;
+                }
+                else if (ch == '\n')
+                {
+                    // new line in quoted string
+                    this.Consume();
+                    this.line++;
+                    this.column = 1;
+                }
                 else if (ch == '}')
                 {
-                    Consume();
+                    this.Consume();
                     break;
                 }
-
                 else
-                    Consume();
+                {
+                    this.Consume();
+                }
             }
-            return CreateToken(TokenKind.Block);
+
+            return this.CreateToken(TokenKind.Block);
         }
 
         /// <summary>
@@ -545,45 +761,53 @@ namespace Appleseed.Framework.Helpers
         /// </returns>
         protected Token ReadComment()
         {
-            StartRead();
-            Consume(); // read '/'
-            Consume(); // read '*'
+            this.StartRead();
+            this.Consume(); // read '/'
+            this.Consume(); // read '*'
 
             while (true)
             {
-                char ch = LA(0);
+                var ch = this.LA(0);
 
                 if (ch == EOF)
-                    break;
-
-                else if (ch == '\r') // handle CR in strings
                 {
-                    Consume();
-
-                    if (LA(0) == '\n') // for DOS & windows
-                        Consume();
-                    line++;
-                    column = 1;
-                }
-
-                else if (ch == '\n') // new line in quoted string
-                {
-                    Consume();
-                    line++;
-                    column = 1;
-                }
-
-                else if (ch == '*' && LA(1) == '/')
-                {
-                    Consume(); // read '*'
-                    Consume(); // read '/'
                     break;
                 }
 
+                if (ch == '\r')
+                {
+                    // handle CR in strings
+                    this.Consume();
+
+                    if (this.LA(0) == '\n')
+                    {
+                        // for DOS & windows
+                        this.Consume();
+                    }
+
+                    this.line++;
+                    this.column = 1;
+                }
+                else if (ch == '\n')
+                {
+                    // new line in quoted string
+                    this.Consume();
+                    this.line++;
+                    this.column = 1;
+                }
+                else if (ch == '*' && this.LA(1) == '/')
+                {
+                    this.Consume(); // read '*'
+                    this.Consume(); // read '/'
+                    break;
+                }
                 else
-                    Consume();
+                {
+                    this.Consume();
+                }
             }
-            return CreateToken(TokenKind.Comment);
+
+            return this.CreateToken(TokenKind.Comment);
         }
 
         /// <summary>
@@ -594,72 +818,84 @@ namespace Appleseed.Framework.Helpers
         /// </returns>
         protected Token ReadImportRule()
         {
-            StartRead();
-            Consume(); // read '@'
+            this.StartRead();
+            this.Consume(); // read '@'
 
             while (true)
             {
-                char ch = LA(0);
+                var ch = this.LA(0);
 
                 if (ch == EOF)
+                {
                     break;
-
-                else if (ch == '\r') // handle CR in strings
-                {
-                    Consume();
-
-                    if (LA(0) == '\n') // for DOS & windows
-                        Consume();
-                    line++;
-                    column = 1;
                 }
 
-                else if (ch == '\n') // new line in quoted string
+                if (ch == '\r')
                 {
-                    Consume();
-                    line++;
-                    column = 1;
-                }
+                    // handle CR in strings
+                    this.Consume();
 
+                    if (this.LA(0) == '\n')
+                    {
+                        // for DOS & windows
+                        this.Consume();
+                    }
+
+                    this.line++;
+                    this.column = 1;
+                }
+                else if (ch == '\n')
+                {
+                    // new line in quoted string
+                    this.Consume();
+                    this.line++;
+                    this.column = 1;
+                }
                 else if (ch == ';')
                 {
-                    Consume(); // read ';'
+                    this.Consume(); // read ';'
                     break;
                 }
-
                 else
-                    Consume();
+                {
+                    this.Consume();
+                }
             }
-            return CreateToken(TokenKind.ImportRule);
+
+            return this.CreateToken(TokenKind.ImportRule);
         }
 
         /// <summary>
         /// reads number. Number is: DIGIT+ ("." DIGIT*)?
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         protected Token ReadNumber()
         {
-            StartRead();
-            bool hadDot = false;
-            Consume(); // read first digit
+            this.StartRead();
+            var hadDot = false;
+            this.Consume(); // read first digit
 
             while (true)
             {
-                char ch = LA(0);
+                var ch = this.LA(0);
 
                 if (Char.IsDigit(ch))
-                    Consume();
-
+                {
+                    this.Consume();
+                }
                 else if (ch == '.' && !hadDot)
                 {
                     hadDot = true;
-                    Consume();
+                    this.Consume();
                 }
-
                 else
+                {
                     break;
+                }
             }
-            return CreateToken(TokenKind.Number);
+
+            return this.CreateToken(TokenKind.Number);
         }
 
         /// <summary>
@@ -670,143 +906,170 @@ namespace Appleseed.Framework.Helpers
         /// </returns>
         protected Token ReadSelector()
         {
-            StartRead();
+            this.StartRead();
 
             while (true)
             {
-                char ch = LA(0);
+                var ch = this.LA(0);
 
                 if (ch == EOF)
                 {
-                    return CreateToken(TokenKind.Error); // shouldn't encounter this
+                    return this.CreateToken(TokenKind.Error); // shouldn't encounter this
                 }
 
-                else if (ch == '\r') // handle CR in strings
+                if (ch == '\r')
                 {
-                    Consume();
+                    // handle CR in strings
+                    this.Consume();
 
-                    if (LA(0) == '\n') // for DOS & windows
-                        Consume();
-                    line++;
-                    column = 1;
+                    if (this.LA(0) == '\n')
+                    {
+                        // for DOS & windows
+                        this.Consume();
+                    }
+
+                    this.line++;
+                    this.column = 1;
                 }
-
-                else if (ch == '\n') // new line in quoted string
+                else if (ch == '\n')
                 {
-                    Consume();
-                    line++;
-                    column = 1;
+                    // new line in quoted string
+                    this.Consume();
+                    this.line++;
+                    this.column = 1;
                 }
-
                 else if (ch == ';')
                 {
-                    Consume(); // read ';' - shouldn't encounter this
-                    return CreateToken(TokenKind.Error);
+                    this.Consume(); // read ';' - shouldn't encounter this
+                    return this.CreateToken(TokenKind.Error);
                 }
-
                 else if (ch == '{')
+                {
                     break;
-
+                }
                 else
-                    Consume();
+                {
+                    this.Consume();
+                }
             }
-            return CreateToken(TokenKind.Selector);
+
+            return this.CreateToken(TokenKind.Selector);
         }
 
         /// <summary>
         /// reads all characters until next " is found.
-        /// If string.Empty (2 quotes) are found, then they are consumed as
-        /// part of the string
+        ///   If string.Empty (2 quotes) are found, then they are consumed as
+        ///   part of the string
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         protected Token ReadString()
         {
-            StartRead();
-            Consume(); // read "
+            this.StartRead();
+            this.Consume(); // read "
 
             while (true)
             {
-                char ch = LA(0);
+                var ch = this.LA(0);
 
                 if (ch == EOF)
+                {
                     break;
-
-                else if (ch == '\r') // handle CR in strings
-                {
-                    Consume();
-
-                    if (LA(0) == '\n') // for DOS & windows
-                        Consume();
-                    line++;
-                    column = 1;
                 }
 
-                else if (ch == '\n') // new line in quoted string
+                if (ch == '\r')
                 {
-                    Consume();
-                    line++;
-                    column = 1;
-                }
+                    // handle CR in strings
+                    this.Consume();
 
+                    if (this.LA(0) == '\n')
+                    {
+                        // for DOS & windows
+                        this.Consume();
+                    }
+
+                    this.line++;
+                    this.column = 1;
+                }
+                else if (ch == '\n')
+                {
+                    // new line in quoted string
+                    this.Consume();
+                    this.line++;
+                    this.column = 1;
+                }
                 else if (ch == '"')
                 {
-                    Consume();
+                    this.Consume();
 
-                    if (LA(0) != '"')
+                    if (this.LA(0) != '"')
+                    {
                         break; // done reading, and this quotes does not have escape character
+                    }
 
-                    else
-                        Consume(); // consume second ", because first was just an escape
+                    this.Consume(); // consume second ", because first was just an escape
                 }
-
                 else
-                    Consume();
+                {
+                    this.Consume();
+                }
             }
-            return CreateToken(TokenKind.QuotedString);
+
+            return this.CreateToken(TokenKind.QuotedString);
         }
 
         /// <summary>
         /// reads all whitespace characters (does not include newline)
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         protected Token ReadWhitespace()
         {
-            StartRead();
-            Consume(); // consume the looked-ahead whitespace char
+            this.StartRead();
+            this.Consume(); // consume the looked-ahead whitespace char
 
             while (true)
             {
-                char ch = LA(0);
+                var ch = this.LA(0);
 
                 if (ch == '\t' || ch == ' ')
-                    Consume();
-
+                {
+                    this.Consume();
+                }
                 else
+                {
                     break;
+                }
             }
-            return CreateToken(TokenKind.WhiteSpace);
+
+            return this.CreateToken(TokenKind.WhiteSpace);
         }
 
         /// <summary>
         /// reads word. Word contains any alpha character or _
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         protected Token ReadWord()
         {
-            StartRead();
-            Consume(); // consume first character of the word
+            this.StartRead();
+            this.Consume(); // consume first character of the word
 
             while (true)
             {
-                char ch = LA(0);
+                var ch = this.LA(0);
 
                 if (Char.IsLetter(ch) || ch == '_')
-                    Consume();
-
+                {
+                    this.Consume();
+                }
                 else
+                {
                     break;
+                }
             }
-            return CreateToken(TokenKind.Word);
+
+            return this.CreateToken(TokenKind.Word);
         }
 
         /// <summary>
@@ -814,16 +1077,15 @@ namespace Appleseed.Framework.Helpers
         /// </summary>
         private void Reset()
         {
-            ignoreWhiteSpace = false;
-            symbolChars =
-                new char[]
-                    {
-                        '=', '+', '-', '/', ',', '.', '*', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')', '{', '}', '[',
-                        ']', ':', ';', '<', '>', '?', '|', '\\'
-                    };
-            line = 1;
-            column = 1;
-            pos = 0;
+            this.ignoreWhiteSpace = false;
+            this.symbolChars = new[]
+                {
+                    '=', '+', '-', '/', ',', '.', '*', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')', '{', '}', '[', 
+                    ']', ':', ';', '<', '>', '?', '|', '\\'
+                };
+            this.line = 1;
+            this.column = 1;
+            this.pos = 0;
         }
 
         /// <summary>
@@ -831,141 +1093,149 @@ namespace Appleseed.Framework.Helpers
         /// </summary>
         private void StartRead()
         {
-            saveLine = line;
-            saveCol = column;
-            savePos = pos;
+            this.saveLine = this.line;
+            this.saveCol = this.column;
+            this.savePos = this.pos;
         }
 
-        /// <summary>
-        /// if set to true, white space characters will be ignored,
-        /// but EOL and whitespace inside of string will still be tokenized
-        /// </summary>
-        /// <value><c>true</c> if [ignore white space]; otherwise, <c>false</c>.</value>
-        public bool IgnoreWhiteSpace
-        {
-            get { return ignoreWhiteSpace; }
-            set { ignoreWhiteSpace = value; }
-        }
-
-        /// <summary>
-        /// gets or sets which characters are part of TokenKind.Symbol
-        /// </summary>
-        public char[] SymbolChars
-        {
-            get { return symbolChars; }
-            set { symbolChars = value; }
-        }
+        #endregion
     }
 
     /// <summary>
-    ///     ********************************************************
-    ///     *	Author: Andrew Deren
-    ///     *	Date: July, 2004
-    ///     *	http://www.adersoftware.com
-    ///     * 
-    ///     *	StringTokenizer class. You can use this class in any way you want
-    ///     * as long as this header remains in this file.
-    ///     * 
-    ///     **********************************************************
+    /// ********************************************************
+    ///   *	Author: Andrew Deren
+    ///   *	Date: July, 2004
+    ///   *	http://www.adersoftware.com
+    ///   * 
+    ///   *	StringTokenizer class. You can use this class in any way you want
+    ///   * as long as this header remains in this file.
+    ///   * 
+    ///   **********************************************************
     /// </summary>
     /// <remarks>
-    ///     modified by Jes1111 to be specific to CSS
+    /// modified by Jes1111 to be specific to CSS
     /// </remarks>
     public enum TokenKind
     {
         /// <summary>
-        ///     
+        ///   The unknown.
         /// </summary>
-        Unknown,
+        Unknown, 
+
         /// <summary>
-        ///     
+        ///   The word.
         /// </summary>
-        Word,
+        Word, 
+
         /// <summary>
-        ///     
+        ///   The number.
         /// </summary>
-        Number,
+        Number, 
+
         /// <summary>
-        ///     
+        ///   The quoted string.
         /// </summary>
-        QuotedString,
+        QuotedString, 
+
         /// <summary>
-        ///     
+        ///   The white space.
         /// </summary>
-        WhiteSpace,
+        WhiteSpace, 
+
         /// <summary>
-        ///     
+        ///   The symbol.
         /// </summary>
-        Symbol,
+        Symbol, 
+
         /// <summary>
-        ///     
+        ///   The eol.
         /// </summary>
-        EOL,
+        EOL, 
+
         /// <summary>
-        ///     
+        ///   The eof.
         /// </summary>
-        EOF,
+        EOF, 
+
         /// <summary>
-        ///     
+        ///   The comment.
         /// </summary>
-        Comment,
+        Comment, 
+
         /// <summary>
-        ///     
+        ///   The selector.
         /// </summary>
-        Selector,
+        Selector, 
+
         /// <summary>
-        ///     
+        ///   The block.
         /// </summary>
-        Block,
+        Block, 
+
         /// <summary>
-        ///     
+        ///   The at rule.
         /// </summary>
-        AtRule,
+        AtRule, 
+
         /// <summary>
-        ///     
+        ///   The import rule.
         /// </summary>
-        ImportRule,
+        ImportRule, 
+
         /// <summary>
-        ///     
+        ///   The error.
         /// </summary>
         Error
     }
 
     /// <summary>
-    ///     
+    /// The token.
     /// </summary>
     /// <remarks>
-    ///     
     /// </remarks>
     public class Token
     {
-        /// <summary>
-        ///     
-        /// </summary>
-        private int column;
+        #region Constants and Fields
 
         /// <summary>
-        ///     
+        ///   The column.
         /// </summary>
-        private TokenKind kind;
+        private readonly int column;
 
         /// <summary>
-        ///     
+        ///   The kind.
         /// </summary>
-        private int line;
+        private readonly TokenKind kind;
 
         /// <summary>
-        ///     
+        ///   The line.
         /// </summary>
-        private string value;
+        private readonly int line;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Token"/> class.
+        ///   The value.
         /// </summary>
-        /// <param name="kind">The kind.</param>
-        /// <param name="value">The value.</param>
-        /// <param name="line">The line.</param>
-        /// <param name="column">The column.</param>
+        private readonly string value;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Token"/> class.
+        /// </summary>
+        /// <param name="kind">
+        /// The kind.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <param name="line">
+        /// The line.
+        /// </param>
+        /// <param name="column">
+        /// The column.
+        /// </param>
         /// <returns>
         /// A void value...
         /// </returns>
@@ -977,48 +1247,66 @@ namespace Appleseed.Framework.Helpers
             this.column = column;
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
-        /// Gets the column.
+        ///   Gets the column.
         /// </summary>
         /// <value>The column.</value>
         /// <remarks>
         /// </remarks>
         public int Column
         {
-            get { return column; }
+            get
+            {
+                return this.column;
+            }
         }
 
         /// <summary>
-        /// Gets the kind.
+        ///   Gets the kind.
         /// </summary>
         /// <value>The kind.</value>
         /// <remarks>
         /// </remarks>
         public TokenKind Kind
         {
-            get { return kind; }
+            get
+            {
+                return this.kind;
+            }
         }
 
         /// <summary>
-        /// Gets the line.
+        ///   Gets the line.
         /// </summary>
         /// <value>The line.</value>
         /// <remarks>
         /// </remarks>
         public int Line
         {
-            get { return line; }
+            get
+            {
+                return this.line;
+            }
         }
 
         /// <summary>
-        /// Gets the value.
+        ///   Gets the value.
         /// </summary>
         /// <value>The value.</value>
         /// <remarks>
         /// </remarks>
         public string Value
         {
-            get { return value; }
+            get
+            {
+                return this.value;
+            }
         }
+
+        #endregion
     }
 }

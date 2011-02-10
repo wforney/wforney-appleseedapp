@@ -18,6 +18,9 @@ using History=Appleseed.Framework.History;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// Appleseed EnhancedHtml Module
     /// Written by: José Viladiu, jviladiu@portalServices.net
@@ -500,21 +503,21 @@ namespace Appleseed.Content.Web.Modules
             _Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // modified by Hongwei Shen(hongwei.shen@gmail.com) 12/9/2005
             //_groupOrderBase = 0;
-            _groupOrderBase = (int) _Group;
+            _groupOrderBase = (int)_Group;
             // end of modification
 
             HtmlEditorDataType.HtmlEditorSettings(_baseSettings, _Group);
 
-            SettingItem ShowTitlePage = new SettingItem(new BooleanDataType());
-            ShowTitlePage.Value = "false";
+            var ShowTitlePage = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            ShowTitlePage.Value = false;
             ShowTitlePage.Order = _groupOrderBase + 20;
             ShowTitlePage.Group = _Group;
             ShowTitlePage.EnglishName = "Show Title Page?";
             ShowTitlePage.Description = "Mark this if you like see the Title Page";
             _baseSettings.Add("ENHANCEDHTML_SHOWTITLEPAGE", ShowTitlePage);
 
-            SettingItem ShowUpMenu = new SettingItem(new BooleanDataType());
-            ShowUpMenu.Value = "false";
+            var ShowUpMenu = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            ShowUpMenu.Value = false;
             ShowUpMenu.Order = _groupOrderBase + 25;
             ShowUpMenu.Group = _Group;
             ShowUpMenu.EnglishName = "Show Index Menu?";
@@ -526,35 +529,38 @@ namespace Appleseed.Content.Web.Modules
             alignUpMenu.Add(new SettingOption(2, General.GetString("CENTER", "Center")));
             alignUpMenu.Add(new SettingOption(3, General.GetString("RIGHT", "Right")));
 
-            SettingItem labelAlignUpMenu = new SettingItem(new CustomListDataType(alignUpMenu, "Name", "Val"));
+            var labelAlignUpMenu =
+                new SettingItem<string, ListControl>(new CustomListDataType(alignUpMenu, "Name", "Val"));
             labelAlignUpMenu.Description = "Select here the align for index menu";
             labelAlignUpMenu.EnglishName = "Align Index Menu";
             labelAlignUpMenu.Value = "1";
             labelAlignUpMenu.Order = _groupOrderBase + 30;
             _baseSettings.Add("ENHANCEDHTML_ALIGNUPMENU", labelAlignUpMenu);
 
-            SettingItem ShowDownMenu = new SettingItem(new BooleanDataType());
-            ShowDownMenu.Value = "true";
+            var ShowDownMenu = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            ShowDownMenu.Value = true;
             ShowDownMenu.Order = _groupOrderBase + 40;
             ShowDownMenu.Group = _Group;
             ShowDownMenu.EnglishName = "Show Navigation Menu?";
             ShowDownMenu.Description = "Mark this if you like see a navigation menu with previous and next page";
             _baseSettings.Add("ENHANCEDHTML_SHOWDOWNMENU", ShowDownMenu);
 
-            ArrayList alignDownMenu = new ArrayList();
-            alignDownMenu.Add(new SettingOption(1, General.GetString("LEFT", "Left")));
-            alignDownMenu.Add(new SettingOption(2, General.GetString("CENTER", "Center")));
-            alignDownMenu.Add(new SettingOption(3, General.GetString("RIGHT", "Right")));
+            var alignDownMenu = new List<SettingOption>
+                {
+                    new SettingOption(1, General.GetString("LEFT", "Left")),
+                    new SettingOption(2, General.GetString("CENTER", "Center")),
+                    new SettingOption(3, General.GetString("RIGHT", "Right"))
+                };
 
-            SettingItem labelAlignDownMenu = new SettingItem(new CustomListDataType(alignDownMenu, "Name", "Val"));
+            var labelAlignDownMenu = new SettingItem<string, ListControl>(new CustomListDataType(alignDownMenu, "Name", "Val"));
             labelAlignDownMenu.Description = "Select here the align for index menu";
             labelAlignDownMenu.EnglishName = "Align Navigation Menu";
             labelAlignDownMenu.Value = "3";
             labelAlignDownMenu.Order = _groupOrderBase + 50;
             _baseSettings.Add("ENHANCEDHTML_ALIGNDOWNMENU", labelAlignDownMenu);
 
-            SettingItem AddInvariant = new SettingItem(new BooleanDataType());
-            AddInvariant.Value = "true";
+            var AddInvariant = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            AddInvariant.Value = true;
             AddInvariant.Order = _groupOrderBase + 60;
             AddInvariant.Group = _Group;
             AddInvariant.EnglishName = "Add Invariant Culture?";
@@ -562,16 +568,16 @@ namespace Appleseed.Content.Web.Modules
                 "Mark this if you like see pages with invariant culture after pages with actual culture code";
             _baseSettings.Add("ENHANCEDHTML_ADDINVARIANTCULTURE", AddInvariant);
 
-            SettingItem ShowMultiMode = new SettingItem(new BooleanDataType());
-            ShowMultiMode.Value = "true";
+            var ShowMultiMode = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            ShowMultiMode.Value = true;
             ShowMultiMode.Order = _groupOrderBase + 70;
             ShowMultiMode.Group = _Group;
             ShowMultiMode.EnglishName = "Show Multi-Mode icon?";
             ShowMultiMode.Description = "Mark this if you like see icon multimode page";
             _baseSettings.Add("ENHANCEDHTML_SHOWMULTIMODE", ShowMultiMode);
 
-            SettingItem GetContentsFromPortals = new SettingItem(new BooleanDataType());
-            GetContentsFromPortals.Value = "false";
+            var GetContentsFromPortals = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            GetContentsFromPortals.Value = false;
             GetContentsFromPortals.Order = _groupOrderBase + 80;
             GetContentsFromPortals.Group = _Group;
             GetContentsFromPortals.EnglishName = "Get contents from others Portals?";
@@ -670,7 +676,7 @@ namespace Appleseed.Content.Web.Modules
         public override void Install(IDictionary stateSaver)
         {
             string currentScriptName = System.IO.Path.Combine(Server.MapPath(TemplateSourceDirectory), "install.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 throw new Exception("Error occurred:" + errors[0].ToString());
@@ -684,7 +690,7 @@ namespace Appleseed.Content.Web.Modules
         public override void Uninstall(IDictionary stateSaver)
         {
             string currentScriptName = System.IO.Path.Combine(Server.MapPath(TemplateSourceDirectory), "uninstall.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 throw new Exception("Error occurred:" + errors[0].ToString());

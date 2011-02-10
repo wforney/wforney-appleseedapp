@@ -36,3 +36,4 @@ rb_log.resx*
 builds/
 [Ll]ibs/[Pp]ortable[Aa]reas
 WebSites/AppleseedWebApplication/[Ww]eb.[Cc]onfig
+*.vs10x
