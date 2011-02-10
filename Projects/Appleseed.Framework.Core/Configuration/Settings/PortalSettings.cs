@@ -13,6 +13,7 @@ namespace Appleseed.Framework.Site.Configuration
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Data;
     using System.Data.SqlClient;
@@ -874,7 +875,7 @@ namespace Appleseed.Framework.Site.Configuration
         ///     Gets or sets the custom settings.
         /// </summary>
         /// <value>The custom settings.</value>
-        public Hashtable CustomSettings { get; set; }
+        public Dictionary<string, ISettingItem> CustomSettings { get; set; }
 
         /// <summary>
         ///     Gets or sets the desktop pages.
@@ -1266,32 +1267,32 @@ namespace Appleseed.Framework.Site.Configuration
         /// <summary>
         /// Gets the portal base settings.
         /// </summary>
-        /// <param name="PortalPath">
+        /// <param name="portalPath">
         /// The portal path.
         /// </param>
         /// <returns>
         /// </returns>
-        public static Hashtable GetPortalBaseSettings(string PortalPath)
+        public static Dictionary<string, ISettingItem> GetPortalBaseSettings(string portalPath)
         {
-            Hashtable baseSettings;
+            Dictionary<string, ISettingItem> baseSettings;
 
             if (!CurrentCache.Exists(Key.PortalBaseSettings()))
             {
                 // fix: Jes1111 - 27-02-2005 - for proper operation of caching
-                var layoutManager = new LayoutManager(PortalPath);
+                var layoutManager = new LayoutManager(portalPath);
                 var layoutList = layoutManager.GetLayouts();
-                var themeManager = new ThemeManager(PortalPath);
+                var themeManager = new ThemeManager(portalPath);
                 var themeList = themeManager.GetThemes();
 
                 // Define base settings
-                baseSettings = new Hashtable();
+                baseSettings = new Dictionary<string, ISettingItem>();
 
                 var group = SettingItemGroup.THEME_LAYOUT_SETTINGS;
                 var groupOrderBase = (int)SettingItemGroup.THEME_LAYOUT_SETTINGS;
 
                 // StringDataType
                 var image =
-                    new SettingItem<string, TextBox>(new UploadedFileDataType(Path.WebPathCombine(Path.ApplicationRoot, PortalPath)))
+                    new SettingItem<string, TextBox>(new UploadedFileDataType(Path.WebPathCombine(Path.ApplicationRoot, portalPath)))
                         {
                             Order = groupOrderBase + 5,
                             Group = group,
@@ -1717,7 +1718,7 @@ namespace Appleseed.Framework.Site.Configuration
                     new SettingItem<string, Panel>(
                         new FolderDataType(
                             HttpContext.Current.Server.MapPath(
-                                string.Format("{0}/{1}/images", Path.ApplicationRoot, PortalPath)),
+                                string.Format("{0}/{1}/images", Path.ApplicationRoot, portalPath)),
                             "default"))
                         {
                             Order = groupOrderBase + 40,
@@ -1775,7 +1776,7 @@ namespace Appleseed.Framework.Site.Configuration
             }
             else
             {
-                baseSettings = (Hashtable)CurrentCache.Get(Key.PortalBaseSettings());
+                baseSettings = (Dictionary<string, ISettingItem>)CurrentCache.Get(Key.PortalBaseSettings());
             }
 
             return baseSettings;
@@ -1795,7 +1796,7 @@ namespace Appleseed.Framework.Site.Configuration
         /// <returns>
         /// The hash table.
         /// </returns>
-        public static Hashtable GetPortalCustomSettings(int portalId, Hashtable baseSettings)
+        public static Dictionary<string, ISettingItem> GetPortalCustomSettings(int portalId, Dictionary<string, ISettingItem> baseSettings)
         {
             if (!CurrentCache.Exists(Key.PortalSettings()))
             {
@@ -1831,31 +1832,10 @@ namespace Appleseed.Framework.Site.Configuration
                     }
                 }
 
-                foreach (string key in baseSettings.Keys)
+                foreach (string key in
+                    baseSettings.Keys.Where(key => settings[key] != null).Where(key => settings[key].ToString().Length != 0))
                 {
-                    if (settings[key] == null)
-                    {
-                        continue;
-                    }
-
-                    var s = baseSettings[key];
-
-                    if (settings[key].ToString().Length == 0)
-                    {
-                        continue;
-                    }
-
-                    var conv = TypeDescriptor.GetConverter(typeof(SettingItem<string, TextBox>));
-                    if (conv == null)
-                    {
-                        continue;
-                    }
-
-                    var setting = (SettingItem<string, TextBox>)conv.ConvertFrom(s);
-                    if (setting != null)
-                    {
-                        setting.Value = settings[key].ToString();
-                    }
+                    baseSettings[key].Value = settings[key];
                 }
 
                 // Fix: Jes1111 - 27-02-2005 - change to make PortalSettings cache item dependent on PortalBaseSettings
@@ -1869,7 +1849,7 @@ namespace Appleseed.Framework.Site.Configuration
             }
             else
             {
-                baseSettings = (Hashtable)CurrentCache.Get(Key.PortalSettings());
+                baseSettings = (Dictionary<string, ISettingItem>)CurrentCache.Get(Key.PortalSettings());
             }
 
             return baseSettings;
@@ -2170,11 +2150,18 @@ namespace Appleseed.Framework.Site.Configuration
                         command.CommandType = CommandType.StoredProcedure;
 
                         // Add Parameters to SPROC
-                        var parameterPortalAlias = new SqlParameter("@PortalAlias", SqlDbType.NVarChar, 50);
-                        parameterPortalAlias.Value = portalAlias; // Specify the Portal Alias Dynamically 
+                        // Specify the Portal Alias Dynamically 
+                        var parameterPortalAlias = new SqlParameter("@PortalAlias", SqlDbType.NVarChar, 50)
+                            {
+                                Value = portalAlias 
+                            };
                         command.Parameters.Add(parameterPortalAlias);
-                        var parameterSettingName = new SqlParameter("@SettingName", SqlDbType.NVarChar, 50);
-                        parameterSettingName.Value = "SITESETTINGS_LANGLIST"; // Specify the SettingName 
+
+                        // Specify the SettingName 
+                        var parameterSettingName = new SqlParameter("@SettingName", SqlDbType.NVarChar, 50)
+                            {
+                                Value = "SITESETTINGS_LANGLIST" 
+                            };
                         command.Parameters.Add(parameterSettingName);
 
                         // Open the database connection and execute the command

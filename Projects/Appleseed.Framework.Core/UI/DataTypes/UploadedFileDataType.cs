@@ -108,16 +108,16 @@ namespace Appleseed.Framework.DataTypes
         {
             get
             {
-                return this.Value;
+                return base.Value;
             }
 
             set
             {
                 // Remove portal path if present
-                this.Value = value.StartsWith(this.PortalPathPrefix)
+                base.Value = value.StartsWith(this.PortalPathPrefix)
                                  ? value.Substring(this.PortalPathPrefix.Length)
                                  : value;
-                this.Value = this.Value.TrimStart('/');
+                base.Value = base.Value.TrimStart('/');
             }
         }
 

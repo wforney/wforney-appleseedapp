@@ -102,6 +102,8 @@ namespace Appleseed.Framework.DataTypes
             }
         }
 
+        private string theValue;
+
         /// <summary>
         ///   Gets or sets the value.
         /// </summary>
@@ -110,13 +112,13 @@ namespace Appleseed.Framework.DataTypes
         {
             get
             {
-                return this.Value;
+                return this.theValue;
             }
 
             set
             {
                 // Remove portal path if present
-                this.Value = value.StartsWith(this.PortalPathPrefix)
+                this.theValue = value.StartsWith(this.PortalPathPrefix)
                                  ? value.Substring(this.PortalPathPrefix.Length)
                                  : value;
 

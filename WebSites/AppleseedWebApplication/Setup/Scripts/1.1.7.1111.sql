@@ -10,19 +10,19 @@
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_Portals]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_Portals] (
-	[PortalID] [int] IDENTITY (-1, 1) NOT NULL ,
-	[PortalAlias] [nvarchar] (128) NOT NULL ,
-	[PortalName] [nvarchar] (128) NOT NULL ,
-	[PortalPath] [nvarchar] (128) NULL ,
-	[AlwaysShowEditButton] [bit] NOT NULL ,
-	CONSTRAINT [PK_rb_Portals] PRIMARY KEY  NONCLUSTERED 
-	(
-		[PortalID]
-	),
-	CONSTRAINT [IX_rb_Portals] UNIQUE  NONCLUSTERED 
-	(
-		[PortalAlias]
-	)
+    [PortalID] [int] IDENTITY (-1, 1) NOT NULL ,
+    [PortalAlias] [nvarchar] (128) NOT NULL ,
+    [PortalName] [nvarchar] (128) NOT NULL ,
+    [PortalPath] [nvarchar] (128) NULL ,
+    [AlwaysShowEditButton] [bit] NOT NULL ,
+    CONSTRAINT [PK_rb_Portals] PRIMARY KEY  NONCLUSTERED 
+    (
+        [PortalID]
+    ),
+    CONSTRAINT [IX_rb_Portals] UNIQUE  NONCLUSTERED 
+    (
+        [PortalAlias]
+    )
 )
 END
 GO
@@ -30,20 +30,20 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_PortalSettings]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_PortalSettings] (
-	[PortalID] [int] NOT NULL ,
-	[SettingName] [nvarchar] (50) NOT NULL ,
-	[SettingValue] [nvarchar] (1500) NOT NULL ,
-	CONSTRAINT [PK_rb_PortalSettings] PRIMARY KEY  CLUSTERED 
-	(
-		[PortalID],
-		[SettingName]
-	),
-	CONSTRAINT [FK_rb_PortalSettings_rb_Portals] FOREIGN KEY 
-	(
-		[PortalID]
-	) REFERENCES [rb_Portals] (
-		[PortalID]
-	) ON DELETE CASCADE  ON UPDATE CASCADE 
+    [PortalID] [int] NOT NULL ,
+    [SettingName] [nvarchar] (50) NOT NULL ,
+    [SettingValue] [nvarchar] (1500) NOT NULL ,
+    CONSTRAINT [PK_rb_PortalSettings] PRIMARY KEY  CLUSTERED 
+    (
+        [PortalID],
+        [SettingName]
+    ),
+    CONSTRAINT [FK_rb_PortalSettings_rb_Portals] FOREIGN KEY 
+    (
+        [PortalID]
+    ) REFERENCES [rb_Portals] (
+        [PortalID]
+    ) ON DELETE CASCADE  ON UPDATE CASCADE 
 )
  CREATE  INDEX [IX_rb_PortalSettings] ON [rb_PortalSettings]([PortalID], [SettingName])
 END
@@ -52,31 +52,31 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_Tabs]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_Tabs] (
-	[TabID] [int] IDENTITY (1, 1) NOT NULL ,
-	[ParentTabID] [int] NULL ,
-	[TabOrder] [int] NOT NULL ,
-	[PortalID] [int] NOT NULL ,
-	[TabName] [nvarchar] (50) NOT NULL ,
-	[MobileTabName] [nvarchar] (50) NOT NULL ,
-	[AuthorizedRoles] [nvarchar] (256) NULL ,
-	[ShowMobile] [bit] NOT NULL ,
-	[TabLayout] [int] NULL ,
-	CONSTRAINT [PK_rb_Tabs] PRIMARY KEY  NONCLUSTERED 
-	(
-		[TabID]
-	),
-	CONSTRAINT [FK_rb_Tabs_rb_Portals] FOREIGN KEY 
-	(
-		[PortalID]
-	) REFERENCES [rb_Portals] (
-		[PortalID]
-	),
-	CONSTRAINT [FK_rb_Tabs_rb_Tabs] FOREIGN KEY 
-	(
-		[ParentTabID]
-	) REFERENCES [rb_Tabs] (
-		[TabID]
-	)
+    [TabID] [int] IDENTITY (1, 1) NOT NULL ,
+    [ParentTabID] [int] NULL ,
+    [TabOrder] [int] NOT NULL ,
+    [PortalID] [int] NOT NULL ,
+    [TabName] [nvarchar] (50) NOT NULL ,
+    [MobileTabName] [nvarchar] (50) NOT NULL ,
+    [AuthorizedRoles] [nvarchar] (256) NULL ,
+    [ShowMobile] [bit] NOT NULL ,
+    [TabLayout] [int] NULL ,
+    CONSTRAINT [PK_rb_Tabs] PRIMARY KEY  NONCLUSTERED 
+    (
+        [TabID]
+    ),
+    CONSTRAINT [FK_rb_Tabs_rb_Portals] FOREIGN KEY 
+    (
+        [PortalID]
+    ) REFERENCES [rb_Portals] (
+        [PortalID]
+    ),
+    CONSTRAINT [FK_rb_Tabs_rb_Tabs] FOREIGN KEY 
+    (
+        [ParentTabID]
+    ) REFERENCES [rb_Tabs] (
+        [TabID]
+    )
 )
 END
 GO
@@ -84,20 +84,20 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_TabSettings]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_TabSettings] (
-	[TabID] [int] NOT NULL ,
-	[SettingName] [nvarchar] (50) NOT NULL ,
-	[SettingValue] [nvarchar] (1500) NOT NULL ,
-	CONSTRAINT [PK_rb_Tabsettings] PRIMARY KEY  CLUSTERED 
-	(
-		[TabID],
-		[SettingName]
-	),
-	CONSTRAINT [FK_rb_Tabsettings_rb_Tabs] FOREIGN KEY 
-	(
-		[TabID]
-	) REFERENCES [rb_Tabs] (
-		[TabID]
-	) ON DELETE CASCADE 
+    [TabID] [int] NOT NULL ,
+    [SettingName] [nvarchar] (50) NOT NULL ,
+    [SettingValue] [nvarchar] (1500) NOT NULL ,
+    CONSTRAINT [PK_rb_Tabsettings] PRIMARY KEY  CLUSTERED 
+    (
+        [TabID],
+        [SettingName]
+    ),
+    CONSTRAINT [FK_rb_Tabsettings_rb_Tabs] FOREIGN KEY 
+    (
+        [TabID]
+    ) REFERENCES [rb_Tabs] (
+        [TabID]
+    ) ON DELETE CASCADE 
 )
 END
 GO
@@ -105,22 +105,22 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_GeneralModuleDefinitions]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_GeneralModuleDefinitions] (
-	[GeneralModDefID]  uniqueidentifier ROWGUIDCOL  NOT NULL ,
-	[FriendlyName] [nvarchar] (128) NOT NULL ,
-	[DesktopSrc] [nvarchar] (256) NOT NULL ,
-	[MobileSrc] [nvarchar] (256) NOT NULL ,
-	[AssemblyName] [varchar] (50) NOT NULL CONSTRAINT [DF_rb_GeneralModuleDefinitions_AssemblyName] DEFAULT ('Appleseed.DLL'),
-	[ClassName] [nvarchar] (128) NULL ,
-	[Admin] [bit] NULL CONSTRAINT [DF_rb_GeneralModuleDefinitions_Admin] DEFAULT (0),
-	[Searchable] [bit] NULL CONSTRAINT [DF_rb_GeneralModuleDefinitions_Searchable] DEFAULT (0),
-	CONSTRAINT [PK_rb_GeneralModuleDefinitions] PRIMARY KEY  CLUSTERED 
-	(
-		[GeneralModDefID]
-	),
-	CONSTRAINT [IX_rb_GeneralModuleDefinitions] UNIQUE  NONCLUSTERED 
-	(
-		[FriendlyName]
-	)
+    [GeneralModDefID]  uniqueidentifier ROWGUIDCOL  NOT NULL ,
+    [FriendlyName] [nvarchar] (128) NOT NULL ,
+    [DesktopSrc] [nvarchar] (256) NOT NULL ,
+    [MobileSrc] [nvarchar] (256) NOT NULL ,
+    [AssemblyName] [varchar] (50) NOT NULL CONSTRAINT [DF_rb_GeneralModuleDefinitions_AssemblyName] DEFAULT ('Appleseed.DLL'),
+    [ClassName] [nvarchar] (128) NULL ,
+    [Admin] [bit] NULL CONSTRAINT [DF_rb_GeneralModuleDefinitions_Admin] DEFAULT (0),
+    [Searchable] [bit] NULL CONSTRAINT [DF_rb_GeneralModuleDefinitions_Searchable] DEFAULT (0),
+    CONSTRAINT [PK_rb_GeneralModuleDefinitions] PRIMARY KEY  CLUSTERED 
+    (
+        [GeneralModDefID]
+    ),
+    CONSTRAINT [IX_rb_GeneralModuleDefinitions] UNIQUE  NONCLUSTERED 
+    (
+        [FriendlyName]
+    )
 )
 END
 GO
@@ -128,65 +128,65 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_ModuleDefinitions]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_ModuleDefinitions] (
-	[ModuleDefID] [int] IDENTITY (1, 1) NOT NULL ,
-	[PortalID] [int] NOT NULL ,
-	[GeneralModDefID] [uniqueidentifier] NOT NULL ,
-	CONSTRAINT [PK_rb_ModuleDefinitions] PRIMARY KEY  NONCLUSTERED 
-	(
-		[ModuleDefID]
-	),
-	CONSTRAINT [FK_rb_ModuleDefinitions_rb_GeneralModuleDefinitions] FOREIGN KEY 
-	(
-		[GeneralModDefID]
-	) REFERENCES [rb_GeneralModuleDefinitions] (
-		[GeneralModDefID]
-	) ON DELETE CASCADE 
+    [ModuleDefID] [int] IDENTITY (1, 1) NOT NULL ,
+    [PortalID] [int] NOT NULL ,
+    [GeneralModDefID] [uniqueidentifier] NOT NULL ,
+    CONSTRAINT [PK_rb_ModuleDefinitions] PRIMARY KEY  NONCLUSTERED 
+    (
+        [ModuleDefID]
+    ),
+    CONSTRAINT [FK_rb_ModuleDefinitions_rb_GeneralModuleDefinitions] FOREIGN KEY 
+    (
+        [GeneralModDefID]
+    ) REFERENCES [rb_GeneralModuleDefinitions] (
+        [GeneralModDefID]
+    ) ON DELETE CASCADE 
 )
 END
 
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_Modules]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_Modules] (
-	[ModuleID] [int] IDENTITY (1, 1) NOT NULL ,
-	[TabID] [int] NOT NULL ,
-	[ModuleDefID] [int] NOT NULL ,
-	[ModuleOrder] [int] NOT NULL ,
-	[PaneName] [nvarchar] (50) NOT NULL ,
-	[ModuleTitle] [nvarchar] (256) NULL ,
-	[AuthorizedEditRoles] [nvarchar] (256) NULL ,
-	[AuthorizedViewRoles] [nvarchar] (256) NULL ,
-	[AuthorizedAddRoles] [nvarchar] (256) NULL ,
-	[AuthorizedDeleteRoles] [nvarchar] (256) NULL ,
-	[AuthorizedPropertiesRoles] [nvarchar] (256) NULL ,
-	[CacheTime] [int] NOT NULL ,
-	[ShowMobile] [bit] NULL ,
-	[AuthorizedPublishingRoles] [nvarchar] (256) NULL ,
-	[NewVersion] [bit] NULL CONSTRAINT [DF_rb_Modules_NewVersion] DEFAULT (1),
-	[SupportWorkflow] [bit] NULL ,
-	[AuthorizedApproveRoles] [nvarchar] (256) NULL ,
-	[WorkflowState] [tinyint] NULL CONSTRAINT [DF_rb_Modules_WorkflowState] DEFAULT (0),
-	[LastModified] [datetime] NULL ,
-	[LastEditor] [nvarchar] (256) NULL ,
-	[StagingLastModified] [datetime] NULL ,
-	[StagingLastEditor] [nvarchar] (256) NULL ,
-	[SupportCollapsable] [bit] NULL CONSTRAINT [DF_rb_Modules_SupportCollapsable] DEFAULT (0),
-	[ShowEveryWhere] [bit] NULL CONSTRAINT [DF_rb_Modules_ShowEveryWhere] DEFAULT (0),
-	CONSTRAINT [PK_rb_Modules] PRIMARY KEY  NONCLUSTERED 
-	(
-		[ModuleID]
-	),
-	CONSTRAINT [FK_rb_Modules_rb_ModuleDefinitions] FOREIGN KEY  --removed trailing 1
-	(
-		[ModuleDefID]
-	) REFERENCES [rb_ModuleDefinitions] (
-		[ModuleDefID]
-	),
-	CONSTRAINT [FK_rb_Modules_rb_Tabs] FOREIGN KEY --removed trailing 1
-	(
-		[TabID]
-	) REFERENCES [rb_Tabs] (
-		[TabID]
-	)
+    [ModuleID] [int] IDENTITY (1, 1) NOT NULL ,
+    [TabID] [int] NOT NULL ,
+    [ModuleDefID] [int] NOT NULL ,
+    [ModuleOrder] [int] NOT NULL ,
+    [PaneName] [nvarchar] (50) NOT NULL ,
+    [ModuleTitle] [nvarchar] (256) NULL ,
+    [AuthorizedEditRoles] [nvarchar] (256) NULL ,
+    [AuthorizedViewRoles] [nvarchar] (256) NULL ,
+    [AuthorizedAddRoles] [nvarchar] (256) NULL ,
+    [AuthorizedDeleteRoles] [nvarchar] (256) NULL ,
+    [AuthorizedPropertiesRoles] [nvarchar] (256) NULL ,
+    [CacheTime] [int] NOT NULL ,
+    [ShowMobile] [bit] NULL ,
+    [AuthorizedPublishingRoles] [nvarchar] (256) NULL ,
+    [NewVersion] [bit] NULL CONSTRAINT [DF_rb_Modules_NewVersion] DEFAULT (1),
+    [SupportWorkflow] [bit] NULL ,
+    [AuthorizedApproveRoles] [nvarchar] (256) NULL ,
+    [WorkflowState] [tinyint] NULL CONSTRAINT [DF_rb_Modules_WorkflowState] DEFAULT (0),
+    [LastModified] [datetime] NULL ,
+    [LastEditor] [nvarchar] (256) NULL ,
+    [StagingLastModified] [datetime] NULL ,
+    [StagingLastEditor] [nvarchar] (256) NULL ,
+    [SupportCollapsable] [bit] NULL CONSTRAINT [DF_rb_Modules_SupportCollapsable] DEFAULT (0),
+    [ShowEveryWhere] [bit] NULL CONSTRAINT [DF_rb_Modules_ShowEveryWhere] DEFAULT (0),
+    CONSTRAINT [PK_rb_Modules] PRIMARY KEY  NONCLUSTERED 
+    (
+        [ModuleID]
+    ),
+    CONSTRAINT [FK_rb_Modules_rb_ModuleDefinitions] FOREIGN KEY  --removed trailing 1
+    (
+        [ModuleDefID]
+    ) REFERENCES [rb_ModuleDefinitions] (
+        [ModuleDefID]
+    ),
+    CONSTRAINT [FK_rb_Modules_rb_Tabs] FOREIGN KEY --removed trailing 1
+    (
+        [TabID]
+    ) REFERENCES [rb_Tabs] (
+        [TabID]
+    )
 )
 END
 GO
@@ -194,20 +194,20 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_ModuleSettings]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_ModuleSettings] (
-	[ModuleID] [int] NOT NULL ,
-	[SettingName] [nvarchar] (50) NOT NULL ,
-	[SettingValue] [nvarchar] (1500) NOT NULL ,
-	CONSTRAINT [PK_rb_ModuleSettings] PRIMARY KEY  CLUSTERED 
-	(
-		[ModuleID],
-		[SettingName]
-	),
-	CONSTRAINT [FK_rb_ModuleSettings_rb_Modules] FOREIGN KEY 
-	(
-		[ModuleID]
-	) REFERENCES [rb_Modules] (
-		[ModuleID]
-	) ON DELETE CASCADE  ON UPDATE CASCADE 
+    [ModuleID] [int] NOT NULL ,
+    [SettingName] [nvarchar] (50) NOT NULL ,
+    [SettingValue] [nvarchar] (1500) NOT NULL ,
+    CONSTRAINT [PK_rb_ModuleSettings] PRIMARY KEY  CLUSTERED 
+    (
+        [ModuleID],
+        [SettingName]
+    ),
+    CONSTRAINT [FK_rb_ModuleSettings_rb_Modules] FOREIGN KEY 
+    (
+        [ModuleID]
+    ) REFERENCES [rb_Modules] (
+        [ModuleID]
+    ) ON DELETE CASCADE  ON UPDATE CASCADE 
 )
  CREATE  INDEX [IX_rb_ModuleSettings] ON [rb_ModuleSettings]([ModuleID], [SettingName])
 END
@@ -216,51 +216,51 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_Users]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_Users] (
-	[UserID] [int] IDENTITY (1, 1) NOT NULL ,
-	[PortalID] [int] NOT NULL ,
-	[Name] [nvarchar] (50) NOT NULL ,
-	[Company] [nvarchar] (50) NULL ,
-	[Address] [nvarchar] (50) NULL ,
-	[City] [nvarchar] (50) NULL ,
-	[Zip] [nvarchar] (6) NULL ,
-	[CountryID] [nchar] (2) NULL ,
-	[StateID] [int] NULL ,
-	[PIva] [nvarchar] (11) NULL ,
-	[CFiscale] [nvarchar] (16) NULL ,
-	[Phone] [nvarchar] (50) NULL ,
-	[Fax] [nvarchar] (50) NULL ,
-	[Password] [nvarchar] (20) NULL ,
-	[Email] [nvarchar] (100) NOT NULL ,
-	[SendNewsletter] [bit] NULL CONSTRAINT [DF_rb_Users_SendNewsletter] DEFAULT (1),
-	[MailChecked] [tinyint] NULL CONSTRAINT [DF_rb_Users_MailChecked] DEFAULT (0),
-	[LastSend] [smalldatetime] NULL ,
-	CONSTRAINT [PK_rb_Users] PRIMARY KEY  NONCLUSTERED 
-	(
-		[UserID]
-	),
-	CONSTRAINT [IX_rb_Users] UNIQUE  NONCLUSTERED 
-	(
-		[Email],
-		[PortalID]
-	),
-	CONSTRAINT [FK_rb_Users_rb_Countries] FOREIGN KEY 
-	(
-		[CountryID]
-	) REFERENCES [rb_Countries] (
-		[CountryID]
-	) ON UPDATE CASCADE ,
-	CONSTRAINT [FK_rb_Users_rb_Portals] FOREIGN KEY 
-	(
-		[PortalID]
-	) REFERENCES [rb_Portals] (
-		[PortalID]
-	) ON DELETE CASCADE ,
-	CONSTRAINT [FK_rb_Users_rb_States] FOREIGN KEY 
-	(
-		[StateID]
-	) REFERENCES [rb_States] (
-		[StateID]
-	) ON UPDATE CASCADE 
+    [UserID] [int] IDENTITY (1, 1) NOT NULL ,
+    [PortalID] [int] NOT NULL ,
+    [Name] [nvarchar] (50) NOT NULL ,
+    [Company] [nvarchar] (50) NULL ,
+    [Address] [nvarchar] (50) NULL ,
+    [City] [nvarchar] (50) NULL ,
+    [Zip] [nvarchar] (6) NULL ,
+    [CountryID] [nchar] (2) NULL ,
+    [StateID] [int] NULL ,
+    [PIva] [nvarchar] (11) NULL ,
+    [CFiscale] [nvarchar] (16) NULL ,
+    [Phone] [nvarchar] (50) NULL ,
+    [Fax] [nvarchar] (50) NULL ,
+    [Password] [nvarchar] (20) NULL ,
+    [Email] [nvarchar] (100) NOT NULL ,
+    [SendNewsletter] [bit] NULL CONSTRAINT [DF_rb_Users_SendNewsletter] DEFAULT (1),
+    [MailChecked] [tinyint] NULL CONSTRAINT [DF_rb_Users_MailChecked] DEFAULT (0),
+    [LastSend] [smalldatetime] NULL ,
+    CONSTRAINT [PK_rb_Users] PRIMARY KEY  NONCLUSTERED 
+    (
+        [UserID]
+    ),
+    CONSTRAINT [IX_rb_Users] UNIQUE  NONCLUSTERED 
+    (
+        [Email],
+        [PortalID]
+    ),
+    CONSTRAINT [FK_rb_Users_rb_Countries] FOREIGN KEY 
+    (
+        [CountryID]
+    ) REFERENCES [rb_Countries] (
+        [CountryID]
+    ) ON UPDATE CASCADE ,
+    CONSTRAINT [FK_rb_Users_rb_Portals] FOREIGN KEY 
+    (
+        [PortalID]
+    ) REFERENCES [rb_Portals] (
+        [PortalID]
+    ) ON DELETE CASCADE ,
+    CONSTRAINT [FK_rb_Users_rb_States] FOREIGN KEY 
+    (
+        [StateID]
+    ) REFERENCES [rb_States] (
+        [StateID]
+    ) ON UPDATE CASCADE 
 )
 END
 GO
@@ -268,25 +268,25 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_Roles]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_Roles] (
-	[RoleID] [int] IDENTITY (1,1) NOT NULL ,
-	[PortalID] [int] NOT NULL ,
-	[RoleName] [nvarchar] (50) NOT NULL ,
-	[Permission] [tinyint] NULL CONSTRAINT [DF_rb_Roles_Permission] DEFAULT (1),
-	CONSTRAINT [PK_rb_Roles] PRIMARY KEY  NONCLUSTERED 
-	(
-		[RoleID]
-	),
-	CONSTRAINT [IX_rb_Roles] UNIQUE  NONCLUSTERED 
-	(
-		[PortalID],
-		[RoleName]
-	),
-	CONSTRAINT [FK_rb_Roles_rb_Portals] FOREIGN KEY 
-	(
-		[PortalID]
-	) REFERENCES [rb_Portals] (
-		[PortalID]
-	) ON DELETE CASCADE  NOT FOR REPLICATION 
+    [RoleID] [int] IDENTITY (1,1) NOT NULL ,
+    [PortalID] [int] NOT NULL ,
+    [RoleName] [nvarchar] (50) NOT NULL ,
+    [Permission] [tinyint] NULL CONSTRAINT [DF_rb_Roles_Permission] DEFAULT (1),
+    CONSTRAINT [PK_rb_Roles] PRIMARY KEY  NONCLUSTERED 
+    (
+        [RoleID]
+    ),
+    CONSTRAINT [IX_rb_Roles] UNIQUE  NONCLUSTERED 
+    (
+        [PortalID],
+        [RoleName]
+    ),
+    CONSTRAINT [FK_rb_Roles_rb_Portals] FOREIGN KEY 
+    (
+        [PortalID]
+    ) REFERENCES [rb_Portals] (
+        [PortalID]
+    ) ON DELETE CASCADE  NOT FOR REPLICATION 
 )
 END
 GO
@@ -294,20 +294,20 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_UserRoles]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_UserRoles] (
-	[UserID] [int] NOT NULL ,
-	[RoleID] [int] NOT NULL ,
-	CONSTRAINT [FK_rb_UserRoles_rb_Roles] FOREIGN KEY 
-	(
-		[RoleID]
-	) REFERENCES [rb_Roles] (
-		[RoleID]
-	),
-	CONSTRAINT [FK_rb_UserRoles_rb_Users] FOREIGN KEY 
-	(
-		[UserID]
-	) REFERENCES [rb_Users] (
-		[UserID]
-	) ON DELETE CASCADE  ON UPDATE CASCADE 
+    [UserID] [int] NOT NULL ,
+    [RoleID] [int] NOT NULL ,
+    CONSTRAINT [FK_rb_UserRoles_rb_Roles] FOREIGN KEY 
+    (
+        [RoleID]
+    ) REFERENCES [rb_Roles] (
+        [RoleID]
+    ),
+    CONSTRAINT [FK_rb_UserRoles_rb_Users] FOREIGN KEY 
+    (
+        [UserID]
+    ) REFERENCES [rb_Users] (
+        [UserID]
+    ) ON DELETE CASCADE  ON UPDATE CASCADE 
 )
 END
 GO
@@ -315,24 +315,24 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_UserDesktop]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_UserDesktop] (
-	[UserID] [int] NOT NULL ,
-	[ModuleID] [int] NOT NULL ,
-	[TabID] [int] NOT NULL ,
-	[PortalID] [int] NOT NULL ,
-	[State] [smallint] NOT NULL ,
-	CONSTRAINT [PK_rb_UserDesktop] PRIMARY KEY  CLUSTERED 
-	(
-		[UserID],
-		[ModuleID],
-		[TabID],
-		[PortalID]
-	),
-	CONSTRAINT [FK_rb_UserDesktop_rb_Users] FOREIGN KEY 
-	(
-		[UserID]
-	) REFERENCES [rb_Users] (
-		[UserID]
-	) ON DELETE CASCADE 
+    [UserID] [int] NOT NULL ,
+    [ModuleID] [int] NOT NULL ,
+    [TabID] [int] NOT NULL ,
+    [PortalID] [int] NOT NULL ,
+    [State] [smallint] NOT NULL ,
+    CONSTRAINT [PK_rb_UserDesktop] PRIMARY KEY  CLUSTERED 
+    (
+        [UserID],
+        [ModuleID],
+        [TabID],
+        [PortalID]
+    ),
+    CONSTRAINT [FK_rb_UserDesktop_rb_Users] FOREIGN KEY 
+    (
+        [UserID]
+    ) REFERENCES [rb_Users] (
+        [UserID]
+    ) ON DELETE CASCADE 
 )
 END
 GO
@@ -340,9 +340,9 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_Versions]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_Versions] (
-	[Release] [int] NOT NULL ,
-	[Version] [nvarchar] (50) NULL ,
-	[ReleaseDate] [datetime] NULL 
+    [Release] [int] NOT NULL ,
+    [Version] [nvarchar] (50) NULL ,
+    [ReleaseDate] [datetime] NULL 
 )
 END
 GO
@@ -357,49 +357,49 @@ DROP PROCEDURE [rb_AddGeneralModuleDefinitions]
 GO
 
 CREATE PROCEDURE rb_AddGeneralModuleDefinitions
-	@GeneralModDefID uniqueidentifier,
-	@FriendlyName nvarchar(128),
-	@DesktopSrc nvarchar(256),
-	@MobileSrc nvarchar(256),
-	@AssemblyName varchar(50),
-	@ClassName nvarchar(128),
-	@Admin bit,
-	@Searchable bit
+    @GeneralModDefID uniqueidentifier,
+    @FriendlyName nvarchar(128),
+    @DesktopSrc nvarchar(256),
+    @MobileSrc nvarchar(256),
+    @AssemblyName varchar(50),
+    @ClassName nvarchar(128),
+    @Admin bit,
+    @Searchable bit
 AS
 IF EXISTS (SELECT * FROM rb_GeneralModuleDefinitions WHERE GeneralModDefID = @GeneralModDefID)
 UPDATE rb_GeneralModuleDefinitions
 SET
-	FriendlyName = @FriendlyName,
-	DesktopSrc = @DesktopSrc,
-	MobileSrc = @MobileSrc,
-	AssemblyName = @AssemblyName,
-	ClassName = @ClassName,
-	Admin = @Admin,
-	Searchable = @Searchable
+    FriendlyName = @FriendlyName,
+    DesktopSrc = @DesktopSrc,
+    MobileSrc = @MobileSrc,
+    AssemblyName = @AssemblyName,
+    ClassName = @ClassName,
+    Admin = @Admin,
+    Searchable = @Searchable
 WHERE
-	GeneralModDefID = @GeneralModDefID
+    GeneralModDefID = @GeneralModDefID
 ELSE
 INSERT INTO rb_GeneralModuleDefinitions
 (
-	GeneralModDefID,
-	FriendlyName,
-	DesktopSrc,
-	MobileSrc,
-	AssemblyName,
-	ClassName,
-	Admin,
-	Searchable
+    GeneralModDefID,
+    FriendlyName,
+    DesktopSrc,
+    MobileSrc,
+    AssemblyName,
+    ClassName,
+    Admin,
+    Searchable
 )
 VALUES
 (
-	@GeneralModDefID,
-	@FriendlyName,
-	@DesktopSrc,
-	@MobileSrc,
-	@AssemblyName,
-	@ClassName,
-	@Admin,
-	@Searchable
+    @GeneralModDefID,
+    @FriendlyName,
+    @DesktopSrc,
+    @MobileSrc,
+    @AssemblyName,
+    @ClassName,
+    @Admin,
+    @Searchable
 )
 GO
 
@@ -407,14 +407,14 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects SO INNER JOIN syscolumns SC ON SO.id=SC.id WHERE SO.id = OBJECT_ID(N'[rb_Modules]') AND OBJECTPROPERTY(SO.id, N'IsUserTable') = 1 AND SC.name=N'AuthorizedMoveModuleRoles')
 BEGIN
 ALTER TABLE [rb_Modules] WITH NOCHECK ADD 
-	[AuthorizedMoveModuleRoles] [nvarchar] (256) NULL 
+    [AuthorizedMoveModuleRoles] [nvarchar] (256) NULL 
 END
 GO
 
 IF NOT EXISTS (SELECT * FROM sysobjects SO INNER JOIN syscolumns SC ON SO.id=SC.id WHERE SO.id = OBJECT_ID(N'[rb_Modules]') AND OBJECTPROPERTY(SO.id, N'IsUserTable') = 1 AND SC.name=N'AuthorizedDeleteModuleRoles')
 BEGIN
 ALTER TABLE [rb_Modules] WITH NOCHECK ADD 
-	[AuthorizedDeleteModuleRoles] [nvarchar] (256) NULL 
+    [AuthorizedDeleteModuleRoles] [nvarchar] (256) NULL 
 END
 GO
 
@@ -544,44 +544,44 @@ AS
 
 if (@PortalID = -2)
 BEGIN
-	IF (@ischecked = 0)
-		DELETE FROM rb_ModuleDefinitions WHERE
+    IF (@ischecked = 0)
+        DELETE FROM rb_ModuleDefinitions WHERE
                 rb_ModuleDefinitions.GeneralModDefID = @GeneralModDefID
-		AND rb_ModuleDefinitions.ModuleDefID NOT IN (SELECT ModuleDefID FROM rb_Modules) --module is not in use
-	ELSE 
-		
-	INSERT INTO rb_ModuleDefinitions (PortalID, GeneralModDefID)
-	       (
-		SELECT rb_Portals.PortalID, rb_GeneralModuleDefinitions.GeneralModDefID
-		FROM   rb_Portals CROSS JOIN rb_GeneralModuleDefinitions
-		WHERE rb_GeneralModuleDefinitions.GeneralModDefID = @GeneralModDefID 
-	              AND PortalID >= 0
-	              AND rb_Portals.PortalID NOT IN (SELECT PortalID FROM rb_ModuleDefinitions WHERE rb_ModuleDefinitions.GeneralModDefID = rb_GeneralModuleDefinitions.GeneralModDefID)
-		)
+        AND rb_ModuleDefinitions.ModuleDefID NOT IN (SELECT ModuleDefID FROM rb_Modules) --module is not in use
+    ELSE 
+        
+    INSERT INTO rb_ModuleDefinitions (PortalID, GeneralModDefID)
+           (
+        SELECT rb_Portals.PortalID, rb_GeneralModuleDefinitions.GeneralModDefID
+        FROM   rb_Portals CROSS JOIN rb_GeneralModuleDefinitions
+        WHERE rb_GeneralModuleDefinitions.GeneralModDefID = @GeneralModDefID 
+                  AND PortalID >= 0
+                  AND rb_Portals.PortalID NOT IN (SELECT PortalID FROM rb_ModuleDefinitions WHERE rb_ModuleDefinitions.GeneralModDefID = rb_GeneralModuleDefinitions.GeneralModDefID)
+        )
 END
 
 ELSE --PortalID <> -2
 
 BEGIN
 IF (@ischecked = 0)
-	/* DELETE IF CLEARED */
-	DELETE FROM rb_ModuleDefinitions WHERE rb_ModuleDefinitions.GeneralModDefID = @GeneralModDefID AND PortalID = @PortalID
-	
+    /* DELETE IF CLEARED */
+    DELETE FROM rb_ModuleDefinitions WHERE rb_ModuleDefinitions.GeneralModDefID = @GeneralModDefID AND PortalID = @PortalID
+    
 ELSE
 IF NOT (EXISTS (SELECT ModuleDefID FROM rb_ModuleDefinitions WHERE GeneralModDefID = @GeneralModDefID AND PortalID = @PortalID))
-	/* ADD IF CHECKED */
-	BEGIN
-			INSERT INTO rb_ModuleDefinitions
-			(
-				PortalID,
-				GeneralModDefID
-			)
-			VALUES
-			(
-				@PortalID,
-				@GeneralModDefID
-			)
-	END
+    /* ADD IF CHECKED */
+    BEGIN
+            INSERT INTO rb_ModuleDefinitions
+            (
+                PortalID,
+                GeneralModDefID
+            )
+            VALUES
+            (
+                @PortalID,
+                @GeneralModDefID
+            )
+    END
 END
 GO
 
@@ -737,36 +737,36 @@ INSERT INTO rb_Users
     PortalID,
     Name,
     Company,
-	Address,		
-	City,		
-	Zip,		
-	Phone,		
-	Fax,		
-	PIva,		
-	CFiscale,	
-	Email,		
-	Password,
-	SendNewsletter,
-	CountryID,
-	StateID
+    Address,		
+    City,		
+    Zip,		
+    Phone,		
+    Fax,		
+    PIva,		
+    CFiscale,	
+    Email,		
+    Password,
+    SendNewsletter,
+    CountryID,
+    StateID
 )
 VALUES
 (
     @PortalID,
     @Name,
     @Company,
-	@Address,	
-	@City,	
-	@Zip,	
-	@Phone,	
-	@Fax,	
-	@PIva,	
-	@CFiscale,
+    @Address,	
+    @City,	
+    @Zip,	
+    @Phone,	
+    @Fax,	
+    @PIva,	
+    @CFiscale,
     @Email,
     @Password,
     @SendNewsletter,
-	@CountryID,
-	@StateID
+    @CountryID,
+    @StateID
 )
 SELECT
     @UserID = @@IDENTITY
@@ -809,13 +809,13 @@ DROP PROCEDURE [rb_Approve]
 GO
 
 CREATE PROCEDURE rb_Approve
-	@moduleID	int
+    @moduleID	int
 AS
-	UPDATE	rb_Modules
-	SET
-		WorkflowState = 3 -- Approved
-	WHERE
-		[ModuleID] = @moduleID
+    UPDATE	rb_Modules
+    SET
+        WorkflowState = 3 -- Approved
+    WHERE
+        [ModuleID] = @moduleID
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_ChangeObjectOwner]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -825,30 +825,30 @@ GO
 CREATE   PROCEDURE rb_ChangeObjectOwner
 /***********************************************************************
 FileName:
-	ChangeObjectOwner.sql
+    ChangeObjectOwner.sql
 Description:
-	Contains SQL used to change Appleseed database objects owner from 
-	'<MACHINEName>\ASPNET' to 'dbo'.
-	
-	The script takes all user defined objects that are owned by user different than 'dbo'
-	AND changes its ownership to 'dbo'. 
-	
+    Contains SQL used to change Appleseed database objects owner from 
+    '<MACHINEName>\ASPNET' to 'dbo'.
+    
+    The script takes all user defined objects that are owned by user different than 'dbo'
+    AND changes its ownership to 'dbo'. 
+    
 Assumptions:				
-	The script assumes that Appleseed portal is installed with Appleseed AS a database Name.
-	If the Name of the database is different, change the first line of the script. 
-					
-	The script assumes that the new user Name is 'dbo'. If different user is required,
-	change the 'dbo' Name in the script (it must be a valid user in the database).
+    The script assumes that Appleseed portal is installed with Appleseed AS a database Name.
+    If the Name of the database is different, change the first line of the script. 
+                    
+    The script assumes that the new user Name is 'dbo'. If different user is required,
+    change the 'dbo' Name in the script (it must be a valid user in the database).
 History:
-	06/30/2003 -- Marek Kepinski (mkepinski@impaq.com.pl)		
-		Initial implementation.
-	
+    06/30/2003 -- Marek Kepinski (mkepinski@impaq.com.pl)		
+        Initial implementation.
+    
 Notes:
-	Ignore warning displayed be SQL Server concerning possible breaking of stored procedures
-	due to changes of object owner.
+    Ignore warning displayed be SQL Server concerning possible breaking of stored procedures
+    due to changes of object owner.
 *************************************************************************/
 (
-	-- change the new owner Name if you need 
+    -- change the new owner Name if you need 
     @NewOwner nvarchar(128) = 'dbo'
 )
 AS
@@ -867,20 +867,20 @@ ELSE
 BEGIN
 DECLARE C CURSOR FOR
     SELECT UserName = u.name, ObjectName = s.name
-	FROM  sysobjects s INNER JOIN sysusers u ON s.uid = u.uid
-		AND u.name <> @NewOwner
-		AND s.xtype in ('V', 'P', 'U') 
-		AND u.name not like 'INFORMATION%' 
-	ORDER BY xtype, s.name
+    FROM  sysobjects s INNER JOIN sysusers u ON s.uid = u.uid
+        AND u.name <> @NewOwner
+        AND s.xtype in ('V', 'P', 'U') 
+        AND u.name not like 'INFORMATION%' 
+    ORDER BY xtype, s.name
 OPEN C
 FETCH NEXT FROM C
-	INTO @UserName, @ObjectName
+    INTO @UserName, @ObjectName
 WHILE @@FETCH_STATUS = 0
 BEGIN
     SET @cmd = 'sp_changeobjectowner @objName=''' + @UserName + '.' + @ObjectName + ''', @newowner=' + @NewOwner
     exec (@cmd)
     FETCH NEXT FROM C
-	INTO @UserName, @ObjectName
+    INTO @UserName, @ObjectName
 END
 CLOSE C
 DEALLOCATE C
@@ -1189,7 +1189,7 @@ SELECT
 FROM
     rb_ModuleDefinitions
 INNER JOIN
-	rb_GeneralModuleDefinitions ON rb_ModuleDefinitions.GeneralModDefID = rb_GeneralModuleDefinitions.GeneralModDefID
+    rb_GeneralModuleDefinitions ON rb_ModuleDefinitions.GeneralModDefID = rb_GeneralModuleDefinitions.GeneralModDefID
 WHERE   
     rb_ModuleDefinitions.PortalID = @PortalID
 ORDER BY
@@ -1202,7 +1202,7 @@ GO
 
 CREATE PROCEDURE rb_GetDefaultCulture
 (
-	@CountryID nchar(2)
+    @CountryID nchar(2)
 )
 AS
 SELECT    CultureCode, CountryID
@@ -1221,25 +1221,25 @@ CREATE   PROCEDURE rb_GetDocumentContent
 )
 AS
 IF ( @WorkflowVersion = 1 )
-	SELECT
-	    Content,
-	    ContentType,
-	    ContentSize,
-	    FileFriendlyName
-	FROM
-	    rb_Documents
-	WHERE
-	    ItemID = @ItemID
+    SELECT
+        Content,
+        ContentType,
+        ContentSize,
+        FileFriendlyName
+    FROM
+        rb_Documents
+    WHERE
+        ItemID = @ItemID
 ELSE
-	SELECT
-	    Content,
-	    ContentType,
-	    ContentSize,
-	    FileFriendlyName
-	FROM
-	    rb_Documents_st
-	WHERE
-	    ItemID = @ItemID
+    SELECT
+        Content,
+        ContentType,
+        ContentSize,
+        FileFriendlyName
+    FROM
+        rb_Documents_st
+    WHERE
+        ItemID = @ItemID
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_GetGeneralModuleDefinitionByName]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -1250,8 +1250,8 @@ GO
 CREATE PROCEDURE
 rb_GetGeneralModuleDefinitionByName
 (
-	@FriendlyName nvarchar(128),
-	@ModuleID uniqueidentifier OUTPUT
+    @FriendlyName nvarchar(128),
+    @ModuleID uniqueidentifier OUTPUT
 )
 AS
 SELECT @ModuleID =
@@ -1267,27 +1267,27 @@ DROP PROCEDURE [rb_GetLastModified]
 GO
 
 CREATE PROCEDURE rb_GetLastModified
-	(
-		@ModuleID int,
-		@WorkflowVersion int,
-		@LastModifiedBy	nvarchar(256) OUTPUT,
-		@LastModifiedDate datetime OUTPUT
-	)
+    (
+        @ModuleID int,
+        @WorkflowVersion int,
+        @LastModifiedBy	nvarchar(256) OUTPUT,
+        @LastModifiedDate datetime OUTPUT
+    )
 AS
-	if ( @WorkflowVersion = 1 )
-	begin
-		select @LastModifiedDate = [LastModified], @LastModifiedBy = [LastEditor]
-		from rb_Modules
-		WHERE [ModuleID] = @ModuleID
-	end
-	else
-	begin
-		select @LastModifiedDate = [StagingLastModified], @LastModifiedBy = [StagingLastEditor]
-		from rb_Modules
-		WHERE [ModuleID] = @ModuleID
-	end
-	/* SET NOCOUNT ON */
-	RETURN
+    if ( @WorkflowVersion = 1 )
+    begin
+        select @LastModifiedDate = [LastModified], @LastModifiedBy = [LastEditor]
+        from rb_Modules
+        WHERE [ModuleID] = @ModuleID
+    end
+    else
+    begin
+        select @LastModifiedDate = [StagingLastModified], @LastModifiedBy = [StagingLastEditor]
+        from rb_Modules
+        WHERE [ModuleID] = @ModuleID
+    end
+    /* SET NOCOUNT ON */
+    RETURN
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_GetModuleDefinitionByID]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -1297,7 +1297,7 @@ GO
 CREATE PROCEDURE
 rb_GetModuleDefinitionByID
 (
-	@ModuleID int
+    @ModuleID int
 )
 AS
 SELECT     rb_ModuleDefinitions.ModuleDefID, rb_ModuleDefinitions.PortalID, rb_GeneralModuleDefinitions.FriendlyName, rb_GeneralModuleDefinitions.DesktopSrc, 
@@ -1314,9 +1314,9 @@ GO
 
 CREATE PROCEDURE rb_GetModuleDefinitionByName
 (
-	@PortalID int,
-	@FriendlyName nvarchar(128),
-	@ModuleID int OUTPUT
+    @PortalID int,
+    @FriendlyName nvarchar(128),
+    @ModuleID int OUTPUT
 )
 AS
 
@@ -1336,9 +1336,9 @@ GO
 
 CREATE PROCEDURE rb_GetModuleDefinitionByGuid
 (
-	@PortalID int,
-	@Guid uniqueidentifier,
-	@ModuleID int OUTPUT
+    @PortalID int,
+    @Guid uniqueidentifier,
+    @ModuleID int OUTPUT
 )
 AS
 
@@ -1414,14 +1414,14 @@ CREATE PROCEDURE rb_GetModulesAllPortals
 AS
 SELECT      0 AS ModuleID, 'NO_MODULE' AS ModuleTitle, '' AS PortalAlias, -1 AS TabOrder
 UNION
-	SELECT     rb_Modules.ModuleID, rb_Portals.PortalAlias + '/' + rb_Tabs.TabName + '/' + rb_Modules.ModuleTitle + ' (' + rb_GeneralModuleDefinitions.FriendlyName + ')'  AS ModuleTitle, PortalAlias, rb_Tabs.TabOrder
-	FROM         rb_Modules INNER JOIN
-	                      rb_Tabs ON rb_Modules.TabID = rb_Tabs.TabID INNER JOIN
-	                      rb_Portals ON rb_Tabs.PortalID = rb_Portals.PortalID INNER JOIN
-	                      rb_ModuleDefinitions ON rb_Modules.ModuleDefID = rb_ModuleDefinitions.ModuleDefID INNER JOIN
-	                      rb_GeneralModuleDefinitions ON rb_ModuleDefinitions.GeneralModDefID = rb_GeneralModuleDefinitions.GeneralModDefID
-	WHERE     (rb_Modules.ModuleID > 0) AND (rb_GeneralModuleDefinitions.Admin = 0) AND (rb_GeneralModuleDefinitions.GeneralModDefID <> 'F9F9C3A4-6E16-43b4-B540-984DDB5F1CD2' AND 
-	                      rb_GeneralModuleDefinitions.GeneralModDefID <> 'F9F9C3A4-6E16-43b4-B540-984DDB5F1CD0')
+    SELECT     rb_Modules.ModuleID, rb_Portals.PortalAlias + '/' + rb_Tabs.TabName + '/' + rb_Modules.ModuleTitle + ' (' + rb_GeneralModuleDefinitions.FriendlyName + ')'  AS ModuleTitle, PortalAlias, rb_Tabs.TabOrder
+    FROM         rb_Modules INNER JOIN
+                          rb_Tabs ON rb_Modules.TabID = rb_Tabs.TabID INNER JOIN
+                          rb_Portals ON rb_Tabs.PortalID = rb_Portals.PortalID INNER JOIN
+                          rb_ModuleDefinitions ON rb_Modules.ModuleDefID = rb_ModuleDefinitions.ModuleDefID INNER JOIN
+                          rb_GeneralModuleDefinitions ON rb_ModuleDefinitions.GeneralModDefID = rb_GeneralModuleDefinitions.GeneralModDefID
+    WHERE     (rb_Modules.ModuleID > 0) AND (rb_GeneralModuleDefinitions.Admin = 0) AND (rb_GeneralModuleDefinitions.GeneralModDefID <> 'F9F9C3A4-6E16-43b4-B540-984DDB5F1CD2' AND 
+                          rb_GeneralModuleDefinitions.GeneralModDefID <> 'F9F9C3A4-6E16-43b4-B540-984DDB5F1CD0')
 ORDER BY PortalAlias, ModuleTitle
 GO
 
@@ -1431,8 +1431,8 @@ GO
 
 CREATE PROCEDURE rb_GetModulesByName
 (
-	@ModuleName varchar(128),
-	@PortalID int
+    @ModuleName varchar(128),
+    @PortalID int
 )
 AS
 SELECT      0 ModuleID, ' Nessun modulo' ModuleTitle
@@ -1470,14 +1470,14 @@ CREATE PROCEDURE rb_GetModulesSinglePortal
 AS
 SELECT      0 ModuleID, 'NO_MODULE' ModuleTitle, -1 AS TabOrder
 UNION
-	SELECT     rb_Modules.ModuleID, rb_Tabs.TabName + '/' + rb_Modules.ModuleTitle + ' (' + rb_GeneralModuleDefinitions.FriendlyName + ')' AS ModTitle, rb_Tabs.TabOrder
-	FROM         rb_Modules INNER JOIN
-	                      rb_Tabs ON rb_Modules.TabID = rb_Tabs.TabID INNER JOIN
-	                      rb_ModuleDefinitions ON rb_Modules.ModuleDefID = rb_ModuleDefinitions.ModuleDefID INNER JOIN
-	                      rb_GeneralModuleDefinitions ON rb_ModuleDefinitions.GeneralModDefID = rb_GeneralModuleDefinitions.GeneralModDefID
-	WHERE     (rb_Tabs.PortalID = @PortalID) AND (rb_GeneralModuleDefinitions.GeneralModDefID <> 'F9F9C3A4-6E16-43b4-B540-984DDB5F1CD2' AND 
-	                      rb_GeneralModuleDefinitions.GeneralModDefID <> 'F9F9C3A4-6E16-43b4-B540-984DDB5F1CD0')
-	ORDER BY TabOrder, ModuleTitle
+    SELECT     rb_Modules.ModuleID, rb_Tabs.TabName + '/' + rb_Modules.ModuleTitle + ' (' + rb_GeneralModuleDefinitions.FriendlyName + ')' AS ModTitle, rb_Tabs.TabOrder
+    FROM         rb_Modules INNER JOIN
+                          rb_Tabs ON rb_Modules.TabID = rb_Tabs.TabID INNER JOIN
+                          rb_ModuleDefinitions ON rb_Modules.ModuleDefID = rb_ModuleDefinitions.ModuleDefID INNER JOIN
+                          rb_GeneralModuleDefinitions ON rb_ModuleDefinitions.GeneralModDefID = rb_GeneralModuleDefinitions.GeneralModDefID
+    WHERE     (rb_Tabs.PortalID = @PortalID) AND (rb_GeneralModuleDefinitions.GeneralModDefID <> 'F9F9C3A4-6E16-43b4-B540-984DDB5F1CD2' AND 
+                          rb_GeneralModuleDefinitions.GeneralModDefID <> 'F9F9C3A4-6E16-43b4-B540-984DDB5F1CD0')
+    ORDER BY TabOrder, ModuleTitle
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_GetPortalCustomSettings]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -1648,13 +1648,13 @@ CREATE PROCEDURE rb_GetPortalSettingsLangList
 )
 AS
 SELECT
-	rb_PortalSettings.SettingValue
+    rb_PortalSettings.SettingValue
 FROM
-	rb_PortalSettings 
-		INNER JOIN
-	rb_Portals ON rb_PortalSettings.PortalID = rb_Portals.PortalID
+    rb_PortalSettings 
+        INNER JOIN
+    rb_Portals ON rb_PortalSettings.PortalID = rb_Portals.PortalID
 WHERE
-	(rb_Portals.PortalAlias = @PortalAlias) AND (rb_PortalSettings.SettingName = N'SITESETTINGS_LANGLIST')
+    (rb_Portals.PortalAlias = @PortalAlias) AND (rb_PortalSettings.SettingName = N'SITESETTINGS_LANGLIST')
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_GetPortalSettingsPortalID]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -1680,10 +1680,10 @@ CREATE PROCEDURE rb_GetPortalsModules
     @ModuleID  uniqueidentifier
 )
 AS
-	SELECT     rb_Portals.PortalID, rb_Portals.PortalAlias, rb_Portals.PortalName, rb_ModuleDefinitions.ModuleDefID
-	FROM         rb_Portals LEFT OUTER JOIN
-	                      rb_ModuleDefinitions ON rb_Portals.PortalID = rb_ModuleDefinitions.PortalID
-	WHERE     (rb_ModuleDefinitions.GeneralModDefID = @ModuleID)
+    SELECT     rb_Portals.PortalID, rb_Portals.PortalAlias, rb_Portals.PortalName, rb_ModuleDefinitions.ModuleDefID
+    FROM         rb_Portals LEFT OUTER JOIN
+                          rb_ModuleDefinitions ON rb_Portals.PortalID = rb_ModuleDefinitions.PortalID
+    WHERE     (rb_ModuleDefinitions.GeneralModDefID = @ModuleID)
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_GetRoleMembership]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -1739,7 +1739,7 @@ GO
 
 CREATE PROCEDURE rb_GetSearchableModules
 (
-	@PortalID int
+    @PortalID int
 )
 AS
 SELECT     rb_GeneralModuleDefinitions.GeneralModDefID, rb_GeneralModuleDefinitions.ClassName, rb_GeneralModuleDefinitions.FriendlyName, 
@@ -1756,8 +1756,8 @@ GO
 
 CREATE PROCEDURE rb_GetSingleCountry
 (
-	@IDState int,
-	@IDLang	nchar(2) = 'en'
+    @IDState int,
+    @IDLang	nchar(2) = 'en'
 )
 AS
 SELECT     rb_Countries.CountryID, rb_Localize.Description, rb_States.StateID
@@ -1780,7 +1780,7 @@ CREATE PROCEDURE rb_GetSingleModuleDefinition
 )
 AS
 SELECT
-	GeneralModDefID, 
+    GeneralModDefID, 
     FriendlyName,
     DesktopSrc,
     MobileSrc,
@@ -1816,43 +1816,43 @@ CREATE PROCEDURE rb_GetSingleUser
 (
     @Email nvarchar(100),
     @PortalID int,
-	@IDLang	nchar(2) = 'IT'
+    @IDLang	nchar(2) = 'IT'
 )
 AS
 SELECT
-	rb_Users.UserID,
-	rb_Users.Email,
-	rb_Users.Password,
-	rb_Users.Name,
-	rb_Users.Company,
-	rb_Users.Address,
-	rb_Users.City,
-	rb_Users.Zip,
-	rb_Users.CountryID,
-	rb_Users.StateID,
-	rb_Users.PIva,
-	rb_Users.CFiscale,
-	rb_Users.Phone,
-	rb_Users.Fax,
-	rb_Users.SendNewsletter,
-	rb_Users.MailChecked,
-	rb_Users.PortalID,
-	
-	
-	(SELECT TOP 1 rb_Localize.Description
+    rb_Users.UserID,
+    rb_Users.Email,
+    rb_Users.Password,
+    rb_Users.Name,
+    rb_Users.Company,
+    rb_Users.Address,
+    rb_Users.City,
+    rb_Users.Zip,
+    rb_Users.CountryID,
+    rb_Users.StateID,
+    rb_Users.PIva,
+    rb_Users.CFiscale,
+    rb_Users.Phone,
+    rb_Users.Fax,
+    rb_Users.SendNewsletter,
+    rb_Users.MailChecked,
+    rb_Users.PortalID,
+    
+    
+    (SELECT TOP 1 rb_Localize.Description
 FROM         rb_Cultures INNER JOIN
                       rb_Localize ON rb_Cultures.CultureCode = rb_Localize.CultureCode INNER JOIN
                       rb_Countries ON rb_Localize.TextKey = 'COUNTRY_' + rb_Countries.CountryID
 WHERE     ((rb_Localize.CultureCode = @IDLang) OR
                       (rb_Cultures.NeutralCode = @IDLang)) AND (rb_Countries.CountryID = rb_Users.CountryID))
-	
-	
-	 AS Country
-					  
+    
+    
+     AS Country
+                      
 FROM 
-	rb_Users LEFT OUTER JOIN
-	rb_States ON rb_Users.StateID = rb_States.StateID
-	
+    rb_Users LEFT OUTER JOIN
+    rb_States ON rb_Users.StateID = rb_States.StateID
+    
 WHERE
 (rb_Users.Email = @Email) AND (rb_Users.PortalID = @PortalID)
 GO
@@ -1872,11 +1872,11 @@ GO
 
 CREATE PROCEDURE rb_GetStates
 (
-	@CountryID nchar(2)
+    @CountryID nchar(2)
 )
 AS
 SELECT  StateID, 
-		Description
+        Description
 FROM    rb_States
 WHERE	CountryID = @CountryID
 ORDER BY Description
@@ -1903,13 +1903,13 @@ set @TabName = (select TabName from rb_Tabs WHERE TabID=@TabID)
 --Build first Crumb
 set @CrumbsXML = '<root><crumb TabID=''' + cast(@TabID AS varchar) + ''' Level=''' + cast(@Level AS varchar) + '''>' + @TabName + '</crumb>'
 while @ParentTabID is not null
-	begin
-		set @Level=@Level - 1
-		set @TabID=@ParentTabID
-		set @ParentTabID=(select ParentTabID from rb_Tabs WHERE TabID=@TabID)
-		set @TabName = (select TabName from rb_Tabs WHERE TabID=@TabID)
-		set @CrumbsXML = @CrumbsXML + '<crumb TabID=''' + cast(@TabID AS varchar) + ''' Level=''' + cast(@Level AS varchar) + '''>' + @TabName + '</crumb>'
-	end
+    begin
+        set @Level=@Level - 1
+        set @TabID=@ParentTabID
+        set @ParentTabID=(select ParentTabID from rb_Tabs WHERE TabID=@TabID)
+        set @TabName = (select TabName from rb_Tabs WHERE TabID=@TabID)
+        set @CrumbsXML = @CrumbsXML + '<crumb TabID=''' + cast(@TabID AS varchar) + ''' Level=''' + cast(@Level AS varchar) + '''>' + @TabName + '</crumb>'
+    end
 set @CrumbsXML = @CrumbsXML + '</root>'
 GO
 
@@ -2061,8 +2061,8 @@ GO
 
 CREATE PROCEDURE rb_GetTabsinTab
 (
-	@PortalID int,
-	@TabID int
+    @PortalID int,
+    @TabID int
 )
 AS
 SELECT     TabID, TabName, ParentTabID, TabOrder, AuthorizedRoles
@@ -2077,8 +2077,8 @@ GO
 
 CREATE PROCEDURE rb_GetTabsParent
 (
-	@PortalID int,
-	@TabID int
+    @PortalID int,
+    @TabID int
 )
 AS
 --Create a Temporary table to hold the tabs for this query
@@ -2182,56 +2182,56 @@ DROP PROCEDURE [rb_GetRelatedTables]
 GO
 
 CREATE    PROCEDURE rb_GetRelatedTables
-	@Name	nvarchar(128)
+    @Name	nvarchar(128)
 AS
-	SELECT 
-		[InnerResults].[ForeignKeyTableSchema],
-		[InnerResults].[ForeignKeyTable], 
-		[InnerResults].[ForeignKeyColumn], 
-		[InnerResults].[KeyColumn],
-		[InnerResults].[ForeignKeyTableID],
-		[InnerResults].[KeyTableID],
-		[InnerResults].[KeyTableSchema],
-		[InnerResults].[KeyTable]
-	FROM
-		(
-			SELECT     
-				[FKeyTable].[TableName] AS ForeignKeyTable, 
-				[FKeyTable].[TableSchema] AS ForeignKeyTableSchema,
-				[KeyTable].[TableName] AS KeyTable, 
-				[KeyTable].[TableSchema] AS KeyTableSchema,
-				[FKeyColumns].[name] AS ForeignKeyColumn, 
-			        [KeyColumns].[name] AS KeyColumn,
-				[FKeyTable].[ID] AS ForeignKeyTableID,
-				[KeyTable].[ID] AS KeyTableID
-			FROM         sysforeignkeys INNER JOIN
-			                      (
-							SELECT     
-								[sysobjects].[id] AS ID, 
-								[sysobjects].[name] AS TableName,
-								[INFORMATION_SCHEMA].[TABLES].[TABLE_SCHEMA] AS TableSchema
-							FROM    
-								[sysobjects] INNER JOIN [INFORMATION_SCHEMA].[TABLES] 
-									ON [sysobjects].[name] = [INFORMATION_SCHEMA].[TABLES].[TABLE_NAME] 
-							WHERE   
-								([INFORMATION_SCHEMA].[TABLES].[TABLE_TYPE] = 'BASE TABLE')
-					       ) FKeyTable ON sysforeignkeys.fkeyid = [FKeyTable].[ID] INNER JOIN
-					       (
-							SELECT     
-								[sysobjects].[id] AS ID, 
-								[sysobjects].[name] AS TableName,
-								[INFORMATION_SCHEMA].[TABLES].[TABLE_SCHEMA] AS TableSchema
-							FROM    
-								[sysobjects] INNER JOIN [INFORMATION_SCHEMA].[TABLES] 
-									ON [sysobjects].[name] = [INFORMATION_SCHEMA].[TABLES].[TABLE_NAME] 
-							WHERE   
-								([INFORMATION_SCHEMA].[TABLES].[TABLE_TYPE] = 'BASE TABLE')
-					       ) KeyTable ON sysforeignkeys.rkeyid = [KeyTable].[ID] INNER JOIN
-			                      syscolumns FKeyColumns ON [FKeyTable].[ID] = [FKeyColumns].[id] AND sysforeignkeys.fkey = [FKeyColumns].[colid] INNER JOIN
-			                      syscolumns KeyColumns ON [KeyTable].[ID] = [KeyColumns].[id] AND sysforeignkeys.rkey = [KeyColumns].[colid]
-		) InnerResults
-	WHERE			
-		[InnerResults].[KeyTable] = @Name
+    SELECT 
+        [InnerResults].[ForeignKeyTableSchema],
+        [InnerResults].[ForeignKeyTable], 
+        [InnerResults].[ForeignKeyColumn], 
+        [InnerResults].[KeyColumn],
+        [InnerResults].[ForeignKeyTableID],
+        [InnerResults].[KeyTableID],
+        [InnerResults].[KeyTableSchema],
+        [InnerResults].[KeyTable]
+    FROM
+        (
+            SELECT     
+                [FKeyTable].[TableName] AS ForeignKeyTable, 
+                [FKeyTable].[TableSchema] AS ForeignKeyTableSchema,
+                [KeyTable].[TableName] AS KeyTable, 
+                [KeyTable].[TableSchema] AS KeyTableSchema,
+                [FKeyColumns].[name] AS ForeignKeyColumn, 
+                    [KeyColumns].[name] AS KeyColumn,
+                [FKeyTable].[ID] AS ForeignKeyTableID,
+                [KeyTable].[ID] AS KeyTableID
+            FROM         sysforeignkeys INNER JOIN
+                                  (
+                            SELECT     
+                                [sysobjects].[id] AS ID, 
+                                [sysobjects].[name] AS TableName,
+                                [INFORMATION_SCHEMA].[TABLES].[TABLE_SCHEMA] AS TableSchema
+                            FROM    
+                                [sysobjects] INNER JOIN [INFORMATION_SCHEMA].[TABLES] 
+                                    ON [sysobjects].[name] = [INFORMATION_SCHEMA].[TABLES].[TABLE_NAME] 
+                            WHERE   
+                                ([INFORMATION_SCHEMA].[TABLES].[TABLE_TYPE] = 'BASE TABLE')
+                           ) FKeyTable ON sysforeignkeys.fkeyid = [FKeyTable].[ID] INNER JOIN
+                           (
+                            SELECT     
+                                [sysobjects].[id] AS ID, 
+                                [sysobjects].[name] AS TableName,
+                                [INFORMATION_SCHEMA].[TABLES].[TABLE_SCHEMA] AS TableSchema
+                            FROM    
+                                [sysobjects] INNER JOIN [INFORMATION_SCHEMA].[TABLES] 
+                                    ON [sysobjects].[name] = [INFORMATION_SCHEMA].[TABLES].[TABLE_NAME] 
+                            WHERE   
+                                ([INFORMATION_SCHEMA].[TABLES].[TABLE_TYPE] = 'BASE TABLE')
+                           ) KeyTable ON sysforeignkeys.rkeyid = [KeyTable].[ID] INNER JOIN
+                                  syscolumns FKeyColumns ON [FKeyTable].[ID] = [FKeyColumns].[id] AND sysforeignkeys.fkey = [FKeyColumns].[colid] INNER JOIN
+                                  syscolumns KeyColumns ON [KeyTable].[ID] = [KeyColumns].[id] AND sysforeignkeys.rkey = [KeyColumns].[colid]
+        ) InnerResults
+    WHERE			
+        [InnerResults].[KeyTable] = @Name
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_Publish]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -2240,170 +2240,170 @@ GO
 
 -- Alter Publish stored procedure
 CREATE   PROCEDURE rb_Publish
-	@ModuleID	int
+    @ModuleID	int
 AS
-	-- First get al list of tables which are related to the Modules table
-	-- Create a temporary table
-	CREATE TABLE #TMPResults
-		(ForeignKeyTableSchema	nvarchar(128),
+    -- First get al list of tables which are related to the Modules table
+    -- Create a temporary table
+    CREATE TABLE #TMPResults
+        (ForeignKeyTableSchema	nvarchar(128),
                  ForeignKeyTable	nvarchar(128),
-		 ForeignKeyColumn	nvarchar(128),
-		 KeyColumn		nvarchar(128),
-		 ForeignKeyTableID	int,
-		 KeyTableID		int,
-		 KeyTableSchema		nvarchar(128),
-		 KeyTable		nvarchar(128))
-	INSERT INTO #TMPResults EXEC rb_GetRelatedTables 'rb_Modules'
-	DECLARE RelatedTablesModules CURSOR FOR
-		SELECT 	
-			ForeignKeyTableSchema, 
-			ForeignKeyTable,
-			ForeignKeyColumn,
-			KeyColumn,
-			ForeignKeyTableID,
-			KeyTableID,
-			KeyTableSchema,
-			KeyTable
-		FROM
-			#TMPResults
-		WHERE 
-			ForeignKeyTable <> 'ModuleSettings'
-	-- Create temporary table for later use
-	CREATE TABLE #TMPCount
-		(ResultCount	int)
-	-- Now search the table that hAS the related column
-	OPEN RelatedTablesModules
-	DECLARE @ForeignKeyTableSchema 	nvarchar(128)
-	DECLARE @ForeignKeyTable	nvarchar(128)
-	DECLARE @ForeignKeyColumn	nvarchar(128)
-	DECLARE @KeyColumn		nvarchar(128)
-	DECLARE @ForeignKeyTableID	int
-	DECLARE @KeyTableID		int
-	DECLARE @KeyTableSchema		nvarchar(128)
-	DECLARE @KeyTable		nvarchar(128)
-	DECLARE @SQLStatement		nvarchar(4000)
-	DECLARE @Count			int
-	DECLARE @TableHasIdentityCol	int
-	FETCH NEXT FROM RelatedTablesModules 
-	INTO @ForeignKeyTableSchema, @ForeignKeyTable, @ForeignKeyColumn, 
-		@KeyColumn, @ForeignKeyTableID, @KeyTableID,
-		@KeyTableSchema, @KeyTable
-	
-	WHILE @@FETCH_STATUS = 0
-	BEGIN
-		-- Check if this table hAS a corresponding staging table
-		TRUNCATE TABLE #TMPCount
-		SET @SQLStatement = 'INSERT INTO #TMPCount SELECT Count(*) FROM [sysobjects] WHERE [id] = OBJECT_ID(N''[' + @ForeignKeyTable + '_st]'') AND OBJECTPROPERTY([id], N''IsUserTable'') = 1'
-		-- PRINT @SQLStatement
-		EXEC(@SQLStatement)
-		SELECT @Count = ResultCount
-			FROM #TMPCount		
-		PRINT @ForeignKeyTable
-		PRINT @Count
-		IF (@Count = 1)
-		BEGIN						
-			-- Check if this table contains the related data
-			TRUNCATE TABLE #TMPCount
-			SET @SQLStatement = 
-				'INSERT INTO #TMPCount ' +
-				'SELECT Count(*) FROM [' + @ForeignKeyTable + '] ' +
-				'WHERE [' + @ForeignKeyTable + '].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID) +
-				'UNION ' +
-				'SELECT Count(*) FROM [' + @ForeignKeyTable + '_st] ' +
-				'WHERE [' + @ForeignKeyTable + '_st].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID) 
-			EXEC(@SQLStatement)
-			SELECT @Count = ResultCount
-				FROM #TMPCount		
-			IF (@Count >= 1) 
-			BEGIN
-				-- This table contains the related data 
-				-- Delete everything in the prod table
-				SET @SQLStatement = 
-					'DELETE FROM [' + @ForeignKeyTable + '] ' +
-					'WHERE [' + @ForeignKeyTable + '].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID)
-				PRINT @SQLStatement
-				EXEC(@SQLStatement)
-				-- Copy everything from the staging table to the prod table
-				SET @TableHasIdentityCol = OBJECTPROPERTY(@ForeignKeyTableID, 'TableHasIdentity')
-				IF (@TableHasIdentityCol = 1)
-				BEGIN
-					-- The table contains a identity column
-					DECLARE TableColumns CURSOR FOR
-						SELECT [COLUMN_NAME]
-						FROM [INFORMATION_SCHEMA].[COLUMNS]
-						WHERE [TABLE_SCHEMA] = @ForeignKeyTableSchema 
-							AND [TABLE_NAME] = @ForeignKeyTable
-						ORDER BY [ORDINAL_POSITION]
-	
-					OPEN TableColumns
-	
-					DECLARE @ColumnList	nvarchar(4000)
-					SET @ColumnList = ''
-					DECLARE @ColName	nvarchar(128)
-					DECLARE @ColIsIdentity	int
-	
-					FETCH NEXT FROM TableColumns
-					INTO @ColName
-					
-					SET @ColIsIdentity = COLUMNPROPERTY(@ForeignKeyTableID, @ColName, 'IsIdentity')
-	
-					WHILE @@FETCH_STATUS = 0
-					BEGIN
-						IF (@ColIsIdentity = 0)
-							SET @ColumnList = @ColumnList + '[' + @ColName + '] '
-	
-						FETCH NEXT FROM TableColumns
-						INTO @ColName
-	
-						IF (@@FETCH_STATUS = 0)
-						BEGIN
-							IF (@ColIsIdentity = 0)
-							BEGIN
-								SET @ColIsIdentity = COLUMNPROPERTY(@ForeignKeyTableID, @ColName, 'IsIdentity')
-								IF (@ColIsIdentity = 0)
-									SET @ColumnList = @ColumnList + ', '		
-							END
-							ELSE
-								SET @ColIsIdentity = COLUMNPROPERTY(@ForeignKeyTableID, @ColName, 'IsIdentity')
-						END
-					END
-					
-					CLOSE TableColumns
-					DEALLOCATE TableColumns		
-	
-					SET @SQLStatement = 	
-						'INSERT INTO [' + @ForeignKeyTableSchema + '].[' + @ForeignKeyTable + '] (' + @ColumnList + ') ' +
-						'SELECT ' + @ColumnList + ' FROM [' + @ForeignKeyTable + '_st] ' +
-						'WHERE [' + @ForeignKeyTable + '_st].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID)
-					-- PRINT @SQLStatement
-					EXEC(@SQLStatement)
-				END
-				ELSE
-				BEGIN
-					-- The table doens't contain a identitycolumn
-					SET @SQLStatement = 
-						'INSERT INTO [' + @ForeignKeyTableSchema + '].[' + @ForeignKeyTable + '] ' +
-						'SELECT * FROM [' + @ForeignKeyTable + '_st] ' +
-						'WHERE [' + @ForeignKeyTable + '_st].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID)
-					EXEC(@SQLStatement)
-				END
-			END
-		END
-		FETCH NEXT FROM RelatedTablesModules 
-		INTO @ForeignKeyTableSchema, @ForeignKeyTable, @ForeignKeyColumn, 
-			@KeyColumn, @ForeignKeyTableID, @KeyTableID,
-			@KeyTableSchema, @KeyTable
-	END
-	CLOSE RelatedTablesModules
-	DEALLOCATE RelatedTablesModules
-			
-	-- Set the module in the correct status
-	UPDATE [rb_Modules]
-	SET [WorkflowState] = 0, -- Original
-	    [LastModified] = [StagingLastModified],
+         ForeignKeyColumn	nvarchar(128),
+         KeyColumn		nvarchar(128),
+         ForeignKeyTableID	int,
+         KeyTableID		int,
+         KeyTableSchema		nvarchar(128),
+         KeyTable		nvarchar(128))
+    INSERT INTO #TMPResults EXEC rb_GetRelatedTables 'rb_Modules'
+    DECLARE RelatedTablesModules CURSOR FOR
+        SELECT 	
+            ForeignKeyTableSchema, 
+            ForeignKeyTable,
+            ForeignKeyColumn,
+            KeyColumn,
+            ForeignKeyTableID,
+            KeyTableID,
+            KeyTableSchema,
+            KeyTable
+        FROM
+            #TMPResults
+        WHERE 
+            ForeignKeyTable <> 'ModuleSettings'
+    -- Create temporary table for later use
+    CREATE TABLE #TMPCount
+        (ResultCount	int)
+    -- Now search the table that hAS the related column
+    OPEN RelatedTablesModules
+    DECLARE @ForeignKeyTableSchema 	nvarchar(128)
+    DECLARE @ForeignKeyTable	nvarchar(128)
+    DECLARE @ForeignKeyColumn	nvarchar(128)
+    DECLARE @KeyColumn		nvarchar(128)
+    DECLARE @ForeignKeyTableID	int
+    DECLARE @KeyTableID		int
+    DECLARE @KeyTableSchema		nvarchar(128)
+    DECLARE @KeyTable		nvarchar(128)
+    DECLARE @SQLStatement		nvarchar(4000)
+    DECLARE @Count			int
+    DECLARE @TableHasIdentityCol	int
+    FETCH NEXT FROM RelatedTablesModules 
+    INTO @ForeignKeyTableSchema, @ForeignKeyTable, @ForeignKeyColumn, 
+        @KeyColumn, @ForeignKeyTableID, @KeyTableID,
+        @KeyTableSchema, @KeyTable
+    
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        -- Check if this table hAS a corresponding staging table
+        TRUNCATE TABLE #TMPCount
+        SET @SQLStatement = 'INSERT INTO #TMPCount SELECT Count(*) FROM [sysobjects] WHERE [id] = OBJECT_ID(N''[' + @ForeignKeyTable + '_st]'') AND OBJECTPROPERTY([id], N''IsUserTable'') = 1'
+        -- PRINT @SQLStatement
+        EXEC(@SQLStatement)
+        SELECT @Count = ResultCount
+            FROM #TMPCount		
+        PRINT @ForeignKeyTable
+        PRINT @Count
+        IF (@Count = 1)
+        BEGIN						
+            -- Check if this table contains the related data
+            TRUNCATE TABLE #TMPCount
+            SET @SQLStatement = 
+                'INSERT INTO #TMPCount ' +
+                'SELECT Count(*) FROM [' + @ForeignKeyTable + '] ' +
+                'WHERE [' + @ForeignKeyTable + '].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID) +
+                'UNION ' +
+                'SELECT Count(*) FROM [' + @ForeignKeyTable + '_st] ' +
+                'WHERE [' + @ForeignKeyTable + '_st].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID) 
+            EXEC(@SQLStatement)
+            SELECT @Count = ResultCount
+                FROM #TMPCount		
+            IF (@Count >= 1) 
+            BEGIN
+                -- This table contains the related data 
+                -- Delete everything in the prod table
+                SET @SQLStatement = 
+                    'DELETE FROM [' + @ForeignKeyTable + '] ' +
+                    'WHERE [' + @ForeignKeyTable + '].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID)
+                PRINT @SQLStatement
+                EXEC(@SQLStatement)
+                -- Copy everything from the staging table to the prod table
+                SET @TableHasIdentityCol = OBJECTPROPERTY(@ForeignKeyTableID, 'TableHasIdentity')
+                IF (@TableHasIdentityCol = 1)
+                BEGIN
+                    -- The table contains a identity column
+                    DECLARE TableColumns CURSOR FOR
+                        SELECT [COLUMN_NAME]
+                        FROM [INFORMATION_SCHEMA].[COLUMNS]
+                        WHERE [TABLE_SCHEMA] = @ForeignKeyTableSchema 
+                            AND [TABLE_NAME] = @ForeignKeyTable
+                        ORDER BY [ORDINAL_POSITION]
+    
+                    OPEN TableColumns
+    
+                    DECLARE @ColumnList	nvarchar(4000)
+                    SET @ColumnList = ''
+                    DECLARE @ColName	nvarchar(128)
+                    DECLARE @ColIsIdentity	int
+    
+                    FETCH NEXT FROM TableColumns
+                    INTO @ColName
+                    
+                    SET @ColIsIdentity = COLUMNPROPERTY(@ForeignKeyTableID, @ColName, 'IsIdentity')
+    
+                    WHILE @@FETCH_STATUS = 0
+                    BEGIN
+                        IF (@ColIsIdentity = 0)
+                            SET @ColumnList = @ColumnList + '[' + @ColName + '] '
+    
+                        FETCH NEXT FROM TableColumns
+                        INTO @ColName
+    
+                        IF (@@FETCH_STATUS = 0)
+                        BEGIN
+                            IF (@ColIsIdentity = 0)
+                            BEGIN
+                                SET @ColIsIdentity = COLUMNPROPERTY(@ForeignKeyTableID, @ColName, 'IsIdentity')
+                                IF (@ColIsIdentity = 0)
+                                    SET @ColumnList = @ColumnList + ', '		
+                            END
+                            ELSE
+                                SET @ColIsIdentity = COLUMNPROPERTY(@ForeignKeyTableID, @ColName, 'IsIdentity')
+                        END
+                    END
+                    
+                    CLOSE TableColumns
+                    DEALLOCATE TableColumns		
+    
+                    SET @SQLStatement = 	
+                        'INSERT INTO [' + @ForeignKeyTableSchema + '].[' + @ForeignKeyTable + '] (' + @ColumnList + ') ' +
+                        'SELECT ' + @ColumnList + ' FROM [' + @ForeignKeyTable + '_st] ' +
+                        'WHERE [' + @ForeignKeyTable + '_st].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID)
+                    -- PRINT @SQLStatement
+                    EXEC(@SQLStatement)
+                END
+                ELSE
+                BEGIN
+                    -- The table doens't contain a identitycolumn
+                    SET @SQLStatement = 
+                        'INSERT INTO [' + @ForeignKeyTableSchema + '].[' + @ForeignKeyTable + '] ' +
+                        'SELECT * FROM [' + @ForeignKeyTable + '_st] ' +
+                        'WHERE [' + @ForeignKeyTable + '_st].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID)
+                    EXEC(@SQLStatement)
+                END
+            END
+        END
+        FETCH NEXT FROM RelatedTablesModules 
+        INTO @ForeignKeyTableSchema, @ForeignKeyTable, @ForeignKeyColumn, 
+            @KeyColumn, @ForeignKeyTableID, @KeyTableID,
+            @KeyTableSchema, @KeyTable
+    END
+    CLOSE RelatedTablesModules
+    DEALLOCATE RelatedTablesModules
+            
+    -- Set the module in the correct status
+    UPDATE [rb_Modules]
+    SET [WorkflowState] = 0, -- Original
+        [LastModified] = [StagingLastModified],
             [LastEditor] = [StagingLastEditor]
-	WHERE [ModuleID] = @ModuleID
-	RETURN
+    WHERE [ModuleID] = @ModuleID
+    RETURN
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_Reject]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -2411,13 +2411,13 @@ DROP PROCEDURE [rb_Reject]
 GO
 
 CREATE PROCEDURE rb_Reject
-	@moduleID	int
+    @moduleID	int
 AS
-	UPDATE	rb_Modules
-	SET
-		WorkflowState = 1 -- Put status back to Working
-	WHERE
-		[ModuleID] = @moduleID
+    UPDATE	rb_Modules
+    SET
+        WorkflowState = 1 -- Put status back to Working
+    WHERE
+        [ModuleID] = @moduleID
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_RequestApproval]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -2425,13 +2425,13 @@ DROP PROCEDURE [rb_RequestApproval]
 GO
 
 CREATE PROCEDURE rb_RequestApproval
-	@moduleID	int
+    @moduleID	int
 AS
-	UPDATE	rb_Modules
-	SET
-		WorkflowState = 2 -- Request Approval
-	WHERE
-		[ModuleID] = @moduleID
+    UPDATE	rb_Modules
+    SET
+        WorkflowState = 2 -- Request Approval
+    WHERE
+        [ModuleID] = @moduleID
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_ModuleEdited]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -2440,29 +2440,29 @@ GO
 
 -- Alter ModuleEdited stored procedure
 CREATE    PROCEDURE rb_ModuleEdited
-	@ModuleID	int
+    @ModuleID	int
 AS
 
-	-- Check if this module supports workflow
-	DECLARE @support	bit
+    -- Check if this module supports workflow
+    DECLARE @support	bit
 
-	SELECT @support = SupportWorkflow
-	FROM rb_Modules
-	WHERE ModuleID = @ModuleID
+    SELECT @support = SupportWorkflow
+    FROM rb_Modules
+    WHERE ModuleID = @ModuleID
 
-	IF ( @support = 1 )
-	BEGIN
-		-- It supports workflow
-		UPDATE rb_Modules
-		SET WorkflowState = 1 -- Working
-		WHERE ModuleID = @ModuleID
-	END
-	ELSE
-		-- It doesn't support workflow
-		EXEC rb_Publish @ModuleID
+    IF ( @support = 1 )
+    BEGIN
+        -- It supports workflow
+        UPDATE rb_Modules
+        SET WorkflowState = 1 -- Working
+        WHERE ModuleID = @ModuleID
+    END
+    ELSE
+        -- It doesn't support workflow
+        EXEC rb_Publish @ModuleID
 
-	/* SET NOCOUNT ON */
-	RETURN
+    /* SET NOCOUNT ON */
+    RETURN
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_Revert]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -2471,170 +2471,170 @@ GO
 
 -- Alter Publish stored procedure
 CREATE    PROCEDURE rb_Revert
-	@ModuleID	int
+    @ModuleID	int
 AS
-	-- First get al list of tables which are related to the Modules table
-	-- Create a temporary table
-	CREATE TABLE #TMPResults
-		(ForeignKeyTableSchema	nvarchar(128),
+    -- First get al list of tables which are related to the Modules table
+    -- Create a temporary table
+    CREATE TABLE #TMPResults
+        (ForeignKeyTableSchema	nvarchar(128),
                  ForeignKeyTable	nvarchar(128),
-		 ForeignKeyColumn	nvarchar(128),
-		 KeyColumn		nvarchar(128),
-		 ForeignKeyTableID	int,
-		 KeyTableID		int,
-		 KeyTableSchema		nvarchar(128),
-		 KeyTable		nvarchar(128))
-	INSERT INTO #TMPResults EXEC rb_GetRelatedTables 'rb_Modules'
-	DECLARE RelatedTablesModules CURSOR FOR
-		SELECT 	
-			ForeignKeyTableSchema, 
-			ForeignKeyTable,
-			ForeignKeyColumn,
-			KeyColumn,
-			ForeignKeyTableID,
-			KeyTableID,
-			KeyTableSchema,
-			KeyTable
-		FROM
-			#TMPResults
-		WHERE 
-			ForeignKeyTable <> 'ModuleSettings'
-	-- Create temporary table for later use
-	CREATE TABLE #TMPCount
-		(ResultCount	int)
-	-- Now search the table that hAS the related column
-	OPEN RelatedTablesModules
-	DECLARE @ForeignKeyTableSchema 	nvarchar(128)
-	DECLARE @ForeignKeyTable	nvarchar(128)
-	DECLARE @ForeignKeyColumn	nvarchar(128)
-	DECLARE @KeyColumn		nvarchar(128)
-	DECLARE @ForeignKeyTableID	int
-	DECLARE @KeyTableID		int
-	DECLARE @KeyTableSchema		nvarchar(128)
-	DECLARE @KeyTable		nvarchar(128)
-	DECLARE @SQLStatement		nvarchar(4000)
-	DECLARE @Count			int
-	DECLARE @TableHasIdentityCol	int
-	FETCH NEXT FROM RelatedTablesModules 
-	INTO @ForeignKeyTableSchema, @ForeignKeyTable, @ForeignKeyColumn, 
-		@KeyColumn, @ForeignKeyTableID, @KeyTableID,
-		@KeyTableSchema, @KeyTable
-	
-	WHILE @@FETCH_STATUS = 0
-	BEGIN
-		-- Check if this table hAS a corresponding staging table
-		TRUNCATE TABLE #TMPCount
-		SET @SQLStatement = 'INSERT INTO #TMPCount SELECT Count(*) FROM [sysobjects] WHERE [id] = OBJECT_ID(N''[' + @ForeignKeyTable + '_st]'') AND OBJECTPROPERTY([id], N''IsUserTable'') = 1'
-		-- PRINT @SQLStatement
-		EXEC(@SQLStatement)
-		SELECT @Count = ResultCount
-			FROM #TMPCount		
-		PRINT @ForeignKeyTable
-		PRINT @Count
-		IF (@Count = 1)
-		BEGIN						
-			-- Check if this table contains the related data
-			TRUNCATE TABLE #TMPCount
-			SET @SQLStatement = 
-				'INSERT INTO #TMPCount ' +
-				'SELECT Count(*) FROM [' + @ForeignKeyTable + '] ' +
-				'WHERE [' + @ForeignKeyTable + '].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID) +
-				'UNION ' +
-				'SELECT Count(*) FROM [' + @ForeignKeyTable + '_st] ' +
-				'WHERE [' + @ForeignKeyTable + '_st].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID) 
-			EXEC(@SQLStatement)
-			SELECT @Count = ResultCount
-				FROM #TMPCount		
-			IF (@Count >= 1) 
-			BEGIN
-				-- This table contains the related data 
-				-- Delete everything in the staging table
-				SET @SQLStatement = 
-					'DELETE FROM [' + @ForeignKeyTable + '_st] ' +
-					'WHERE [' + @ForeignKeyTable + '_st].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID)
-				PRINT @SQLStatement
-				EXEC(@SQLStatement)
-				-- Copy everything from the staging table to the prod table
-				SET @TableHasIdentityCol = OBJECTPROPERTY(@ForeignKeyTableID, 'TableHasIdentity')
-				IF (@TableHasIdentityCol = 1)
-				BEGIN
-					-- The table contains a identity column
-					DECLARE TableColumns CURSOR FOR
-						SELECT [COLUMN_NAME]
-						FROM [INFORMATION_SCHEMA].[COLUMNS]
-						WHERE [TABLE_SCHEMA] = @ForeignKeyTableSchema 
-							AND [TABLE_NAME] = @ForeignKeyTable
-						ORDER BY [ORDINAL_POSITION]
-	
-					OPEN TableColumns
-	
-					DECLARE @ColumnList	nvarchar(4000)
-					SET @ColumnList = ''
-					DECLARE @ColName	nvarchar(128)
-					DECLARE @ColIsIdentity	int
-	
-					FETCH NEXT FROM TableColumns
-					INTO @ColName
-					
-					SET @ColIsIdentity = COLUMNPROPERTY(@ForeignKeyTableID, @ColName, 'IsIdentity')
-	
-					WHILE @@FETCH_STATUS = 0
-					BEGIN
-						IF (@ColIsIdentity = 0)
-							SET @ColumnList = @ColumnList + '[' + @ColName + '] '
-	
-						FETCH NEXT FROM TableColumns
-						INTO @ColName
-	
-						IF (@@FETCH_STATUS = 0)
-						BEGIN
-							IF (@ColIsIdentity = 0)
-							BEGIN
-								SET @ColIsIdentity = COLUMNPROPERTY(@ForeignKeyTableID, @ColName, 'IsIdentity')
-								IF (@ColIsIdentity = 0)
-									SET @ColumnList = @ColumnList + ', '		
-							END
-							ELSE
-								SET @ColIsIdentity = COLUMNPROPERTY(@ForeignKeyTableID, @ColName, 'IsIdentity')
-						END
-					END
-					
-					CLOSE TableColumns
-					DEALLOCATE TableColumns		
-	
-					SET @SQLStatement = 	
-						'INSERT INTO [' + @ForeignKeyTableSchema + '].[' + @ForeignKeyTable + '_st] (' + @ColumnList + ') ' +
-						'SELECT ' + @ColumnList + ' FROM [' + @ForeignKeyTable + '] ' +
-						'WHERE [' + @ForeignKeyTable + '].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID)
-					-- PRINT @SQLStatement
-					EXEC(@SQLStatement)
-				END
-				ELSE
-				BEGIN
-					-- The table doens't contain a identitycolumn
-					SET @SQLStatement = 
-						'INSERT INTO [' + @ForeignKeyTableSchema + '].[' + @ForeignKeyTable + '_st] ' +
-						'SELECT * FROM [' + @ForeignKeyTable + '] ' +
-						'WHERE [' + @ForeignKeyTable + '].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID)
-					EXEC(@SQLStatement)
-				END
-			END
-		END
-		FETCH NEXT FROM RelatedTablesModules 
-		INTO @ForeignKeyTableSchema, @ForeignKeyTable, @ForeignKeyColumn, 
-			@KeyColumn, @ForeignKeyTableID, @KeyTableID,
-			@KeyTableSchema, @KeyTable
-	END
-	CLOSE RelatedTablesModules
-	DEALLOCATE RelatedTablesModules
-			
-	-- Set the module in the correct status
-	UPDATE [rb_Modules]
-	SET [WorkflowState] = 0, -- Original
-	    [LastModified] = [StagingLastModified],
+         ForeignKeyColumn	nvarchar(128),
+         KeyColumn		nvarchar(128),
+         ForeignKeyTableID	int,
+         KeyTableID		int,
+         KeyTableSchema		nvarchar(128),
+         KeyTable		nvarchar(128))
+    INSERT INTO #TMPResults EXEC rb_GetRelatedTables 'rb_Modules'
+    DECLARE RelatedTablesModules CURSOR FOR
+        SELECT 	
+            ForeignKeyTableSchema, 
+            ForeignKeyTable,
+            ForeignKeyColumn,
+            KeyColumn,
+            ForeignKeyTableID,
+            KeyTableID,
+            KeyTableSchema,
+            KeyTable
+        FROM
+            #TMPResults
+        WHERE 
+            ForeignKeyTable <> 'ModuleSettings'
+    -- Create temporary table for later use
+    CREATE TABLE #TMPCount
+        (ResultCount	int)
+    -- Now search the table that hAS the related column
+    OPEN RelatedTablesModules
+    DECLARE @ForeignKeyTableSchema 	nvarchar(128)
+    DECLARE @ForeignKeyTable	nvarchar(128)
+    DECLARE @ForeignKeyColumn	nvarchar(128)
+    DECLARE @KeyColumn		nvarchar(128)
+    DECLARE @ForeignKeyTableID	int
+    DECLARE @KeyTableID		int
+    DECLARE @KeyTableSchema		nvarchar(128)
+    DECLARE @KeyTable		nvarchar(128)
+    DECLARE @SQLStatement		nvarchar(4000)
+    DECLARE @Count			int
+    DECLARE @TableHasIdentityCol	int
+    FETCH NEXT FROM RelatedTablesModules 
+    INTO @ForeignKeyTableSchema, @ForeignKeyTable, @ForeignKeyColumn, 
+        @KeyColumn, @ForeignKeyTableID, @KeyTableID,
+        @KeyTableSchema, @KeyTable
+    
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        -- Check if this table hAS a corresponding staging table
+        TRUNCATE TABLE #TMPCount
+        SET @SQLStatement = 'INSERT INTO #TMPCount SELECT Count(*) FROM [sysobjects] WHERE [id] = OBJECT_ID(N''[' + @ForeignKeyTable + '_st]'') AND OBJECTPROPERTY([id], N''IsUserTable'') = 1'
+        -- PRINT @SQLStatement
+        EXEC(@SQLStatement)
+        SELECT @Count = ResultCount
+            FROM #TMPCount		
+        PRINT @ForeignKeyTable
+        PRINT @Count
+        IF (@Count = 1)
+        BEGIN						
+            -- Check if this table contains the related data
+            TRUNCATE TABLE #TMPCount
+            SET @SQLStatement = 
+                'INSERT INTO #TMPCount ' +
+                'SELECT Count(*) FROM [' + @ForeignKeyTable + '] ' +
+                'WHERE [' + @ForeignKeyTable + '].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID) +
+                'UNION ' +
+                'SELECT Count(*) FROM [' + @ForeignKeyTable + '_st] ' +
+                'WHERE [' + @ForeignKeyTable + '_st].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID) 
+            EXEC(@SQLStatement)
+            SELECT @Count = ResultCount
+                FROM #TMPCount		
+            IF (@Count >= 1) 
+            BEGIN
+                -- This table contains the related data 
+                -- Delete everything in the staging table
+                SET @SQLStatement = 
+                    'DELETE FROM [' + @ForeignKeyTable + '_st] ' +
+                    'WHERE [' + @ForeignKeyTable + '_st].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID)
+                PRINT @SQLStatement
+                EXEC(@SQLStatement)
+                -- Copy everything from the staging table to the prod table
+                SET @TableHasIdentityCol = OBJECTPROPERTY(@ForeignKeyTableID, 'TableHasIdentity')
+                IF (@TableHasIdentityCol = 1)
+                BEGIN
+                    -- The table contains a identity column
+                    DECLARE TableColumns CURSOR FOR
+                        SELECT [COLUMN_NAME]
+                        FROM [INFORMATION_SCHEMA].[COLUMNS]
+                        WHERE [TABLE_SCHEMA] = @ForeignKeyTableSchema 
+                            AND [TABLE_NAME] = @ForeignKeyTable
+                        ORDER BY [ORDINAL_POSITION]
+    
+                    OPEN TableColumns
+    
+                    DECLARE @ColumnList	nvarchar(4000)
+                    SET @ColumnList = ''
+                    DECLARE @ColName	nvarchar(128)
+                    DECLARE @ColIsIdentity	int
+    
+                    FETCH NEXT FROM TableColumns
+                    INTO @ColName
+                    
+                    SET @ColIsIdentity = COLUMNPROPERTY(@ForeignKeyTableID, @ColName, 'IsIdentity')
+    
+                    WHILE @@FETCH_STATUS = 0
+                    BEGIN
+                        IF (@ColIsIdentity = 0)
+                            SET @ColumnList = @ColumnList + '[' + @ColName + '] '
+    
+                        FETCH NEXT FROM TableColumns
+                        INTO @ColName
+    
+                        IF (@@FETCH_STATUS = 0)
+                        BEGIN
+                            IF (@ColIsIdentity = 0)
+                            BEGIN
+                                SET @ColIsIdentity = COLUMNPROPERTY(@ForeignKeyTableID, @ColName, 'IsIdentity')
+                                IF (@ColIsIdentity = 0)
+                                    SET @ColumnList = @ColumnList + ', '		
+                            END
+                            ELSE
+                                SET @ColIsIdentity = COLUMNPROPERTY(@ForeignKeyTableID, @ColName, 'IsIdentity')
+                        END
+                    END
+                    
+                    CLOSE TableColumns
+                    DEALLOCATE TableColumns		
+    
+                    SET @SQLStatement = 	
+                        'INSERT INTO [' + @ForeignKeyTableSchema + '].[' + @ForeignKeyTable + '_st] (' + @ColumnList + ') ' +
+                        'SELECT ' + @ColumnList + ' FROM [' + @ForeignKeyTable + '] ' +
+                        'WHERE [' + @ForeignKeyTable + '].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID)
+                    -- PRINT @SQLStatement
+                    EXEC(@SQLStatement)
+                END
+                ELSE
+                BEGIN
+                    -- The table doens't contain a identitycolumn
+                    SET @SQLStatement = 
+                        'INSERT INTO [' + @ForeignKeyTableSchema + '].[' + @ForeignKeyTable + '_st] ' +
+                        'SELECT * FROM [' + @ForeignKeyTable + '] ' +
+                        'WHERE [' + @ForeignKeyTable + '].[' + @ForeignKeyColumn + '] = ' + CONVERT(varchar(20), @ModuleID)
+                    EXEC(@SQLStatement)
+                END
+            END
+        END
+        FETCH NEXT FROM RelatedTablesModules 
+        INTO @ForeignKeyTableSchema, @ForeignKeyTable, @ForeignKeyColumn, 
+            @KeyColumn, @ForeignKeyTableID, @KeyTableID,
+            @KeyTableSchema, @KeyTable
+    END
+    CLOSE RelatedTablesModules
+    DEALLOCATE RelatedTablesModules
+            
+    -- Set the module in the correct status
+    UPDATE [rb_Modules]
+    SET [WorkflowState] = 0, -- Original
+        [LastModified] = [StagingLastModified],
             [LastEditor] = [StagingLastEditor]
-	WHERE [ModuleID] = @ModuleID
-	RETURN
+    WHERE [ModuleID] = @ModuleID
+    RETURN
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_UpdateGeneralModuleDefinitions]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -2643,26 +2643,26 @@ GO
 
 /* PROCEDURE rb_UpdateGeneralModuleDefinitions*/
 CREATE PROCEDURE rb_UpdateGeneralModuleDefinitions
-	@GeneralModDefID uniqueidentifier,
-	@FriendlyName nvarchar(128),
-	@DesktopSrc nvarchar(256),
-	@MobileSrc nvarchar(256),
-	@AssemblyName varchar(50),
-	@ClassName nvarchar(128),
-	@Admin bit,
-	@Searchable bit
+    @GeneralModDefID uniqueidentifier,
+    @FriendlyName nvarchar(128),
+    @DesktopSrc nvarchar(256),
+    @MobileSrc nvarchar(256),
+    @AssemblyName varchar(50),
+    @ClassName nvarchar(128),
+    @Admin bit,
+    @Searchable bit
 AS
 UPDATE rb_GeneralModuleDefinitions
 SET
-	FriendlyName = @FriendlyName,
-	DesktopSrc = @DesktopSrc,
-	MobileSrc = @MobileSrc,
-	AssemblyName = @AssemblyName,
-	ClassName = @ClassName,
-	Admin = @Admin,
-	Searchable = @Searchable
+    FriendlyName = @FriendlyName,
+    DesktopSrc = @DesktopSrc,
+    MobileSrc = @MobileSrc,
+    AssemblyName = @AssemblyName,
+    ClassName = @ClassName,
+    Admin = @Admin,
+    Searchable = @Searchable
 WHERE
-	GeneralModDefID = @GeneralModDefID
+    GeneralModDefID = @GeneralModDefID
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_UpdateModule]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -2731,41 +2731,41 @@ CREATE PROCEDURE rb_UpdateModuleDefinitions
 AS
 if (@PortalID = -2)
 BEGIN
-	IF (@ischecked = 0)
-		DELETE FROM rb_ModuleDefinitions WHERE
+    IF (@ischecked = 0)
+        DELETE FROM rb_ModuleDefinitions WHERE
                 rb_ModuleDefinitions.GeneralModDefID = @GeneralModDefID
-		AND rb_ModuleDefinitions.ModuleDefID NOT IN (SELECT ModuleDefID FROM rb_Modules) --module is not in use
-	ELSE 
-		
-	INSERT INTO rb_ModuleDefinitions (PortalID, GeneralModDefID)
-	       (
-		SELECT rb_Portals.PortalID, rb_GeneralModuleDefinitions.GeneralModDefID
-		FROM   rb_Portals CROSS JOIN rb_GeneralModuleDefinitions
-		WHERE rb_GeneralModuleDefinitions.GeneralModDefID = @GeneralModDefID 
-	              AND PortalID >= 0
-	              AND rb_Portals.PortalID NOT IN (SELECT PortalID FROM rb_ModuleDefinitions WHERE rb_ModuleDefinitions.GeneralModDefID = rb_GeneralModuleDefinitions.GeneralModDefID)
-		)
+        AND rb_ModuleDefinitions.ModuleDefID NOT IN (SELECT ModuleDefID FROM rb_Modules) --module is not in use
+    ELSE 
+        
+    INSERT INTO rb_ModuleDefinitions (PortalID, GeneralModDefID)
+           (
+        SELECT rb_Portals.PortalID, rb_GeneralModuleDefinitions.GeneralModDefID
+        FROM   rb_Portals CROSS JOIN rb_GeneralModuleDefinitions
+        WHERE rb_GeneralModuleDefinitions.GeneralModDefID = @GeneralModDefID 
+                  AND PortalID >= 0
+                  AND rb_Portals.PortalID NOT IN (SELECT PortalID FROM rb_ModuleDefinitions WHERE rb_ModuleDefinitions.GeneralModDefID = rb_GeneralModuleDefinitions.GeneralModDefID)
+        )
 END
 ELSE --PortalID <> -2
 BEGIN
 IF (@ischecked = 0)
-	/*DELETE IF CLEARED */
-	DELETE FROM rb_ModuleDefinitions WHERE rb_ModuleDefinitions.GeneralModDefID = @GeneralModDefID AND PortalID = @PortalID
-	
+    /*DELETE IF CLEARED */
+    DELETE FROM rb_ModuleDefinitions WHERE rb_ModuleDefinitions.GeneralModDefID = @GeneralModDefID AND PortalID = @PortalID
+    
 ELSE
 IF NOT (EXISTS (SELECT ModuleDefID FROM rb_ModuleDefinitions WHERE GeneralModDefID = @GeneralModDefID AND PortalID = @PortalID))
-	/* ADD IF CHECKED */
+    /* ADD IF CHECKED */
 BEGIN
-			INSERT INTO rb_ModuleDefinitions
-			(
-				PortalID,
-				GeneralModDefID
-			)
-			VALUES
-			(
-				@PortalID,
-				@GeneralModDefID
-			)
+            INSERT INTO rb_ModuleDefinitions
+            (
+                PortalID,
+                GeneralModDefID
+            )
+            VALUES
+            (
+                @PortalID,
+                @GeneralModDefID
+            )
 END
 END
 GO
@@ -2921,12 +2921,12 @@ IF UPPER(@OldRoleName) <> 'ADMINS'  --we don't change the name of the 'Admins' r
     REPLACE(rb_Modules.AuthorizedViewRoles, @OldRoleName, @RoleName) AS AuthorizedViewRoles,
     REPLACE(rb_Modules.AuthorizedDeleteRoles, @OldRoleName, @RoleName) AS AuthorizedDeleteRoles,
     REPLACE(rb_Modules.AuthorizedPropertiesRoles, @OldRoleName, @RoleName) AS AuthorizedPropertiesRoles
-	INTO #MyTemp
-	FROM rb_Modules
-	INNER JOIN rb_Tabs ON rb_Tabs.TabID = rb_Modules.TabID
-	INNER JOIN rb_Roles ON rb_Tabs.PortalID = rb_Roles.PortalID
-	WHERE rb_Roles.RoleID = @RoleID
-		AND rb_Tabs.TabID = rb_Modules.TabID
+    INTO #MyTemp
+    FROM rb_Modules
+    INNER JOIN rb_Tabs ON rb_Tabs.TabID = rb_Modules.TabID
+    INNER JOIN rb_Roles ON rb_Tabs.PortalID = rb_Roles.PortalID
+    WHERE rb_Roles.RoleID = @RoleID
+        AND rb_Tabs.TabID = rb_Modules.TabID
 
   --SELECT #MyTemp.ModuleID, #MyTemp.AuthorizedEditRoles FROM #MyTemp  --Used in testing
 
@@ -3026,12 +3026,12 @@ WHERE
 --Create a Temporary table to hold the tabs
 CREATE TABLE #TabTree
 (
-	[TabID] [int],
-	[TabName] [nvarchar] (50),
-	[ParentTabID] [int],
-	[TabOrder] [int],
-	[NestLevel] [int],
-	[TreeOrder] [varchar] (1000)
+    [TabID] [int],
+    [TabName] [nvarchar] (50),
+    [ParentTabID] [int],
+    [TabOrder] [int],
+    [NestLevel] [int],
+    [TreeOrder] [varchar] (1000)
 )
 SET NOCOUNT ON	-- Turn off echo of "... row(s) affected"
 DECLARE @LastLevel smallint
@@ -3039,11 +3039,11 @@ SET @LastLevel = 0
 -- First, the parent Levels
 INSERT INTO	#TabTree
 SELECT 	TabID,
-	TabName,
-	ParentTabID,
-	TabOrder,
-	0,
-	cast(100000000 + TabOrder AS varchar)
+    TabName,
+    ParentTabID,
+    TabOrder,
+    0,
+    cast(100000000 + TabOrder AS varchar)
 FROM	rb_Tabs
 WHERE	ParentTabID IS NULL AND PortalID =@PortalID
 ORDER BY TabOrder
@@ -3052,23 +3052,23 @@ WHILE (@@rowcount > 0)
 BEGIN
   SET @LastLevel = @LastLevel + 1
   INSERT 	#TabTree (TabID, TabName, ParentTabID, TabOrder, NestLevel, TreeOrder) 
-		SELECT 	rb_Tabs.TabID,
-			Replicate('-', @LastLevel *2) + rb_Tabs.TabName,
-			rb_Tabs.ParentTabID,
-			rb_Tabs.TabOrder,
-			@LastLevel,
-			cast(#TabTree.TreeOrder AS varchar) + '.' + cast(100000000 + rb_Tabs.TabOrder AS varchar)
-		FROM	rb_Tabs join #TabTree on rb_Tabs.ParentTabID= #TabTree.TabID
-		WHERE	EXISTS (SELECT 'X' FROM #TabTree WHERE TabID = rb_Tabs.ParentTabID AND NestLevel = @LastLevel - 1)
-		 AND PortalID =@PortalID
-		ORDER BY #TabTree.TabOrder
+        SELECT 	rb_Tabs.TabID,
+            Replicate('-', @LastLevel *2) + rb_Tabs.TabName,
+            rb_Tabs.ParentTabID,
+            rb_Tabs.TabOrder,
+            @LastLevel,
+            cast(#TabTree.TreeOrder AS varchar) + '.' + cast(100000000 + rb_Tabs.TabOrder AS varchar)
+        FROM	rb_Tabs join #TabTree on rb_Tabs.ParentTabID= #TabTree.TabID
+        WHERE	EXISTS (SELECT 'X' FROM #TabTree WHERE TabID = rb_Tabs.ParentTabID AND NestLevel = @LastLevel - 1)
+         AND PortalID =@PortalID
+        ORDER BY #TabTree.TabOrder
 END
 --Check that the Tab is found in the Tree.  If it is not then we abort the Update
 IF NOT EXISTS (SELECT TabID from #TabTree WHERE TabID=@TabID)
 BEGIN
-	ROLLBACK TRAN
-	--If we want to modify the TabLayout code then we can throw an error AND catch it.
-	RAISERROR('Not allowed to choose that parent.',11,1)
+    ROLLBACK TRAN
+    --If we want to modify the TabLayout code then we can throw an error AND catch it.
+    RAISERROR('Not allowed to choose that parent.',11,1)
 END
 ELSE
 COMMIT TRAN
@@ -3175,38 +3175,38 @@ IF  (
 BEGIN
     -- Transacted insert for download count
     BEGIN TRAN
-	INSERT INTO rb_UserDesktop (
-	    UserID,
-	    ModuleID,
-	    TabID,
-	    PortalID,
-	    State
-	) 
-	VALUES (
-	    @UserID,
-	    @ModuleID,
-	    @TabID,
-	    @PortalID,
-	    @WindowState
-	
-	)
+    INSERT INTO rb_UserDesktop (
+        UserID,
+        ModuleID,
+        TabID,
+        PortalID,
+        State
+    ) 
+    VALUES (
+        @UserID,
+        @ModuleID,
+        @TabID,
+        @PortalID,
+        @WindowState
+    
+    )
     COMMIT TRAN
 END
 ELSE
 BEGIN
     -- Transacted insert for download count
     BEGIN TRAN
-	UPDATE
-	    rb_UserDesktop
-	
-	SET
-	    UserID=  @UserID,
-	    ModuleID=@ModuleID,
-	    TabID=@TabID,
-	    PortalID=@PortalID,
-	    State=@WindowState
-	WHERE
-	        UserID = @UserID AND  TabID = @TabID AND PortalID = @PortalID AND   ModuleID=@ModuleID
+    UPDATE
+        rb_UserDesktop
+    
+    SET
+        UserID=  @UserID,
+        ModuleID=@ModuleID,
+        TabID=@TabID,
+        PortalID=@PortalID,
+        State=@WindowState
+    WHERE
+            UserID = @UserID AND  TabID = @TabID AND PortalID = @PortalID AND   ModuleID=@ModuleID
      COMMIT TRAN
 END
 GO
@@ -3233,135 +3233,135 @@ CREATE PROCEDURE rb_UpdateUserFull
     @Password	    nvarchar(20),
     @SendNewsletter	bit,
     @CountryID		nchar(2),  
-	@StateID		int
+    @StateID		int
 )
 AS
 -- 1774 fix
 -- Get password if not set
 If (len(@Password) <= 0)
-	BEGIN
-		SELECT @Password = (SELECT Password from rb_Users WHERE UserID = @OldUserID)
-	END
-	
-	
+    BEGIN
+        SELECT @Password = (SELECT Password from rb_Users WHERE UserID = @OldUserID)
+    END
+    
+    
 DECLARE @err_message nvarchar(255)
-	
+    
 -- Normal update
 if (@OldUserID = @UserID)
-	BEGIN
-		UPDATE rb_Users
+    BEGIN
+        UPDATE rb_Users
 
-		SET
-		PortalID = @PortalID,
-		Name = @Name,
-		Company = @Company,
-		Address = @Address,		
-		City = @City,		
-		Zip = @Zip,		
-		Phone = @Phone,		
-		Fax = @Fax,		
-		PIva = @PIva,		
-		CFiscale = @CFiscale,	
-		Email = @Email,		
-		Password = @Password,
-		SendNewsletter = @SendNewsletter,
-		CountryID = @CountryID,
-		StateID = @StateID
+        SET
+        PortalID = @PortalID,
+        Name = @Name,
+        Company = @Company,
+        Address = @Address,		
+        City = @City,		
+        Zip = @Zip,		
+        Phone = @Phone,		
+        Fax = @Fax,		
+        PIva = @PIva,		
+        CFiscale = @CFiscale,	
+        Email = @Email,		
+        Password = @Password,
+        SendNewsletter = @SendNewsletter,
+        CountryID = @CountryID,
+        StateID = @StateID
 
-		WHERE UserID = @UserID
-	END
+        WHERE UserID = @UserID
+    END
 ELSE
-	BEGIN
-		--if user found with same number return SEV 11 error to abort stored procedure
-		IF EXISTS (SELECT UserID FROM rb_Users WHERE UserID = @UserID)
-			BEGIN	
-			SET @err_message = 'The number ' + Convert(varchar(20), @UserID) + ' is already in use!'
-			RAISERROR (@err_message, 11,1)
-			RETURN
-			END
-		
-		-- Wrap on transaction
-		BEGIN TRANSACTION
+    BEGIN
+        --if user found with same number return SEV 11 error to abort stored procedure
+        IF EXISTS (SELECT UserID FROM rb_Users WHERE UserID = @UserID)
+            BEGIN	
+            SET @err_message = 'The number ' + Convert(varchar(20), @UserID) + ' is already in use!'
+            RAISERROR (@err_message, 11,1)
+            RETURN
+            END
+        
+        -- Wrap on transaction
+        BEGIN TRANSACTION
 
-		-- Allow Identity change
-		SET IDENTITY_INSERT rb_Users ON
+        -- Allow Identity change
+        SET IDENTITY_INSERT rb_Users ON
 
-		--Insert record as changed one
-		INSERT INTO rb_Users
-		(
-			UserID,
-			PortalID,
-			Name,
-			Company,
-			Address,		
-			City,		
-			Zip,		
-			Phone,		
-			Fax,		
-			PIva,		
-			CFiscale,	
-			Email,		
-			Password,
-			SendNewsletter,
-			CountryID,
-			StateID
-		)
+        --Insert record as changed one
+        INSERT INTO rb_Users
+        (
+            UserID,
+            PortalID,
+            Name,
+            Company,
+            Address,		
+            City,		
+            Zip,		
+            Phone,		
+            Fax,		
+            PIva,		
+            CFiscale,	
+            Email,		
+            Password,
+            SendNewsletter,
+            CountryID,
+            StateID
+        )
 
-		VALUES
-		(
-			@UserID,
-			@PortalID,
-			@Name,
-			@Company,
-			@Address,	
-			@City,	
-			@Zip,	
-			@Phone,	
-			@Fax,	
-			@PIva,	
-			@CFiscale,
-			@Email + CAST(RAND( (DATEPART(mm, GETDATE()) * 100000 ) + (DATEPART(ss, GETDATE()) * 1000 ) + DATEPART(ms, GETDATE()) ) AS VARCHAR(20)),
-			@Password,
-			@SendNewsletter,
-			@CountryID,
-			@StateID
-		)
-		
-		-- Restore identity off
-		SET IDENTITY_INSERT rb_Users OFF
+        VALUES
+        (
+            @UserID,
+            @PortalID,
+            @Name,
+            @Company,
+            @Address,	
+            @City,	
+            @Zip,	
+            @Phone,	
+            @Fax,	
+            @PIva,	
+            @CFiscale,
+            @Email + CAST(RAND( (DATEPART(mm, GETDATE()) * 100000 ) + (DATEPART(ss, GETDATE()) * 1000 ) + DATEPART(ms, GETDATE()) ) AS VARCHAR(20)),
+            @Password,
+            @SendNewsletter,
+            @CountryID,
+            @StateID
+        )
+        
+        -- Restore identity off
+        SET IDENTITY_INSERT rb_Users OFF
 
-		--Migrate Roles
+        --Migrate Roles
                 INSERT INTO rb_UserRoles (UserID, RoleID) (SELECT @UserID UID, rb_UserRoles.RoleID FROM rb_UserRoles WHERE rb_UserRoles.UserID = @OldUserID)
 
-		-- Remove the old one
-		DELETE rb_Users  WHERE UserID = @OldUserID
-	
-		-- Update user with correct email
-		BEGIN
-			UPDATE rb_Users
-	
-			SET
-			PortalID = @PortalID,
-			Name = @Name,
-			Company = @Company,
-			Address = @Address,		
-			City = @City,		
-			Zip = @Zip,		
-			Phone = @Phone,		
-			Fax = @Fax,		
-			PIva = @PIva,		
-			CFiscale = @CFiscale,	
-			Email = @Email,		
-			Password = @Password,
-			SendNewsletter = @SendNewsletter,
-			CountryID = @CountryID,
-			StateID = @StateID
-	
-			WHERE UserID = @UserID
-		END
+        -- Remove the old one
+        DELETE rb_Users  WHERE UserID = @OldUserID
+    
+        -- Update user with correct email
+        BEGIN
+            UPDATE rb_Users
+    
+            SET
+            PortalID = @PortalID,
+            Name = @Name,
+            Company = @Company,
+            Address = @Address,		
+            City = @City,		
+            Zip = @Zip,		
+            Phone = @Phone,		
+            Fax = @Fax,		
+            PIva = @PIva,		
+            CFiscale = @CFiscale,	
+            Email = @Email,		
+            Password = @Password,
+            SendNewsletter = @SendNewsletter,
+            CountryID = @CountryID,
+            StateID = @StateID
+    
+            WHERE UserID = @UserID
+        END
 
-		COMMIT
-	END
+        COMMIT
+    END
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_DeleteUserDeskTop]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -3404,8 +3404,8 @@ CREATE PROCEDURE rb_UpdateUserFullNoPassword
     @CFiscale	    nvarchar(16),
     @Email		    nvarchar(100),
     @SendNewsletter	bit,
-	@CountryID	nchar(2),  
-	@StateID		int
+    @CountryID	nchar(2),  
+    @StateID		int
 )
 AS
 UPDATE rb_Users
@@ -3459,7 +3459,7 @@ AS
 SELECT rb_Users.UserID, rb_Users.Name, rb_Users.Email
 FROM   rb_Users
 WHERE
-	rb_Users.UserID = @UserID AND rb_Users.Password = @Password AND rb_Users.PortalID = @PortalID
+    rb_Users.UserID = @UserID AND rb_Users.Password = @Password AND rb_Users.PortalID = @PortalID
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_UpdateUser]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -3468,7 +3468,7 @@ GO
 
 CREATE PROCEDURE rb_UpdateUser
 (
-	@PortalID		int,
+    @PortalID		int,
     @UserID         int,
     @Name			nvarchar(50),
     @Email          nvarchar(100),
@@ -3514,8 +3514,8 @@ GO
 
 CREATE PROCEDURE rb_ModulesUpgradeOldToNew
 (
-	@OldModuleGuid uniqueidentifier,
-	@NewModuleGuid uniqueidentifier
+    @OldModuleGuid uniqueidentifier,
+    @NewModuleGuid uniqueidentifier
 )
 /* 
 This procedure replaces all instances of the old module with the new one
@@ -3549,38 +3549,38 @@ DROP PROCEDURE [rb_SetLastModified]
 GO
 
 CREATE PROCEDURE rb_SetLastModified
-	(
-		@ModuleID int,
-		@LastModifiedBy	nvarchar(256)
-	)
+    (
+        @ModuleID int,
+        @LastModifiedBy	nvarchar(256)
+    )
 AS
 
-	-- Check if this module supports workflow
-	DECLARE @support	bit
+    -- Check if this module supports workflow
+    DECLARE @support	bit
 
-	SELECT @support = SupportWorkflow
-	FROM rb_Modules
-	WHERE ModuleID = @ModuleID
+    SELECT @support = SupportWorkflow
+    FROM rb_Modules
+    WHERE ModuleID = @ModuleID
 
-	IF ( @support = 1 )
-	BEGIN
-		-- It supports workflow
-		UPDATE rb_Modules
-		SET StagingLastModified = getdate(),
+    IF ( @support = 1 )
+    BEGIN
+        -- It supports workflow
+        UPDATE rb_Modules
+        SET StagingLastModified = getdate(),
                     StagingLastEditor = @LastModifiedBy
-		WHERE ModuleID = @ModuleID
-	END
-	ELSE
-		-- It doesn't support workflow
-		UPDATE rb_Modules
-		SET LastModified = getdate(),
+        WHERE ModuleID = @ModuleID
+    END
+    ELSE
+        -- It doesn't support workflow
+        UPDATE rb_Modules
+        SET LastModified = getdate(),
                     LastEditor = @LastModifiedBy,
-		    StagingLastModified = getdate(),
-		    StagingLastEditor = @LastModifiedBy
-		WHERE ModuleID = @ModuleID
+            StagingLastModified = getdate(),
+            StagingLastEditor = @LastModifiedBy
+        WHERE ModuleID = @ModuleID
 
-	/* SET NOCOUNT ON */
-	RETURN
+    /* SET NOCOUNT ON */
+    RETURN
 GO
 
 --PORTALS
@@ -3605,12 +3605,12 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_Solutions]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_Solutions] (
-	[SolutionsID] [int] IDENTITY (1, 1) NOT NULL ,
-	[SolDescription] [nvarchar] (100) COLLATE Latin1_General_CI_AS NOT NULL ,
-	CONSTRAINT [PK_rb_Solutions] PRIMARY KEY  CLUSTERED 
-	(
-		[SolutionsID]
-	)
+    [SolutionsID] [int] IDENTITY (1, 1) NOT NULL ,
+    [SolDescription] [nvarchar] (100) COLLATE Latin1_General_CI_AS NOT NULL ,
+    CONSTRAINT [PK_rb_Solutions] PRIMARY KEY  CLUSTERED 
+    (
+        [SolutionsID]
+    )
 )
 END
 GO
@@ -3662,25 +3662,25 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[rb_SolutionModuleDefinitions]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_SolutionModuleDefinitions] (
-	[SolutionModDefID] [int] IDENTITY (1, 1) NOT NULL ,
-	[GeneralModDefID] [uniqueidentifier] NOT NULL ,
-	[SolutionsID] [int] NOT NULL ,
-	CONSTRAINT [PK_rb_SolutionModuleDefintions] PRIMARY KEY  CLUSTERED 
-	(
-		[SolutionModDefID]
-	),
-	CONSTRAINT [FK_rb_SolutionModuleDefinitions_rb_GeneralModuleDefinitions] FOREIGN KEY 
-	(
-		[GeneralModDefID]
-	) REFERENCES [rb_GeneralModuleDefinitions] (
-		[GeneralModDefID]
-	),
-	CONSTRAINT [FK_rb_SolutionModuleDefintions_rb_Solutions] FOREIGN KEY 
-	(
-		[SolutionsID]
-	) REFERENCES [rb_Solutions] (
-		[SolutionsID]
-	)
+    [SolutionModDefID] [int] IDENTITY (1, 1) NOT NULL ,
+    [GeneralModDefID] [uniqueidentifier] NOT NULL ,
+    [SolutionsID] [int] NOT NULL ,
+    CONSTRAINT [PK_rb_SolutionModuleDefintions] PRIMARY KEY  CLUSTERED 
+    (
+        [SolutionModDefID]
+    ),
+    CONSTRAINT [FK_rb_SolutionModuleDefinitions_rb_GeneralModuleDefinitions] FOREIGN KEY 
+    (
+        [GeneralModDefID]
+    ) REFERENCES [rb_GeneralModuleDefinitions] (
+        [GeneralModDefID]
+    ),
+    CONSTRAINT [FK_rb_SolutionModuleDefintions_rb_Solutions] FOREIGN KEY 
+    (
+        [SolutionsID]
+    ) REFERENCES [rb_Solutions] (
+        [SolutionsID]
+    )
 )
 END
 GO
@@ -3729,7 +3729,7 @@ SELECT
 FROM
     rb_ModuleDefinitions
 INNER JOIN
-	rb_GeneralModuleDefinitions ON rb_ModuleDefinitions.GeneralModDefID = rb_GeneralModuleDefinitions.GeneralModDefID
+    rb_GeneralModuleDefinitions ON rb_ModuleDefinitions.GeneralModDefID = rb_GeneralModuleDefinitions.GeneralModDefID
 WHERE   
     rb_ModuleDefinitions.PortalID = @PortalID
 ORDER BY
@@ -3764,14 +3764,14 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects SO INNER JOIN syscolumns SC ON SO.id=SC.id WHERE SO.id = OBJECT_ID(N'[rb_Modules]') AND OBJECTPROPERTY(SO.id, N'IsUserTable') = 1 AND SC.name=N'AuthorizedMoveModuleRoles')
 BEGIN
 ALTER TABLE [rb_Modules] WITH NOCHECK ADD 
-	[AuthorizedMoveModuleRoles] [nvarchar] (256) NULL 
+    [AuthorizedMoveModuleRoles] [nvarchar] (256) NULL 
 END
 GO
 
 IF NOT EXISTS (SELECT * FROM sysobjects SO INNER JOIN syscolumns SC ON SO.id=SC.id WHERE SO.id = OBJECT_ID(N'[rb_Modules]') AND OBJECTPROPERTY(SO.id, N'IsUserTable') = 1 AND SC.name=N'AuthorizedDeleteModuleRoles')
 BEGIN
 ALTER TABLE [rb_Modules] WITH NOCHECK ADD 
-	[AuthorizedDeleteModuleRoles] [nvarchar] (256) NULL 
+    [AuthorizedDeleteModuleRoles] [nvarchar] (256) NULL 
 END
 GO
 
