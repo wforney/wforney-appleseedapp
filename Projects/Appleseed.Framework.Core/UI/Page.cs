@@ -1,10 +1,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Page.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   TODO: this class needs a better write-up ;-)
-//   A template page useful for constructing custom edit pages for module settings.<br />
+//   A template page useful for constructing custom edit pages for module settings.
 //   Encapsulates some common code including: module id,
 //   portalSettings and settings, referrer redirection, edit permission,
 //   cancel event, etc.
@@ -121,7 +121,7 @@ namespace Appleseed.Framework.Web.UI
         /// <summary>
         ///   The module settings.
         /// </summary>
-        private Hashtable _moduleSettings;
+        private Dictionary<string, ISettingItem> _moduleSettings;
 
         /*
                 /// <summary>
@@ -158,7 +158,7 @@ namespace Appleseed.Framework.Web.UI
         /// <summary>
         /// The page.
         /// </summary>
-        private Hashtable page;
+        private Dictionary<string, ISettingItem> page;
 
         /// <summary>
         ///   The page meta description.
@@ -606,7 +606,7 @@ namespace Appleseed.Framework.Web.UI
         ///   Stores current module settings
         /// </summary>
         /// <value>The module settings.</value>
-        public Hashtable moduleSettings
+        public Dictionary<string, ISettingItem> moduleSettings
         {
             get
             {
@@ -614,7 +614,7 @@ namespace Appleseed.Framework.Web.UI
                 // Or provides an empty hash table
                 return this._moduleSettings ??
                        (this._moduleSettings =
-                        this.ModuleID > 0 ? ModuleSettings.GetModuleSettings(this.ModuleID, this) : new Hashtable());
+                        this.ModuleID > 0 ? ModuleSettings.GetModuleSettings(this.ModuleID, this) : new Dictionary<string, ISettingItem>());
             }
         }
 
@@ -622,7 +622,7 @@ namespace Appleseed.Framework.Web.UI
         ///   Stores current tab settings
         /// </summary>
         /// <value>The page settings.</value>
-        public Hashtable pageSettings
+        public Dictionary<string, ISettingItem> pageSettings
         {
             get
             {
@@ -631,7 +631,7 @@ namespace Appleseed.Framework.Web.UI
                                                  // _Page = Page.GetPageCustomSettings(PageID);
                                                  this.portalSettings.ActivePage.GetPageCustomSettings(this.PageID)
                                                      : // Or provides an empty hash table
-                                                 new Hashtable());
+                                                 new Dictionary<string, ISettingItem>());
             }
         }
 
