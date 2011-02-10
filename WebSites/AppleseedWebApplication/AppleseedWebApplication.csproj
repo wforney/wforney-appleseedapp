@@ -1413,7 +1413,6 @@
     </Compile>
     <Compile Include="Installer\default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Installer\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>

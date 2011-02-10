@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Appleseed.Content.Web.Modules {
+namespace AppleseedWebApplication.DesktopModules.CoreModules.SignIn {
     
     
     public partial class Signin {

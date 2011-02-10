@@ -1,4 +1,5 @@
-<%@ Control Inherits="Appleseed.Content.Web.Modules.Signin" Language="c#" CodeBehind="Signin.ascx.cs" %>
+<%@ Control Inherits="AppleseedWebApplication.DesktopModules.CoreModules.SignIn.Signin"
+    Language="c#" CodeBehind="Signin.ascx.cs" %>
 <table align="center" border="0" cellpadding="1" cellspacing="1" width="100%">
     <tr>
         <td class="Normal" nowrap="nowrap">
@@ -42,7 +43,8 @@
     <tr>
         <td nowrap="nowrap">
             <rbfwebui:Button ID="SendPasswordBtn" runat="server" CssClass="CommandButton" EnableViewState="False"
-                text="Forgotten Password?" textkey="SIGNIN_PWD_LOST" /></td>
+                Text="Forgotten Password?" TextKey="SIGNIN_PWD_LOST" />
+        </td>
     </tr>
     <tr>
         <td>
