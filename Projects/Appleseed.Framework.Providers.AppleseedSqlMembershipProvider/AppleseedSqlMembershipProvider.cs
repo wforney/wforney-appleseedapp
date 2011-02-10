@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Data.EntityModel;
 
 using Appleseed.Framework.Providers.AppleseedMembershipProvider;
 using System.Web.Security;
@@ -494,7 +495,12 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         {
             if (!ValidateUser(username, oldPassword))
                 return false;
+            return ChangeUserPassword(portalAlias, username, newPassword);
+        }
 
+
+        private bool ChangeUserPassword(string portalAlias, string username, string newPassword)
+        {
             ValidatePasswordEventArgs args = new ValidatePasswordEventArgs(username, newPassword, true);
 
             OnValidatingPassword(args);
@@ -559,6 +565,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
                 cmd.Connection.Close();
             }
         }
+
 
         /// <summary>
         /// Processes a request to update the password question and answer for a membership user.
@@ -1874,6 +1881,62 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
                     .Where(u => u.LastActivityDate > dateActive)
                     .Select(u => u.UserName)
                     .ToList();
+            }
+        }
+
+
+        public override Guid CreateResetPasswordToken(Guid userId)
+        {
+            var newTokenId = Guid.NewGuid();
+            using (var entities = new AppleseedMembershipEntities())
+            {
+                var newToken = new aspnet_ResetPasswordTokens
+                {
+                    TokenId = newTokenId,
+                    UserId = userId,
+                    CreationDate = DateTime.UtcNow
+                };
+                entities.aspnet_ResetPasswordTokens.AddObject(newToken);
+                entities.SaveChanges();
+            }
+            return newTokenId;
+        }
+
+
+        public override bool VerifyTokenForUser(Guid userId, Guid tokenId)
+        {
+            using (var entities = new AppleseedMembershipEntities())
+            {
+                return entities.aspnet_ResetPasswordTokens
+                    .Include("aspnet_Membership")
+                    .Any(t => 
+                        t.TokenId == tokenId && 
+                        t.UserId == userId && 
+                        t.aspnet_Membership.aspnet_Applications.LoweredApplicationName == this.ApplicationName.ToLower()
+                    );
+            }
+        }
+
+
+        public override bool ChangePassword(string username, Guid tokenId, string newPassword)
+        {
+            using (var entities = new AppleseedMembershipEntities())
+            {
+                var token = entities.aspnet_ResetPasswordTokens
+                                .Include("aspnet_Membership")
+                                .FirstOrDefault(t => 
+                                    t.TokenId == tokenId &&
+                                    t.aspnet_Membership.aspnet_Users.LoweredUserName == username.ToLower() && 
+                                    t.aspnet_Membership.aspnet_Applications.LoweredApplicationName == this.ApplicationName.ToLower()
+                                );
+                if (token == null)
+                {
+                    return false;
+                }
+                var result = ChangeUserPassword(this.ApplicationName, username, newPassword);
+                entities.aspnet_ResetPasswordTokens.DeleteObject(token);
+                entities.SaveChanges();
+                return result;
             }
         }
         

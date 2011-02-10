@@ -11,6 +11,7 @@ using System.Collections;
 using System.IO;
 using System.Data.SqlClient;
 using Appleseed.Framework.Settings.Cache;
+using System.Net;
 
 namespace AppleseedWebApplication.Installer
 {
@@ -460,7 +461,8 @@ namespace AppleseedWebApplication.Installer
                     System.Xml.XmlTextWriter writer = new System.Xml.XmlTextWriter(configFile, System.Text.Encoding.UTF8);
                     writer.Formatting = System.Xml.Formatting.Indented;
                     doc.Save(writer);
-               
+                    writer.Flush();
+                    writer.Close();
                 }
             }
             catch (Exception e)
@@ -777,6 +779,7 @@ namespace AppleseedWebApplication.Installer
 
             }
         }
+
 
 
         public void PreviousPanel(Object sender, EventArgs e)
