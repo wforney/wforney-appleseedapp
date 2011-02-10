@@ -414,7 +414,6 @@ namespace Appleseed
                 context.Response.Cookies["refreshed"].Expires = DateTime.Now.AddMinutes(1);
             }
         }
-
         /// <summary>
         /// Handles the BeginRequest event of the Application control.
         /// </summary>
@@ -428,7 +427,6 @@ namespace Appleseed
             }
         }
 
-        /// <summary>
         /// Handles the Error event of the Application control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>

@@ -2,6 +2,7 @@
 @import url(TabControl.css);
 @import url(Slyder_Styles.css);
 @import url(Menu.css);
+@import url(jquery-ui-1.8.8.custom.css);
         
         /*******************************************************/
         /************* Reset styles DO NOT REMOVE **************/
@@ -485,14 +486,6 @@ div.div_ev_Table table table{
 div.div_ev_Table table td{
     padding: 2px;
 }
-
-table.ModuleWrap,
-div#mID0
-{
-	margin:0 auto ;
-    padding: 40px 30px;
-    width:900px;
-    max-width:900px!important;}
 
 table.ModuleWrap td{
     padding-top: 3px;
@@ -998,7 +991,7 @@ td.SubHead span
 	width:700px;
 	text-align:center;
 	vertical-align:middle;
-	font-weight:dold;
+	font-weight:bold;
 	border:1px solid #006699;
 		}	
 

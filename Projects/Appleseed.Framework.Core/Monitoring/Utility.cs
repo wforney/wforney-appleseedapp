@@ -1,45 +1,67 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Utility.cs" company="--">
 //   Copyright © -- 2010. All Rights Reserved.
-// </copyright>
-// <summary>
-//   strings used for actions
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web;
+using Appleseed.Framework.Data;
+using Appleseed.Framework.Settings;
+using System.Web.Security;
+using Appleseed.Framework.Providers.AppleseedMembershipProvider;
 
 namespace Appleseed.Framework.Monitoring
 {
-    using System;
-    using System.Data;
-    using System.Data.SqlClient;
-    using System.Web;
-    using System.Web.Security;
-
-    using Appleseed.Framework.Data;
-    using Appleseed.Framework.Providers.AppleseedMembershipProvider;
-    using Appleseed.Framework.Settings;
+    /// <summary>
+    /// strings used for actions
+    /// </summary>
+    public static class MonitoringAction
+    {
+        /// <summary>
+        /// Gets the page request.
+        /// </summary>
+        /// <value>The page request.</value>
+        static public string PageRequest
+        {
+            get { return "PageRequest"; }
+        }
+    }
 
     /// <summary>
     /// Utility Helper class for Appleseed Framework Monitoring purposes.
-    ///   You get some static methods like
-    ///   <list type="string">
-    /// <item>
+    /// You get some static methods like
+    /// <list type="string">
     /// int GetTotalPortalHits(int portalID)
     ///     </item>
     /// <item>
-    /// DataSet GetMonitoringStats(DateTime startDate
-    ///     </item>
+    /// <item>DataSet GetMonitoringStats(DateTime startDate</item>
     /// </list>
     /// </summary>
     public static class Utility
     {
-        #region Public Methods
+        /// <summary>
+        /// returns the total hit count for a portal
+        /// </summary>
+        /// <param name="portalID">portal id to get stats for</param>
+        /// <returns>
+        /// total number of hits to the portal of all types
+        /// </returns>
+        public static int GetTotalPortalHits(int portalID)
+        {
+            // TODO: THis should not display, login, logout, or administrator hits.
+            string sql = "Select count(ID) as hits " +
+                         " from rb_monitoring " +
+                         " where [PortalID] = " + portalID.ToString() + " ";
+
+            return Convert.ToInt32(DBHelper.ExecuteSQLScalar(sql));
+        }
 
         /// <summary>
         /// Get Users Online
-        ///   Add to the Cache
-        ///   HttpContext.Current.Cache.Insert("WhoIsOnlineAnonUserCount", anonUserCount, null, DateTime.Now.AddMinutes(cacheTimeout), TimeSpan.Zero);
-        ///   HttpContext.Current.Cache.Insert("WhoIsOnlineRegUserCount", regUsersOnlineCount, null, DateTime.Now.AddMinutes(cacheTimeout), TimeSpan.Zero);
+        /// Add to the Cache
+        /// HttpContext.Current.Cache.Insert("WhoIsOnlineAnonUserCount", anonUserCount, null, DateTime.Now.AddMinutes(cacheTimeout), TimeSpan.Zero);
+        /// HttpContext.Current.Cache.Insert("WhoIsOnlineRegUserCount", regUsersOnlineCount, null, DateTime.Now.AddMinutes(cacheTimeout), TimeSpan.Zero);
         ///   HttpContext.Current.Cache.Insert("WhoIsOnlineRegUsersString", regUsersString, null, DateTime.Now.AddMinutes(cacheTimeout), TimeSpan.Zero);
         /// </summary>
         /// <param name="portalId">
@@ -54,134 +76,37 @@ namespace Appleseed.Framework.Monitoring
         /// <param name="anonUserCount">
         /// The anon user count.
         /// </param>
-        /// <param name="regUsersOnlineCount">
-        /// The registered users online count.
-        /// </param>
-        /// <param name="regUsersString">
-        /// The registered users string.
-        /// </param>
-        public static void FillUsersOnlineCache(
-            int portalId,
-            int minutesToCheckForUsers,
-            int cacheTimeout,
-            out int anonUserCount,
-            out int regUsersOnlineCount,
-            out string regUsersString)
+        /// <param name="regUsersOnlineCount">The reg users online count.</param>
+        /// <param name="regUsersString">The reg users string.</param>
+        public static void FillUsersOnlineCache(int portalID,
+                                                int minutesToCheckForUsers,
+                                                int cacheTimeout,
+                                                out int anonUserCount,
+                                                out int regUsersOnlineCount,
+                                                out string regUsersString)
         {
+
             // Read from the cache if available
-            if (true)
-                //HttpContext.Current.Cache["WhoIsOnlineAnonUserCount"] == null ||
-                //HttpContext.Current.Cache["WhoIsOnlineRegUserCount"] == null ||
-                //HttpContext.Current.Cache["WhoIsOnlineRegUsersString"] == null)
+            if (true /* for test purposes, lets comment the chache functionality
+                HttpContext.Current.Cache["WhoIsOnlineAnonUserCount"] == null ||
+                HttpContext.Current.Cache["WhoIsOnlineRegUserCount"] == null ||
+                HttpContext.Current.Cache["WhoIsOnlineRegUsersString"] == null */)
             {
-                // Firstly get the logged in users
-                int onlineUsersCount;
-                int allUsersCount;
-                using (var sqlConn1 = new SqlConnection(Config.ConnectionString))
-                using (var sqlComm1 = new SqlCommand())
-                {
-                    sqlComm1.Connection = sqlConn1;
-                    sqlComm1.CommandType = CommandType.StoredProcedure;
-                    sqlComm1.CommandText = "rb_GetLoggedOnUsers";
 
-                    // Add Parameters to SPROC
-                    var parameterPortalId = new SqlParameter("@PortalID", SqlDbType.Int, 4) { Value = portalId };
-                    sqlComm1.Parameters.Add(parameterPortalId);
+                var onlineUsers = ((AppleseedMembershipProvider)Membership.Provider).GetOnlineUsers();
+                regUsersString = string.Join(", ", onlineUsers);
+                regUsersOnlineCount = onlineUsers.Count;
 
-                    var parameterMinutesToCheck = new SqlParameter("@MinutesToCheck", SqlDbType.Int, 4)
-                        {
-                            Value = minutesToCheckForUsers
-                        };
-                    sqlComm1.Parameters.Add(parameterMinutesToCheck);
-
-                    sqlConn1.Open();
-                    var result = sqlComm1.ExecuteReader();
-
-                    var onlineUsers = string.Empty;
-                    onlineUsersCount = ((AppleseedMembershipProvider)Membership.Provider).GetNumberOfUsersOnline(portalId);
-                    try
-                    {
-                        while (result.Read())
-                        {
-                            if (Convert.ToString(result.GetValue(2)) == "Logoff")
-                            {
-                                continue;
-                            }
-
-                            // onlineUsersCount++;
-                            var user = Membership.GetUser(result.GetValue(1));
-                            if (user != null)
-                            {
-                                onlineUsers += string.Format("{0}, ", user.UserName);
-                            }
-                        }
-                    }
-                    finally
-                    {
-                        result.Close(); // by Manu, fixed bug 807858
-                    }
-
-                    if (onlineUsers.Length > 0)
-                    {
-                        onlineUsers = onlineUsers.Remove(onlineUsers.Length - 2, 2);
-                    }
-
-                    regUsersString = onlineUsers;
-                    regUsersOnlineCount = onlineUsersCount;
-
-                    result.Close();
-
-                    // Add Parameters to SPROC
-                    var parameterNumberOfUsers = new SqlParameter("@NoOfUsers", SqlDbType.Int, 4) { Direction = ParameterDirection.Output };
-                    sqlComm1.Parameters.Add(parameterNumberOfUsers);
-
-                    // Re-use the same result set to get the no of unregistered users
-                    sqlComm1.CommandText = "rb_GetNumberOfActiveUsers";
-
-                    // [The Bitland Prince] 8-1-2005
-                    // If this query generates an exception, connection might be left open
-                    try
-                    {
-                        sqlComm1.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-                        // This takes care to close connection then throws a new
-                        // exception (because I don't know if it's safe to go on...)
-                        sqlConn1.Close();
-                        throw new Exception("Unable to retrieve logged users. Error : " + ex.Message);
-                    }
-
-                    allUsersCount = Convert.ToInt32(parameterNumberOfUsers.Value);
-
-                    sqlConn1.Close();
-                }
-
-                anonUserCount = allUsersCount - onlineUsersCount;
-                if (anonUserCount < 0)
-                {
-                    anonUserCount = 0;
-                }
-
+                //until we get an efficient method to obtain all the profiles online (including users and not users), we are going to return zero anonymus users.
+                anonUserCount = onlineUsers.Count - onlineUsers.Count;
+                
                 // Add to the Cache
-                HttpContext.Current.Cache.Insert(
-                    "WhoIsOnlineAnonUserCount",
-                    anonUserCount,
-                    null,
-                    DateTime.Now.AddMinutes(cacheTimeout),
-                    TimeSpan.Zero);
-                HttpContext.Current.Cache.Insert(
-                    "WhoIsOnlineRegUserCount",
-                    regUsersOnlineCount,
-                    null,
-                    DateTime.Now.AddMinutes(cacheTimeout),
-                    TimeSpan.Zero);
-                HttpContext.Current.Cache.Insert(
-                    "WhoIsOnlineRegUsersString",
-                    regUsersString,
-                    null,
-                    DateTime.Now.AddMinutes(cacheTimeout),
-                    TimeSpan.Zero);
+                HttpContext.Current.Cache.Insert("WhoIsOnlineAnonUserCount", anonUserCount, null,
+                                                 DateTime.Now.AddMinutes(cacheTimeout), TimeSpan.Zero);
+                HttpContext.Current.Cache.Insert("WhoIsOnlineRegUserCount", regUsersOnlineCount, null,
+                                                 DateTime.Now.AddMinutes(cacheTimeout), TimeSpan.Zero);
+                HttpContext.Current.Cache.Insert("WhoIsOnlineRegUsersString", regUsersString, null,
+                                                 DateTime.Now.AddMinutes(cacheTimeout), TimeSpan.Zero);
             }
             else
             {
@@ -222,114 +147,84 @@ namespace Appleseed.Framework.Monitoring
         /// <param name="includeMyIpAddress">
         /// include the current IP address
         /// </param>
-        /// <param name="portalId">
-        /// portal id to get stats for
-        /// </param>
-        /// <returns>
-        /// A data set.
-        /// </returns>
-        public static DataSet GetMonitoringStats(
-            DateTime startDate,
-            DateTime endDate,
-            string reportType,
-            long currentTabId,
-            bool includeMonitoringPage,
-            bool includePageRequests,
-            bool includeLogon,
-            bool includeLogoff,
-            bool includeMyIpAddress,
-            int portalId)
+        /// <param name="portalID">portal id to get stats for</param>
+        /// <returns></returns>
+        public static DataSet GetMonitoringStats(DateTime startDate,
+                                                 DateTime endDate,
+                                                 string reportType,
+                                                 long currentTabID,
+                                                 bool includeMonitoringPage,
+                                                 bool includePageRequests,
+                                                 bool includeLogon,
+                                                 bool includeLogoff,
+                                                 bool includeMyIPAddress,
+                                                 int portalID)
         {
             endDate = endDate.AddDays(1);
 
             // Firstly get the logged in users
-            var selectConnection = Config.SqlConnectionString;
-            var command = new SqlDataAdapter("rb_GetMonitoringEntries", selectConnection)
-                {
-                    SelectCommand =
-                    {
-                        CommandType = CommandType.StoredProcedure
-                    }
-                };
+            SqlConnection myConnection = Config.SqlConnectionString;
+            SqlDataAdapter myCommand = new SqlDataAdapter("rb_GetMonitoringEntries", myConnection);
+            myCommand.SelectCommand.CommandType = CommandType.StoredProcedure;
 
             // Add Parameters to SPROC
-            var parameterPortalId = new SqlParameter("@PortalID", SqlDbType.Int, 4) { Value = portalId };
-            command.SelectCommand.Parameters.Add(parameterPortalId);
+            SqlParameter parameterPortalID = new SqlParameter("@PortalID", SqlDbType.Int, 4);
+            parameterPortalID.Value = portalID;
+            myCommand.SelectCommand.Parameters.Add(parameterPortalID);
 
-            var parameterStartDate = new SqlParameter("@StartDate", SqlDbType.DateTime, 8) { Value = startDate };
-            command.SelectCommand.Parameters.Add(parameterStartDate);
+            SqlParameter parameterStartDate = new SqlParameter("@StartDate", SqlDbType.DateTime, 8);
+            parameterStartDate.Value = startDate;
+            myCommand.SelectCommand.Parameters.Add(parameterStartDate);
 
-            var parameterEndDate = new SqlParameter("@EndDate", SqlDbType.DateTime, 8) { Value = endDate };
-            command.SelectCommand.Parameters.Add(parameterEndDate);
+            SqlParameter parameterEndDate = new SqlParameter("@EndDate", SqlDbType.DateTime, 8);
+            parameterEndDate.Value = endDate;
+            myCommand.SelectCommand.Parameters.Add(parameterEndDate);
 
-            var parameterReportType = new SqlParameter("@ReportType", SqlDbType.VarChar, 50) { Value = reportType };
-            command.SelectCommand.Parameters.Add(parameterReportType);
+            SqlParameter parameterReportType = new SqlParameter("@ReportType", SqlDbType.VarChar, 50);
+            parameterReportType.Value = reportType;
+            myCommand.SelectCommand.Parameters.Add(parameterReportType);
 
-            var parameterCurrentTabId = new SqlParameter("@CurrentTabID", SqlDbType.BigInt, 8) { Value = currentTabId };
-            command.SelectCommand.Parameters.Add(parameterCurrentTabId);
+            SqlParameter parameterCurrentTabID = new SqlParameter("@CurrentTabID", SqlDbType.BigInt, 8);
+            parameterCurrentTabID.Value = currentTabID;
+            myCommand.SelectCommand.Parameters.Add(parameterCurrentTabID);
 
-            var parameterIncludeMoni = new SqlParameter("@IncludeMonitorPage", SqlDbType.Bit, 1)
-                {
-                    Value = includeMonitoringPage
-                };
-            command.SelectCommand.Parameters.Add(parameterIncludeMoni);
+            SqlParameter parameterIncludeMoni = new SqlParameter("@IncludeMonitorPage", SqlDbType.Bit, 1);
+            parameterIncludeMoni.Value = includeMonitoringPage;
+            myCommand.SelectCommand.Parameters.Add(parameterIncludeMoni);
 
-            var parameterIncludePageRequests = new SqlParameter("@IncludePageRequests", SqlDbType.Bit, 1)
-                {
-                    Value = includePageRequests
-                };
-            command.SelectCommand.Parameters.Add(parameterIncludePageRequests);
+            SqlParameter parameterIncludePageRequests = new SqlParameter("@IncludePageRequests", SqlDbType.Bit, 1);
+            parameterIncludePageRequests.Value = includePageRequests;
+            myCommand.SelectCommand.Parameters.Add(parameterIncludePageRequests);
 
-            var parameterIncludeLogon = new SqlParameter("@IncludeLogon", SqlDbType.Bit, 1) { Value = includeLogon };
-            command.SelectCommand.Parameters.Add(parameterIncludeLogon);
+            SqlParameter parameterIncludeLogon = new SqlParameter("@IncludeLogon", SqlDbType.Bit, 1);
+            parameterIncludeLogon.Value = includeLogon;
+            myCommand.SelectCommand.Parameters.Add(parameterIncludeLogon);
 
-            var parameterIncludeLogoff = new SqlParameter("@IncludeLogoff", SqlDbType.Bit, 1) { Value = includeLogoff };
-            command.SelectCommand.Parameters.Add(parameterIncludeLogoff);
+            SqlParameter parameterIncludeLogoff = new SqlParameter("@IncludeLogoff", SqlDbType.Bit, 1);
+            parameterIncludeLogoff.Value = includeLogoff;
+            myCommand.SelectCommand.Parameters.Add(parameterIncludeLogoff);
 
-            var parameterIncludeIpAddress = new SqlParameter("@IncludeIPAddress", SqlDbType.Bit, 1)
-                {
-                    Value = includeMyIpAddress
-                };
-            command.SelectCommand.Parameters.Add(parameterIncludeIpAddress);
+            SqlParameter parameterIncludeIPAddress = new SqlParameter("@IncludeIPAddress", SqlDbType.Bit, 1);
+            parameterIncludeIPAddress.Value = includeMyIPAddress;
+            myCommand.SelectCommand.Parameters.Add(parameterIncludeIPAddress);
 
-            var parameterIpAddress = new SqlParameter("@IPAddress", SqlDbType.VarChar, 16)
-                {
-                    Value = HttpContext.Current.Request.UserHostAddress
-                };
-            command.SelectCommand.Parameters.Add(parameterIpAddress);
+            SqlParameter parameterIPAddress = new SqlParameter("@IPAddress", SqlDbType.VarChar, 16);
+            parameterIPAddress.Value = HttpContext.Current.Request.UserHostAddress;
+            myCommand.SelectCommand.Parameters.Add(parameterIPAddress);
 
             // Create and Fill the DataSet
-            var dataSet = new DataSet();
+            DataSet myDataSet = new DataSet();
             try
             {
-                command.Fill(dataSet);
+                myCommand.Fill(myDataSet);
             }
             finally
             {
-                selectConnection.Close();
+                myConnection.Close();
             }
 
             // Return the DataSet
-            return dataSet;
+            return myDataSet;
         }
-
-        /// <summary>
-        /// returns the total hit count for a portal
-        /// </summary>
-        /// <param name="portalId">
-        /// portal id to get stats for
-        /// </param>
-        /// <returns>
-        /// total number of hits to the portal of all types
-        /// </returns>
-        public static int GetTotalPortalHits(int portalId)
-        {
-            // TODO: This should not display, login, logout, or administrator hits.
-            var sql = string.Format("Select count(ID) as hits  from rb_monitoring  where [PortalID] = {0} ", portalId);
-
-            return Convert.ToInt32(DBHelper.ExecuteSqlScalar<int>(sql));
-        }
-
-        #endregion
     }
 }

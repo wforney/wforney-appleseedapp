@@ -13,33 +13,6 @@ namespace Appleseed.Content.Web.Modules {
     public partial class WhosLoggedOn {
         
         /// <summary>
-        /// Literal1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Appleseed.Framework.Web.UI.WebControls.Localize Literal1;
-        
-        /// <summary>
-        /// LabelAnonUsersCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Appleseed.Framework.Web.UI.WebControls.Label LabelAnonUsersCount;
-        
-        /// <summary>
-        /// Literal2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Appleseed.Framework.Web.UI.WebControls.Localize Literal2;
-        
-        /// <summary>
         /// LabelRegUsersOnlineCount control.
         /// </summary>
         /// <remarks>

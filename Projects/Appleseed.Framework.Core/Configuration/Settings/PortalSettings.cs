@@ -40,6 +40,7 @@ namespace Appleseed.Framework.Site.Configuration
     using Appleseed.Framework.Web.UI.WebControls;
 
     using Path = Appleseed.Framework.Settings.Path;
+    using System.Web.Security;
 
     /// <summary>
     /// PortalSettings Class encapsulates all of the settings 
@@ -663,7 +664,8 @@ namespace Appleseed.Framework.Site.Configuration
                 }
                 else
                 {
-                    r = new AppleseedPrincipal(HttpContext.Current.User.Identity, null);
+                    r = new AppleseedPrincipal(HttpContext.Current.User.Identity, Roles.GetRolesForUser());
+                    HttpContext.Current.User = r;
                 }
 
                 return r;

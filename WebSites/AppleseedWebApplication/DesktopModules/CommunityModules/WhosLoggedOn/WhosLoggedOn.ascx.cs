@@ -82,7 +82,7 @@ namespace Appleseed.Content.Web.Modules
                                          out regUsersOnlineCount,
                                          out regUsersString);
 
-            LabelAnonUsersCount.Text = Convert.ToString(anonUserCount);
+            //LabelAnonUsersCount.Text = Convert.ToString(anonUserCount);
             LabelRegUsersOnlineCount.Text = Convert.ToString(regUsersOnlineCount);
             LabelRegUserNames.Text = regUsersString;
         }
