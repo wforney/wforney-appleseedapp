@@ -2975,10 +2975,10 @@
     <value>Sets the repeat direction for menu rendering.</value>
   </data>
   <data name="SM_PARENTTABID">
-    <value>ParentTabId</value>
+    <value>Parent Page Id</value>
   </data>
   <data name="SM_PARENTTABID_DESCRIPTION">
-    <value>Sets the Id of then Parent tab for the menu (this tab may be hidden or inaccessible for the logged on user.)</value>
+    <value>Sets the Id of the Parent Page for the menu (this page may be hidden or inaccessible for the logged on user.)</value>
   </data>
   <data name="SORTFIELD">
     <value>Sort field</value>
@@ -3095,7 +3095,7 @@
     <value>New Page (insert name)</value>
   </data>
   <data name="TAB_PARENT">
-    <value>Parent tab</value>
+    <value>Parent page</value>
   </data>
   <data name="TAB_TITLE_Appleseed_HELP">
     <value>Appleseed Help</value>
@@ -3441,5 +3441,8 @@
   </data>
   <data name="TABKEYPHRASE_ES-ES">
     <value>Page Key Phrase (es-ES)</value>
+  </data>
+  <data name="ERROR_NOT_ALLOWED_PARENT">
+    <value>Selecting this parent is not allowed</value>
   </data>
 </root>
