@@ -180,6 +180,9 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\Libs\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Recaptcha">
+      <HintPath>..\..\Libs\Recaptcha.dll</HintPath>
+    </Reference>
     <Reference Include="SgmlReaderDll">
       <HintPath>..\..\Libs\SgmlReaderDll.dll</HintPath>
     </Reference>
@@ -2446,6 +2449,31 @@
     <Content Include="aspnet_client\ckeditor\_tests\_assets\sample.txt" />
     <Content Include="aspnet_client\ckeditor\_tests\_assets\sample.xml" />
     <Content Include="aspnet_client\ckeditor\_tests\_assets\sample_xml.txt" />
+    <Content Include="aspnet_client\CodeMirror\css\baboon.png" />
+    <Content Include="aspnet_client\CodeMirror\css\csscolors.css" />
+    <Content Include="aspnet_client\CodeMirror\css\docs.css" />
+    <Content Include="aspnet_client\CodeMirror\css\font.js" />
+    <Content Include="aspnet_client\CodeMirror\css\jscolors.css" />
+    <Content Include="aspnet_client\CodeMirror\css\people.jpg" />
+    <Content Include="aspnet_client\CodeMirror\css\sparqlcolors.css" />
+    <Content Include="aspnet_client\CodeMirror\css\xmlcolors.css" />
+    <Content Include="aspnet_client\CodeMirror\js\codemirror.js" />
+    <Content Include="aspnet_client\CodeMirror\js\editor.js" />
+    <Content Include="aspnet_client\CodeMirror\js\highlight.js" />
+    <Content Include="aspnet_client\CodeMirror\js\mirrorframe.js" />
+    <Content Include="aspnet_client\CodeMirror\js\parsecss.js" />
+    <Content Include="aspnet_client\CodeMirror\js\parsedummy.js" />
+    <Content Include="aspnet_client\CodeMirror\js\parsehtmlmixed.js" />
+    <Content Include="aspnet_client\CodeMirror\js\parsejavascript.js" />
+    <Content Include="aspnet_client\CodeMirror\js\parsesparql.js" />
+    <Content Include="aspnet_client\CodeMirror\js\parsexml.js" />
+    <Content Include="aspnet_client\CodeMirror\js\select.js" />
+    <Content Include="aspnet_client\CodeMirror\js\stringstream.js" />
+    <Content Include="aspnet_client\CodeMirror\js\tokenize.js" />
+    <Content Include="aspnet_client\CodeMirror\js\tokenizejavascript.js" />
+    <Content Include="aspnet_client\CodeMirror\js\undo.js" />
+    <Content Include="aspnet_client\CodeMirror\js\unittests.js" />
+    <Content Include="aspnet_client\CodeMirror\js\util.js" />
     <Content Include="aspnet_client\CSSControlAdapters\AdapterUtils.js" />
     <Content Include="aspnet_client\CSSControlAdapters\MenuAdapter.js" />
     <Content Include="aspnet_client\CSSControlAdapters\TreeViewAdapter.js" />
@@ -4338,6 +4366,7 @@
     <Content Include="Design\DesktopLayouts\Appleseed.One.Layout\PanesMaster.master" />
     <Content Include="Design\DesktopLayouts\Appleseed.One.Layout\SiteMaster.master" />
     <None Include="aspnet_client\ckeditor\ckeditor.pack" />
+    <None Include="aspnet_client\CodeMirror\css\baboon_vector.ai" />
     <None Include="aspnet_client\FCKeditorV2.6.6\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="aspnet_client\FCKeditorV2.6.6\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="aspnet_client\FCKeditorV2.6.6\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />

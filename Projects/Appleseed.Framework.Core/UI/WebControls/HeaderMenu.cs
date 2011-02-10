@@ -27,18 +27,18 @@ namespace Appleseed.Framework.Web.UI.WebControls
     [
         History("John.Mandia@whitelightsolutions.com", "2003/10/25",
             "Added ability to have more control over the menu by adding more settings.")]
-    public class HeaderMenu : DataList
+    public class HeaderMenu : DataList, INamingContainer
     {
         private object innerDataSource = null;
 
         private bool _showLogon = false;
+        private bool _dialogLogon = false;
+        private string _dialogLogonControlPath = "~/DesktopModules/CoreModules/SignIn/SignIn.ascx";
         private bool _showSecureLogon = false; // Thierry (Tiptopweb), 5 May 2003: add link to Secure directory
         private bool _showHome = true;
         private bool _showTabMan = true; // Ozan, 2 June 2004: add link for tab management 
         private bool _showRegister = false;
         private bool _showDragNDrop = false;
-        
-
 
         // 26 October 2003 john.mandia@whitelightsolutions.com - Start
         private bool _showEditProfile = true;
@@ -77,9 +77,38 @@ namespace Appleseed.Framework.Web.UI.WebControls
         {
             get { return _showLogon; }
             set { _showLogon = value; }
-
         }
-        
+
+        /// <summary>
+        /// If true and ShowLogon is also true, when the user clicks the logon link
+        /// a dialog will be displayed for the user to logon.
+        /// </summary>
+        /// <value><c>true</c> if [dialog logon]; otherwise, <c>false</c>.</value>
+        [Category("Data"),
+            PersistenceMode(PersistenceMode.Attribute),
+            DefaultValue(false)
+            ]
+        public bool DialogLogon
+        {
+            get { return _dialogLogon; }
+            set { _dialogLogon = value; }
+        }
+
+        /// <summary>
+        /// The path of the ascx control that will be displayed inside the dialog for the user to sign in.
+        /// The default is "~/DesktopModules/CoreModules/SignIn/SignIn.ascx".
+        /// </summary>
+        [Category("Data"),
+            PersistenceMode(PersistenceMode.Attribute),
+            DefaultValue("~/DesktopModules/CoreModules/SignIn/SignIn.ascx")
+            ]
+        public string DialogLogonControlPath
+        {
+            get { return _dialogLogonControlPath; }
+            set { _dialogLogonControlPath = value; }
+        }
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -105,6 +134,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
             get { return _showDragNDrop; }
             set { _showDragNDrop = value; }
         }
+
 
         /// <summary>
         /// If true and user is not authenticated shows
@@ -199,7 +229,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// </summary>
         public HeaderMenu()
         {
-            EnableViewState = false;
+            ViewStateMode = System.Web.UI.ViewStateMode.Disabled;
             RepeatDirection = RepeatDirection.Horizontal;
         }
 
@@ -445,6 +475,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                         if (CssClass.Length != 0)
                             menuLink = menuLink + " class=\"" + CssClass + "\"";
 
+                        menuLink += string.Concat(" id=\"", this.ClientID, "_logon_link" , "\"");
                         menuLink = menuLink + " href='" + HttpUrlBuilder.BuildUrl("~/DesktopModules/CoreModules/Admin/Logon.aspx") +
                                    "'>" + General.GetString("LOGON", "Logon", null) + "</a>";
                         list.Add(menuLink);
@@ -485,8 +516,27 @@ namespace Appleseed.Framework.Web.UI.WebControls
                 innerDataSource = list;
             }
             base.DataBind();
+            if (ShowLogon && DialogLogon)
+            {
+                //this new list control won't appear in the list, since it has no DataItem. However we need it for "holding" the Signin Control.
+                var newItem = new DataListItem(this.Controls.Count, ListItemType.Item);
+                this.Controls.Add(newItem);
+                
+                var logonDialogPlaceHolder = new PlaceHolder();
+                newItem.Controls.Add(logonDialogPlaceHolder);
+
+                if (_logonControl == null) //we ask this in case someone call the Databind more than once.
+                {
+                    _logonControl = Page.LoadControl(DialogLogonControlPath);
+                    _logonControl.ViewStateMode = System.Web.UI.ViewStateMode.Enabled;
+                }
+                logonDialogPlaceHolder.Controls.Add(_logonControl);
+            }
         }
 
+        //we added this private attribute for store a reference to the signin control. 
+        //Its assigned during the binding (and the con
+        private Control _logonControl = null;
 
         /// <summary>
         /// DataSource
@@ -498,6 +548,43 @@ namespace Appleseed.Framework.Web.UI.WebControls
         {
             get { return innerDataSource; }
             set { innerDataSource = value; }
+        }
+
+
+        protected override void Render(HtmlTextWriter writer)
+        {
+            if (ShowLogon && DialogLogon && _logonControl != null)
+            {
+                writer.Write(string.Concat("<div id=\"", this.ClientID ,"_logon_dialog\" style=\"display:none\">"));
+                _logonControl.RenderControl(writer);
+                writer.Write("</div>");
+                
+                writer.Write("<script type=\"text/javascript\">");
+
+                writer.Write(string.Concat(@"
+                        $(document).ready(function () {
+                            var $dialog = $('#", this.ClientID, @"_logon_dialog')
+		                    .dialog({
+		                        autoOpen: false,
+		                        modal: true,
+		                        open: function (type, data) { $(this).parent().appendTo('form'); }
+		                    });
+
+                            $('#", this.ClientID, @"_logon_link').click(function () {
+                                $dialog.dialog('open');
+                                // prevent the default action, e.g., following a link
+                                return false;
+                            });
+                            //this is a hack, we should find another way to know if the dialog should autoopen.
+                            if ($('#", this.ClientID, @"_logon_dialog span.Error').html()) {
+                                $dialog.dialog('open');
+                            }
+                        });"
+                    )); 
+                
+                writer.Write("</script>");
+            }
+            base.Render(writer);
         }
     }
 }

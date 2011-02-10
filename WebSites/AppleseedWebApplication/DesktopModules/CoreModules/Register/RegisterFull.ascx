@@ -1,4 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RegisterFull.ascx.cs" Inherits="DesktopModules_CoreModules_Register_RegisterFull" %>
+<%@ Register TagPrefix="recaptcha" Namespace="Recaptcha" Assembly="Recaptcha" %>
 <table border="0" cellpadding="0" cellspacing="0" class="registerTable">
         <tr>
         <td align="left" valign="top" width="30">
@@ -120,6 +121,22 @@
                                         </td>
                                         <td>
                                             <asp:CheckBox ID="chbSendNotification" runat="server" Checked="true" Visible="false" />
+                                        </td>
+                                    </tr>
+                                    <tr id="trCaptcha" runat="server">
+                                        <td colspan="2">
+                                            <recaptcha:RecaptchaControl
+                                                  ID="recaptcha"
+                                                  runat="server"
+                                                  Theme="clean"
+                                                  PrivateKey="some_private_key"
+                                                  PublicKey="some_public_key"
+                                                  />
+                                            <div>
+                                                <asp:CustomValidator ID="cvCaptcha" runat="server" Display="Dynamic"
+                                                Text="<%$ Resources:Appleseed, USER_SAVING_WRONG_CAPTCHA %>" textkey="USER_SAVING_WRONG_CAPTCHA" Font-Size="11px"
+                                                OnServerValidate="cvCaptcha_ServerValidate" ></asp:CustomValidator>
+                                            </div>
                                         </td>
                                     </tr>
                                     <%--<tr>

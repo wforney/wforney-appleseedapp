@@ -298,6 +298,7 @@
     <Compile Include="UI\WebControls\BindEnum.cs" />
     <Compile Include="UI\WebControls\BreadCrumbs.cs" />
     <Compile Include="UI\WebControls\CachedPortalModuleControl.cs" />
+    <Compile Include="UI\WebControls\CodeMirrorTextBox.cs" />
     <Compile Include="UI\WebControls\MVCModuleControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -338,6 +339,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UI\WebControls\TextEditor.cs" />
+    <Compile Include="UI\WebControls\TinyMCETextBox.cs" />
     <Compile Include="UI\WebControls\UploadDialogTextBox.cs" />
     <Compile Include="UI\WebControls\ViewControlButtons.cs" />
     <Compile Include="UI\WebControls\XmlEditGrid.cs" />

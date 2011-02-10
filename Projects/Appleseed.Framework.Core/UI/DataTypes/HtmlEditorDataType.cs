@@ -18,6 +18,8 @@ namespace Appleseed.Framework.DataTypes
     using Appleseed.Framework.Settings;
     using Appleseed.Framework.Site.Configuration;
     using Appleseed.Framework.Web.UI.WebControls;
+    using Appleseed.Framework.UI.WebControls.CodeMirror;
+    using Appleseed.Framework.UI.WebControls.TinyMCE;
 
     using FreeTextBoxControls;
 
@@ -217,7 +219,7 @@ namespace Appleseed.Framework.DataTypes
         /// <value></value>
         public override object DataSource
         {
-            get { return "Plain Text;FCKeditor;SyrinxCkEditor;FreeTextBox".Split(';'); }
+            get { return "Code Mirror Plain Text;TinyMCE Editor;FCKeditor;Syrinx CkEditor;FreeTextBox".Split(';'); }
         }
 
         /// <summary>
@@ -315,6 +317,12 @@ namespace Appleseed.Framework.DataTypes
 
             switch (Value)
             {
+                case "TinyMCE Editor":
+                    var tinyMCE = new TinyMCETextBox();
+                    tinyMCE.ImageFolder = moduleImageFolder;
+                    DesktopText = tinyMCE;
+                    break;
+
                 case "FCKeditor": // 9/8/2010
                     FCKTextBoxV2 fckv2 = new FCKTextBoxV2();
                     fckv2.ImageFolder = moduleImageFolder;
@@ -336,7 +344,7 @@ namespace Appleseed.Framework.DataTypes
                     break;
 
 
-                case "SyrinxCkEditor":
+                case "Syrinx CkEditor":
                     SyrinxCkTextBox.CkEditorJS = Path.WebPathCombine(Path.ApplicationRoot,
                                             "aspnet_client/ckeditor/ckeditor.js");
                     
@@ -368,10 +376,11 @@ namespace Appleseed.Framework.DataTypes
 
                     DesktopText = ((IHtmlEditor) freeText);
                     break;
-                
-                case "Plain Text":
-                default:
-                    DesktopText = (new TextEditor());
+
+                case "Code Mirror Plain Text":
+                default: 
+                    var codeMirrorTextBox = new CodeMirrorTextBox();
+                    DesktopText = codeMirrorTextBox;
                     break;
             }
             PlaceHolderHTMLEditor.Controls.Add(((Control) DesktopText));

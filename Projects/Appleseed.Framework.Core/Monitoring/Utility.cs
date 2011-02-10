@@ -69,9 +69,10 @@ namespace Appleseed.Framework.Monitoring
             out string regUsersString)
         {
             // Read from the cache if available
-            if (HttpContext.Current.Cache["WhoIsOnlineAnonUserCount"] == null ||
-                HttpContext.Current.Cache["WhoIsOnlineRegUserCount"] == null ||
-                HttpContext.Current.Cache["WhoIsOnlineRegUsersString"] == null)
+            if (true)
+                //HttpContext.Current.Cache["WhoIsOnlineAnonUserCount"] == null ||
+                //HttpContext.Current.Cache["WhoIsOnlineRegUserCount"] == null ||
+                //HttpContext.Current.Cache["WhoIsOnlineRegUsersString"] == null)
             {
                 // Firstly get the logged in users
                 int onlineUsersCount;

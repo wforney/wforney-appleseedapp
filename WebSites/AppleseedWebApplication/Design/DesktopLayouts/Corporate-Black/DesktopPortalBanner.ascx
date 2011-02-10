@@ -9,7 +9,6 @@
     }
 </script>
 
-
 <div class="header">
 
 	<div class="logo_div">
@@ -26,7 +25,8 @@
 			<rbfwebui:HeaderMenu 	ID="PortalHeaderMenu" runat="server" 
 									CssClass="SiteLink" RepeatDirection="Horizontal" cellspacing="0"
 									CellPadding="0" ShowHelp="False" ShowHome="False" 
-									ShowLogon="true" ShowRegister="true" ShowDragNDrop="True">
+									ShowLogon="true" ShowRegister="true" ShowDragNDrop="True"
+                                    DialogLogon="true" >
 				<ItemStyle Wrap="False"></ItemStyle>
 				<ItemTemplate>
 					<!-- used to stylize the left border ex: border with images-->

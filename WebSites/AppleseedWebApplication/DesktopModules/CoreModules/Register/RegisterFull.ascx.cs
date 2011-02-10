@@ -60,10 +60,17 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
         }
     }
 
+    protected override void OnInit(EventArgs e)
+    {
+        recaptcha.PublicKey = Convert.ToString(portalSettings.CustomSettings["SITESETTINGS_RECAPTCHA_PUBLIC_KEY"]);
+        recaptcha.PrivateKey = Convert.ToString(portalSettings.CustomSettings["SITESETTINGS_RECAPTCHA_PRIVATE_KEY"]);
+        recaptcha.Language = portalSettings.PortalContentLanguage.TwoLetterISOLanguageName;
+        base.OnInit(e);
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         LoadBirthDateControls();
-
         if (!Page.IsPostBack) {
 
             BindCountry();
@@ -79,6 +86,9 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
                 tfEmail.Text = Request.QueryString["email"];
             }
 
+            //captcha will only be displayed if the user is not authenticated.
+            trCaptcha.Visible = !Context.User.Identity.IsAuthenticated;
+            
             if (EditMode && !OuterCreation) {
                 lblTitle.Text = (string)GetGlobalResourceObject("Appleseed","USER_MODIFICATION");
                 lblChPwd.Visible = true;
@@ -86,15 +96,15 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
             } else {
                 lblTitle.Text = (string)GetGlobalResourceObject("Appleseed", "USER_REGISTRY");
                 //                this.BirthdayField.Date = DateTime.Today.AddYears(-18);
-                if (OuterCreation) {
-                    //TODO Cuando un usuario está creando a otro usuario...
+                if (OuterCreation)
+                {
                     lblSendNotification.Visible = true;
                     chbSendNotification.Visible = true;
                     chbSendNotification.Checked = true;
 
                     //lblAssignCategory.Visible = true;
                     //ddlAssignCategory.Visible = true;
-                   // BindCategory();
+                    // BindCategory();
                 }
             }
 
@@ -218,9 +228,18 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
         ddlYear.SelectedValue = DateTime.Today.AddYears(-18).Year.ToString();
     }
 
+
+    protected void cvCaptcha_ServerValidate(object source, ServerValidateEventArgs args)
+    {
+        args.IsValid = recaptcha.IsValid;
+    }
+
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        SaveUserData();
+        if (Page.IsValid)
+        {
+            SaveUserData();
+        }
     }
 
     private string UserName
@@ -266,12 +285,13 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
     {
         if (!EditMode) {
             Guid result = Guid.Empty;
-
+            
             MembershipCreateStatus status = MembershipCreateStatus.Success;
             MembershipUser user = Membership.Provider.CreateUser(tfEmail.Text, tfPwd.Text, tfEmail.Text, "question", "answer", true, Guid.NewGuid(), out status);
             this.lblError.Text = string.Empty;
 
-            switch (status) {
+            switch (status)
+            {
                 case MembershipCreateStatus.DuplicateEmail:
                 case MembershipCreateStatus.DuplicateUserName:
                     this.lblError.Text = Resources.Appleseed.USER_ALREADY_EXISTS;
@@ -281,14 +301,19 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
                 case MembershipCreateStatus.Success:
                     UpdateProfile();
                     result = (Guid)user.ProviderUserKey;
+                    //if the user is registering himself (thus, is not yet authenticated) we will sign him on and send him to the home page.
+                    if (!Context.User.Identity.IsAuthenticated)
+                    {
+                        PortalSecurity.SignOn(tfEmail.Text, tfPwd.Text, false, HttpUrlBuilder.BuildUrl());
+                    }
                     break;
-                //Todos los otros...
+                // for every other error message...
                 default:
                     this.lblError.Text = Resources.Appleseed.USER_SAVING_ERROR;
                     break;
             }
-
             return result;
+
         } else {
             if (!String.IsNullOrEmpty(tfPwd.Text)) {
                 string oldPwd = string.Empty;
@@ -310,11 +335,11 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
             }
 
             UpdateProfile();
-
-
             return (Guid)Membership.GetUser(tfEmail.Text).ProviderUserKey;
         }
     }
+
+   
 
     private void UpdateProfile()
     {

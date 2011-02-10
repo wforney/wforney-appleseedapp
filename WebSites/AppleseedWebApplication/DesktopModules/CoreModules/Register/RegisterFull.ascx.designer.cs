@@ -246,6 +246,33 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull {
     protected global::System.Web.UI.WebControls.CheckBox chbSendNotification;
     
     /// <summary>
+    /// trCaptcha control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.HtmlControls.HtmlTableRow trCaptcha;
+    
+    /// <summary>
+    /// recaptcha control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::Recaptcha.RecaptchaControl recaptcha;
+    
+    /// <summary>
+    /// cvCaptcha control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.CustomValidator cvCaptcha;
+    
+    /// <summary>
     /// btnSave control.
     /// </summary>
     /// <remarks>
