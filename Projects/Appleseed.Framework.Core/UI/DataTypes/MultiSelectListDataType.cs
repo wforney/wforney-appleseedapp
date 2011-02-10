@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MultiSelectListDataType.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   Multi Select List Data Type
@@ -15,7 +15,6 @@ namespace Appleseed.Framework.DataTypes
     using System;
     using System.Linq;
     using System.Text;
-    using System.Web.Mvc;
     using System.Web.UI.WebControls;
 
     /// <summary>
@@ -142,6 +141,8 @@ namespace Appleseed.Framework.DataTypes
             }
         }
 
+        private string theValue;
+
         /// <summary>
         ///   Gets or sets the value.
         /// </summary>
@@ -150,13 +151,13 @@ namespace Appleseed.Framework.DataTypes
         {
             get
             {
-                return this.Value;
+                return this.theValue;
             }
 
             set
             {
                 // Remove trailing ';'
-                this.Value = value.TrimEnd(new[] { ';' });
+                this.theValue = value.TrimEnd(new[] { ';' });
 
                 // //Fix by manu          
                 // ListBox lb = (ListBox)innerControl;

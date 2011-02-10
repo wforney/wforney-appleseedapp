@@ -244,9 +244,7 @@ using System.Net.Mail;
             if (this.portalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_FROM"] != null)
             {
                 var sf = this.portalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_FROM"];
-                var mailFrom = sf is SettingItem<string, TextBox>
-                                   ? ((SettingItem<string, TextBox>)sf).Value
-                                   : (string)sf;
+                var mailFrom = sf.ToString();
                 try
                 {
                     mail.From = new MailAddress(mailFrom);

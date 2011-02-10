@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SettingItem.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   This class holds a single setting in the hash table,
@@ -11,13 +11,13 @@
 namespace Appleseed.Framework
 {
     using System;
-    using System.Web.UI.WebControls;
+    using System.Web.UI;
 
     using Appleseed.Framework.DataTypes;
 
     /// <summary>
     /// This class holds a single setting in the hash table,
-    /// providing information about data type, constraints.
+    ///   providing information about data type, constraints.
     /// </summary>
     /// <typeparam name="T">
     /// The type of the setting item.
@@ -26,7 +26,7 @@ namespace Appleseed.Framework
     /// The edit control for the value.
     /// </typeparam>
     /// <author>
-    /// by Manu
+    ///   by Manu
     /// </author>
     public class SettingItem<T, TEditControl> : ISettingItem<T, TEditControl>
         where TEditControl : class
@@ -34,7 +34,7 @@ namespace Appleseed.Framework
         #region Constants and Fields
 
         /// <summary>
-        /// The data type.
+        ///   The data type.
         /// </summary>
         private readonly BaseDataType<T, TEditControl> datatype;
 
@@ -43,10 +43,15 @@ namespace Appleseed.Framework
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SettingItem&lt;T, TEditControl&gt;"/> class.
+        /// Initializes a new instance of the <see cref="SettingItem{T,TEditControl}"/> class. 
+        ///   Initializes a new instance of the <see cref="SettingItem&lt;T, TEditControl&gt;"/> class.
         /// </summary>
-        /// <param name="dataType">Type of the data.</param>
-        /// <param name="value">The value.</param>
+        /// <param name="dataType">
+        /// Type of the data.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
         public SettingItem(BaseDataType<T, TEditControl> dataType, T value)
         {
             this.EnglishName = string.Empty;
@@ -57,9 +62,12 @@ namespace Appleseed.Framework
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SettingItem&lt;T, TEditControl&gt;"/> class.
+        /// Initializes a new instance of the <see cref="SettingItem{T,TEditControl}"/> class. 
+        ///   Initializes a new instance of the <see cref="SettingItem&lt;T, TEditControl&gt;"/> class.
         /// </summary>
-        /// <param name="dataType">Type of the data.</param>
+        /// <param name="dataType">
+        /// Type of the data.
+        /// </param>
         public SettingItem(BaseDataType<T, TEditControl> dataType)
         {
             this.EnglishName = string.Empty;
@@ -221,7 +229,7 @@ namespace Appleseed.Framework
         public int Order { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="SettingItem&lt;T, TEditControl&gt;"/> is required.
+        ///   Gets or sets a value indicating whether this <see cref = "SettingItem&lt;T, TEditControl&gt;" /> is required.
         /// </summary>
         /// <value>
         ///   <c>true</c> if required; otherwise, <c>false</c>.
@@ -247,6 +255,44 @@ namespace Appleseed.Framework
             }
         }
 
+        /// <summary>
+        ///   Gets or sets the edit control.
+        /// </summary>
+        /// <value>The edit control.</value>
+        /// <remarks>
+        /// </remarks>
+        Control ISettingItem.EditControl
+        {
+            get
+            {
+                return this.EditControl as Control;
+            }
+
+            set
+            {
+                this.EditControl = value as TEditControl;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets the value.
+        /// </summary>
+        /// <value>The value.</value>
+        /// <remarks>
+        /// </remarks>
+        object ISettingItem.Value
+        {
+            get
+            {
+                return this.Value;
+            }
+
+            set
+            {
+                this.Value = (T)value;
+            }
+        }
+
         #endregion
 
         #region Operators
@@ -259,21 +305,6 @@ namespace Appleseed.Framework
         public static implicit operator string(SettingItem<T, TEditControl> value)
         {
             return value.ToString();
-        }
-
-        #endregion
-
-        #region Public Methods
-        
-        /// <summary>
-        /// Returns a <see cref="System.String"/> that represents this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String"/> that represents this instance.
-        /// </returns>
-        public override string ToString()
-        {
-            return this.datatype.Value.ToString();
         }
 
         #endregion
@@ -307,6 +338,280 @@ namespace Appleseed.Framework
             return this.Order != compareOrder
                        ? (this.Order < compareOrder ? -1 : (this.Order > compareOrder ? 1 : 0))
                        : 0;
+        }
+
+        #endregion
+
+        #region IConvertible
+
+        /// <summary>
+        /// Returns the <see cref="T:System.TypeCode"/> for this instance.
+        /// </summary>
+        /// <returns>
+        /// The enumerated constant that is the <see cref="T:System.TypeCode"/> of the class or value type that implements this interface.
+        /// </returns>
+        /// <filterpriority>2</filterpriority>
+        public TypeCode GetTypeCode()
+        {
+            return Type.GetTypeCode(typeof(T));
+        }
+
+        /// <summary>
+        /// Converts the value of this instance to an equivalent Boolean value using the specified culture-specific formatting information.
+        /// </summary>
+        /// <returns>
+        /// A Boolean value equivalent to the value of this instance.
+        /// </returns>
+        /// <param name="provider">
+        /// An <see cref="T:System.IFormatProvider"/> interface implementation that supplies culture-specific formatting information. 
+        /// </param>
+        /// <filterpriority>2</filterpriority>
+        public bool ToBoolean(IFormatProvider provider)
+        {
+            return Convert.ToBoolean(this.Value);
+        }
+
+        /// <summary>
+        /// Converts the value of this instance to an equivalent 8-bit unsigned integer using the specified culture-specific formatting information.
+        /// </summary>
+        /// <returns>
+        /// An 8-bit unsigned integer equivalent to the value of this instance.
+        /// </returns>
+        /// <param name="provider">
+        /// An <see cref="T:System.IFormatProvider"/> interface implementation that supplies culture-specific formatting information. 
+        /// </param>
+        /// <filterpriority>2</filterpriority>
+        public byte ToByte(IFormatProvider provider)
+        {
+            return Convert.ToByte(this.Value);
+        }
+
+        /// <summary>
+        /// Converts the value of this instance to an equivalent Unicode character using the specified culture-specific formatting information.
+        /// </summary>
+        /// <returns>
+        /// A Unicode character equivalent to the value of this instance.
+        /// </returns>
+        /// <param name="provider">
+        /// An <see cref="T:System.IFormatProvider"/> interface implementation that supplies culture-specific formatting information. 
+        /// </param>
+        /// <filterpriority>2</filterpriority>
+        public char ToChar(IFormatProvider provider)
+        {
+            return Convert.ToChar(this.Value);
+        }
+
+        /// <summary>
+        /// Converts the value of this instance to an equivalent <see cref="T:System.DateTime"/> using the specified culture-specific formatting information.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="T:System.DateTime"/> instance equivalent to the value of this instance.
+        /// </returns>
+        /// <param name="provider">
+        /// An <see cref="T:System.IFormatProvider"/> interface implementation that supplies culture-specific formatting information. 
+        /// </param>
+        /// <filterpriority>2</filterpriority>
+        public DateTime ToDateTime(IFormatProvider provider)
+        {
+            return Convert.ToDateTime(this.Value);
+        }
+
+        /// <summary>
+        /// Converts the value of this instance to an equivalent <see cref="T:System.Decimal"/> number using the specified culture-specific formatting information.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="T:System.Decimal"/> number equivalent to the value of this instance.
+        /// </returns>
+        /// <param name="provider">
+        /// An <see cref="T:System.IFormatProvider"/> interface implementation that supplies culture-specific formatting information. 
+        /// </param>
+        /// <filterpriority>2</filterpriority>
+        public decimal ToDecimal(IFormatProvider provider)
+        {
+            return Convert.ToDecimal(this.Value);
+        }
+
+        /// <summary>
+        /// Converts the value of this instance to an equivalent double-precision floating-point number using the specified culture-specific formatting information.
+        /// </summary>
+        /// <returns>
+        /// A double-precision floating-point number equivalent to the value of this instance.
+        /// </returns>
+        /// <param name="provider">
+        /// An <see cref="T:System.IFormatProvider"/> interface implementation that supplies culture-specific formatting information. 
+        /// </param>
+        /// <filterpriority>2</filterpriority>
+        public double ToDouble(IFormatProvider provider)
+        {
+            return Convert.ToDouble(this.Value);
+        }
+
+        /// <summary>
+        /// Converts the value of this instance to an equivalent 16-bit signed integer using the specified culture-specific formatting information.
+        /// </summary>
+        /// <returns>
+        /// An 16-bit signed integer equivalent to the value of this instance.
+        /// </returns>
+        /// <param name="provider">
+        /// An <see cref="T:System.IFormatProvider"/> interface implementation that supplies culture-specific formatting information. 
+        /// </param>
+        /// <filterpriority>2</filterpriority>
+        public short ToInt16(IFormatProvider provider)
+        {
+            return Convert.ToInt16(this.Value);
+        }
+
+        /// <summary>
+        /// Converts the value of this instance to an equivalent 32-bit signed integer using the specified culture-specific formatting information.
+        /// </summary>
+        /// <returns>
+        /// An 32-bit signed integer equivalent to the value of this instance.
+        /// </returns>
+        /// <param name="provider">
+        /// An <see cref="T:System.IFormatProvider"/> interface implementation that supplies culture-specific formatting information. 
+        /// </param>
+        /// <filterpriority>2</filterpriority>
+        public int ToInt32(IFormatProvider provider)
+        {
+            return Convert.ToInt32(this.Value);
+        }
+
+        /// <summary>
+        /// Converts the value of this instance to an equivalent 64-bit signed integer using the specified culture-specific formatting information.
+        /// </summary>
+        /// <returns>
+        /// An 64-bit signed integer equivalent to the value of this instance.
+        /// </returns>
+        /// <param name="provider">
+        /// An <see cref="T:System.IFormatProvider"/> interface implementation that supplies culture-specific formatting information. 
+        /// </param>
+        /// <filterpriority>2</filterpriority>
+        public long ToInt64(IFormatProvider provider)
+        {
+            return Convert.ToInt64(this.Value);
+        }
+
+        /// <summary>
+        /// Converts the value of this instance to an equivalent 8-bit signed integer using the specified culture-specific formatting information.
+        /// </summary>
+        /// <returns>
+        /// An 8-bit signed integer equivalent to the value of this instance.
+        /// </returns>
+        /// <param name="provider">
+        /// An <see cref="T:System.IFormatProvider"/> interface implementation that supplies culture-specific formatting information. 
+        /// </param>
+        /// <filterpriority>2</filterpriority>
+        public sbyte ToSByte(IFormatProvider provider)
+        {
+            return Convert.ToSByte(this.Value);
+        }
+
+        /// <summary>
+        /// Converts the value of this instance to an equivalent single-precision floating-point number using the specified culture-specific formatting information.
+        /// </summary>
+        /// <returns>
+        /// A single-precision floating-point number equivalent to the value of this instance.
+        /// </returns>
+        /// <param name="provider">
+        /// An <see cref="T:System.IFormatProvider"/> interface implementation that supplies culture-specific formatting information. 
+        /// </param>
+        /// <filterpriority>2</filterpriority>
+        public float ToSingle(IFormatProvider provider)
+        {
+            return Convert.ToSingle(this.Value);
+        }
+
+        /// <summary>
+        /// Converts the value of this instance to an equivalent <see cref="T:System.String"/> using the specified culture-specific formatting information.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="T:System.String"/> instance equivalent to the value of this instance.
+        /// </returns>
+        /// <param name="provider">
+        /// An <see cref="T:System.IFormatProvider"/> interface implementation that supplies culture-specific formatting information. 
+        /// </param>
+        /// <filterpriority>2</filterpriority>
+        public string ToString(IFormatProvider provider)
+        {
+            return Convert.ToString(this.Value);
+        }
+
+        /// <summary>
+        /// Converts the value of this instance to an <see cref="T:System.Object"/> of the specified <see cref="T:System.Type"/> that has an equivalent value, using the specified culture-specific formatting information.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="T:System.Object"/> instance of type <paramref name="conversionType"/> whose value is equivalent to the value of this instance.
+        /// </returns>
+        /// <param name="conversionType">
+        /// The <see cref="T:System.Type"/> to which the value of this instance is converted. 
+        /// </param>
+        /// <param name="provider">
+        /// An <see cref="T:System.IFormatProvider"/> interface implementation that supplies culture-specific formatting information. 
+        /// </param>
+        /// <filterpriority>2</filterpriority>
+        public object ToType(Type conversionType, IFormatProvider provider)
+        {
+            return Convert.ChangeType(this.Value, conversionType, provider);
+        }
+
+        /// <summary>
+        /// Converts the value of this instance to an equivalent 16-bit unsigned integer using the specified culture-specific formatting information.
+        /// </summary>
+        /// <returns>
+        /// An 16-bit unsigned integer equivalent to the value of this instance.
+        /// </returns>
+        /// <param name="provider">
+        /// An <see cref="T:System.IFormatProvider"/> interface implementation that supplies culture-specific formatting information. 
+        /// </param>
+        /// <filterpriority>2</filterpriority>
+        public ushort ToUInt16(IFormatProvider provider)
+        {
+            return Convert.ToUInt16(this.Value);
+        }
+
+        /// <summary>
+        /// Converts the value of this instance to an equivalent 32-bit unsigned integer using the specified culture-specific formatting information.
+        /// </summary>
+        /// <returns>
+        /// An 32-bit unsigned integer equivalent to the value of this instance.
+        /// </returns>
+        /// <param name="provider">
+        /// An <see cref="T:System.IFormatProvider"/> interface implementation that supplies culture-specific formatting information. 
+        /// </param>
+        /// <filterpriority>2</filterpriority>
+        public uint ToUInt32(IFormatProvider provider)
+        {
+            return Convert.ToUInt32(this.Value);
+        }
+
+        /// <summary>
+        /// Converts the value of this instance to an equivalent 64-bit unsigned integer using the specified culture-specific formatting information.
+        /// </summary>
+        /// <returns>
+        /// An 64-bit unsigned integer equivalent to the value of this instance.
+        /// </returns>
+        /// <param name="provider">
+        /// An <see cref="T:System.IFormatProvider"/> interface implementation that supplies culture-specific formatting information. 
+        /// </param>
+        /// <filterpriority>2</filterpriority>
+        public ulong ToUInt64(IFormatProvider provider)
+        {
+            return Convert.ToUInt64(this.Value);
+        }
+
+        #endregion
+
+        #region ISettingItem
+
+        /// <summary>
+        /// Returns a <see cref="System.String"/> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String"/> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            return Convert.ToString(this.Value);
         }
 
         #endregion

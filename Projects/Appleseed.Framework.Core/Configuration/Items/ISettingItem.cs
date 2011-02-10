@@ -1,17 +1,28 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ISettingItem.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Setting item interface.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace Appleseed.Framework
 {
     using System;
+    using System.Web.UI;
 
     using Appleseed.Framework.DataTypes;
 
     /// <summary>
-    /// Setting Item Interface
+    /// Setting item interface.
     /// </summary>
-    /// <typeparam name="T">The type of the setting value.</typeparam>
-    /// <typeparam name="TEditControl">The type of the edit control.</typeparam>
-    public interface ISettingItem<T, TEditControl> : IComparable
-        where TEditControl : class
+    /// <remarks>
+    /// </remarks>
+    public interface ISettingItem : IComparable, IConvertible
     {
+        #region Properties
+
         /// <summary>
         ///   Gets the data source.
         /// </summary>
@@ -32,14 +43,6 @@ namespace Appleseed.Framework
         /// </summary>
         /// <value>The description.</value>
         string Description { get; set; }
-
-        /// <summary>
-        ///   Gets or sets the edit control.
-        /// </summary>
-        /// <value>
-        ///   The edit control.
-        /// </value>
-        TEditControl EditControl { get; set; }
 
         /// <summary>
         ///   Gets or sets the name of the parameter in plain English.
@@ -93,7 +96,7 @@ namespace Appleseed.Framework
         int Order { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="SettingItem&lt;T, TEditControl&gt;"/> is required.
+        ///   Gets or sets a value indicating whether this <see cref = "SettingItem&lt;T, TEditControl&gt;" /> is required.
         /// </summary>
         /// <value>
         ///   <c>true</c> if required; otherwise, <c>false</c>.
@@ -101,12 +104,22 @@ namespace Appleseed.Framework
         bool Required { get; set; }
 
         /// <summary>
-        ///   Gets or sets the value.
+        /// Gets or sets the value.
         /// </summary>
-        /// <value>
-        ///   The value.
-        /// </value>
-        T Value { get; set; }
+        /// <value>The value.</value>
+        /// <remarks></remarks>
+        object Value { get; set; }
+
+        /// <summary>
+        /// Gets or sets the edit control.
+        /// </summary>
+        /// <value>The edit control.</value>
+        /// <remarks></remarks>
+        Control EditControl { get; set; }
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Returns a <see cref="System.String"/> that represents this instance.
@@ -115,5 +128,55 @@ namespace Appleseed.Framework
         /// A <see cref="System.String"/> that represents this instance.
         /// </returns>
         string ToString();
+
+        #endregion
+    }
+
+    /// <summary>
+    /// Setting item interface.
+    /// </summary>
+    /// <typeparam name="T">
+    /// The type of the setting value.
+    /// </typeparam>
+    /// <remarks>
+    /// </remarks>
+    public interface ISettingItem<T> : ISettingItem
+    {
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets the value.
+        /// </summary>
+        /// <value>
+        ///   The value.
+        /// </value>
+        new T Value { get; set; }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// Setting Item Interface
+    /// </summary>
+    /// <typeparam name="T">
+    /// The type of the setting value.
+    /// </typeparam>
+    /// <typeparam name="TEditControl">
+    /// The type of the edit control.
+    /// </typeparam>
+    public interface ISettingItem<T, TEditControl> : ISettingItem<T>
+        where TEditControl : class
+    {
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets the edit control.
+        /// </summary>
+        /// <value>
+        ///   The edit control.
+        /// </value>
+        new TEditControl EditControl { get; set; }
+
+        #endregion
     }
 }

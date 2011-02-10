@@ -10,6 +10,7 @@
 namespace Appleseed.Framework.DataTypes
 {
     using System.Collections;
+    using System.Globalization;
     using System.Web;
     using System.Web.UI;
     using System.Web.UI.WebControls;
@@ -34,9 +35,10 @@ namespace Appleseed.Framework.DataTypes
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HtmlEditorDataType"/> class.
+        ///   Initializes a new instance of the <see cref = "HtmlEditorDataType" /> class.
         /// </summary>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// </remarks>
         public HtmlEditorDataType()
         {
             this.Type = PropertiesDataType.List;
@@ -48,9 +50,10 @@ namespace Appleseed.Framework.DataTypes
         #region Properties
 
         /// <summary>
-        /// Gets the data source.
+        ///   Gets the data source.
         /// </summary>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// </remarks>
         public override object DataSource
         {
             get
@@ -60,9 +63,10 @@ namespace Appleseed.Framework.DataTypes
         }
 
         /// <summary>
-        /// Gets the description.
+        ///   Gets the description.
         /// </summary>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// </remarks>
         public override string Description
         {
             get
@@ -78,9 +82,14 @@ namespace Appleseed.Framework.DataTypes
         /// <summary>
         /// HTMLs the editor settings.
         /// </summary>
-        /// <param name="editorSettings">The editor settings.</param>
-        /// <param name="group">The group.</param>
-        /// <remarks></remarks>
+        /// <param name="editorSettings">
+        /// The editor settings.
+        /// </param>
+        /// <param name="group">
+        /// The group.
+        /// </param>
+        /// <remarks>
+        /// </remarks>
         public static void HtmlEditorSettings(Hashtable editorSettings, SettingItemGroup group)
         {
             var pS = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
@@ -136,8 +145,7 @@ namespace Appleseed.Framework.DataTypes
                                 Order = (int)group + 5, 
                                 Group = group, 
                                 EnglishName = "Default Image Folder", 
-                                Description =
-                                    "This folder is used for editor in this module to take and upload images"
+                                Description = "This folder is used for editor in this module to take and upload images"
                             };
                 }
 
@@ -146,34 +154,38 @@ namespace Appleseed.Framework.DataTypes
                 {
                     if (pS.CustomSettings["SITESETTINGS_DEFAULT_EDITOR"] != null)
                     {
-                        editor.Value = (string)pS.CustomSettings["SITESETTINGS_DEFAULT_EDITOR"];
+                        editor.Value = pS.CustomSettings["SITESETTINGS_DEFAULT_EDITOR"].ToString();
                     }
 
                     if (pS.CustomSettings["SITESETTINGS_EDITOR_WIDTH"] != null)
                     {
-                        controlWidth.Value = (int)pS.CustomSettings["SITESETTINGS_EDITOR_WIDTH"];
+                        controlWidth.Value =
+                            pS.CustomSettings["SITESETTINGS_EDITOR_WIDTH"].ToInt32(CultureInfo.InvariantCulture);
                     }
 
                     if (pS.CustomSettings["SITESETTINGS_EDITOR_HEIGHT"] != null)
                     {
-                        controlHeight.Value = (int)pS.CustomSettings["SITESETTINGS_EDITOR_HEIGHT"];
+                        controlHeight.Value =
+                            pS.CustomSettings["SITESETTINGS_EDITOR_HEIGHT"].ToInt32(CultureInfo.InvariantCulture);
                     }
 
                     if (pS.CustomSettings["SITESETTINGS_EDITOR_HEIGHT"] != null)
                     {
-                        controlHeight.Value = (int)pS.CustomSettings["SITESETTINGS_EDITOR_HEIGHT"];
+                        controlHeight.Value =
+                            pS.CustomSettings["SITESETTINGS_EDITOR_HEIGHT"].ToInt32(CultureInfo.InvariantCulture);
                     }
 
                     if (pS.CustomSettings["SITESETTINGS_SHOWUPLOAD"] != null)
                     {
-                        showUpload.Value = (bool)pS.CustomSettings["SITESETTINGS_SHOWUPLOAD"];
+                        showUpload.Value =
+                            pS.CustomSettings["SITESETTINGS_SHOWUPLOAD"].ToBoolean(CultureInfo.InvariantCulture);
                     }
 
                     if (pS.CustomSettings["SITESETTINGS_DEFAULT_IMAGE_FOLDER"] != null)
                     {
                         if (moduleImageFolder != null)
                         {
-                            moduleImageFolder.Value = (string)pS.CustomSettings["SITESETTINGS_DEFAULT_IMAGE_FOLDER"];
+                            moduleImageFolder.Value = pS.CustomSettings["SITESETTINGS_DEFAULT_IMAGE_FOLDER"].ToString();
                         }
                     }
                 }
@@ -192,13 +204,21 @@ namespace Appleseed.Framework.DataTypes
         /// <summary>
         /// Gets the editor.
         /// </summary>
+        /// <param name="placeHolderHtmlEditor">
+        /// The place holder HTML editor.
+        /// </param>
+        /// <param name="moduleId">
         /// The module ID.
-        /// An html editor interface.
-        /// </summary>
-        /// <param name="PlaceHolderHTMLEditor">The place holder HTML editor.</param>
-        /// <param name="moduleID">The module ID.</param>
-        /// <returns>The HTML editor interface.</returns>
-        /// <returns></returns>
+        /// </param>
+        /// <param name="showUpload">
+        /// The show Upload.
+        /// </param>
+        /// <param name="portalSettings">
+        /// The portal Settings.
+        /// </param>
+        /// <returns>
+        /// The HTML editor interface.
+        /// </returns>
         public IHtmlEditor GetEditor(
             Control placeHolderHtmlEditor, int moduleId, bool showUpload, PortalSettings portalSettings)
         {
@@ -220,22 +240,22 @@ namespace Appleseed.Framework.DataTypes
                     var conector = Path.ApplicationRootPath("/app_support/FCKconnectorV2.aspx");
                     var fckv2 = new FCKTextBoxV2
                         {
-                            ImageFolder = moduleImageFolder,
-                            BasePath = Path.WebPathCombine(Path.ApplicationRoot, "aspnet_client/FCKeditorV2.6.6/"),
-                            AutoDetectLanguage = false,
-                            DefaultLanguage = portalSettings.PortalUILanguage.Name.Substring(0, 2),
-                            ID = string.Concat("FCKTextBox", uniqueId),
+                            ImageFolder = moduleImageFolder, 
+                            BasePath = Path.WebPathCombine(Path.ApplicationRoot, "aspnet_client/FCKeditorV2.6.6/"), 
+                            AutoDetectLanguage = false, 
+                            DefaultLanguage = portalSettings.PortalUILanguage.Name.Substring(0, 2), 
+                            ID = string.Concat("FCKTextBox", uniqueId), 
                             ImageBrowserURL =
                                 Path.WebPathCombine(
-                                    Path.ApplicationRoot,
+                                    Path.ApplicationRoot, 
                                     string.Format(
-                                        "aspnet_client/FCKeditorV2.6.6/editor/filemanager/browser/default/browser.html?Type=Image%26Connector={0}",
-                                        conector)),
+                                        "aspnet_client/FCKeditorV2.6.6/editor/filemanager/browser/default/browser.html?Type=Image%26Connector={0}", 
+                                        conector)), 
                             LinkBrowserURL =
                                 Path.WebPathCombine(
-                                    Path.ApplicationRoot,
+                                    Path.ApplicationRoot, 
                                     string.Format(
-                                        "aspnet_client/FCKeditorV2.6.6/editor/filemanager/browser/default/browser.html?Connector={0}",
+                                        "aspnet_client/FCKeditorV2.6.6/editor/filemanager/browser/default/browser.html?Connector={0}", 
                                         conector))
                         };
 
@@ -249,9 +269,9 @@ namespace Appleseed.Framework.DataTypes
 
                     var sckvtb = new SyrinxCkTextBox
                         {
-                            ImageFolder = moduleImageFolder,
-                            BaseContentUrl = Path.WebPathCombine(Path.ApplicationRoot, "aspnet_client/ckeditor/"),
-                            Resizable = false,
+                            ImageFolder = moduleImageFolder, 
+                            BaseContentUrl = Path.WebPathCombine(Path.ApplicationRoot, "aspnet_client/ckeditor/"), 
+                            Resizable = false, 
                             Language = portalSettings.PortalUILanguage.TwoLetterISOLanguageName
                         };
 
@@ -263,15 +283,15 @@ namespace Appleseed.Framework.DataTypes
                         {
                             ImageGalleryUrl =
                                 Path.WebPathCombine(
-                                    Path.ApplicationFullPath,
-                                    "app_support/ftb.imagegallery.aspx?rif={0}&cif={0}&mID=" + moduleId),
-                            ImageFolder = moduleImageFolder,
-                            ImageGalleryPath = Path.WebPathCombine(portalSettings.PortalFullPath, moduleImageFolder),
-                            ID = string.Concat("FreeText", uniqueId),
-                            Language = GetFtbLanguage(portalSettings.PortalUILanguage.Name),
-                            JavaScriptLocation = ResourceLocation.ExternalFile,
-                            ButtonImagesLocation = ResourceLocation.ExternalFile,
-                            ToolbarImagesLocation = ResourceLocation.ExternalFile,
+                                    Path.ApplicationFullPath, 
+                                    "app_support/ftb.imagegallery.aspx?rif={0}&cif={0}&mID=" + moduleId), 
+                            ImageFolder = moduleImageFolder, 
+                            ImageGalleryPath = Path.WebPathCombine(portalSettings.PortalFullPath, moduleImageFolder), 
+                            ID = string.Concat("FreeText", uniqueId), 
+                            Language = GetFtbLanguage(portalSettings.PortalUILanguage.Name), 
+                            JavaScriptLocation = ResourceLocation.ExternalFile, 
+                            ButtonImagesLocation = ResourceLocation.ExternalFile, 
+                            ToolbarImagesLocation = ResourceLocation.ExternalFile, 
                             SupportFolder = Path.WebPathCombine(Path.ApplicationFullPath, "aspnet_client/FreeTextBox")
                         };
 
@@ -280,7 +300,7 @@ namespace Appleseed.Framework.DataTypes
                     desktopText = freeText;
                     break;
 
-                // case "Code Mirror Plain Text":
+                    // case "Code Mirror Plain Text":
                 default:
                     var codeMirrorTextBox = new CodeMirrorTextBox();
                     desktopText = codeMirrorTextBox;
