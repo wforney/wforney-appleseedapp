@@ -631,7 +631,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
             // EmailButton.Group = _Group;
             // this._baseSettings.Add("ShowEmailButton",EmailButton);
 
-            // Show arrows buttons to move modules (admin only, property authorise)
+            // Show arrows buttons to move modules (admin only, property authorize)
             var arrowButtons = new SettingItem<bool, CheckBox>(new BooleanDataType())
                 {
                     Value = true,
@@ -704,7 +704,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                         Group = group,
                         Order = groupOrderBase,
                         EnglishName = "Topic",
-                        Description = "Select a topic for this module. You may filter itmes by topic in Portal Search."
+                        Description = "Select a topic for this module. You may filter items by topic in Portal Search."
                     };
 
                 // end of modification
