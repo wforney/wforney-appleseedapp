@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LayoutManager.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   The LayoutManager class encapsulates all data logic necessary to
@@ -213,7 +213,7 @@ namespace Appleseed.Framework.Design
                     var t = new LayoutItem { Name = layouts[i].Substring(this.PortalLayoutPath.Length + 1) };
 
                     // Ignore CVS
-                    if (t.Name != "CVS" && t.Name != "_svn")
+                    if (t.Name != "CVS" && t.Name != "_svn" && t.Name != ".svn")
                     {
                         privateLayoutList.Add(t);
                     }

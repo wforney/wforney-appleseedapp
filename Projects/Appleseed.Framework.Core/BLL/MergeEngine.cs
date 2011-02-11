@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MergeEngine.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   When we compare two files, we say we delete or add
@@ -99,20 +99,20 @@ namespace Appleseed.Framework.BLL.MergeEngine
         Deleted = 0, 
 
         /// <summary>
-        ///     The sequence is inside the modifed
+        ///     The sequence is inside the modified
         ///     file but not in the original file
         /// </summary>
         Inserted, 
 
         /// <summary>
-        ///     The sequence is in both the origianl 
+        ///     The sequence is in both the original 
         ///     and the modified files
         /// </summary>
         NoChange
     }
 
     /// <summary>
-    /// The class defines the begining and end html tag 
+    /// The class defines the beginning and end html tag 
     ///     for marking up the deleted words in the merged
     ///     file.
     /// </summary>
@@ -134,7 +134,7 @@ namespace Appleseed.Framework.BLL.MergeEngine
     }
 
     /// <summary>
-    /// The class defines the begining and end html tag 
+    /// The class defines the beginning and end html tag 
     ///     for marking up the added words in the merged
     ///     file.
     /// </summary>
@@ -292,11 +292,9 @@ namespace Appleseed.Framework.BLL.MergeEngine
         #region Indexers
 
         /// <summary>
-        /// The this.
+        /// Gets or sets the <see cref="System.Int32"/> at the specified index.
         /// </summary>
-        /// <param name="index">
-        /// The index.
-        /// </param>
+        /// <remarks></remarks>
         public int this[int index]
         {
             get

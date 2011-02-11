@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ProviderConfigurationHandler.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   The provider configuration handler.
@@ -15,6 +15,8 @@ namespace Appleseed.Framework.Provider
     /// <summary>
     /// The provider configuration handler.
     /// </summary>
+    /// <remarks>
+    /// </remarks>
     public class ProviderConfigurationHandler : IConfigurationSectionHandler
     {
         #region Implemented Interfaces
@@ -36,6 +38,8 @@ namespace Appleseed.Framework.Provider
         /// <returns>
         /// The create.
         /// </returns>
+        /// <remarks>
+        /// </remarks>
         public virtual object Create(object parent, object context, XmlNode node)
         {
             var config = new ProviderConfiguration();

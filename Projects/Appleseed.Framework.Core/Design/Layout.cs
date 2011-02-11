@@ -36,9 +36,9 @@ namespace Appleseed.Framework.Design
         #region Properties
 
         /// <summary>
-        ///   The Layout Name (must be the directory in which is located)
+        ///   Gets or sets the Layout Name (must be the directory in which is located)
         /// </summary>
-        /// <value>The name.</value>
+        /// <value>The layout name.</value>
         public string Name { get; set; }
 
         /// <summary>

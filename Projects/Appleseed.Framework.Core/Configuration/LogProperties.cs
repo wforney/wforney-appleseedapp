@@ -1,19 +1,35 @@
-using System.Web;
-using Appleseed.Framework.Settings;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="LogProperties.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   The log code version property.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.Logging
 {
+    using System.Web;
+
+    using Appleseed.Framework.Settings;
+
     /// <summary>
-    /// 
+    /// The log code version property.
     /// </summary>
-    /// <remarks></remarks>
+    /// <remarks>
+    /// </remarks>
     public class LogCodeVersionProperty
     {
+        #region Public Methods
+
         /// <summary>
         /// Returns a <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
         /// </summary>
-        /// <returns>A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.</returns>
-        /// <remarks></remarks>
+        /// <returns>
+        /// A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+        /// </returns>
+        /// <remarks>
+        /// </remarks>
         public override string ToString()
         {
             try
@@ -25,19 +41,27 @@ namespace Appleseed.Framework.Logging
                 return "not available";
             }
         }
+
+        #endregion
     }
 
     /// <summary>
-    /// 
+    /// The log user name property.
     /// </summary>
-    /// <remarks></remarks>
+    /// <remarks>
+    /// </remarks>
     public class LogUserNameProperty
     {
+        #region Public Methods
+
         /// <summary>
         /// Returns a <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
         /// </summary>
-        /// <returns>A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.</returns>
-        /// <remarks></remarks>
+        /// <returns>
+        /// A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+        /// </returns>
+        /// <remarks>
+        /// </remarks>
         public override string ToString()
         {
             try
@@ -49,19 +73,27 @@ namespace Appleseed.Framework.Logging
                 return "not available";
             }
         }
+
+        #endregion
     }
 
     /// <summary>
-    /// 
+    /// The log rewritten url property.
     /// </summary>
-    /// <remarks></remarks>
+    /// <remarks>
+    /// </remarks>
     public class LogRewrittenUrlProperty
     {
+        #region Public Methods
+
         /// <summary>
         /// Returns a <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
         /// </summary>
-        /// <returns>A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.</returns>
-        /// <remarks></remarks>
+        /// <returns>
+        /// A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+        /// </returns>
+        /// <remarks>
+        /// </remarks>
         public override string ToString()
         {
             try
@@ -75,19 +107,27 @@ namespace Appleseed.Framework.Logging
                 return "not available";
             }
         }
+
+        #endregion
     }
 
     /// <summary>
-    /// 
+    /// The log user agent property.
     /// </summary>
-    /// <remarks></remarks>
+    /// <remarks>
+    /// </remarks>
     public class LogUserAgentProperty
     {
+        #region Public Methods
+
         /// <summary>
         /// Returns a <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
         /// </summary>
-        /// <returns>A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.</returns>
-        /// <remarks></remarks>
+        /// <returns>
+        /// A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+        /// </returns>
+        /// <remarks>
+        /// </remarks>
         public override string ToString()
         {
             try
@@ -99,19 +139,27 @@ namespace Appleseed.Framework.Logging
                 return "not available";
             }
         }
+
+        #endregion
     }
 
     /// <summary>
-    /// 
+    /// The log user languages property.
     /// </summary>
-    /// <remarks></remarks>
+    /// <remarks>
+    /// </remarks>
     public class LogUserLanguagesProperty
     {
+        #region Public Methods
+
         /// <summary>
         /// Returns a <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
         /// </summary>
-        /// <returns>A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.</returns>
-        /// <remarks></remarks>
+        /// <returns>
+        /// A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+        /// </returns>
+        /// <remarks>
+        /// </remarks>
         public override string ToString()
         {
             try
@@ -123,19 +171,27 @@ namespace Appleseed.Framework.Logging
                 return "not available";
             }
         }
+
+        #endregion
     }
 
     /// <summary>
-    /// 
+    /// The log user ip property.
     /// </summary>
-    /// <remarks></remarks>
+    /// <remarks>
+    /// </remarks>
     public class LogUserIpProperty
     {
+        #region Public Methods
+
         /// <summary>
         /// Returns a <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
         /// </summary>
-        /// <returns>A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.</returns>
-        /// <remarks></remarks>
+        /// <returns>
+        /// A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+        /// </returns>
+        /// <remarks>
+        /// </remarks>
         public override string ToString()
         {
             try
@@ -147,19 +203,27 @@ namespace Appleseed.Framework.Logging
                 return "not available";
             }
         }
+
+        #endregion
     }
 
     /// <summary>
-    /// 
+    /// The portal alias property.
     /// </summary>
-    /// <remarks></remarks>
+    /// <remarks>
+    /// </remarks>
     public class PortalAliasProperty
     {
+        #region Public Methods
+
         /// <summary>
         /// Returns a <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
         /// </summary>
-        /// <returns>A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.</returns>
-        /// <remarks></remarks>
+        /// <returns>
+        /// A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+        /// </returns>
+        /// <remarks>
+        /// </remarks>
         public override string ToString()
         {
             try
@@ -171,5 +235,7 @@ namespace Appleseed.Framework.Logging
                 return "not available";
             }
         }
+
+        #endregion
     }
 }

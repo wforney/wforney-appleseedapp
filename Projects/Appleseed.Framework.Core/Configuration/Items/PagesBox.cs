@@ -1,9 +1,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="PagesBox.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
-//   Box tab
+//   Pages Box is a collection of PageStripDetails.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -15,6 +15,8 @@ namespace Appleseed.Framework.Site.Configuration
     /// <summary>
     /// Pages Box is a collection of PageStripDetails.
     /// </summary>
+    /// <remarks>
+    /// </remarks>
     [History("jminond", "2005/03/10", "Tab to page conversion")]
     [Obsolete("Use Collection<PageStripDetails> instead.")]
     public class PagesBox : Collection<PageStripDetails>
