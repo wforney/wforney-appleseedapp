@@ -1480,21 +1480,23 @@
       <DependentUpon>SiteMasterDefault.master</DependentUpon>
     </Compile>
     <Compile Include="UI\Design\PagingDesigner.cs" />
-    <Compile Include="Old_App_Code\Adapters\ChangePasswordAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\CompositeDataBoundControlAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\CreateUserWizardAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\DataListAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\DetailsViewAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\FormViewAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\GoogleClosure.cs" />
-    <Compile Include="Old_App_Code\Adapters\GridViewAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\LoginAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\LoginStatusAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\MenuAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\PasswordRecoveryAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\TreeViewAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\WebControlAdapterExtender.cs" />
-    <Compile Include="Old_App_Code\Global.asax.cs" />
+    <Compile Include="CSSFriendly\Adapters\ChangePasswordAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\CompositeDataBoundControlAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\CreateUserWizardAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\DataListAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\DetailsViewAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\FormViewAdapter.cs" />
+    <Compile Include="GoogleClosure.cs" />
+    <Compile Include="CSSFriendly\Adapters\GridViewAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\LoginAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\LoginStatusAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\MenuAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\PasswordRecoveryAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\TreeViewAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\WebControlAdapterExtender.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\Appleseed.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1575,7 +1577,6 @@
     <Folder Include="Bin\" />
     <Folder Include="DesktopModules\CommunityModules\DiscussionEnhanced\images\" />
     <Folder Include="images\default\" />
-    <Folder Include="Old_App_Code\Appleseed\" />
     <Folder Include="Portals\_Appleseed\Album\" />
     <Folder Include="Portals\_Appleseed\SecureDocuments\" />
   </ItemGroup>
