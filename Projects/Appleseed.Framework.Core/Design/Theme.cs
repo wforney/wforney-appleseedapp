@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Theme.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   The Theme class encapsulates all the settings
@@ -74,9 +74,9 @@ namespace Appleseed.Framework.Design
         #region Properties
 
         /// <summary>
-        ///   Get or sets the Css file name without any path.
+        ///   Gets or sets the Css file name without any path.
         /// </summary>
-        /// <value>The CSS.</value>
+        /// <value>The CSS string.</value>
         public string Css { get; set; }
 
         /// <summary>

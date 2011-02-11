@@ -24,9 +24,10 @@ namespace Appleseed.Framework.Site.Configuration
     /// <summary>
     /// The module settings.
     /// </summary>
+    /// <remarks>
+    /// </remarks>
     public class ModuleSettings
     {
-        // Fields
         #region Constants and Fields
 
         /// <summary>
@@ -95,7 +96,7 @@ namespace Appleseed.Framework.Site.Configuration
         public bool Cacheable;
 
         /// <summary>
-        ///   The desktop src.
+        ///   The desktop source.
         /// </summary>
         public string DesktopSrc = string.Empty;
 
@@ -105,7 +106,7 @@ namespace Appleseed.Framework.Site.Configuration
         public Guid GuidID;
 
         /// <summary>
-        ///   The mobile src.
+        ///   The mobile source.
         /// </summary>
         public string MobileSrc = string.Empty;
 
@@ -150,7 +151,7 @@ namespace Appleseed.Framework.Site.Configuration
         public bool ShowMobile;
 
         /// <summary>
-        ///   The support collapsable.
+        ///   The support collapsible.
         /// </summary>
         public bool SupportCollapsable;
 
@@ -179,7 +180,7 @@ namespace Appleseed.Framework.Site.Configuration
         */
 
         /// <summary>
-        ///   The str desktop src.
+        ///   The string desktop source.
         /// </summary>
         private const string StringsDesktopSrc = "DesktopSrc";
 
@@ -188,13 +189,11 @@ namespace Appleseed.Framework.Site.Configuration
         #region Public Methods
 
         /// <summary>
-        /// The get module definition by id.
+        /// Gets the module definition by ID.
         /// </summary>
-        /// <param name="moduleId">
-        /// The module id.
-        /// </param>
-        /// <returns>
-        /// </returns>
+        /// <param name="moduleId">The module id.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
         public static SqlDataReader GetModuleDefinitionByID(int moduleId)
         {
             var sqlConnectionString = Config.SqlConnectionString;
@@ -209,14 +208,11 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
-        /// The get module desktop src.
+        /// Gets the module desktop SRC.
         /// </summary>
-        /// <param name="moduleId">
-        /// The module id.
-        /// </param>
-        /// <returns>
-        /// The get module desktop src.
-        /// </returns>
+        /// <param name="moduleId">The module id.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
         public static string GetModuleDesktopSrc(int moduleId)
         {
             var str = string.Empty;
@@ -232,13 +228,11 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
-        /// The get module settings.
+        /// Gets the module settings.
         /// </summary>
-        /// <param name="moduleId">
-        /// The module id.
-        /// </param>
-        /// <returns>
-        /// </returns>
+        /// <param name="moduleId">The module id.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
         public static Dictionary<string, ISettingItem> GetModuleSettings(int moduleId)
         {
             return GetModuleSettings(moduleId, new Page());
@@ -256,6 +250,8 @@ namespace Appleseed.Framework.Site.Configuration
         /// <returns>
         /// A hash table.
         /// </returns>
+        /// <remarks>
+        /// </remarks>
         public static Dictionary<string, ISettingItem> GetModuleSettings(
             int moduleId, Dictionary<string, ISettingItem> baseSettings)
         {
@@ -263,19 +259,17 @@ namespace Appleseed.Framework.Site.Configuration
             {
                 var hashtable = new Hashtable();
                 using (var connection = Config.SqlConnectionString)
+                using (var command = new SqlCommand("rb_GetModuleSettings", connection))
                 {
-                    using (var command = new SqlCommand("rb_GetModuleSettings", connection))
+                    command.CommandType = CommandType.StoredProcedure;
+                    var parameter = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
+                    command.Parameters.Add(parameter);
+                    connection.Open();
+                    using (var reader = command.ExecuteReader(CommandBehavior.CloseConnection))
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-                        var parameter = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
-                        command.Parameters.Add(parameter);
-                        connection.Open();
-                        using (var reader = command.ExecuteReader(CommandBehavior.CloseConnection))
+                        while (reader.Read())
                         {
-                            while (reader.Read())
-                            {
-                                hashtable[reader["SettingName"].ToString()] = reader["SettingValue"].ToString();
-                            }
+                            hashtable[reader["SettingName"].ToString()] = reader["SettingValue"].ToString();
                         }
                     }
                 }
@@ -306,6 +300,8 @@ namespace Appleseed.Framework.Site.Configuration
         /// </param>
         /// <returns>
         /// </returns>
+        /// <remarks>
+        /// </remarks>
         public static Dictionary<string, ISettingItem> GetModuleSettings(int moduleId, Page page)
         {
             var virtualPath = Path.ApplicationRoot + "/";
@@ -356,33 +352,26 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
-        /// The update module setting.
+        /// Updates the module setting.
         /// </summary>
-        /// <param name="moduleId">
-        /// The module id.
-        /// </param>
-        /// <param name="key">
-        /// The key.
-        /// </param>
-        /// <param name="value">
-        /// The value.
-        /// </param>
+        /// <param name="moduleId">The module id.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <remarks></remarks>
         public static void UpdateModuleSetting(int moduleId, string key, string value)
         {
             using (var connection = Config.SqlConnectionString)
+            using (var command = new SqlCommand("rb_UpdateModuleSetting", connection))
             {
-                using (var command = new SqlCommand("rb_UpdateModuleSetting", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    var parameter = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
-                    command.Parameters.Add(parameter);
-                    var parameter2 = new SqlParameter("@SettingName", SqlDbType.NVarChar, 50) { Value = key };
-                    command.Parameters.Add(parameter2);
-                    var parameter3 = new SqlParameter("@SettingValue", SqlDbType.NVarChar, 0x5dc) { Value = value };
-                    command.Parameters.Add(parameter3);
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
+                command.CommandType = CommandType.StoredProcedure;
+                var parameter = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
+                command.Parameters.Add(parameter);
+                var parameter2 = new SqlParameter("@SettingName", SqlDbType.NVarChar, 50) { Value = key };
+                command.Parameters.Add(parameter2);
+                var parameter3 = new SqlParameter("@SettingValue", SqlDbType.NVarChar, 0x5dc) { Value = value };
+                command.Parameters.Add(parameter3);
+                connection.Open();
+                command.ExecuteNonQuery();
             }
 
             CurrentCache.Remove(Key.ModuleSettings(moduleId));
