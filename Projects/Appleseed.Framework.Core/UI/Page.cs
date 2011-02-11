@@ -1322,19 +1322,19 @@ namespace Appleseed.Framework.Web.UI
             }
 
             this.ModuleGuidInCookie();
-
+    
             if (!this.Page.ClientScript.IsStartupScriptRegistered("jQuery"))
             {
                 this.Page.ClientScript.RegisterClientScriptInclude(
-                    this.Page.GetType(), "jQuery", "http://ajax.microsoft.com/ajax/jquery/jquery-1.4.4.min.js");
+                    this.Page.GetType(), "jQuery", "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.5.min.js");
                 this.Page.ClientScript.RegisterClientScriptInclude(
                     this.Page.GetType(), 
                     "jQueryUI", 
                     "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js");
                 this.Page.ClientScript.RegisterClientScriptInclude(
                     this.Page.GetType(), 
-                    "jQueryValidate", 
-                    "http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js");
+                    "jQueryValidate",
+                    "http://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js");
                 this.Page.ClientScript.RegisterClientScriptInclude(
                     this.Page.GetType(), 
                     "bgiFrame", 
