@@ -60,8 +60,8 @@ namespace Appleseed.Content.Web.Modules
             {
                 portalList.DataBind();
             }
-            EditBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl;
-            DeleteBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Delete", "Delete.gif").ImageUrl;
+            EditBtn.ImageUrl = this.CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl;
+            DeleteBtn.ImageUrl = this.CurrentTheme.GetImage("Buttons_Delete", "Delete.gif").ImageUrl;
             DeleteBtn.Attributes.Add("onclick", "return confirmDelete();");
         }
 

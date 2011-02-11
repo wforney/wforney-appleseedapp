@@ -10,14 +10,14 @@
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[rb_Countries]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_Countries] (
-	[CountryID] [nchar] (2) NOT NULL ,
-	[Code3] [nchar] (3) NULL ,
-	[Number] [int] NULL ,
-	[Country] [nvarchar] (255) NULL ,
-	CONSTRAINT [PK_rb_Countries] PRIMARY KEY  CLUSTERED 
-	(
-		[CountryID]
-	)
+    [CountryID] [nchar] (2) NOT NULL ,
+    [Code3] [nchar] (3) NULL ,
+    [Number] [int] NULL ,
+    [Country] [nvarchar] (255) NULL ,
+    CONSTRAINT [PK_rb_Countries] PRIMARY KEY  CLUSTERED 
+    (
+        [CountryID]
+    )
 )
 END
 GO
@@ -25,19 +25,19 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[rb_States]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_States] (
-	[StateID] [int] NOT NULL ,
-	[Description] [nvarchar] (50) NULL ,
-	[CountryID] [nchar] (2) NOT NULL ,
-	CONSTRAINT [PK_rb_States] PRIMARY KEY  CLUSTERED 
-	(
-		[StateID]
-	),
-	CONSTRAINT [FK_rb_States_rb_Countries] FOREIGN KEY 
-	(
-		[CountryID]
-	) REFERENCES [rb_Countries] (
-		[CountryID]
-	)
+    [StateID] [int] NOT NULL ,
+    [Description] [nvarchar] (50) NULL ,
+    [CountryID] [nchar] (2) NOT NULL ,
+    CONSTRAINT [PK_rb_States] PRIMARY KEY  CLUSTERED 
+    (
+        [StateID]
+    ),
+    CONSTRAINT [FK_rb_States_rb_Countries] FOREIGN KEY 
+    (
+        [CountryID]
+    ) REFERENCES [rb_Countries] (
+        [CountryID]
+    )
 )
 END
 GO
@@ -45,21 +45,21 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[rb_Cultures]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_Cultures] (
-	[CultureCode] [varchar] (10) NOT NULL ,
-	[NeutralCode] [char] (2) NULL ,
-	[CountryID] [nchar] (2) NULL ,
-	[Description] [nvarchar] (255) NULL ,
-	[Identifier] [int] NOT NULL ,
-	CONSTRAINT [PK_rb_Cultures] PRIMARY KEY  CLUSTERED 
-	(
-		[CultureCode]
-	),
-	CONSTRAINT [FK_rb_Cultures_rb_Countries] FOREIGN KEY 
-	(
-		[CountryID]
-	) REFERENCES [rb_Countries] (
-		[CountryID]
-	)
+    [CultureCode] [varchar] (10) NOT NULL ,
+    [NeutralCode] [char] (2) NULL ,
+    [CountryID] [nchar] (2) NULL ,
+    [Description] [nvarchar] (255) NULL ,
+    [Identifier] [int] NOT NULL ,
+    CONSTRAINT [PK_rb_Cultures] PRIMARY KEY  CLUSTERED 
+    (
+        [CultureCode]
+    ),
+    CONSTRAINT [FK_rb_Cultures_rb_Countries] FOREIGN KEY 
+    (
+        [CountryID]
+    ) REFERENCES [rb_Countries] (
+        [CountryID]
+    )
 )
 END
 GO
@@ -67,9 +67,9 @@ GO
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[rb_Localize]') AND OBJECTPROPERTY(id, N'IsUserTable') = 1)
  BEGIN
 CREATE TABLE [rb_Localize] (
-	[TextKey] [nvarchar] (255) NOT NULL ,
-	[CultureCode] [varchar] (10) NOT NULL ,
-	[Description] [nvarchar] (1500) NULL 
+    [TextKey] [nvarchar] (255) NOT NULL ,
+    [CultureCode] [varchar] (10) NOT NULL ,
+    [Description] [nvarchar] (1500) NULL 
 )
 END
 GO
@@ -969,7 +969,7 @@ GO
 
 CREATE PROCEDURE rb_GetCountries
 (
-	@IDLang	nchar(2) = 'en'
+    @IDLang	nchar(2) = 'en'
 )
 AS
 IF 
@@ -1010,8 +1010,8 @@ GO
 
 CREATE PROCEDURE rb_GetCountriesFiltered
 (
-	@IDLang	nchar(2) = 'en',
-	@Filter nvarchar(1000)
+    @IDLang	nchar(2) = 'en',
+    @Filter nvarchar(1000)
 )
 AS
 SELECT     rb_Countries.CountryID, rb_Localize.Description
@@ -1029,7 +1029,7 @@ GO
 
 CREATE PROCEDURE rb_GetCulture
 (
-	@CountryID nchar(2)
+    @CountryID nchar(2)
 )
 AS
 SELECT    CultureCode, CountryID

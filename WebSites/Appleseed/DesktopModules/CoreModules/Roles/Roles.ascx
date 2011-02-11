@@ -1,4 +1,4 @@
-<%@ Control AutoEventWireup="false" Inherits="Appleseed.Content.Web.Modules.Roles"
+<%@ Control Inherits="Appleseed.Content.Web.Modules.Roles"
     Language="c#" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" Codebehind="Roles.ascx.cs" %>
 <table border="0" cellpadding="2" cellspacing="0">
    
@@ -10,13 +10,13 @@
                         <tr>
                             <td>
                                 <rbfwebui:ImageButton ID="ImageButton2" runat="server" AlternateText="Edit this item"
-                                    CommandName="edit" ImageUrl='<%# CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
+                                    CommandName="edit" ImageUrl='<%# this.CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
                                     TextKey="EDIT_THIS_ITEM" CausesValidation="false" />
                             </td>
                             <td>
                                 <rbfwebui:ImageButton ID="ImageButton1" runat="server" AlternateText="Delete this item"
                                     CausesValidation="false" CommandName="delete"  CommandArgument='<%# Eval( "Id" ) %>'
-                                    ImageUrl='<%# CurrentTheme.GetImage("Buttons_Delete", "Delete.gif").ImageUrl %>'
+                                    ImageUrl='<%# this.CurrentTheme.GetImage("Buttons_Delete", "Delete.gif").ImageUrl %>'
                                     TextKey="DELETE_THIS_ITEM" />
                             </td>
                             <td>

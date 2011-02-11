@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ModuleSettings.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   The module settings.
@@ -11,8 +11,10 @@ namespace Appleseed.Framework.Site.Configuration
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
+    using System.Linq;
     using System.Web.UI;
 
     using Appleseed.Framework.Settings;
@@ -22,162 +24,163 @@ namespace Appleseed.Framework.Site.Configuration
     /// <summary>
     /// The module settings.
     /// </summary>
+    /// <remarks>
+    /// </remarks>
     public class ModuleSettings
     {
-        // Fields
         #region Constants and Fields
 
         /// <summary>
-        /// The admin.
+        ///   The admin.
         /// </summary>
         public bool Admin;
 
         /// <summary>
-        /// The authorized add roles.
+        ///   The authorized add roles.
         /// </summary>
         public string AuthorizedAddRoles = "Admin;";
 
         /// <summary>
-        /// The authorized approve roles.
+        ///   The authorized approve roles.
         /// </summary>
         public string AuthorizedApproveRoles;
 
         /// <summary>
-        /// The authorized delete module roles.
+        ///   The authorized delete module roles.
         /// </summary>
         public string AuthorizedDeleteModuleRoles = "Admin;";
 
         /// <summary>
-        /// The authorized delete roles.
+        ///   The authorized delete roles.
         /// </summary>
         public string AuthorizedDeleteRoles = "Admin;";
 
         /// <summary>
-        /// The authorized edit roles.
+        ///   The authorized edit roles.
         /// </summary>
         public string AuthorizedEditRoles = "Admin;";
 
         /// <summary>
-        /// The authorized move module roles.
+        ///   The authorized move module roles.
         /// </summary>
         public string AuthorizedMoveModuleRoles = "Admin;";
 
         /// <summary>
-        /// The authorized properties roles.
+        ///   The authorized properties roles.
         /// </summary>
         public string AuthorizedPropertiesRoles = "Admin;";
 
         /// <summary>
-        /// The authorized publishing roles.
+        ///   The authorized publishing roles.
         /// </summary>
         public string AuthorizedPublishingRoles;
 
         /// <summary>
-        /// The authorized view roles.
+        ///   The authorized view roles.
         /// </summary>
         public string AuthorizedViewRoles = "All Users;";
 
         /// <summary>
-        /// The cache dependency.
+        ///   The cache dependency.
         /// </summary>
         public ArrayList CacheDependency = new ArrayList();
 
         /// <summary>
-        /// The cache time.
+        ///   The cache time.
         /// </summary>
         public int CacheTime;
 
         /// <summary>
-        /// The cacheable.
+        ///   The cacheable.
         /// </summary>
         public bool Cacheable;
 
         /// <summary>
-        /// The desktop src.
+        ///   The desktop source.
         /// </summary>
         public string DesktopSrc = string.Empty;
 
         /// <summary>
-        /// The guid id.
+        ///   The guid id.
         /// </summary>
         public Guid GuidID;
 
         /// <summary>
-        /// The mobile src.
+        ///   The mobile source.
         /// </summary>
         public string MobileSrc = string.Empty;
 
         /// <summary>
-        /// The module def id.
+        ///   The module def id.
         /// </summary>
         public int ModuleDefID;
 
         /// <summary>
-        /// The module id.
+        ///   The module id.
         /// </summary>
         public int ModuleID;
 
         /// <summary>
-        /// The module order.
+        ///   The module order.
         /// </summary>
         public int ModuleOrder;
 
         /// <summary>
-        /// The module title.
+        ///   The module title.
         /// </summary>
         public string ModuleTitle = string.Empty;
 
         /// <summary>
-        /// The page id.
+        ///   The page id.
         /// </summary>
         public int PageID;
 
         /// <summary>
-        /// The pane name.
+        ///   The pane name.
         /// </summary>
         public string PaneName = "no pane";
 
         /// <summary>
-        /// The show every where.
+        ///   The show every where.
         /// </summary>
         public bool ShowEveryWhere;
 
         /// <summary>
-        /// The show mobile.
+        ///   The show mobile.
         /// </summary>
         public bool ShowMobile;
 
         /// <summary>
-        /// The support collapsable.
+        ///   The support collapsible.
         /// </summary>
         public bool SupportCollapsable;
 
         /// <summary>
-        /// The support workflow.
+        ///   The support workflow.
         /// </summary>
         public bool SupportWorkflow;
 
         /// <summary>
-        /// The workflow status.
+        ///   The workflow status.
         /// </summary>
         public WorkflowState WorkflowStatus;
 
-/*
-        /// <summary>
-        /// The str at module id.
-        /// </summary>
-        private const string strATModuleID = "@ModuleID";
-*/
+        /*
+                /// <summary>
+                /// The str at module id.
+                /// </summary>
+                private const string strATModuleID = "@ModuleID";
+        */
 
-/*
-        /// <summary>
-        /// The str admin.
-        /// </summary>
-        private const string strAdmin = "Admin;";
-*/
+        /*
+                /// <summary>
+                /// The str admin.
+                /// </summary>
+                private const string strAdmin = "Admin;";
+        */
 
         /// <summary>
-        /// The str desktop src.
+        ///   The string desktop source.
         /// </summary>
         private const string StringsDesktopSrc = "DesktopSrc";
 
@@ -186,19 +189,17 @@ namespace Appleseed.Framework.Site.Configuration
         #region Public Methods
 
         /// <summary>
-        /// The get module definition by id.
+        /// Gets the module definition by ID.
         /// </summary>
-        /// <param name="moduleId">
-        /// The module id.
-        /// </param>
-        /// <returns>
-        /// </returns>
+        /// <param name="moduleId">The module id.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
         public static SqlDataReader GetModuleDefinitionByID(int moduleId)
         {
             var sqlConnectionString = Config.SqlConnectionString;
             var command = new SqlCommand("rb_GetModuleDefinitionByID", sqlConnectionString)
                 {
-                    CommandType = CommandType.StoredProcedure 
+                   CommandType = CommandType.StoredProcedure 
                 };
             var parameter = new SqlParameter("@ModuleID", SqlDbType.Int) { Value = moduleId };
             command.Parameters.Add(parameter);
@@ -207,14 +208,11 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
-        /// The get module desktop src.
+        /// Gets the module desktop SRC.
         /// </summary>
-        /// <param name="moduleId">
-        /// The module id.
-        /// </param>
-        /// <returns>
-        /// The get module desktop src.
-        /// </returns>
+        /// <param name="moduleId">The module id.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
         public static string GetModuleDesktopSrc(int moduleId)
         {
             var str = string.Empty;
@@ -230,14 +228,12 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
-        /// The get module settings.
+        /// Gets the module settings.
         /// </summary>
-        /// <param name="moduleId">
-        /// The module id.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static Hashtable GetModuleSettings(int moduleId)
+        /// <param name="moduleId">The module id.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        public static Dictionary<string, ISettingItem> GetModuleSettings(int moduleId)
         {
             return GetModuleSettings(moduleId, new Page());
         }
@@ -254,58 +250,59 @@ namespace Appleseed.Framework.Site.Configuration
         /// <returns>
         /// A hash table.
         /// </returns>
-        public static Hashtable GetModuleSettings(int moduleId, Hashtable baseSettings)
+        /// <remarks>
+        /// </remarks>
+        public static Dictionary<string, ISettingItem> GetModuleSettings(
+            int moduleId, Dictionary<string, ISettingItem> baseSettings)
         {
             if (!CurrentCache.Exists(Key.ModuleSettings(moduleId)))
             {
                 var hashtable = new Hashtable();
                 using (var connection = Config.SqlConnectionString)
+                using (var command = new SqlCommand("rb_GetModuleSettings", connection))
                 {
-                    using (var command = new SqlCommand("rb_GetModuleSettings", connection))
+                    command.CommandType = CommandType.StoredProcedure;
+                    var parameter = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
+                    command.Parameters.Add(parameter);
+                    connection.Open();
+                    using (var reader = command.ExecuteReader(CommandBehavior.CloseConnection))
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-                        var parameter = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
-                        command.Parameters.Add(parameter);
-                        connection.Open();
-                        using (var reader = command.ExecuteReader(CommandBehavior.CloseConnection))
+                        while (reader.Read())
                         {
-                            while (reader.Read())
-                            {
-                                hashtable[reader["SettingName"].ToString()] = reader["SettingValue"].ToString();
-                            }
+                            hashtable[reader["SettingName"].ToString()] = reader["SettingValue"].ToString();
                         }
                     }
                 }
 
-                foreach (string str in baseSettings.Keys)
+                foreach (var key in
+                    baseSettings.Keys.Where(key => hashtable[key] != null).Where(
+                        key => hashtable[key].ToString().Length != 0))
                 {
-                    if (hashtable[str] == null)
-                    {
-                        continue;
-                    }
-
-                    var item = (SettingItem)baseSettings[str];
-                    if (hashtable[str].ToString().Length != 0)
-                    {
-                        item.Value = hashtable[str].ToString();
-                    }
+                    baseSettings[key].Value = hashtable[key];
                 }
 
                 CurrentCache.Insert(Key.ModuleSettings(moduleId), baseSettings);
                 return baseSettings;
             }
 
-            baseSettings = (Hashtable)CurrentCache.Get(Key.ModuleSettings(moduleId));
+            baseSettings = (Dictionary<string, ISettingItem>)CurrentCache.Get(Key.ModuleSettings(moduleId));
             return baseSettings;
         }
 
         /// <summary>
         /// Gets the module settings.
         /// </summary>
-        /// <param name="moduleId">The module id.</param>
-        /// <param name="page">The page.</param>
-        /// <returns></returns>
-        public static Hashtable GetModuleSettings(int moduleId, Page page)
+        /// <param name="moduleId">
+        /// The module id.
+        /// </param>
+        /// <param name="page">
+        /// The page.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        /// <remarks>
+        /// </remarks>
+        public static Dictionary<string, ISettingItem> GetModuleSettings(int moduleId, Page page)
         {
             var virtualPath = Path.ApplicationRoot + "/";
             var desktopSrc = string.Empty;
@@ -319,7 +316,7 @@ namespace Appleseed.Framework.Site.Configuration
 
             virtualPath += desktopSrc;
 
-            Hashtable moduleSettings;
+            Dictionary<string, ISettingItem> moduleSettings;
             try
             {
                 PortalModuleControl control;
@@ -355,33 +352,26 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
-        /// The update module setting.
+        /// Updates the module setting.
         /// </summary>
-        /// <param name="moduleId">
-        /// The module id.
-        /// </param>
-        /// <param name="key">
-        /// The key.
-        /// </param>
-        /// <param name="value">
-        /// The value.
-        /// </param>
+        /// <param name="moduleId">The module id.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <remarks></remarks>
         public static void UpdateModuleSetting(int moduleId, string key, string value)
         {
             using (var connection = Config.SqlConnectionString)
+            using (var command = new SqlCommand("rb_UpdateModuleSetting", connection))
             {
-                using (var command = new SqlCommand("rb_UpdateModuleSetting", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    var parameter = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
-                    command.Parameters.Add(parameter);
-                    var parameter2 = new SqlParameter("@SettingName", SqlDbType.NVarChar, 50) { Value = key };
-                    command.Parameters.Add(parameter2);
-                    var parameter3 = new SqlParameter("@SettingValue", SqlDbType.NVarChar, 0x5dc) { Value = value };
-                    command.Parameters.Add(parameter3);
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
+                command.CommandType = CommandType.StoredProcedure;
+                var parameter = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
+                command.Parameters.Add(parameter);
+                var parameter2 = new SqlParameter("@SettingName", SqlDbType.NVarChar, 50) { Value = key };
+                command.Parameters.Add(parameter2);
+                var parameter3 = new SqlParameter("@SettingValue", SqlDbType.NVarChar, 0x5dc) { Value = value };
+                command.Parameters.Add(parameter3);
+                connection.Open();
+                command.ExecuteNonQuery();
             }
 
             CurrentCache.Remove(Key.ModuleSettings(moduleId));

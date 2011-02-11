@@ -14,8 +14,8 @@ using Appleseed.Framework.Site.Data;
 using Appleseed.Framework.Users.Data;
 using Appleseed.Framework.Web.UI;
 using Appleseed.Framework.Web.UI.WebControls;
-using History=Appleseed.Framework.History;
-using ImageButton=System.Web.UI.WebControls.ImageButton;
+using History = Appleseed.Framework.History;
+using ImageButton = System.Web.UI.WebControls.ImageButton;
 using Appleseed.Framework.Providers.AppleseedRoleProvider;
 using System.Collections.Generic;
 using Appleseed.Framework.Providers.AppleseedSiteMapProvider;
@@ -63,15 +63,17 @@ namespace Appleseed.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        protected override void OnLoad( EventArgs e ) {
-            base.OnLoad( e );
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
 
             //Confirm delete
-            if ( !( ClientScript.IsClientScriptBlockRegistered( "confirmDelete" ) ) ) {
+            if (!(ClientScript.IsClientScriptBlockRegistered("confirmDelete")))
+            {
                 string[] s = { "CONFIRM_DELETE" };
-                ClientScript.RegisterClientScriptBlock( this.GetType(), "confirmDelete",
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "confirmDelete",
                                                        PortalSettings.GetStringResource(
-                                                           "CONFIRM_DELETE_SCRIPT", s ) );
+                                                           "CONFIRM_DELETE_SCRIPT", s));
             }
 
             TopDeleteBtn.Attributes.Add("OnClick", "return confirmDelete()");
@@ -81,7 +83,8 @@ namespace Appleseed.Admin
             BottomDeleteBtn.Attributes.Add("OnClick", "return confirmDelete()");
 
             // If first visit to the page, update all entries
-            if ( !Page.IsPostBack ) {
+            if (!Page.IsPostBack)
+            {
                 msgError.Visible = false;
 
                 // Set images for buttons from current theme
@@ -100,11 +103,11 @@ namespace Appleseed.Admin
                 ContentUpBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Up", "Up.gif").ImageUrl;
                 ContentTopBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Top", "Left.gif").ImageUrl;
                 ContentLeftBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Left", "Left.gif").ImageUrl;
-                ContentRightBtn.ImageUrl = CurrentTheme.GetImage( "Buttons_Right", "Right.gif" ).ImageUrl;
+                ContentRightBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Right", "Right.gif").ImageUrl;
                 ContentDownBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Down", "Down.gif").ImageUrl;
                 ContentBottomBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Bottom", "Right.gif").ImageUrl;
                 ContentEditBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl;
-                ContentDeleteBtn.ImageUrl = CurrentTheme.GetImage( "Buttons_Delete", "Delete.gif" ).ImageUrl;
+                ContentDeleteBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Delete", "Delete.gif").ImageUrl;
 
                 RightUpBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Up", "Up.gif").ImageUrl;
                 RightLeftBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Left", "Left.gif").ImageUrl;
@@ -125,25 +128,28 @@ namespace Appleseed.Admin
                 // 2/27/2003 Start - Ender Malkoc
                 // After up or down button when the page is refreshed, select the previously selected
                 // tab from the list.
-                if ( Request.Params[ "selectedmodid" ] != null ) {
-                    try {
-                        int modIndex = Int32.Parse( Request.Params[ "selectedmodid" ] );
+                if (Request.Params["selectedmodid"] != null)
+                {
+                    try
+                    {
+                        int modIndex = Int32.Parse(Request.Params["selectedmodid"]);
                         SelectModule(topPane, GetModules("TopPane"), modIndex);
                         SelectModule(leftPane, GetModules("LeftPane"), modIndex);
                         SelectModule(contentPane, GetModules("ContentPane"), modIndex);
                         SelectModule(rightPane, GetModules("RightPane"), modIndex);
                         SelectModule(bottomPane, GetModules("BottomPane"), modIndex);
                     }
-                    catch ( Exception ex ) {
-                        ErrorHandler.Publish( LogLevel.Error,
+                    catch (Exception ex)
+                    {
+                        ErrorHandler.Publish(LogLevel.Error,
                                              "After up or down button when the page is refreshed, select the previously selected tab from the list.",
-                                             ex );
+                                             ex);
                     }
                 }
                 // 2/27/2003 end - Ender Malkoc
             }
             // Binds custom settings to table
-            EditTable.DataSource = new SortedList( pageSettings );
+            EditTable.DataSource = new SortedList(pageSettings);
             EditTable.DataBind();
         }
 
@@ -209,7 +215,7 @@ namespace Appleseed.Admin
         {
             for (int i = 0; i < modules.Count; i++)
             {
-                if (((ModuleItem) modules[i]).ID == moduleID)
+                if (((ModuleItem)modules[i]).ID == moduleID)
                 {
                     if (listBox.SelectedItem != null) listBox.SelectedItem.Selected = false;
                     listBox.Items[i].Selected = true;
@@ -286,7 +292,7 @@ namespace Appleseed.Admin
 
             // reload the portalSettings from the database
             Context.Items["PortalSettings"] = new PortalSettings(PageID, portalSettings.PortalAlias);
-            portalSettings = (PortalSettings) Context.Items["PortalSettings"];
+            portalSettings = (PortalSettings)Context.Items["PortalSettings"];
 
             // reorder the modules in the content pane
             ArrayList modules = GetModules("ContentPane");
@@ -310,10 +316,11 @@ namespace Appleseed.Admin
         /// <param name="e">The <see cref="T:System.Web.UI.ImageClickEventArgs"/> instance containing the event data.</param>
         protected void UpDown_Click(Object sender, ImageClickEventArgs e)
         {
-            string cmd = ((ImageButton) sender).CommandName;
-            string pane = ((ImageButton) sender).CommandArgument;
-            ListBox _listbox = (ListBox) Page.FindControl(pane);
-            if (_listbox == null) {
+            string cmd = ((ImageButton)sender).CommandName;
+            string pane = ((ImageButton)sender).CommandArgument;
+            ListBox _listbox = (ListBox)Page.FindControl(pane);
+            if (_listbox == null)
+            {
                 _listbox = (ListBox)Page.Master.FindControl("Content").FindControl(pane);
             }
 
@@ -340,7 +347,7 @@ namespace Appleseed.Admin
                 }
 
                 ModuleItem m;
-                m = (ModuleItem) modules[_listbox.SelectedIndex];
+                m = (ModuleItem)modules[_listbox.SelectedIndex];
 
                 if (PortalSecurity.IsInRoles(PortalSecurity.GetMoveModulePermissions(m.ID)))
                 {
@@ -376,14 +383,16 @@ namespace Appleseed.Admin
         /// <param name="e">The <see cref="T:System.Web.UI.ImageClickEventArgs"/> instance containing the event data.</param>
         protected void RightLeft_Click(Object sender, ImageClickEventArgs e)
         {
-            string sourcePane = ((ImageButton) sender).Attributes["sourcepane"];
-            string targetPane = ((ImageButton) sender).Attributes["targetpane"];
-            ListBox sourceBox = (ListBox) Page.FindControl(sourcePane);
-            if (sourceBox == null) {
+            string sourcePane = ((ImageButton)sender).Attributes["sourcepane"];
+            string targetPane = ((ImageButton)sender).Attributes["targetpane"];
+            ListBox sourceBox = (ListBox)Page.FindControl(sourcePane);
+            if (sourceBox == null)
+            {
                 sourceBox = (ListBox)Page.Master.FindControl("Content").FindControl(sourcePane);
             }
-            ListBox targetBox = (ListBox) Page.FindControl(targetPane);
-            if (targetBox == null) {
+            ListBox targetBox = (ListBox)Page.FindControl(targetPane);
+            if (targetBox == null)
+            {
                 targetBox = (ListBox)Page.Master.FindControl("Content").FindControl(targetPane);
             }
 
@@ -394,7 +403,7 @@ namespace Appleseed.Admin
 
                 // get a reference to the module to move
                 // and assign a high order number to send it to the end of the target list
-                ModuleItem m = (ModuleItem) sourceList[sourceBox.SelectedIndex];
+                ModuleItem m = (ModuleItem)sourceList[sourceBox.SelectedIndex];
 
                 if (PortalSecurity.IsInRoles(PortalSecurity.GetMoveModulePermissions(m.ID)))
                 {
@@ -407,7 +416,7 @@ namespace Appleseed.Admin
 
                     // reload the portalSettings from the database
                     HttpContext.Current.Items["PortalSettings"] = new PortalSettings(PageID, portalSettings.PortalAlias);
-                    portalSettings = (PortalSettings) Context.Items["PortalSettings"];
+                    portalSettings = (PortalSettings)Context.Items["PortalSettings"];
 
                     // reorder the modules in the source pane
                     sourceList = GetModules(sourcePane);
@@ -456,7 +465,7 @@ namespace Appleseed.Admin
                     CurrentCache.RemoveAll("_PageNavigationSettings_");
                     // Clear AppleseedSiteMapCache
                     AppleseedSiteMapProvider.ClearAllAppleseedSiteMapCaches();
-                    
+
 
                     // redirect back to the admin page
                     // int adminIndex = portalSettings.DesktopPages.Count-1;        
@@ -506,8 +515,10 @@ namespace Appleseed.Admin
             // Construct Authorized User Roles string
             string authorizedRoles = string.Empty;
 
-            foreach ( ListItem item in authRoles.Items ) {
-                if ( item.Selected == true ) {
+            foreach (ListItem item in authRoles.Items)
+            {
+                if (item.Selected == true)
+                {
                     authorizedRoles = authorizedRoles + item.Text + ";";
                 }
             }
@@ -529,9 +540,10 @@ namespace Appleseed.Admin
         /// <param name="e">The <see cref="T:System.Web.UI.ImageClickEventArgs"/> instance containing the event data.</param>
         protected void EditBtn_Click(Object sender, ImageClickEventArgs e)
         {
-            string pane = ((ImageButton) sender).CommandArgument;
-            ListBox _listbox = (ListBox) Page.FindControl(pane);
-            if (_listbox == null) {
+            string pane = ((ImageButton)sender).CommandArgument;
+            ListBox _listbox = (ListBox)Page.FindControl(pane);
+            if (_listbox == null)
+            {
                 _listbox = (ListBox)Page.Master.FindControl("Content").FindControl(pane);
             }
 
@@ -561,9 +573,10 @@ namespace Appleseed.Admin
         /// <param name="e">The <see cref="T:System.Web.UI.ImageClickEventArgs"/> instance containing the event data.</param>
         protected void DeleteBtn_Click(Object sender, ImageClickEventArgs e)
         {
-            string pane = ((ImageButton) sender).CommandArgument;
-            ListBox _listbox = (ListBox) Page.FindControl(pane);
-            if (_listbox == null) {
+            string pane = ((ImageButton)sender).CommandArgument;
+            ListBox _listbox = (ListBox)Page.FindControl(pane);
+            if (_listbox == null)
+            {
                 _listbox = (ListBox)Page.Master.FindControl("Content").FindControl(pane);
             }
 
@@ -571,7 +584,7 @@ namespace Appleseed.Admin
 
             if (_listbox.SelectedIndex != -1)
             {
-                ModuleItem m = (ModuleItem) modules[_listbox.SelectedIndex];
+                ModuleItem m = (ModuleItem)modules[_listbox.SelectedIndex];
                 if (m.ID > -1)
                 {
                     // jviladiu@portalServices.net (20/08/2004) Add role control for delete module
@@ -598,7 +611,8 @@ namespace Appleseed.Admin
         /// The BindData helper method is used to update the tab's
         /// layout panes with the current configuration information
         /// </summary>
-        private void BindData() {
+        private void BindData()
+        {
             PageSettings page = portalSettings.ActivePage;
 
             // Populate Page Names, etc.
@@ -608,38 +622,40 @@ namespace Appleseed.Admin
 
             // Populate the "ParentPage" Data
             PagesDB t = new PagesDB();
-            IList<PageItem> items = t.GetPagesParent( portalSettings.PortalID, PageID );
+            IList<PageItem> items = t.GetPagesParent(portalSettings.PortalID, PageID);
             parentPage.DataSource = items;
             parentPage.DataBind();
 
-            if ( parentPage.Items.FindByValue( page.ParentPageID.ToString() ) != null ) {
+            if (parentPage.Items.FindByValue(page.ParentPageID.ToString()) != null)
+            {
                 //parentPage.Items.FindByValue( tab.ParentPageID.ToString() ).Selected = true;
 
                 parentPage.SelectedValue = page.ParentPageID.ToString();
             }
 
             // Translate
-            if ( parentPage.Items.FindByText( " ROOT_LEVEL" ) != null )
-                parentPage.Items.FindByText( " ROOT_LEVEL" ).Text =
-                    General.GetString( "ROOT_LEVEL", "Root Level", parentPage );
+            if (parentPage.Items.FindByText(" ROOT_LEVEL") != null)
+                parentPage.Items.FindByText(" ROOT_LEVEL").Text =
+                    General.GetString("ROOT_LEVEL", "Root Level", parentPage);
 
             // Populate checkbox list with all security roles for this portal
             // and "check" the ones already configured for this tab
             UsersDB users = new UsersDB();
-            IList<AppleseedRole> roles = users.GetPortalRoles( portalSettings.PortalAlias );
+            IList<AppleseedRole> roles = users.GetPortalRoles(portalSettings.PortalAlias);
 
             // Clear existing items in checkboxlist
             authRoles.Items.Clear();
 
-            foreach ( AppleseedRole role in roles ) {
+            foreach (AppleseedRole role in roles)
+            {
                 ListItem item = new ListItem();
                 item.Text = role.Name;
                 item.Value = role.Id.ToString();
 
-                if ( ( page.AuthorizedRoles.LastIndexOf( item.Text ) ) > -1 )
+                if ((page.AuthorizedRoles.LastIndexOf(item.Text)) > -1)
                     item.Selected = true;
 
-                authRoles.Items.Add( item );
+                authRoles.Items.Add(item);
             }
 
             // Populate the "Add Module" Data
@@ -647,11 +663,15 @@ namespace Appleseed.Admin
             SortedList<string, string> modules = new SortedList<string, string>();
             SqlDataReader drCurrentModuleDefinitions = m.GetCurrentModuleDefinitions(portalSettings.PortalID);
             if (PortalSecurity.IsInRoles("Admins") == true ||
-                       !(bool.Parse(drCurrentModuleDefinitions["Admin"].ToString()))) {
-                
-                try {
-                    while (drCurrentModuleDefinitions.Read()) {
-                        if (!modules.ContainsKey(drCurrentModuleDefinitions["FriendlyName"].ToString())) {
+                       !(bool.Parse(drCurrentModuleDefinitions["Admin"].ToString())))
+            {
+
+                try
+                {
+                    while (drCurrentModuleDefinitions.Read())
+                    {
+                        if (!modules.ContainsKey(drCurrentModuleDefinitions["FriendlyName"].ToString()))
+                        {
                             modules.Add(
                                 //moduleType.Items.Add(
                                 //    new ListItem(drCurrentModuleDefinitions["FriendlyName"].ToString(),
@@ -663,7 +683,9 @@ namespace Appleseed.Admin
 
                     }
 
-                } finally {
+                }
+                finally
+                {
                     drCurrentModuleDefinitions.Close();
                 }
             }
@@ -684,7 +706,7 @@ namespace Appleseed.Admin
             leftPane.DataBind();
 
             // Populate Content Pane Module Data
-            contentList = GetModules( "ContentPane" );
+            contentList = GetModules("ContentPane");
             contentPane.DataBind();
 
             // Populate Right Hand Module Data
@@ -753,7 +775,7 @@ namespace Appleseed.Admin
         /// <param name="e">The <see cref="T:Appleseed.Framework.Web.UI.WebControls.SettingsTableEventArgs"/> instance containing the event data.</param>
         protected void EditTable_UpdateControl(object sender, SettingsTableEventArgs e)
         {
-            PageSettings.UpdatePageSettings(PageID, e.CurrentItem.EditControl.ID, e.CurrentItem.Value);
+            PageSettings.UpdatePageSettings(PageID, ((SettingItem<string, TextBox>)e.CurrentItem).EditControl.ID, ((SettingItem<string, TextBox>)e.CurrentItem).Value);
         }
     }
 }

@@ -154,7 +154,7 @@ namespace Appleseed.Content.Web.Modules.AddModule
                 AddModuleHelp.Attributes.Add("onclick", javaScript);
                 AddModuleHelp.Attributes.Add("style", "cursor: hand;");
                 AddModuleHelp.NavigateUrl = string.Empty;
-                AddModuleHelp.ImageUrl = CurrentTheme.GetImage("Buttons_Help", "Help.gif").ImageUrl;
+                AddModuleHelp.ImageUrl = this.CurrentTheme.GetImage("Buttons_Help", "Help.gif").ImageUrl;
                 AddModuleHelp.ToolTip = moduleType.SelectedItem.Text.ToString() + " Help";
             }
             else
@@ -214,7 +214,7 @@ namespace Appleseed.Content.Web.Modules.AddModule
             //PagesDB _d = new PagesDB();
             int pid = PageID;
             if (pid == 0)
-                pid = PagesDB.PortalHomePageID(PortalID);
+                pid = PagesDB.PortalHomePageId(PortalID);
 
             if (pid != 0)
             {

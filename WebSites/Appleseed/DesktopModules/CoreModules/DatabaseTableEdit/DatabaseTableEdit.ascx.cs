@@ -7,6 +7,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// Database Table Edit Module
     /// Based on control from TripelASP (code is free)
@@ -111,8 +113,8 @@ namespace Appleseed.Content.Web.Modules
         {
             string sql =
                 @"	Select so.name, so.id From sysobjects so 
-							where xtype = 'U' AND so.name <> 'dtproperties'
-							order by so.name";
+                            where xtype = 'U' AND so.name <> 'dtproperties'
+                            order by so.name";
 
             SqlCommand cmd = new SqlCommand(sql, new SqlConnection(ConnectionString));
             try
@@ -150,56 +152,56 @@ namespace Appleseed.Content.Web.Modules
 
 
         /// <summary>
-        /// Public constructor. Sets base settings for module.
+        /// Initializes a new instance of the <see cref="DatabaseTableEdit"/> class.
         /// </summary>
         public DatabaseTableEdit()
         {
-            SettingItem Trusted_Connection = new SettingItem(new BooleanDataType());
+            var Trusted_Connection = new SettingItem<bool, CheckBox>(new BooleanDataType());
             Trusted_Connection.Order = 1;
             //Trusted_Connection.Required = true;   // hmmm... problem here! Dont set to true!" 
-            Trusted_Connection.Value = "True";
+            Trusted_Connection.Value = true;
             _baseSettings.Add("Trusted Connection", Trusted_Connection);
 
-            SettingItem ServerName = new SettingItem(new StringDataType());
+            var ServerName = new SettingItem<string, TextBox>(new StringDataType());
             ServerName.Order = 2;
             ServerName.Required = true;
             ServerName.Value = "localhost";
             _baseSettings.Add("ServerName", ServerName);
 
-            SettingItem DatabaseName = new SettingItem(new StringDataType());
+            var DatabaseName = new SettingItem<string, TextBox>(new StringDataType());
             DatabaseName.Order = 3;
             DatabaseName.Required = true;
             DatabaseName.Value = "Appleseed";
             _baseSettings.Add("DatabaseName", DatabaseName);
 
-            SettingItem UserID = new SettingItem(new StringDataType());
+            var UserID = new SettingItem<string, TextBox>(new StringDataType());
             UserID.Order = 4;
             UserID.Required = false;
             UserID.Value = "sa";
             _baseSettings.Add("UserID", UserID);
 
-            SettingItem Password = new SettingItem(new StringDataType());
+            var Password = new SettingItem<string, TextBox>(new StringDataType());
             Password.Order = 5;
             Password.Required = false;
             Password.Value = string.Empty;
             _baseSettings.Add("Password", Password);
 
-            SettingItem MaxStringLength = new SettingItem(new IntegerDataType());
+            var MaxStringLength = new SettingItem<int, TextBox>(new IntegerDataType());
             MaxStringLength.Order = 6;
             MaxStringLength.Required = true;
-            MaxStringLength.Value = "100";
+            MaxStringLength.Value = 100;
             _baseSettings.Add("MaxStringLength", MaxStringLength);
 
-            SettingItem AllowPaging = new SettingItem(new BooleanDataType());
+            var AllowPaging = new SettingItem<bool, CheckBox>(new BooleanDataType());
             AllowPaging.Order = 7;
             //AllowPaging.Required = true;   // hmmm... problem here! Dont set to true!" 
-            AllowPaging.Value = "True";
+            AllowPaging.Value = true;
             _baseSettings.Add("AllowPaging", AllowPaging);
 
-            SettingItem PageSize = new SettingItem(new IntegerDataType());
+            var PageSize = new SettingItem<int, TextBox>(new IntegerDataType());
             PageSize.Order = 8;
             PageSize.Required = true;
-            PageSize.Value = "10";
+            PageSize.Value = 10;
             _baseSettings.Add("PageSize", PageSize);
         }
 

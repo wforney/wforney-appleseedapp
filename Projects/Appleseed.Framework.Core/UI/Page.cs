@@ -1,3 +1,19 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Page.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   TODO: this class needs a better write-up ;-)
+//   A template page useful for constructing custom edit pages for module settings.
+//   Encapsulates some common code including: module id,
+//   portalSettings and settings, referrer redirection, edit permission,
+//   cancel event, etc.
+//   This page is a base page.
+//   It is named USECURE because no check about security is made.
+//   Unsecure page reminds you that you have to do your own security on it.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace Appleseed.Framework.Web.UI
 {
     using System;
@@ -26,45 +42,45 @@ namespace Appleseed.Framework.Web.UI
 
     /// <summary>
     /// TODO: this class needs a better write-up ;-)
-    /// A template page useful for constructing custom edit pages for module settings.<br/>
-    ///     Encapsulates some common code including: moduleid,
-    ///     portalSettings and settings, referrer redirection, edit permission,
-    ///     cancel event, etc.
-    ///     This page is a base page.
-    ///     It is named USECURE becuse no check about security is made.
-    ///     Usencure page reminds you that you have to do your own security on it.
+    ///   A template page useful for constructing custom edit pages for module settings.<br/>
+    ///   Encapsulates some common code including: module id,
+    ///   portalSettings and settings, referrer redirection, edit permission,
+    ///   cancel event, etc.
+    ///   This page is a base page.
+    ///   It is named USECURE because no check about security is made.
+    ///   Unsecure page reminds you that you have to do your own security on it.
     /// </summary>
     [History("ozan@Appleseed.web.tr", "2005/06/01", "Added new overload for RegisterCSSFile")]
     [History("jminond", "2005/03/10", "Tab to page conversion")]
-    [History("Jes1111", "2004/08/18",
-        "Extensive changes - new way to build head element, support for multiple CSS stylesheets, etc.")]
+    [History("Jes1111", "2004/08/18", 
+        "Extensive changes - new way to build head element, support for multiple CSS style sheets, etc.")]
     [History("jviladiu@portalServices.net", "2004/07/22", "Added Security Access.")]
-    [History("John.Mandia@whitelightsolutions.com", "2003/10/11",
+    [History("John.Mandia@whitelightsolutions.com", "2003/10/11", 
         "Added ability for each portal to have it's own custom icon instead of sharing one icon among many.")]
-    [History("mario@hartmann.net", "2003/09/08", "Solpart Menu stylesheet support added.")]
-    [History("Jes1111", "2003/03/04",
+    [History("mario@hartmann.net", "2003/09/08", "Solpart Menu style sheet support added.")]
+    [History("Jes1111", "2003/03/04", 
         "Smoothed out page event inheritance hierarchy - placed security checks and cache flushing")]
     public class Page : ViewPage
     {
         #region Constants and Fields
 
         /// <summary>
-        /// The masterpage base page.
+        ///   The master page base page.
         /// </summary>
         protected string MASTERPAGE_BASE_PAGE = "SiteMaster.master";
 
         /// <summary>
-        ///     Standard cancel button
+        ///   Standard cancel button
         /// </summary>
         protected LinkButton cancelButton;
 
         /// <summary>
-        ///     Standard delete button
+        ///   Standard delete button
         /// </summary>
         protected LinkButton deleteButton;
 
         /// <summary>
-        ///     Standard update button
+        ///   Standard update button
         /// </summary>
         protected LinkButton updateButton;
 
@@ -76,66 +92,36 @@ namespace Appleseed.Framework.Web.UI
         */
 
         /// <summary>
-        ///     Stores any additional Meta entries requested by modules or other code.
+        ///   Stores any additional Meta entries requested by modules or other code.
         /// </summary>
         private readonly Hashtable additionalMetaElements = new Hashtable(3);
 
         /// <summary>
-        ///     Holds a list of javascript function calls which will be output to the body tag as a semicolon-delimited list in the 'onload' attribute
+        ///   Holds a list of JavaScript function calls which will be output to the body tag as a semicolon-delimited list in the 'onload' attribute
         /// </summary>
         private readonly Hashtable bodyOnLoadList = new Hashtable(3);
 
         /// <summary>
-        /// The client scripts.
+        ///   The client scripts.
         /// </summary>
         private readonly Hashtable clientScripts = new Hashtable(3);
 
         /// <summary>
-        ///     List of CSS files to be applied to this page
+        ///   List of CSS files to be applied to this page
         /// </summary>
         private readonly Hashtable cssFileList = new Hashtable(3);
 
         /// <summary>
-        ///     List of CSS blocks to be applied to this page.
-        ///     Strings added to this list will injected into a &lt;style&gt;
-        ///     block in the page head.
+        ///   List of CSS blocks to be applied to this page.
+        ///   Strings added to this list will injected into a &lt;style&gt;
+        ///   block in the page head.
         /// </summary>
         private readonly Hashtable cssImportList = new Hashtable(3);
 
         /// <summary>
-        /// The user culture set.
+        ///   The module settings.
         /// </summary>
-        private readonly ResourceSet userCultureSet;
-
-        /// <summary>
-        /// </summary>
-        private Hashtable page;
-
-        /// <summary>
-        /// </summary>
-        private int itemId;
-
-        /// <summary>
-        /// </summary>
-        private ModuleSettings module;
-
-        /// <summary>
-        /// </summary>
-        private int moduleId;
-
-        /// <summary>
-        /// The module settings.
-        /// </summary>
-        private Hashtable _moduleSettings;
-
-        /// <summary>
-        /// The portal settings.
-        /// </summary>
-        private PortalSettings settings;
-
-        /// <summary>
-        /// </summary>
-        private int tabId;
+        private Dictionary<string, ISettingItem> _moduleSettings;
 
         /*
                 /// <summary>
@@ -145,52 +131,87 @@ namespace Appleseed.Framework.Web.UI
         */
 
         /// <summary>
-        /// The current theme.
+        ///   The current theme.
         /// </summary>
         private Theme currentTheme;
 
         /// <summary>
-        /// The doc type.
+        ///   The doc type.
         /// </summary>
         private string docType;
 
         /// <summary>
-        /// The page meta description.
+        /// The item id.
+        /// </summary>
+        private int itemId;
+
+        /// <summary>
+        /// The module.
+        /// </summary>
+        private ModuleSettings module;
+
+        /// <summary>
+        /// The module id.
+        /// </summary>
+        private int moduleId;
+
+        /// <summary>
+        /// The page.
+        /// </summary>
+        private Dictionary<string, ISettingItem> page;
+
+        /// <summary>
+        ///   The page meta description.
         /// </summary>
         private string pageMetaDescription;
 
         /// <summary>
-        /// The page meta encoding.
+        ///   The page meta encoding.
         /// </summary>
         private string pageMetaEncoding;
 
         /// <summary>
-        /// The page meta key words.
+        ///   The page meta key words.
         /// </summary>
         private string pageMetaKeyWords;
 
         /// <summary>
-        /// The page meta other.
+        ///   The page meta other.
         /// </summary>
         private string pageMetaOther;
 
         /// <summary>
-        /// The set title.
+        ///   The set title.
         /// </summary>
         private bool setTitle;
 
         /// <summary>
-        /// The user culture.
+        ///   The portal settings.
+        /// </summary>
+        private PortalSettings settings;
+
+        /// <summary>
+        /// The tab id.
+        /// </summary>
+        private int tabId;
+
+        /// <summary>
+        ///   The user culture.
         /// </summary>
         private string userCulture = "en-us";
+
+        /// <summary>
+        ///   The user culture set.
+        /// </summary>
+        private ResourceSet userCultureSet;
 
         #endregion
 
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Page"/> class. 
-        ///     The default constructor initializes all fields to their default values.
+        ///   Initializes a new instance of the <see cref = "Page" /> class. 
+        ///   The default constructor initializes all fields to their default values.
         /// </summary>
         public Page()
         {
@@ -209,32 +230,32 @@ namespace Appleseed.Framework.Web.UI
         #region Events
 
         /// <summary>
-        ///     The Add event is defined using the event keyword.
-        ///     The type of Add is EventHandler.
+        ///   The Add event is defined using the event keyword.
+        ///   The type of Add is EventHandler.
         /// </summary>
         public event EventHandler Add;
 
         /// <summary>
-        ///     The Cancel event is defined using the event keyword.
-        ///     The type of Cancel is EventHandler.
+        ///   The Cancel event is defined using the event keyword.
+        ///   The type of Cancel is EventHandler.
         /// </summary>
         public event EventHandler Cancel;
 
         /// <summary>
-        ///     The Delete event is defined using the event keyword.
-        ///     The type of Delete is EventHandler.
+        ///   The Delete event is defined using the event keyword.
+        ///   The type of Delete is EventHandler.
         /// </summary>
         public event EventHandler Delete;
 
         /// <summary>
-        ///     The FlushCache event is defined using the event keyword.
-        ///     The type of FlushCache is EventHandler.
+        ///   The FlushCache event is defined using the event keyword.
+        ///   The type of FlushCache is EventHandler.
         /// </summary>
         public event EventHandler FlushCache;
 
         /// <summary>
-        ///     The Update event is defined using the event keyword.
-        ///     The type of Update is EventHandler.
+        ///   The Update event is defined using the event keyword.
+        ///   The type of Update is EventHandler.
         /// </summary>
         public event EventHandler Update;
 
@@ -243,7 +264,7 @@ namespace Appleseed.Framework.Web.UI
         #region Properties
 
         /// <summary>
-        ///     Gets the current page theme
+        ///   Gets the current page theme
         /// </summary>
         /// <value>The current theme.</value>
         public Theme CurrentTheme
@@ -255,7 +276,7 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        ///     Gets page DOCTYPE
+        ///   Gets page DOCTYPE
         /// </summary>
         /// <value>The type of the doc.</value>
         public string DocType
@@ -272,7 +293,7 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        ///     Stores current item id
+        ///   Stores current item id
         /// </summary>
         /// <value>The item ID.</value>
         public int ItemID
@@ -298,7 +319,7 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        ///     Gets current module if applicable
+        ///   Gets current module if applicable
         /// </summary>
         /// <value>The module.</value>
         public ModuleSettings Module
@@ -315,8 +336,8 @@ namespace Appleseed.Framework.Web.UI
 
                     // Obtain selected module data
                     foreach (var mod in
-                        this.portalSettings.ActivePage.Modules.Cast<ModuleSettings>()
-                            .Where(mod => mod.ModuleID == this.ModuleID))
+                        this.portalSettings.ActivePage.Modules.Cast<ModuleSettings>().Where(
+                            mod => mod.ModuleID == this.ModuleID))
                     {
                         this.module = mod;
                         return this.module;
@@ -328,7 +349,7 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        ///     Gets current linked module ID if applicable
+        ///   Gets current linked module ID if applicable
         /// </summary>
         /// <value>The module ID.</value>
         public int ModuleID
@@ -349,7 +370,7 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        ///     Stores current linked module ID if applicable
+        ///   Stores current linked module ID if applicable
         /// </summary>
         /// <value>The page ID.</value>
         public int PageID
@@ -374,14 +395,14 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        ///     Gets "description" meta element
+        ///   Gets "description" meta element
         /// </summary>
         /// <value>The page meta description.</value>
         public string PageMetaDescription
         {
             get
             {
-                // Try saved viewstate value
+                // Try saved view state value
                 // tabMetaDescription = (string) ViewState["PageMetaDescription"];
                 if (this.pageMetaDescription == null)
                 {
@@ -389,7 +410,8 @@ namespace Appleseed.Framework.Web.UI
                     var metaDescription = this.portalSettings.CustomSettings["SITESETTINGS_PAGE_META_DESCRIPTION"];
                     this.pageMetaDescription = HttpContext.Current != null && tabMetaDescription.ToString().Length != 0
                                                    ? tabMetaDescription.ToString()
-                                                   : (HttpContext.Current != null && metaDescription.ToString().Length != 0
+                                                   : (HttpContext.Current != null &&
+                                                      metaDescription.ToString().Length != 0
                                                           ? metaDescription.ToString()
                                                           : string.Empty);
 
@@ -401,14 +423,14 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        ///     Gets "encoding" meta element
+        ///   Gets "encoding" meta element
         /// </summary>
         /// <value>The page meta encoding.</value>
         public string PageMetaEncoding
         {
             get
             {
-                // Try saved viewstate value
+                // Try saved view state value
                 // tabMetaEncoding = (string) ViewState["PageMetaEncoding"];
                 if (this.pageMetaEncoding == null)
                 {
@@ -437,14 +459,14 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        ///     Gets "keywords" meta element
+        ///   Gets "keywords" meta element
         /// </summary>
         /// <value>The page meta key words.</value>
         public string PageMetaKeyWords
         {
             get
             {
-                // Try saved viewstate value
+                // Try saved view state value
                 // tabMetaKeyWords = (string) ViewState["PageMetaKeyWords"];
                 if (this.pageMetaKeyWords == null)
                 {
@@ -473,7 +495,7 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        ///     Gets the page meta other.
+        ///   Gets the page meta other.
         /// </summary>
         /// <value>The page meta other.</value>
         public string PageMetaOther
@@ -508,7 +530,7 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        ///     Page Title
+        ///   Gets or sets Page Title
         /// </summary>
         /// <value>The page title.</value>
         public string PageTitle
@@ -551,7 +573,7 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        ///     Gets the user culture.
+        ///   Gets the user culture.
         /// </summary>
         /// <value>The user culture.</value>
         public string UserCulture
@@ -563,7 +585,7 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        ///     Gets the user culture set.
+        ///   Gets the user culture set.
         /// </summary>
         /// <value>The user culture set.</value>
         public ResourceSet UserCultureSet
@@ -581,44 +603,40 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        ///     Stores current module settings
+        ///   Stores current module settings
         /// </summary>
         /// <value>The module settings.</value>
-        public Hashtable moduleSettings
+        public Dictionary<string, ISettingItem> moduleSettings
         {
             get
             {
                 // Get settings from the database
-                // Or provides an empty hashtable
+                // Or provides an empty hash table
                 return this._moduleSettings ??
                        (this._moduleSettings =
-                        this.ModuleID > 0 ? ModuleSettings.GetModuleSettings(this.ModuleID, this) : new Hashtable());
+                        this.ModuleID > 0 ? ModuleSettings.GetModuleSettings(this.ModuleID, this) : new Dictionary<string, ISettingItem>());
             }
         }
 
         /// <summary>
-        ///     Stores current tab settings
+        ///   Stores current tab settings
         /// </summary>
         /// <value>The page settings.</value>
-        public Hashtable pageSettings
+        public Dictionary<string, ISettingItem> pageSettings
         {
             get
             {
                 return this.page ?? (this.page = this.PageID > 0
-                    ?
-
-                        // _Page = Page.GetPageCustomSettings(PageID);
-                        // _Page = Page.GetPageCustomSettings(PageID);
-                        this.portalSettings.ActivePage.GetPageCustomSettings(this.PageID)
-                    :
-
-                        // Or provides an empty hashtable
-                        new Hashtable());
+                                                     ? // _Page = Page.GetPageCustomSettings(PageID);
+                                                 // _Page = Page.GetPageCustomSettings(PageID);
+                                                 this.portalSettings.ActivePage.GetPageCustomSettings(this.PageID)
+                                                     : // Or provides an empty hash table
+                                                 new Dictionary<string, ISettingItem>());
             }
         }
 
         /// <summary>
-        ///     Stores current portal settings
+        ///   Gets or sets current portal settings
         /// </summary>
         /// <value>The portal settings.</value>
         public PortalSettings portalSettings
@@ -644,12 +662,12 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        ///     Gets array of allowed modules.
+        ///   Gets array of allowed modules.
         /// </summary>
         /// <remarks>
-        /// This array is override for edit and view pages
-        ///     with the guids allowed to access.
-        ///     jviladiu@portalServices.net (2004/07/22)
+        ///   This array is override for edit and view pages
+        ///   with the guids allowed to access.
+        ///   jviladiu@portalServices.net (2004/07/22)
         /// </remarks>
         /// <value>The allowed modules.</value>
         protected virtual List<string> AllowedModules
@@ -661,12 +679,12 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether IsMasterPageLayout.
+        ///   Gets or sets a value indicating whether IsMasterPageLayout.
         /// </summary>
         protected bool IsMasterPageLayout { get; set; }
 
         /// <summary>
-        ///     Gets or sets Referring URL
+        ///   Gets or sets Referring URL
         /// </summary>
         /// <value>The URL referrer.</value>
         protected string UrlReferrer
@@ -887,7 +905,7 @@ namespace Appleseed.Framework.Web.UI
 
         /// <summary>
         /// Register the correct css module file searching in this order in current theme/mod,
-        ///     default theme/mod and in module folder.
+        ///   default theme/mod and in module folder.
         /// </summary>
         /// <param name="folderModuleName">
         /// The name of module directory
@@ -925,8 +943,9 @@ namespace Appleseed.Framework.Web.UI
         /// </summary>
         protected virtual void BuildBody()
         {
-            var body = this.Controls.OfType<HtmlGenericControl>()
-                .FirstOrDefault(myControl => myControl.TagName.ToLower() == "body");
+            var body =
+                this.Controls.OfType<HtmlGenericControl>().FirstOrDefault(
+                    myControl => myControl.TagName.ToLower() == "body");
 
             // output onload attribute
             if (this.bodyOnLoadList.Count <= 0)
@@ -1010,7 +1029,7 @@ namespace Appleseed.Framework.Web.UI
             this.Header.Controls.Add(
                 new LiteralControl(
                     string.Format(
-                        "<link rel=\"SHORTCUT ICON\" href=\"{0}/portalicon.ico\"/>\n",
+                        "<link rel=\"SHORTCUT ICON\" href=\"{0}/portalicon.ico\"/>\n", 
                         Path.WebPathCombine(Path.ApplicationRoot, this.portalSettings.PortalPath))));
 
             if (this.cssImportList.Count > 0)
@@ -1048,9 +1067,9 @@ namespace Appleseed.Framework.Web.UI
 
         /// <summary>
         /// Every guid module in page is set in cookie.
-        ///     This method is override in edit &amp; view controls for read the cookie
-        ///     and pass or denied access to edit or view module.
-        ///     jviladiu@portalServices.net (2004/07/22)
+        ///   This method is override in edit &amp; view controls for read the cookie
+        ///   and pass or denied access to edit or view module.
+        ///   jviladiu@portalServices.net (2004/07/22)
         /// </summary>
         protected virtual void ModuleGuidInCookie()
         {
@@ -1081,17 +1100,23 @@ namespace Appleseed.Framework.Web.UI
         /// <summary>
         /// Called when [add].
         /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="source">
+        /// The source.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
         protected void OnAdd(object source, EventArgs e)
         {
             this.OnAdd(e);
         }
 
         /// <summary>
-        /// Raises the <see cref="E:Add"/> event.
+        /// Raises the <see cref="Add"/> event.
         /// </summary>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
         protected virtual void OnAdd(EventArgs e)
         {
             if (this.Add != null)
@@ -1122,17 +1147,23 @@ namespace Appleseed.Framework.Web.UI
         /// <summary>
         /// Called when [cancel].
         /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="source">
+        /// The source.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
         protected void OnCancel(object source, EventArgs e)
         {
             this.OnCancel(e);
         }
 
         /// <summary>
-        /// Raises the <see cref="E:Cancel"/> event.
+        /// Raises the <see cref="Cancel"/> event.
         /// </summary>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
         protected virtual void OnCancel(EventArgs e)
         {
             if (this.Cancel != null)
@@ -1147,8 +1178,12 @@ namespace Appleseed.Framework.Web.UI
         /// <summary>
         /// Called when [delete].
         /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="source">
+        /// The source.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
         protected void OnDelete(object source, EventArgs e)
         {
             this.OnDelete(e);
@@ -1156,8 +1191,8 @@ namespace Appleseed.Framework.Web.UI
 
         /// <summary>
         /// Handles OnDelete event at Page level<br/>
-        ///     Performs OnDelete actions that are common to all Pages<br/>
-        ///     Can be overridden
+        ///   Performs OnDelete actions that are common to all Pages<br/>
+        ///   Can be overridden
         /// </summary>
         /// <param name="e">
         /// The <see cref="System.EventArgs"/> instance containing the event data.
@@ -1183,8 +1218,8 @@ namespace Appleseed.Framework.Web.UI
 
         /// <summary>
         /// Handles FlushCache event at Page level<br/>
-        ///     Performs FlushCache actions that are common to all Pages<br/>
-        ///     Can be overridden
+        ///   Performs FlushCache actions that are common to all Pages<br/>
+        ///   Can be overridden
         /// </summary>
         protected virtual void OnFlushCache()
         {
@@ -1218,8 +1253,8 @@ namespace Appleseed.Framework.Web.UI
 
         /// <summary>
         /// Handles the OnInit event at Page level<br/>
-        ///     Performs OnInit events that are common to all Pages<br/>
-        ///     Can be overridden
+        ///   Performs OnInit events that are common to all Pages<br/>
+        ///   Can be overridden
         /// </summary>
         /// <param name="e">
         /// An <see cref="T:System.EventArgs"></see> that contains the event data.
@@ -1277,8 +1312,8 @@ namespace Appleseed.Framework.Web.UI
                     {
                         string[] s = { "CONFIRM_DELETE" };
                         this.ClientScript.RegisterClientScriptBlock(
-                            this.GetType(),
-                            "confirmDelete",
+                            this.GetType(), 
+                            "confirmDelete", 
                             PortalSettings.GetStringResource("CONFIRM_DELETE_SCRIPT", s));
                     }
 
@@ -1287,26 +1322,26 @@ namespace Appleseed.Framework.Web.UI
             }
 
             this.ModuleGuidInCookie();
-
+    
             if (!this.Page.ClientScript.IsStartupScriptRegistered("jQuery"))
             {
                 this.Page.ClientScript.RegisterClientScriptInclude(
-                    this.Page.GetType(), "jQuery", "http://ajax.microsoft.com/ajax/jquery/jquery-1.4.4.min.js");
+                    this.Page.GetType(), "jQuery", "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.5.min.js");
                 this.Page.ClientScript.RegisterClientScriptInclude(
-                    this.Page.GetType(),
-                    "jQueryUI",
+                    this.Page.GetType(), 
+                    "jQueryUI", 
                     "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js");
                 this.Page.ClientScript.RegisterClientScriptInclude(
-                    this.Page.GetType(),
+                    this.Page.GetType(), 
                     "jQueryValidate",
-                    "http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js");
+                    "http://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js");
                 this.Page.ClientScript.RegisterClientScriptInclude(
-                    this.Page.GetType(),
-                    "bgiFrame",
+                    this.Page.GetType(), 
+                    "bgiFrame", 
                     "http://jquery-ui.googlecode.com/svn/tags/latest/external/jquery.bgiframe-2.1.1.js");
                 this.Page.ClientScript.RegisterClientScriptInclude(
-                    this.Page.GetType(),
-                    "jQueryLang",
+                    this.Page.GetType(), 
+                    "jQueryLang", 
                     "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/i18n/jquery-ui-i18n.min.js");
 
                 this.Page.ClientScript.RegisterClientScriptInclude(
@@ -1316,8 +1351,8 @@ namespace Appleseed.Framework.Web.UI
             if (!this.Page.ClientScript.IsStartupScriptRegistered("BROWSER_VERSION_WARNING"))
             {
                 this.Page.ClientScript.RegisterClientScriptInclude(
-                    this.Page.GetType(),
-                    "BROWSER_VERSION_WARNING",
+                    this.Page.GetType(), 
+                    "BROWSER_VERSION_WARNING", 
                     Path.ApplicationFullPath + "/aspnet_client/js/browser_upgrade_notification.js");
             }
 
@@ -1336,8 +1371,8 @@ namespace Appleseed.Framework.Web.UI
                         // }
                         var addThisUsername = Convert.ToString(addThisUsernameSetting);
                         this.Page.ClientScript.RegisterClientScriptInclude(
-                            this.Page.GetType(),
-                            "ADD_THIS",
+                            this.Page.GetType(), 
+                            "ADD_THIS", 
                             "http://s7.addthis.com/js/250/addthis_widget.js#username=" + addThisUsername);
                     }
                 }
@@ -1355,7 +1390,9 @@ namespace Appleseed.Framework.Web.UI
         /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Load"/> event.
         /// </summary>
-        /// <param name="e">The <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        /// <param name="e">
+        /// The <see cref="T:System.EventArgs"/> object that contains the event data.
+        /// </param>
         protected override void OnLoad(EventArgs e)
         {
             // add CurrentTheme CSS
@@ -1385,14 +1422,15 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        /// Raises the <see cref="E:PreInit"/> event.
+        /// Raises the <see cref="System.Web.UI.Page.PreInit"/> event.
         /// </summary>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
         protected override void OnPreInit(EventArgs e)
         {
             // TODO : Assign masters and themes here... :-)
             //// this.Theme = "Default";
-
             if (this.portalSettings != null)
             {
                 var masterLayoutPath = string.Concat(this.portalSettings.PortalLayoutPath, this.MASTERPAGE_BASE_PAGE);
@@ -1412,17 +1450,23 @@ namespace Appleseed.Framework.Web.UI
         /// <summary>
         /// Called when [update].
         /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="source">
+        /// The source.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
         protected virtual void OnUpdate(object source, EventArgs e)
         {
             this.OnUpdate(e);
         }
 
         /// <summary>
-        /// Raises the <see cref="E:Update"/> event.
+        /// Raises the <see cref="Update"/> event.
         /// </summary>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
         protected virtual void OnUpdate(EventArgs e)
         {
             if (this.Update != null)
@@ -1462,8 +1506,12 @@ namespace Appleseed.Framework.Web.UI
         /// <summary>
         /// Handles the Click event of the CancelBtn control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
         private void CancelBtn_Click(object sender, EventArgs e)
         {
             this.OnCancel(e);
@@ -1472,8 +1520,12 @@ namespace Appleseed.Framework.Web.UI
         /// <summary>
         /// Handles the Click event of the DeleteBtn control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
             this.OnDelete(e);
@@ -1495,11 +1547,10 @@ namespace Appleseed.Framework.Web.UI
             {
                 try
                 {
-                    Control container = null;
                     var master = this.Page.Master;
                     while (control == null && master != null)
                     {
-                        container = master.FindControl("Content");
+                        var container = master.FindControl("Content");
                         if (container != null)
                         {
                             control = container.FindControl(name);
@@ -1511,10 +1562,10 @@ namespace Appleseed.Framework.Web.UI
                 catch (Exception exc)
                 {
                     ErrorHandler.Publish(
-                        LogLevel.Warn,
+                        LogLevel.Warn, 
                         string.Format(
-                            "Error while trying to get the '{0}' control in Appleseed.Framework.Web.UI.Page.GetControl(controlName).",
-                            name),
+                            "Error while trying to get the '{0}' control in Appleseed.Framework.Web.UI.Page.GetControl(controlName).", 
+                            name), 
                         exc);
                 }
             }
@@ -1553,7 +1604,7 @@ namespace Appleseed.Framework.Web.UI
 
                     script.AppendFormat("<script type=\"text/javascript\">");
                     script.AppendFormat(
-                        "try {{ var pageTracker = _gat._getTracker(\"{0}\");",
+                        "try {{ var pageTracker = _gat._getTracker(\"{0}\");", 
                         this.portalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"]);
                     script.AppendFormat("pageTracker._trackPageview();");
                     script.AppendFormat("}} catch (err) {{ }}</script>");
@@ -1567,8 +1618,12 @@ namespace Appleseed.Framework.Web.UI
         /// <summary>
         /// Handles the Click event of the UpdateBtn control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
         private void UpdateBtn_Click(object sender, EventArgs e)
         {
             this.OnUpdate(e);

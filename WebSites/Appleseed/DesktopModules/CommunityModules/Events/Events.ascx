@@ -25,7 +25,7 @@
     width="98%">
     <itemtemplate>
         <span class="ItemTitle">
-            <rbfwebui:hyperlink id="editLink" runat="server" imageurl='<%# CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
+            <rbfwebui:hyperlink id="editLink" runat="server" imageurl='<%# this.CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
                 navigateurl='<%# Appleseed.Framework.HttpUrlBuilder.BuildUrl("~/DesktopModules/CommunityModules/Events/EventsEdit.aspx","ItemID=" + DataBinder.Eval(Container.DataItem,"ItemID") + "&mid=" + ModuleID) %>'
                 visible="<%# IsEditable %>">
             </rbfwebui:hyperlink>

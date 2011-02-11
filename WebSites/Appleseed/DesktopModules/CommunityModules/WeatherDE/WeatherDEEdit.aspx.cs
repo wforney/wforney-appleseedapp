@@ -47,21 +47,24 @@ namespace Appleseed.Content.Web.Modules
                 if (ModuleID > 0)
                 {
                     if (moduleSettings["WeatherZip"] != null)
-                        WeatherZip.Text = ((SettingItem) moduleSettings["WeatherZip"]).ToString();
+                        WeatherZip.Text = this.moduleSettings["WeatherZip"].ToString();
 
                     if (moduleSettings["WeatherCityIndex"] != null)
-                        WeatherCityIndex.Text = ((SettingItem) moduleSettings["WeatherCityIndex"]).ToString();
+                        WeatherCityIndex.Text = this.moduleSettings["WeatherCityIndex"].ToString();
 
                     if (moduleSettings["WeatherSetting"] != null)
                         WeatherSetting.SelectedIndex =
-                            int.Parse(((SettingItem) moduleSettings["WeatherSetting"]).ToString());
+                            int.Parse(this.moduleSettings["WeatherSetting"].ToString());
 
                     if (moduleSettings["WeatherDesign"] != null)
                     {
                         for (int i = 0; i < WeatherDesign.Items.Count; i++)
-                            if (WeatherDesign.Items[i].Value ==
-                                (((SettingItem) moduleSettings["WeatherDesign"]).ToString()))
+                        {
+                            if (WeatherDesign.Items[i].Value == this.moduleSettings["WeatherDesign"].ToString())
+                            {
                                 WeatherDesign.SelectedIndex = i;
+                            }
+                        }
                     }
                 }
             }

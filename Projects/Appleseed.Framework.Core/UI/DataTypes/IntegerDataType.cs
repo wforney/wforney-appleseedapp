@@ -1,42 +1,47 @@
-using System;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IntegerDataType.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Integer Data Type
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.DataTypes
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
-    /// IntegerDataType
+    /// Integer Data Type
     /// </summary>
-    public class IntegerDataType : NumericDataType
+    public class IntegerDataType : BaseDataType<int, TextBox>
     {
+        #region Constructors and Destructors
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="IntegerDataType"/> class.
+        ///   Initializes a new instance of the <see cref = "IntegerDataType" /> class.
         /// </summary>
         public IntegerDataType()
         {
-            InnerDataType = PropertiesDataType.Integer;
-            InitializeComponents();
+            this.Type = PropertiesDataType.Integer;
         }
 
-        /// <summary>
-        /// Gets or sets the value.
-        /// </summary>
-        /// <value>The value.</value>
-        public override string Value
-        {
-            get { return base.Value; }
-            set
-            {
-                //Check type
-                base.Value = Int32.Parse(value).ToString();
-            }
-        }
+        #endregion
+
+        #region Properties
 
         /// <summary>
-        /// Gets the description.
+        ///   Gets the description.
         /// </summary>
         /// <value>The description.</value>
         public override string Description
         {
-            get { return "Integer"; }
+            get
+            {
+                return "Integer";
+            }
         }
+
+        #endregion
     }
 }

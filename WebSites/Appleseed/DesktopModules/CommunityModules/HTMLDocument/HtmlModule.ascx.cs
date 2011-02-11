@@ -19,6 +19,9 @@ using System.Xml.Serialization;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// HTML Document Module
     /// Represents any text that can contain HTML
@@ -65,16 +68,16 @@ namespace Appleseed.Content.Web.Modules
             #region Module Special Settings
 
             _Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
-            _groupOrderBase = (int) SettingItemGroup.MODULE_SPECIAL_SETTINGS;
+            _groupOrderBase = (int)SettingItemGroup.MODULE_SPECIAL_SETTINGS;
 
             HtmlEditorDataType.HtmlEditorSettings(_baseSettings, _Group);
 
             //If false the input box for mobile content will be hidden
-            SettingItem ShowMobileText = new SettingItem(new BooleanDataType());
-            ShowMobileText.Value = "true";
-            ShowMobileText.Order = _groupOrderBase + 10;
-            ShowMobileText.Group = _Group;
-            _baseSettings.Add("ShowMobile", ShowMobileText);
+            var showMobileText = new SettingItem<bool, CheckBox>(new BooleanDataType())
+                {
+                    Value = true, Order = _groupOrderBase + 10, Group = _Group 
+                };
+            _baseSettings.Add("ShowMobile", showMobileText);
 
             #endregion
 
@@ -83,15 +86,17 @@ namespace Appleseed.Content.Web.Modules
             // added by Hongwei Shen(Hongwei.shen@gmail.com) 10/9/2005
 
             _Group = SettingItemGroup.BUTTON_DISPLAY_SETTINGS;
-            _groupOrderBase = (int) SettingItemGroup.BUTTON_DISPLAY_SETTINGS;
+            _groupOrderBase = (int)SettingItemGroup.BUTTON_DISPLAY_SETTINGS;
 
             //If false the compare button will be hidden
-            SettingItem ShowCompareButton = new SettingItem(new BooleanDataType());
-            ShowCompareButton.Value = "true";
-            ShowCompareButton.Order = _groupOrderBase + 60;
-            ShowCompareButton.Group = _Group;
-            ShowCompareButton.EnglishName = "Show Compare Button?";
-            ShowCompareButton.Description = "Compare the working version with the live one";
+            var ShowCompareButton = new SettingItem<bool, CheckBox>(new BooleanDataType())
+                {
+                    Value = true,
+                    Order = _groupOrderBase + 60,
+                    Group = _Group,
+                    EnglishName = "Show Compare Button?",
+                    Description = "Compare the working version with the live one"
+                };
             _baseSettings.Add(COMPARE_BUTTON, ShowCompareButton);
 
             // end of addition
@@ -194,7 +199,7 @@ namespace Appleseed.Content.Web.Modules
             // add Compare button
             if (CompareButton != null)
             {
-                ButtonListAdmin.Add(_btnCompare);
+                this.ButtonListAdmin.Add(_btnCompare);
                 if (IsComparing == -1)
                 {
                     // it is the time to toggle the buttons
@@ -290,14 +295,14 @@ namespace Appleseed.Content.Web.Modules
                         // will bring the content back to staging
                         _btnCompare.TranslationKey = "BackToStaging";
                         _btnCompare.EnglishName = "Back to staging";
-                        _btnCompare.Image = CurrentTheme.GetImage("Buttons_Stage", "stage.gif");
+                        _btnCompare.Image = this.CurrentTheme.GetImage("Buttons_Stage", "stage.gif");
                     }
                     else
                     {
                         // otherwise, clicking will do comparison
                         _btnCompare.TranslationKey = "Compare";
                         _btnCompare.EnglishName = "Compare staging with production";
-                        _btnCompare.Image = CurrentTheme.GetImage("Buttons_Compare", "Compare.gif");
+                        _btnCompare.Image = this.CurrentTheme.GetImage("Buttons_Compare", "Compare.gif");
                     }
                 }
 
@@ -410,7 +415,7 @@ namespace Appleseed.Content.Web.Modules
         public override void Install(IDictionary stateSaver)
         {
             string currentScriptName = System.IO.Path.Combine(Server.MapPath(TemplateSourceDirectory), "install.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback
@@ -425,7 +430,7 @@ namespace Appleseed.Content.Web.Modules
         public override void Uninstall(IDictionary stateSaver)
         {
             string currentScriptName = System.IO.Path.Combine(Server.MapPath(TemplateSourceDirectory), "uninstall.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback
