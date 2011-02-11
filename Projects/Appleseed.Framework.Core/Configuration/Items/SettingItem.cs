@@ -289,7 +289,32 @@ namespace Appleseed.Framework
 
             set
             {
-                this.Value = (T)value;
+                // WLF: If setting null...
+                if (value == null)
+                {
+                    this.Value = default(T);
+                }
+                else
+                {
+                    // WLF: Special case for Uri type.
+                    if (typeof(T) == typeof(Uri) && value.GetType() != typeof(Uri))
+                    {
+                        Uri url;
+                        if (Uri.TryCreate(value.ToString(), UriKind.RelativeOrAbsolute, out url))
+                        {
+                            this.Value = (T)Convert.ChangeType(url, typeof(T));
+                        }
+                        else
+                        {
+                            throw new UriFormatException(string.Format("Not a valid Uri: {0}", value));
+                        }
+                    }
+                    else
+                    {
+                        // WLF: Convert is required because some values come in as strings and need to be parsed.
+                        this.Value = (T)Convert.ChangeType(value, typeof(T));
+                    }
+                }
             }
         }
 
