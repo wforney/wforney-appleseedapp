@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Global.asax.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   The global.
@@ -68,7 +68,10 @@ namespace Appleseed
         /// <summary>
         /// Runs on application end.
         /// </summary>
-        public void Application_OnEnd()
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <remarks></remarks>
+        public void Application_OnEnd(object sender, EventArgs e)
         {
             ErrorHandler.Publish(LogLevel.Info, "Application Ended");
         }
@@ -89,13 +92,10 @@ namespace Appleseed
 
             var currentUrl = context.Request.Path.ToLower();
 
-#if DEBUG
-            if (currentUrl.Contains("trace.axd"))
+            if (Debugger.IsAttached && currentUrl.Contains("trace.axd"))
             {
                 return;
             }
-
-#endif
 
             context.Trace.Warn("Application_BeginRequest :: " + currentUrl);
             if (Portal.PageID > 0)
@@ -219,8 +219,9 @@ namespace Appleseed
             if (versionDelta != 0)
             {
                 // ...and this is not DB Update page
-                var errorMessage = "Database version: " + Database.DatabaseVersion + " Code version: " +
-                                   Portal.CodeVersion;
+                var errorMessage = string.Format(
+                    "Database version: {0} Code version: {1}", Database.DatabaseVersion, Portal.CodeVersion);
+
                 if (versionDelta < 0)
                 {
                     // DB Version is behind Code Version
@@ -299,15 +300,17 @@ namespace Appleseed
                 }
 
                 // test returned result
-                if (portalSettings != null)
+                if (portalSettings == null)
                 {
-                    if (portalSettings.PortalAlias != null)
-                    {
-                        break; // successful hit
-                    }
-                    
-                    testsCounter++; // increment the test counter and continue
+                    continue;
                 }
+
+                if (portalSettings.PortalAlias != null)
+                {
+                    break; // successful hit
+                }
+                    
+                testsCounter++; // increment the test counter and continue
             }
 
             if (portalSettings != null)
@@ -414,6 +417,7 @@ namespace Appleseed
                 context.Response.Cookies["refreshed"].Expires = DateTime.Now.AddMinutes(1);
             }
         }
+
         /// <summary>
         /// Handles the BeginRequest event of the Application control.
         /// </summary>
@@ -427,6 +431,7 @@ namespace Appleseed
             }
         }
 
+        /// <summary>
         /// Handles the Error event of the Application control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -439,7 +444,10 @@ namespace Appleseed
         /// <summary>
         /// Runs when the application starts.
         /// </summary>
-        protected void Application_Start()
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <remarks></remarks>
+        protected void Application_Start(object sender, EventArgs e)
         {
             var context = HttpContext.Current;
 
@@ -449,7 +457,7 @@ namespace Appleseed
             HttpContext.Current.Application["CodeVersion"] = f.FilePrivatePart;
             HttpContext.Current.Application.UnLock();
 
-            ErrorHandler.Publish(LogLevel.Info, "Application Started: code version " + Portal.CodeVersion);
+            ErrorHandler.Publish(LogLevel.Info, string.Format("Application Started: code version {0}", Portal.CodeVersion));
 
             if (Config.CheckForFilePermission)
             {
