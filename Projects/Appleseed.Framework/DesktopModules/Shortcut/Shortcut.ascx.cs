@@ -113,13 +113,13 @@ namespace Appleseed.Content.Web.Modules
                 ModuleSettings m = new ModuleSettings();
                 m.ModuleID = LinkedModuleID;
                 m.PageID = ModuleConfiguration.PageID;
-                m.PaneName = ModuleConfiguration.PaneName;
-                m.ModuleTitle = ModuleConfiguration.ModuleTitle;
+                m.PaneName = this.ModuleConfiguration.PaneName;
+                m.ModuleTitle = this.ModuleConfiguration.ModuleTitle;
                 m.AuthorizedEditRoles = string.Empty; //Readonly
                 m.AuthorizedViewRoles = string.Empty; //Readonly
                 m.AuthorizedAddRoles = string.Empty; //Readonly
                 m.AuthorizedDeleteRoles = string.Empty; //Readonly
-                m.AuthorizedPropertiesRoles = ModuleConfiguration.AuthorizedPropertiesRoles;
+                m.AuthorizedPropertiesRoles = this.ModuleConfiguration.AuthorizedPropertiesRoles;
                 m.CacheTime = ModuleConfiguration.CacheTime;
                 m.ModuleOrder = ModuleConfiguration.ModuleOrder;
                 m.ShowMobile = ModuleConfiguration.ShowMobile;

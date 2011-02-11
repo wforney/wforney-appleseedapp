@@ -40,52 +40,14 @@ namespace Appleseed.Framework.Site.Configuration
         #region Constants and Fields
 
         /// <summary>
-        ///   The authorized roles.
-        /// </summary>
-        public string AuthorizedRoles;
-
-        /// <summary>
-        ///   The mobile page name.
-        /// </summary>
-        public string MobilePageName;
-
-        /// <summary>
-        ///   The modules.
-        /// </summary>
-        public ArrayList Modules = new ArrayList();
-
-        /// <summary>
-        ///   The page id.
-        /// </summary>
-        public int PageID;
-
-        /// <summary>
-        ///   The page layout.
-        /// </summary>
-        public string PageLayout;
-
-        /// <summary>
-        ///   The page order.
-        /// </summary>
-        public int PageOrder;
-
-        /// <summary>
-        ///   The parent page id.
-        /// </summary>
-        public int ParentPageID;
-
-        /// <summary>
-        ///   The show mobile.
-        /// </summary>
-        public bool ShowMobile;
-
-        /// <summary>
         ///   The custom settings.
         /// </summary>
         private Dictionary<string, ISettingItem> customSettings;
 
-        // Jes1111
-        // public int TemplateId;
+        /// <summary>
+        ///   The modules.
+        /// </summary>
+        private List<IModuleSettings> modules = new List<IModuleSettings>();
 
         /// <summary>
         ///   The portal path.
@@ -108,6 +70,13 @@ namespace Appleseed.Framework.Site.Configuration
         #region Properties
 
         /// <summary>
+        /// Gets or sets the authorized roles.
+        /// </summary>
+        /// <value>The authorized roles.</value>
+        /// <remarks></remarks>
+        public string AuthorizedRoles { get; set; }
+
+        /// <summary>
         ///   Gets Page Settings For Search Engines
         /// </summary>
         /// <value>The custom settings.</value>
@@ -120,12 +89,65 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
+        /// Gets or sets the name of the mobile page.
+        /// </summary>
+        /// <value>The name of the mobile page.</value>
+        /// <remarks></remarks>
+        public string MobilePageName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the modules.
+        /// </summary>
+        /// <value>The modules.</value>
+        /// <remarks></remarks>
+        public List<IModuleSettings> Modules
+        {
+            get
+            {
+                return this.modules;
+            }
+
+            set
+            {
+                this.modules = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the page ID.
+        /// </summary>
+        /// <value>The page ID.</value>
+        /// <remarks></remarks>
+        public int PageID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the page layout.
+        /// </summary>
+        /// <value>The page layout.</value>
+        /// <remarks></remarks>
+        public string PageLayout { get; set; }
+
+        /// <summary>
         ///   Gets or sets the name of the page.
         /// </summary>
         /// <value>The name of the page.</value>
         /// <remarks>
         /// </remarks>
         public string PageName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the page order.
+        /// </summary>
+        /// <value>The page order.</value>
+        /// <remarks></remarks>
+        public int PageOrder { get; set; }
+
+        /// <summary>
+        /// Gets or sets the parent page ID.
+        /// </summary>
+        /// <value>The parent page ID.</value>
+        /// <remarks></remarks>
+        public int ParentPageID { get; set; }
 
         /// <summary>
         ///   Gets or sets the portal path.
@@ -152,9 +174,17 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
-        ///   Stores current portal settings
+        /// Gets or sets a value indicating whether [show mobile].
+        /// </summary>
+        /// <value><c>true</c> if [show mobile]; otherwise, <c>false</c>.</value>
+        /// <remarks></remarks>
+        public bool ShowMobile { get; set; }
+
+        /// <summary>
+        /// Gets or sets the portal settings.
         /// </summary>
         /// <value>The portal settings.</value>
+        /// <remarks></remarks>
         public PortalSettings portalSettings
         {
             get
@@ -567,8 +597,6 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("TabKeyPhrase", tabKeyPhrase);
 
-            
-
             // changed Thierry (Tiptopweb) : have a dropdown menu to select layout and themes
             groupOrderBase = (int)SettingItemGroup.THEME_LAYOUT_SETTINGS;
             group = SettingItemGroup.THEME_LAYOUT_SETTINGS;
@@ -630,8 +658,6 @@ namespace Appleseed.Framework.Site.Configuration
 
             
 
-            #region Language/Culture Management
-
             groupOrderBase = (int)SettingItemGroup.CULTURE_SETTINGS;
             group = SettingItemGroup.CULTURE_SETTINGS;
             var cultureList = LanguageSwitcher.GetLanguageList(true);
@@ -662,7 +688,7 @@ namespace Appleseed.Framework.Site.Configuration
                 counter++;
             }
 
-            #endregion
+            
 
             return baseSettings;
         }

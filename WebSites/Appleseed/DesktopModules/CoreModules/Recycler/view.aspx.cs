@@ -53,7 +53,7 @@ namespace Appleseed
 
                     // create an instance of the module
                     PortalModuleControl myPortalModule =
-                        (PortalModuleControl) LoadControl(Path.ApplicationRoot + "/" + module.DesktopSrc);
+                        (PortalModuleControl) LoadControl(Path.ApplicationRoot + "/" + this.module.DesktopSrc);
                     myPortalModule.PortalID = portalSettings.PortalID;
                     myPortalModule.ModuleConfiguration = module;
 

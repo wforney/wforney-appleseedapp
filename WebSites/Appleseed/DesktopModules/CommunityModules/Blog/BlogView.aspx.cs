@@ -41,7 +41,7 @@ namespace Appleseed.Content.Web.Modules
                 if (Context.User.Identity.IsAuthenticated)
                 {
                     char[] separator = {';'};
-                    string[] deleteRoles = Module.AuthorizedDeleteRoles.Split(separator);
+                    string[] deleteRoles = this.Module.AuthorizedDeleteRoles.Split(separator);
                     foreach (string role in deleteRoles)
                     {
                         if (role.Length > 0)

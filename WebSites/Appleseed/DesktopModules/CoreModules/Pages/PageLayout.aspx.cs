@@ -1,28 +1,27 @@
-using System;
-using System.Collections;
-using System.Data.SqlClient;
-using System.Security.Principal;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Appleseed.Framework;
-using Appleseed.Framework.Security;
-using Appleseed.Framework.Settings;
-using Appleseed.Framework.Settings.Cache;
-using Appleseed.Framework.Site.Configuration;
-using Appleseed.Framework.Site.Data;
-using Appleseed.Framework.Users.Data;
-using Appleseed.Framework.Web.UI;
-using Appleseed.Framework.Web.UI.WebControls;
-using History = Appleseed.Framework.History;
-using ImageButton = System.Web.UI.WebControls.ImageButton;
-using Appleseed.Framework.Providers.AppleseedRoleProvider;
-using System.Collections.Generic;
-using Appleseed.Framework.Providers.AppleseedSiteMapProvider;
-using Appleseed.Framework.Core.Model;
-
 namespace Appleseed.Admin
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Data.SqlClient;
+    using System.Web;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+
+    using Appleseed.Framework;
+    using Appleseed.Framework.Providers.AppleseedRoleProvider;
+    using Appleseed.Framework.Providers.AppleseedSiteMapProvider;
+    using Appleseed.Framework.Security;
+    using Appleseed.Framework.Settings.Cache;
+    using Appleseed.Framework.Site.Configuration;
+    using Appleseed.Framework.Site.Data;
+    using Appleseed.Framework.Users.Data;
+    using Appleseed.Framework.Web.UI;
+    using Appleseed.Framework.Web.UI.WebControls;
+
+    using History = Appleseed.Framework.History;
+    using ImageButton = System.Web.UI.WebControls.ImageButton;
+
     /// <summary>
     /// Edit page for page layouts
     /// </summary>
@@ -58,11 +57,10 @@ namespace Appleseed.Admin
         #endregion
 
         /// <summary>
-        /// The Page_Load server event handler on this page is used
-        /// to populate a tab's layout settings on the page
+        /// Raises the <see cref="E:System.Web.UI.Control.Load"/> event.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        /// <remarks></remarks>
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -729,7 +727,7 @@ namespace Appleseed.Admin
         {
             ArrayList paneModules = new ArrayList();
 
-            foreach (ModuleSettings _module in portalSettings.ActivePage.Modules)
+            foreach (ModuleSettings _module in this.portalSettings.ActivePage.Modules)
             {
                 if ((_module.PaneName).ToLower() == pane.ToLower() && portalSettings.ActivePage.PageID == _module.PageID
                     )
