@@ -331,7 +331,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
         {
             // re-order settings items, the re-ordered items
             // is put in SettingsOrder
-            var orderedSettings = this.processDataSource();
+            var orderedSettings = this.ProcessDataSource();
 
             if (this.UseGroupingTabs)
             {
@@ -388,10 +388,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                 // It is startup script
                 if (!this.Page.ClientScript.IsStartupScriptRegistered("tab_startup_js"))
                 {
-                    var script = "<script language=\"javascript\" type=\"text/javascript\">" + " var tabW = " +
-                                 this.Width.Value + "; " + " var tabH = " + this.Height.Value + "; " +
-                                 " var tpg1 = new xTabPanelGroup('tpg1', tabW, tabH, 50, 'tabPanel', 'tabGroup', 'tabDefault', 'tabSelected'); " +
-                                 "</script>";
+                    var script = string.Format("<script language=\"javascript\" type=\"text/javascript\"> var tabW = {0};  var tabH = {1};  var tpg1 = new xTabPanelGroup('tpg1', tabW, tabH, 50, 'tabPanel', 'tabGroup', 'tabDefault', 'tabSelected'); </script>", this.Width.Value, this.Height.Value);
 
                     this.Page.ClientScript.RegisterStartupScript(this.Page.GetType(), "tab_startup_js", script);
                 }
@@ -420,7 +417,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// <returns>
         /// A sorted list.
         /// </returns>
-        protected virtual SortedList processDataSource()
+        protected virtual SortedList ProcessDataSource()
         {
             // Jes1111 -- force the list to obey SettingItem.Order property and divide it into groups
             // Manu -- a better order system avoiding try and catch.
@@ -437,7 +434,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                 }
                 else
                 {
-                    var order = ((SettingItem<int, TextBox>)this.settings[key]).Order;
+                    var order = ((ISettingItem)this.settings[key]).Order;
 
                     while (settingsOrder.ContainsKey(order))
                     {
