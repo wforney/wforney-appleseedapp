@@ -10,8 +10,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AppleseedWebApplication</RootNamespace>
-    <AssemblyName>AppleseedWebApplication</AssemblyName>
+    <RootNamespace>Appleseed</RootNamespace>
+    <AssemblyName>Appleseed</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup>
@@ -24,8 +24,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AppleseedWebApplication</RootNamespace>
-    <AssemblyName>AppleseedWebApplication</AssemblyName>
+    <RootNamespace>Appleseed</RootNamespace>
+    <AssemblyName>Appleseed</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -38,8 +38,8 @@
     <WarningLevel>4</WarningLevel>
     <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
     <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
-    <DesktopBuildPackageLocation>..\..\Deployment\AppleseedWebApplication.zip</DesktopBuildPackageLocation>
-    <DeployIisAppPath>AppleseedWebApplication</DeployIisAppPath>
+    <DesktopBuildPackageLocation>..\..\Deployment\Appleseed.zip</DesktopBuildPackageLocation>
+    <DeployIisAppPath>Appleseed</DeployIisAppPath>
     <ExcludeApp_Data>true</ExcludeApp_Data>
     <PublishDatabases>false</PublishDatabases>
     <!--<ExcludeFoldersFromDeployment>Portals</ExcludeFoldersFromDeployment>-->
@@ -52,8 +52,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DesktopBuildPackageLocation>..\..\Deployment\AppleseedWebApplication.zip</DesktopBuildPackageLocation>
-    <DeployIisAppPath>Default Web Site/AppleseedWebApplication</DeployIisAppPath>
+    <DesktopBuildPackageLocation>..\..\Deployment\Appleseed.zip</DesktopBuildPackageLocation>
+    <DeployIisAppPath>Default Web Site/Appleseed</DeployIisAppPath>
     <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
     <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
     <ExcludeApp_Data>true</ExcludeApp_Data>

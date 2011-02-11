@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appleseed.Core", "Projects\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appleseed.PortalTemplate", "Projects\Appleseed.PortalTemplate\Appleseed.PortalTemplate.csproj", "{2A0BD0AC-3734-476A-B039-E7C2215E9487}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppleseedWebApplication", "WebSites\AppleseedWebApplication\AppleseedWebApplication.csproj", "{95864C37-9A89-481A-B1AD-662CC7E3C3F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appleseed", "WebSites\Appleseed\Appleseed.csproj", "{95864C37-9A89-481A-B1AD-662CC7E3C3F8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appleseed.Framework.Providers.AppleseedSqlTableProfileProvider", "Projects\Appleseed.Framework.Providers.AppleseedSqlTableProfileProvider\Appleseed.Framework.Providers.AppleseedSqlTableProfileProvider.csproj", "{12AC9486-86E4-4436-80DB-24F696D407DC}"
 EndProject
