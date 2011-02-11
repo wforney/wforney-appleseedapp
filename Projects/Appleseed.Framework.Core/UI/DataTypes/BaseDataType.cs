@@ -176,7 +176,7 @@ namespace Appleseed.Framework.DataTypes
                 {
                     return;
                 }
-                
+
                 var txt = (TextBox)converter2.ConvertFrom(this.InnerControl);
                 if (txt != null)
                 {
@@ -220,17 +220,22 @@ namespace Appleseed.Framework.DataTypes
         /// </summary>
         protected virtual void InitializeComponents()
         {
-            // Text box
-            // changed max value to 1500 since most of settings are string
-            var tx = new TextBox
-                {
-                    CssClass = "NormalTextBox", Columns = 30, Width = new Unit(this.ControlWidth), MaxLength = 1500 
-                };
-
-            var conv = TypeDescriptor.GetConverter(typeof(TEditControl));
-            if (conv != null)
+            if (typeof(TEditControl) == typeof(TextBox))
             {
-                this.InnerControl = (TEditControl)conv.ConvertFrom(tx);
+                // Text box
+                // changed max value to 1500 since most of settings are string
+                var tx =
+                    new TextBox
+                        {
+                            CssClass = "NormalTextBox",
+                            Columns = 30,
+                            Width = new Unit(this.ControlWidth),
+                            MaxLength = 1500
+                        }
+
+                    as TEditControl;
+
+                this.InnerControl = tx;
             }
         }
 

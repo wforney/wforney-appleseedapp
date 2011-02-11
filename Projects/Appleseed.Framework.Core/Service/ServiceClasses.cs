@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ServiceClasses.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   Lists the possible types of services that can be used
@@ -11,7 +11,7 @@
 namespace Appleseed.Framework.Services
 {
     using System;
-    using System.Collections;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Lists the possible types of services that can be used
@@ -268,7 +268,7 @@ namespace Appleseed.Framework.Services
             this.ServiceImageLink = string.Empty;
             this.ServiceDescription = string.Empty;
             this.ServiceCopyright = string.Empty;
-            this.Items = new ArrayList();
+            this.Items = new List<ServiceResponseInfoItem>();
         }
 
         #endregion
@@ -279,7 +279,7 @@ namespace Appleseed.Framework.Services
         ///   Gets or sets the content items returned by the service.
         /// </summary>
         /// <value>The items.</value>
-        public ArrayList Items { get; set; }
+        public List<ServiceResponseInfoItem> Items { get; set; }
 
         /// <summary>
         ///   Gets or sets copyright information associated with the service.

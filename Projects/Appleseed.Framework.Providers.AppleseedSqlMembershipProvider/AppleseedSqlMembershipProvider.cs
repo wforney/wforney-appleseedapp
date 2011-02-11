@@ -364,7 +364,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// </remarks>
         public override bool ChangePassword(string username, Guid tokenId, string newPassword)
         {
-            using (var entities = new AppleseedMembershipEntities())
+            using (var entities = new AppleseedMembershipEntities(ConfigurationManager.ConnectionStrings["AppleseedMembershipEntities"].ConnectionString))
             {
                 var token =
                     entities.aspnet_ResetPasswordTokens.Include("aspnet_Membership").FirstOrDefault(
@@ -495,7 +495,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         public override Guid CreateResetPasswordToken(Guid userId)
         {
             var newTokenId = Guid.NewGuid();
-            using (var entities = new AppleseedMembershipEntities())
+            using (var entities = new AppleseedMembershipEntities(ConfigurationManager.ConnectionStrings["AppleseedMembershipEntities"].ConnectionString))
             {
                 var newToken = new aspnet_ResetPasswordTokens
                     {
@@ -1286,7 +1286,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         public override IList<string> GetOnlineUsers()
         {
             var dateActive = DateTime.UtcNow.AddMinutes(-1 * Membership.UserIsOnlineTimeWindow);
-            using (var entities = new AppleseedMembershipEntities())
+            using (var entities = new AppleseedMembershipEntities(ConfigurationManager.ConnectionStrings["AppleseedMembershipEntities"].ConnectionString))
             {
                 var users = entities.aspnet_Users.Include("aspnet_Membership").Include("aspnet_Application");
 
@@ -2256,7 +2256,7 @@ namespace Appleseed.Framework.Providers.AppleseedMembershipProvider
         /// </remarks>
         public override bool VerifyTokenForUser(Guid userId, Guid tokenId)
         {
-            using (var entities = new AppleseedMembershipEntities())
+            using (var entities = new AppleseedMembershipEntities(ConfigurationManager.ConnectionStrings["AppleseedMembershipEntities"].ConnectionString))
             {
                 return
                     entities.aspnet_ResetPasswordTokens.Include("aspnet_Membership").Any(
