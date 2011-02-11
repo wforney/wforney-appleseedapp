@@ -150,6 +150,7 @@
     <Compile Include="Configuration\Provider\ProviderConfiguration.cs" />
     <Compile Include="Configuration\Provider\ProviderConfigurationHandler.cs" />
     <Compile Include="Configuration\Provider\ProviderHelper.cs" />
+    <Compile Include="Configuration\Settings\IModuleSettings.cs" />
     <Compile Include="Configuration\Settings\ModuleSettings.cs" />
     <Compile Include="Configuration\Settings\ModuleSettingsCustom.cs" />
     <Compile Include="Configuration\Settings\PageSettings.cs" />

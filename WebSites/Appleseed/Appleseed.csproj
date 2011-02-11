@@ -1156,7 +1156,7 @@
     <Compile Include="DesktopModules\CoreModules\Admin\ModuleSettings.aspx.designer.cs">
       <DependentUpon>ModuleSettings.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DesktopModules\CoreModules\Admin\PortalService.cs">
+    <Compile Include="DesktopModules\CoreModules\Admin\PortalService.asmx.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DesktopModules\CoreModules\Admin\PropertyPage.aspx.cs">

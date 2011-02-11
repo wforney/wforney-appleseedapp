@@ -31,9 +31,9 @@ namespace Appleseed.Content.Web.Modules
             {
                 // Destinators
                 ModuleSettings ms = null;
-                for (int i = 0; i < portalSettings.ActivePage.Modules.Count; i++)
+                for (int i = 0; i < this.portalSettings.ActivePage.Modules.Count; i++)
                 {
-                    ms = (ModuleSettings) portalSettings.ActivePage.Modules[i];
+                    ms = (ModuleSettings) this.portalSettings.ActivePage.Modules[i];
                     if (ms.ModuleID == ModuleID)
                         break;
                 }

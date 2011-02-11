@@ -252,8 +252,8 @@ namespace Appleseed.Content.Web.Modules
 
                 if (SupportsWorkflow
                     && (PortalSecurity.IsInRoles(ModuleConfiguration.AuthorizedApproveRoles) ||
-                        PortalSecurity.IsInRoles(ModuleConfiguration.AuthorizedEditRoles) ||
-                        PortalSecurity.IsInRoles(ModuleConfiguration.AuthorizedDeleteRoles))
+                        PortalSecurity.IsInRoles(this.ModuleConfiguration.AuthorizedEditRoles) ||
+                        PortalSecurity.IsInRoles(this.ModuleConfiguration.AuthorizedDeleteRoles))
                     && Version == WorkFlowVersion.Staging)
                 {
                     return true;
