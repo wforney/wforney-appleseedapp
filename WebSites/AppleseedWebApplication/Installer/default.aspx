@@ -4,7 +4,7 @@
 <head>
     <title>Appleseed Web Installer</title>
     <link rel="stylesheet" href="style/default.css" type="text/css" />
-    <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js" type="text/javascript"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.5.min.js" type="text/javascript"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
         type="text/javascript"></script>
 </head>
