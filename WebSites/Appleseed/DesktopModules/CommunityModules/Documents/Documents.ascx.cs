@@ -68,7 +68,7 @@ namespace Appleseed.Content.Web.Modules
             this._baseSettings.Add("DocumentPath", DocumentPath);
 
             // Add new functionalities by jviladiu@portalServices.net (02/07/2004)
-            var ShowImages = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var ShowImages = new SettingItem<bool, CheckBox>();
             ShowImages.Value = true;
             // Modified by Hongwei Shen
             // ShowImages.Order = 5;
@@ -79,7 +79,7 @@ namespace Appleseed.Content.Web.Modules
             ShowImages.Description = "Mark this if you like see Image Icons";
             this._baseSettings.Add("DOCUMENTS_SHOWIMAGES", ShowImages);
 
-            var SaveInDataBase = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var SaveInDataBase = new SettingItem<bool, CheckBox>();
             SaveInDataBase.Value = false;
             // Modified by Hongwei Shen
             // SaveInDataBase.Order = 10;
@@ -116,7 +116,7 @@ namespace Appleseed.Content.Web.Modules
             // End
 
             // Added by Jakob Hansen 07/07/2004
-            var showTitle = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var showTitle = new SettingItem<bool, CheckBox>();
             showTitle.Value = true;
             // Modified by Hongwei Shen
             // showTitle.Order = 15;
@@ -127,7 +127,7 @@ namespace Appleseed.Content.Web.Modules
             showTitle.Description = "Mark this if the title column should be displayed";
             this._baseSettings.Add("DOCUMENTS_SHOWTITLE", showTitle);
 
-            var showOwner = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var showOwner = new SettingItem<bool, CheckBox>();
             showOwner.Value = true;
             // Modified by Hongwei Shen
             // showOwner.Order = 16;
@@ -138,7 +138,7 @@ namespace Appleseed.Content.Web.Modules
             showOwner.Description = "Mark this if the owner column should be displayed";
             this._baseSettings.Add("DOCUMENTS_SHOWOWNER", showOwner);
 
-            var showArea = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var showArea = new SettingItem<bool, CheckBox>();
             showArea.Value = true;
             // Modified by Hongwei Shen
             // showArea.Order = 17;
@@ -149,7 +149,7 @@ namespace Appleseed.Content.Web.Modules
             showArea.Description = "Mark this if the area column should be displayed";
             this._baseSettings.Add("DOCUMENTS_SHOWAREA", showArea);
 
-            var showLastUpdated = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var showLastUpdated = new SettingItem<bool, CheckBox>();
             showLastUpdated.Value = true;
             // Modified by Hongwei Shen
             // showLastUpdated.Order = 18;

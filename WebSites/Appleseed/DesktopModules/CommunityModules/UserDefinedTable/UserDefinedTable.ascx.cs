@@ -382,7 +382,7 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public UserDefinedTable() 
         {
-            var setSortField = new SettingItem<string, TextBox>(new StringDataType());
+            var setSortField = new SettingItem<string, TextBox>();
             setSortField.Required = false;
             setSortField.Value = string.Empty;
             setSortField.Order = 1;
@@ -412,7 +412,7 @@ namespace Appleseed.Content.Web.Modules
             this._baseSettings.Add("XSLsrc", XSLsrc);
 
             //Rob Siera - 04 nov 2004 - Adding possibility to use data of other UDT
-            var UDTsrc = new SettingItem<int, TextBox>(new IntegerDataType());
+            var UDTsrc = new SettingItem<int, TextBox>();
             UDTsrc.Required = false;
             UDTsrc.Value = ModuleID;
             UDTsrc.EnglishName="XSL data";
@@ -421,7 +421,7 @@ namespace Appleseed.Content.Web.Modules
             this._baseSettings.Add("UDTsrc", UDTsrc);
 
             //Rob Siera - 04 nov 2004 - Adding possibility to view data as raw XML
-            var DisplayAsXML = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var DisplayAsXML = new SettingItem<bool, CheckBox>();
             DisplayAsXML.Required = false;
             DisplayAsXML.EnglishName="Display XML";
             DisplayAsXML.Description="Toggle to display data as XML. Helpfull to develop XSL file.";

@@ -38,7 +38,7 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public SimpleMenu()
         {
-            var setParentPageId = new SettingItem<int, TextBox>(new IntegerDataType())
+            var setParentPageId = new SettingItem<int, TextBox>()
                 {
                     Required = true, 
                     Value = 0, 
@@ -132,14 +132,14 @@ namespace Appleseed.Content.Web.Modules
                     };
             this._baseSettings.Add("sm_MenuBindingType", setMenuBindingType);
 
-            // 			SettingItem setHeaderText = new SettingItem<string, TextBox>(new StringDataType());
+            // 			SettingItem setHeaderText = new SettingItem<string, TextBox>();
             // 			setHeaderText.Required = false;
             // 			setHeaderText.Value = string.Empty;
             // 			setHeaderText.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // 			setHeaderText.Description ="Sets a header text of the static menu (the special setting <CurrentTab> displays the current TabName).";
             // 			setHeaderText.Order = 5;
             // 			this._baseSettings.Add("sm_Menu_HeaderText", setHeaderText);
-            // 			SettingItem setFooterText = new SettingItem<string, TextBox>(new StringDataType());
+            // 			SettingItem setFooterText = new SettingItem<string, TextBox>();
             // 			setFooterText.Required = false;
             // 			setFooterText.Value = string.Empty;
             // 			setFooterText.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;

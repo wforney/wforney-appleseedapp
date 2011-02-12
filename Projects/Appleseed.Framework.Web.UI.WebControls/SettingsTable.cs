@@ -641,7 +641,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// <returns>
         /// A table row.
         /// </returns>
-        private TableRow CreateOneSettingRow(string currentSetting, SettingItem<string, TextBox> currentItem)
+        private TableRow CreateOneSettingRow(string currentSetting, ISettingItem currentItem)
         {
             // the table row is going to have three cells 
             var row = new TableRow();
@@ -742,25 +742,24 @@ namespace Appleseed.Framework.Web.UI.WebControls
             {
                 var rang = new RangeValidator();
 
-                switch (currentItem.DataType)
+                switch (currentItem.Value.GetType().Name.ToLowerInvariant())
                 {
-                    case PropertiesDataType.String:
+                    case "string":
                         rang.Type = ValidationDataType.String;
                         break;
 
-                    case PropertiesDataType.Integer:
+                    case "int":
                         rang.Type = ValidationDataType.Integer;
                         break;
 
-                    case PropertiesDataType.Currency:
-                        rang.Type = ValidationDataType.Currency;
-                        break;
-
-                    case PropertiesDataType.Date:
+                    // case PropertiesDataType.Currency:
+                    //     rang.Type = ValidationDataType.Currency;
+                    //     break;
+                    case "datetime":
                         rang.Type = ValidationDataType.Date;
                         break;
 
-                    case PropertiesDataType.Double:
+                    case "double":
                         rang.Type = ValidationDataType.Double;
                         break;
                 }

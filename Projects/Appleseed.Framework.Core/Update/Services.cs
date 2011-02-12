@@ -338,9 +338,21 @@ namespace Appleseed.Framework.Core.Update
         #region IDisposable
 
         /// <summary>
-        /// The dispose.
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
+        /// <remarks></remarks>
         public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        /// <remarks></remarks>
+        protected void Dispose(bool disposing)
         {
             // TODO Implement the pattern properly.
         }

@@ -67,7 +67,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
 
             // Switches date display on/off
-            var showDate = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var showDate = new SettingItem<bool, CheckBox>
                 {
                     Value = true, EnglishName = "Show Date", Group = Group, Order = GroupBase + 20 
                 };
@@ -80,7 +80,7 @@ namespace Appleseed.Content.Web.Modules
             this._baseSettings.Add("ShowDate", showDate);
 
             // Added by Rob Siera
-            var defaultVisibleDays = new SettingItem<int, TextBox>(new IntegerDataType())
+            var defaultVisibleDays = new SettingItem<int, TextBox>
                 {
                     Value = 90, EnglishName = "Default Days Visible", Group = Group, Order = GroupBase + 25 
                 };
@@ -92,7 +92,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             this._baseSettings.Add("DefaultVisibleDays", defaultVisibleDays);
 
-            var richAbstract = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var richAbstract = new SettingItem<bool, CheckBox>
                 {
                     Value = true,
                     EnglishName = "Rich Abstract",

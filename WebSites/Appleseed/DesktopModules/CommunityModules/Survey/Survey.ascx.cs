@@ -341,13 +341,13 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public Survey()
         {
-            var itmVoteDayPeriod = new SettingItem<int, TextBox>(new IntegerDataType())
+            var itmVoteDayPeriod = new SettingItem<int, TextBox>()
                 {
                     Required = true, Order = 1, Value = 7, MinValue = 1, MaxValue = 365 
                 };
             _baseSettings.Add("VoteDayPeriod", itmVoteDayPeriod);
 
-            var itmTest = new SettingItem<int, TextBox>(new IntegerDataType()) { Required = true, Order = 2, Value = 0 };
+            var itmTest = new SettingItem<int, TextBox>() { Required = true, Order = 2, Value = 0 };
             _baseSettings.Add("Test", itmTest);
         }
 

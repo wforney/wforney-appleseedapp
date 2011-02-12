@@ -73,11 +73,11 @@ namespace Appleseed.Content.Web.Modules
                 { Required = true, Group = group, Order = groupBase + 25 }; //PortalUrlDataType
             _baseSettings.Add("src", src);
 
-            var width = new SettingItem<int, TextBox>(new IntegerDataType())
+            var width = new SettingItem<int, TextBox>()
                 { Required = true, MinValue = 0, MaxValue = 2048, Value = 150, Group = group, Order = groupBase + 30 };
             _baseSettings.Add("width", width);
 
-            var height = new SettingItem<int, TextBox>(new IntegerDataType())
+            var height = new SettingItem<int, TextBox>()
                 { Required = true, MinValue = 0, MaxValue = 2048, Value = 250, Group = group, Order = groupBase + 35 };
             _baseSettings.Add("height", height);
         }

@@ -97,7 +97,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             HtmlEditorDataType.HtmlEditorSettings(this._baseSettings, _Group);
 
-            var showTitlePage = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var showTitlePage = new SettingItem<bool, CheckBox>()
                 {
                     Value = false,
                     Order = groupOrderBase + 20,
@@ -107,7 +107,7 @@ namespace Appleseed.Content.Web.Modules
                 };
             this._baseSettings.Add("ENHANCEDHTML_SHOWTITLEPAGE", showTitlePage);
 
-            var showUpMenu = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var showUpMenu = new SettingItem<bool, CheckBox>()
                 {
                     Value = false,
                     Order = groupOrderBase + 25,
@@ -134,7 +134,7 @@ namespace Appleseed.Content.Web.Modules
                     };
             this._baseSettings.Add("ENHANCEDHTML_ALIGNUPMENU", labelAlignUpMenu);
 
-            var showDownMenu = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var showDownMenu = new SettingItem<bool, CheckBox>()
                 {
                     Value = true,
                     Order = groupOrderBase + 40,
@@ -161,7 +161,7 @@ namespace Appleseed.Content.Web.Modules
                     };
             this._baseSettings.Add("ENHANCEDHTML_ALIGNDOWNMENU", labelAlignDownMenu);
 
-            var addInvariant = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var addInvariant = new SettingItem<bool, CheckBox>()
                 {
                     Value = true,
                     Order = groupOrderBase + 60,
@@ -172,7 +172,7 @@ namespace Appleseed.Content.Web.Modules
                 };
             this._baseSettings.Add("ENHANCEDHTML_ADDINVARIANTCULTURE", addInvariant);
 
-            var showMultiMode = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var showMultiMode = new SettingItem<bool, CheckBox>()
                 {
                     Value = true,
                     Order = groupOrderBase + 70,
@@ -182,7 +182,7 @@ namespace Appleseed.Content.Web.Modules
                 };
             this._baseSettings.Add("ENHANCEDHTML_SHOWMULTIMODE", showMultiMode);
 
-            var getContentsFromPortals = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var getContentsFromPortals = new SettingItem<bool, CheckBox>()
                 {
                     Value = false,
                     Order = groupOrderBase + 80,

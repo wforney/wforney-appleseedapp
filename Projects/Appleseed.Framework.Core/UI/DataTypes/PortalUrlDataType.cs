@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="PortalUrlDataType.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   Portal URL Data Type
@@ -10,6 +10,7 @@
 namespace Appleseed.Framework.DataTypes
 {
     using System.Web;
+    using System.Web.UI.WebControls;
 
     using Appleseed.Framework.Settings;
     using Appleseed.Framework.Site.Configuration;
@@ -17,14 +18,19 @@ namespace Appleseed.Framework.DataTypes
     /// <summary>
     /// Portal URL Data Type
     /// </summary>
-    public class PortalUrlDataType : StringDataType
+    public class PortalUrlDataType : BaseDataType<string, TextBox>
     {
         #region Constants and Fields
 
         /// <summary>
-        /// The inner full path.
+        ///   The inner full path.
         /// </summary>
         private string innerFullPath;
+
+        /// <summary>
+        /// The the value.
+        /// </summary>
+        private string theValue;
 
         #endregion
 
@@ -36,9 +42,7 @@ namespace Appleseed.Framework.DataTypes
         public PortalUrlDataType()
         {
             this.PortalPathPrefix = string.Empty;
-            this.Type = PropertiesDataType.String;
 
-            // InitializeComponents();
             if (HttpContext.Current.Items["PortalSettings"] == null)
             {
                 return;
@@ -62,9 +66,6 @@ namespace Appleseed.Framework.DataTypes
         /// </param>
         public PortalUrlDataType(string portalFullPath)
         {
-            this.Type = PropertiesDataType.String;
-
-            // InitializeComponents();
             this.PortalPathPrefix = portalFullPath;
         }
 
@@ -102,8 +103,6 @@ namespace Appleseed.Framework.DataTypes
             }
         }
 
-        private string theValue;
-
         /// <summary>
         ///   Gets or sets the value.
         /// </summary>
@@ -119,8 +118,8 @@ namespace Appleseed.Framework.DataTypes
             {
                 // Remove portal path if present
                 this.theValue = value.StartsWith(this.PortalPathPrefix)
-                                 ? value.Substring(this.PortalPathPrefix.Length)
-                                 : value;
+                                    ? value.Substring(this.PortalPathPrefix.Length)
+                                    : value;
 
                 // Reset innerFullPath
                 this.innerFullPath = null;

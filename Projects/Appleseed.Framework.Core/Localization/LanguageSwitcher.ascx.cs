@@ -71,33 +71,32 @@ namespace Appleseed.Framework.Localization
                 ErrorHandler.Publish(LogLevel.Warn, "Failed to load languages, loading defaults", ex);
                 langList =
                     (LanguageCultureCollection)
-                    TypeDescriptor.GetConverter(typeof (LanguageCultureCollection)).ConvertTo(LANGUAGE_DEFAULT,
-                                                                                              typeof (
-                                                                                                  LanguageCultureCollection
-                                                                                                  ));
+                    TypeDescriptor.GetConverter(typeof(LanguageCultureCollection)).ConvertTo(
+                        LANGUAGE_DEFAULT, typeof(LanguageCultureCollection));
             }
             return langList;
         }
 
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the <see cref="LanguageSwitcher"/> class. 
         /// </summary>
+        /// <remarks>
+        /// </remarks>
         public LanguageSwitcher()
         {
             // Language Switcher Module - Type
-            ArrayList languageSwitcherTypesOptions = new ArrayList();
-            languageSwitcherTypesOptions.Add(
-                new SettingOption(
-                    (int)LanguageSwitcherType.DropDownList,
-                    General.GetString("LANGSWITCHTYPE_DROPDOWNLIST", "DropDownList", null)));
-            languageSwitcherTypesOptions.Add(
-                new SettingOption(
-                    (int)LanguageSwitcherType.VerticalLinksList,
-                    General.GetString("LANGSWITCHTYPE_LINKS", "Links", null)));
-            languageSwitcherTypesOptions.Add(
-                new SettingOption(
-                    (int)LanguageSwitcherType.HorizontalLinksList,
-                    General.GetString("LANGSWITCHTYPE_LINKSHORIZONTAL", "Links Horizontal", null)));
+            var languageSwitcherTypesOptions = new List<SettingOption>
+                {
+                    new SettingOption(
+                        (int)LanguageSwitcherType.DropDownList,
+                        General.GetString("LANGSWITCHTYPE_DROPDOWNLIST", "DropDownList", null)),
+                    new SettingOption(
+                        (int)LanguageSwitcherType.VerticalLinksList,
+                        General.GetString("LANGSWITCHTYPE_LINKS", "Links", null)),
+                    new SettingOption(
+                        (int)LanguageSwitcherType.HorizontalLinksList,
+                        General.GetString("LANGSWITCHTYPE_LINKSHORIZONTAL", "Links Horizontal", null))
+                };
 
             var languageSwitchType =
                 new SettingItem<string, ListControl>(
@@ -178,7 +177,7 @@ namespace Appleseed.Framework.Localization
             _baseSettings.Add("LANGUAGESWITCHER_NAMES", languageSwitcherName);
 
             // Use flag images from portal's images folder?
-            var customFlags = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var customFlags = new SettingItem<bool, CheckBox>
                 {
                     Order = (int)SettingItemGroup.THEME_LAYOUT_SETTINGS + 950,
                     Group = SettingItemGroup.THEME_LAYOUT_SETTINGS,

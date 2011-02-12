@@ -22,7 +22,7 @@ namespace Appleseed.Framework.DataTypes
     /// <typeparam name="TEditControl">
     /// The edit control for the data type.
     /// </typeparam>
-    public abstract class BaseDataType<T, TEditControl>
+    public class BaseDataType<T, TEditControl>
         where TEditControl : class
     {
         #region Constants and Fields
@@ -56,12 +56,12 @@ namespace Appleseed.Framework.DataTypes
         {
             get
             {
-                throw new NotImplementedException();
+                return this.InnerDataSource;
             }
 
             set
             {
-                throw new NotImplementedException();
+                this.InnerDataSource = value;
             }
         }
 
@@ -111,7 +111,7 @@ namespace Appleseed.Framework.DataTypes
         {
             get
             {
-                return string.Empty;
+                return typeof(T).Name;
             }
         }
 
@@ -130,16 +130,37 @@ namespace Appleseed.Framework.DataTypes
                     this.InitializeComponents();
                 }
 
-                // Update value in control
-                var converter = TypeDescriptor.GetConverter(typeof(TEditControl));
-                if (converter != null)
+                if (typeof(TEditControl) == typeof(TextBox))
                 {
-                    if (converter.CanConvertTo(typeof(TextBox)) && this.InnerControl != null)
+                    var txt = this.InnerControl as TextBox;
+                    if (txt != null)
                     {
-                        var txt = (TextBox)converter.ConvertFrom(this.InnerControl);
-                        if (txt != null)
+                        txt.Text = Convert.ToString(this.Value);
+                    }
+                }
+                else
+                {
+                    if (typeof(TEditControl) == typeof(CheckBox))
+                    {
+                        var cbx = this.InnerControl as CheckBox;
+                        if (cbx != null)
                         {
-                            txt.Text = this.Value.ToString();
+                            cbx.Checked = Convert.ToBoolean(this.Value);
+                        }
+                    }
+                    else
+                    {
+                        if (typeof(TEditControl) == typeof(ListControl))
+                        {
+                            var lc = this.InnerControl as ListControl;
+                            if (lc != null)
+                            {
+                                lc.SelectedValue = Convert.ToString(this.Value);
+                            }
+                        }
+                        else
+                        {
+                            throw new NotImplementedException("Unknown editor type. Please implement a value getter here.");
                         }
                     }
                 }
@@ -150,37 +171,41 @@ namespace Appleseed.Framework.DataTypes
 
             set
             {
-                if (value.GetType().Name != "TextBox")
-                {
-                    throw new ArgumentException(
-                        "EditControl",
-                        string.Format("A TextBox value is required, a '{0}' is given.", value.GetType().Name));
-                }
-
                 this.InnerControl = value;
 
-                // Update value from control
-                var converter = TypeDescriptor.GetConverter(typeof(T));
-                if (converter == null)
+                if (typeof(TEditControl) == typeof(TextBox))
                 {
-                    return;
+                    var txt = this.InnerControl as TextBox;
+                    if (txt != null)
+                    {
+                        this.Value = (T)Convert.ChangeType(txt.Text, typeof(T));
+                    }
                 }
-
-                var converter2 = TypeDescriptor.GetConverter(typeof(TEditControl));
-                if (converter2 == null)
+                else
                 {
-                    return;
-                }
-
-                if (!converter2.CanConvertTo(typeof(TextBox)))
-                {
-                    return;
-                }
-
-                var txt = (TextBox)converter2.ConvertFrom(this.InnerControl);
-                if (txt != null)
-                {
-                    this.Value = (T)converter.ConvertFrom(txt.Text);
+                    if (typeof(TEditControl) == typeof(CheckBox))
+                    {
+                        var cbx = this.InnerControl as CheckBox;
+                        if (cbx != null)
+                        {
+                            this.Value = (T)Convert.ChangeType(cbx.Checked, typeof(T));
+                        }
+                    }
+                    else
+                    {
+                        if (typeof(TEditControl) == typeof(ListControl))
+                        {
+                            var lc = this.InnerControl as ListControl;
+                            if (lc != null)
+                            {
+                                this.Value = (T)Convert.ChangeType(lc.SelectedValue, typeof(T));
+                            }
+                        }
+                        else
+                        {
+                            throw new NotImplementedException("Unknown editor type. Please implement a value setter here.");
+                        }
+                    }
                 }
             }
         }
@@ -195,15 +220,6 @@ namespace Appleseed.Framework.DataTypes
                 throw new NotImplementedException();
             }
         }
-
-        /// <summary>
-        /// Gets or sets the type.
-        /// </summary>
-        /// <value>
-        /// The type of data (enum).
-        /// </value>
-        [Obsolete("This class is generic now so we don't really need this do we?")]
-        public virtual PropertiesDataType Type { get; protected set; }
 
         /// <summary>
         ///   Gets or sets the value.
@@ -236,6 +252,10 @@ namespace Appleseed.Framework.DataTypes
                     as TEditControl;
 
                 this.InnerControl = tx;
+            }
+            else
+            {
+                this.InnerControl = (TEditControl)Activator.CreateInstance(typeof(TEditControl));
             }
         }
 

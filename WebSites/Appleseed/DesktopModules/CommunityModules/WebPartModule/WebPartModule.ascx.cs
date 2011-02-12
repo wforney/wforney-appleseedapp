@@ -180,7 +180,7 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public WebPartModule()
         {
-            var setWebPartFile = new SettingItem<string, TextBox>(new StringDataType())
+            var setWebPartFile = new SettingItem<string, TextBox>
                 {
                     Required = true, Value = "_Appleseed/WebParts/sales.dwp", Order = 1 
                 };

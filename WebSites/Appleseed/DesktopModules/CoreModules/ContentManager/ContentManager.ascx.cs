@@ -411,7 +411,7 @@ namespace Appleseed.Content.Web.Modules
         public ContentManager()
         {
             // setting item for show portals
-            var showPortals = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var showPortals = new SettingItem<bool, CheckBox>()
                 {
                     Value = false,
                     Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS,

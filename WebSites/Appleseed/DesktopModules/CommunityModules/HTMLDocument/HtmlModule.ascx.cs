@@ -73,7 +73,7 @@ namespace Appleseed.Content.Web.Modules
             HtmlEditorDataType.HtmlEditorSettings(_baseSettings, _Group);
 
             //If false the input box for mobile content will be hidden
-            var showMobileText = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var showMobileText = new SettingItem<bool, CheckBox>()
                 {
                     Value = true, Order = _groupOrderBase + 10, Group = _Group 
                 };
@@ -89,7 +89,7 @@ namespace Appleseed.Content.Web.Modules
             _groupOrderBase = (int)SettingItemGroup.BUTTON_DISPLAY_SETTINGS;
 
             //If false the compare button will be hidden
-            var ShowCompareButton = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var ShowCompareButton = new SettingItem<bool, CheckBox>()
                 {
                     Value = true,
                     Order = _groupOrderBase + 60,

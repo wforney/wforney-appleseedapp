@@ -163,7 +163,7 @@ namespace Appleseed.Framework.Design
         public void ClearCacheList()
         {
             // Clear cache
-            lock (typeof(LayoutManager))
+            lock (this)
             {
                 // Jes1111
                 // LayoutManager.cachedLayoutsList = null;

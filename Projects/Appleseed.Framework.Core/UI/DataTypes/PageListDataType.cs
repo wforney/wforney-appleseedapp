@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="PageListDataType.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   Page List Data Type
@@ -29,7 +29,7 @@ namespace Appleseed.Framework.DataTypes
         public PageListDataType()
             : base(GetPageList(), "Name", "Id")
         {
-            this.Type = PropertiesDataType.PageList;
+            // this.Type = PropertiesDataType.PageList;
         }
 
         #endregion

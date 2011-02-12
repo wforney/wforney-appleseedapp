@@ -50,7 +50,7 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public WhosLoggedOn()
         {
-            var cacheTime = new SettingItem<int, TextBox>(new IntegerDataType());
+            var cacheTime = new SettingItem<int, TextBox>();
             cacheTime.Required = true;
             cacheTime.Order = 0;
             cacheTime.Value = 1;

@@ -480,36 +480,36 @@ namespace Appleseed.Content.Web.Modules
                     };
             _baseSettings.Add("SortOrder", setSortOrder);
 
-            //var showImage = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            //var showImage = new SettingItem<bool, CheckBox>();
             //showImage.Order = 2;
             //showImage.Value = "True";
             //this._baseSettings.Add("ShowImage", showImage);
 
-            var showModuleName1 = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 3, Value = true };
+            var showModuleName1 = new SettingItem<bool, CheckBox>() { Order = 3, Value = true };
             _baseSettings.Add("ShowModuleName", showModuleName1);
 
-            var showSearchTitle = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 4, Value = true };
+            var showSearchTitle = new SettingItem<bool, CheckBox>() { Order = 4, Value = true };
             _baseSettings.Add("ShowSearchTitle", showSearchTitle);
 
-            var showAbstract1 = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 5, Value = true };
+            var showAbstract1 = new SettingItem<bool, CheckBox>() { Order = 5, Value = true };
             _baseSettings.Add("ShowAbstract", showAbstract1);
 
-            var showCreatedByUser1 = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 6, Value = true };
+            var showCreatedByUser1 = new SettingItem<bool, CheckBox>() { Order = 6, Value = true };
             _baseSettings.Add("ShowCreatedByUser", showCreatedByUser1);
 
-            var showCreatedDate1 = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 7, Value = true };
+            var showCreatedDate1 = new SettingItem<bool, CheckBox>() { Order = 7, Value = true };
             _baseSettings.Add("ShowCreatedDate", showCreatedDate1);
 
-            var showLink1 = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 8, Value = false };
+            var showLink1 = new SettingItem<bool, CheckBox>() { Order = 8, Value = false };
             _baseSettings.Add("ShowLink", showLink1);
 
-            var showTabName1 = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 9, Value = true };
+            var showTabName1 = new SettingItem<bool, CheckBox>() { Order = 9, Value = true };
             _baseSettings.Add("ShowTabName", showTabName1);
 
-            var showTestInfo1 = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 10, Value = false };
+            var showTestInfo1 = new SettingItem<bool, CheckBox>() { Order = 10, Value = false };
             _baseSettings.Add("ShowTestInfo", showTestInfo1);
 
-            var maxHits1 = new SettingItem<int, TextBox>(new IntegerDataType())
+            var maxHits1 = new SettingItem<int, TextBox>()
                 {
                     Required = true, Order = 11, Value = 100 
                 };
@@ -517,16 +517,16 @@ namespace Appleseed.Content.Web.Modules
             //maxHits.MaxValue = 1000;
             _baseSettings.Add("MaxHits", maxHits1);
 
-            var showModuleTitle1 = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Order = 12, Value = false };
+            var showModuleTitle1 = new SettingItem<bool, CheckBox>() { Order = 12, Value = false };
             _baseSettings.Add("ShowModuleTitle", showModuleTitle1);
 
-            var testUserId = new SettingItem<int, TextBox>(new IntegerDataType())
+            var testUserId = new SettingItem<int, TextBox>()
                 {
                     Required = true, Order = 13, Value = -1 
                 };
             _baseSettings.Add("TestUserID", testUserId);
 
-            var showddModule = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var showddModule = new SettingItem<bool, CheckBox>()
                 {
                     Value = true,
                     Order = 14,
@@ -535,7 +535,7 @@ namespace Appleseed.Content.Web.Modules
                 };
             _baseSettings.Add("showddModule", showddModule);
 
-            var showddTopic = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var showddTopic = new SettingItem<bool, CheckBox>()
                 {
                     Value = true,
                     Order = 15,
@@ -545,7 +545,7 @@ namespace Appleseed.Content.Web.Modules
             _baseSettings.Add("showddTopic", showddTopic);
 
             //Added by Rob Siera - 19 aug 2004 - Provide default Topic to search for
-            var defaultTopic = new SettingItem<string, TextBox>(new StringDataType())
+            var defaultTopic = new SettingItem<string, TextBox>()
                 {
                     Value = "All",
                     Order = 16,
@@ -555,7 +555,7 @@ namespace Appleseed.Content.Web.Modules
             _baseSettings.Add("defaultTopic", defaultTopic);
             //End addition Rob Siera
 
-            var showddField = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var showddField = new SettingItem<bool, CheckBox>()
                 {
                     Value = true,
                     Order = 17,

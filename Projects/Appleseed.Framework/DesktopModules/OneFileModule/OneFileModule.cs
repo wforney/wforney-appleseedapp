@@ -72,7 +72,7 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public OneFileModule()
         {
-            var setting = new SettingItem<string, TextBox>(new StringDataType())
+            var setting = new SettingItem<string, TextBox>
                 {
                     Required = false, 
                     Order = 1, 
@@ -92,7 +92,7 @@ namespace Appleseed.Content.Web.Modules
                 };
             this._baseSettings.Add("XML settings file", xmlFile);
 
-            var debugMode = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var debugMode = new SettingItem<bool, CheckBox>
                 {
                     Order = 3, 
                     Value = true, 

@@ -24,7 +24,7 @@ namespace Appleseed.Framework.DataTypes
         /// </summary>
         public UrlDataType()
         {
-            this.Type = PropertiesDataType.String;
+            // this.Type = PropertiesDataType.String;
             this.Value = new Uri("http://localhost");
 
             // InitializeComponents();

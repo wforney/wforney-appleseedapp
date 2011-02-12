@@ -301,7 +301,7 @@ namespace Appleseed.Content.Web.Modules
             SettingItemGroup group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             int groupBase = (int) group;
 
-            var directory = new SettingItem<string, TextBox>(new StringDataType())
+            var directory = new SettingItem<string, TextBox>()
                 {
                     EnglishName = "Directory Path",
                     Required = true,
@@ -330,14 +330,14 @@ namespace Appleseed.Content.Web.Modules
             Target.Value = "blank";
             _baseSettings.Add("Target", Target);
 
-            var Collapsed = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var Collapsed = new SettingItem<bool, CheckBox>();
             Collapsed.EnglishName = "Collapsed View";
             Collapsed.Group = group;
             Collapsed.Order = groupBase + 35; //4;
             Collapsed.Value = true;
             _baseSettings.Add("Collapsed", Collapsed);
 
-            var Style = new SettingItem<string, TextBox>(new StringDataType());
+            var Style = new SettingItem<string, TextBox>();
             Style.EnglishName = "Style";
             Style.Required = false;
             Style.Group = group;
@@ -345,7 +345,7 @@ namespace Appleseed.Content.Web.Modules
             Style.Value = string.Empty;
             _baseSettings.Add("Style", Style);
 
-            var Indent = new SettingItem<string, TextBox>(new StringDataType());
+            var Indent = new SettingItem<string, TextBox>();
             Indent.EnglishName = "SubDirectory Indent (px)";
             Indent.Required = false;
             Indent.Group = group;

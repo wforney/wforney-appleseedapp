@@ -1318,7 +1318,7 @@ namespace Appleseed.Framework.Site.Data
                     moduleDefinition.FriendlyName = dr["FriendlyName"].ToString();
                     moduleDefinition.DesktopSource = dr["DesktopSrc"].ToString();
                     moduleDefinition.MobileSource = dr["MobileSrc"].ToString();
-                    moduleDefinition.GeneralModDefID = int.Parse(dr["GeneralModDefID"].ToString());
+                    moduleDefinition.GeneralModDefID = Convert.ToInt32(dr["GeneralModDefID"]);
                 }
 
                 dr.Close();

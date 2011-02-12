@@ -45,8 +45,8 @@ namespace Appleseed.Framework.DataTypes
         public FolderDataType(string baseDirectory, string defaultDirectory)
         {
             this.baseDirectory = baseDirectory;
-            this.Type = PropertiesDataType.List;
-
+            
+            // this.Type = PropertiesDataType.List;
             if (defaultDirectory != null)
             {
                 try

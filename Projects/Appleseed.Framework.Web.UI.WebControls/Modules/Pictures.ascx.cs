@@ -94,14 +94,14 @@ namespace Appleseed.Content.Web.Modules
             this._baseSettings.Add("ThumbnailResize", thumbnailResize);
 
             // Thumbnail Width Setting
-            var thumbnailWidth = new SettingItem<int, TextBox>(new IntegerDataType())
+            var thumbnailWidth = new SettingItem<int, TextBox>()
                 {
                     Required = true, Value = 100, Order = 5, MinValue = 2, MaxValue = 9999 
                 };
             this._baseSettings.Add("ThumbnailWidth", thumbnailWidth);
 
             // Thumbnail Height Setting
-            var thumbnailHeight = new SettingItem<int, TextBox>(new IntegerDataType())
+            var thumbnailHeight = new SettingItem<int, TextBox>()
                 {
                     Required = true, Value = 75, Order = 6, MinValue = 2, MaxValue = 9999 
                 };
@@ -131,14 +131,14 @@ namespace Appleseed.Content.Web.Modules
             this._baseSettings.Add("OriginalResize", originalResize);
 
             // Original Width Settings
-            var originalWidth = new SettingItem<int, TextBox>(new IntegerDataType())
+            var originalWidth = new SettingItem<int, TextBox>()
                 {
                     Required = true, Value = 800, Order = 8, MinValue = 2, MaxValue = 9999 
                 };
             this._baseSettings.Add("OriginalWidth", originalWidth);
 
             // Original Width Settings
-            var originalHeight = new SettingItem<int, TextBox>(new IntegerDataType())
+            var originalHeight = new SettingItem<int, TextBox>()
                 {
                     Required = true, Value = 600, Order = 9, MinValue = 2, MaxValue = 9999 
                 };
@@ -160,7 +160,7 @@ namespace Appleseed.Content.Web.Modules
             this._baseSettings.Add("RepeatDirection", repeatDirectionSetting);
 
             // Repeat Columns Setting
-            var repeatColumns = new SettingItem<int, TextBox>(new IntegerDataType())
+            var repeatColumns = new SettingItem<int, TextBox>()
                 {
                     Required = true, Value = 6, Order = 11, MinValue = 1, MaxValue = 200 
                 };
@@ -194,14 +194,14 @@ namespace Appleseed.Content.Web.Modules
             this._baseSettings.Add("ImageLayout", imageLayoutSetting);
 
             // PicturesPerPage
-            var picturesPerPage = new SettingItem<int, TextBox>(new IntegerDataType())
+            var picturesPerPage = new SettingItem<int, TextBox>()
                 {
                     Required = true, Value = 9999, Order = 14, MinValue = 1, MaxValue = 9999 
                 };
             this._baseSettings.Add("PicturesPerPage", picturesPerPage);
 
             // If false the input box for bulk loads will be hidden
-            var allowBulkLoad = new SettingItem<bool, CheckBox>(new BooleanDataType()) { Value = false, Order = 15 };
+            var allowBulkLoad = new SettingItem<bool, CheckBox>() { Value = false, Order = 15 };
             this._baseSettings.Add("AllowBulkLoad", allowBulkLoad);
         }
 

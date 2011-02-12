@@ -122,11 +122,11 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public SendThoughts()
         {
-            var setEMail = new SettingItem<string, TextBox>(new StringDataType())
+            var setEMail = new SettingItem<string, TextBox>
                 { Required = true, Value = string.Empty, Order = 1 };
             _baseSettings.Add("EMail", setEMail);
 
-            var setDescription = new SettingItem<string, TextBox>(new StringDataType())
+            var setDescription = new SettingItem<string, TextBox>
                 {
                     Required = true,
                     Value = General.GetString("SENDTHTS_DES_TXT", "Write a description here...", this),

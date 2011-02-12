@@ -7,7 +7,7 @@ namespace Appleseed.Framework.Exceptions
     /// <summary>
     /// Custom Exception class for Appleseed.
     /// </summary>
-    // Serializable
+    [Serializable]
     public class AppleseedRedirect : Exception
     {
         //		/// <summary>

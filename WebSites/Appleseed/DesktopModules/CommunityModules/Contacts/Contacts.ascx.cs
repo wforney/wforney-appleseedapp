@@ -120,7 +120,7 @@ namespace Appleseed.Content.Web.Modules
 
             //MH: Added  01/10/2003 [mario@hartmann.net] 
             // Hiding the Email, Contact1 and/or Contact2 Column
-            var setItem = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var setItem = new SettingItem<bool, CheckBox>()
                 {
                     Value = true,
                     Group = group,
@@ -133,7 +133,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             _baseSettings.Add("SHOW_COLUMN_EMAIL", setItem);
 
-            setItem = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            setItem = new SettingItem<bool, CheckBox>()
                 {
                     Value = true,
                     Group = group,
@@ -146,7 +146,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             _baseSettings.Add("SHOW_COLUMN_CONTACT1", setItem);
 
-            setItem = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            setItem = new SettingItem<bool, CheckBox>()
                 {
                     Value = true,
                     Group = group,
@@ -160,7 +160,7 @@ namespace Appleseed.Content.Web.Modules
             _baseSettings.Add("SHOW_COLUMN_CONTACT2", setItem);
             //MH: End
 
-            setItem = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            setItem = new SettingItem<bool, CheckBox>()
                 {
                     Value = true,
                     Group = group,
@@ -173,7 +173,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             _baseSettings.Add("SHOW_COLUMN_FAX", setItem);
 
-            setItem = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            setItem = new SettingItem<bool, CheckBox>()
                 {
                     Value = true,
                     Group = group,
