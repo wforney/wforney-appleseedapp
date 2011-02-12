@@ -83,9 +83,9 @@
   <ItemGroup>
     <Content Include="Content\img\koala.jpg" />
     <Content Include="Content\style.css" />
-    <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.4.1.js" />
-    <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="Scripts\jquery-1.5-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.5.js" />
+    <Content Include="Scripts\jquery-1.5.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />

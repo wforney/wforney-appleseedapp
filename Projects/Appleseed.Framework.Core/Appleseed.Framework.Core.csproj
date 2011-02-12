@@ -32,6 +32,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,8 +43,30 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Appleseed.Framework.Core.XML</DocumentationFile>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRunCodeAnalysis>True</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>False</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>False</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>False</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>False</CodeContractsCacheAnalysisResults>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>DoNotBuild</CodeContractsReferenceAssembly>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -117,6 +140,7 @@
     <Compile Include="BLL\Utils\BagHolder.cs" />
     <Compile Include="BLL\Utils\CookieUtil.cs" />
     <Compile Include="BLL\Utils\GlobalResources.cs" />
+    <Compile Include="Configuration\Items\ISettingItem.cs" />
     <Compile Include="Configuration\Items\PagesBox.cs" />
     <Compile Include="Configuration\Items\SettingItem.cs" />
     <Compile Include="Configuration\Items\SettingItemGroups.cs" />
@@ -126,6 +150,7 @@
     <Compile Include="Configuration\Provider\ProviderConfiguration.cs" />
     <Compile Include="Configuration\Provider\ProviderConfigurationHandler.cs" />
     <Compile Include="Configuration\Provider\ProviderHelper.cs" />
+    <Compile Include="Configuration\Settings\IModuleSettings.cs" />
     <Compile Include="Configuration\Settings\ModuleSettings.cs" />
     <Compile Include="Configuration\Settings\ModuleSettingsCustom.cs" />
     <Compile Include="Configuration\Settings\PageSettings.cs" />
@@ -137,6 +162,7 @@
     <Compile Include="DAL\PagesDB.cs" />
     <Compile Include="DAL\PortalsDB.cs" />
     <Compile Include="DAL\RecyclerDB.cs" />
+    <Compile Include="DAL\SolutionModuleDefinition.cs" />
     <Compile Include="DAL\UsersDb.cs" />
     <Compile Include="DAL\WorkFlowDB.cs" />
     <Compile Include="Design\Layout.cs" />
@@ -157,6 +183,7 @@
     <Compile Include="Exceptions\PortalsLockedException.cs" />
     <Compile Include="Exceptions\AppleseedException.cs" />
     <Compile Include="Exceptions\AppleseedRedirect.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="General.cs" />
     <Compile Include="Helpers\ADHelper.cs" />
     <Compile Include="Helpers\CryptoHelper.cs" />
@@ -173,6 +200,7 @@
     <Compile Include="Helpers\SearchHelper.cs" />
     <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="Helpers\WebPartHelper.cs" />
+    <Compile Include="Helpers\WebPartParser.cs" />
     <Compile Include="Helpers\XslHelper.cs" />
     <Compile Include="HttpUrlBuilder.cs" />
     <Compile Include="Configuration\Items\ModuleItem.cs" />
@@ -182,6 +210,7 @@
     <Compile Include="KickStarter\CommonClasses\Error.cs" />
     <Compile Include="KickStarter\CommonClasses\SQLHelper.cs" />
     <Compile Include="Model\ModelServices.cs" />
+    <Compile Include="Monitoring\MonitoringAction.cs" />
     <Compile Include="Monitoring\Utility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GlobalEnums.cs" />

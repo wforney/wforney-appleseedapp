@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ProviderHelper.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   The provider helper.
@@ -16,6 +16,8 @@ namespace Appleseed.Framework.Provider
     /// <summary>
     /// The provider helper.
     /// </summary>
+    /// <remarks>
+    /// </remarks>
     public static class ProviderHelper
     {
         #region Public Methods
@@ -32,6 +34,8 @@ namespace Appleseed.Framework.Provider
         /// <returns>
         /// A Provider Base.
         /// </returns>
+        /// <remarks>
+        /// </remarks>
         public static ProviderBase InstantiateProvider(ProviderSettings providerSettings, Type provType)
         {
             if (string.IsNullOrEmpty(providerSettings.Type))
@@ -76,6 +80,8 @@ namespace Appleseed.Framework.Provider
         /// <param name="provType">
         /// Type of the prov.
         /// </param>
+        /// <remarks>
+        /// </remarks>
         public static void InstantiateProviders(
             ProviderCollection configProviders, ref ProviderCollection providers, Type provType)
         {

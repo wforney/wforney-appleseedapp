@@ -1,77 +1,113 @@
-using System;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="PageItem.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   PageItem Class
+//   This class encapsulates the basic attributes of a Page, and is used
+//   by the administration pages when manipulating tabs.<br />
+//   PageItem implements
+//   the IComparable interface so that an ArrayList of PageItems may be sorted
+//   by PageOrder, using the ArrayList's Sort() method.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework
 {
+    using System;
+
     /// <summary>
     /// PageItem Class
-    /// This class encapsulates the basic attributes of a Page, and is used
-    /// by the administration pages when manipulating tabs.<br/>
-    /// PageItem implements 
-    /// the IComparable interface so that an ArrayList of PageItems may be sorted
-    /// by PageOrder, using the ArrayList's Sort() method.
+    ///   This class encapsulates the basic attributes of a Page, and is used
+    ///   by the administration pages when manipulating tabs.<br/>
+    ///   PageItem implements
+    ///   the IComparable interface so that an ArrayList of PageItems may be sorted
+    ///   by PageOrder, using the ArrayList's Sort() method.
     /// </summary>
+    /// <remarks>
+    /// </remarks>
     public class PageItem : IComparable
     {
-        private int _Order;
-        private string _name;
-        private int _ID;
-        private int _nestLevel;
+        #region Properties
 
         /// <summary>
-        /// Order
-        /// </summary>
-        /// <value>The order.</value>
-        public int Order
-        {
-            get { return _Order; }
-            set { _Order = value; }
-        }
-
-        /// <summary>
-        /// Name
-        /// </summary>
-        /// <value>The name.</value>
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-
-        /// <summary>
-        /// ID
+        ///   Gets or sets the ID.
         /// </summary>
         /// <value>The ID.</value>
-        public int ID
-        {
-            get { return _ID; }
-            set { _ID = value; }
-        }
+        /// <remarks>
+        /// </remarks>
+        public int ID { get; set; }
 
         /// <summary>
-        /// NestLevel
+        ///   Gets or sets the name.
+        /// </summary>
+        /// <value>The name.</value>
+        /// <remarks>
+        /// </remarks>
+        public string Name { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the nest level.
         /// </summary>
         /// <value>The nest level.</value>
-        public int NestLevel
-        {
-            get { return _nestLevel; }
-            set { _nestLevel = value; }
-        }
+        /// <remarks>
+        /// </remarks>
+        public int NestLevel { get; set; }
 
         /// <summary>
-        /// Public comparer
+        ///   Gets or sets the order.
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <value>The order.</value>
+        /// <remarks>
+        /// </remarks>
+        public int Order { get; set; }
+
+        #endregion
+
+        #region Implemented Interfaces
+
+        #region IComparable
+
+        /// <summary>
+        /// Compares to.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <returns>
+        /// The compare to.
+        /// </returns>
+        /// <remarks>
+        /// </remarks>
         public int CompareTo(object value)
         {
-            if (value == null) return 1;
+            if (value == null)
+            {
+                return 1;
+            }
 
-            int compareOrder = ((PageItem) value).Order;
+            var compareOrder = ((PageItem)value).Order;
 
-            if (Order == compareOrder) return 0;
-            if (Order < compareOrder) return -1;
-            if (Order > compareOrder) return 1;
+            if (this.Order == compareOrder)
+            {
+                return 0;
+            }
+
+            if (this.Order < compareOrder)
+            {
+                return -1;
+            }
+
+            if (this.Order > compareOrder)
+            {
+                return 1;
+            }
+
             return 0;
         }
+
+        #endregion
+
+        #endregion
     }
 }

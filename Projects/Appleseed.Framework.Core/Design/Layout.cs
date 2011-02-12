@@ -1,40 +1,58 @@
-using System;
-using System.Web;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Layout.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   The Layout class encapsulates all the settings
+//   of the currently selected layout
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.Design
 {
+    using System;
+    using System.Web;
+
     /// <summary>
     /// The Layout class encapsulates all the settings
-    /// of the currently selected layout
+    ///   of the currently selected layout
     /// </summary>
-    /// <remarks>by Cory Isakson</remarks>
+    /// <remarks>
+    /// by Cory Isakson
+    /// </remarks>
     public class Layout
     {
-        private string _name;
+        #region Constants and Fields
 
         /// <summary>
-        /// The Layout Name (must be the directory in which is located)
+        ///   Current Web Path.
+        ///   It is set at runtime and therefore is not serialized
         /// </summary>
-        /// <value>The name.</value>
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
+        [NonSerialized]
+        public string WebPath;
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
-        /// Current Web Path.
-        /// It is set at runtime and therefore is not serialized
+        ///   Gets or sets the Layout Name (must be the directory in which is located)
         /// </summary>
-        [NonSerialized()] public string WebPath;
+        /// <value>The layout name.</value>
+        public string Name { get; set; }
 
         /// <summary>
-        /// Current Phisical Path. Readonly.
+        ///   Gets the current Physical Path. Read-only.
         /// </summary>
-        /// <value>The path.</value>
+        /// <value>The physical path.</value>
         public string Path
         {
-            get { return (HttpContext.Current.Server.MapPath(WebPath)); }
+            get
+            {
+                return HttpContext.Current.Server.MapPath(this.WebPath);
+            }
         }
+
+        #endregion
     }
 }

@@ -1,90 +1,97 @@
-using System;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="BooleanDataType.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Boolean Data Type
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.DataTypes
 {
-	/// <summary>
-	/// BooleanDataType
-	/// </summary>
-	public class BooleanDataType : BaseDataType
-	{
-		/// <summary>
-		/// innerValue - Default to False
-		/// </summary>
-		protected new string innerValue = "False";
+    using System;
+    using System.Web.UI.WebControls;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="BooleanDataType"/> class.
-		/// </summary>
-		public BooleanDataType()
-		{
-			InnerDataType = PropertiesDataType.Boolean;
-			InitializeComponents();
-		}
-		/// <summary>
-		/// InitializeComponents
-		/// </summary>
-		protected override void InitializeComponents()
-		{
-			//Checkbox
-			innerControl = new CheckBox();
-		}
+    /// <summary>
+    /// Boolean Data Type
+    /// </summary>
+    public class BooleanDataType : BaseDataType<bool, CheckBox>
+    {
+        #region Constructors and Destructors
 
-		/// <summary>
-		/// Gets or sets the value.
-		/// </summary>
-		/// <value>The value.</value>
-		public override string Value
-		{
-			get
-			{
-				return(innerValue);
-			}
-			set
-			{
-				//Type check
-				innerValue = bool.Parse(value).ToString();
-			}
-		}
-		/// <summary>
-		/// EditControl
-		/// </summary>
-		/// <value>The edit control.</value>
-		public override Control EditControl
-		{
-			get
-			{
-				if (innerControl == null)
-					InitializeComponents();
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "BooleanDataType" /> class.
+        /// </summary>
+        public BooleanDataType()
+        {
+            this.Type = PropertiesDataType.Boolean;
+            this.InitializeComponents();
+        }
 
-				//Update value in control
-				((CheckBox) innerControl).Checked =  bool.Parse(Value);
-				//Return control
-				return innerControl;
-			}
-			set
-			{
-				if(value.GetType().Name == "CheckBox")
-				{
-					innerControl = value;
-					//Update value from control
-					Value = ((CheckBox) innerControl).Checked.ToString();
-				}
-				else
-					throw new ArgumentException("A CheckBox values is required, a '" + value.GetType().Name + "' is given.", "EditControl");
-			}
-		}
-		/// <summary>
-		/// Boolean
-		/// </summary>
-		/// <value>The description.</value>
-		public override string Description
-		{
-			get
-			{
-				return "Boolean";
-			}
-		}
-	}
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets the description.
+        /// </summary>
+        public override string Description
+        {
+            get
+            {
+                return "Boolean";
+            }
+        }
+
+        /// <summary>
+        ///   EditControl
+        /// </summary>
+        /// <value>The edit control.</value>
+        public override CheckBox EditControl
+        {
+            get
+            {
+                if (this.InnerControl == null)
+                {
+                    this.InitializeComponents();
+                }
+
+                // Update value in control
+                this.InnerControl.Checked = this.Value;
+
+                // Return control
+                return this.InnerControl;
+            }
+
+            set
+            {
+                if (value.GetType().Name != "CheckBox")
+                {
+                    throw new ArgumentException(
+                        "EditControl",
+                        string.Format("A CheckBox values is required, a '{0}' is given.", value.GetType().Name));
+                }
+                
+                this.InnerControl = value;
+
+                // Update value from control
+                this.Value = this.InnerControl.Checked;
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Initializes the components.
+        /// </summary>
+        protected override void InitializeComponents()
+        {
+            // Checkbox
+            this.InnerControl = new CheckBox();
+        }
+
+        #endregion
+    }
 }
