@@ -1,63 +1,108 @@
-using System;
-using System.Web.UI.WebControls;
-using System.Xml.Serialization;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ThemeImage.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   A single named Image
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.Design
 {
+    using System;
+    using System.Web.UI.WebControls;
+    using System.Xml.Serialization;
+
     /// <summary>
     /// A single named Image
     /// </summary>
     [Serializable]
     public class ThemeImage
     {
-        private double _Height;
-        private string _ImageUrl;
-        private string _Name;
-        private double _Width;
+        #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:ThemeImage"/> class.
+        ///   Initializes a new instance of the <see cref = "ThemeImage" /> class.
         /// </summary>
-        /// <returns>
-        /// A void value...
-        /// </returns>
         public ThemeImage()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:ThemeImage"/> class.
+        /// Initializes a new instance of the <see cref="ThemeImage"/> class.
         /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="imageUrl">The image URL.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <returns>
-        /// A void value...
-        /// </returns>
+        /// <param name="name">
+        /// The name of the image.
+        /// </param>
+        /// <param name="imageUrl">
+        /// The image URL.
+        /// </param>
+        /// <param name="width">
+        /// The width.
+        /// </param>
+        /// <param name="height">
+        /// The height.
+        /// </param>
         public ThemeImage(string name, string imageUrl, double width, double height)
         {
-            _Name = name;
-            _ImageUrl = imageUrl;
-            _Width = width;
-            _Height = height;
+            this.Name = name;
+            this.ImageUrl = imageUrl;
+            this.Width = width;
+            this.Height = height;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:ThemeImage"/> class.
+        /// Initializes a new instance of the <see cref="ThemeImage"/> class.
         /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="img">The img.</param>
-        /// <returns>
-        /// A void value...
-        /// </returns>
+        /// <param name="name">
+        /// The name of the theme image.
+        /// </param>
+        /// <param name="img">
+        /// The image.
+        /// </param>
         public ThemeImage(string name, Image img)
         {
-            _Name = name;
-            _ImageUrl = img.ImageUrl;
-            _Width = img.Width.Value;
-            _Height = img.Height.Value;
+            this.Name = name;
+            this.ImageUrl = img.ImageUrl;
+            this.Width = img.Width.Value;
+            this.Height = img.Height.Value;
         }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets the height.
+        /// </summary>
+        /// <value>The height.</value>
+        [XmlAttribute]
+        public double Height { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the image URL.
+        /// </summary>
+        /// <value>The image URL.</value>
+        [XmlAttribute]
+        public string ImageUrl { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the name.
+        /// </summary>
+        /// <value>The name of the theme image.</value>
+        [XmlAttribute(DataType = "string")]
+        public string Name { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the width.
+        /// </summary>
+        /// <value>The width.</value>
+        [XmlAttribute]
+        public double Width { get; set; }
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Gets the image.
@@ -67,65 +112,15 @@ namespace Appleseed.Framework.Design
         /// </returns>
         public Image GetImage()
         {
-            using (Image img = new Image())
+            using (var img = new Image())
             {
-                img.ImageUrl = ImageUrl;
-                img.Width = new Unit(Width);
-                img.Height = new Unit(Height);
+                img.ImageUrl = this.ImageUrl;
+                img.Width = new Unit(this.Width);
+                img.Height = new Unit(this.Height);
                 return img;
             }
         }
 
-        /// <summary>
-        /// Gets or sets the height.
-        /// </summary>
-        /// <value>The height.</value>
-        /// <remarks>
-        /// </remarks>
-        [XmlAttribute]
-        public double Height
-        {
-            get { return _Height; }
-            set { _Height = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the image URL.
-        /// </summary>
-        /// <value>The image URL.</value>
-        /// <remarks>
-        /// </remarks>
-        [XmlAttribute]
-        public string ImageUrl
-        {
-            get { return _ImageUrl; }
-            set { _ImageUrl = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>The name.</value>
-        /// <remarks>
-        /// </remarks>
-        [XmlAttribute(DataType = "string")]
-        public string Name
-        {
-            get { return _Name; }
-            set { _Name = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the width.
-        /// </summary>
-        /// <value>The width.</value>
-        /// <remarks>
-        /// </remarks>
-        [XmlAttribute]
-        public double Width
-        {
-            get { return _Width; }
-            set { _Width = value; }
-        }
+        #endregion
     }
 }

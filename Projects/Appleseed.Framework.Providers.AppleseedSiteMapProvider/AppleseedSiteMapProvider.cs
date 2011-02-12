@@ -1,21 +1,41 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="AppleseedSiteMapProvider.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   The appleseed site map provider.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-namespace Appleseed.Framework.Providers.AppleseedSiteMapProvider {
-	
-	public abstract class AppleseedSiteMapProvider : StaticSiteMapProvider {
+namespace Appleseed.Framework.Providers.AppleseedSiteMapProvider
+{
+    using System.Linq;
+    using System.Web;
 
-        public abstract void ClearCache();
+    /// <summary>
+    /// The appleseed site map provider.
+    /// </summary>
+    public abstract class AppleseedSiteMapProvider : StaticSiteMapProvider
+    {
+        #region Public Methods
 
-        public static void ClearAllAppleseedSiteMapCaches() {
+        /// <summary>
+        /// The clear all appleseed site map caches.
+        /// </summary>
+        public static void ClearAllAppleseedSiteMapCaches()
+        {
             // Removing Sitemap Cache
-            foreach (SiteMapProvider siteMap in SiteMap.Providers) {
-                if (siteMap is AppleseedSiteMapProvider) {
-                    ((AppleseedSiteMapProvider)siteMap).ClearCache();
-                }
+            foreach (var siteMap in SiteMap.Providers.OfType<AppleseedSiteMapProvider>())
+            {
+                siteMap.ClearCache();
             }
         }
+
+        /// <summary>
+        /// The clear cache.
+        /// </summary>
+        public abstract void ClearCache();
+
+        #endregion
     }
 }

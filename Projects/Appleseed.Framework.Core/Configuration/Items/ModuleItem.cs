@@ -1,87 +1,114 @@
-using System;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ModuleItem.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   This class encapsulates the basic attributes of a Module, and is used
+//   by the administration pages when manipulating modules.<br />
+//   ModuleItem implements the IComparable interface so that an ArrayList
+//   of ModuleItems may be sorted by ModuleOrder, using the
+//   ArrayList's Sort() method.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework
 {
+    using System;
+
     /// <summary>
     /// This class encapsulates the basic attributes of a Module, and is used
-    /// by the administration pages when manipulating modules.<br/>
-    /// ModuleItem implements the IComparable interface so that an ArrayList
-    /// of ModuleItems may be sorted by ModuleOrder, using the 
-    /// ArrayList's Sort() method.
+    ///   by the administration pages when manipulating modules.<br/>
+    ///   ModuleItem implements the IComparable interface so that an ArrayList
+    ///   of ModuleItems may be sorted by ModuleOrder, using the
+    ///   ArrayList's Sort() method.
     /// </summary>
+    /// <remarks>
+    /// </remarks>
     public class ModuleItem : IComparable
     {
-        private int _moduleOrder;
-        private string _title;
-        private string _pane;
-        private int _ID;
-        private int _defID;
+        #region Properties
 
         /// <summary>
-        /// Order
-        /// </summary>
-        /// <value>The order.</value>
-        public int Order
-        {
-            get { return _moduleOrder; }
-            set { _moduleOrder = value; }
-        }
-
-        /// <summary>
-        /// Title
-        /// </summary>
-        /// <value>The title.</value>
-        public string Title
-        {
-            get { return _title; }
-            set { _title = value; }
-        }
-
-        /// <summary>
-        /// Pane name
-        /// </summary>
-        /// <value>The name of the pane.</value>
-        public string PaneName
-        {
-            get { return _pane; }
-            set { _pane = value; }
-        }
-
-        /// <summary>
-        /// ID
+        /// Gets or sets the ID.
         /// </summary>
         /// <value>The ID.</value>
-        public int ID
-        {
-            get { return _ID; }
-            set { _ID = value; }
-        }
+        /// <remarks></remarks>
+        public int ID { get; set; }
 
         /// <summary>
-        /// Definition id
+        /// Gets or sets the module def ID.
         /// </summary>
         /// <value>The module def ID.</value>
-        public int ModuleDefID
-        {
-            get { return _defID; }
-            set { _defID = value; }
-        }
+        /// <remarks></remarks>
+        public int ModuleDefID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the order.
+        /// </summary>
+        /// <value>The order.</value>
+        /// <remarks></remarks>
+        public int Order { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the pane.
+        /// </summary>
+        /// <value>The name of the pane.</value>
+        /// <remarks></remarks>
+        public string PaneName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
+        /// <value>The title.</value>
+        /// <remarks></remarks>
+        public string Title { get; set; }
+
+        #endregion
+
+        #region Implemented Interfaces
+
+        #region IComparable
 
         /// <summary>
         /// Public comparer
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <returns>
+        /// The compare to.
+        /// </returns>
+        /// <remarks>
+        /// </remarks>
         public int CompareTo(object value)
         {
-            if (value == null) return 1;
+            if (value == null)
+            {
+                return 1;
+            }
 
-            int compareOrder = ((ModuleItem) value).Order;
+            var compareOrder = ((ModuleItem)value).Order;
 
-            if (Order == compareOrder) return 0;
-            if (Order < compareOrder) return -1;
-            if (Order > compareOrder) return 1;
+            if (this.Order == compareOrder)
+            {
+                return 0;
+            }
+
+            if (this.Order < compareOrder)
+            {
+                return -1;
+            }
+
+            if (this.Order > compareOrder)
+            {
+                return 1;
+            }
+
             return 0;
         }
+
+        #endregion
+
+        #endregion
     }
 }

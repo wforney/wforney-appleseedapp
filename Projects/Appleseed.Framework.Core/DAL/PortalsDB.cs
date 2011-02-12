@@ -1,3 +1,13 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="PortalsDB.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Class that encapsulates all data logic necessary to add/query/delete
+//   Portals within the Portal database.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace Appleseed.Framework.Site.Data
 {
     using System;
@@ -15,110 +25,110 @@ namespace Appleseed.Framework.Site.Data
 
     /// <summary>
     /// Class that encapsulates all data logic necessary to add/query/delete
-    ///     Portals within the Portal database.
+    ///   Portals within the Portal database.
     /// </summary>
     public class PortalsDB
     {
         #region Constants and Fields
 
         /// <summary>
-        /// The str at always show edit button.
-        /// </summary>
-        private const string StrAtAlwaysShowEditButton = "@AlwaysShowEditButton";
-
-        /// <summary>
-        /// The str at portal id.
-        /// </summary>
-        private const string StrAtPortalId = "@PortalID";
-
-        /// <summary>
-        /// The str at portal name.
-        /// </summary>
-        private const string StrAtPortalName = "@PortalName";
-
-        /// <summary>
-        /// The str at portal path.
-        /// </summary>
-        private const string StrAtPortalPath = "@PortalPath";
-
-        /// <summary>
-        /// The str admins.
+        ///   The str admins.
         /// </summary>
         private const string StrAdmins = "Admins;";
 
         /// <summary>
-        /// The str all users.
+        ///   The str all users.
         /// </summary>
         private const string StrAllUsers = "All Users";
 
         /// <summary>
-        /// The str content pane.
+        ///   The str at always show edit button.
+        /// </summary>
+        private const string StrAtAlwaysShowEditButton = "@AlwaysShowEditButton";
+
+        /// <summary>
+        ///   The str at portal id.
+        /// </summary>
+        private const string StrAtPortalId = "@PortalID";
+
+        /// <summary>
+        ///   The str at portal name.
+        /// </summary>
+        private const string StrAtPortalName = "@PortalName";
+
+        /// <summary>
+        ///   The str at portal path.
+        /// </summary>
+        private const string StrAtPortalPath = "@PortalPath";
+
+        /// <summary>
+        ///   The str content pane.
         /// </summary>
         private const string StrContentPane = "ContentPane";
 
         /// <summary>
-        /// The str guidhtml document.
-        /// </summary>
-        private const string StrGuidhtmlDocument = "{0B113F51-FEA3-499A-98E7-7B83C192FDBB}";
-
-        /// <summary>
-        /// The str guid language switcher.
+        ///   The str guid language switcher.
         /// </summary>
         private const string StrGuidLanguageSwitcher = "{25E3290E-3B9A-4302-9384-9CA01243C00F}";
 
         /// <summary>
-        /// The str guid login.
+        ///   The str guid login.
         /// </summary>
         private const string StrGuidLogin = "{A0F1F62B-FDC7-4DE5-BBAD-A5DAF31D960A}";
 
         /// <summary>
-        /// The str guid manage users.
+        ///   The str guid manage users.
         /// </summary>
         private const string StrGuidManageUsers = "{B6A48596-9047-4564-8555-61E3B31D7272}";
 
         /// <summary>
-        /// The str guid modules.
+        ///   The str guid modules.
         /// </summary>
         private const string StrGuidModules = "{5E0DB0C7-FD54-4F55-ACF5-6ECF0EFA59C0}";
 
         /// <summary>
-        /// The str guid pages.
+        ///   The str guid pages.
         /// </summary>
         private const string StrGuidPages = "{1C575D94-70FC-4A83-80C3-2087F726CBB3}";
 
         /// <summary>
-        /// The str guid security roles.
+        ///   The str guid security roles.
         /// </summary>
         private const string StrGuidSecurityRoles = "{A406A674-76EB-4BC1-BB35-50CD2C251F9C}";
 
         /// <summary>
-        /// The str guid site settings.
+        ///   The str guid site settings.
         /// </summary>
         private const string StrGuidSiteSettings = "{EBBB01B1-FBB5-4E79-8FC4-59BCA1D0554E}";
 
         /// <summary>
-        /// The str left pane.
+        ///   The str guidhtml document.
+        /// </summary>
+        private const string StrGuidhtmlDocument = "{0B113F51-FEA3-499A-98E7-7B83C192FDBB}";
+
+        /// <summary>
+        ///   The str left pane.
         /// </summary>
         private const string StrLeftPane = "LeftPane";
 
         // jes1111 - const string strPortalsDirectory = "PortalsDirectory";
 
         /// <summary>
-        /// The strings right pane.
-        /// </summary>
-        private const string StringsRightPane = "RightPane";
-
-        /// <summary>
+        /// The strings admin.
         /// </summary>
         private const string StringsAdmin = "admin";
 
         /// <summary>
+        /// The strings rb get portals.
         /// </summary>
         private const string StringsRbGetPortals = "rb_GetPortals";
 
-        #endregion
+        /// <summary>
+        ///   The strings right pane.
+        /// </summary>
+        private const string StringsRightPane = "RightPane";
 
-        #region Properties
+        #endregion
 
         /*
         /// <summary>
@@ -132,14 +142,11 @@ namespace Appleseed.Framework.Site.Data
             }
         }
 */
-
-        #endregion
-
         #region Public Methods
 
         /// <summary>
         /// The AddPortal method add a new portal.<br/>
-        ///     AddPortal Stored Procedure
+        ///   AddPortal Stored Procedure
         /// </summary>
         /// <param name="portalAlias">
         /// The portal alias.
@@ -166,12 +173,12 @@ namespace Appleseed.Framework.Site.Data
                     // Add Parameters to SPROC
                     var parameterPortalAlias = new SqlParameter("@PortalAlias", SqlDbType.NVarChar, 128)
                         {
-                            Value = portalAlias 
+                           Value = portalAlias 
                         };
                     command.Parameters.Add(parameterPortalAlias);
                     var parameterPortalName = new SqlParameter(StrAtPortalName, SqlDbType.NVarChar, 128)
                         {
-                            Value = portalName 
+                           Value = portalName 
                         };
                     command.Parameters.Add(parameterPortalName);
 
@@ -179,8 +186,8 @@ namespace Appleseed.Framework.Site.Data
                     // string pd = ConfigurationSettings.AppSettings[strPortalsDirectory];
                     // if(pd!=null)
                     // {
-                    //     if (portalPath.IndexOf (pd) > -1)
-                    //         portalPath = portalPath.Substring(portalPath.IndexOf (pd) + pd.Length);
+                    // if (portalPath.IndexOf (pd) > -1)
+                    // portalPath = portalPath.Substring(portalPath.IndexOf (pd) + pd.Length);
                     // }
                     var pd = Config.PortalsDirectory;
                     if (portalPath.IndexOf(pd) > -1)
@@ -190,17 +197,17 @@ namespace Appleseed.Framework.Site.Data
 
                     var parameterPortalPath = new SqlParameter(StrAtPortalPath, SqlDbType.NVarChar, 128)
                         {
-                            Value = portalPath 
+                           Value = portalPath 
                         };
                     command.Parameters.Add(parameterPortalPath);
                     var parameterAlwaysShow = new SqlParameter(StrAtAlwaysShowEditButton, SqlDbType.Bit, 1)
                         {
-                            Value = false 
+                           Value = false 
                         };
                     command.Parameters.Add(parameterAlwaysShow);
                     var parameterPortalId = new SqlParameter(StrAtPortalId, SqlDbType.Int, 4)
                         {
-                            Direction = ParameterDirection.Output 
+                           Direction = ParameterDirection.Output 
                         };
                     command.Parameters.Add(parameterPortalId);
                     connection.Open();
@@ -237,9 +244,9 @@ namespace Appleseed.Framework.Site.Data
         /// <returns>
         /// The create portal.
         /// </returns>
-        [History("john.mandia@whitelightsolutions.com", "2003/05/26",
-            "Added extra info so that sign in is added to home tab of new portal and lang switcher is added to module list")]
-        [History("bja@reedtek.com", "2003/05/16", "Added extra parameter for collpasable window")]
+        [History("john.mandia@whitelightsolutions.com", "2003/05/26", 
+            "Added extra info so that sign in is added to home tab of new portal and language switcher is added to module list")]
+        [History("bja@reedtek.com", "2003/05/16", "Added extra parameter for collapsible window")]
         public int CreatePortal(int solutionId, string portalAlias, string portalName, string portalPath)
         {
             var tabs = new PagesDB();
@@ -249,21 +256,11 @@ namespace Appleseed.Framework.Site.Data
             var portalId = this.AddPortal(portalAlias, portalName, portalPath);
 
             // get module definitions
-            var reader = modules.GetSolutionModuleDefinitions(solutionId);
-
-            // Always call Read before accessing data.
-            try
+            foreach (var solutionModuleDefinition in modules.GetSolutionModuleDefinitions(solutionId))
             {
-                while (reader.Read())
-                {
-                    modules.UpdateModuleDefinitions(new Guid(reader["GeneralModDefID"].ToString()), portalId, true);
-                }
+                modules.UpdateModuleDefinitions(solutionModuleDefinition.GeneralModuleDefinitionId, portalId, true);
             }
-            finally
-            {
-                reader.Close(); // by Manu, fixed bug 807858
-            }
-
+            
             if (!Config.UseSingleUserBase)
             {
                 const string AdminEmail = "admin@Appleseedportal.net";
@@ -296,115 +293,115 @@ namespace Appleseed.Framework.Site.Data
             localizedString = General.GetString("MODULE_SITE_SETTINGS");
             modules.UpdateModuleDefinitions(new Guid(StrGuidSiteSettings), portalId, true);
             modules.AddModule(
-                adminPageId,
-                1,
-                StrContentPane,
-                localizedString,
-                modules.GetModuleDefinitionByGuid(portalId, new Guid(StrGuidSiteSettings)),
-                0,
-                StrAdmins,
-                StrAllUsers,
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                false,
-                string.Empty,
-                false,
-                false,
+                adminPageId, 
+                1, 
+                StrContentPane, 
+                localizedString, 
+                modules.GetModuleDefinitionByGuid(portalId, new Guid(StrGuidSiteSettings)), 
+                0, 
+                StrAdmins, 
+                StrAllUsers, 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                false, 
+                string.Empty, 
+                false, 
+                false, 
                 false);
 
             // Pages (Admin)
             localizedString = General.GetString("MODULE_TABS");
             modules.UpdateModuleDefinitions(new Guid(StrGuidPages), portalId, true);
             modules.AddModule(
-                adminPageId,
-                2,
-                StrContentPane,
-                localizedString,
-                modules.GetModuleDefinitionByGuid(portalId, new Guid(StrGuidPages)),
-                0,
-                StrAdmins,
-                StrAllUsers,
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                false,
-                string.Empty,
-                false,
-                false,
+                adminPageId, 
+                2, 
+                StrContentPane, 
+                localizedString, 
+                modules.GetModuleDefinitionByGuid(portalId, new Guid(StrGuidPages)), 
+                0, 
+                StrAdmins, 
+                StrAllUsers, 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                false, 
+                string.Empty, 
+                false, 
+                false, 
                 false);
 
             // Roles (Admin)
             localizedString = General.GetString("MODULE_SECURITY_ROLES");
             modules.UpdateModuleDefinitions(new Guid(StrGuidSecurityRoles), portalId, true);
             modules.AddModule(
-                adminPageId,
-                3,
-                StrContentPane,
-                localizedString,
-                modules.GetModuleDefinitionByGuid(portalId, new Guid(StrGuidSecurityRoles)),
-                0,
-                StrAdmins,
-                StrAllUsers,
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                false,
-                string.Empty,
-                false,
-                false,
+                adminPageId, 
+                3, 
+                StrContentPane, 
+                localizedString, 
+                modules.GetModuleDefinitionByGuid(portalId, new Guid(StrGuidSecurityRoles)), 
+                0, 
+                StrAdmins, 
+                StrAllUsers, 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                false, 
+                string.Empty, 
+                false, 
+                false, 
                 false);
 
             // Manage Users (Admin)
             localizedString = General.GetString("MODULE_MANAGE_USERS");
             modules.UpdateModuleDefinitions(new Guid(StrGuidManageUsers), portalId, true);
             modules.AddModule(
-                adminPageId,
-                4,
-                StrContentPane,
-                localizedString,
-                modules.GetModuleDefinitionByGuid(portalId, new Guid(StrGuidManageUsers)),
-                0,
-                StrAdmins,
-                StrAllUsers,
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                false,
-                string.Empty,
-                false,
-                false,
+                adminPageId, 
+                4, 
+                StrContentPane, 
+                localizedString, 
+                modules.GetModuleDefinitionByGuid(portalId, new Guid(StrGuidManageUsers)), 
+                0, 
+                StrAdmins, 
+                StrAllUsers, 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                false, 
+                string.Empty, 
+                false, 
+                false, 
                 false);
 
             // Module Definitions (Admin)
             localizedString = General.GetString("MODULE_MODULES");
             modules.UpdateModuleDefinitions(new Guid(StrGuidModules), portalId, true);
             modules.AddModule(
-                adminPageId,
-                1,
-                StringsRightPane,
-                localizedString,
-                modules.GetModuleDefinitionByGuid(portalId, new Guid(StrGuidModules)),
-                0,
-                StrAdmins,
-                StrAllUsers,
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                false,
-                string.Empty,
-                false,
-                false,
+                adminPageId, 
+                1, 
+                StringsRightPane, 
+                localizedString, 
+                modules.GetModuleDefinitionByGuid(portalId, new Guid(StrGuidModules)), 
+                0, 
+                StrAdmins, 
+                StrAllUsers, 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                false, 
+                string.Empty, 
+                false, 
+                false, 
                 false);
 
             // End Change Geert.Audenaert@Syntegra.Com
@@ -414,23 +411,23 @@ namespace Appleseed.Framework.Site.Data
             localizedString = General.GetString("MODULE_LOGIN", "Login");
             modules.UpdateModuleDefinitions(new Guid(StrGuidLogin), portalId, true);
             modules.AddModule(
-                homePageId,
-                -1,
-                StrLeftPane,
-                localizedString,
-                modules.GetModuleDefinitionByGuid(portalId, new Guid(StrGuidLogin)),
-                0,
-                StrAdmins,
-                "Unauthenticated Users;Admins;",
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                StrAdmins,
-                false,
-                string.Empty,
-                false,
-                false,
+                homePageId, 
+                -1, 
+                StrLeftPane, 
+                localizedString, 
+                modules.GetModuleDefinitionByGuid(portalId, new Guid(StrGuidLogin)), 
+                0, 
+                StrAdmins, 
+                "Unauthenticated Users;Admins;", 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                StrAdmins, 
+                false, 
+                string.Empty, 
+                false, 
+                false, 
                 false);
 
             // Add language switcher to available modules
@@ -465,7 +462,7 @@ namespace Appleseed.Framework.Site.Data
             // if(pd!=null)
             // {
             // if (portalPath.IndexOf (pd) > -1)
-            //     portalPath = portalPath.Substring(portalPath.IndexOf (pd) + pd.Length);
+            // portalPath = portalPath.Substring(portalPath.IndexOf (pd) + pd.Length);
             // }
             var pd = Config.PortalsDirectory;
             if (portalPath.IndexOf(pd) > -1)
@@ -529,8 +526,8 @@ namespace Appleseed.Framework.Site.Data
 
         /// <summary>
         /// The GetPortals method returns a SqlDataReader containing all of the
-        ///     Portals registered in this database.<br/>
-        ///     GetPortals Stored Procedure
+        ///   Portals registered in this database.<br/>
+        ///   GetPortals Stored Procedure
         /// </summary>
         /// <returns>
         /// a sql data reader
@@ -539,7 +536,7 @@ namespace Appleseed.Framework.Site.Data
         {
             // Create Instance of Connection and Command Object
             var connection = Config.SqlConnectionString;
-            
+
             // Mark the Command as a SPROC
             var command = new SqlCommand("rb_GetPortals", connection) { CommandType = CommandType.StoredProcedure };
 
@@ -553,8 +550,8 @@ namespace Appleseed.Framework.Site.Data
 
         /// <summary>
         /// The GetPortals method returns an ArrayList containing all of the
-        ///     Portals registered in this database.<br/>
-        ///     GetPortals Stored Procedure
+        ///   Portals registered in this database.<br/>
+        ///   GetPortals Stored Procedure
         /// </summary>
         /// <returns>
         /// a list of portals
@@ -582,8 +579,8 @@ namespace Appleseed.Framework.Site.Data
                             {
                                 var p = new PortalItem
                                     {
-                                        Name = dr["PortalName"].ToString(),
-                                        Path = dr["PortalPath"].ToString(),
+                                        Name = dr["PortalName"].ToString(), 
+                                        Path = dr["PortalPath"].ToString(), 
                                         ID = Convert.ToInt32(dr["PortalID"].ToString())
                                     };
                                 portals.Add(p);
@@ -603,7 +600,7 @@ namespace Appleseed.Framework.Site.Data
 
         /// <summary>
         /// The GetTemplates method returns a SqlDataReader containing all of the
-        ///     Templates Availables.
+        ///   Templates Availables.
         /// </summary>
         /// <returns>
         /// A sql data reader.
@@ -612,7 +609,7 @@ namespace Appleseed.Framework.Site.Data
         {
             // Create Instance of Connection and Command Object
             var connection = Config.SqlConnectionString;
-            
+
             // Mark the Command as a SPROC
             var command = new SqlCommand(StringsRbGetPortals, connection) { CommandType = CommandType.StoredProcedure };
 
@@ -626,7 +623,7 @@ namespace Appleseed.Framework.Site.Data
 
         /// <summary>
         /// The UpdatePortalInfo method updates the name and access settings for the portal.<br/>
-        ///     Uses UpdatePortalInfo Stored Procedure.
+        ///   Uses UpdatePortalInfo Stored Procedure.
         /// </summary>
         /// <param name="portalId">
         /// The portal ID.
@@ -655,7 +652,7 @@ namespace Appleseed.Framework.Site.Data
                     command.Parameters.Add(parameterPortalId);
                     var parameterPortalName = new SqlParameter(StrAtPortalName, SqlDbType.NVarChar, 128)
                         {
-                            Value = portalName 
+                           Value = portalName 
                         };
                     command.Parameters.Add(parameterPortalName);
 
@@ -663,8 +660,8 @@ namespace Appleseed.Framework.Site.Data
                     // string pd = ConfigurationSettings.AppSettings[strPortalsDirectory];
                     // if(pd!=null)
                     // {
-                    //     if (portalPath.IndexOf (pd) > -1)
-                    //         portalPath = portalPath.Substring(portalPath.IndexOf (pd) + pd.Length);
+                    // if (portalPath.IndexOf (pd) > -1)
+                    // portalPath = portalPath.Substring(portalPath.IndexOf (pd) + pd.Length);
                     // }
                     var pd = Config.PortalsDirectory;
                     if (portalPath.IndexOf(pd) > -1)
@@ -674,12 +671,12 @@ namespace Appleseed.Framework.Site.Data
 
                     var parameterPortalPath = new SqlParameter(StrAtPortalPath, SqlDbType.NVarChar, 128)
                         {
-                            Value = portalPath 
+                           Value = portalPath 
                         };
                     command.Parameters.Add(parameterPortalPath);
                     var parameterAlwaysShow = new SqlParameter(StrAtAlwaysShowEditButton, SqlDbType.Bit, 1)
                         {
-                            Value = alwaysShow 
+                           Value = alwaysShow 
                         };
                     command.Parameters.Add(parameterAlwaysShow);
                     connection.Open();
@@ -698,7 +695,7 @@ namespace Appleseed.Framework.Site.Data
 
         /// <summary>
         /// The UpdatePortalSetting Method updates a single module setting
-        ///     in the PortalSettings database table.
+        ///   in the PortalSettings database table.
         /// </summary>
         /// <param name="portalId">
         /// The portal ID.
