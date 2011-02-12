@@ -264,7 +264,7 @@ namespace Appleseed.Content.Web.Modules
             int groupBase = (int) group;
             // end of modification
 
-            var setMachineName = new SettingItem<string, TextBox>(new StringDataType());
+            var setMachineName = new SettingItem<string, TextBox>();
             setMachineName.Required = true;
             setMachineName.Value = ".";
             // Modified by Hongwei Shen

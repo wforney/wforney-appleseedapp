@@ -99,7 +99,7 @@ namespace Appleseed.Content.Web.Modules
             HtmlEditorDataType.HtmlEditorSettings(_baseSettings, group);
 
             //Number of entries to display
-            var EntriesToShow = new SettingItem<int, TextBox>(new IntegerDataType());
+            var EntriesToShow = new SettingItem<int, TextBox>();
             EntriesToShow.Value = 10;
             // by Hongwei Shen
             // EntriesToShow.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
@@ -110,7 +110,7 @@ namespace Appleseed.Content.Web.Modules
             _baseSettings.Add("Entries To Show", EntriesToShow);
 
             //Channel Description
-            var Description = new SettingItem<string, TextBox>(new StringDataType());
+            var Description = new SettingItem<string, TextBox>();
             Description.Value = "Description";
             // by Hongwei Shen
             // Description.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
@@ -121,7 +121,7 @@ namespace Appleseed.Content.Web.Modules
             _baseSettings.Add("Description", Description);
 
             //Channel Copyright
-            var Copyright = new SettingItem<string, TextBox>(new StringDataType());
+            var Copyright = new SettingItem<string, TextBox>();
             Copyright.Value = "Copyright";
             // by Hongwei Shen
             // Copyright.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
@@ -132,7 +132,7 @@ namespace Appleseed.Content.Web.Modules
             _baseSettings.Add("Copyright", Copyright);
 
             //Channel Language
-            var Language = new SettingItem<string, TextBox>(new StringDataType());
+            var Language = new SettingItem<string, TextBox>();
             Language.Value = "en-us";
             // by Hongwei Shen
             // Language.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
@@ -143,7 +143,7 @@ namespace Appleseed.Content.Web.Modules
             _baseSettings.Add("Language", Language);
 
             //Author
-            var Author = new SettingItem<string, TextBox>(new StringDataType());
+            var Author = new SettingItem<string, TextBox>();
             Author.Value = "Author";
             // by Hongwei Shen
             // Author.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
@@ -154,7 +154,7 @@ namespace Appleseed.Content.Web.Modules
             _baseSettings.Add("Author", Author);
 
             //Author Email
-            var AuthorEmail = new SettingItem<string, TextBox>(new StringDataType());
+            var AuthorEmail = new SettingItem<string, TextBox>();
             AuthorEmail.Value = "author@portal.com";
             // by Hongwei Shen
             // AuthorEmail.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
@@ -166,7 +166,7 @@ namespace Appleseed.Content.Web.Modules
 
             //Time to live in minutes for RSS
             //how long a channel can be cached before refreshing from the source
-            var TimeToLive = new SettingItem<int, TextBox>(new IntegerDataType());
+            var TimeToLive = new SettingItem<int, TextBox>();
             TimeToLive.Value = 120;
             // by Hongwei Shen
             // TimeToLive.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;

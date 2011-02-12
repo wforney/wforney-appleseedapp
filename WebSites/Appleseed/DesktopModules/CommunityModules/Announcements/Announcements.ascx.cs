@@ -94,7 +94,7 @@ namespace Appleseed.Content.Web.Modules
             HtmlEditorDataType.HtmlEditorSettings(_baseSettings, SettingItemGroup.MODULE_SPECIAL_SETTINGS);
 
             //Custom settings
-            var DelayExpire = new SettingItem<int, TextBox>(new IntegerDataType());
+            var DelayExpire = new SettingItem<int, TextBox>();
             DelayExpire.Value = 60;
             DelayExpire.MinValue = 0;
             DelayExpire.MaxValue = 3650; //10 years
@@ -110,7 +110,7 @@ namespace Appleseed.Content.Web.Modules
             RepeatDirection.Description = string.Empty;
             _baseSettings.Add("RepeatDirectionSetting", RepeatDirection);
 
-            var RepeatColumn = new SettingItem<int, TextBox>(new IntegerDataType());
+            var RepeatColumn = new SettingItem<int, TextBox>();
             RepeatColumn.Required = true;
             RepeatColumn.Value = 1;
             RepeatColumn.MinValue = 1;
@@ -119,7 +119,7 @@ namespace Appleseed.Content.Web.Modules
             RepeatColumn.Description = string.Empty;
             _baseSettings.Add("RepeatColumns", RepeatColumn);
 
-            var showItemBorder = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var showItemBorder = new SettingItem<bool, CheckBox>();
             showItemBorder.Value = false;
             showItemBorder.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             showItemBorder.Description = string.Empty;
@@ -128,7 +128,7 @@ namespace Appleseed.Content.Web.Modules
 
             //begin Chris Farrell, 09/05/2005, chris@cftechconsulting.com
             //Setting item to control page size for paging
-            var PageSize = new SettingItem<int, TextBox>(new IntegerDataType());
+            var PageSize = new SettingItem<int, TextBox>();
             PageSize.Required = true;
             PageSize.Value = 15;
             PageSize.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;

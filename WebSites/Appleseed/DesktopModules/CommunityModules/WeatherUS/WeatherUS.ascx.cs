@@ -23,7 +23,7 @@ namespace Appleseed.Content.Web.Modules
                 "changed DataType of setZip to StringdataType to enable leading zeros in zip.")]
         public WeatherUS()
         {
-            var setZip = new SettingItem<string, TextBox>(new StringDataType());
+            var setZip = new SettingItem<string, TextBox>();
             //setZip.MinValue = 0;
             //setZip.MaxValue = 99999;
             setZip.Required = true;
@@ -31,7 +31,7 @@ namespace Appleseed.Content.Web.Modules
             setZip.Order = 1;
             _baseSettings.Add("Zip", setZip);
 
-            var setOption = new SettingItem<string, TextBox>(new StringDataType());
+            var setOption = new SettingItem<string, TextBox>();
             setOption.Required = true;
             setOption.Value = "0";
             setOption.Order = 2;

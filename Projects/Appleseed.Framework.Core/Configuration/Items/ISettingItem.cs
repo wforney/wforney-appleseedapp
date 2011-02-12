@@ -29,14 +29,6 @@ namespace Appleseed.Framework
         object DataSource { get; }
 
         /// <summary>
-        ///   Gets the type of the data.
-        /// </summary>
-        /// <value>
-        ///   The type of the data.
-        /// </value>
-        PropertiesDataType DataType { get; }
-
-        /// <summary>
         ///   Gets or sets Provide help for parameter.
         ///   Should be a brief, descriptive text that explains what
         ///   this setting should do.

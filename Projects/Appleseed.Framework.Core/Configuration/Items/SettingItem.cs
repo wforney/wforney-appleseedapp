@@ -44,7 +44,6 @@ namespace Appleseed.Framework
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingItem{T,TEditControl}"/> class. 
-        ///   Initializes a new instance of the <see cref="SettingItem&lt;T, TEditControl&gt;"/> class.
         /// </summary>
         /// <param name="dataType">
         /// Type of the data.
@@ -63,7 +62,6 @@ namespace Appleseed.Framework
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingItem{T,TEditControl}"/> class. 
-        ///   Initializes a new instance of the <see cref="SettingItem&lt;T, TEditControl&gt;"/> class.
         /// </summary>
         /// <param name="dataType">
         /// Type of the data.
@@ -74,6 +72,19 @@ namespace Appleseed.Framework
             this.Description = string.Empty;
             this.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             this.datatype = dataType;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SettingItem{T,TEditControl}"/> class. 
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        public SettingItem()
+        {
+            this.EnglishName = string.Empty;
+            this.Description = string.Empty;
+            this.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
+            this.datatype = new BaseDataType<T, TEditControl>();
         }
 
         #endregion
@@ -90,21 +101,7 @@ namespace Appleseed.Framework
                 return this.datatype.DataSource;
             }
         }
-
-        /// <summary>
-        ///   Gets the type of the data.
-        /// </summary>
-        /// <value>
-        ///   The type of the data.
-        /// </value>
-        public PropertiesDataType DataType
-        {
-            get
-            {
-                return this.datatype.Type;
-            }
-        }
-
+        
         /// <summary>
         ///   Gets or sets Provide help for parameter.
         ///   Should be a brief, descriptive text that explains what

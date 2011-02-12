@@ -506,7 +506,7 @@ namespace Appleseed.Framework.Site.Configuration
             var groupOrderBase = (int)SettingItemGroup.NAVIGATION_SETTINGS;
             var group = SettingItemGroup.NAVIGATION_SETTINGS;
 
-            var tabPlaceholder = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var tabPlaceholder = new SettingItem<bool, CheckBox>(new BaseDataType<bool, CheckBox>())
                 {
                     Group = group, 
                     Order = groupOrderBase, 
@@ -516,7 +516,7 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("TabPlaceholder", tabPlaceholder);
 
-            var tabLink = new SettingItem<string, TextBox>(new StringDataType())
+            var tabLink = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     Value = string.Empty, 
@@ -526,7 +526,7 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("TabLink", tabLink);
 
-            var tabUrlKeyword = new SettingItem<string, TextBox>(new StringDataType())
+            var tabUrlKeyword = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     Order = groupOrderBase + 2, 
@@ -535,7 +535,7 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("TabUrlKeyword", tabUrlKeyword);
 
-            var urlPageName = new SettingItem<string, TextBox>(new StringDataType())
+            var urlPageName = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     Order = groupOrderBase + 3, 
@@ -547,7 +547,7 @@ namespace Appleseed.Framework.Site.Configuration
 
             // groupOrderBase = (int)SettingItemGroup.META_SETTINGS;
             group = SettingItemGroup.META_SETTINGS;
-            var tabTitle = new SettingItem<string, TextBox>(new StringDataType())
+            var tabTitle = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     EnglishName = "Tab / Page Title", 
@@ -556,7 +556,7 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("TabTitle", tabTitle);
 
-            var tabMetaKeyWords = new SettingItem<string, TextBox>(new StringDataType())
+            var tabMetaKeyWords = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     EnglishName = "Tab / Page Keywords", 
@@ -564,7 +564,7 @@ namespace Appleseed.Framework.Site.Configuration
                         "This setting is to help with search engine optimization. Enter 1-15 Default Keywords that represent what this Tab / Page is about.Enter something here to override the default portal wide setting."
                 };
             baseSettings.Add("TabMetaKeyWords", tabMetaKeyWords);
-            var tabMetaDescription = new SettingItem<string, TextBox>(new StringDataType())
+            var tabMetaDescription = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     EnglishName = "Tab / Page Description", 
@@ -572,7 +572,7 @@ namespace Appleseed.Framework.Site.Configuration
                         "This setting is to help with search engine optimization. Enter a description (Not too long though. 1 paragraph is enough) that describes this particular Tab / Page. Enter something here to override the default portal wide setting."
                 };
             baseSettings.Add("TabMetaDescription", tabMetaDescription);
-            var tabMetaEncoding = new SettingItem<string, TextBox>(new StringDataType())
+            var tabMetaEncoding = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     EnglishName = "Tab / Page Encoding", 
@@ -580,7 +580,7 @@ namespace Appleseed.Framework.Site.Configuration
                         "Every time your browser returns a page it looks to see what format it is retrieving. This allows you to specify the content type for this particular Tab / Page. Enter something here to override the default portal wide setting."
                 };
             baseSettings.Add("TabMetaEncoding", tabMetaEncoding);
-            var tabMetaOther = new SettingItem<string, TextBox>(new StringDataType())
+            var tabMetaOther = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     EnglishName = "Additional Meta Tag Entries", 
@@ -588,7 +588,7 @@ namespace Appleseed.Framework.Site.Configuration
                         "This setting allows you to enter new tags into this Tab / Page's HEAD Tag. Enter something here to override the default portal wide setting."
                 };
             baseSettings.Add("TabMetaOther", tabMetaOther);
-            var tabKeyPhrase = new SettingItem<string, TextBox>(new StringDataType())
+            var tabKeyPhrase = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     EnglishName = "Tab / Page Keyphrase", 
@@ -623,7 +623,7 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("CustomLayout", customLayout);
 
-            // SettingItem CustomTheme = new SettingItem<string, TextBox>(new StringDataType());
+            // SettingItem CustomTheme = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>());
             // changed: Jes1111 - 2004-08-06
             var customTheme = new SettingItem<string, ListControl>(new CustomListDataType(themesList, "Name", "Name"))
                 {
@@ -634,7 +634,7 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("CustomTheme", customTheme);
 
-            // SettingItem CustomThemeAlt = new SettingItem<string, TextBox>(new StringDataType());
+            // SettingItem CustomThemeAlt = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>());
             // changed: Jes1111 - 2004-08-06
             var customThemeAlt = new SettingItem<string, ListControl>(
                 new CustomListDataType(themesList, "Name", "Name"))
@@ -656,8 +656,6 @@ namespace Appleseed.Framework.Site.Configuration
                     };
             baseSettings.Add("CustomMenuImage", customMenuImage);
 
-            
-
             groupOrderBase = (int)SettingItemGroup.CULTURE_SETTINGS;
             group = SettingItemGroup.CULTURE_SETTINGS;
             var cultureList = LanguageSwitcher.GetLanguageList(true);
@@ -669,7 +667,7 @@ namespace Appleseed.Framework.Site.Configuration
             foreach (
                 var c in cultureList.Where(c => c != CultureInfo.InvariantCulture && !baseSettings.ContainsKey(c.Name)))
             {
-                var localizedTabKeyPhrase = new SettingItem<string, TextBox>(new StringDataType())
+                var localizedTabKeyPhrase = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                     {
                         Order = counter, 
                         Group = group, 
@@ -677,7 +675,7 @@ namespace Appleseed.Framework.Site.Configuration
                         Description = string.Format("Key Phrase this Tab/Page for {0} culture.", c.EnglishName)
                     };
                 baseSettings.Add(string.Format("TabKeyPhrase_{0}", c.Name), localizedTabKeyPhrase);
-                var localizedTitle = new SettingItem<string, TextBox>(new StringDataType())
+                var localizedTitle = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                     {
                         Order = counter, 
                         Group = group, 
@@ -687,8 +685,6 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add(c.Name, localizedTitle);
                 counter++;
             }
-
-            
 
             return baseSettings;
         }

@@ -76,7 +76,7 @@ namespace Appleseed.Content.Web.Modules
                 };
             this._baseSettings.Add("XSL File", xslSrcFile);
 
-            var timeout = new SettingItem<int, TextBox>(new IntegerDataType())
+            var timeout = new SettingItem<int, TextBox>()
                 {
                    Required = true, Group = Group, Order = GroupOrderBase + 7, Value = 15 
                 };

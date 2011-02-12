@@ -44,7 +44,7 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public DailyDilbert()
         {
-            var setImagePercent = new SettingItem<int, TextBox>(new IntegerDataType());
+            var setImagePercent = new SettingItem<int, TextBox>();
             setImagePercent.Required = true;
             setImagePercent.Value = 80;
             setImagePercent.Order = 1;

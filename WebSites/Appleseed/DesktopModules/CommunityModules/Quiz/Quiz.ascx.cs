@@ -28,7 +28,7 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public Quiz()
         {
-            var quizName = new SettingItem<string, TextBox>(new StringDataType())
+            var quizName = new SettingItem<string, TextBox>
                 {
                     Required = true, Order = 1, Value = "About Australia (Demo1)" 
                 };

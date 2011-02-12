@@ -73,7 +73,7 @@ using System.Net.Mail;
         /// </summary>
         public Signin()
         {
-            var hideAutomatically = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var hideAutomatically = new SettingItem<bool, CheckBox>()
                 {
                     Value = true,
                     EnglishName = "Hide automatically",
@@ -86,7 +86,7 @@ using System.Net.Mail;
             // If you uncheck this setting IE will not remember user name and passwords. 
             // Note that users who have memorized passwords will not be effected until their computer 
             // is reset, only new users and/or computers will honor this. 
-            var autoComplete = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var autoComplete = new SettingItem<bool, CheckBox>()
                 {
                     Value = true,
                     EnglishName = "Allow IE Autocomplete",
@@ -95,7 +95,7 @@ using System.Net.Mail;
                 };
             this._baseSettings.Add("SIGNIN_ALLOW_AUTOCOMPLETE", autoComplete);
 
-            var rememberLogin = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var rememberLogin = new SettingItem<bool, CheckBox>()
                 {
                     Value = true,
                     EnglishName = "Allow Remember Login",
@@ -104,7 +104,7 @@ using System.Net.Mail;
                 };
             this._baseSettings.Add("SIGNIN_ALLOW_REMEMBER_LOGIN", rememberLogin);
 
-            var sendPassword = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var sendPassword = new SettingItem<bool, CheckBox>()
                 {
                     Value = true,
                     EnglishName = "Allow Send Password",

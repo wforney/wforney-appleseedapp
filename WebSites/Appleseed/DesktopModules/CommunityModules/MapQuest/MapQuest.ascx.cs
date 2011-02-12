@@ -203,56 +203,56 @@ namespace Appleseed.Content.Web.Modules
             SettingItemGroup group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             int groupBase = (int) group;
 
-            var setLocation = new SettingItem<string, TextBox>(new StringDataType());
+            var setLocation = new SettingItem<string, TextBox>();
             setLocation.Required = true;
             setLocation.Group = group;
             setLocation.Order = groupBase + 20; //10;
             _baseSettings.Add("Location", setLocation);
 
-            var setStreet = new SettingItem<string, TextBox>(new StringDataType());
+            var setStreet = new SettingItem<string, TextBox>();
             setStreet.Required = false;
             setStreet.Group = group;
             setStreet.Order = groupBase + 25; //20;
             _baseSettings.Add("Street", setStreet);
 
-            var setCity = new SettingItem<string, TextBox>(new StringDataType());
+            var setCity = new SettingItem<string, TextBox>();
             setCity.Required = true;
             setCity.Group = group;
             setCity.Order = groupBase + 30;
             _baseSettings.Add("City", setCity);
 
-            var setRegion = new SettingItem<string, TextBox>(new StringDataType());
+            var setRegion = new SettingItem<string, TextBox>();
             setRegion.Required = false;
             setRegion.Group = group;
             setRegion.Order = groupBase + 35; //40;
             setRegion.Value = string.Empty; //Same as State for US
             _baseSettings.Add("Region", setRegion);
 
-            var setCountry = new SettingItem<string, TextBox>(new StringDataType());
+            var setCountry = new SettingItem<string, TextBox>();
             setCountry.Required = false;
             setCountry.Group = group;
             setCountry.Order = groupBase + 40; //50;
             _baseSettings.Add("Country", setCountry);
 
-            var setPostalCode = new SettingItem<string, TextBox>(new StringDataType());
+            var setPostalCode = new SettingItem<string, TextBox>();
             setPostalCode.Required = false;
             setPostalCode.Group = group;
             setPostalCode.Order = groupBase + 45; //60;
             _baseSettings.Add("PostalCode", setPostalCode);
 
-            var setShowMap = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var setShowMap = new SettingItem<bool, CheckBox>();
             setShowMap.Group = group;
             setShowMap.Order = groupBase + 50; //70;
             setShowMap.Value = true;
             _baseSettings.Add("ShowMap", setShowMap);
 
-            var setShowAddress = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var setShowAddress = new SettingItem<bool, CheckBox>();
             setShowAddress.Group = group;
             setShowAddress.Order = groupBase + 55; //80;
             setShowAddress.Value = false;
             _baseSettings.Add("ShowAddress", setShowAddress);
 
-            var setZoom = new SettingItem<int, TextBox>(new IntegerDataType());
+            var setZoom = new SettingItem<int, TextBox>();
             setZoom.Required = true;
             setZoom.Group = group;
             setZoom.Order = groupBase + 60; //90;
@@ -261,7 +261,7 @@ namespace Appleseed.Content.Web.Modules
             setZoom.MaxValue = 10;
             _baseSettings.Add("Zoom", setZoom);
 
-            var setShowZoom = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var setShowZoom = new SettingItem<bool, CheckBox>();
             setShowZoom.Group = group;
             setShowZoom.Order = groupBase + 65; //100;
             setShowAddress.Value = false;

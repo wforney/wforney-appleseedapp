@@ -100,7 +100,7 @@ namespace Appleseed.Content.Web.Modules
 
             //MH:canged to support relativ url
             //SettingItem url = new SettingItem(new UrlDataType());
-            var url = new SettingItem<string, TextBox>(new StringDataType());
+            var url = new SettingItem<string, TextBox>();
             url.Required = true;
             url.Group = group;
             url.Order = groupBase + 20; //1;
@@ -108,7 +108,7 @@ namespace Appleseed.Content.Web.Modules
             _baseSettings.Add("URL", url);
 
             //MH: added to support width values
-            var width = new SettingItem<string, TextBox>(new StringDataType());
+            var width = new SettingItem<string, TextBox>();
             width.Required = true;
             width.Group = group;
             width.Order = groupBase + 25; //2;
@@ -118,8 +118,8 @@ namespace Appleseed.Content.Web.Modules
             _baseSettings.Add("Width", width);
 
             //MH: changed to StringDataType to support  percent or pixel values
-            //SettingItem width = new SettingItem<int, TextBox>(new IntegerDataType());
-            var height = new SettingItem<string, TextBox>(new StringDataType());
+            //SettingItem width = new SettingItem<int, TextBox>();
+            var height = new SettingItem<string, TextBox>();
             height.Required = true;
             height.Group = group;
             height.Order = groupBase + 30; //3;

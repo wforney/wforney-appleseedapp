@@ -33,7 +33,7 @@ namespace Appleseed.Framework.DataTypes
         /// </param>
         public CustomListDataType(object dataSource, string dataTextField, string dataValueField)
         {
-            this.Type = PropertiesDataType.List;
+            // this.Type = PropertiesDataType.List;
             this.InnerDataSource = dataSource;
             this.DataValueField = dataValueField;
             this.DataTextField = dataTextField;

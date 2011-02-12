@@ -31,7 +31,7 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public WeatherDE()
         {
-            var setZip = new SettingItem<double, TextBox>(new DoubleDataType())
+            var setZip = new SettingItem<double, TextBox>
                 {
                     MinValue = 0, MaxValue = 99999, Required = true, Value = 88045, Order = 1 
                 };
@@ -70,7 +70,7 @@ namespace Appleseed.Content.Web.Modules
             _baseSettings.Add("WeatherDesign", setDesign);
 
             // Module Weather CityIndex
-            var setCityIndex = new SettingItem<double, TextBox>(new DoubleDataType())
+            var setCityIndex = new SettingItem<double, TextBox>
                 {
                     MinValue = 0, MaxValue = 99999, Required = false, Value = 0, Order = 4 
                 };

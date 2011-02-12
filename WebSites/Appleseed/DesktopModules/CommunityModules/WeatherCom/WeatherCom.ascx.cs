@@ -71,14 +71,14 @@ namespace Appleseed.Content.Web.ModulesVersion
         /// </summary>
         public WeatherCom()
         {
-            var cityCode = new SettingItem<string, TextBox>(new StringDataType())
+            var cityCode = new SettingItem<string, TextBox>()
                 { Required = false, Value = "BKXX0001" };
             _baseSettings.Add("CityCode", cityCode);
 
-            var forecast = new SettingItem<string, TextBox>(new StringDataType()) { Required = false, Value = "3" };
+            var forecast = new SettingItem<string, TextBox>() { Required = false, Value = "3" };
             BaseSettings.Add("Forecast", forecast);
 
-            var setUnit = new SettingItem<string, TextBox>(new StringDataType()) { Required = false, Value = "m" };
+            var setUnit = new SettingItem<string, TextBox>() { Required = false, Value = "m" };
             _baseSettings.Add("Unit", setUnit);
         }
 

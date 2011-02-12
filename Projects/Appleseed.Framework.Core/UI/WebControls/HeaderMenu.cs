@@ -551,6 +551,11 @@ namespace Appleseed.Framework.Web.UI.WebControls
         }
 
 
+        /// <summary>
+        /// Renders the control to the specified HTML writer.
+        /// </summary>
+        /// <param name="writer">A <see cref="T:System.Web.UI.HtmlTextWriter"/> that contains the output stream to render on the client.</param>
+        /// <remarks></remarks>
         protected override void Render(HtmlTextWriter writer)
         {
             if (ShowLogon && DialogLogon && _logonControl != null)
@@ -564,12 +569,12 @@ namespace Appleseed.Framework.Web.UI.WebControls
                 writer.Write(string.Concat(@"
                         $(document).ready(function () {
                             var $dialog = $('#", this.ClientID, @"_logon_dialog')
-		                    .dialog({
-		                        autoOpen: false,
-		                        modal: true,
+                            .dialog({
+                                autoOpen: false,
+                                modal: true,
                                 resizable: false,
-		                        open: function (type, data) { $(this).parent().appendTo('form'); }
-		                    });
+                                open: function (type, data) { $(this).parent().appendTo('form'); }
+                            });
 
                             $('#", this.ClientID, @"_logon_link').click(function () {
                                 $dialog.dialog('open');

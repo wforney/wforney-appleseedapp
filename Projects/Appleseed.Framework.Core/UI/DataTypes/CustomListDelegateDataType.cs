@@ -35,7 +35,7 @@ namespace Appleseed.Framework.DataTypes
         public CustomListDelegateDataType(
             InitializeCustomSettingsDelegate function, string dataTextField, string dataValueField)
         {
-            this.Type = PropertiesDataType.List;
+            // this.Type = PropertiesDataType.List;
             this.InnerDataSource = function;
             this.DataValueField = dataValueField;
             this.DataTextField = dataTextField;

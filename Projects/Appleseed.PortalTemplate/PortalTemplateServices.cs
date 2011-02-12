@@ -16,7 +16,6 @@ namespace Appleseed.PortalTemplate
     using System.Linq;
     using System.Text.RegularExpressions;
     using System.Web.UI;
-    using System.Web.UI.WebControls;
     using System.Xml.Serialization;
 
     using Appleseed.Framework;
@@ -121,8 +120,8 @@ namespace Appleseed.PortalTemplate
                     db.SubmitChanges(ConflictMode.FailOnFirstConflict);
                     portalId = _portal.PortalID;
                     this.SaveModuleContent(_portal, desktopSources, translate.ContentModules);
-                    this.AlterModuleSettings(_portal, translate.PageList, desktopSources);
-                    this.AlterModuleDefinitions(_portal.PortalID, translate.ModuleDefinitionsDeserialized);
+                    AlterModuleSettings(_portal, translate.PageList, desktopSources);
+                    AlterModuleDefinitions(_portal.PortalID, translate.ModuleDefinitionsDeserialized);
                 }
                 catch (Exception e)
                 {
@@ -172,13 +171,13 @@ namespace Appleseed.PortalTemplate
             try
             {
                 var db = new PortalTemplateDataContext();
-                var _translate = new Translate();
-                var _html = _translate.TranslateHtmlTextDTOIntoRb_HtmlText(html);
-                _html.ModuleID = moduleId;
-                var _htmlst = _translate.TranslateHtmlTextDTOIntoRb_HtmlText_st(html);
-                _htmlst.ModuleID = moduleId;
-                db.rb_HtmlTexts.InsertOnSubmit(_html);
-                db.rb_HtmlText_sts.InsertOnSubmit(_htmlst);
+                var translate = new Translate();
+                var htmlText = translate.TranslateHtmlTextDTOIntoRb_HtmlText(html);
+                htmlText.ModuleID = moduleId;
+                var htmlst = translate.TranslateHtmlTextDTOIntoRb_HtmlText_st(html);
+                htmlst.ModuleID = moduleId;
+                db.rb_HtmlTexts.InsertOnSubmit(htmlText);
+                db.rb_HtmlText_sts.InsertOnSubmit(htmlst);
                 db.SubmitChanges(ConflictMode.FailOnFirstConflict);
             }
             catch (Exception ex)
@@ -244,7 +243,7 @@ namespace Appleseed.PortalTemplate
         /// <param name="moduleDefinitions">
         /// The module definitions.
         /// </param>
-        private void AlterModuleDefinitions(int portalId, Dictionary<Guid, rb_ModuleDefinition> moduleDefinitions)
+        private static void AlterModuleDefinitions(int portalId, Dictionary<Guid, rb_ModuleDefinition> moduleDefinitions)
         {
             var db = new PortalTemplateDataContext();
             var keys = moduleDefinitions.Keys.ToList();
@@ -266,7 +265,7 @@ namespace Appleseed.PortalTemplate
             }
             catch (Exception e)
             {
-                ErrorHandler.Publish(LogLevel.Error, "There was an error on modifing the module definitions", e);
+                ErrorHandler.Publish(LogLevel.Error, "There was an error on modifying the module definitions", e);
             }
         }
 
@@ -282,8 +281,8 @@ namespace Appleseed.PortalTemplate
         /// <param name="desktopSources">
         /// The desktop sources.
         /// </param>
-        private void AlterModuleSettings(
-            rb_Portals portal, Dictionary<int, int> pageList, Dictionary<Guid, string> desktopSources)
+        private static void AlterModuleSettings(
+            rb_Portals portal, IDictionary<int, int> pageList, IDictionary<Guid, string> desktopSources)
         {
             var p = new Page();
             var db = new PortalTemplateDataContext();
@@ -297,8 +296,7 @@ namespace Appleseed.PortalTemplate
                     portalModule.BaseSettings.Keys.Cast<string>().Where(
                         key =>
                         key.Equals("TARGETURL") ||
-                        ((SettingItem<string, TextBox>)portalModule.BaseSettings[key]).DataType ==
-                        PropertiesDataType.PageList))
+                        portalModule.BaseSettings[key] is PageListDataType))
                 {
                     try
                     {
@@ -345,7 +343,7 @@ namespace Appleseed.PortalTemplate
         /// The content modules.
         /// </param>
         private void SaveModuleContent(
-            rb_Portals portal, Dictionary<Guid, string> desktopSources, Dictionary<int, string> contentModules)
+            rb_Portals portal, IDictionary<Guid, string> desktopSources, IDictionary<int, string> contentModules)
         {
             var p = new Page();
             var moduleIndex = 0;

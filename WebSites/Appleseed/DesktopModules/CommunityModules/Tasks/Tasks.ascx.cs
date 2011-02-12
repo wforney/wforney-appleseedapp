@@ -207,7 +207,7 @@ namespace Appleseed.Content.Web.Modules
             setSortField.Value = "DueDate";
             _baseSettings.Add("TASKS_SORT_FIELD", setSortField);
 
-            var defaultAssignee = new SettingItem<string, TextBox>(new StringDataType());
+            var defaultAssignee = new SettingItem<string, TextBox>();
             defaultAssignee.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             defaultAssignee.Value = "nobody";
             defaultAssignee.EnglishName = "Default Assignee";

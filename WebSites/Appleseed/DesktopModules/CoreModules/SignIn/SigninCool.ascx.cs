@@ -179,41 +179,46 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public SigninCool()
         {
-            var CoolText = new SettingItem<string, TextBox>(new StringDataType());
-            CoolText.Order = 10;
-            _baseSettings.Add("CoolText", CoolText);
+            var coolText = new SettingItem<string, TextBox> { Order = 10 };
+            _baseSettings.Add("CoolText", coolText);
 
-            var HideAutomatically = new SettingItem<bool, CheckBox>(new BooleanDataType());
-            HideAutomatically.Value = true;
-            HideAutomatically.EnglishName = "Hide automatically";
-            HideAutomatically.Order = 20;
-            _baseSettings.Add("SIGNIN_AUTOMATICALLYHIDE", HideAutomatically);
+            var hideAutomatically = new SettingItem<bool, CheckBox>
+                {
+                    Value = true, EnglishName = "Hide automatically", Order = 20 
+                };
+            _baseSettings.Add("SIGNIN_AUTOMATICALLYHIDE", hideAutomatically);
 
             //1.2.8.1743b - 09/10/2003
             //New setting on Signin fo disable IE autocomplete by Mike Stone
             //If you uncheck this setting IE will not remember user name and passwords. 
             //Note that users who have memorized passwords will not be effected until their computer 
             //is reset, only new users and/or computers will honor this. 
-            var AutoComplete = new SettingItem<bool, CheckBox>(new BooleanDataType());
-            AutoComplete.Value = true;
-            AutoComplete.EnglishName = "Allow IE Autocomplete";
-            AutoComplete.Description = "If Checked IE Will try to remember logins";
-            AutoComplete.Order = 30;
-            _baseSettings.Add("SIGNIN_ALLOW_AUTOCOMPLETE", AutoComplete);
+            var autoComplete = new SettingItem<bool, CheckBox>
+                {
+                    Value = true,
+                    EnglishName = "Allow IE Autocomplete",
+                    Description = "If Checked IE Will try to remember logins",
+                    Order = 30
+                };
+            _baseSettings.Add("SIGNIN_ALLOW_AUTOCOMPLETE", autoComplete);
 
-            var RememberLogin = new SettingItem<bool, CheckBox>(new BooleanDataType());
-            RememberLogin.Value = true;
-            RememberLogin.EnglishName = "Allow Remember Login";
-            RememberLogin.Description = "If Checked allows to remember logins";
-            RememberLogin.Order = 40;
-            _baseSettings.Add("SIGNIN_ALLOW_REMEMBER_LOGIN", RememberLogin);
+            var rememberLogin = new SettingItem<bool, CheckBox>
+                {
+                    Value = true,
+                    EnglishName = "Allow Remember Login",
+                    Description = "If Checked allows to remember logins",
+                    Order = 40
+                };
+            _baseSettings.Add("SIGNIN_ALLOW_REMEMBER_LOGIN", rememberLogin);
 
-            var SendPassword = new SettingItem<bool, CheckBox>(new BooleanDataType());
-            SendPassword.Value = true;
-            SendPassword.EnglishName = "Allow Send Password";
-            SendPassword.Description = "If Checked allows user to ask to get password by email if he forgotten";
-            SendPassword.Order = 50;
-            _baseSettings.Add("SIGNIN_ALLOW_SEND_PASSWORD", SendPassword);
+            var sendPassword = new SettingItem<bool, CheckBox>
+                {
+                    Value = true,
+                    EnglishName = "Allow Send Password",
+                    Description = "If Checked allows user to ask to get password by email if he forgotten",
+                    Order = 50
+                };
+            _baseSettings.Add("SIGNIN_ALLOW_SEND_PASSWORD", sendPassword);
         }
 
         #region General Implementation

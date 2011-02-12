@@ -42,7 +42,7 @@ namespace Appleseed.Framework.DataTypes
         /// </remarks>
         public HtmlEditorDataType()
         {
-            this.Type = PropertiesDataType.List;
+            // this.Type = PropertiesDataType.List;
             this.InitializeComponents();
         }
 
@@ -104,7 +104,7 @@ namespace Appleseed.Framework.DataTypes
                     Description = "Select the Html Editor for Module"
                 };
 
-            var controlWidth = new SettingItem<int, TextBox>(new IntegerDataType())
+            var controlWidth = new SettingItem<int, TextBox>(new BaseDataType<int, TextBox>())
                 {
                     Value = 700, 
                     Order = (int)group + 2, 
@@ -113,7 +113,7 @@ namespace Appleseed.Framework.DataTypes
                     Description = "The width of editor control"
                 };
 
-            var controlHeight = new SettingItem<int, TextBox>(new IntegerDataType())
+            var controlHeight = new SettingItem<int, TextBox>(new BaseDataType<int, TextBox>())
                 {
                     Value = 400, 
                     Order = (int)group + 3, 
@@ -122,7 +122,7 @@ namespace Appleseed.Framework.DataTypes
                     Description = "The height of editor control"
                 };
 
-            var showUpload = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var showUpload = new SettingItem<bool, CheckBox>(new BaseDataType<bool, CheckBox>())
                 {
                     Value = true, 
                     Order = (int)group + 4, 

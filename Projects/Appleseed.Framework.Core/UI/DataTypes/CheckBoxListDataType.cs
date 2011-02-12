@@ -43,7 +43,7 @@ namespace Appleseed.Framework.DataTypes
         /// </param>
         public CheckBoxListDataType(object dataSource, string textField, string dataField)
         {
-            this.Type = PropertiesDataType.List;
+            // this.Type = PropertiesDataType.List;
             this.InnerDataSource = dataSource;
             this.DataTextField = textField;
             this.DataValueField = dataField;

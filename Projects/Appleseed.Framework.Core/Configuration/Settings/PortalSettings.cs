@@ -1424,7 +1424,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_ALT_THEME", themeAlt);
 
                 // Jes1111 - 2004-08-06 - Zen support
-                var allowModuleCustomThemes = new SettingItem<bool, CheckBox>(new BooleanDataType())
+                var allowModuleCustomThemes = new SettingItem<bool, CheckBox>
                     {
                         Order = groupOrderBase + 25, 
                         Group = group, 
@@ -1440,7 +1440,7 @@ namespace Appleseed.Framework.Site.Configuration
                 // Show input for Portal Administrators when using Windows Authentication and Multi-portal
                 // cisakson@yahoo.com 28.April.2003
                 // This setting is removed in Global.asa for non-Windows authentication sites.
-                var portalAdmins = new SettingItem<string, TextBox>(new StringDataType())
+                var portalAdmins = new SettingItem<string, TextBox>
                     {
                         Order = groupOrderBase + 5, 
                         Group = group, 
@@ -1454,7 +1454,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("WindowsAdmins", portalAdmins);
 
                 // Allow new registrations?
-                var allowNewRegistrations = new SettingItem<bool, CheckBox>(new BooleanDataType())
+                var allowNewRegistrations = new SettingItem<bool, CheckBox>
                     {
                         Order = groupOrderBase + 10, 
                         Group = group, 
@@ -1499,7 +1499,7 @@ namespace Appleseed.Framework.Site.Configuration
 
                 // MH:end
                 // Register Layout Setting module id reference by manu
-                var regModuleId = new SettingItem<int, TextBox>(new IntegerDataType())
+                var regModuleId = new SettingItem<int, TextBox>
                     {
                         Value = 0, 
                         Required = true, 
@@ -1512,7 +1512,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_REGISTER_MODULEID", regModuleId);
 
                 // Send mail on new registration to
-                var onRegisterSendTo = new SettingItem<string, TextBox>(new StringDataType())
+                var onRegisterSendTo = new SettingItem<string, TextBox>
                     {
                         Value = string.Empty, 
                         Required = false, 
@@ -1524,7 +1524,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_ON_REGISTER_SEND_TO", onRegisterSendTo);
 
                 // Send mail on new registration to User from
-                var onRegisterSendFrom = new SettingItem<string, TextBox>(new StringDataType())
+                var onRegisterSendFrom = new SettingItem<string, TextBox>
                     {
                         Value = string.Empty, 
                         Required = false, 
@@ -1574,7 +1574,7 @@ namespace Appleseed.Framework.Site.Configuration
                 group = SettingItemGroup.META_SETTINGS;
 
                 // added: Jes1111 - page DOCTYPE setting
-                var docType = new SettingItem<string, TextBox>(new StringDataType())
+                var docType = new SettingItem<string, TextBox>
                     {
                         Order = groupOrderBase + 5, 
                         Group = group, 
@@ -1587,7 +1587,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_DOCTYPE", docType);
 
                 // by John Mandia <john.mandia@whitelightsolutions.com>
-                var tabTitle = new SettingItem<string, TextBox>(new StringDataType())
+                var tabTitle = new SettingItem<string, TextBox>
                     {
                         Order = groupOrderBase + 10, 
                         Group = group, 
@@ -1599,7 +1599,7 @@ namespace Appleseed.Framework.Site.Configuration
                 /*
                  * John Mandia: Removed This Setting. Now You can define specific Url Keywords via Tab Settings only. This is to speed up url building.
                  * 
-                SettingItem TabUrlKeyword = new SettingItem<string, TextBox>(new StringDataType());
+                SettingItem TabUrlKeyword = new SettingItem<string, TextBox>;
                 TabUrlKeyword.Order = _groupOrderBase + 15;
                 TabUrlKeyword.Group = _Group;
                 TabUrlKeyword.Value = "Portal";
@@ -1607,7 +1607,7 @@ namespace Appleseed.Framework.Site.Configuration
                 TabUrlKeyword.Description = "This setting is not fully implemented yet. It was to help with search engine optimisation by allowing you to specify a default keyword that would appear in your url."; 
                 _baseSettings.Add("SITESETTINGS_PAGE_URL_KEYWORD", TabUrlKeyword);
                 */
-                var tabMetaKeyWords = new SettingItem<string, TextBox>(new StringDataType())
+                var tabMetaKeyWords = new SettingItem<string, TextBox>
                     {
                         Order = groupOrderBase + 15, 
                         Group = group, 
@@ -1618,7 +1618,7 @@ namespace Appleseed.Framework.Site.Configuration
 
                 // john.mandia@whitelightsolutions.com: No Default Value In Case People Don't want Meta Keywords; http://sourceforge.net/tracker/index.php?func=detail&aid=915614&group_id=66837&atid=515929
                 baseSettings.Add("SITESETTINGS_PAGE_META_KEYWORDS", tabMetaKeyWords);
-                var tabMetaDescription = new SettingItem<string, TextBox>(new StringDataType())
+                var tabMetaDescription = new SettingItem<string, TextBox>
                     {
                         Order = groupOrderBase + 20, 
                         Group = group, 
@@ -1629,7 +1629,7 @@ namespace Appleseed.Framework.Site.Configuration
 
                 // john.mandia@whitelightsolutions.com: No Default Value In Case People Don't want a defautl descripton
                 baseSettings.Add("SITESETTINGS_PAGE_META_DESCRIPTION", tabMetaDescription);
-                var tabMetaEncoding = new SettingItem<string, TextBox>(new StringDataType())
+                var tabMetaEncoding = new SettingItem<string, TextBox>
                     {
                         Order = groupOrderBase + 25, 
                         Group = group, 
@@ -1639,7 +1639,7 @@ namespace Appleseed.Framework.Site.Configuration
                         Value = "<META http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1252\" />"
                     };
                 baseSettings.Add("SITESETTINGS_PAGE_META_ENCODING", tabMetaEncoding);
-                var tabMetaOther = new SettingItem<string, TextBox>(new StringDataType())
+                var tabMetaOther = new SettingItem<string, TextBox>
                     {
                         Order = groupOrderBase + 30, 
                         Group = group, 
@@ -1649,7 +1649,7 @@ namespace Appleseed.Framework.Site.Configuration
                         Value = string.Empty
                     };
                 baseSettings.Add("SITESETTINGS_PAGE_META_OTHERS", tabMetaOther);
-                var tabKeyPhrase = new SettingItem<string, TextBox>(new StringDataType())
+                var tabKeyPhrase = new SettingItem<string, TextBox>
                     {
                         Order = groupOrderBase + 35, 
                         Group = group, 
@@ -1661,7 +1661,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_PAGE_KEY_PHRASE", tabKeyPhrase);
 
                 // added: Jes1111 - <body> element attributes setting
-                var bodyAttributes = new SettingItem<string, TextBox>(new StringDataType())
+                var bodyAttributes = new SettingItem<string, TextBox>
                     {
                         Order = groupOrderBase + 45, 
                         Group = group, 
@@ -1673,7 +1673,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_BODYATTS", bodyAttributes);
 
                 // end by John Mandia <john.mandia@whitelightsolutions.com>
-                var glAnalytics = new SettingItem<string, TextBox>(new StringDataType())
+                var glAnalytics = new SettingItem<string, TextBox>
                     {
                         Order = groupOrderBase + 50, 
                         Group = group, 
@@ -1683,7 +1683,7 @@ namespace Appleseed.Framework.Site.Configuration
                     };
                 baseSettings.Add("SITESETTINGS_GOOGLEANALYTICS", glAnalytics);
 
-                var alternativeUrl = new SettingItem<string, TextBox>(new StringDataType())
+                var alternativeUrl = new SettingItem<string, TextBox>
                     {
                         Order = groupOrderBase + 55, 
                         Group = group, 
@@ -1693,7 +1693,7 @@ namespace Appleseed.Framework.Site.Configuration
                     };
                 baseSettings.Add("SITESETTINGS_ALTERNATIVE_URL", alternativeUrl);
 
-                var addThisUsername = new SettingItem<string, TextBox>(new StringDataType())
+                var addThisUsername = new SettingItem<string, TextBox>
                     {
                         Order = groupOrderBase + 56, 
                         Group = group, 
@@ -1702,9 +1702,7 @@ namespace Appleseed.Framework.Site.Configuration
                         Value = "appleseedapp"
                     };
                 baseSettings.Add("SITESETTINGS_ADDTHIS_USERNAME", addThisUsername);
-
                 
-
                 #region Language/Culture Management
 
                 groupOrderBase = (int)SettingItemGroup.CULTURE_SETTINGS;
@@ -1749,7 +1747,7 @@ namespace Appleseed.Framework.Site.Configuration
                 group = SettingItemGroup.MISC_SETTINGS;
 
                 // Show modified by summary on/off
-                var showModifiedBy = new SettingItem<bool, CheckBox>(new BooleanDataType())
+                var showModifiedBy = new SettingItem<bool, CheckBox>
                     {
                         Order = groupOrderBase + 10, 
                         Group = group, 
@@ -1771,7 +1769,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_DEFAULT_EDITOR", defaultEditor);
 
                 // Default Editor Width. jviladiu@portalServices.net 13/07/2004
-                var defaultWidth = new SettingItem<int, TextBox>(new IntegerDataType())
+                var defaultWidth = new SettingItem<int, TextBox>
                     {
                         Order = groupOrderBase + 25, 
                         Group = group, 
@@ -1782,7 +1780,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_EDITOR_WIDTH", defaultWidth);
 
                 // Default Editor Height. jviladiu@portalServices.net 13/07/2004
-                var defaultHeight = new SettingItem<int, TextBox>(new IntegerDataType())
+                var defaultHeight = new SettingItem<int, TextBox>
                     {
                         Order = groupOrderBase + 30, 
                         Group = group, 
@@ -1793,7 +1791,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_EDITOR_HEIGHT", defaultHeight);
 
                 // Show Upload (Active up editor only). jviladiu@portalServices.net 13/07/2004
-                var showUpload = new SettingItem<bool, CheckBox>(new BooleanDataType())
+                var showUpload = new SettingItem<bool, CheckBox>
                     {
                         Value = true, 
                         Order = groupOrderBase + 35, 
@@ -1822,7 +1820,7 @@ namespace Appleseed.Framework.Site.Configuration
                 group = SettingItemGroup.MISC_SETTINGS;
 
                 // Show module arrows to an administrator
-                var showModuleArrows = new SettingItem<bool, CheckBox>(new BooleanDataType())
+                var showModuleArrows = new SettingItem<bool, CheckBox>
                     {
                         Order = groupOrderBase + 50, 
                         Group = group, 
@@ -1834,7 +1832,7 @@ namespace Appleseed.Framework.Site.Configuration
 
                 // BOWEN 11 June 2005
                 // Use Recycler Module for deleted modules
-                var useRecycler = new SettingItem<bool, CheckBox>(new BooleanDataType())
+                var useRecycler = new SettingItem<bool, CheckBox>
                     {
                         Order = groupOrderBase + 55, 
                         Group = group, 

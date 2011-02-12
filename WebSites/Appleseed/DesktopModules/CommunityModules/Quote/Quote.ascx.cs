@@ -141,7 +141,7 @@ namespace Appleseed.Content.Web.Modules
                 };
             _baseSettings.Add("Quote file", setQuoteFile);
 
-            var setMyQuote = new SettingItem<string, TextBox>(new StringDataType())
+            var setMyQuote = new SettingItem<string, TextBox>
                 {
                     Value = "Enter your a quote here!",
                     Order = 3,
@@ -161,7 +161,7 @@ namespace Appleseed.Content.Web.Modules
                     };
             _baseSettings.Add("Text size", setTextSize);
 
-            var setDisplayInItalic = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var setDisplayInItalic = new SettingItem<bool, CheckBox>
                 {
                     Value = true,
                     Order = 5,
@@ -170,7 +170,7 @@ namespace Appleseed.Content.Web.Modules
                 };
             _baseSettings.Add("Display in italic", setDisplayInItalic);
 
-            var setDisplayInBold = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var setDisplayInBold = new SettingItem<bool, CheckBox>
                 {
                     Value = false,
                     Order = 6,
@@ -179,7 +179,7 @@ namespace Appleseed.Content.Web.Modules
                 };
             _baseSettings.Add("Display in bold", setDisplayInBold);
 
-            var setStartTag = new SettingItem<string, TextBox>(new StringDataType())
+            var setStartTag = new SettingItem<string, TextBox>
                 {
                     Value = string.Empty,
                     Order = 7,
@@ -189,7 +189,7 @@ namespace Appleseed.Content.Web.Modules
                 };
             _baseSettings.Add("Start tag", setStartTag);
 
-            var setEndTag = new SettingItem<string, TextBox>(new StringDataType())
+            var setEndTag = new SettingItem<string, TextBox>
                 {
                     Value = string.Empty,
                     Order = 8,

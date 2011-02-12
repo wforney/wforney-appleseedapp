@@ -299,7 +299,7 @@ namespace Appleseed.Content.Web.Modules
                     new SettingOption(2, General.GetString("ENHANCEDLINKS_LINKS", "Links", null))
                 };
 
-            var maxColums = new SettingItem<int, TextBox>(new IntegerDataType())
+            var maxColums = new SettingItem<int, TextBox>()
                 {
                     Value = 1, 
                     EnglishName = "Max Colums", 
@@ -329,7 +329,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             _baseSettings.Add("ENHANCEDLINKS_SWITCHERTYPES", labelStyleLink);
 
-            var imageDefault = new SettingItem<string, TextBox>(new StringDataType())
+            var imageDefault = new SettingItem<string, TextBox>()
                 {
                     Value = "navLink.gif",
                     EnglishName = "Default Image for link",
@@ -344,7 +344,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             _baseSettings.Add("ENHANCEDLINKS_DEFAULTIMAGE", imageDefault);
 
-            var expandAll = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var expandAll = new SettingItem<bool, CheckBox>()
                 {
                     Value = false,
                     EnglishName = "Show Description",

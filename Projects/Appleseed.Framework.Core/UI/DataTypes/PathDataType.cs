@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="PathDataType.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   Path Data Type
@@ -9,25 +9,13 @@
 
 namespace Appleseed.Framework.DataTypes
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// Path Data Type
     /// </summary>
-    public class PathDataType : StringDataType
+    public class PathDataType : BaseDataType<string, TextBox>
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "PathDataType" /> class.
-        /// </summary>
-        public PathDataType()
-        {
-            this.Type = PropertiesDataType.String;
-
-            // InitializeComponents();
-        }
-
-        #endregion
-
         #region Properties
 
         /// <summary>

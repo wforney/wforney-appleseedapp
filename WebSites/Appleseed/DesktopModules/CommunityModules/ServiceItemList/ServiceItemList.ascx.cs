@@ -351,13 +351,13 @@ namespace Appleseed.Content.Web.Modules
             setURL.Value = new Uri("http://www.Appleseedportal.net/");
             _baseSettings.Add("URL", setURL);
 
-            var setPortalAlias = new SettingItem<string, TextBox>(new StringDataType());
+            var setPortalAlias = new SettingItem<string, TextBox>();
             setPortalAlias.Order = 2;
             setPortalAlias.Required = false;
             setPortalAlias.Value = string.Empty;
             _baseSettings.Add("PortalAlias", setPortalAlias);
 
-            var setLocalMode = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var setLocalMode = new SettingItem<bool, CheckBox>();
             setLocalMode.Order = 3;
             setLocalMode.Value = false;
             _baseSettings.Add("LocalMode", setLocalMode);
@@ -371,7 +371,7 @@ namespace Appleseed.Content.Web.Modules
             setModuleType.Value = "All";
             _baseSettings.Add("ModuleType", setModuleType);
 
-            var setMaxHits = new SettingItem<int, TextBox>(new IntegerDataType());
+            var setMaxHits = new SettingItem<int, TextBox>();
             setMaxHits.Order = 5;
             setMaxHits.Required = true;
             setMaxHits.Value = 20;
@@ -379,18 +379,18 @@ namespace Appleseed.Content.Web.Modules
             setMaxHits.MaxValue = 1000;
             _baseSettings.Add("MaxHits", setMaxHits);
 
-            var setShowID = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var setShowID = new SettingItem<bool, CheckBox>();
             setShowID.Order = 6;
             setShowID.Value = false;
             _baseSettings.Add("ShowID", setShowID);
 
-            var setSearchString = new SettingItem<string, TextBox>(new StringDataType());
+            var setSearchString = new SettingItem<string, TextBox>();
             setSearchString.Order = 7;
             setSearchString.Required = false;
             setSearchString.Value = "localization";
             _baseSettings.Add("SearchString", setSearchString);
 
-            var setSearchField = new SettingItem<string, TextBox>(new StringDataType());
+            var setSearchField = new SettingItem<string, TextBox>();
             setSearchField.Order = 8;
             setSearchField.Required = false;
             setSearchField.Value = string.Empty;
@@ -409,12 +409,12 @@ namespace Appleseed.Content.Web.Modules
             setSortDirection.Value = "ASC";
             _baseSettings.Add("SortDirection", setSortDirection);
 
-            var setMobileOnly = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var setMobileOnly = new SettingItem<bool, CheckBox>();
             setMobileOnly.Order = 11;
             setMobileOnly.Value = false;
             _baseSettings.Add("MobileOnly", setMobileOnly);
 
-            var setIDList = new SettingItem<string, TextBox>(new StringDataType());
+            var setIDList = new SettingItem<string, TextBox>();
             setIDList.Order = 12;
             setIDList.Required = false;
             setIDList.Value = string.Empty;
@@ -426,53 +426,53 @@ namespace Appleseed.Content.Web.Modules
             setIDListType.Value = "Tab";
             _baseSettings.Add("IDListType", setIDListType);
 
-            var setTag = new SettingItem<int, TextBox>(new IntegerDataType());
+            var setTag = new SettingItem<int, TextBox>();
             setTag.Order = 14;
             setTag.Required = true;
             setTag.Value = 0;
             _baseSettings.Add("Tag", setTag);
 
-            //var showImage = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            //var showImage = new SettingItem<bool, CheckBox>();
             //showImage.Order = 15;
             //showImage.Value = true;
             //this._baseSettings.Add("ShowImage", showImage);
 
-            var setShowModuleFriendlyName = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var setShowModuleFriendlyName = new SettingItem<bool, CheckBox>();
             setShowModuleFriendlyName.Order = 16;
             setShowModuleFriendlyName.Value = true;
             _baseSettings.Add("ShowModuleFriendlyName", setShowModuleFriendlyName);
 
-            var setShowSearchTitle = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var setShowSearchTitle = new SettingItem<bool, CheckBox>();
             setShowSearchTitle.Order = 17;
             setShowSearchTitle.Value = true;
             _baseSettings.Add("ShowSearchTitle", setShowSearchTitle);
 
-            var setShowDescription = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var setShowDescription = new SettingItem<bool, CheckBox>();
             setShowDescription.Order = 18;
             setShowDescription.Value = true;
             _baseSettings.Add("ShowDescription", setShowDescription);
 
-            var setShowCreatedByUser = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var setShowCreatedByUser = new SettingItem<bool, CheckBox>();
             setShowCreatedByUser.Order = 19;
             setShowCreatedByUser.Value = true;
             _baseSettings.Add("ShowCreatedByUser", setShowCreatedByUser);
 
-            var setShowCreatedDate = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var setShowCreatedDate = new SettingItem<bool, CheckBox>();
             setShowCreatedDate.Order = 20;
             setShowCreatedDate.Value = true;
             _baseSettings.Add("ShowCreatedDate", setShowCreatedDate);
 
-            var setShowLink = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var setShowLink = new SettingItem<bool, CheckBox>();
             setShowLink.Order = 21;
             setShowLink.Value = false;
             _baseSettings.Add("ShowLink", setShowLink);
 
-            var setShowTabName = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var setShowTabName = new SettingItem<bool, CheckBox>();
             setShowTabName.Order = 22;
             setShowTabName.Value = true;
             _baseSettings.Add("ShowTabName", setShowTabName);
 
-            var setShowModuleTitle = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var setShowModuleTitle = new SettingItem<bool, CheckBox>();
             setShowModuleTitle.Order = 23;
             setShowModuleTitle.Value = false;
             _baseSettings.Add("ShowModuleTitle", setShowModuleTitle);
@@ -484,13 +484,13 @@ namespace Appleseed.Content.Web.Modules
             _baseSettings.Add("Target", setTarget);
 
             /* Jakob says: later...
-            var setUserName = new SettingItem<string, TextBox>(new StringDataType());
+            var setUserName = new SettingItem<string, TextBox>();
             setUserName.Order = 25;
             setUserName.Required = false;
             setUserName.Value = string.Empty;
             this._baseSettings.Add("UserName", setUserName);
 
-            var setUserPassword = new SettingItem<string, TextBox>(new StringDataType());
+            var setUserPassword = new SettingItem<string, TextBox>();
             setUserPassword.Order = 26;
             setUserPassword.Required = false;
             setUserPassword.Value = string.Empty;

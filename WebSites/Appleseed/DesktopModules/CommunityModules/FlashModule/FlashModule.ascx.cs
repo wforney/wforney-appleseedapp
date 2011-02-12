@@ -44,27 +44,27 @@ namespace Appleseed.Content.Web.Modules
             SettingItemGroup group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             int groupBase = (int) group;
 
-            var src = new SettingItem<string, TextBox>(new StringDataType());
+            var src = new SettingItem<string, TextBox>();
             src.Required = true;
             src.Group = group;
             src.Order = groupBase + 20; //1;
             _baseSettings.Add("src", src);
 
-            var width = new SettingItem<string, TextBox>(new StringDataType());
+            var width = new SettingItem<string, TextBox>();
             //	width.MinValue = 1;
             //	width.MaxValue = 400;
             width.Group = group;
             width.Order = groupBase + 25; //2;
             _baseSettings.Add("width", width);
 
-            var height = new SettingItem<string, TextBox>(new StringDataType());
+            var height = new SettingItem<string, TextBox>();
             //	height.MinValue = 1;
             //	height.MaxValue = 200;
             height.Group = group;
             height.Order = groupBase + 30; //3;
             _baseSettings.Add("height", height);
 
-            var backColor = new SettingItem<string, TextBox>(new StringDataType());
+            var backColor = new SettingItem<string, TextBox>();
             backColor.Required = false;
             backColor.Value = "#FFFFFF";
             backColor.Group = group;

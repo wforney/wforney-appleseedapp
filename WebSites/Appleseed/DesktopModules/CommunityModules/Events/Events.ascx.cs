@@ -80,7 +80,7 @@ namespace Appleseed.Content.Web.Modules
             RepeatDirection.Order = groupBase + 20; //10;
             _baseSettings.Add("RepeatDirectionSetting", RepeatDirection);
 
-            var RepeatColumn = new SettingItem<int, TextBox>(new IntegerDataType());
+            var RepeatColumn = new SettingItem<int, TextBox>();
             RepeatColumn.Group = group; // SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             RepeatColumn.Required = true;
             RepeatColumn.Value = 1;
@@ -89,14 +89,14 @@ namespace Appleseed.Content.Web.Modules
             RepeatColumn.Order = groupBase + 25; // 20;
             _baseSettings.Add("RepeatColumns", RepeatColumn);
 
-            var showItemBorder = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var showItemBorder = new SettingItem<bool, CheckBox>();
             showItemBorder.Group = group; //SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             showItemBorder.Order = groupBase + 30;
             showItemBorder.Value = false;
             _baseSettings.Add("ShowBorder", showItemBorder);
             //End Indah	Fuldner
 
-            var DelayExpire = new SettingItem<int, TextBox>(new IntegerDataType());
+            var DelayExpire = new SettingItem<int, TextBox>();
             DelayExpire.Group = group; //SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             DelayExpire.Order = groupBase + 35; // 40;
             DelayExpire.Value = 365; // 1	year
@@ -109,7 +109,7 @@ namespace Appleseed.Content.Web.Modules
             //					Default is false for backward compatibility
             //					Must edit collection properties and set to true
             //					to show calendar
-            var ShowCalendar = new SettingItem<bool, CheckBox>(new BooleanDataType());
+            var ShowCalendar = new SettingItem<bool, CheckBox>();
             ShowCalendar.Group = group; //SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             ShowCalendar.Order = groupBase + 40; // 50;
             ShowCalendar.Value = false;

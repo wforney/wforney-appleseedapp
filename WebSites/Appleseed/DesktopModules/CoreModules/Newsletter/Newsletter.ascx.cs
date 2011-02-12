@@ -271,7 +271,7 @@ namespace Appleseed.Content.Web.Modules
         #endregion
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:SendNewsletter"/> class.
+        /// Initializes a new instance of the <see cref="SendNewsletter"/> class.
         /// </summary>
         public SendNewsletter()
         {
@@ -279,15 +279,15 @@ namespace Appleseed.Content.Web.Modules
             const SettingItemGroup Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             const int GroupBase = (int)Group;
 
-            var defaultEmail = new SettingItem<string, TextBox>(new StringDataType())
+            var defaultEmail = new SettingItem<string, TextBox>
                 { EnglishName = "Sender Email", Group = Group, Order = GroupBase + 20 };
             _baseSettings.Add("NEWSLETTER_DEFAULTEMAIL", defaultEmail);
 
-            var defaultName = new SettingItem<string, TextBox>(new StringDataType())
+            var defaultName = new SettingItem<string, TextBox>
                 { Group = Group, Order = GroupBase + 25, EnglishName = "Sender Name" };
             _baseSettings.Add("NEWSLETTER_DEFAULTNAME", defaultName);
 
-            var testMode = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var testMode = new SettingItem<bool, CheckBox>
                 {
                     Value = false,
                     Group = Group,
@@ -299,40 +299,48 @@ namespace Appleseed.Content.Web.Modules
             _baseSettings.Add("TestMode", testMode);
 
             //SettingItem HTMLTemplate = new SettingItem(new CustomListDataType(new Appleseed.Framework.Site.Configuration.ModulesDB().GetModuleDefinitionByGuid(p, new Guid("{0B113F51-FEA3-499A-98E7-7B83C192FDBB}")), "ModuleTitle", "ModuleID"));
-            var HTMLTemplate = new SettingItem<string, ListControl>(new ModuleListDataType("Html Document"));
-            HTMLTemplate.Value = "0";
-            HTMLTemplate.Group = Group;
-            HTMLTemplate.Order = GroupBase + 35;
-            HTMLTemplate.EnglishName = "HTML Template";
-            HTMLTemplate.Description =
-                "Select an HTML module that the will be used as base for this newsletter sent with this module.";
-            _baseSettings.Add("NEWSLETTER_HTMLTEMPLATE", HTMLTemplate);
+            var htmlTemplate = new SettingItem<string, ListControl>(new ModuleListDataType("Html Document"))
+                {
+                    Value = "0",
+                    Group = Group,
+                    Order = GroupBase + 35,
+                    EnglishName = "HTML Template",
+                    Description =
+                        "Select an HTML module that the will be used as base for this newsletter sent with this module."
+                };
+            _baseSettings.Add("NEWSLETTER_HTMLTEMPLATE", htmlTemplate);
 
-            var LoginHomePage = new SettingItem<string, TextBox>(new StringDataType());
-            LoginHomePage.EnglishName = "Site URL";
-            LoginHomePage.Group = Group;
-            LoginHomePage.Order = GroupBase + 40;
-            LoginHomePage.Description =
-                "The Url or the Home page of the site used for build the instant login url. Leave blank if using the current site.";
-            _baseSettings.Add("NEWSLETTER_LOGINHOMEPAGE", LoginHomePage);
+            var loginHomePage = new SettingItem<string, TextBox>
+                {
+                    EnglishName = "Site URL",
+                    Group = Group,
+                    Order = GroupBase + 40,
+                    Description =
+                        "The Url or the Home page of the site used for build the instant login url. Leave blank if using the current site."
+                };
+            _baseSettings.Add("NEWSLETTER_LOGINHOMEPAGE", loginHomePage);
 
-            var DoNotResendWithin = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("1;2;3;4;5;6;7;10;15;30;60;90"));
-            DoNotResendWithin.Value = "7";
-            DoNotResendWithin.Group = Group;
-            DoNotResendWithin.Order = GroupBase + 45;
-            DoNotResendWithin.EnglishName = "Do not resend within (days)";
-            DoNotResendWithin.Description =
-                "To avoid spam and duplicate sent you cannot email an user more than one time in specifed number of days.";
-            _baseSettings.Add("NEWSLETTER_DONOTRESENDWITHIN", DoNotResendWithin);
+            var doNotResendWithin = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("1;2;3;4;5;6;7;10;15;30;60;90"))
+                {
+                    Value = "7",
+                    Group = Group,
+                    Order = GroupBase + 45,
+                    EnglishName = "Do not resend within (days)",
+                    Description =
+                        "To avoid spam and duplicate sent you cannot email an user more than one time in specifed number of days."
+                };
+            _baseSettings.Add("NEWSLETTER_DONOTRESENDWITHIN", doNotResendWithin);
 
-            var UserBlock = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("50;100;200;250;300;1000;1500;5000"));
-            UserBlock.EnglishName = "Group users";
-            UserBlock.Group = Group;
-            UserBlock.Order = GroupBase + 50;
-            UserBlock.Description =
-                "Select the maximum number of users. For sending emails to all you have to repeat the process. Use small values to avoid server timeouts.";
-            UserBlock.Value = "250";
-            _baseSettings.Add("NEWSLETTER_USERBLOCK", UserBlock);
+            var userBlock = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("50;100;200;250;300;1000;1500;5000"))
+                {
+                    EnglishName = "Group users",
+                    Group = Group,
+                    Order = GroupBase + 50,
+                    Description =
+                        "Select the maximum number of users. For sending emails to all you have to repeat the process. Use small values to avoid server timeouts.",
+                    Value = "250"
+                };
+            _baseSettings.Add("NEWSLETTER_USERBLOCK", userBlock);
         }
 
         /// <summary>

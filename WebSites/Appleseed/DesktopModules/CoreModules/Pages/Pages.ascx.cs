@@ -74,7 +74,7 @@ namespace Appleseed.Content.Web.Modules
         {
             // EHN: Add new version control for tabs module. 
             //      Mike Stone - 19/12/2004
-            var pageVersion = new SettingItem<bool, CheckBox>(new BooleanDataType())
+            var pageVersion = new SettingItem<bool, CheckBox>()
                 {
                     Value = true,
                     EnglishName = "Use Old Version?",

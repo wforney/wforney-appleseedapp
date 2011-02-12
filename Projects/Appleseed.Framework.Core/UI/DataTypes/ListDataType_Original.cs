@@ -34,7 +34,7 @@ namespace Appleseed.Framework.DataTypes
         /// </summary>
         public ListDataType()
         {
-            this.Type = PropertiesDataType.List;
+            // this.Type = PropertiesDataType.List;
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Appleseed.Framework.DataTypes
         /// <param name="csvList">The CSV list.</param>
         public ListDataType(string csvList)
         {
-            this.Type = PropertiesDataType.List;
+            // this.Type = PropertiesDataType.List;
             this.InnerDataSource = csvList;
 
             // InitializeComponents();
@@ -55,7 +55,7 @@ namespace Appleseed.Framework.DataTypes
         /// <param name="fileList">The file list.</param>
         public ListDataType(IEnumerable<FileInfo> fileList)
         {
-            this.Type = PropertiesDataType.List;
+            // this.Type = PropertiesDataType.List;
             this.InnerDataSource = fileList;
 
             // this._dataTextField = "Name";
@@ -72,7 +72,7 @@ namespace Appleseed.Framework.DataTypes
         /// <param name="dataField">The data field.</param>
         public ListDataType(object dataSource, string textField, string dataField)
         {
-            this.Type = PropertiesDataType.List;
+            // this.Type = PropertiesDataType.List;
             this.InnerDataSource = dataSource;
             this.DataTextField = textField;
             this.DataValueField = dataField;

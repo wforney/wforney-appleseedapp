@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ApplicationUrlDataType.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   Application URL Data Type
@@ -14,18 +14,6 @@ namespace Appleseed.Framework.DataTypes
     /// </summary>
     public class ApplicationUrlDataType : UrlDataType
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "ApplicationUrlDataType" /> class.
-        /// </summary>
-        public ApplicationUrlDataType()
-        {
-            this.Type = PropertiesDataType.String;
-        }
-
-        #endregion
-
         #region Properties
 
         /// <summary>
