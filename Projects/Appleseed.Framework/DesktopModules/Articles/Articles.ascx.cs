@@ -46,7 +46,7 @@ namespace Appleseed.Content.Web.Modules
         {
             this.SupportsWorkflow = true;
 
-            if (this.portalSettings == null)
+            if (this.PortalSettings == null)
             {
                 return;
             }
@@ -62,7 +62,7 @@ namespace Appleseed.Content.Web.Modules
             // Set Editor Settings jviladiu@portalservices.net 2004/07/30
             // modified by Hongwei Shen
             // HtmlEditorDataType.HtmlEditorSettings (this._baseSettings, SettingItemGroup.MODULE_SPECIAL_SETTINGS);
-            HtmlEditorDataType.HtmlEditorSettings(this._baseSettings, Group);
+            HtmlEditorDataType.HtmlEditorSettings(this.BaseSettings, Group);
 
             // end of modification
 
@@ -77,7 +77,7 @@ namespace Appleseed.Content.Web.Modules
             // ShowDate.Order = 10;
 
             // end of modification
-            this._baseSettings.Add("ShowDate", showDate);
+            this.BaseSettings.Add("ShowDate", showDate);
 
             // Added by Rob Siera
             var defaultVisibleDays = new SettingItem<int, TextBox>
@@ -90,7 +90,7 @@ namespace Appleseed.Content.Web.Modules
             // DefaultVisibleDays.Order = 20;
 
             // end of modification
-            this._baseSettings.Add("DefaultVisibleDays", defaultVisibleDays);
+            this.BaseSettings.Add("DefaultVisibleDays", defaultVisibleDays);
 
             var richAbstract = new SettingItem<bool, CheckBox>
                 {
@@ -106,13 +106,13 @@ namespace Appleseed.Content.Web.Modules
             // RichAbstract.Order = 30;
 
             // end of modification
-            this._baseSettings.Add("ARTICLES_RICHABSTRACT", richAbstract);
+            this.BaseSettings.Add("ARTICLES_RICHABSTRACT", richAbstract);
 
             var users = new UsersDB();
             var rolesViewExpiredItems =
                 new SettingItem<string, CheckBoxList>(
                     new CheckBoxListDataType(
-                        users.GetPortalRoles(this.portalSettings.PortalAlias), "RoleName", "RoleName"))
+                        users.GetPortalRoles(this.PortalSettings.PortalAlias), "RoleName", "RoleName"))
                     {
                         Value = "Admins",
                         EnglishName = "Expired items visible to",
@@ -126,7 +126,7 @@ namespace Appleseed.Content.Web.Modules
             // RolesViewExpiredItems.Order = 40;
 
             // end of modification
-            this._baseSettings.Add("EXPIRED_PERMISSION_ROLE", rolesViewExpiredItems);
+            this.BaseSettings.Add("EXPIRED_PERMISSION_ROLE", rolesViewExpiredItems);
         }
 
         #endregion

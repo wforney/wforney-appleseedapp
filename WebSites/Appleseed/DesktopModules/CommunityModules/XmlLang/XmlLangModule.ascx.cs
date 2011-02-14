@@ -42,10 +42,10 @@ namespace Appleseed.Content.Web.Modules
         public XmlLangModule()
         {
             var xmlSrc = new SettingItem<string, TextBox>(new PortalUrlDataType()) { Required = true, Order = 1 };
-            this._baseSettings.Add("XMLsrc", xmlSrc);
+            this.BaseSettings.Add("XMLsrc", xmlSrc);
 
             var xslSrc = new SettingItem<string, TextBox>(new PortalUrlDataType()) { Required = true, Order = 2 };
-            this._baseSettings.Add("XSLsrc", xslSrc);
+            this.BaseSettings.Add("XSLsrc", xslSrc);
 
             this.SupportsWorkflow = false;
             this.SupportsBack = false;
@@ -101,7 +101,7 @@ namespace Appleseed.Content.Web.Modules
 
             var xd = new XPathDocument(xmlsrc);
             var xs = XslHelper.GetXslt(xslsrc);
-            xa.AddParam("Lang", string.Empty, this.portalSettings.PortalContentLanguage.Name.ToLower());
+            xa.AddParam("Lang", string.Empty, this.PortalSettings.PortalContentLanguage.Name.ToLower());
             xa.AddExtensionObject("urn:Appleseed", xh);
 #if FW10
             xs.Transform(xd, xa, tw);

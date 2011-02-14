@@ -184,7 +184,7 @@ namespace Appleseed.Content.Web.Modules
                 {
                     Required = true, Value = "_Appleseed/WebParts/sales.dwp", Order = 1 
                 };
-            _baseSettings.Add("WebPartFile", setWebPartFile);
+            this.BaseSettings.Add("WebPartFile", setWebPartFile);
         }
 
         /// <summary>

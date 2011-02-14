@@ -24,7 +24,7 @@ namespace Appleseed.Content.Web.Modules
         private void Page_Load(object sender, EventArgs e)
         {
             string imageSrc =
-                Path.WebPathCombine(Path.ApplicationRoot, portalSettings.PortalPath, Settings["src"].ToString());
+                Path.WebPathCombine(Path.ApplicationRoot, this.PortalSettings.PortalPath, Settings["src"].ToString());
             string imageHeight = Settings["height"].ToString();
             string imageWidth = Settings["width"].ToString();
 
@@ -71,15 +71,15 @@ namespace Appleseed.Content.Web.Modules
 
             var src = new SettingItem<string, TextBox>(new UploadedFileDataType())
                 { Required = true, Group = group, Order = groupBase + 25 }; //PortalUrlDataType
-            _baseSettings.Add("src", src);
+            this.BaseSettings.Add("src", src);
 
             var width = new SettingItem<int, TextBox>()
                 { Required = true, MinValue = 0, MaxValue = 2048, Value = 150, Group = group, Order = groupBase + 30 };
-            _baseSettings.Add("width", width);
+            this.BaseSettings.Add("width", width);
 
             var height = new SettingItem<int, TextBox>()
                 { Required = true, MinValue = 0, MaxValue = 2048, Value = 250, Group = group, Order = groupBase + 35 };
-            _baseSettings.Add("height", height);
+            this.BaseSettings.Add("height", height);
         }
 
         #region Web Form Designer generated code

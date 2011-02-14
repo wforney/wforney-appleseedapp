@@ -70,14 +70,14 @@ namespace Appleseed.Content.Web.Modules
             _Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             _groupOrderBase = (int)SettingItemGroup.MODULE_SPECIAL_SETTINGS;
 
-            HtmlEditorDataType.HtmlEditorSettings(_baseSettings, _Group);
+            HtmlEditorDataType.HtmlEditorSettings(this.BaseSettings, _Group);
 
             //If false the input box for mobile content will be hidden
             var showMobileText = new SettingItem<bool, CheckBox>()
                 {
                     Value = true, Order = _groupOrderBase + 10, Group = _Group 
                 };
-            _baseSettings.Add("ShowMobile", showMobileText);
+            this.BaseSettings.Add("ShowMobile", showMobileText);
 
             #endregion
 
@@ -97,7 +97,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "Show Compare Button?",
                     Description = "Compare the working version with the live one"
                 };
-            _baseSettings.Add(COMPARE_BUTTON, ShowCompareButton);
+            this.BaseSettings.Add(COMPARE_BUTTON, ShowCompareButton);
 
             // end of addition
 

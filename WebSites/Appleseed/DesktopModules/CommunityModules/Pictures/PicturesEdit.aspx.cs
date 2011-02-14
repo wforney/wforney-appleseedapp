@@ -130,7 +130,7 @@ namespace Appleseed.Content.Web.Modules
                 {
                     Metadata.AppendChild(Metadata.CreateElement("Metadata"));
                     MetadataXml = Metadata.OuterXml;
-                    if (((SettingItem<bool, CheckBox>)this.moduleSettings["AllowBulkLoad"]).Value)
+                    if (((SettingItem<bool, CheckBox>)this.ModuleSettings["AllowBulkLoad"]).Value)
                     {
                         // Esperantus.Esperantus.Localize.y are adding, and we are allowed to bulk load so
                         // make Esperantus.Esperantus.Localize. controls visible
@@ -179,30 +179,30 @@ namespace Appleseed.Content.Web.Modules
 
                 //Get Esperantus.Esperantus.Localize. resize option for Esperantus.Esperantus.Localize. thumbnail
                 Pictures.ResizeOption thumbnailResize =
-                    moduleSettings["ThumbnailResize"].ToString() == string.Empty
+                    this.ModuleSettings["ThumbnailResize"].ToString() == string.Empty
                         ?
                     Pictures.ResizeOption.FixedWidthHeight
                         :
-                    (Pictures.ResizeOption)Int32.Parse((SettingItem<int, TextBox>)moduleSettings["ThumbnailResize"]);
+                    (Pictures.ResizeOption)Int32.Parse((SettingItem<int, TextBox>)this.ModuleSettings["ThumbnailResize"]);
 
                 //Get Esperantus.Esperantus.Localize. resize option for Esperantus.Esperantus.Localize. original picture
                 Pictures.ResizeOption originalResize =
-                    moduleSettings["OriginalResize"].ToString() == string.Empty
+                    this.ModuleSettings["OriginalResize"].ToString() == string.Empty
                         ?
                     Pictures.ResizeOption.NoResize
                         :
-                    (Pictures.ResizeOption)Int32.Parse((SettingItem<int, TextBox>)moduleSettings["OriginalResize"]);
+                    (Pictures.ResizeOption)Int32.Parse((SettingItem<int, TextBox>)this.ModuleSettings["OriginalResize"]);
 
                 //Where are we going to save Esperantus.Esperantus.Localize. picture?
-                string PathToSave = string.Format("{0}\\", this.Server.MapPath(((SettingItem<string,TextBox>) this.moduleSettings["AlbumPath"]).FullPath));
+                string PathToSave = string.Format("{0}\\", this.Server.MapPath(((SettingItem<string,TextBox>) this.ModuleSettings["AlbumPath"]).FullPath));
 
                 //Dimensions of Esperantus.Esperantus.Localize. thumbnail as specified in settings
-                int thumbnailWidth = Int32.Parse((SettingItem<int, TextBox>)moduleSettings["ThumbnailWidth"]);
-                int thumbnailHeight = Int32.Parse((SettingItem<int, TextBox>)moduleSettings["ThumbnailHeight"]);
+                int thumbnailWidth = Int32.Parse((SettingItem<int, TextBox>)this.ModuleSettings["ThumbnailWidth"]);
+                int thumbnailHeight = Int32.Parse((SettingItem<int, TextBox>)this.ModuleSettings["ThumbnailHeight"]);
 
                 //Dimensions of Esperantus.Esperantus.Localize. original picture as specified in settings
-                int originalWidth = Int32.Parse((SettingItem<int, TextBox>)moduleSettings["OriginalWidth"]);
-                int originalHeight = Int32.Parse((SettingItem<int, TextBox>)moduleSettings["OriginalHeight"]);
+                int originalWidth = Int32.Parse((SettingItem<int, TextBox>)this.ModuleSettings["OriginalWidth"]);
+                int originalHeight = Int32.Parse((SettingItem<int, TextBox>)this.ModuleSettings["OriginalHeight"]);
 
                 // See if Esperantus.Esperantus.Localize.y are doing a bulk load.  Esperantus.Esperantus.Localize.y must have specified
                 // a bulk load directory (which is on Esperantus.Esperantus.Localize. server) and Esperantus.Esperantus.Localize.y must not
@@ -497,7 +497,7 @@ namespace Appleseed.Content.Web.Modules
             if (ItemID != 0)
             {
                 PicturesDB pictures = new PicturesDB();
-                string PathToDelete = Server.MapPath(((SettingItem<string, TextBox>)moduleSettings["AlbumPath"]).FullPath) + "\\";
+                string PathToDelete = Server.MapPath(((SettingItem<string, TextBox>)this.ModuleSettings["AlbumPath"]).FullPath) + "\\";
 
                 SqlDataReader dr = pictures.GetSinglePicture(ItemID, WorkFlowVersion.Staging);
 

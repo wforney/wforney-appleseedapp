@@ -99,7 +99,7 @@ namespace Appleseed.AdminAll
         private string GetPhysicalPackageTemplatesPath()
         {
             string path = Appleseed.Framework.Settings.Path.ApplicationPhysicalPath;
-            path = string.Format(@"{0}{1}\PortalTemplates", path, portalSettings.PortalFullPath.Substring(1));
+            path = string.Format(@"{0}{1}\PortalTemplates", path, this.PortalSettings.PortalFullPath.Substring(1));
             path = path.Replace("/", @"\");
             return path;
         }
@@ -144,7 +144,7 @@ namespace Appleseed.AdminAll
                     if (chkUseXMLTemplate.Checked == false) {
                         // Create portal the "old" way
                         int NewPortalID =
-                            portals.CreatePortal(this.portalSettings.PortalID, AliasField.Text, TitleField.Text, PathField.Text);
+                            portals.CreatePortal(this.PortalSettings.PortalID, AliasField.Text, TitleField.Text, PathField.Text);
 
                         // Update custom settings in the database
                         EditTable.ObjectID = NewPortalID;
@@ -498,7 +498,7 @@ namespace Appleseed.AdminAll
 
                             while (dr.Read())
                             {
-                                ModuleSettings.UpdateModuleSetting(newModuleID, dr["SettingName"].ToString(),
+                                Framework.Site.Configuration.ModuleSettings.UpdateModuleSetting(newModuleID, dr["SettingName"].ToString(),
                                                                    dr["SettingValue"].ToString());
                             }
                             dr.Close();

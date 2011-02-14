@@ -79,7 +79,7 @@ namespace Appleseed.AdminAll
                     this.btnUseInstaller.Visible = false;
                     this.btnDescription.Visible = true;
                     this.chbMVCAction.Visible = true;
-                    this.deleteButton.Visible = true;
+                    this.DeleteButton.Visible = true;
                     this.chbPortableAreas.Visible = true;
 
                     break;
@@ -92,7 +92,7 @@ namespace Appleseed.AdminAll
                     this.btnUseInstaller.Visible = true;
                     this.btnDescription.Visible = false;
                     this.chbMVCAction.Visible = true;
-                    this.deleteButton.Visible = true;
+                    this.DeleteButton.Visible = true;
                     this.chbPortableAreas.Visible = true;
 
                     break;
@@ -105,7 +105,7 @@ namespace Appleseed.AdminAll
                     this.btnUseInstaller.Visible = true;
                     this.btnDescription.Visible = true;
                     this.chbMVCAction.Visible = false;
-                    this.deleteButton.Visible = false;
+                    this.DeleteButton.Visible = false;
                     this.chbPortableAreas.Visible = true;
 
                     break;
@@ -120,7 +120,7 @@ namespace Appleseed.AdminAll
                     this.chbMVCAction.Visible = true;
                     this.chbPortableAreas.Visible = false;
 
-                    this.deleteButton.Visible = false;
+                    this.DeleteButton.Visible = false;
                     this.portalsDiv.Visible = false;
                     break;
                 default:

@@ -49,16 +49,16 @@ namespace Appleseed.Content.Web.Modules.Discussion
             //Translations on the buttons, it doesn't appear there is a 
             //		tra:LinkButton style supported
             submitButton.Text = General.GetString("SUBMIT");
-            cancelButton.Text = General.GetString("CANCEL");
+            this.CancelButton.Text = General.GetString("CANCEL");
 
             HtmlEditorDataType h = new HtmlEditorDataType();
-            h.Value = moduleSettings["Editor"].ToString();
+            h.Value = this.ModuleSettings["Editor"].ToString();
             BodyField =
-                h.GetEditor(DescriptionField, ModuleID, bool.Parse(moduleSettings["ShowUpload"].ToString()),
-                            portalSettings);
+                h.GetEditor(DescriptionField, ModuleID, bool.Parse(this.ModuleSettings["ShowUpload"].ToString()),
+                            this.PortalSettings);
 
-            BodyField.Width = new Unit(moduleSettings["Width"].ToString());
-            BodyField.Height = new Unit(moduleSettings["Height"].ToString());
+            BodyField.Width = new Unit(this.ModuleSettings["Width"].ToString());
+            BodyField.Height = new Unit(this.ModuleSettings["Height"].ToString());
 
             // Populate message contents if this is the first visit to the page
             if (Page.IsPostBack == false)
@@ -264,7 +264,7 @@ namespace Appleseed.Content.Web.Modules.Discussion
         protected override void OnInit(EventArgs e)
         {
             this.submitButton.Click += new EventHandler(this.SubmitBtn_Click);
-            this.cancelButton.Click += new EventHandler(this.CancelBtn_Click);
+            this.CancelButton.Click += new EventHandler(this.CancelBtn_Click);
             this.Load += new EventHandler(this.Page_Load);
 
             // Added EsperantusKeys for Localization 

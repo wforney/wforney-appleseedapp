@@ -101,8 +101,8 @@ namespace Appleseed.Admin
             this.PlaceholderButtons2.EnableViewState = false;
 
             // Controls must be created here
-            updateButton = new LinkButton { CssClass = "CommandButton" };
-            PlaceHolderButtons.Controls.Add(updateButton);
+            this.UpdateButton = new LinkButton { CssClass = "CommandButton" };
+            PlaceHolderButtons.Controls.Add(this.UpdateButton);
 
             // jminond added to top of property page so no need to scroll for save
             var update2 = new LinkButton { CssClass = "CommandButton", TextKey = "Apply", Text = "Apply" };
@@ -156,8 +156,8 @@ namespace Appleseed.Admin
             PlaceHolderButtons.Controls.Add(new LiteralControl("&nbsp;"));
             PlaceholderButtons2.Controls.Add(new LiteralControl("&nbsp;"));
 
-            cancelButton = new LinkButton { CssClass = "CommandButton" };
-            PlaceHolderButtons.Controls.Add(cancelButton);
+            this.CancelButton = new LinkButton { CssClass = "CommandButton" };
+            PlaceHolderButtons.Controls.Add(this.CancelButton);
 
             // jminond added to top of property page so no need to scroll for save
             var cancel2 = new LinkButton { CssClass = "CommandButton", TextKey = "Cancel", Text = "Cancel" };
@@ -303,7 +303,7 @@ namespace Appleseed.Admin
                 this.moduleTitle.Text = m.ModuleTitle;
                 this.cacheTime.Text = m.CacheTime.ToString();
 
-                this.portalTabs = new PagesDB().GetPagesFlat(this.portalSettings.PortalID);
+                this.portalTabs = new PagesDB().GetPagesFlat(this.PortalSettings.PortalID);
                 this.tabDropDownList.DataBind();
                 this.tabDropDownList.ClearSelection();
                 if (this.tabDropDownList.Items.FindByValue(m.PageID.ToString()) != null)
@@ -404,7 +404,7 @@ namespace Appleseed.Admin
         private ModuleSettings GetModule()
         {
             // Obtain selected module data
-            return this.portalSettings.ActivePage.Modules.Cast<ModuleSettings>().FirstOrDefault(mod => mod.ModuleID == this.ModuleID);
+            return this.PortalSettings.ActivePage.Modules.Cast<ModuleSettings>().FirstOrDefault(mod => mod.ModuleID == this.ModuleID);
         }
 
         /// <summary>
@@ -451,7 +451,7 @@ namespace Appleseed.Admin
         {
             // Get roles from db
             var users = new UsersDB();
-            var roles = users.GetPortalRoles(this.portalSettings.PortalAlias);
+            var roles = users.GetPortalRoles(this.PortalSettings.PortalAlias);
 
             // Clear existing items in checkbox list
             listRoles.Items.Clear();

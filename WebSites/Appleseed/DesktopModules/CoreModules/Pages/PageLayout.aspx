@@ -394,9 +394,9 @@ MasterPageFile="~/Shared/SiteMasterDefault.master" Codebehind="PageLayout.aspx.c
         </tr>
         <tr>
             <td colspan="4">
-                <rbfwebui:LinkButton ID="updateButton" runat="server" class="CommandButton" Text="Apply Changes"
+                <rbfwebui:LinkButton ID="UpdateButton" runat="server" class="CommandButton" Text="Apply Changes"
                     TextKey="APPLY_CHANGES"></rbfwebui:LinkButton>&nbsp;
-                <rbfwebui:LinkButton ID="cancelButton" runat="server" class="CommandButton" Text="Cancel"
+                <rbfwebui:LinkButton ID="CancelButton" runat="server" class="CommandButton" Text="Cancel"
                     TextKey="CANCEL"></rbfwebui:LinkButton>
             </td>
         </tr>

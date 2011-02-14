@@ -86,11 +86,11 @@ namespace Appleseed.Content.Web.Modules
                 string auxImage;
                 if ((imageStr != null) && (imageStr.Length > 0))
                 {
-                    auxImage = portalSettings.PortalFullPath + "/" + iconContainer + "/" + imageStr;
+                    auxImage = this.PortalSettings.PortalFullPath + "/" + iconContainer + "/" + imageStr;
                 }
                 else if ((defaultImage != null) && (defaultImage.Length > 0))
                 {
-                    auxImage = portalSettings.PortalFullPath + "/" + iconContainer + "/" + defaultImage;
+                    auxImage = this.PortalSettings.PortalFullPath + "/" + iconContainer + "/" + defaultImage;
                 }
                 else
                 {
@@ -271,12 +271,12 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
 
             SettingItem<string, Panel> iconPath = null;
-            if (portalSettings != null)
+            if (this.PortalSettings != null)
             {
                 iconPath =
                     new SettingItem<string, Panel>(
                         new FolderDataType(
-                            HttpContext.Current.Server.MapPath(portalSettings.PortalFullPath), "IconContainer"))
+                            HttpContext.Current.Server.MapPath(this.PortalSettings.PortalFullPath), "IconContainer"))
                         {
                             Value = "IconContainer", 
                             Order = groupBase + 15, 
@@ -291,7 +291,7 @@ namespace Appleseed.Content.Web.Modules
                 // end of modification
             }
 
-            _baseSettings.Add("ENHANCEDLINKS_ICONPATH", iconPath);
+            this.BaseSettings.Add("ENHANCEDLINKS_ICONPATH", iconPath);
 
             var styleLink = new List<SettingOption>
                 {
@@ -312,7 +312,7 @@ namespace Appleseed.Content.Web.Modules
             // MaxColums.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // MaxColums.Order = 10;
             // end of modification
-            _baseSettings.Add("ENHANCEDLINKS_MAXCOLUMS", maxColums);
+            this.BaseSettings.Add("ENHANCEDLINKS_MAXCOLUMS", maxColums);
 
             var labelStyleLink = new SettingItem<string, ListControl>(new CustomListDataType(styleLink, "Name", "Val"))
                 {
@@ -327,7 +327,7 @@ namespace Appleseed.Content.Web.Modules
             // abelStyleLink.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // labelStyleLink.Order = 15;
             // end of modification
-            _baseSettings.Add("ENHANCEDLINKS_SWITCHERTYPES", labelStyleLink);
+            this.BaseSettings.Add("ENHANCEDLINKS_SWITCHERTYPES", labelStyleLink);
 
             var imageDefault = new SettingItem<string, TextBox>()
                 {
@@ -342,7 +342,7 @@ namespace Appleseed.Content.Web.Modules
             // ImageDefault.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // ImageDefault.Order = 20;
             // end of modification
-            _baseSettings.Add("ENHANCEDLINKS_DEFAULTIMAGE", imageDefault);
+            this.BaseSettings.Add("ENHANCEDLINKS_DEFAULTIMAGE", imageDefault);
 
             var expandAll = new SettingItem<bool, CheckBox>()
                 {
@@ -357,7 +357,7 @@ namespace Appleseed.Content.Web.Modules
             // ExpandAll.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // ExpandAll.Order = 25;
             // end of modification
-            _baseSettings.Add("ENHANCEDLINKS_EXPANDALL", expandAll);
+            this.BaseSettings.Add("ENHANCEDLINKS_EXPANDALL", expandAll);
         }
 
         /// <summary>

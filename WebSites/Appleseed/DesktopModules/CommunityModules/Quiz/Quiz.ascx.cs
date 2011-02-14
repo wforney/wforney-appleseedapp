@@ -32,13 +32,13 @@ namespace Appleseed.Content.Web.Modules
                 {
                     Required = true, Order = 1, Value = "About Australia (Demo1)" 
                 };
-            _baseSettings.Add("QuizName", quizName);
+            this.BaseSettings.Add("QuizName", quizName);
 
             var xmlSrc = new SettingItem<string, TextBox>(new PortalUrlDataType())
                 {
                     Required = true, Order = 2, Value = "/Quiz/Demo1.xml" 
                 };
-            _baseSettings.Add("XMLsrc", xmlSrc);
+            this.BaseSettings.Add("XMLsrc", xmlSrc);
         }
 
         /// <summary>

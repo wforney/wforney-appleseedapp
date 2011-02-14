@@ -67,7 +67,7 @@
                         </td>
                         <td>
                             <rbfwebui:LinkButton ID="submitButton" runat="server" class="CommandButton" Text="Submit"></rbfwebui:LinkButton>&nbsp;
-                            <rbfwebui:LinkButton ID="cancelButton" runat="server" CausesValidation="False" class="CommandButton"
+                            <rbfwebui:LinkButton ID="CancelButton" runat="server" CausesValidation="False" class="CommandButton"
                                 Text="Cancel"></rbfwebui:LinkButton>&nbsp;
                         </td>
                     </tr>

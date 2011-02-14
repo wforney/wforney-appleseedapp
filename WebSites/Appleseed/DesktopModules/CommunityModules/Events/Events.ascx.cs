@@ -70,7 +70,7 @@ namespace Appleseed.Content.Web.Modules
             // Modified by Hongwei Shen 2005/09/24
             SettingItemGroup group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             int groupBase = (int) group;
-            HtmlEditorDataType.HtmlEditorSettings(_baseSettings, group);
+            HtmlEditorDataType.HtmlEditorSettings(this.BaseSettings, group);
 
             //Indah	Fuldner
             var RepeatDirection = new SettingItem<string, ListControl>(new ListDataType<string,ListControl>("Vertical;Horizontal"));
@@ -78,7 +78,7 @@ namespace Appleseed.Content.Web.Modules
             RepeatDirection.Required = true;
             RepeatDirection.Value = "Vertical";
             RepeatDirection.Order = groupBase + 20; //10;
-            _baseSettings.Add("RepeatDirectionSetting", RepeatDirection);
+            this.BaseSettings.Add("RepeatDirectionSetting", RepeatDirection);
 
             var RepeatColumn = new SettingItem<int, TextBox>();
             RepeatColumn.Group = group; // SettingItemGroup.MODULE_SPECIAL_SETTINGS;
@@ -87,13 +87,13 @@ namespace Appleseed.Content.Web.Modules
             RepeatColumn.MinValue = 1;
             RepeatColumn.MaxValue = 10;
             RepeatColumn.Order = groupBase + 25; // 20;
-            _baseSettings.Add("RepeatColumns", RepeatColumn);
+            this.BaseSettings.Add("RepeatColumns", RepeatColumn);
 
             var showItemBorder = new SettingItem<bool, CheckBox>();
             showItemBorder.Group = group; //SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             showItemBorder.Order = groupBase + 30;
             showItemBorder.Value = false;
-            _baseSettings.Add("ShowBorder", showItemBorder);
+            this.BaseSettings.Add("ShowBorder", showItemBorder);
             //End Indah	Fuldner
 
             var DelayExpire = new SettingItem<int, TextBox>();
@@ -102,7 +102,7 @@ namespace Appleseed.Content.Web.Modules
             DelayExpire.Value = 365; // 1	year
             DelayExpire.MinValue = 0;
             DelayExpire.MaxValue = 3650; //10 years
-            _baseSettings.Add("DelayExpire", DelayExpire);
+            this.BaseSettings.Add("DelayExpire", DelayExpire);
 
             // devsolution 2003/6/17: Added items for calendar control
             // Show Calendar -	Show a visual calendar with 
@@ -113,7 +113,7 @@ namespace Appleseed.Content.Web.Modules
             ShowCalendar.Group = group; //SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             ShowCalendar.Order = groupBase + 40; // 50;
             ShowCalendar.Value = false;
-            _baseSettings.Add("ShowCalendar", ShowCalendar);
+            this.BaseSettings.Add("ShowCalendar", ShowCalendar);
             // devsolution 2003/6/17: Finished - Added items for calendar control
 
             // Change by Geert.Audenaert@Syntegra.Com

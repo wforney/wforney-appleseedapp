@@ -374,7 +374,7 @@ namespace Appleseed.Content.Web.Modules.FCK.filemanager.browse
         /// </summary>
         protected override void LoadSettings()
         {
-            if (PortalSecurity.HasEditPermissions(this.portalSettings.ActiveModule) == false)
+            if (PortalSecurity.HasEditPermissions(this.PortalSettings.ActiveModule) == false)
             {
                 PortalSecurity.AccessDeniedEdit();
             }
@@ -453,19 +453,19 @@ namespace Appleseed.Content.Web.Modules.FCK.filemanager.browse
                 }
                 else
                 {
-                    var ms = ModuleSettings.GetModuleSettings(this.portalSettings.ActiveModule);
+                    var ms = Framework.Site.Configuration.ModuleSettings.GetModuleSettings(this.PortalSettings.ActiveModule);
                     var DefaultImageFolder = "default";
                     if (ms["MODULE_IMAGE_FOLDER"] != null)
                     {
                         DefaultImageFolder = ms["MODULE_IMAGE_FOLDER"].ToString();
                     }
-                    else if (this.portalSettings.CustomSettings["SITESETTINGS_DEFAULT_IMAGE_FOLDER"] != null)
+                    else if (this.PortalSettings.CustomSettings["SITESETTINGS_DEFAULT_IMAGE_FOLDER"] != null)
                     {
                         DefaultImageFolder =
-                            this.portalSettings.CustomSettings["SITESETTINGS_DEFAULT_IMAGE_FOLDER"].ToString();
+                            this.PortalSettings.CustomSettings["SITESETTINGS_DEFAULT_IMAGE_FOLDER"].ToString();
                     }
 
-                    this.RootImagesFolder.Value = this.portalSettings.PortalPath + "/images/" + DefaultImageFolder;
+                    this.RootImagesFolder.Value = this.PortalSettings.PortalPath + "/images/" + DefaultImageFolder;
                     this.RootImagesFolder.Value = this.RootImagesFolder.Value.Replace("//", "/");
                     this.CurrentImagesFolder.Value = this.RootImagesFolder.Value;
                 }

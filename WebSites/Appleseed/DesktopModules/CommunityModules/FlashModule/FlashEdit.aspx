@@ -65,10 +65,10 @@
             </tr>
         </table>
         <p>
-            <rbfwebui:LinkButton ID="updateButton" runat="server" class="CommandButton" Text="Update"
+            <rbfwebui:LinkButton ID="UpdateButton" runat="server" class="CommandButton" Text="Update"
                 TextKey="UPDATE">Update</rbfwebui:LinkButton>
             &nbsp;
-            <rbfwebui:LinkButton ID="cancelButton" runat="server" CausesValidation="False" class="CommandButton"
+            <rbfwebui:LinkButton ID="CancelButton" runat="server" CausesValidation="False" class="CommandButton"
                 Text="Cancel" TextKey="CANCEL">Cancel</rbfwebui:LinkButton>&nbsp;
             <rbfwebui:HyperLink ID="showGalleryButton" runat="server" CssClass="CommandButton"
                 Text="Show Gallery" TextKey="SHOW_FLASH_GALLERY">Show Gallery</rbfwebui:HyperLink>

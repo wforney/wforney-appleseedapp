@@ -74,9 +74,9 @@ namespace Appleseed.Framework.Web.UI.WebControls
                 var hashtable2 = GetMVCModuleSettingsDefinitions(
                     strArray[0], this.AreaName, this.ControllerName, this.ActionName);
 
-                foreach (var key in hashtable2.Keys.Where(key => !this._baseSettings.ContainsKey(key)))
+                foreach (var key in hashtable2.Keys.Where(key => !this.BaseSettings.ContainsKey(key)))
                 {
-                    this._baseSettings.Add(key, hashtable2[key]);
+                    this.BaseSettings.Add(key, hashtable2[key]);
                 }
             }
 

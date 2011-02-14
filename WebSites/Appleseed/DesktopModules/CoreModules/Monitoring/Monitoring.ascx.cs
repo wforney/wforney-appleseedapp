@@ -49,7 +49,7 @@ namespace Appleseed.Content.Web.Modules
                     { Required = true, Value = "ActivityTime", Group = group, Order = groupBase + 20 };
 
             // 1;
-            _baseSettings.Add("SortField", setSortField);
+            this.BaseSettings.Add("SortField", setSortField);
         }
 
         /// <summary>
@@ -223,13 +223,13 @@ namespace Appleseed.Content.Web.Modules
                 DataSet monitorData = Utility.GetMonitoringStats(startDate,
                                                                  endDate,
                                                                  cboReportType.SelectedItem.Value,
-                                                                 portalSettings.ActivePage.PageID,
+                                                                 this.PortalSettings.ActivePage.PageID,
                                                                  CheckBoxIncludeMonitorPage.Checked,
                                                                  CheckBoxPageRequests.Checked,
                                                                  CheckBoxLogons.Checked,
                                                                  CheckBoxLogouts.Checked,
                                                                  CheckBoxIncludeMyIPAddress.Checked,
-                                                                 portalSettings.PortalID);
+                                                                 this.PortalSettings.PortalID);
                 myDataView = monitorData.Tables[0].DefaultView;
                 myDataView.Sort = sortField + " " + sortDirection;
                 myDataGrid.DataSource = myDataView;

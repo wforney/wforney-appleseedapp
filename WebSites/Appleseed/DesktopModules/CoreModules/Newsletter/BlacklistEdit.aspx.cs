@@ -66,7 +66,7 @@ namespace Appleseed.Admin
         public void BindListItem()
         {
             BlacklistDB blacklist = new BlacklistDB();
-            DataSet blist = blacklist.GetBlacklist(portalSettings.PortalID, true, false);
+            DataSet blist = blacklist.GetBlacklist(this.PortalSettings.PortalID, true, false);
 
             repListItem.DataSource = blist;
             repListItem.DataBind();
@@ -123,12 +123,12 @@ namespace Appleseed.Admin
                     //BlacklistDB.AddToBlackList(this.portalSettings.PortalID, email, "Blacklisted by " +  Context.User.Identity.Name);
                     // Added EsperantusKeys for Localization 
                     // Mario Endara mario@softworks.com.uy june-1-2004 
-                    BlacklistDB.AddToBlackList(portalSettings.PortalID, email,
+                    BlacklistDB.AddToBlackList(this.PortalSettings.PortalID, email,
                                                General.GetString("NEWSLETTER_BLACKLISTED") +
                                                PortalSettings.CurrentUser.Identity.Email);
                 }
                 else
-                    BlacklistDB.DeleteFromBlackList(portalSettings.PortalID, email);
+                    BlacklistDB.DeleteFromBlackList(this.PortalSettings.PortalID, email);
             }
 
             // Redirect back to the portal home page

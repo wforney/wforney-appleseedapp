@@ -97,11 +97,11 @@ namespace Appleseed.Content.Web.Modules
             string status = "Dialing...";
             try
             {
-                int portalID = portalSettings.PortalID;
+                int portalID = this.PortalSettings.PortalID;
                 Guid userID = Guid.Empty;
 
                 UsersDB u = new UsersDB();
-                AppleseedUser s = u.GetSingleUser(PortalSettings.CurrentUser.Identity.Email, portalSettings.PortalAlias);
+                AppleseedUser s = u.GetSingleUser(PortalSettings.CurrentUser.Identity.Email, this.PortalSettings.PortalAlias);
                 try
                 {
                     userID = (Guid)s.ProviderUserKey;
@@ -349,18 +349,18 @@ namespace Appleseed.Content.Web.Modules
             setURL.Order = 1;
             setURL.Required = true;
             setURL.Value = new Uri("http://www.Appleseedportal.net/");
-            _baseSettings.Add("URL", setURL);
+            this.BaseSettings.Add("URL", setURL);
 
             var setPortalAlias = new SettingItem<string, TextBox>();
             setPortalAlias.Order = 2;
             setPortalAlias.Required = false;
             setPortalAlias.Value = string.Empty;
-            _baseSettings.Add("PortalAlias", setPortalAlias);
+            this.BaseSettings.Add("PortalAlias", setPortalAlias);
 
             var setLocalMode = new SettingItem<bool, CheckBox>();
             setLocalMode.Order = 3;
             setLocalMode.Value = false;
-            _baseSettings.Add("LocalMode", setLocalMode);
+            this.BaseSettings.Add("LocalMode", setLocalMode);
 
             var setModuleType =
                 new SettingItem<string, ListControl>(
@@ -369,7 +369,7 @@ namespace Appleseed.Content.Web.Modules
             setModuleType.Order = 4;
             setModuleType.Required = true;
             setModuleType.Value = "All";
-            _baseSettings.Add("ModuleType", setModuleType);
+            this.BaseSettings.Add("ModuleType", setModuleType);
 
             var setMaxHits = new SettingItem<int, TextBox>();
             setMaxHits.Order = 5;
@@ -377,60 +377,60 @@ namespace Appleseed.Content.Web.Modules
             setMaxHits.Value = 20;
             setMaxHits.MinValue = 1;
             setMaxHits.MaxValue = 1000;
-            _baseSettings.Add("MaxHits", setMaxHits);
+            this.BaseSettings.Add("MaxHits", setMaxHits);
 
             var setShowID = new SettingItem<bool, CheckBox>();
             setShowID.Order = 6;
             setShowID.Value = false;
-            _baseSettings.Add("ShowID", setShowID);
+            this.BaseSettings.Add("ShowID", setShowID);
 
             var setSearchString = new SettingItem<string, TextBox>();
             setSearchString.Order = 7;
             setSearchString.Required = false;
             setSearchString.Value = "localization";
-            _baseSettings.Add("SearchString", setSearchString);
+            this.BaseSettings.Add("SearchString", setSearchString);
 
             var setSearchField = new SettingItem<string, TextBox>();
             setSearchField.Order = 8;
             setSearchField.Required = false;
             setSearchField.Value = string.Empty;
-            _baseSettings.Add("SearchField", setSearchField);
+            this.BaseSettings.Add("SearchField", setSearchField);
 
             var setSortField =
                 new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("ModuleName;Title;CreatedByUser;CreatedDate;TabName"));
             setSortField.Order = 9;
             setSortField.Required = true;
             setSortField.Value = "ModuleName";
-            _baseSettings.Add("SortField", setSortField);
+            this.BaseSettings.Add("SortField", setSortField);
 
             var setSortDirection = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("ASC;DESC"));
             setSortDirection.Order = 10;
             setSortDirection.Required = true;
             setSortDirection.Value = "ASC";
-            _baseSettings.Add("SortDirection", setSortDirection);
+            this.BaseSettings.Add("SortDirection", setSortDirection);
 
             var setMobileOnly = new SettingItem<bool, CheckBox>();
             setMobileOnly.Order = 11;
             setMobileOnly.Value = false;
-            _baseSettings.Add("MobileOnly", setMobileOnly);
+            this.BaseSettings.Add("MobileOnly", setMobileOnly);
 
             var setIDList = new SettingItem<string, TextBox>();
             setIDList.Order = 12;
             setIDList.Required = false;
             setIDList.Value = string.Empty;
-            _baseSettings.Add("IDList", setIDList);
+            this.BaseSettings.Add("IDList", setIDList);
 
             var setIDListType = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("Item;Module;Tab"));
             setIDListType.Order = 13;
             setIDListType.Required = true;
             setIDListType.Value = "Tab";
-            _baseSettings.Add("IDListType", setIDListType);
+            this.BaseSettings.Add("IDListType", setIDListType);
 
             var setTag = new SettingItem<int, TextBox>();
             setTag.Order = 14;
             setTag.Required = true;
             setTag.Value = 0;
-            _baseSettings.Add("Tag", setTag);
+            this.BaseSettings.Add("Tag", setTag);
 
             //var showImage = new SettingItem<bool, CheckBox>();
             //showImage.Order = 15;
@@ -440,48 +440,48 @@ namespace Appleseed.Content.Web.Modules
             var setShowModuleFriendlyName = new SettingItem<bool, CheckBox>();
             setShowModuleFriendlyName.Order = 16;
             setShowModuleFriendlyName.Value = true;
-            _baseSettings.Add("ShowModuleFriendlyName", setShowModuleFriendlyName);
+            this.BaseSettings.Add("ShowModuleFriendlyName", setShowModuleFriendlyName);
 
             var setShowSearchTitle = new SettingItem<bool, CheckBox>();
             setShowSearchTitle.Order = 17;
             setShowSearchTitle.Value = true;
-            _baseSettings.Add("ShowSearchTitle", setShowSearchTitle);
+            this.BaseSettings.Add("ShowSearchTitle", setShowSearchTitle);
 
             var setShowDescription = new SettingItem<bool, CheckBox>();
             setShowDescription.Order = 18;
             setShowDescription.Value = true;
-            _baseSettings.Add("ShowDescription", setShowDescription);
+            this.BaseSettings.Add("ShowDescription", setShowDescription);
 
             var setShowCreatedByUser = new SettingItem<bool, CheckBox>();
             setShowCreatedByUser.Order = 19;
             setShowCreatedByUser.Value = true;
-            _baseSettings.Add("ShowCreatedByUser", setShowCreatedByUser);
+            this.BaseSettings.Add("ShowCreatedByUser", setShowCreatedByUser);
 
             var setShowCreatedDate = new SettingItem<bool, CheckBox>();
             setShowCreatedDate.Order = 20;
             setShowCreatedDate.Value = true;
-            _baseSettings.Add("ShowCreatedDate", setShowCreatedDate);
+            this.BaseSettings.Add("ShowCreatedDate", setShowCreatedDate);
 
             var setShowLink = new SettingItem<bool, CheckBox>();
             setShowLink.Order = 21;
             setShowLink.Value = false;
-            _baseSettings.Add("ShowLink", setShowLink);
+            this.BaseSettings.Add("ShowLink", setShowLink);
 
             var setShowTabName = new SettingItem<bool, CheckBox>();
             setShowTabName.Order = 22;
             setShowTabName.Value = true;
-            _baseSettings.Add("ShowTabName", setShowTabName);
+            this.BaseSettings.Add("ShowTabName", setShowTabName);
 
             var setShowModuleTitle = new SettingItem<bool, CheckBox>();
             setShowModuleTitle.Order = 23;
             setShowModuleTitle.Value = false;
-            _baseSettings.Add("ShowModuleTitle", setShowModuleTitle);
+            this.BaseSettings.Add("ShowModuleTitle", setShowModuleTitle);
 
             var setTarget = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("blank;parent;self;top"));
             setTarget.Order = 24;
             setTarget.Required = true;
             setTarget.Value = "blank";
-            _baseSettings.Add("Target", setTarget);
+            this.BaseSettings.Add("Target", setTarget);
 
             /* Jakob says: later...
             var setUserName = new SettingItem<string, TextBox>();

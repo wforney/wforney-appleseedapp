@@ -35,7 +35,7 @@ namespace Appleseed.Content.Web.Modules
                 {
                     MinValue = 0, MaxValue = 99999, Required = true, Value = 88045, Order = 1 
                 };
-            _baseSettings.Add("WeatherZip", setZip);
+            this.BaseSettings.Add("WeatherZip", setZip);
 
             // Module Weather Options
             var moduleWeatherOption = new List<SettingOption>
@@ -49,7 +49,7 @@ namespace Appleseed.Content.Web.Modules
                     {
                         Required = true, Value = ((int)WeatherOption.Today).ToString(), Order = 2 
                     };
-            _baseSettings.Add("WeatherOption", setOption);
+            this.BaseSettings.Add("WeatherOption", setOption);
 
             // Module Weather Design
             var moduleWeatherDesignValue = new List<SettingOption>
@@ -67,14 +67,14 @@ namespace Appleseed.Content.Web.Modules
                     {
                         Required = true, Value = "1", Order = 3 
                     };
-            _baseSettings.Add("WeatherDesign", setDesign);
+            this.BaseSettings.Add("WeatherDesign", setDesign);
 
             // Module Weather CityIndex
             var setCityIndex = new SettingItem<double, TextBox>
                 {
                     MinValue = 0, MaxValue = 99999, Required = false, Value = 0, Order = 4 
                 };
-            _baseSettings.Add("WeatherCityIndex", setCityIndex);
+            this.BaseSettings.Add("WeatherCityIndex", setCityIndex);
         }
 
         /// <summary>

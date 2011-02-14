@@ -198,21 +198,21 @@ namespace Appleseed.Content.Web.Modules
         public Tasks()
         {
             // Set Editor Settings jviladiu@portalservices.net 2004/07/30
-            HtmlEditorDataType.HtmlEditorSettings(_baseSettings, SettingItemGroup.MODULE_SPECIAL_SETTINGS);
+            HtmlEditorDataType.HtmlEditorSettings(this.BaseSettings, SettingItemGroup.MODULE_SPECIAL_SETTINGS);
 
             var setSortField =
                 new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("Title;Status;Priority;DueDate;AssignedTo;PercentComplete"));
             setSortField.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             setSortField.Required = true;
             setSortField.Value = "DueDate";
-            _baseSettings.Add("TASKS_SORT_FIELD", setSortField);
+            this.BaseSettings.Add("TASKS_SORT_FIELD", setSortField);
 
             var defaultAssignee = new SettingItem<string, TextBox>();
             defaultAssignee.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             defaultAssignee.Value = "nobody";
             defaultAssignee.EnglishName = "Default Assignee";
             defaultAssignee.Description = "Is the name of the person which the task is automatically assigned.";
-            _baseSettings.Add("TASKS_DEFAULT_ASSIGNEE", defaultAssignee);
+            this.BaseSettings.Add("TASKS_DEFAULT_ASSIGNEE", defaultAssignee);
 
             // Task modules list
             ModulesDB m = new ModulesDB();
@@ -220,7 +220,7 @@ namespace Appleseed.Content.Web.Modules
             SqlDataReader r = null;
             try
             {
-                r = m.GetModulesByName("Tasks", portalSettings.PortalID);
+                r = m.GetModulesByName("Tasks", this.PortalSettings.PortalID);
                 while (r.Read())
                 {
                     taskModulesListOptions.Add(
@@ -243,7 +243,7 @@ namespace Appleseed.Content.Web.Modules
             linkedModules.EnglishName = "Linked Modules";
             linkedModules.Description =
                 "Chose here any module that will automatically recieve a copy of all new assigned task.";
-            _baseSettings.Add("TASKS_LINKED_MODULES", linkedModules);
+            this.BaseSettings.Add("TASKS_LINKED_MODULES", linkedModules);
         }
 
 

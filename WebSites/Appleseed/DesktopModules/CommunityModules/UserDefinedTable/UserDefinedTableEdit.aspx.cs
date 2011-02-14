@@ -77,7 +77,7 @@ namespace Appleseed.Content.Web.Modules
                 } 
                 else
                 {
-                    this.deleteButton.Visible = false;
+                    this.DeleteButton.Visible = false;
                 }
             }
 
@@ -151,7 +151,7 @@ namespace Appleseed.Content.Web.Modules
                             if (dr["FieldType"].ToString() =="Image")
                             {
                                 // get the path to the files
-                                pathToFiles = Server.MapPath(((SettingItem<string, TextBox>)moduleSettings["ImagePath"]).FullPath) + "\\";
+                                pathToFiles = Server.MapPath(((SettingItem<string, TextBox>)this.ModuleSettings["ImagePath"]).FullPath) + "\\";
                                 // retrieving a list of files for the dropdownbox
                                 fileArray = IOHelper.GetFiles(pathToFiles,"*.jpg;*.png;*.gif");
 
@@ -161,7 +161,7 @@ namespace Appleseed.Content.Web.Modules
                             else
                             {
                                 // get the path to the files
-                                pathToFiles = Server.MapPath(((SettingItem<string, TextBox>)moduleSettings["DocumentPath"]).FullPath) + "\\";
+                                pathToFiles = Server.MapPath(((SettingItem<string, TextBox>)this.ModuleSettings["DocumentPath"]).FullPath) + "\\";
                                 // retrieving a list of files for the dropdownbox
                                 fileArray = IOHelper.GetFiles(pathToFiles,"*.*");
                             }
@@ -303,9 +303,9 @@ namespace Appleseed.Content.Web.Modules
                                 string pathToSave=string.Empty ;
 
                                 if (dr["FieldType"].ToString() == "Image")
-                                    pathToSave = Server.MapPath(((SettingItem<string, TextBox>)moduleSettings["ImagePath"]).FullPath) + "\\";
+                                    pathToSave = Server.MapPath(((SettingItem<string, TextBox>)this.ModuleSettings["ImagePath"]).FullPath) + "\\";
                                 else
-                                    pathToSave = Server.MapPath(((SettingItem<string, TextBox>)moduleSettings["DocumentPath"]).FullPath) + "\\";
+                                    pathToSave = Server.MapPath(((SettingItem<string, TextBox>)this.ModuleSettings["DocumentPath"]).FullPath) + "\\";
 
                                 try
                                 {

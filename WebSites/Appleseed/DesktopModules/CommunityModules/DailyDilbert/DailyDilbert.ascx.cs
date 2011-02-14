@@ -50,7 +50,7 @@ namespace Appleseed.Content.Web.Modules
             setImagePercent.Order = 1;
             setImagePercent.MinValue = 1;
             setImagePercent.MaxValue = 100;
-            _baseSettings.Add("ImagePercent", setImagePercent);
+            this.BaseSettings.Add("ImagePercent", setImagePercent);
         }
 
         #region Web Form Designer generated code

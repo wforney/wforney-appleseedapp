@@ -287,7 +287,7 @@ namespace Appleseed.Content.Web.Modules.AddModule
             // Populate the "Add Module" Data
             var m = new ModulesDB();
 
-            var drCurrentModuleDefinitions = m.GetCurrentModuleDefinitions(this.portalSettings.PortalID);
+            var drCurrentModuleDefinitions = m.GetCurrentModuleDefinitions(this.PortalSettings.PortalID);
 
             try
             {

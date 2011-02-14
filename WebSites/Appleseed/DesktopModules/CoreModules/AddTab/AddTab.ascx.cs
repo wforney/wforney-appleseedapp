@@ -140,7 +140,7 @@ namespace Appleseed.Content.Web.Modules.AddModule
         private void BindData()
         {
             // Populate the "ParentTab" Data
-            DataTable dt_Pages = new PagesDB().GetPagesFlatTable(portalSettings.PortalID);
+            DataTable dt_Pages = new PagesDB().GetPagesFlatTable(this.PortalSettings.PortalID);
             DataColumn[] keys = new DataColumn[2];
             keys[0] = dt_Pages.Columns["PageID"];
             dt_Pages.PrimaryKey = keys;
@@ -157,7 +157,7 @@ namespace Appleseed.Content.Web.Modules.AddModule
             // Changes for Grischa Brockhaus copied by Mike Stone 7/1/2005
             if (parentTabDropDown.SelectedIndex <= 0)
             {
-                int currentTab = portalSettings.ActivePage.PageID;
+                int currentTab = this.PortalSettings.ActivePage.PageID;
                 parentTabDropDown.SelectedValue = (currentTab.ToString());
             }
             //	parentTabDropDown.Items.FindByValue(currentTab .ToString()).Selected = true; 
@@ -212,7 +212,7 @@ namespace Appleseed.Content.Web.Modules.AddModule
                     // Changed to use new method in TabsDB.cs now all parms are possible 
                     // By Mike Stone (mstone@kaskaskia.edu) - 30/12/2004
                     t.ID =
-                        tabs.AddPage(portalSettings.PortalID, parentTabID, t.Name, t.Order, viewPermissionRoles,
+                        tabs.AddPage(this.PortalSettings.PortalID, parentTabID, t.Name, t.Order, viewPermissionRoles,
                                      cb_ShowMobile.Checked, tb_MobileTabName.Text);
 
                     //TODO.. the only way to update a parent id is throught update :S

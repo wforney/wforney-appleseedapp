@@ -46,16 +46,16 @@ namespace Appleseed.Content.Web.Modules
         private void Page_Load(object sender, EventArgs e)
         {
             HtmlEditorDataType h = new HtmlEditorDataType();
-            h.Value = moduleSettings["Editor"].ToString();
+            h.Value = this.ModuleSettings["Editor"].ToString();
             DesktopText =
-                h.GetEditor(PlaceHolderHTMLEditor, ModuleID, bool.Parse(moduleSettings["ShowUpload"].ToString()),
-                            portalSettings);
-            DesktopText.Width = new Unit(moduleSettings["Width"].ToString());
-            DesktopText.Height = new Unit(moduleSettings["Height"].ToString());
+                h.GetEditor(PlaceHolderHTMLEditor, ModuleID, bool.Parse(this.ModuleSettings["ShowUpload"].ToString()),
+                            this.PortalSettings);
+            DesktopText.Width = new Unit(this.ModuleSettings["Width"].ToString());
+            DesktopText.Height = new Unit(this.ModuleSettings["Height"].ToString());
 
             if (!Page.IsPostBack)
             {
-                if (bool.Parse(moduleSettings["ENHANCEDHTML_GET_CONTENTS_FROM_PORTALS"].ToString()))
+                if (bool.Parse(this.ModuleSettings["ENHANCEDHTML_GET_CONTENTS_FROM_PORTALS"].ToString()))
                 {
                     kindOfContent.Items.Add(new ListItem("External Module", "Portal"));
                     CustomListDataType cldtAll =
@@ -67,7 +67,7 @@ namespace Appleseed.Content.Web.Modules
                     listAllModules.DataBind();
                 }
                 CustomListDataType cldt =
-                    new CustomListDataType(new ModulesDB().GetModulesSinglePortal(portalSettings.PortalID),
+                    new CustomListDataType(new ModulesDB().GetModulesSinglePortal(this.PortalSettings.PortalID),
                                            "ModuleTitle", "ModuleID");
                 listModules.CssClass = "NormalTextBox";
                 listModules.DataSource = cldt.DataSource;

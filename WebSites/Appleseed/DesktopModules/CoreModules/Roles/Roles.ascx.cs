@@ -150,7 +150,7 @@ namespace Appleseed.Content.Web.Modules
                 var _roleId = ((System.Web.UI.WebControls.Label)e.Item.FindControl("roleId")).Text;
 
                 // update database
-                users.UpdateRole(new Guid(_roleId), _roleName, portalSettings.PortalAlias);
+                users.UpdateRole(new Guid(_roleId), _roleName, this.PortalSettings.PortalAlias);
 
                 // Disable editable list item access
                 rolesList.EditItemIndex = -1;
@@ -164,7 +164,7 @@ namespace Appleseed.Content.Web.Modules
                 // update database
                 try
                 {
-                    users.DeleteRole(new Guid(e.CommandArgument.ToString()), portalSettings.PortalAlias);
+                    users.DeleteRole(new Guid(e.CommandArgument.ToString()), this.PortalSettings.PortalAlias);
                 }
                 catch
                 {
@@ -206,7 +206,7 @@ namespace Appleseed.Content.Web.Modules
             // Get the portal's roles from the database
             UsersDB users = new UsersDB();
 
-            IList<AppleseedRole> roles = users.GetPortalRoles(portalSettings.PortalAlias);
+            IList<AppleseedRole> roles = users.GetPortalRoles(this.PortalSettings.PortalAlias);
 
             // remove "All Users", "Authenticated Users" and "Unauthenticated Users" pseudo-roles
             AppleseedRole pseudoRole = new AppleseedRole(AppleseedRoleProvider.AllUsersGuid, AppleseedRoleProvider.AllUsersRoleName);

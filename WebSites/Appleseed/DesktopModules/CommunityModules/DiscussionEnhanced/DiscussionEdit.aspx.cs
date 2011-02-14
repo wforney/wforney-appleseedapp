@@ -72,7 +72,7 @@ namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
         protected override void OnInit(EventArgs e)
         {
             this.submitButton.Click += this.SubmitBtn_Click;
-            this.cancelButton.Click += this.CancelBtn_Click;
+            this.CancelButton.Click += this.CancelBtn_Click;
             this.Load += this.Page_Load;
 
             // Added EsperantusKeys for Localization 
@@ -131,7 +131,7 @@ namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
             // Translations on the buttons, it doesn't appear there is a 
             // 		tra:LinkButton style supported
             this.submitButton.Text = General.GetString("SUBMIT");
-            this.cancelButton.Text = General.GetString("CANCEL");
+            this.CancelButton.Text = General.GetString("CANCEL");
 
             // Populate message contents if this is the first visit to the page
             if (!this.Page.IsPostBack)

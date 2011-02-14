@@ -56,7 +56,7 @@ namespace Appleseed.Content.Web.Modules
                 if (!bool.Parse(Settings["TestMode"].ToString()))
                 {
                     SqlDataReader dReader =
-                        newsletter.GetUsersNewsletter(portalSettings.PortalID,
+                        newsletter.GetUsersNewsletter(this.PortalSettings.PortalID,
                                                       Int32.Parse(Settings["NEWSLETTER_USERBLOCK"].ToString()),
                                                       Int32.Parse(Settings["NEWSLETTER_DONOTRESENDWITHIN"].ToString()));
                     try
@@ -83,7 +83,7 @@ namespace Appleseed.Content.Web.Modules
                     DataList1.Visible = true;
 
                     int cnt =
-                        newsletter.GetUsersNewsletterCount(portalSettings.PortalID,
+                        newsletter.GetUsersNewsletterCount(this.PortalSettings.PortalID,
                                                            Int32.Parse(Settings["NEWSLETTER_USERBLOCK"].ToString()),
                                                            Int32.Parse(
                                                                Settings["NEWSLETTER_DONOTRESENDWITHIN"].ToString()));
@@ -174,7 +174,7 @@ namespace Appleseed.Content.Web.Modules
                 {
                     // Get Newsletter Users from DB
                     SqlDataReader dReader =
-                        newsletter.GetUsersNewsletter(portalSettings.PortalID,
+                        newsletter.GetUsersNewsletter(this.PortalSettings.PortalID,
                                                       Int32.Parse(Settings["NEWSLETTER_USERBLOCK"].ToString()),
                                                       Int32.Parse(Settings["NEWSLETTER_DONOTRESENDWITHIN"].ToString()));
                     try
@@ -191,12 +191,12 @@ namespace Appleseed.Content.Web.Modules
                                                        Settings["NEWSLETTER_LOGINHOMEPAGE"].ToString(), txtSubject.Text,
                                                        txtBody.Text, true, HtmlMode.Checked, InsertBreakLines.Checked);
                                 //Update db
-                                newsletter.SendNewsletterTo(portalSettings.PortalID, dReader["Email"].ToString());
+                                newsletter.SendNewsletterTo(this.PortalSettings.PortalID, dReader["Email"].ToString());
                             }
                             catch (Exception ex)
                             {
                                 InvalidRecipients += dReader["Email"].ToString() + "<br>";
-                                BlacklistDB.AddToBlackList(portalSettings.PortalID, dReader["Email"].ToString(),
+                                BlacklistDB.AddToBlackList(this.PortalSettings.PortalID, dReader["Email"].ToString(),
                                                            ex.Message);
                             }
                         }
@@ -281,11 +281,11 @@ namespace Appleseed.Content.Web.Modules
 
             var defaultEmail = new SettingItem<string, TextBox>
                 { EnglishName = "Sender Email", Group = Group, Order = GroupBase + 20 };
-            _baseSettings.Add("NEWSLETTER_DEFAULTEMAIL", defaultEmail);
+            this.BaseSettings.Add("NEWSLETTER_DEFAULTEMAIL", defaultEmail);
 
             var defaultName = new SettingItem<string, TextBox>
                 { Group = Group, Order = GroupBase + 25, EnglishName = "Sender Name" };
-            _baseSettings.Add("NEWSLETTER_DEFAULTNAME", defaultName);
+            this.BaseSettings.Add("NEWSLETTER_DEFAULTNAME", defaultName);
 
             var testMode = new SettingItem<bool, CheckBox>
                 {
@@ -296,7 +296,7 @@ namespace Appleseed.Content.Web.Modules
                     Description =
                         "Use Test Mode for testing your settings. It will send only one email to the address specified as sender. Useful for testing"
                 };
-            _baseSettings.Add("TestMode", testMode);
+            this.BaseSettings.Add("TestMode", testMode);
 
             //SettingItem HTMLTemplate = new SettingItem(new CustomListDataType(new Appleseed.Framework.Site.Configuration.ModulesDB().GetModuleDefinitionByGuid(p, new Guid("{0B113F51-FEA3-499A-98E7-7B83C192FDBB}")), "ModuleTitle", "ModuleID"));
             var htmlTemplate = new SettingItem<string, ListControl>(new ModuleListDataType("Html Document"))
@@ -308,7 +308,7 @@ namespace Appleseed.Content.Web.Modules
                     Description =
                         "Select an HTML module that the will be used as base for this newsletter sent with this module."
                 };
-            _baseSettings.Add("NEWSLETTER_HTMLTEMPLATE", htmlTemplate);
+            this.BaseSettings.Add("NEWSLETTER_HTMLTEMPLATE", htmlTemplate);
 
             var loginHomePage = new SettingItem<string, TextBox>
                 {
@@ -318,7 +318,7 @@ namespace Appleseed.Content.Web.Modules
                     Description =
                         "The Url or the Home page of the site used for build the instant login url. Leave blank if using the current site."
                 };
-            _baseSettings.Add("NEWSLETTER_LOGINHOMEPAGE", loginHomePage);
+            this.BaseSettings.Add("NEWSLETTER_LOGINHOMEPAGE", loginHomePage);
 
             var doNotResendWithin = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("1;2;3;4;5;6;7;10;15;30;60;90"))
                 {
@@ -329,7 +329,7 @@ namespace Appleseed.Content.Web.Modules
                     Description =
                         "To avoid spam and duplicate sent you cannot email an user more than one time in specifed number of days."
                 };
-            _baseSettings.Add("NEWSLETTER_DONOTRESENDWITHIN", doNotResendWithin);
+            this.BaseSettings.Add("NEWSLETTER_DONOTRESENDWITHIN", doNotResendWithin);
 
             var userBlock = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("50;100;200;250;300;1000;1500;5000"))
                 {
@@ -340,7 +340,7 @@ namespace Appleseed.Content.Web.Modules
                         "Select the maximum number of users. For sending emails to all you have to repeat the process. Use small values to avoid server timeouts.",
                     Value = "250"
                 };
-            _baseSettings.Add("NEWSLETTER_USERBLOCK", userBlock);
+            this.BaseSettings.Add("NEWSLETTER_USERBLOCK", userBlock);
         }
 
         /// <summary>
@@ -367,7 +367,7 @@ namespace Appleseed.Content.Web.Modules
             if (!bool.Parse(Settings["TestMode"].ToString()))
             {
                 SqlDataReader dReader =
-                    newsletter.GetUsersNewsletter(portalSettings.PortalID,
+                    newsletter.GetUsersNewsletter(this.PortalSettings.PortalID,
                                                   Int32.Parse(Settings["NEWSLETTER_USERBLOCK"].ToString()),
                                                   Int32.Parse(Settings["NEWSLETTER_DONOTRESENDWITHIN"].ToString()));
                 try

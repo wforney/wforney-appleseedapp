@@ -67,17 +67,17 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
     /// <remarks></remarks>
     protected override void OnInit(EventArgs e)
     {
-        if (portalSettings.CustomSettings.ContainsKey("SITESETTINGS_RECAPTCHA_PUBLIC_KEY"))
+        if (this.PortalSettings.CustomSettings.ContainsKey("SITESETTINGS_RECAPTCHA_PUBLIC_KEY"))
         {
-            recaptcha.PublicKey = Convert.ToString(portalSettings.CustomSettings["SITESETTINGS_RECAPTCHA_PUBLIC_KEY"]);
+            recaptcha.PublicKey = Convert.ToString(this.PortalSettings.CustomSettings["SITESETTINGS_RECAPTCHA_PUBLIC_KEY"]);
         }
 
-        if (portalSettings.CustomSettings.ContainsKey("SITESETTINGS_RECAPTCHA_PRIVATE_KEY"))
+        if (this.PortalSettings.CustomSettings.ContainsKey("SITESETTINGS_RECAPTCHA_PRIVATE_KEY"))
         {
-            recaptcha.PrivateKey = Convert.ToString(portalSettings.CustomSettings["SITESETTINGS_RECAPTCHA_PRIVATE_KEY"]);
+            recaptcha.PrivateKey = Convert.ToString(this.PortalSettings.CustomSettings["SITESETTINGS_RECAPTCHA_PRIVATE_KEY"]);
         }
 
-        recaptcha.Language = portalSettings.PortalContentLanguage.TwoLetterISOLanguageName;
+        recaptcha.Language = this.PortalSettings.PortalContentLanguage.TwoLetterISOLanguageName;
 
         this.lblError.Text = string.Empty;
         this.lblSuceeded.Text = string.Empty;
@@ -491,7 +491,7 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
     private void SendOuterCreationNotification(string email)
     {
         //TODO
-        string msg = Resources.Appleseed.NEW_USER_CREATED + portalSettings.PortalName;
+        string msg = Resources.Appleseed.NEW_USER_CREATED + this.PortalSettings.PortalName;
         msg += "<br/>" + Resources.Appleseed.USER + ": " + email;
         string pwd = Membership.GetUser(email).GetPassword();
         pwd = String.IsNullOrEmpty(pwd) ? "<vacío>" : pwd;
@@ -499,9 +499,9 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
         string uName = UserName;
         if (string.IsNullOrEmpty(uName))
         {
-            uName = Convert.ToString(portalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_FROM"]);
+            uName = Convert.ToString(this.PortalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_FROM"]);
         }
-        SendMail(email, uName, "Nuevo usuario en " + portalSettings.PortalName + "!", msg);
+        SendMail(email, uName, "Nuevo usuario en " + this.PortalSettings.PortalName + "!", msg);
     }
 
     private void SendMail(string to, string from, string subject, string content)

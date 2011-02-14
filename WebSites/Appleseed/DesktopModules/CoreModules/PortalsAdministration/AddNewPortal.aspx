@@ -76,7 +76,7 @@
                     </table>
                     <rbfwebui:SettingsTable ID="EditTable" runat="server" />
                     <p>
-                        <rbfwebui:LinkButton ID="updateButton" runat="server" class="CommandButton"></rbfwebui:LinkButton></p>
+                        <rbfwebui:LinkButton ID="UpdateButton" runat="server" class="CommandButton"></rbfwebui:LinkButton></p>
                     <p class="Normal">
                         <rbfwebui:Label ID="ErrorMessage" runat="server" CssClass="Error" Visible="false"></rbfwebui:Label></p>
                 </td>

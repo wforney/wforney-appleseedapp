@@ -43,44 +43,44 @@ namespace Appleseed.Content.Web.Modules
                 {
                    Required = true, Value = "URL", Group = Group, Order = GroupOrderBase + 1 
                 };
-            this._baseSettings.Add("XML Type", xmlSrcType);
+            this.BaseSettings.Add("XML Type", xmlSrcType);
 
             var xmlSrcUrl = new SettingItem<Uri, TextBox>(new UrlDataType())
                 {
                    Required = false, Group = Group, Order = GroupOrderBase + 2 
                 };
-            this._baseSettings.Add("XML URL", xmlSrcUrl);
+            this.BaseSettings.Add("XML URL", xmlSrcUrl);
 
             var xmlSrcFile = new SettingItem<string, TextBox>(new PortalUrlDataType())
                 {
                    Required = false, Group = Group, Order = GroupOrderBase + 3 
                 };
-            this._baseSettings.Add("XML File", xmlSrcFile);
+            this.BaseSettings.Add("XML File", xmlSrcFile);
 
             var xslSrcType = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("Predefined;File"))
                 {
                    Required = true, Value = "Predefined", Order = GroupOrderBase + 4, Group = Group 
                 };
-            this._baseSettings.Add("XSL Type", xslSrcType);
+            this.BaseSettings.Add("XSL Type", xslSrcType);
 
             var xsltFileList = new ListDataType<string, ListControl>(this.GetXSLListForFeedTransformations());
             var xslSrcPredefined = new SettingItem<string, ListControl>(xsltFileList)
                 {
                    Required = true, Value = "RSS91", Group = Group, Order = GroupOrderBase + 5 
                 };
-            this._baseSettings.Add("XSL Predefined", xslSrcPredefined);
+            this.BaseSettings.Add("XSL Predefined", xslSrcPredefined);
 
             var xslSrcFile = new SettingItem<string, TextBox>(new PortalUrlDataType())
                 {
                    Required = false, Group = Group, Order = GroupOrderBase + 6 
                 };
-            this._baseSettings.Add("XSL File", xslSrcFile);
+            this.BaseSettings.Add("XSL File", xslSrcFile);
 
             var timeout = new SettingItem<int, TextBox>()
                 {
                    Required = true, Group = Group, Order = GroupOrderBase + 7, Value = 15 
                 };
-            this._baseSettings.Add("Timeout", timeout);
+            this.BaseSettings.Add("Timeout", timeout);
         }
 
         #endregion

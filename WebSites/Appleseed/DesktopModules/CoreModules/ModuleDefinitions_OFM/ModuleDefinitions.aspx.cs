@@ -130,8 +130,8 @@ namespace Appleseed.AdminAll
             this.MobileSrc.Text = string.Empty;
             this.ModuleGuid.Text = this.defId.ToString();
             
-            this.updateButton.Click += this.UpdateButtonClick;
-            this.deleteButton.Click += this.DeleteButtonClick;
+            this.UpdateButton.Click += this.UpdateButtonClick;
+            this.DeleteButton.Click += this.DeleteButtonClick;
             this.selectAllButton.Click += this.SelectAllButtonClick;
             this.selectNoneButton.Click += this.SelectNoneButtonClick;
             
@@ -210,7 +210,7 @@ namespace Appleseed.AdminAll
                 this.ViewState["addModule"] = this.addModule;
                 if (this.addModule)
                 {
-                    this.deleteButton.Visible = false;
+                    this.DeleteButton.Visible = false;
                 }
                 else
                 {

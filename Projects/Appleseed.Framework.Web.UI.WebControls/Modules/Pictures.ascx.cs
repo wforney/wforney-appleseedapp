@@ -70,7 +70,7 @@ namespace Appleseed.Content.Web.Modules
 
             // Album Path Setting
             var albumPath = new SettingItem<string, TextBox>(new PortalUrlDataType()) { Required = true, Value = "Album", Order = 3 };
-            this._baseSettings.Add("AlbumPath", albumPath);
+            this.BaseSettings.Add("AlbumPath", albumPath);
 
             // Thumbnail Resize Options
             var thumbnailResizeOptions = new List<Option>
@@ -91,21 +91,21 @@ namespace Appleseed.Content.Web.Modules
                 {
                     Required = true, Value = ((int)ResizeOption.FixedWidthHeight).ToString(), Order = 4 
                 };
-            this._baseSettings.Add("ThumbnailResize", thumbnailResize);
+            this.BaseSettings.Add("ThumbnailResize", thumbnailResize);
 
             // Thumbnail Width Setting
             var thumbnailWidth = new SettingItem<int, TextBox>()
                 {
                     Required = true, Value = 100, Order = 5, MinValue = 2, MaxValue = 9999 
                 };
-            this._baseSettings.Add("ThumbnailWidth", thumbnailWidth);
+            this.BaseSettings.Add("ThumbnailWidth", thumbnailWidth);
 
             // Thumbnail Height Setting
             var thumbnailHeight = new SettingItem<int, TextBox>()
                 {
                     Required = true, Value = 75, Order = 6, MinValue = 2, MaxValue = 9999 
                 };
-            this._baseSettings.Add("ThumbnailHeight", thumbnailHeight);
+            this.BaseSettings.Add("ThumbnailHeight", thumbnailHeight);
 
             // Original Resize Options
             var originalResizeOptions = new List<Option>
@@ -128,21 +128,21 @@ namespace Appleseed.Content.Web.Modules
                 {
                     Required = true, Value = ((int)ResizeOption.MaintainAspectWidth).ToString(), Order = 7 
                 };
-            this._baseSettings.Add("OriginalResize", originalResize);
+            this.BaseSettings.Add("OriginalResize", originalResize);
 
             // Original Width Settings
             var originalWidth = new SettingItem<int, TextBox>()
                 {
                     Required = true, Value = 800, Order = 8, MinValue = 2, MaxValue = 9999 
                 };
-            this._baseSettings.Add("OriginalWidth", originalWidth);
+            this.BaseSettings.Add("OriginalWidth", originalWidth);
 
             // Original Width Settings
             var originalHeight = new SettingItem<int, TextBox>()
                 {
                     Required = true, Value = 600, Order = 9, MinValue = 2, MaxValue = 9999 
                 };
-            this._baseSettings.Add("OriginalHeight", originalHeight);
+            this.BaseSettings.Add("OriginalHeight", originalHeight);
 
             // Repeat Direction Options
             var repeatDirectionOptions = new List<Option>
@@ -157,14 +157,14 @@ namespace Appleseed.Content.Web.Modules
                 {
                     Required = true, Value = ((int)RepeatDirection.Horizontal).ToString(), Order = 10 
                 };
-            this._baseSettings.Add("RepeatDirection", repeatDirectionSetting);
+            this.BaseSettings.Add("RepeatDirection", repeatDirectionSetting);
 
             // Repeat Columns Setting
             var repeatColumns = new SettingItem<int, TextBox>()
                 {
                     Required = true, Value = 6, Order = 11, MinValue = 1, MaxValue = 200 
                 };
-            this._baseSettings.Add("RepeatColumns", repeatColumns);
+            this.BaseSettings.Add("RepeatColumns", repeatColumns);
 
             // Layouts
             var layouts = new Hashtable();
@@ -184,25 +184,25 @@ namespace Appleseed.Content.Web.Modules
                 {
                     Required = true, Value = "DefaultThumbnailView.ascx", Order = 12 
                 };
-            this._baseSettings.Add("ThumbnailLayout", thumbnailLayoutSetting);
+            this.BaseSettings.Add("ThumbnailLayout", thumbnailLayoutSetting);
 
             // Thumbnail Layout Setting
             var imageLayoutSetting = new SettingItem<string, ListControl>(new CustomListDataType(layouts, "Key", "Value"))
                 {
                     Required = true, Value = "DefaultImageView.ascx", Order = 13 
                 };
-            this._baseSettings.Add("ImageLayout", imageLayoutSetting);
+            this.BaseSettings.Add("ImageLayout", imageLayoutSetting);
 
             // PicturesPerPage
             var picturesPerPage = new SettingItem<int, TextBox>()
                 {
                     Required = true, Value = 9999, Order = 14, MinValue = 1, MaxValue = 9999 
                 };
-            this._baseSettings.Add("PicturesPerPage", picturesPerPage);
+            this.BaseSettings.Add("PicturesPerPage", picturesPerPage);
 
             // If false the input box for bulk loads will be hidden
             var allowBulkLoad = new SettingItem<bool, CheckBox>() { Value = false, Order = 15 };
-            this._baseSettings.Add("AllowBulkLoad", allowBulkLoad);
+            this.BaseSettings.Add("AllowBulkLoad", allowBulkLoad);
         }
 
         #endregion
@@ -395,7 +395,7 @@ namespace Appleseed.Content.Web.Modules
                                                   ? RepeatDirection.Horizontal
                                                   : (RepeatDirection)
                                                     Int32.Parse(
-                                                        (SettingItem<int, TextBox>)this._baseSettings["RepeatDirectionSetting"]);
+                                                        (SettingItem<int, TextBox>)this.BaseSettings["RepeatDirectionSetting"]);
             this.dlPictures.RepeatColumns = Int32.Parse((SettingItem<int, TextBox>)this.Settings["RepeatColumns"]);
             this.dlPictures.ItemDataBound += this.Pictures_ItemDataBound;
             this.pgPictures.RecordsPerPage = Int32.Parse(this.Settings["PicturesPerPage"].ToString());

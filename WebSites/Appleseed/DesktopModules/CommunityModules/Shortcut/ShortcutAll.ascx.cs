@@ -30,7 +30,7 @@ namespace Appleseed.Content.Web.Modules
                     };
             
             // Overrides the base setting
-            _baseSettings["LinkedModule"] = linkedModule;
+            this.BaseSettings["LinkedModule"] = linkedModule;
         }
 
         #region General Implementation
@@ -56,7 +56,7 @@ namespace Appleseed.Content.Web.Modules
         {
             base.OnInit(e);
 
-            int p = portalSettings.PortalID;
+            int p = this.PortalSettings.PortalID;
         }
 
         #endregion

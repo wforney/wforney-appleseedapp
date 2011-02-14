@@ -148,7 +148,7 @@ namespace Appleseed.Content.Web.Modules
 
                     // by Manu
                     // First get linked task modules
-                    var linkedModules = this.moduleSettings["TASKS_LINKED_MODULES"].ToString().Split(';');
+                    var linkedModules = this.ModuleSettings["TASKS_LINKED_MODULES"].ToString().Split(';');
 
                     for (var i = 0; i < linkedModules.Length; i++)
                     {
@@ -160,7 +160,7 @@ namespace Appleseed.Content.Web.Modules
                             // Add to linked
 
                             // Get default assignee from module setting
-                            var linkedModuleSettings = ModuleSettings.GetModuleSettings(linkedModuleID, this);
+                            var linkedModuleSettings = Framework.Site.Configuration.ModuleSettings.GetModuleSettings(linkedModuleID, this);
                             var linkedModuleAssignee = linkedModuleSettings["TASKS_DEFAULT_ASSIGNEE"].ToString();
 
                             tasks.AddTask(
@@ -243,15 +243,15 @@ namespace Appleseed.Content.Web.Modules
             // Added support for Appleseed WYSIWYG editors.
             // Editor placeholder setup
             var h = new HtmlEditorDataType();
-            h.Value = this.moduleSettings["Editor"].ToString();
+            h.Value = this.ModuleSettings["Editor"].ToString();
             this.DesktopText = h.GetEditor(
                 this.DescriptionField, 
                 this.ModuleID, 
-                bool.Parse(this.moduleSettings["ShowUpload"].ToString()), 
-                this.portalSettings);
+                bool.Parse(this.ModuleSettings["ShowUpload"].ToString()), 
+                this.PortalSettings);
 
-            this.DesktopText.Width = new Unit(this.moduleSettings["Width"].ToString());
-            this.DesktopText.Height = new Unit(this.moduleSettings["Height"].ToString());
+            this.DesktopText.Width = new Unit(this.ModuleSettings["Width"].ToString());
+            this.DesktopText.Height = new Unit(this.ModuleSettings["Height"].ToString());
 
             // end Chris Farrell changes, 5/28/04
 
@@ -322,7 +322,7 @@ namespace Appleseed.Content.Web.Modules
                 else
                 {
                     // default for new
-                    this.AssignedField.Text = this.moduleSettings["TASKS_DEFAULT_ASSIGNEE"].ToString();
+                    this.AssignedField.Text = this.ModuleSettings["TASKS_DEFAULT_ASSIGNEE"].ToString();
                 }
             }
         }

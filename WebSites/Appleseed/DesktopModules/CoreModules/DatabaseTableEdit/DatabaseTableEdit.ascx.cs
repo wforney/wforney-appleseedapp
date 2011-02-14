@@ -160,49 +160,49 @@ namespace Appleseed.Content.Web.Modules
             Trusted_Connection.Order = 1;
             //Trusted_Connection.Required = true;   // hmmm... problem here! Dont set to true!" 
             Trusted_Connection.Value = true;
-            _baseSettings.Add("Trusted Connection", Trusted_Connection);
+            this.BaseSettings.Add("Trusted Connection", Trusted_Connection);
 
             var ServerName = new SettingItem<string, TextBox>();
             ServerName.Order = 2;
             ServerName.Required = true;
             ServerName.Value = "localhost";
-            _baseSettings.Add("ServerName", ServerName);
+            this.BaseSettings.Add("ServerName", ServerName);
 
             var DatabaseName = new SettingItem<string, TextBox>();
             DatabaseName.Order = 3;
             DatabaseName.Required = true;
             DatabaseName.Value = "Appleseed";
-            _baseSettings.Add("DatabaseName", DatabaseName);
+            this.BaseSettings.Add("DatabaseName", DatabaseName);
 
             var UserID = new SettingItem<string, TextBox>();
             UserID.Order = 4;
             UserID.Required = false;
             UserID.Value = "sa";
-            _baseSettings.Add("UserID", UserID);
+            this.BaseSettings.Add("UserID", UserID);
 
             var Password = new SettingItem<string, TextBox>();
             Password.Order = 5;
             Password.Required = false;
             Password.Value = string.Empty;
-            _baseSettings.Add("Password", Password);
+            this.BaseSettings.Add("Password", Password);
 
             var MaxStringLength = new SettingItem<int, TextBox>();
             MaxStringLength.Order = 6;
             MaxStringLength.Required = true;
             MaxStringLength.Value = 100;
-            _baseSettings.Add("MaxStringLength", MaxStringLength);
+            this.BaseSettings.Add("MaxStringLength", MaxStringLength);
 
             var AllowPaging = new SettingItem<bool, CheckBox>();
             AllowPaging.Order = 7;
             //AllowPaging.Required = true;   // hmmm... problem here! Dont set to true!" 
             AllowPaging.Value = true;
-            _baseSettings.Add("AllowPaging", AllowPaging);
+            this.BaseSettings.Add("AllowPaging", AllowPaging);
 
             var PageSize = new SettingItem<int, TextBox>();
             PageSize.Order = 8;
             PageSize.Required = true;
             PageSize.Value = 10;
-            _baseSettings.Add("PageSize", PageSize);
+            this.BaseSettings.Add("PageSize", PageSize);
         }
 
 

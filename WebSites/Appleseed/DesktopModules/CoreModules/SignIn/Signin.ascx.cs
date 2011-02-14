@@ -79,7 +79,7 @@ using System.Net.Mail;
                     EnglishName = "Hide automatically",
                     Order = 20
                 };
-            this._baseSettings.Add("SIGNIN_AUTOMATICALLYHIDE", hideAutomatically);
+            this.BaseSettings.Add("SIGNIN_AUTOMATICALLYHIDE", hideAutomatically);
 
             // 1.2.8.1743b - 09/10/2003
             // New setting on Sign-in to disable IE auto-complete by Mike Stone
@@ -93,7 +93,7 @@ using System.Net.Mail;
                     Description = "If Checked IE Will try to remember logins",
                     Order = 30
                 };
-            this._baseSettings.Add("SIGNIN_ALLOW_AUTOCOMPLETE", autoComplete);
+            this.BaseSettings.Add("SIGNIN_ALLOW_AUTOCOMPLETE", autoComplete);
 
             var rememberLogin = new SettingItem<bool, CheckBox>()
                 {
@@ -102,7 +102,7 @@ using System.Net.Mail;
                     Description = "If Checked allows to remember logins",
                     Order = 40
                 };
-            this._baseSettings.Add("SIGNIN_ALLOW_REMEMBER_LOGIN", rememberLogin);
+            this.BaseSettings.Add("SIGNIN_ALLOW_REMEMBER_LOGIN", rememberLogin);
 
             var sendPassword = new SettingItem<bool, CheckBox>()
                 {
@@ -111,7 +111,7 @@ using System.Net.Mail;
                     Description = "If Checked allows user to ask to get password by email if he forgotten",
                     Order = 50
                 };
-            this._baseSettings.Add("SIGNIN_ALLOW_SEND_PASSWORD", sendPassword);
+            this.BaseSettings.Add("SIGNIN_ALLOW_SEND_PASSWORD", sendPassword);
         }
 
         #endregion
@@ -212,7 +212,7 @@ using System.Net.Mail;
                 return;
             }
 
-            Membership.ApplicationName = this.portalSettings.PortalAlias;
+            Membership.ApplicationName = this.PortalSettings.PortalAlias;
             var membership = (AppleseedMembershipProvider)Membership.Provider;
 
             // Obtain single row of User information
@@ -241,9 +241,9 @@ using System.Net.Mail;
             var mail = new MailMessage();
 
             // we check the PortalSettings in order to get if it has an sender registered 
-            if (this.portalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_FROM"] != null)
+            if (this.PortalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_FROM"] != null)
             {
-                var sf = this.portalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_FROM"];
+                var sf = this.PortalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_FROM"];
                 var mailFrom = sf.ToString();
                 try
                 {
@@ -258,7 +258,7 @@ using System.Net.Mail;
                             @"This is the current email address used as sender when someone want to retrieve his/her password: '{0}'. 
 Is not well formed. Check the setting SITESETTINGS_ON_REGISTER_SEND_FROM of portal '{1}' in order to change this value (it's a portal setting).",
                             mailFrom,
-                            this.portalSettings.PortalAlias));
+                            this.PortalSettings.PortalAlias));
                 }
             }
 
@@ -266,7 +266,7 @@ Is not well formed. Check the setting SITESETTINGS_ON_REGISTER_SEND_FROM of port
             mail.To.Add(new MailAddress(this.email.Text));
             mail.Subject = string.Format(
                 "{0} - {1}",
-                this.portalSettings.PortalName,
+                this.PortalSettings.PortalName,
                 General.GetString("SIGNIN_PWD_LOST", "I lost my password", this));
 
             var sb = new StringBuilder();
@@ -290,7 +290,7 @@ Is not well formed. Check the setting SITESETTINGS_ON_REGISTER_SEND_FROM of port
             sb.Append("\r\n\r\n");
             sb.Append(General.GetString("SIGNIN_THANK_YOU", "Thanks for your visit.", this));
             sb.Append(" ");
-            sb.Append(this.portalSettings.PortalName);
+            sb.Append(this.PortalSettings.PortalName);
             sb.Append("\r\n\r\n");
             sb.Append(
                 General.GetString(
@@ -345,9 +345,9 @@ Is not well formed. Check the setting SITESETTINGS_ON_REGISTER_SEND_FROM of port
                 ((SettingItem<bool, CheckBox>)this.Settings["MODULESETTINGS_SHOW_TITLE"]).Value = false;
             }
 
-            if (this.portalSettings.CustomSettings["SITESETTINGS_ALLOW_NEW_REGISTRATION"] != null)
+            if (this.PortalSettings.CustomSettings["SITESETTINGS_ALLOW_NEW_REGISTRATION"] != null)
             {
-                if (!bool.Parse(this.portalSettings.CustomSettings["SITESETTINGS_ALLOW_NEW_REGISTRATION"].ToString()))
+                if (!bool.Parse(this.PortalSettings.CustomSettings["SITESETTINGS_ALLOW_NEW_REGISTRATION"].ToString()))
                 {
                     this.RegisterBtn.Visible = false;
                 }

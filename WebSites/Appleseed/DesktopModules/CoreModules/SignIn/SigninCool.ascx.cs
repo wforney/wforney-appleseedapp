@@ -90,12 +90,12 @@ namespace Appleseed.Content.Web.Modules
             UsersDB usersDB = new UsersDB();
 
             //Obtain single row of User information
-            AppleseedUser user = usersDB.GetSingleUser( email.Text, portalSettings.PortalAlias );
+            AppleseedUser user = usersDB.GetSingleUser( email.Text, this.PortalSettings.PortalAlias );
 
             if ( user != null ) {
 
                 string Pswrd;
-                string AppName = portalSettings.PortalName;
+                string AppName = this.PortalSettings.PortalName;
                 bool encrypted = Config.EncryptPassword;
                 string Name = user.Email;
                 if ( encrypted ) {
@@ -107,7 +107,7 @@ namespace Appleseed.Content.Web.Modules
                 }
                 crypthelp.ResetPassword( Name, randomPassword );
                 string LoginUrl = Path.ApplicationFullPath + "DesktopModules/Admin/Logon.aspx?Usr=" + Name + "&Pwd=" +
-                                  Pswrd + "&Alias=" + portalSettings.PortalAlias;
+                                  Pswrd + "&Alias=" + this.PortalSettings.PortalAlias;
                 MailMessage mail = new MailMessage();
 
                 // Geert.Audenaert@Syntegra.Com
@@ -180,13 +180,13 @@ namespace Appleseed.Content.Web.Modules
         public SigninCool()
         {
             var coolText = new SettingItem<string, TextBox> { Order = 10 };
-            _baseSettings.Add("CoolText", coolText);
+            this.BaseSettings.Add("CoolText", coolText);
 
             var hideAutomatically = new SettingItem<bool, CheckBox>
                 {
                     Value = true, EnglishName = "Hide automatically", Order = 20 
                 };
-            _baseSettings.Add("SIGNIN_AUTOMATICALLYHIDE", hideAutomatically);
+            this.BaseSettings.Add("SIGNIN_AUTOMATICALLYHIDE", hideAutomatically);
 
             //1.2.8.1743b - 09/10/2003
             //New setting on Signin fo disable IE autocomplete by Mike Stone
@@ -200,7 +200,7 @@ namespace Appleseed.Content.Web.Modules
                     Description = "If Checked IE Will try to remember logins",
                     Order = 30
                 };
-            _baseSettings.Add("SIGNIN_ALLOW_AUTOCOMPLETE", autoComplete);
+            this.BaseSettings.Add("SIGNIN_ALLOW_AUTOCOMPLETE", autoComplete);
 
             var rememberLogin = new SettingItem<bool, CheckBox>
                 {
@@ -209,7 +209,7 @@ namespace Appleseed.Content.Web.Modules
                     Description = "If Checked allows to remember logins",
                     Order = 40
                 };
-            _baseSettings.Add("SIGNIN_ALLOW_REMEMBER_LOGIN", rememberLogin);
+            this.BaseSettings.Add("SIGNIN_ALLOW_REMEMBER_LOGIN", rememberLogin);
 
             var sendPassword = new SettingItem<bool, CheckBox>
                 {
@@ -218,7 +218,7 @@ namespace Appleseed.Content.Web.Modules
                     Description = "If Checked allows user to ask to get password by email if he forgotten",
                     Order = 50
                 };
-            _baseSettings.Add("SIGNIN_ALLOW_SEND_PASSWORD", sendPassword);
+            this.BaseSettings.Add("SIGNIN_ALLOW_SEND_PASSWORD", sendPassword);
         }
 
         #region General Implementation
@@ -261,8 +261,8 @@ namespace Appleseed.Content.Web.Modules
             bool hide = true;
             bool autocomplete = false;
 
-            if (portalSettings.CustomSettings["SITESETTINGS_ALLOW_NEW_REGISTRATION"] != null)
-                if (!bool.Parse(portalSettings.CustomSettings["SITESETTINGS_ALLOW_NEW_REGISTRATION"].ToString()))
+            if (this.PortalSettings.CustomSettings["SITESETTINGS_ALLOW_NEW_REGISTRATION"] != null)
+                if (!bool.Parse(this.PortalSettings.CustomSettings["SITESETTINGS_ALLOW_NEW_REGISTRATION"].ToString()))
                     RegisterBtn.Visible = false;
 
             if (Settings["SIGNIN_AUTOMATICALLYHIDE"] != null)

@@ -44,7 +44,7 @@ namespace AppleseedWebApplication.DesktopModules.CoreModules.Admin
             }
             if (!Page.IsPostBack)
             {
-                Membership.ApplicationName = portalSettings.PortalAlias;
+                Membership.ApplicationName = this.PortalSettings.PortalAlias;
                 var membership = (AppleseedMembershipProvider)Membership.Provider;
                 if (!membership.VerifyTokenForUser(userId, token))
                 {
@@ -76,7 +76,7 @@ namespace AppleseedWebApplication.DesktopModules.CoreModules.Admin
             }
             try
             {
-                Membership.ApplicationName = portalSettings.PortalAlias;
+                Membership.ApplicationName = this.PortalSettings.PortalAlias;
                 var membership = (AppleseedMembershipProvider)Membership.Provider;
                 var user = membership.GetUser(userId, false);
                 if (!membership.ChangePassword(user.UserName, token, txtPass.Text))

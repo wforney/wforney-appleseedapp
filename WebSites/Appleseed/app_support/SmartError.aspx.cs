@@ -344,7 +344,7 @@ namespace AppleseedWebApplication.Error
             {
                 var myPath =
                     this.Server.MapPath(
-                        Path.WebPathCombine(this.portalSettings.PortalFullPath, "MagicUrl/MagicUrlList.xml"));
+                        Path.WebPathCombine(this.PortalSettings.PortalFullPath, "MagicUrl/MagicUrlList.xml"));
                 if (File.Exists(myPath))
                 {
                     var xmlDoc = new XmlDocument();

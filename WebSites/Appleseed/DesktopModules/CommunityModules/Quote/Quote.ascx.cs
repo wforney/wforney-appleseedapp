@@ -129,7 +129,7 @@ namespace Appleseed.Content.Web.Modules
                         EnglishName = "Quote source?",
                         Description = "Get quotes from a file or display the text from field My Quote"
                     };
-            _baseSettings.Add("Quote source", setQuoteSource);
+            this.BaseSettings.Add("Quote source", setQuoteSource);
 
             var fileList = new ListDataType<string, ListControl>(this.GetListOfQuoteFiles());
             var setQuoteFile = new SettingItem<string, ListControl>(fileList)
@@ -139,7 +139,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "Quote file",
                     Description = "The name of the file containing quotes"
                 };
-            _baseSettings.Add("Quote file", setQuoteFile);
+            this.BaseSettings.Add("Quote file", setQuoteFile);
 
             var setMyQuote = new SettingItem<string, TextBox>
                 {
@@ -148,7 +148,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "My Quote",
                     Description = "Enter any quote here and set Quote source to My Quote"
                 };
-            _baseSettings.Add("My Quote", setMyQuote);
+            this.BaseSettings.Add("My Quote", setMyQuote);
 
             var setTextSize =
                 new SettingItem<string, ListControl>(
@@ -159,7 +159,7 @@ namespace Appleseed.Content.Web.Modules
                         EnglishName = "Text size",
                         Description = "Text size of the quote text. The 6 build-in heading sizes (HTML tag <H1>,<H2>,etc)"
                     };
-            _baseSettings.Add("Text size", setTextSize);
+            this.BaseSettings.Add("Text size", setTextSize);
 
             var setDisplayInItalic = new SettingItem<bool, CheckBox>
                 {
@@ -168,7 +168,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "Display in italic?",
                     Description = "Display all the quote text in italic style (HTML tag <i>)"
                 };
-            _baseSettings.Add("Display in italic", setDisplayInItalic);
+            this.BaseSettings.Add("Display in italic", setDisplayInItalic);
 
             var setDisplayInBold = new SettingItem<bool, CheckBox>
                 {
@@ -177,7 +177,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "Display in bold?",
                     Description = "Display all the quote text in bold/fat letters (HTML tag <b>)"
                 };
-            _baseSettings.Add("Display in bold", setDisplayInBold);
+            this.BaseSettings.Add("Display in bold", setDisplayInBold);
 
             var setStartTag = new SettingItem<string, TextBox>
                 {
@@ -187,7 +187,7 @@ namespace Appleseed.Content.Web.Modules
                     Description =
                         "Enter any special customizing HTML start tag here, e.g. a marquee tag make the text scroll"
                 };
-            _baseSettings.Add("Start tag", setStartTag);
+            this.BaseSettings.Add("Start tag", setStartTag);
 
             var setEndTag = new SettingItem<string, TextBox>
                 {
@@ -196,7 +196,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "End tag",
                     Description = "Must correspond to the Start tag"
                 };
-            _baseSettings.Add("End tag", setEndTag);
+            this.BaseSettings.Add("End tag", setEndTag);
         }
 
         /// <summary>

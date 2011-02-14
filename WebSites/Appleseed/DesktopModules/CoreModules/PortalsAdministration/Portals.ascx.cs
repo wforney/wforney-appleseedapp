@@ -153,7 +153,7 @@ namespace Appleseed.Content.Web.Modules
         private string GetPhysicalPackageTemplatesPath()
         {
             string path = Appleseed.Framework.Settings.Path.ApplicationPhysicalPath;
-            path = string.Format(@"{0}{1}\PortalTemplates", path, portalSettings.PortalFullPath.Substring(1));
+            path = string.Format(@"{0}{1}\PortalTemplates", path, this.PortalSettings.PortalFullPath.Substring(1));
             path = path.Replace("/", @"\");
             return path;
         }

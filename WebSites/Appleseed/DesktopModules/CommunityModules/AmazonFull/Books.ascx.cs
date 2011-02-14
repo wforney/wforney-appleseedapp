@@ -38,11 +38,11 @@ namespace Appleseed.Content.Web.Modules
         {
             var Columns = new SettingItem<int, TextBox>()
                 { Required = true, Value = 3, MinValue = 1, MaxValue = 10 };
-            _baseSettings.Add("Columns", Columns);
+            this.BaseSettings.Add("Columns", Columns);
 
             var Width = new SettingItem<int, TextBox>()
                 { Value = 110, MinValue = 50, MaxValue = 250 };
-            _baseSettings.Add("Width", Width);
+            this.BaseSettings.Add("Width", Width);
 
             var PromoCode = new SettingItem<string, TextBox>() { Value = Config.AmazonPromoCode };
             //jes1111
@@ -50,11 +50,11 @@ namespace Appleseed.Content.Web.Modules
             //	PromoCode.Value = ConfigurationSettings.AppSettings["AmazonPromoCode"].ToString();
             //else 
             //	PromoCode.Value = string.Empty;
-            _baseSettings.Add("Promotion Code", PromoCode);
+            this.BaseSettings.Add("Promotion Code", PromoCode);
 
             var ShowDetails = new SettingItem<string, TextBox>()
                 { Value = "ProductName,OurPrice,Author" };
-            _baseSettings.Add("Show Details", ShowDetails);
+            this.BaseSettings.Add("Show Details", ShowDetails);
 
             var AmazonDevToken = new SettingItem<string, TextBox>()
                 { Value = Config.AmazonDevToken };
@@ -63,7 +63,7 @@ namespace Appleseed.Content.Web.Modules
             //	AmazonDevToken.Value = ConfigurationSettings.AppSettings["AmazonDevToken"].ToString();
             //else 
             //	AmazonDevToken.Value = string.Empty;
-            _baseSettings.Add("Amazon Dev Token", AmazonDevToken);
+            this.BaseSettings.Add("Amazon Dev Token", AmazonDevToken);
 
             //Choose your editor here
             SupportsWorkflow = false;

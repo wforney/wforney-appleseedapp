@@ -121,8 +121,8 @@ namespace Appleseed.Admin
             // End Change Geert.Audenaert@Syntegra.Com
 
             // reload the portalSettings from the database
-            this.Context.Items["PortalSettings"] = new PortalSettings(this.PageID, this.portalSettings.PortalAlias);
-            this.portalSettings = (PortalSettings)this.Context.Items["PortalSettings"];
+            this.Context.Items["PortalSettings"] = new PortalSettings(this.PageID, this.PortalSettings.PortalAlias);
+            this.PortalSettings = (PortalSettings)this.Context.Items["PortalSettings"];
 
             // reorder the modules in the content pane
             var modules = this.GetModules("ContentPane");
@@ -241,7 +241,7 @@ namespace Appleseed.Admin
         /// </remarks>
         protected void EditTable_UpdateControl(object sender, SettingsTableEventArgs e)
         {
-            PageSettings.UpdatePageSettings(
+            Framework.Site.Configuration.PageSettings.UpdatePageSettings(
                 this.PageID, 
                 ((SettingItem<string, TextBox>)e.CurrentItem).EditControl.ID, 
                 ((SettingItem<string, TextBox>)e.CurrentItem).Value);
@@ -343,7 +343,7 @@ namespace Appleseed.Admin
             }
 
             // Binds custom settings to table
-            this.EditTable.DataSource = new SortedList(this.pageSettings);
+            this.EditTable.DataSource = new SortedList(this.PageSettings);
             this.EditTable.DataBind();
         }
 
@@ -471,8 +471,8 @@ namespace Appleseed.Admin
 
                     // reload the portalSettings from the database
                     HttpContext.Current.Items["PortalSettings"] = new PortalSettings(
-                        this.PageID, this.portalSettings.PortalAlias);
-                    this.portalSettings = (PortalSettings)this.Context.Items["PortalSettings"];
+                        this.PageID, this.PortalSettings.PortalAlias);
+                    this.PortalSettings = (PortalSettings)this.Context.Items["PortalSettings"];
 
                     // reorder the modules in the source pane
                     sourceList = this.GetModules(sourcePane);
@@ -624,7 +624,7 @@ namespace Appleseed.Admin
         /// </remarks>
         private void BindData()
         {
-            var page = this.portalSettings.ActivePage;
+            var page = this.PortalSettings.ActivePage;
 
             // Populate Page Names, etc.
             this.tabName.Text = page.PageName;
@@ -633,7 +633,7 @@ namespace Appleseed.Admin
 
             // Populate the "ParentPage" Data
             var t = new PagesDB();
-            var items = t.GetPagesParent(this.portalSettings.PortalID, this.PageID);
+            var items = t.GetPagesParent(this.PortalSettings.PortalID, this.PageID);
             this.parentPage.DataSource = items;
             this.parentPage.DataBind();
 
@@ -653,7 +653,7 @@ namespace Appleseed.Admin
             // Populate checkbox list with all security roles for this portal
             // and "check" the ones already configured for this tab
             var users = new UsersDB();
-            var roles = users.GetPortalRoles(this.portalSettings.PortalAlias);
+            var roles = users.GetPortalRoles(this.PortalSettings.PortalAlias);
 
             // Clear existing items in checkboxlist
             this.authRoles.Items.Clear();
@@ -675,7 +675,7 @@ namespace Appleseed.Admin
             // Populate the "Add Module" Data
             var m = new ModulesDB();
             var modules = new SortedList<string, string>();
-            var drCurrentModuleDefinitions = m.GetCurrentModuleDefinitions(this.portalSettings.PortalID);
+            var drCurrentModuleDefinitions = m.GetCurrentModuleDefinitions(this.PortalSettings.PortalID);
             if (PortalSecurity.IsInRoles("Admins") || !bool.Parse(drCurrentModuleDefinitions["Admin"].ToString()))
             {
                 try
@@ -742,10 +742,10 @@ namespace Appleseed.Admin
         {
             var paneModules = new ArrayList();
 
-            foreach (ModuleSettings _module in this.portalSettings.ActivePage.Modules)
+            foreach (ModuleSettings _module in this.PortalSettings.ActivePage.Modules)
             {
                 if (_module.PaneName.ToLower() == pane.ToLower() &&
-                    this.portalSettings.ActivePage.PageID == _module.PageID)
+                    this.PortalSettings.ActivePage.PageID == _module.PageID)
                 {
                     var m = new ModuleItem();
                     m.Title = _module.ModuleTitle;
@@ -806,11 +806,11 @@ namespace Appleseed.Admin
 
             // update Page info in the database
             new PagesDB().UpdatePage(
-                this.portalSettings.PortalID, 
+                this.PortalSettings.PortalID, 
                 this.PageID, 
                 Int32.Parse(this.parentPage.SelectedItem.Value), 
                 this.tabName.Text, 
-                this.portalSettings.ActivePage.PageOrder, 
+                this.PortalSettings.ActivePage.PageOrder, 
                 authorizedRoles, 
                 this.mobilePageName.Text, 
                 this.showMobile.Checked);

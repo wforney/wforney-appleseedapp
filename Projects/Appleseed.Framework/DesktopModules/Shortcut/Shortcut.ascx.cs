@@ -58,7 +58,7 @@ namespace Appleseed.Content.Web.Modules
                         {
                             Required = true, Order = 0, Value = "0" 
                         };
-                _baseSettings.Add("LinkedModule", linkedModule);
+                this.BaseSettings.Add("LinkedModule", linkedModule);
             }
         }
 

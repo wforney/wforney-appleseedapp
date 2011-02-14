@@ -42,12 +42,12 @@ namespace Appleseed.Content.Web.Modules
             if (Page.IsPostBack == false) 
             {
                 //We flush cache for enable correct localization of items
-                PortalSettings.FlushBaseSettingsCache(portalSettings.PortalPath);
+                PortalSettings.FlushBaseSettingsCache(this.PortalSettings.PortalPath);
 
-                siteName.Text = portalSettings.PortalName;
-                sitePath.Text = portalSettings.PortalPath;
+                siteName.Text = this.PortalSettings.PortalName;
+                sitePath.Text = this.PortalSettings.PortalPath;
             }
-            EditTable.DataSource = new SortedList(portalSettings.CustomSettings);
+            EditTable.DataSource = new SortedList(this.PortalSettings.CustomSettings);
             EditTable.DataBind();
         }
                 
@@ -58,7 +58,7 @@ namespace Appleseed.Content.Web.Modules
         protected override void OnUpdate(EventArgs e) 
         {
             // Flush the cache for recovery the changes. jviladiu@portalServices.net (30/07/2004)
-            PortalSettings.FlushBaseSettingsCache(portalSettings.PortalPath);
+            PortalSettings.FlushBaseSettingsCache(this.PortalSettings.PortalPath);
             //Call base
             base.OnUpdate(e);
 
@@ -66,7 +66,7 @@ namespace Appleseed.Content.Web.Modules
             if (Page.IsValid == true) 
             {
                 //Update main settings and Tab info in the database
-                new PortalsDB().UpdatePortalInfo(portalSettings.PortalID, siteName.Text, sitePath.Text, false);
+                new PortalsDB().UpdatePortalInfo(this.PortalSettings.PortalID, siteName.Text, sitePath.Text, false);
 
                 // Update custom settings in the database
                 EditTable.UpdateControls();
@@ -78,7 +78,7 @@ namespace Appleseed.Content.Web.Modules
 
         private void EditTable_UpdateControl(object sender, SettingsTableEventArgs e)
         {
-            PortalSettings.UpdatePortalSetting(portalSettings.PortalID, ((SettingItem<string, TextBox>)e.CurrentItem).EditControl.ID, ((SettingItem<string, TextBox>)e.CurrentItem).Value);        
+            PortalSettings.UpdatePortalSetting(this.PortalSettings.PortalID, ((SettingItem<string, TextBox>)e.CurrentItem).EditControl.ID, ((SettingItem<string, TextBox>)e.CurrentItem).Value);        
         }
 
         public override Guid GuidID 

@@ -65,7 +65,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             DocumentPath.EnglishName = "Document path";
             DocumentPath.Description = "Folder for store the documents";
-            this._baseSettings.Add("DocumentPath", DocumentPath);
+            this.BaseSettings.Add("DocumentPath", DocumentPath);
 
             // Add new functionalities by jviladiu@portalServices.net (02/07/2004)
             var ShowImages = new SettingItem<bool, CheckBox>();
@@ -77,7 +77,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             ShowImages.EnglishName = "Show Image Icons?";
             ShowImages.Description = "Mark this if you like see Image Icons";
-            this._baseSettings.Add("DOCUMENTS_SHOWIMAGES", ShowImages);
+            this.BaseSettings.Add("DOCUMENTS_SHOWIMAGES", ShowImages);
 
             var SaveInDataBase = new SettingItem<bool, CheckBox>();
             SaveInDataBase.Value = false;
@@ -88,7 +88,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             SaveInDataBase.EnglishName = "Save files in DataBase?";
             SaveInDataBase.Description = "Mark this if you like save files in DataBase";
-            this._baseSettings.Add("DOCUMENTS_DBSAVE", SaveInDataBase);
+            this.BaseSettings.Add("DOCUMENTS_DBSAVE", SaveInDataBase);
 
             // Added sort by fields by Chris Thames [icecold_2@hotmail.com] (11/17/2004)
             var	SortByField	= new SettingItem<string, ListControl>(new ListDataType<string, ListControl>(General.GetString("DOCUMENTS_SORTBY_FIELD_LIST", "File Name;Created Date")));
@@ -101,7 +101,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             SortByField.EnglishName = "Sort Field?";
             SortByField.Description = "Sort by File Name or by Created Date?";
-            this._baseSettings.Add("DOCUMENTS_SORTBY_FIELD", SortByField);
+            this.BaseSettings.Add("DOCUMENTS_SORTBY_FIELD", SortByField);
 
             var SortByDirection = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>(General.GetString("DOCUMENTS_SORTBY_DIRECTION_LIST", "Ascending;Descending")));
             SortByDirection.Value = "Ascending";
@@ -112,7 +112,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             SortByDirection.EnglishName = "Sort ascending or descending?";
             SortByDirection.Description = "Ascending: A to Z or 0 - 9. Descending: Z - A or 9 - 0.";
-            this._baseSettings.Add("DOCUMENTS_SORTBY_DIRECTION", SortByDirection);
+            this.BaseSettings.Add("DOCUMENTS_SORTBY_DIRECTION", SortByDirection);
             // End
 
             // Added by Jakob Hansen 07/07/2004
@@ -125,7 +125,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             showTitle.EnglishName = "Show Title column?";
             showTitle.Description = "Mark this if the title column should be displayed";
-            this._baseSettings.Add("DOCUMENTS_SHOWTITLE", showTitle);
+            this.BaseSettings.Add("DOCUMENTS_SHOWTITLE", showTitle);
 
             var showOwner = new SettingItem<bool, CheckBox>();
             showOwner.Value = true;
@@ -136,7 +136,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             showOwner.EnglishName = "Show Owner column?";
             showOwner.Description = "Mark this if the owner column should be displayed";
-            this._baseSettings.Add("DOCUMENTS_SHOWOWNER", showOwner);
+            this.BaseSettings.Add("DOCUMENTS_SHOWOWNER", showOwner);
 
             var showArea = new SettingItem<bool, CheckBox>();
             showArea.Value = true;
@@ -147,7 +147,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             showArea.EnglishName = "Show Area column";
             showArea.Description = "Mark this if the area column should be displayed";
-            this._baseSettings.Add("DOCUMENTS_SHOWAREA", showArea);
+            this.BaseSettings.Add("DOCUMENTS_SHOWAREA", showArea);
 
             var showLastUpdated = new SettingItem<bool, CheckBox>();
             showLastUpdated.Value = true;
@@ -158,7 +158,7 @@ namespace Appleseed.Content.Web.Modules
             // end of modification
             showLastUpdated.EnglishName = "Show Last Updated column";
             showLastUpdated.Description = "Mark this if the Last Updated column should be displayed";
-            this._baseSettings.Add("DOCUMENTS_SHOWLASTUPDATED", showLastUpdated);
+            this.BaseSettings.Add("DOCUMENTS_SHOWLASTUPDATED", showLastUpdated);
             // End Change Jakob Hansen
 
             #endregion

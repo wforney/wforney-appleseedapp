@@ -95,10 +95,10 @@
                 </table>
                 <p>
                 </p>
-                <rbfwebui:linkbutton id="updateButton" runat="server" class="CommandButton" text="Update"></rbfwebui:linkbutton>&nbsp;
-                <rbfwebui:linkbutton id="cancelButton" runat="server" causesvalidation="False" class="CommandButton"
+                <rbfwebui:linkbutton id="UpdateButton" runat="server" class="CommandButton" text="Update"></rbfwebui:linkbutton>&nbsp;
+                <rbfwebui:linkbutton id="CancelButton" runat="server" causesvalidation="False" class="CommandButton"
                     text="Cancel"></rbfwebui:linkbutton>&nbsp;
-                <rbfwebui:linkbutton id="deleteButton" runat="server" causesvalidation="False" class="CommandButton"
+                <rbfwebui:linkbutton id="DeleteButton" runat="server" causesvalidation="False" class="CommandButton"
                     text="Delete this item"></rbfwebui:linkbutton>
                 <hr noshade="noshade" size="1" />
                 <span class="Normal">

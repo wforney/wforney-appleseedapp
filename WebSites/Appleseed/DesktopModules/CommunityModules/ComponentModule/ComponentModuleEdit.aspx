@@ -65,10 +65,10 @@
                     </tr>
                 </table>
                 <p>
-                    <rbfwebui:linkbutton id="updateButton" runat="server" class="CommandButton" text="UPDATE">
+                    <rbfwebui:linkbutton id="UpdateButton" runat="server" class="CommandButton" text="UPDATE">
                     </rbfwebui:linkbutton>
                     &nbsp;
-                    <rbfwebui:linkbutton id="cancelButton" runat="server" causesvalidation="False" class="CommandButton"
+                    <rbfwebui:linkbutton id="CancelButton" runat="server" causesvalidation="False" class="CommandButton"
                         text="CANCEL">
                     </rbfwebui:linkbutton>
                 </p>
