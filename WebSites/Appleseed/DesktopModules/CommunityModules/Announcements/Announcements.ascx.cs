@@ -91,7 +91,7 @@ namespace Appleseed.Content.Web.Modules
         public Announcements()
         {
             // Set Editor Settings jviladiu@portalservices.net 2004/07/30
-            HtmlEditorDataType.HtmlEditorSettings(_baseSettings, SettingItemGroup.MODULE_SPECIAL_SETTINGS);
+            HtmlEditorDataType.HtmlEditorSettings(this.BaseSettings, SettingItemGroup.MODULE_SPECIAL_SETTINGS);
 
             //Custom settings
             var DelayExpire = new SettingItem<int, TextBox>();
@@ -100,7 +100,7 @@ namespace Appleseed.Content.Web.Modules
             DelayExpire.MaxValue = 3650; //10 years
             DelayExpire.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             DelayExpire.Description = string.Empty;
-            _baseSettings.Add("DelayExpire", DelayExpire);
+            this.BaseSettings.Add("DelayExpire", DelayExpire);
 
             //Indah Fuldner
             var RepeatDirection = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("Vertical;Horizontal"));
@@ -108,7 +108,7 @@ namespace Appleseed.Content.Web.Modules
             RepeatDirection.Value = "Vertical";
             RepeatDirection.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             RepeatDirection.Description = string.Empty;
-            _baseSettings.Add("RepeatDirectionSetting", RepeatDirection);
+            this.BaseSettings.Add("RepeatDirectionSetting", RepeatDirection);
 
             var RepeatColumn = new SettingItem<int, TextBox>();
             RepeatColumn.Required = true;
@@ -117,13 +117,13 @@ namespace Appleseed.Content.Web.Modules
             RepeatColumn.MaxValue = 10;
             RepeatColumn.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             RepeatColumn.Description = string.Empty;
-            _baseSettings.Add("RepeatColumns", RepeatColumn);
+            this.BaseSettings.Add("RepeatColumns", RepeatColumn);
 
             var showItemBorder = new SettingItem<bool, CheckBox>();
             showItemBorder.Value = false;
             showItemBorder.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             showItemBorder.Description = string.Empty;
-            _baseSettings.Add("ShowBorder", showItemBorder);
+            this.BaseSettings.Add("ShowBorder", showItemBorder);
             //End Indah Fuldner
 
             //begin Chris Farrell, 09/05/2005, chris@cftechconsulting.com
@@ -133,7 +133,7 @@ namespace Appleseed.Content.Web.Modules
             PageSize.Value = 15;
             PageSize.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             PageSize.Description = "Default page size for paging";
-            _baseSettings.Add("PageSize", PageSize);
+            this.BaseSettings.Add("PageSize", PageSize);
             //end chris farrell
 
             var setSortField = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("Title;CreatedDate;ExpireDate"));
@@ -141,14 +141,14 @@ namespace Appleseed.Content.Web.Modules
             setSortField.Required = true;
             setSortField.EnglishName = "Sort Field";
             setSortField.Value = "ExpireDate";
-            _baseSettings.Add("SortField", setSortField);
+            this.BaseSettings.Add("SortField", setSortField);
 
             var setSortDirection = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("ASC;DESC"));
             setSortDirection.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             setSortDirection.Required = true;
             setSortDirection.EnglishName = "Sort Direction";
             setSortDirection.Value = "DESC";
-            _baseSettings.Add("SortDirection", setSortDirection);
+            this.BaseSettings.Add("SortDirection", setSortDirection);
 
             // Change by Geert.Audenaert@Syntegra.Com
             // Date: 27/2/2003

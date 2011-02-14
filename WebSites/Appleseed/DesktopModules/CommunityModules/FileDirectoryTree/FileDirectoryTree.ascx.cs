@@ -313,14 +313,14 @@ namespace Appleseed.Content.Web.Modules
             // Changed to virutal root from physical
 
             //directory.Value = Path.ApplicationPhysicalPath;
-            _baseSettings.Add("Directory", directory);
+            this.BaseSettings.Add("Directory", directory);
 
             var LinkType = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("Downloadable Link;Network Share"));
             LinkType.EnglishName = "Link Type";
             LinkType.Group = group;
             LinkType.Order = groupBase + 25; //2;
             LinkType.Value = "Downloadable Link";
-            _baseSettings.Add("LinkType", LinkType);
+            this.BaseSettings.Add("LinkType", LinkType);
 
             var Target = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("blank;parent;self;top"));
             Target.EnglishName = "Target Window";
@@ -328,14 +328,14 @@ namespace Appleseed.Content.Web.Modules
             Target.Group = group;
             Target.Order = groupBase + 30; //3;
             Target.Value = "blank";
-            _baseSettings.Add("Target", Target);
+            this.BaseSettings.Add("Target", Target);
 
             var Collapsed = new SettingItem<bool, CheckBox>();
             Collapsed.EnglishName = "Collapsed View";
             Collapsed.Group = group;
             Collapsed.Order = groupBase + 35; //4;
             Collapsed.Value = true;
-            _baseSettings.Add("Collapsed", Collapsed);
+            this.BaseSettings.Add("Collapsed", Collapsed);
 
             var Style = new SettingItem<string, TextBox>();
             Style.EnglishName = "Style";
@@ -343,7 +343,7 @@ namespace Appleseed.Content.Web.Modules
             Style.Group = group;
             Style.Order = groupBase + 40; //5;
             Style.Value = string.Empty;
-            _baseSettings.Add("Style", Style);
+            this.BaseSettings.Add("Style", Style);
 
             var Indent = new SettingItem<string, TextBox>();
             Indent.EnglishName = "SubDirectory Indent (px)";
@@ -351,7 +351,7 @@ namespace Appleseed.Content.Web.Modules
             Indent.Group = group;
             Indent.Order = groupBase + 45; //6;
             Indent.Value = "20px";
-            _baseSettings.Add("Indent", Indent);
+            this.BaseSettings.Add("Indent", Indent);
         }
 
         /// <summary>

@@ -386,30 +386,30 @@ namespace Appleseed.Content.Web.Modules
             setSortField.Required = false;
             setSortField.Value = string.Empty;
             setSortField.Order = 1;
-            this._baseSettings.Add("SortField", setSortField);
+            this.BaseSettings.Add("SortField", setSortField);
 
             var setSortOrder = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("ASC;DESC"));
             setSortOrder.Required = true;
             setSortOrder.Value = "ASC";
             setSortOrder.Order = 2;
-            this._baseSettings.Add("SortOrder", setSortOrder);
+            this.BaseSettings.Add("SortOrder", setSortOrder);
 
             var DocumentPath = new SettingItem<string, TextBox>(new PortalUrlDataType());
             DocumentPath.Required = true;
             DocumentPath.Value = "Documents";
             DocumentPath.Order = 3;
-            this._baseSettings.Add("DocumentPath", DocumentPath);
+            this.BaseSettings.Add("DocumentPath", DocumentPath);
 
             var ImagePath = new SettingItem<string, TextBox>(new PortalUrlDataType());
             ImagePath.Required = true;
             ImagePath.Value = "Images\\Default";
             ImagePath.Order = 4;
-            this._baseSettings.Add("ImagePath", ImagePath);
+            this.BaseSettings.Add("ImagePath", ImagePath);
 
             var XSLsrc = new SettingItem<string, TextBox>(new PortalUrlDataType());
             XSLsrc.Required = false;
             XSLsrc.Order = 5;
-            this._baseSettings.Add("XSLsrc", XSLsrc);
+            this.BaseSettings.Add("XSLsrc", XSLsrc);
 
             //Rob Siera - 04 nov 2004 - Adding possibility to use data of other UDT
             var UDTsrc = new SettingItem<int, TextBox>();
@@ -418,7 +418,7 @@ namespace Appleseed.Content.Web.Modules
             UDTsrc.EnglishName="XSL data";
             UDTsrc.Description="Specify ModuleID of a UserDefinedTable to be used as data source for XSL (see 'mID' parameter in edit URL). Specify 0 to reset to current module data.";
             UDTsrc.Order = 6;
-            this._baseSettings.Add("UDTsrc", UDTsrc);
+            this.BaseSettings.Add("UDTsrc", UDTsrc);
 
             //Rob Siera - 04 nov 2004 - Adding possibility to view data as raw XML
             var DisplayAsXML = new SettingItem<bool, CheckBox>();
@@ -426,7 +426,7 @@ namespace Appleseed.Content.Web.Modules
             DisplayAsXML.EnglishName="Display XML";
             DisplayAsXML.Description="Toggle to display data as XML. Helpfull to develop XSL file.";
             DisplayAsXML.Order = 7;
-            this._baseSettings.Add("DisplayAsXML", DisplayAsXML);
+            this.BaseSettings.Add("DisplayAsXML", DisplayAsXML);
         }
 
 

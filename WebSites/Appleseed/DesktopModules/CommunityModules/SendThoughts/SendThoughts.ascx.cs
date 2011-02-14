@@ -124,7 +124,7 @@ namespace Appleseed.Content.Web.Modules
         {
             var setEMail = new SettingItem<string, TextBox>
                 { Required = true, Value = string.Empty, Order = 1 };
-            _baseSettings.Add("EMail", setEMail);
+            this.BaseSettings.Add("EMail", setEMail);
 
             var setDescription = new SettingItem<string, TextBox>
                 {
@@ -132,7 +132,7 @@ namespace Appleseed.Content.Web.Modules
                     Value = General.GetString("SENDTHTS_DES_TXT", "Write a description here...", this),
                     Order = 2
                 };
-            _baseSettings.Add("Description", setDescription);
+            this.BaseSettings.Add("Description", setDescription);
         }
 
         #region Web Form Designer generated code

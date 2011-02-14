@@ -25,7 +25,7 @@
 				&nbsp;
 				<rbfwebui:LinkButton TextKey="SWI_REJECT" Text="Reject" id="btnReject" runat="server" CssClass="CommandButton"></rbfwebui:LinkButton>
 				&nbsp;
-				<rbfwebui:LinkButton TextKey="CANCEL" Text="Cancel" id="cancelButton" runat="server" CssClass="CommandButton"></rbfwebui:LinkButton>
+				<rbfwebui:LinkButton TextKey="CANCEL" Text="Cancel" id="CancelButton" runat="server" CssClass="CommandButton"></rbfwebui:LinkButton>
 					</td>
 				</tr>
 				<tr>

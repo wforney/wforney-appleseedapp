@@ -29,13 +29,13 @@ namespace Appleseed.Content.Web.Modules
             setZip.Required = true;
             setZip.Value = "10001";
             setZip.Order = 1;
-            _baseSettings.Add("Zip", setZip);
+            this.BaseSettings.Add("Zip", setZip);
 
             var setOption = new SettingItem<string, TextBox>();
             setOption.Required = true;
             setOption.Value = "0";
             setOption.Order = 2;
-            _baseSettings.Add("Option", setOption);
+            this.BaseSettings.Add("Option", setOption);
         }
 
         /// <summary>

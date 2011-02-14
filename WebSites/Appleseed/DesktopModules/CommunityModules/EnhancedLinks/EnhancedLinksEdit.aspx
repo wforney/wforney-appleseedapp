@@ -133,10 +133,10 @@ function newWindow(file,window) {
                                     </p>
                                     <p>
                                     </p>
-                                    <rbfwebui:linkbutton id="updateButton" runat="server" cssclass="CommandButton" text="Update"></rbfwebui:linkbutton>&nbsp;
-                                    <rbfwebui:linkbutton id="cancelButton" runat="server" causesvalidation="False" cssclass="CommandButton"
+                                    <rbfwebui:linkbutton id="UpdateButton" runat="server" cssclass="CommandButton" text="Update"></rbfwebui:linkbutton>&nbsp;
+                                    <rbfwebui:linkbutton id="CancelButton" runat="server" causesvalidation="False" cssclass="CommandButton"
                                         text="Cancel"></rbfwebui:linkbutton>&nbsp;
-                                    <rbfwebui:linkbutton id="deleteButton" runat="server" causesvalidation="False" cssclass="CommandButton"
+                                    <rbfwebui:linkbutton id="DeleteButton" runat="server" causesvalidation="False" cssclass="CommandButton"
                                         text="Delete this item"></rbfwebui:linkbutton>&nbsp;
                                     <hr noshade="noshade" size="1" width="500" />
                                     <span class="Normal">

@@ -89,14 +89,9 @@ namespace Appleseed.Framework.Web.UI.WebControls
         protected ImageButton EditBtn;
 
         /// <summary>
-        ///   baseSettings holds data type information
-        /// </summary>
-        protected Dictionary<string, ISettingItem> _baseSettings = new Dictionary<string, ISettingItem>();
-
-        /// <summary>
         ///   Standard content Update button
         /// </summary>
-        protected LinkButton updateButton;
+        protected LinkButton UpdateButton;
 
         /// <summary>
         ///   used to hold the consolidated list of buttons for the module
@@ -408,6 +403,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// </summary>
         public PortalModuleControl()
         {
+            this.BaseSettings = new Dictionary<string, ISettingItem>();
             this.ButtonListAdmin = new List<Control>(3);
             this.ButtonListCustom = new List<Control>(3);
             this.ButtonListUser = new List<Control>(3);
@@ -440,7 +436,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                     EnglishName = "Apply Theme",
                     Description = "Check this box to apply theme to this module"
                 };
-            this._baseSettings.Add("MODULESETTINGS_APPLY_THEME", applyTheme);
+            this.BaseSettings.Add("MODULESETTINGS_APPLY_THEME", applyTheme);
 
             var themeOptions = new List<SettingOption>
                 {
@@ -455,7 +451,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                     EnglishName = "Theme",
                     Description = "Choose theme for this module"
                 };
-            this._baseSettings.Add("MODULESETTINGS_THEME", theme);
+            this.BaseSettings.Add("MODULESETTINGS_THEME", theme);
 
             if (HttpContext.Current != null)
             {
@@ -488,7 +484,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                                     EnglishName = "Custom Theme",
                                     Description = "Set a custom theme for this module only"
                                 };
-                        this._baseSettings.Add("MODULESETTINGS_MODULE_THEME", moduleTheme);
+                        this.BaseSettings.Add("MODULESETTINGS_MODULE_THEME", moduleTheme);
                     }
                 }
             }
@@ -502,7 +498,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                     EnglishName = "Show Title",
                     Description = "Switches title display on/off"
                 };
-            this._baseSettings.Add("MODULESETTINGS_SHOW_TITLE", showTitle);
+            this.BaseSettings.Add("MODULESETTINGS_SHOW_TITLE", showTitle);
 
             // switches last modified summary on/off
             var showModifiedBy = new SettingItem<bool, CheckBox>
@@ -513,7 +509,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                     EnglishName = "Show Modified by",
                     Description = "Switches 'Show Modified by' display on/off"
                 };
-            this._baseSettings.Add("MODULESETTINGS_SHOW_MODIFIED_BY", showModifiedBy);
+            this.BaseSettings.Add("MODULESETTINGS_SHOW_MODIFIED_BY", showModifiedBy);
 
             // gman3001: added 10/26/2004
             // - implement width, height, and content scrolling options for all modules 
@@ -530,7 +526,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                     EnglishName = "Content Height",
                     Description = "Minimum height(in pixels) of the content area of this module. (0 for none)"
                 };
-            this._baseSettings.Add("MODULESETTINGS_CONTENT_HEIGHT", controlHeight);
+            this.BaseSettings.Add("MODULESETTINGS_CONTENT_HEIGHT", controlHeight);
 
             // Windows width
             var controlWidth = new SettingItem<int, TextBox>
@@ -544,7 +540,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                     EnglishName = "Content Width",
                     Description = "Minimum width(in pixels) of the content area of this module. (0 for none)"
                 };
-            this._baseSettings.Add("MODULESETTINGS_CONTENT_WIDTH", controlWidth);
+            this.BaseSettings.Add("MODULESETTINGS_CONTENT_WIDTH", controlWidth);
 
             // Content scrolling option
             var scrollingSetting = new SettingItem<bool, CheckBox>
@@ -555,7 +551,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                     EnglishName = "Content Scrolling",
                     Description = "Set to enable/disable scrolling of Content based on height and width settings."
                 };
-            this._baseSettings.Add("MODULESETTINGS_CONTENT_SCROLLING", scrollingSetting);
+            this.BaseSettings.Add("MODULESETTINGS_CONTENT_SCROLLING", scrollingSetting);
 
             // Module Stretching option
             var stretchSetting = new SettingItem<bool, CheckBox>
@@ -567,7 +563,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                     Description =
                         "Set to enable/disable automatic stretching of the module's width to fill the empty area to the right of the module."
                 };
-            this._baseSettings.Add("MODULESETTINGS_WIDTH_STRETCHING", stretchSetting);
+            this.BaseSettings.Add("MODULESETTINGS_WIDTH_STRETCHING", stretchSetting);
 
             // gman3001: END
 
@@ -584,7 +580,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                     EnglishName = "Show Print Button",
                     Description = "Show print button in view mode?"
                 };
-            this._baseSettings.Add("MODULESETTINGS_SHOW_PRINT_BUTTION", printButton1);
+            this.BaseSettings.Add("MODULESETTINGS_SHOW_PRINT_BUTTION", printButton1);
 
             // added: Jes1111 2004-08-29 - choice! Default is 'true' for backward compatibility
             // Show Title for print?
@@ -596,7 +592,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                     EnglishName = "Show Title for Print",
                     Description = "Show Title for this module in print popup?"
                 };
-            this._baseSettings.Add("MODULESETTINGS_SHOW_TITLE_PRINT", showTitlePrint);
+            this.BaseSettings.Add("MODULESETTINGS_SHOW_TITLE_PRINT", showTitlePrint);
 
             // added: Jes1111 2004-08-02 - choices for Button display on module
             var buttonDisplayOptions = new List<SettingOption>
@@ -624,7 +620,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                         Description =
                             "Choose how you want module buttons to be displayed. Note that settings other than 'Image only' may require Zen or special treatment in the Theme."
                     };
-            this._baseSettings.Add("MODULESETTINGS_BUTTON_DISPLAY", buttonDisplay);
+            this.BaseSettings.Add("MODULESETTINGS_BUTTON_DISPLAY", buttonDisplay);
 
             // Jes1111 - not implemented yet
             // // Show email button in view mode?
@@ -643,7 +639,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                     EnglishName = "Show Arrow Admin Buttons",
                     Description = "Show Arrow Admin buttons?"
                 };
-            this._baseSettings.Add("MODULESETTINGS_SHOW_ARROW_BUTTONS", arrowButtons);
+            this.BaseSettings.Add("MODULESETTINGS_SHOW_ARROW_BUTTONS", arrowButtons);
 
             // Show help button if exists
             var helpButton1 = new SettingItem<bool, CheckBox>
@@ -654,7 +650,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                     EnglishName = "Show Help Button",
                     Description = "Show help button in title if exists documentation for this module"
                 };
-            this._baseSettings.Add("MODULESETTINGS_SHOW_HELP_BUTTON", helpButton1);
+            this.BaseSettings.Add("MODULESETTINGS_SHOW_HELP_BUTTON", helpButton1);
 
             // LANGUAGE/CULTURE MANAGEMENT
             groupOrderBase = (int)SettingItemGroup.CULTURE_SETTINGS;
@@ -672,14 +668,14 @@ namespace Appleseed.Framework.Web.UI.WebControls
                         Description =
                             "Please choose the culture. Invariant cultures shows always the module, if you choose one or more cultures only when culture is selected this module will shown."
                     };
-            this._baseSettings.Add("MODULESETTINGS_CULTURE", culture);
+            this.BaseSettings.Add("MODULESETTINGS_CULTURE", culture);
 
             // Localized module title
             var counter = groupOrderBase + 11;
 
             // Ignore invariant
             foreach (var c in
-                cultureList.Where(c => c != CultureInfo.InvariantCulture && !this._baseSettings.ContainsKey(c.Name)))
+                cultureList.Where(c => c != CultureInfo.InvariantCulture && !this.BaseSettings.ContainsKey(c.Name)))
             {
                 var localizedTitle = new SettingItem<string, TextBox>
                     {
@@ -688,7 +684,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                         EnglishName = string.Format("Title ({0})", c.Name),
                         Description = string.Format("Set title for {0} culture.", c.EnglishName)
                     };
-                this._baseSettings.Add(string.Format("MODULESETTINGS_TITLE_{0}", c.Name), localizedTitle);
+                this.BaseSettings.Add(string.Format("MODULESETTINGS_TITLE_{0}", c.Name), localizedTitle);
                 counter++;
             }
 
@@ -711,7 +707,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                     };
 
                 // end of modification
-                this._baseSettings.Add("TopicName", topicName);
+                this.BaseSettings.Add("TopicName", topicName);
             }
 
             // Default configuration
@@ -727,7 +723,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
                     EnglishName = "ShareModule",
                     Description = "Share Module"
                 };
-            this._baseSettings.Add("SHARE_MODULE", share);
+            this.BaseSettings.Add("SHARE_MODULE", share);
         }
 
         #endregion
@@ -1026,17 +1022,10 @@ namespace Appleseed.Framework.Web.UI.WebControls
         }
 
         /// <summary>
-        ///   Gets Module base settings defined by control creator
+        ///   Gets or sets Module base settings defined by control creator
         /// </summary>
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Dictionary<string, ISettingItem> BaseSettings
-        {
-            get
-            {
-                return this._baseSettings;
-            }
-        }
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Dictionary<string, ISettingItem> BaseSettings { get; protected set; }
 
         /// <summary>
         ///   Gets or sets the button list admin.
@@ -1114,7 +1103,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
             get
             {
                 return this.ModuleConfiguration != null &&
-                       this.portalSettings.ActivePage.PageID == this.ModuleConfiguration.PageID &&
+                       this.PortalSettings.ActivePage.PageID == this.ModuleConfiguration.PageID &&
                        (((this.SupportsWorkflow && this.Version == WorkFlowVersion.Staging) || !this.SupportsWorkflow) &&
                         (PortalSecurity.IsInRoles(this.ModuleConfiguration.AuthorizedAddRoles) &&
                          (!string.IsNullOrEmpty(this.AddUrl)) &&
@@ -1156,7 +1145,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
             get
             {
                 return this.ModuleConfiguration != null && this.ModuleID != 0 &&
-                       (this.SupportsArrows && this.portalSettings.ActivePage.PageID == this.ModuleConfiguration.PageID &&
+                       (this.SupportsArrows && this.PortalSettings.ActivePage.PageID == this.ModuleConfiguration.PageID &&
                         PortalSecurity.IsInRoles(this.ModuleConfiguration.AuthorizedMoveModuleRoles));
             }
         }
@@ -1213,7 +1202,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
             get
             {
                 return PortalSecurity.IsInRoles(this.ModuleConfiguration.AuthorizedDeleteModuleRoles) &&
-                       this.portalSettings.ActivePage.PageID == this.ModuleConfiguration.PageID;
+                       this.PortalSettings.ActivePage.PageID == this.ModuleConfiguration.PageID;
             }
         }
 
@@ -1230,7 +1219,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
             get
             {
                 return this.ModuleConfiguration != null &&
-                       this.portalSettings.ActivePage.PageID == this.ModuleConfiguration.PageID &&
+                       this.PortalSettings.ActivePage.PageID == this.ModuleConfiguration.PageID &&
                        (((this.SupportsWorkflow && this.Version == WorkFlowVersion.Staging) || !this.SupportsWorkflow) &&
                         (PortalSecurity.IsInRoles(this.ModuleConfiguration.AuthorizedEditRoles) &&
                          (!string.IsNullOrEmpty(this.EditUrl)) &&
@@ -1330,7 +1319,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
             {
                 return this.ModuleConfiguration != null &&
                        (PortalSecurity.IsInRoles(this.ModuleConfiguration.AuthorizedPropertiesRoles) &&
-                        this.portalSettings.ActivePage.PageID == this.ModuleConfiguration.PageID &&
+                        this.PortalSettings.ActivePage.PageID == this.ModuleConfiguration.PageID &&
                         !string.IsNullOrEmpty(this.PropertiesUrl));
             }
         }
@@ -1391,7 +1380,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
             {
                 return this.ModuleConfiguration != null &&
                        (PortalSecurity.IsInRoles(this.ModuleConfiguration.AuthorizedPropertiesRoles) &&
-                        this.portalSettings.ActivePage.PageID == this.ModuleConfiguration.PageID &&
+                        this.PortalSettings.ActivePage.PageID == this.ModuleConfiguration.PageID &&
                         !string.IsNullOrEmpty(this.SecurityUrl));
             }
         }
@@ -2634,7 +2623,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
             get
             {
                 return this.settings ??
-                       (this.settings = ModuleSettings.GetModuleSettings(this.ModuleID, this._baseSettings));
+                       (this.settings = ModuleSettings.GetModuleSettings(this.ModuleID, this.BaseSettings));
             }
         }
 
@@ -2754,11 +2743,11 @@ namespace Appleseed.Framework.Web.UI.WebControls
             {
                 var returnValue = this.supportsArrows;
 
-                if (this.portalSettings.CustomSettings["SITESETTINGS_SHOW_MODULE_ARROWS"] != null)
+                if (this.PortalSettings.CustomSettings["SITESETTINGS_SHOW_MODULE_ARROWS"] != null)
                 {
                     returnValue = returnValue &&
                                   bool.Parse(
-                                      this.portalSettings.CustomSettings["SITESETTINGS_SHOW_MODULE_ARROWS"].ToString());
+                                      this.PortalSettings.CustomSettings["SITESETTINGS_SHOW_MODULE_ARROWS"].ToString());
                 }
 
                 if (this.Settings["MODULESETTINGS_SHOW_ARROW_BUTTONS"] != null)
@@ -2853,11 +2842,11 @@ namespace Appleseed.Framework.Web.UI.WebControls
             {
                 if (HttpContext.Current != null && this.titleText == string.Empty)
                 {
-                    var key = string.Format("MODULESETTINGS_TITLE_{0}", this.portalSettings.PortalContentLanguage.Name);
+                    var key = string.Format("MODULESETTINGS_TITLE_{0}", this.PortalSettings.PortalContentLanguage.Name);
                     var setting = this.Settings[key];
 
                     // if it is not design time (and not overridden - Jes1111)
-                    if (this.portalSettings.PortalContentLanguage != CultureInfo.InvariantCulture && setting != null &&
+                    if (this.PortalSettings.PortalContentLanguage != CultureInfo.InvariantCulture && setting != null &&
                         setting.ToString().Length > 0)
                     {
                         this.titleText = setting.ToString();
@@ -3003,24 +2992,24 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// <summary>
         ///   Gets current tab settings
         /// </summary>
-        public Dictionary<string, ISettingItem> pageSettings
+        public Dictionary<string, ISettingItem> PageSettings
         {
             get
             {
-                return this.Page != null ? this.Page.pageSettings : null;
+                return this.Page != null ? this.Page.PageSettings : null;
             }
         }
 
         /// <summary>
         ///   Gets current portal settings
         /// </summary>
-        public PortalSettings portalSettings
+        public PortalSettings PortalSettings
         {
             get
             {
                 // Obtain PortalSettings from page else Current Context else null
                 return this.Page != null
-                           ? this.Page.portalSettings
+                           ? this.Page.PortalSettings
                            : (HttpContext.Current != null
                                   ? (PortalSettings)HttpContext.Current.Items["PortalSettings"]
                                   : null);
@@ -3068,8 +3057,8 @@ namespace Appleseed.Framework.Web.UI.WebControls
         {
             // CHANGE by david.verberckmoes@syntegra.com on june, 2 2003
             if (
-                ((SettingItem<bool, CheckBox>)this.portalSettings.CustomSettings["SITESETTINGS_SHOW_MODIFIED_BY"]).Value &&
-                ((SettingItem<bool, CheckBox>)this.Settings["MODULESETTINGS_SHOW_MODIFIED_BY"]).Value)
+                ((ISettingItem<bool>)this.PortalSettings.CustomSettings["SITESETTINGS_SHOW_MODIFIED_BY"]).Value &&
+                ((ISettingItem<bool>)this.Settings["MODULESETTINGS_SHOW_MODIFIED_BY"]).Value)
             {
                 // Get stuff from database
                 var email = string.Empty;
@@ -3820,13 +3809,13 @@ namespace Appleseed.Framework.Web.UI.WebControls
                 }
             }
 
-            if (this.updateButton != null)
+            if (this.UpdateButton != null)
             {
-                this.updateButton.Click += this.UpdateButtonClick;
-                this.updateButton.Text = General.GetString("UPDATE");
+                this.UpdateButton.Click += this.UpdateButtonClick;
+                this.UpdateButton.Text = General.GetString("UPDATE");
 
                 // updateButton.CssClass = "CommandButton"; // Jes1111 - set in .ascx
-                this.updateButton.EnableViewState = false;
+                this.UpdateButton.EnableViewState = false;
             }
 
             base.OnInit(e);
@@ -4031,14 +4020,14 @@ namespace Appleseed.Framework.Web.UI.WebControls
             // end: Jes1111
 
             // added: Jes1111 - 2004-08-05 - supports custom theme per module
-            if (this.portalSettings.CustomSettings.ContainsKey("SITESETTINGS_ALLOW_MODULE_CUSTOM_THEMES") &&
-                this.portalSettings.CustomSettings["SITESETTINGS_ALLOW_MODULE_CUSTOM_THEMES"].ToString().Length != 0 &&
-                bool.Parse(this.portalSettings.CustomSettings["SITESETTINGS_ALLOW_MODULE_CUSTOM_THEMES"].ToString()) &&
+            if (this.PortalSettings.CustomSettings.ContainsKey("SITESETTINGS_ALLOW_MODULE_CUSTOM_THEMES") &&
+                this.PortalSettings.CustomSettings["SITESETTINGS_ALLOW_MODULE_CUSTOM_THEMES"].ToString().Length != 0 &&
+                bool.Parse(this.PortalSettings.CustomSettings["SITESETTINGS_ALLOW_MODULE_CUSTOM_THEMES"].ToString()) &&
                 this.Settings.ContainsKey("MODULESETTINGS_MODULE_THEME") &&
                 this.Settings["MODULESETTINGS_MODULE_THEME"].ToString().Trim().Length > 0)
             {
                 // substitute custom theme for this module
-                var tm = new ThemeManager(this.portalSettings.PortalPath);
+                var tm = new ThemeManager(this.PortalSettings.PortalPath);
                 tm.Load(this.Settings["MODULESETTINGS_MODULE_THEME"].ToString());
                 this.CurrentTheme = tm.CurrentTheme;
 
@@ -4060,13 +4049,13 @@ namespace Appleseed.Framework.Web.UI.WebControls
                             this.ModuleID,
                             ex.Message);
                     ErrorHandler.Publish(LogLevel.Error, error);
-                    this.CurrentTheme = this.portalSettings.GetCurrentTheme(themeName);
+                    this.CurrentTheme = this.PortalSettings.GetCurrentTheme(themeName);
                 }
             }
             else
             {
                 // original behaviour unchanged
-                this.CurrentTheme = this.portalSettings.GetCurrentTheme(themeName);
+                this.CurrentTheme = this.PortalSettings.GetCurrentTheme(themeName);
             }
 
             // end change: Jes1111
@@ -4627,9 +4616,9 @@ namespace Appleseed.Framework.Web.UI.WebControls
         {
             // get the portal setting at the Tab level and not from this class as it is not refreshed
             return
-                this.Page.portalSettings.ActivePage.Modules.Cast<ModuleSettings>().Where(
+                this.Page.PortalSettings.ActivePage.Modules.Cast<ModuleSettings>().Where(
                     module =>
-                    this.portalSettings.ActivePage.PageID == module.PageID &&
+                    this.PortalSettings.ActivePage.PageID == module.PageID &&
                     module.PaneName.ToLower() == pane.ToLower()).Select(
                         module =>
                         new ModuleItem
@@ -4712,7 +4701,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
         {
             if (this.ShareModule)
             {
-                var publisherkeysetting = this.portalSettings.CustomSettings["SITESETTINGS_ADDTHIS_USERNAME"];
+                var publisherkeysetting = this.PortalSettings.CustomSettings["SITESETTINGS_ADDTHIS_USERNAME"];
                 if (publisherkeysetting != null)
                 {
                     if (Convert.ToString(publisherkeysetting).Trim().Length > 0)
@@ -4739,14 +4728,16 @@ namespace Appleseed.Framework.Web.UI.WebControls
                 }
             }
 
-            if (this.buildButtons)
+            if (!this.buildButtons)
             {
-                foreach (var button in this.buttonList)
-                {
-                    placeHolder.Controls.Add(this.CurrentTheme.GetLiteralControl("TitleBeforeButton"));
-                    placeHolder.Controls.Add(button);
-                    placeHolder.Controls.Add(this.CurrentTheme.GetLiteralControl("TitleAfterButton"));
-                }
+                return;
+            }
+
+            foreach (var button in this.buttonList)
+            {
+                placeHolder.Controls.Add(this.CurrentTheme.GetLiteralControl("TitleBeforeButton"));
+                placeHolder.Controls.Add(button);
+                placeHolder.Controls.Add(this.CurrentTheme.GetLiteralControl("TitleAfterButton"));
             }
         }
 
@@ -4901,8 +4892,8 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
             // reload the portalSettings from the database
             HttpContext.Current.Items["PortalSettings"] = new PortalSettings(
-                this.PageID, this.portalSettings.PortalAlias);
-            this.Page.portalSettings = (PortalSettings)this.Context.Items["PortalSettings"];
+                this.PageID, this.PortalSettings.PortalAlias);
+            this.Page.PortalSettings = (PortalSettings)this.Context.Items["PortalSettings"];
 
             // get source array list
             var sourceList = this.GetModules(sourcePane);
@@ -5070,9 +5061,9 @@ namespace Appleseed.Framework.Web.UI.WebControls
                     break;
                 case "ShowModifiedBy":
                     if (
-                        ((SettingItem<bool, CheckBox>)
-                         this.portalSettings.CustomSettings["SITESETTINGS_SHOW_MODIFIED_BY"]).Value &&
-                        ((SettingItem<bool, CheckBox>)this.Settings["MODULESETTINGS_SHOW_MODIFIED_BY"]).Value)
+                        ((ISettingItem<bool>)
+                         this.PortalSettings.CustomSettings["SITESETTINGS_SHOW_MODIFIED_BY"]).Value &&
+                        ((ISettingItem<bool>)this.Settings["MODULESETTINGS_SHOW_MODIFIED_BY"]).Value)
                     {
                         returnVal = true;
                     }

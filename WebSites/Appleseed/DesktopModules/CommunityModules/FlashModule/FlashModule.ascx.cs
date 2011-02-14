@@ -48,35 +48,35 @@ namespace Appleseed.Content.Web.Modules
             src.Required = true;
             src.Group = group;
             src.Order = groupBase + 20; //1;
-            _baseSettings.Add("src", src);
+            this.BaseSettings.Add("src", src);
 
             var width = new SettingItem<string, TextBox>();
             //	width.MinValue = 1;
             //	width.MaxValue = 400;
             width.Group = group;
             width.Order = groupBase + 25; //2;
-            _baseSettings.Add("width", width);
+            this.BaseSettings.Add("width", width);
 
             var height = new SettingItem<string, TextBox>();
             //	height.MinValue = 1;
             //	height.MaxValue = 200;
             height.Group = group;
             height.Order = groupBase + 30; //3;
-            _baseSettings.Add("height", height);
+            this.BaseSettings.Add("height", height);
 
             var backColor = new SettingItem<string, TextBox>();
             backColor.Required = false;
             backColor.Value = "#FFFFFF";
             backColor.Group = group;
             backColor.Order = groupBase + 35; //4;
-            _baseSettings.Add("backcolor", backColor);
+            this.BaseSettings.Add("backcolor", backColor);
 
             var FlashPath = new SettingItem<string, TextBox>(new PortalUrlDataType());
             FlashPath.Required = true;
             FlashPath.Value = "FlashGallery";
             FlashPath.Group = group;
             FlashPath.Order = groupBase + 40; //5;
-            _baseSettings.Add("FlashPath", FlashPath);
+            this.BaseSettings.Add("FlashPath", FlashPath);
         }
 
         /// <summary>
@@ -89,8 +89,8 @@ namespace Appleseed.Content.Web.Modules
 //			if (!IsPostBack) //Or it does not work with singon...
 //			{
             string flashSrc = Settings["src"].ToString();
-            flashSrc = flashSrc.Replace("~~", portalSettings.PortalFullPath);
-            flashSrc = flashSrc.Replace("~", portalSettings.PortalPath);
+            flashSrc = flashSrc.Replace("~~", this.PortalSettings.PortalFullPath);
+            flashSrc = flashSrc.Replace("~", this.PortalSettings.PortalPath);
 
             string flashHeight = Settings["height"].ToString();
             string flashWidth = Settings["width"].ToString();
@@ -101,7 +101,7 @@ namespace Appleseed.Content.Web.Modules
 
             //Always make sure you have a valid movie or your browser will hang.
             if (flashSrc == null || flashSrc.Length == 0)
-                flashSrc = Path.WebPathCombine(portalSettings.PortalFullPath, "/FlashGallery/effect2-marquee.swf");
+                flashSrc = Path.WebPathCombine(this.PortalSettings.PortalFullPath, "/FlashGallery/effect2-marquee.swf");
 
             string movieName = string.Empty;
             try

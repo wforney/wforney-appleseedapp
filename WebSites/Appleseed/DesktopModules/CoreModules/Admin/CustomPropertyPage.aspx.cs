@@ -30,9 +30,9 @@ namespace Appleseed.Content.Web.Modules
         protected override void OnInit(EventArgs e)
         {
             //Controls must be created here
-            updateButton = new LinkButton();
-            updateButton.CssClass = "CommandButton";
-            PlaceHolderButtons.Controls.Add(updateButton);
+            this.UpdateButton = new LinkButton();
+            this.UpdateButton.CssClass = "CommandButton";
+            PlaceHolderButtons.Controls.Add(this.UpdateButton);
 
             PlaceHolderButtons.Controls.Add(new LiteralControl("&#160;"));
             saveAndCloseButton = new LinkButton();
@@ -44,9 +44,9 @@ namespace Appleseed.Content.Web.Modules
 
             PlaceHolderButtons.Controls.Add(new LiteralControl("&#160;"));
 
-            cancelButton = new LinkButton();
-            cancelButton.CssClass = "CommandButton";
-            PlaceHolderButtons.Controls.Add(cancelButton);
+            this.CancelButton = new LinkButton();
+            this.CancelButton.CssClass = "CommandButton";
+            PlaceHolderButtons.Controls.Add(this.CancelButton);
 
             this.EditTable.UpdateControl +=
                 new Appleseed.Framework.Web.UI.WebControls.UpdateControlEventHandler(this.EditTable_UpdateControl);

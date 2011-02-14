@@ -27,7 +27,7 @@ namespace Appleseed.Content.Web.Modules.FCK.filemanager.upload.aspx
         /// </summary>
         protected override void LoadSettings()
         {
-            if (PortalSecurity.HasEditPermissions(this.portalSettings.ActiveModule) == false)
+            if (PortalSecurity.HasEditPermissions(this.PortalSettings.ActiveModule) == false)
             {
                 PortalSecurity.AccessDeniedEdit();
             }
@@ -71,20 +71,20 @@ namespace Appleseed.Content.Web.Modules.FCK.filemanager.upload.aspx
                 var oFile = this.Request.Files.Get("FCKeditor_File");
 
                 var fileName = oFile.FileName.Substring(oFile.FileName.LastIndexOf("\\") + 1);
-                var ms = ModuleSettings.GetModuleSettings(this.portalSettings.ActiveModule);
+                var ms = Framework.Site.Configuration.ModuleSettings.GetModuleSettings(this.PortalSettings.ActiveModule);
                 var DefaultImageFolder = "default";
                 if (ms["MODULE_IMAGE_FOLDER"] != null)
                 {
                     DefaultImageFolder = ms["MODULE_IMAGE_FOLDER"].ToString();
                 }
-                else if (this.portalSettings.CustomSettings["SITESETTINGS_DEFAULT_IMAGE_FOLDER"] != null)
+                else if (this.PortalSettings.CustomSettings["SITESETTINGS_DEFAULT_IMAGE_FOLDER"] != null)
                 {
                     DefaultImageFolder =
-                        this.portalSettings.CustomSettings["SITESETTINGS_DEFAULT_IMAGE_FOLDER"].ToString();
+                        this.PortalSettings.CustomSettings["SITESETTINGS_DEFAULT_IMAGE_FOLDER"].ToString();
                 }
 
                 var sFileURL = string.Format(
-                    "{0}/images/{1}/{2}", this.portalSettings.PortalFullPath, DefaultImageFolder, fileName);
+                    "{0}/images/{1}/{2}", this.PortalSettings.PortalFullPath, DefaultImageFolder, fileName);
                 var sFilePath = this.Server.MapPath(sFileURL);
 
                 oFile.SaveAs(sFilePath);

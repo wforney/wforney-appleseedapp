@@ -60,7 +60,7 @@ namespace Appleseed.Content.Web.Modules
                 General.GetString("WHOSLOGGEDONCACHETIMEOUT",
                                   "Specify an amount of time the who's logged on module will wait before checking again (0 - 60000)",
                                   this);
-            _baseSettings.Add("CacheTimeout", cacheTime);
+            this.BaseSettings.Add("CacheTimeout", cacheTime);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Appleseed.Content.Web.Modules
             int anonUserCount, regUsersOnlineCount;
             string regUsersString;
             Utility.FillUsersOnlineCache(
-                portalSettings.PortalID,
+                this.PortalSettings.PortalID,
                 this.minutesToCheckForUsers,
                 cacheTime,
                                          out anonUserCount,

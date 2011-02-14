@@ -36,7 +36,7 @@ namespace Appleseed.Framework.Services
         /// Adds the RSS request parameters.
         /// </summary>
         /// <param name="sri">
-        /// The sri.
+        /// The service request info.
         /// </param>
         /// <returns>
         /// A string value...
@@ -121,10 +121,10 @@ namespace Appleseed.Framework.Services
         /// ServiceResponseInfo
         /// </returns>
         public static ServiceResponseInfo CallService(
-            int portalId, 
-            Guid userId, 
-            string applicationFullPath, 
-            ref ServiceRequestInfo requestInfo, 
+            int portalId,
+            Guid userId,
+            string applicationFullPath,
+            ref ServiceRequestInfo requestInfo,
             Page appleseedPage)
         {
             var responseInfo = new ServiceResponseInfo { ServiceStatus = string.Empty };
@@ -147,7 +147,7 @@ namespace Appleseed.Framework.Services
                     // <add key="AllowWebServiceSignin" value="false" />
                     // userID = GetUserID(requestInfo.UserName, requestInfo.UserPassword);
                     /* Jakob says: later
-                    if (requestInfo.UserName == string.Empty)		
+                    if (requestInfo.UserName == string.Empty)
                         userID = -1;
                     else
                     {
@@ -166,13 +166,13 @@ namespace Appleseed.Framework.Services
                 {
                     if (appleseedPage != null)
                     {
-                        responseInfo.ServiceTitle = appleseedPage.portalSettings.PortalName;
+                        responseInfo.ServiceTitle = appleseedPage.PortalSettings.PortalName;
                         responseInfo.ServiceLink = Path.ApplicationFullPath;
-                        responseInfo.ServiceDescription = appleseedPage.portalSettings.PortalTitle;
+                        responseInfo.ServiceDescription = appleseedPage.PortalSettings.PortalTitle;
 
-                        responseInfo.ServiceImageTitle = appleseedPage.portalSettings.PortalTitle;
+                        responseInfo.ServiceImageTitle = appleseedPage.PortalSettings.PortalTitle;
                         responseInfo.ServiceImageUrl = Path.ApplicationFullPath +
-                                                       appleseedPage.portalSettings.PortalPath + "/logo.gif";
+                                                       appleseedPage.PortalSettings.PortalPath + "/logo.gif";
                         responseInfo.ServiceImageLink = Path.ApplicationFullPath;
                     }
                     else
@@ -290,16 +290,16 @@ namespace Appleseed.Framework.Services
         public static string CreateErrorRSSFeed(string title, string link, string description)
         {
             return CreateSimpleRSSFeed(
-                title, 
-                link, 
-                description, 
-                "Appleseed Site", 
-                Path.WebPathCombine(Path.ApplicationFullPath, "aspnet_client/logo_sml.gif"), 
-                Path.ApplicationFullPath, 
-                100, 
-                40, 
-                string.Empty, 
-                string.Empty, 
+                title,
+                link,
+                description,
+                "Appleseed Site",
+                Path.WebPathCombine(Path.ApplicationFullPath, "aspnet_client/logo_sml.gif"),
+                Path.ApplicationFullPath,
+                100,
+                40,
+                string.Empty,
+                string.Empty,
                 string.Empty);
         }
 
@@ -343,16 +343,16 @@ namespace Appleseed.Framework.Services
         /// string
         /// </returns>
         public static string CreateSimpleRSSFeed(
-            string title, 
-            string link, 
-            string description, 
-            string imageTitle, 
-            string imageUrl, 
-            string imageLink, 
-            int imageWidth, 
-            int imageHeight, 
-            string itemTitle, 
-            string itemLink, 
+            string title,
+            string link,
+            string description,
+            string imageTitle,
+            string imageUrl,
+            string imageLink,
+            int imageWidth,
+            int imageHeight,
+            string itemTitle,
+            string itemLink,
             string itemDescription)
         {
             StringBuilder sb;
@@ -866,7 +866,7 @@ namespace Appleseed.Framework.Services
 
             if (AppleseedPage != null)
             {
-                portalID = AppleseedPage.portalSettings.PortalID;
+                portalID = AppleseedPage.PortalSettings.PortalID;
                 return true;
             }
 
@@ -962,14 +962,14 @@ namespace Appleseed.Framework.Services
             }
 
             var dr = SearchHelper.SearchPortal(
-                portalId, 
-                userId, 
-                moduleType, 
-                requestInfo.SearchString, 
-                requestInfo.SearchField, 
-                requestInfo.SortField, 
-                requestInfo.SortDirection, 
-                string.Empty, 
+                portalId,
+                userId,
+                moduleType,
+                requestInfo.SearchString,
+                requestInfo.SearchField,
+                requestInfo.SortField,
+                requestInfo.SortDirection,
+                string.Empty,
                 select.ToString());
 
             var hits = 1;
@@ -1420,7 +1420,7 @@ namespace Appleseed.Framework.Services
         /// a filled ServiceRequestInfo class
         /// </param>
         /// <returns>
-        /// ServiceResponseInfo
+        /// The Service Response Info
         /// </returns>
         private static ServiceResponseInfo CallRssService(ServiceRequestInfo requestInfo)
         {
@@ -1456,8 +1456,8 @@ namespace Appleseed.Framework.Services
 
                 // Get Service Description
                 var serviceDescription = Regex.Match(
-                    channel.Result("$1"), 
-                    @"<description>(.*?)</description>", 
+                    channel.Result("$1"),
+                    @"<description>(.*?)</description>",
                     RegexOptions.Singleline | RegexOptions.IgnoreCase);
                 if (serviceDescription.Success)
                 {
@@ -1466,8 +1466,8 @@ namespace Appleseed.Framework.Services
 
                 // Get Service Copyright
                 var serviceCopyright = Regex.Match(
-                    channel.Result("$1"), 
-                    @"<copyright>(.*?)</copyright>", 
+                    channel.Result("$1"),
+                    @"<copyright>(.*?)</copyright>",
                     RegexOptions.Singleline | RegexOptions.IgnoreCase);
                 if (serviceCopyright.Success)
                 {
@@ -1535,8 +1535,8 @@ namespace Appleseed.Framework.Services
 
                 // Get Item Description
                 var itemDescription = Regex.Match(
-                    item.Result("$1"), 
-                    @"<description>(.*?)</description>", 
+                    item.Result("$1"),
+                    @"<description>(.*?)</description>",
                     RegexOptions.Singleline | RegexOptions.IgnoreCase);
                 if (itemDescription.Success)
                 {
@@ -1572,25 +1572,22 @@ namespace Appleseed.Framework.Services
             try
             {
                 var result = req.GetResponse();
-                var receiveStream = result.GetResponseStream();
-
-                var read = new byte[512];
-                try
+                if (result != null)
                 {
-                    var bytes = receiveStream.Read(read, 0, 512);
+                    using (var receiveStream = result.GetResponseStream())
+                    {
+                        if (receiveStream != null)
+                        {
+                            var read = new byte[512];
+                            var bytes = receiveStream.Read(read, 0, 512);
 
-                    while (bytes > 0)
-                    {
-                        var encode = Encoding.GetEncoding("utf-8");
-                        builder.Append(encode.GetString(read, 0, bytes));
-                        bytes = receiveStream.Read(read, 0, 512);
-                    }
-                }
-                finally
-                {
-                    if (receiveStream != null)
-                    {
-                        receiveStream.Close(); // by Manu
+                            while (bytes > 0)
+                            {
+                                var encode = Encoding.GetEncoding("utf-8");
+                                builder.Append(encode.GetString(read, 0, bytes));
+                                bytes = receiveStream.Read(read, 0, 512);
+                            }
+                        }
                     }
                 }
             }

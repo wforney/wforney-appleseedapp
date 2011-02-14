@@ -158,7 +158,7 @@ namespace Appleseed.Content.Web.Modules
             // Get the portal's roles from the database
             Appleseed.Framework.Users.Data.UsersDB users = new Appleseed.Framework.Users.Data.UsersDB();
 
-            IList<AppleseedRole> roles = users.GetPortalRoles(portalSettings.PortalAlias);
+            IList<AppleseedRole> roles = users.GetPortalRoles(this.PortalSettings.PortalAlias);
             ddlRoles.DataSource = roles;
             ddlRoles.DataBind();
 

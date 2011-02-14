@@ -80,7 +80,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "Settings string", 
                     Description = "Settings are in pairs like: FirstName=Elvis;LastName=Presly;"
                 };
-            this._baseSettings.Add("Settings string", setting);
+            this.BaseSettings.Add("Settings string", setting);
 
             var xmlFile = new SettingItem<string, TextBox>(new PortalUrlDataType())
                 {
@@ -90,7 +90,7 @@ namespace Appleseed.Content.Web.Modules
                     Description =
                         "Name of file in folder Appleseed\\_Portalfolder (typically _Appleseed). Do not add a path!"
                 };
-            this._baseSettings.Add("XML settings file", xmlFile);
+            this.BaseSettings.Add("XML settings file", xmlFile);
 
             var debugMode = new SettingItem<bool, CheckBox>
                 {
@@ -99,7 +99,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "Debug Mode", 
                     Description = "Primarily for the developer. Controls property DebugMode"
                 };
-            this._baseSettings.Add("Debug Mode", debugMode);
+            this.BaseSettings.Add("Debug Mode", debugMode);
         }
 
         #endregion

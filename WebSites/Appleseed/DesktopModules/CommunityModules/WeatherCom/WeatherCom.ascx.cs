@@ -73,13 +73,13 @@ namespace Appleseed.Content.Web.ModulesVersion
         {
             var cityCode = new SettingItem<string, TextBox>()
                 { Required = false, Value = "BKXX0001" };
-            _baseSettings.Add("CityCode", cityCode);
+            this.BaseSettings.Add("CityCode", cityCode);
 
             var forecast = new SettingItem<string, TextBox>() { Required = false, Value = "3" };
-            BaseSettings.Add("Forecast", forecast);
+            this.BaseSettings.Add("Forecast", forecast);
 
             var setUnit = new SettingItem<string, TextBox>() { Required = false, Value = "m" };
-            _baseSettings.Add("Unit", setUnit);
+            this.BaseSettings.Add("Unit", setUnit);
         }
 
         #region Web Form Designer generated code

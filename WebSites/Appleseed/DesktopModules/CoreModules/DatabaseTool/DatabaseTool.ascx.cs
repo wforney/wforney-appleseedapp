@@ -376,32 +376,32 @@ namespace Appleseed.Content.Web.Modules
         {
             var trustedConnection = new SettingItem<bool, CheckBox> { Order = 1, Value = true };
             //Trusted_Connection.Required = true;   // hmmm... problem here! Dont set to true!" 
-            _baseSettings.Add("Trusted Connection", trustedConnection);
+            this.BaseSettings.Add("Trusted Connection", trustedConnection);
 
             var serverName = new SettingItem<string, TextBox> { Order = 2, Required = true, Value = "localhost" };
-            _baseSettings.Add("ServerName", serverName);
+            this.BaseSettings.Add("ServerName", serverName);
 
             var databaseName = new SettingItem<string, TextBox> { Order = 3, Required = true, Value = "Appleseed" };
-            _baseSettings.Add("DatabaseName", databaseName);
+            this.BaseSettings.Add("DatabaseName", databaseName);
 
             var userId = new SettingItem<string, TextBox> { Order = 4, Required = false, Value = string.Empty };
-            _baseSettings.Add("UserID", userId);
+            this.BaseSettings.Add("UserID", userId);
 
             var password = new SettingItem<string, TextBox> { Order = 5, Required = false, Value = string.Empty };
-            _baseSettings.Add("Password", password);
+            this.BaseSettings.Add("Password", password);
 
             var infoFields = new SettingItem<string, TextBox> { Order = 6, Required = true, Value = "name,id,xtype,uid" };
-            _baseSettings.Add("InfoFields", infoFields);
+            this.BaseSettings.Add("InfoFields", infoFields);
 
             var infoExtendedFields = new SettingItem<string, TextBox> { Order = 7, Required = true, Value = "*" };
-            _baseSettings.Add("InfoExtendedFields", infoExtendedFields);
+            this.BaseSettings.Add("InfoExtendedFields", infoExtendedFields);
 
             var showQueryBox = new SettingItem<bool, CheckBox> { Order = 8, Value = true };
             //ShowQueryBox.Required = true;   // hmmm... problem here! Dont set to true!" 
-            _baseSettings.Add("Show Query Box", showQueryBox);
+            this.BaseSettings.Add("Show Query Box", showQueryBox);
 
             var queryBoxHeight = new SettingItem<int, TextBox> { Order = 9, Required = true, Value = 150, MinValue = 10, MaxValue = 2000 };
-            _baseSettings.Add("Query Box Height", queryBoxHeight);
+            this.BaseSettings.Add("Query Box Height", queryBoxHeight);
         }
 
         #region Web Form Designer generated code

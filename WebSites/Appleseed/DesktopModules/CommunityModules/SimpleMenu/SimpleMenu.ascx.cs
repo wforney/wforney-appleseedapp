@@ -48,7 +48,7 @@ namespace Appleseed.Content.Web.Modules
                         "Sets the Id of then Parent tab for the menu (this tab may be hidden or inaccessible for the logged on user.)", 
                     Order = 1
                 };
-            this._baseSettings.Add("sm_ParentPageID", setParentPageId);
+            this.BaseSettings.Add("sm_ParentPageID", setParentPageId);
 
             // localized by Pekka Ylenius
             var setRepeatDirectionArrayList = new List<SettingOption> {
@@ -66,7 +66,7 @@ namespace Appleseed.Content.Web.Modules
                         EnglishName = "Menu RepeatDirection"
                     };
 
-            this._baseSettings.Add("sm_Menu_RepeatDirection", setMenuRepeatDirection);
+            this.BaseSettings.Add("sm_Menu_RepeatDirection", setMenuRepeatDirection);
 
             // MenuLayouts
             var menuTypes = new Hashtable();
@@ -95,7 +95,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "MenuType", 
                     Order = 3
                 };
-            this._baseSettings.Add("sm_MenuType", menuTypeSetting);
+            this.BaseSettings.Add("sm_MenuType", menuTypeSetting);
 
             var setBindingArrayList = new List<SettingOption> {
                     new SettingOption(
@@ -130,7 +130,7 @@ namespace Appleseed.Content.Web.Modules
                         Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS, 
                         EnglishName = "MenuBindingType"
                     };
-            this._baseSettings.Add("sm_MenuBindingType", setMenuBindingType);
+            this.BaseSettings.Add("sm_MenuBindingType", setMenuBindingType);
 
             // 			SettingItem setHeaderText = new SettingItem<string, TextBox>();
             // 			setHeaderText.Required = false;
@@ -220,7 +220,7 @@ namespace Appleseed.Content.Web.Modules
                     (SimpleMenuType)
                     this.LoadControl(
                         string.Format("{0}/DesktopModules/CommunityModules/SimpleMenu/SimpleMenuTypes/{1}", Path.ApplicationRoot, menuType));
-                theMenu.GlobalPortalSettings = this.portalSettings;
+                theMenu.GlobalPortalSettings = this.PortalSettings;
                 theMenu.ModuleSettings = this.Settings;
                 theMenu.DataBind();
                 this.PlaceHolder.Controls.Add(theMenu);

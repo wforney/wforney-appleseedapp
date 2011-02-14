@@ -26,7 +26,7 @@ namespace Appleseed.Content.Web.Modules
         public FAQs()
         {
             // Set Editor Settings jviladiu@portalservices.net 2004/07/30
-            HtmlEditorDataType.HtmlEditorSettings(_baseSettings, SettingItemGroup.MODULE_SPECIAL_SETTINGS);
+            HtmlEditorDataType.HtmlEditorSettings(this.BaseSettings, SettingItemGroup.MODULE_SPECIAL_SETTINGS);
 
             SupportsWorkflow = false;
         }

@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>
 //   TODO: this class needs a better write-up ;-)
-//   A template page useful for constructing custom edit pages for module settings.
+//   A template page useful for constructing custom edit pages for module settings.<br />
 //   Encapsulates some common code including: module id,
 //   portalSettings and settings, referrer redirection, edit permission,
 //   cancel event, etc.
@@ -52,37 +52,37 @@ namespace Appleseed.Framework.Web.UI
     /// </summary>
     [History("ozan@Appleseed.web.tr", "2005/06/01", "Added new overload for RegisterCSSFile")]
     [History("jminond", "2005/03/10", "Tab to page conversion")]
-    [History("Jes1111", "2004/08/18",
+    [History("Jes1111", "2004/08/18", 
         "Extensive changes - new way to build head element, support for multiple CSS style sheets, etc.")]
     [History("jviladiu@portalServices.net", "2004/07/22", "Added Security Access.")]
-    [History("John.Mandia@whitelightsolutions.com", "2003/10/11",
+    [History("John.Mandia@whitelightsolutions.com", "2003/10/11", 
         "Added ability for each portal to have it's own custom icon instead of sharing one icon among many.")]
     [History("mario@hartmann.net", "2003/09/08", "Solpart Menu style sheet support added.")]
-    [History("Jes1111", "2003/03/04",
+    [History("Jes1111", "2003/03/04", 
         "Smoothed out page event inheritance hierarchy - placed security checks and cache flushing")]
     public class Page : ViewPage
     {
         #region Constants and Fields
 
         /// <summary>
-        ///   The master page base page.
-        /// </summary>
-        protected string MASTERPAGE_BASE_PAGE = "SiteMaster.master";
-
-        /// <summary>
         ///   Standard cancel button
         /// </summary>
-        protected LinkButton cancelButton;
+        protected LinkButton CancelButton;
 
         /// <summary>
         ///   Standard delete button
         /// </summary>
-        protected LinkButton deleteButton;
+        protected LinkButton DeleteButton;
+
+        /// <summary>
+        ///   The master page base page.
+        /// </summary>
+        protected string MasterpageBasePage = "SiteMaster.master";
 
         /// <summary>
         ///   Standard update button
         /// </summary>
-        protected LinkButton updateButton;
+        protected LinkButton UpdateButton;
 
         /*
                 /// <summary>
@@ -118,11 +118,6 @@ namespace Appleseed.Framework.Web.UI
         /// </summary>
         private readonly Hashtable cssImportList = new Hashtable(3);
 
-        /// <summary>
-        ///   The module settings.
-        /// </summary>
-        private Dictionary<string, ISettingItem> _moduleSettings;
-
         /*
                 /// <summary>
                 /// The body other attributes.
@@ -141,22 +136,27 @@ namespace Appleseed.Framework.Web.UI
         private string docType;
 
         /// <summary>
-        /// The item id.
+        ///   The item id.
         /// </summary>
         private int itemId;
 
         /// <summary>
-        /// The module.
+        ///   The module.
         /// </summary>
         private ModuleSettings module;
 
         /// <summary>
-        /// The module id.
+        ///   The module id.
         /// </summary>
         private int moduleId;
 
         /// <summary>
-        /// The page.
+        ///   The module settings.
+        /// </summary>
+        private Dictionary<string, ISettingItem> moduleSettings;
+
+        /// <summary>
+        ///   The page settings.
         /// </summary>
         private Dictionary<string, ISettingItem> page;
 
@@ -191,7 +191,7 @@ namespace Appleseed.Framework.Web.UI
         private PortalSettings settings;
 
         /// <summary>
-        /// The tab id.
+        ///   The tab id.
         /// </summary>
         private int tabId;
 
@@ -271,9 +271,8 @@ namespace Appleseed.Framework.Web.UI
         {
             get
             {
-                return this.currentTheme ?? (this.portalSettings == null
-                           ? null
-                           : (this.currentTheme = this.portalSettings.GetCurrentTheme()));
+                return this.currentTheme ??
+                       (this.PortalSettings == null ? null : (this.currentTheme = this.PortalSettings.GetCurrentTheme()));
             }
         }
 
@@ -286,12 +285,12 @@ namespace Appleseed.Framework.Web.UI
             get
             {
                 return this.docType ??
-                       (this.portalSettings == null
+                       (this.PortalSettings == null
                             ? string.Empty
                             : this.docType =
-                              this.portalSettings.CustomSettings.ContainsKey("SITESETTINGS_DOCTYPE") &&
-                              this.portalSettings.CustomSettings["SITESETTINGS_DOCTYPE"].ToString().Trim().Length > 0
-                                  ? this.portalSettings.CustomSettings["SITESETTINGS_DOCTYPE"].ToString()
+                              this.PortalSettings.CustomSettings.ContainsKey("SITESETTINGS_DOCTYPE") &&
+                              this.PortalSettings.CustomSettings["SITESETTINGS_DOCTYPE"].ToString().Trim().Length > 0
+                                  ? this.PortalSettings.CustomSettings["SITESETTINGS_DOCTYPE"].ToString()
                                   : string.Empty);
             }
         }
@@ -340,7 +339,7 @@ namespace Appleseed.Framework.Web.UI
 
                     // Obtain selected module data
                     foreach (var mod in
-                        this.portalSettings.ActivePage.Modules.Cast<ModuleSettings>().Where(
+                        this.PortalSettings.ActivePage.Modules.Cast<ModuleSettings>().Where(
                             mod => mod.ModuleID == this.ModuleID))
                     {
                         this.module = mod;
@@ -370,6 +369,25 @@ namespace Appleseed.Framework.Web.UI
                 }
 
                 return this.moduleId;
+            }
+        }
+
+        /// <summary>
+        ///   Gets the module settings.
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        public Dictionary<string, ISettingItem> ModuleSettings
+        {
+            get
+            {
+                // Get settings from the database
+                // Or provides an empty hash table
+                return this.moduleSettings ??
+                       (this.moduleSettings =
+                        this.ModuleID > 0
+                            ? Framework.Site.Configuration.ModuleSettings.GetModuleSettings(this.ModuleID, this)
+                            : new Dictionary<string, ISettingItem>());
             }
         }
 
@@ -410,19 +428,20 @@ namespace Appleseed.Framework.Web.UI
                 // tabMetaDescription = (string) ViewState["PageMetaDescription"];
                 if (this.pageMetaDescription == null)
                 {
-                    if (this.portalSettings == null)
+                    if (this.PortalSettings == null)
                     {
                         return this.pageMetaDescription = string.Empty;
                     }
 
-                    var tabMetaDescription = this.portalSettings.ActivePage.CustomSettings["TabMetaDescription"];
-                    var metaDescription = this.portalSettings.CustomSettings["SITESETTINGS_PAGE_META_DESCRIPTION"];
-                    return this.pageMetaDescription = HttpContext.Current != null && tabMetaDescription.ToString().Length != 0
-                                                   ? tabMetaDescription.ToString()
-                                                   : (HttpContext.Current != null &&
-                                                      metaDescription.ToString().Length != 0
-                                                          ? metaDescription.ToString()
-                                                          : string.Empty);
+                    var tabMetaDescription = this.PortalSettings.ActivePage.CustomSettings["TabMetaDescription"];
+                    var metaDescription = this.PortalSettings.CustomSettings["SITESETTINGS_PAGE_META_DESCRIPTION"];
+                    return
+                        this.pageMetaDescription =
+                        HttpContext.Current != null && tabMetaDescription.ToString().Length != 0
+                            ? tabMetaDescription.ToString()
+                            : (HttpContext.Current != null && metaDescription.ToString().Length != 0
+                                   ? metaDescription.ToString()
+                                   : string.Empty);
 
                     // ViewState["PageMetaDescription"] = tabMetaDescription;
                 }
@@ -443,22 +462,22 @@ namespace Appleseed.Framework.Web.UI
                 // tabMetaEncoding = (string) ViewState["PageMetaEncoding"];
                 if (this.pageMetaEncoding == null)
                 {
-                    if (this.portalSettings == null)
+                    if (this.PortalSettings == null)
                     {
                         return this.pageMetaEncoding = string.Empty;
                     }
 
                     if (HttpContext.Current != null &&
-                        this.portalSettings.ActivePage.CustomSettings["TabMetaEncoding"].ToString().Length != 0)
+                        this.PortalSettings.ActivePage.CustomSettings["TabMetaEncoding"].ToString().Length != 0)
                     {
                         this.pageMetaEncoding =
-                            this.portalSettings.ActivePage.CustomSettings["TabMetaEncoding"].ToString();
+                            this.PortalSettings.ActivePage.CustomSettings["TabMetaEncoding"].ToString();
                     }
                     else if (HttpContext.Current != null &&
-                             this.portalSettings.CustomSettings["SITESETTINGS_PAGE_META_ENCODING"].ToString().Length != 0)
+                             this.PortalSettings.CustomSettings["SITESETTINGS_PAGE_META_ENCODING"].ToString().Length != 0)
                     {
                         this.pageMetaEncoding =
-                            this.portalSettings.CustomSettings["SITESETTINGS_PAGE_META_ENCODING"].ToString();
+                            this.PortalSettings.CustomSettings["SITESETTINGS_PAGE_META_ENCODING"].ToString();
                     }
                     else
                     {
@@ -482,12 +501,16 @@ namespace Appleseed.Framework.Web.UI
             {
                 return this.pageMetaKeyWords ??
                        (this.pageMetaKeyWords =
-                        this.portalSettings == null
+                        this.PortalSettings == null
                             ? string.Empty
-                            : (HttpContext.Current != null && this.portalSettings.ActivePage.CustomSettings["TabMetaKeyWords"].ToString().Length != 0
-                                   ? this.portalSettings.ActivePage.CustomSettings["TabMetaKeyWords"].ToString()
-                                   : (HttpContext.Current != null && this.portalSettings.CustomSettings["SITESETTINGS_PAGE_META_KEYWORDS"].ToString().Length != 0
-                                          ? this.portalSettings.CustomSettings["SITESETTINGS_PAGE_META_KEYWORDS"].ToString()
+                            : (HttpContext.Current != null &&
+                               this.PortalSettings.ActivePage.CustomSettings["TabMetaKeyWords"].ToString().Length != 0
+                                   ? this.PortalSettings.ActivePage.CustomSettings["TabMetaKeyWords"].ToString()
+                                   : (HttpContext.Current != null &&
+                                      this.PortalSettings.CustomSettings["SITESETTINGS_PAGE_META_KEYWORDS"].ToString().
+                                          Length != 0
+                                          ? this.PortalSettings.CustomSettings["SITESETTINGS_PAGE_META_KEYWORDS"].
+                                                ToString()
                                           : string.Empty)));
             }
         }
@@ -504,21 +527,21 @@ namespace Appleseed.Framework.Web.UI
                 // tabMetaOther = (string) ViewState["PageMetaOther"];
                 if (this.pageMetaOther == null)
                 {
-                    if (this.portalSettings == null)
+                    if (this.PortalSettings == null)
                     {
                         return this.pageMetaOther = string.Empty;
                     }
 
                     if (HttpContext.Current != null &&
-                        this.portalSettings.ActivePage.CustomSettings["TabMetaOther"].ToString().Length != 0)
+                        this.PortalSettings.ActivePage.CustomSettings["TabMetaOther"].ToString().Length != 0)
                     {
-                        this.pageMetaOther = this.portalSettings.ActivePage.CustomSettings["TabMetaOther"].ToString();
+                        this.pageMetaOther = this.PortalSettings.ActivePage.CustomSettings["TabMetaOther"].ToString();
                     }
                     else if (HttpContext.Current != null &&
-                             this.portalSettings.CustomSettings["SITESETTINGS_PAGE_META_OTHERS"].ToString().Length != 0)
+                             this.PortalSettings.CustomSettings["SITESETTINGS_PAGE_META_OTHERS"].ToString().Length != 0)
                     {
                         this.pageMetaOther =
-                            this.portalSettings.CustomSettings["SITESETTINGS_PAGE_META_OTHERS"].ToString();
+                            this.PortalSettings.CustomSettings["SITESETTINGS_PAGE_META_OTHERS"].ToString();
                     }
                     else
                     {
@@ -529,6 +552,24 @@ namespace Appleseed.Framework.Web.UI
                 }
 
                 return this.pageMetaOther;
+            }
+        }
+
+        /// <summary>
+        ///   Gets the page settings.
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        public Dictionary<string, ISettingItem> PageSettings
+        {
+            get
+            {
+                return this.page ?? (this.page = this.PageID > 0
+                                                     ? // _Page = Page.GetPageCustomSettings(PageID);
+                                                 // _Page = Page.GetPageCustomSettings(PageID);
+                                                 this.PortalSettings.ActivePage.GetPageCustomSettings(this.PageID)
+                                                     : // Or provides an empty hash table
+                                                 new Dictionary<string, ISettingItem>());
             }
         }
 
@@ -545,23 +586,23 @@ namespace Appleseed.Framework.Web.UI
                     // see if we have a value somewhere to put.
                     string tabTitle;
 
-                    if (this.portalSettings == null)
+                    if (this.PortalSettings == null)
                     {
                         tabTitle = string.Empty;
                     }
                     else
                     {
-                        if (this.portalSettings.ActivePage.CustomSettings["TabTitle"].ToString().Length != 0)
+                        if (this.PortalSettings.ActivePage.CustomSettings["TabTitle"].ToString().Length != 0)
                         {
-                            tabTitle = this.portalSettings.ActivePage.CustomSettings["TabTitle"].ToString();
+                            tabTitle = this.PortalSettings.ActivePage.CustomSettings["TabTitle"].ToString();
                         }
-                        else if (this.portalSettings.CustomSettings["SITESETTINGS_PAGE_TITLE"].ToString().Length != 0)
+                        else if (this.PortalSettings.CustomSettings["SITESETTINGS_PAGE_TITLE"].ToString().Length != 0)
                         {
-                            tabTitle = this.portalSettings.CustomSettings["SITESETTINGS_PAGE_TITLE"].ToString();
+                            tabTitle = this.PortalSettings.CustomSettings["SITESETTINGS_PAGE_TITLE"].ToString();
                         }
                         else
                         {
-                            tabTitle = this.portalSettings.PortalTitle;
+                            tabTitle = this.PortalSettings.PortalTitle;
                         }
                     }
 
@@ -579,6 +620,29 @@ namespace Appleseed.Framework.Web.UI
             {
                 this.Title = value;
                 this.setTitle = true;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets current portal settings
+        /// </summary>
+        /// <value>The portal settings.</value>
+        public PortalSettings PortalSettings
+        {
+            get
+            {
+                if (this.settings == null && HttpContext.Current != null)
+                {
+                    // TODO: Implement checking for null AFTER getting from context as the context may not contain this when called.
+                    this.settings = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
+                }
+
+                return this.settings;
+            }
+
+            set
+            {
+                this.settings = value;
             }
         }
 
@@ -609,62 +673,6 @@ namespace Appleseed.Framework.Web.UI
                 }
 
                 return this.userCultureSet;
-            }
-        }
-
-        /// <summary>
-        ///   Stores current module settings
-        /// </summary>
-        /// <value>The module settings.</value>
-        public Dictionary<string, ISettingItem> moduleSettings
-        {
-            get
-            {
-                // Get settings from the database
-                // Or provides an empty hash table
-                return this._moduleSettings ??
-                       (this._moduleSettings =
-                        this.ModuleID > 0 ? ModuleSettings.GetModuleSettings(this.ModuleID, this) : new Dictionary<string, ISettingItem>());
-            }
-        }
-
-        /// <summary>
-        ///   Stores current tab settings
-        /// </summary>
-        /// <value>The page settings.</value>
-        public Dictionary<string, ISettingItem> pageSettings
-        {
-            get
-            {
-                return this.page ?? (this.page = this.PageID > 0
-                                                     ? // _Page = Page.GetPageCustomSettings(PageID);
-                    // _Page = Page.GetPageCustomSettings(PageID);
-                                                 this.portalSettings.ActivePage.GetPageCustomSettings(this.PageID)
-                                                     : // Or provides an empty hash table
-                                                 new Dictionary<string, ISettingItem>());
-            }
-        }
-
-        /// <summary>
-        ///   Gets or sets current portal settings
-        /// </summary>
-        /// <value>The portal settings.</value>
-        public PortalSettings portalSettings
-        {
-            get
-            {
-                if (this.settings == null && HttpContext.Current != null)
-                {
-                    // TODO: Implement checking for null AFTER getting from context as the context may not contain this when called.
-                    this.settings = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
-                }
-
-                return this.settings;
-            }
-
-            set
-            {
-                this.settings = value;
             }
         }
 
@@ -986,7 +994,8 @@ namespace Appleseed.Framework.Web.UI
         protected virtual void BuildDocType()
         {
             if (string.IsNullOrEmpty(this.DocType) &&
-                ((this.CurrentTheme != null && this.CurrentTheme.Type == "zen") || this.Request.Url.PathAndQuery.IndexOf("Viewer") > 0))
+                ((this.CurrentTheme != null && this.CurrentTheme.Type == "zen") ||
+                 this.Request.Url.PathAndQuery.IndexOf("Viewer") > 0))
             {
                 // this.DocType = Server.HtmlDecode( Config.DefaultDOCTYPE );
             }
@@ -1040,13 +1049,13 @@ namespace Appleseed.Framework.Web.UI
                         string.Format("<link rel=\"stylesheet\" href=\"{0}\" type=\"text/css\"/>\n", cssFile)));
             }
 
-            if (this.portalSettings != null)
+            if (this.PortalSettings != null)
             {
                 this.Header.Controls.Add(
                     new LiteralControl(
                         string.Format(
-                        "<link rel=\"SHORTCUT ICON\" href=\"{0}/portalicon.ico\"/>\n",
-                        Path.WebPathCombine(Path.ApplicationRoot, this.portalSettings.PortalPath))));
+                            "<link rel=\"SHORTCUT ICON\" href=\"{0}/portalicon.ico\"/>\n", 
+                            Path.WebPathCombine(Path.ApplicationRoot, this.PortalSettings.PortalPath))));
             }
 
             if (this.cssImportList.Count > 0)
@@ -1095,9 +1104,9 @@ namespace Appleseed.Framework.Web.UI
 
             var mdb = new ModulesDB();
 
-            if (this.portalSettings != null && this.portalSettings.ActivePage.Modules.Count > 0)
+            if (this.PortalSettings != null && this.PortalSettings.ActivePage.Modules.Count > 0)
             {
-                foreach (ModuleSettings ms in this.portalSettings.ActivePage.Modules)
+                foreach (ModuleSettings ms in this.PortalSettings.ActivePage.Modules)
                 {
                     guid = mdb.GetModuleGuid(ms.ModuleID);
                     if (guid != Guid.Empty)
@@ -1248,15 +1257,15 @@ namespace Appleseed.Framework.Web.UI
             // remove module output from cache, if it's there
             var sb = new StringBuilder();
             sb.Append("rb_");
-            sb.Append(this.portalSettings.PortalAlias.ToLower());
+            sb.Append(this.PortalSettings.PortalAlias.ToLower());
             sb.Append("_mid");
             sb.Append(this.ModuleID.ToString());
             sb.Append("[");
-            sb.Append(this.portalSettings.PortalContentLanguage);
+            sb.Append(this.PortalSettings.PortalContentLanguage);
             sb.Append("+");
-            sb.Append(this.portalSettings.PortalUILanguage);
+            sb.Append(this.PortalSettings.PortalUILanguage);
             sb.Append("+");
-            sb.Append(this.portalSettings.PortalDataFormattingCulture);
+            sb.Append(this.PortalSettings.PortalDataFormattingCulture);
             sb.Append("]");
 
             if (this.Context.Cache[sb.ToString()] != null)
@@ -1282,46 +1291,46 @@ namespace Appleseed.Framework.Web.UI
 
             Control control = null;
 
-            if (this.cancelButton != null || (control = this.GetControl("cancelButton")) != null)
+            if (this.CancelButton != null || (control = this.GetControl("cancelButton")) != null)
             {
-                if (this.cancelButton == null)
+                if (this.CancelButton == null)
                 {
-                    this.cancelButton = (LinkButton)control;
+                    this.CancelButton = (LinkButton)control;
                 }
 
-                this.cancelButton.Click += this.CancelBtn_Click;
-                this.cancelButton.Text = General.GetString("CANCEL", "Cancel");
-                this.cancelButton.CausesValidation = false;
-                this.cancelButton.EnableViewState = false;
+                this.CancelButton.Click += this.CancelBtn_Click;
+                this.CancelButton.Text = General.GetString("CANCEL", "Cancel");
+                this.CancelButton.CausesValidation = false;
+                this.CancelButton.EnableViewState = false;
             }
 
-            if (this.updateButton != null || (control = this.GetControl("updateButton")) != null)
+            if (this.UpdateButton != null || (control = this.GetControl("updateButton")) != null)
             {
-                if (this.updateButton == null)
+                if (this.UpdateButton == null)
                 {
-                    this.updateButton = (LinkButton)control;
+                    this.UpdateButton = (LinkButton)control;
                 }
 
-                this.updateButton.Click += this.UpdateBtn_Click;
-                this.updateButton.Text = General.GetString("APPLY", "Apply", this.updateButton);
-                this.updateButton.EnableViewState = false;
+                this.UpdateButton.Click += this.UpdateBtn_Click;
+                this.UpdateButton.Text = General.GetString("APPLY", "Apply", this.UpdateButton);
+                this.UpdateButton.EnableViewState = false;
             }
 
-            if (this.deleteButton != null || (control = this.GetControl("deleteButton")) != null)
+            if (this.DeleteButton != null || (control = this.GetControl("deleteButton")) != null)
             {
-                if (this.deleteButton == null)
+                if (this.DeleteButton == null)
                 {
-                    this.deleteButton = (LinkButton)control;
+                    this.DeleteButton = (LinkButton)control;
                 }
 
-                this.deleteButton.Click += this.DeleteBtn_Click;
-                this.deleteButton.Text = General.GetString("DELETE", "Delete", this.deleteButton);
-                this.deleteButton.EnableViewState = false;
+                this.DeleteButton.Click += this.DeleteBtn_Click;
+                this.DeleteButton.Text = General.GetString("DELETE", "Delete", this.DeleteButton);
+                this.DeleteButton.EnableViewState = false;
 
                 // Assign current permissions to Delete button
                 if (PortalSecurity.HasDeletePermissions(this.ModuleID) == false)
                 {
-                    this.deleteButton.Visible = false;
+                    this.DeleteButton.Visible = false;
                 }
                 else
                 {
@@ -1329,12 +1338,12 @@ namespace Appleseed.Framework.Web.UI
                     {
                         string[] s = { "CONFIRM_DELETE" };
                         this.ClientScript.RegisterClientScriptBlock(
-                            this.GetType(),
-                            "confirmDelete",
+                            this.GetType(), 
+                            "confirmDelete", 
                             PortalSettings.GetStringResource("CONFIRM_DELETE_SCRIPT", s));
                     }
 
-                    this.deleteButton.Attributes.Add("OnClick", "return confirmDelete()");
+                    this.DeleteButton.Attributes.Add("OnClick", "return confirmDelete()");
                 }
             }
 
@@ -1345,20 +1354,20 @@ namespace Appleseed.Framework.Web.UI
                 this.Page.ClientScript.RegisterClientScriptInclude(
                     this.Page.GetType(), "jQuery", "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.5.min.js");
                 this.Page.ClientScript.RegisterClientScriptInclude(
-                    this.Page.GetType(),
-                    "jQueryUI",
+                    this.Page.GetType(), 
+                    "jQueryUI", 
                     "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js");
                 this.Page.ClientScript.RegisterClientScriptInclude(
-                    this.Page.GetType(),
-                    "jQueryValidate",
+                    this.Page.GetType(), 
+                    "jQueryValidate", 
                     "http://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js");
                 this.Page.ClientScript.RegisterClientScriptInclude(
-                    this.Page.GetType(),
-                    "bgiFrame",
+                    this.Page.GetType(), 
+                    "bgiFrame", 
                     "http://jquery-ui.googlecode.com/svn/tags/latest/external/jquery.bgiframe-2.1.1.js");
                 this.Page.ClientScript.RegisterClientScriptInclude(
-                    this.Page.GetType(),
-                    "jQueryLang",
+                    this.Page.GetType(), 
+                    "jQueryLang", 
                     "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/i18n/jquery-ui-i18n.min.js");
 
                 this.Page.ClientScript.RegisterClientScriptInclude(
@@ -1368,17 +1377,17 @@ namespace Appleseed.Framework.Web.UI
             if (!this.Page.ClientScript.IsStartupScriptRegistered("BROWSER_VERSION_WARNING"))
             {
                 this.Page.ClientScript.RegisterClientScriptInclude(
-                    this.Page.GetType(),
-                    "BROWSER_VERSION_WARNING",
+                    this.Page.GetType(), 
+                    "BROWSER_VERSION_WARNING", 
                     Path.ApplicationFullPath + "/aspnet_client/js/browser_upgrade_notification.js");
             }
 
             // AddThis
             if (!this.Page.ClientScript.IsStartupScriptRegistered("ADD_THIS"))
             {
-                if (this.portalSettings != null)
+                if (this.PortalSettings != null)
                 {
-                    var addThisUsernameSetting = this.portalSettings.CustomSettings["SITESETTINGS_ADDTHIS_USERNAME"];
+                    var addThisUsernameSetting = this.PortalSettings.CustomSettings["SITESETTINGS_ADDTHIS_USERNAME"];
                     if (addThisUsernameSetting != null)
                     {
                         if (Convert.ToString(addThisUsernameSetting).Trim().Length > 0)
@@ -1390,8 +1399,8 @@ namespace Appleseed.Framework.Web.UI
                             // }
                             var addThisUsername = Convert.ToString(addThisUsernameSetting);
                             this.Page.ClientScript.RegisterClientScriptInclude(
-                                this.Page.GetType(),
-                                "ADD_THIS",
+                                this.Page.GetType(), 
+                                "ADD_THIS", 
                                 "http://s7.addthis.com/js/250/addthis_widget.js#username=" + addThisUsername);
                         }
                     }
@@ -1423,14 +1432,14 @@ namespace Appleseed.Framework.Web.UI
 
             this.InsertGlAnalyticsScript();
 
-            if (this.portalSettings != null &&
-                this.Request.Cookies["Appleseed_" + this.portalSettings.PortalAlias] != null)
+            if (this.PortalSettings != null &&
+                this.Request.Cookies["Appleseed_" + this.PortalSettings.PortalAlias] != null)
             {
                 if (!Config.ForceExpire)
                 {
                     // jminond - option to kill cookie after certain time always
                     var minuteAdd = Config.CookieExpire;
-                    PortalSecurity.ExtendCookie(this.portalSettings, minuteAdd);
+                    PortalSecurity.ExtendCookie(this.PortalSettings, minuteAdd);
                 }
             }
 
@@ -1453,9 +1462,9 @@ namespace Appleseed.Framework.Web.UI
         {
             // TODO : Assign masters and themes here... :-)
             //// this.Theme = "Default";
-            if (this.portalSettings != null)
+            if (this.PortalSettings != null)
             {
-                var masterLayoutPath = string.Concat(this.portalSettings.PortalLayoutPath, this.MASTERPAGE_BASE_PAGE);
+                var masterLayoutPath = string.Concat(this.PortalSettings.PortalLayoutPath, this.MasterpageBasePage);
                 if (HttpContext.Current != null &&
                     (File.Exists(HttpContext.Current.Server.MapPath(masterLayoutPath)) && this.Page.Master != null))
                 {
@@ -1582,10 +1591,10 @@ namespace Appleseed.Framework.Web.UI
                 catch (Exception exc)
                 {
                     ErrorHandler.Publish(
-                        LogLevel.Warn,
+                        LogLevel.Warn, 
                         string.Format(
-                            "Error while trying to get the '{0}' control in Appleseed.Framework.Web.UI.Page.GetControl(controlName).",
-                            name),
+                            "Error while trying to get the '{0}' control in Appleseed.Framework.Web.UI.Page.GetControl(controlName).", 
+                            name), 
                         exc);
                 }
             }
@@ -1610,9 +1619,9 @@ namespace Appleseed.Framework.Web.UI
             }
 
             if (!include ||
-                (this.portalSettings == null ||
-                 (this.portalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"] == null ||
-                  this.portalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"].ToString().Equals(string.Empty))))
+                (this.PortalSettings == null ||
+                 (this.PortalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"] == null ||
+                  this.PortalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"].ToString().Equals(string.Empty))))
             {
                 return;
             }
@@ -1627,8 +1636,8 @@ namespace Appleseed.Framework.Web.UI
 
             script.AppendFormat("<script type=\"text/javascript\">");
             script.AppendFormat(
-                "try {{ var pageTracker = _gat._getTracker(\"{0}\");",
-                this.portalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"]);
+                "try {{ var pageTracker = _gat._getTracker(\"{0}\");", 
+                this.PortalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"]);
             script.AppendFormat("pageTracker._trackPageview();");
             script.AppendFormat("}} catch (err) {{ }}</script>");
 

@@ -91,10 +91,10 @@ namespace Appleseed.Content.Web.Modules
             base.OnUpdate(e);
 
             // Update settings in the database
-            ModuleSettings.UpdateModuleSetting(this.ModuleID, "src", this.Src.Text);
-            ModuleSettings.UpdateModuleSetting(this.ModuleID, "height", this.Height.Text);
-            ModuleSettings.UpdateModuleSetting(this.ModuleID, "width", this.Width.Text);
-            ModuleSettings.UpdateModuleSetting(this.ModuleID, "backcolor", this.BackgroundCol.Text);
+            Framework.Site.Configuration.ModuleSettings.UpdateModuleSetting(this.ModuleID, "src", this.Src.Text);
+            Framework.Site.Configuration.ModuleSettings.UpdateModuleSetting(this.ModuleID, "height", this.Height.Text);
+            Framework.Site.Configuration.ModuleSettings.UpdateModuleSetting(this.ModuleID, "width", this.Width.Text);
+            Framework.Site.Configuration.ModuleSettings.UpdateModuleSetting(this.ModuleID, "backcolor", this.BackgroundCol.Text);
 
             // Redirect back to the portal home page
             this.Response.Redirect((string)this.ViewState["UrlReferrer"]);
@@ -130,7 +130,7 @@ namespace Appleseed.Content.Web.Modules
                 if (this.ModuleID > 0)
                 {
                     // Get settings from the database
-                    var settings = ModuleSettings.GetModuleSettings(this.ModuleID);
+                    var settings = Framework.Site.Configuration.ModuleSettings.GetModuleSettings(this.ModuleID);
 
                     if (settings["src"] != null)
                     {

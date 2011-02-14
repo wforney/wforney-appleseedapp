@@ -148,7 +148,7 @@ namespace Appleseed.Content.Web.Modules
         /// <returns></returns>
         private string DefaultDir()
         {
-            string tmpDir = Path.WebPathCombine(Path.ApplicationPhysicalPath, portalSettings.PortalPath);
+            string tmpDir = Path.WebPathCombine(Path.ApplicationPhysicalPath, this.PortalSettings.PortalPath);
             tmpDir = tmpDir.Replace("\\/", "\\");
             tmpDir = tmpDir.Replace("/", "\\");
             return tmpDir;
@@ -168,11 +168,11 @@ namespace Appleseed.Content.Web.Modules
             directory.Required = false;
             directory.Group = group;
             directory.Order = groupBase + 20; //1;
-            if (portalSettings != null)
-                directory.Value = portalSettings.PortalPath;
+            if (this.PortalSettings != null)
+                directory.Value = this.PortalSettings.PortalPath;
             else
                 directory.Value = string.Empty;
-            _baseSettings.Add("FM_DIRECTORY", directory);
+            this.BaseSettings.Add("FM_DIRECTORY", directory);
 
             var DownloadableExt = new SettingItem<string, TextBox>();
             DownloadableExt.EnglishName = "Downloadable extentions";
@@ -181,7 +181,7 @@ namespace Appleseed.Content.Web.Modules
             DownloadableExt.Value = "";
             DownloadableExt.Description =
                 "Provide a comma-delimited list of file extentions that you can download On Click";
-            _baseSettings.Add("FM_DOWNLOADABLEEXT", DownloadableExt);
+            this.BaseSettings.Add("FM_DOWNLOADABLEEXT", DownloadableExt);
         }
 
         /// <summary>

@@ -74,7 +74,7 @@ namespace Appleseed
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected override void OnPreInit(EventArgs e)
         {
-            this.MASTERPAGE_BASE_PAGE = "PanesMaster.master";
+            this.MasterpageBasePage = "PanesMaster.master";
             base.OnPreInit(e);
         }
 
@@ -163,7 +163,7 @@ namespace Appleseed
         {
             if (!this.Request.Url.PathAndQuery.Contains("site"))
             {
-                var pageId = this.portalSettings.ActivePage.PageID;
+                var pageId = this.PortalSettings.ActivePage.PageID;
                 if (pageId == 0)
                 {
                     pageId = Convert.ToInt32(SiteMap.RootNode.ChildNodes[0].Key);
@@ -172,7 +172,7 @@ namespace Appleseed
                 this.Response.Redirect(HttpUrlBuilder.BuildUrl(pageId));
             }
 
-            if (!PortalSecurity.IsInRoles(this.portalSettings.ActivePage.AuthorizedRoles) &&
+            if (!PortalSecurity.IsInRoles(this.PortalSettings.ActivePage.AuthorizedRoles) &&
                 !this.User.IsInRole("Admins"))
             {
                 PortalSecurity.AccessDenied();
@@ -293,7 +293,7 @@ namespace Appleseed
 
                 try
                 {
-                    var layoutPath = string.Concat(this.portalSettings.PortalLayoutPath, LayoutBasePage);
+                    var layoutPath = string.Concat(this.PortalSettings.PortalLayoutPath, LayoutBasePage);
                     var layoutControl = this.Page.LoadControl(layoutPath);
                     if (layoutControl != null)
                     {

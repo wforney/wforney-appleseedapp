@@ -321,7 +321,7 @@ namespace Appleseed.Content.Web.Modules
                             case "EC24FABD-FB16-4978-8C81-1ADD39792377": //Products
                                 // Manu
                                 int tabID =
-                                    PortalSettings.GetRootPage(Convert.ToInt32(strTabID), portalSettings.DesktopPages).
+                                    PortalSettings.GetRootPage(Convert.ToInt32(strTabID), this.PortalSettings.DesktopPages).
                                         PageID;
                                 strLink =
                                     HttpUrlBuilder.BuildUrl("~/DesktopDefault.aspx", tabID,
@@ -478,7 +478,7 @@ namespace Appleseed.Content.Web.Modules
                     {
                         Required = true, Value = "ModuleName", Order = 1 
                     };
-            _baseSettings.Add("SortOrder", setSortOrder);
+            this.BaseSettings.Add("SortOrder", setSortOrder);
 
             //var showImage = new SettingItem<bool, CheckBox>();
             //showImage.Order = 2;
@@ -486,28 +486,28 @@ namespace Appleseed.Content.Web.Modules
             //this._baseSettings.Add("ShowImage", showImage);
 
             var showModuleName1 = new SettingItem<bool, CheckBox>() { Order = 3, Value = true };
-            _baseSettings.Add("ShowModuleName", showModuleName1);
+            this.BaseSettings.Add("ShowModuleName", showModuleName1);
 
             var showSearchTitle = new SettingItem<bool, CheckBox>() { Order = 4, Value = true };
-            _baseSettings.Add("ShowSearchTitle", showSearchTitle);
+            this.BaseSettings.Add("ShowSearchTitle", showSearchTitle);
 
             var showAbstract1 = new SettingItem<bool, CheckBox>() { Order = 5, Value = true };
-            _baseSettings.Add("ShowAbstract", showAbstract1);
+            this.BaseSettings.Add("ShowAbstract", showAbstract1);
 
             var showCreatedByUser1 = new SettingItem<bool, CheckBox>() { Order = 6, Value = true };
-            _baseSettings.Add("ShowCreatedByUser", showCreatedByUser1);
+            this.BaseSettings.Add("ShowCreatedByUser", showCreatedByUser1);
 
             var showCreatedDate1 = new SettingItem<bool, CheckBox>() { Order = 7, Value = true };
-            _baseSettings.Add("ShowCreatedDate", showCreatedDate1);
+            this.BaseSettings.Add("ShowCreatedDate", showCreatedDate1);
 
             var showLink1 = new SettingItem<bool, CheckBox>() { Order = 8, Value = false };
-            _baseSettings.Add("ShowLink", showLink1);
+            this.BaseSettings.Add("ShowLink", showLink1);
 
             var showTabName1 = new SettingItem<bool, CheckBox>() { Order = 9, Value = true };
-            _baseSettings.Add("ShowTabName", showTabName1);
+            this.BaseSettings.Add("ShowTabName", showTabName1);
 
             var showTestInfo1 = new SettingItem<bool, CheckBox>() { Order = 10, Value = false };
-            _baseSettings.Add("ShowTestInfo", showTestInfo1);
+            this.BaseSettings.Add("ShowTestInfo", showTestInfo1);
 
             var maxHits1 = new SettingItem<int, TextBox>()
                 {
@@ -515,16 +515,16 @@ namespace Appleseed.Content.Web.Modules
                 };
             //maxHits.MinValue = 1;
             //maxHits.MaxValue = 1000;
-            _baseSettings.Add("MaxHits", maxHits1);
+            this.BaseSettings.Add("MaxHits", maxHits1);
 
             var showModuleTitle1 = new SettingItem<bool, CheckBox>() { Order = 12, Value = false };
-            _baseSettings.Add("ShowModuleTitle", showModuleTitle1);
+            this.BaseSettings.Add("ShowModuleTitle", showModuleTitle1);
 
             var testUserId = new SettingItem<int, TextBox>()
                 {
                     Required = true, Order = 13, Value = -1 
                 };
-            _baseSettings.Add("TestUserID", testUserId);
+            this.BaseSettings.Add("TestUserID", testUserId);
 
             var showddModule = new SettingItem<bool, CheckBox>()
                 {
@@ -533,7 +533,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "Show Module list",
                     Description = "Show the module drop down list."
                 };
-            _baseSettings.Add("showddModule", showddModule);
+            this.BaseSettings.Add("showddModule", showddModule);
 
             var showddTopic = new SettingItem<bool, CheckBox>()
                 {
@@ -542,7 +542,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "Show Topics list",
                     Description = "Show the topics drop down list."
                 };
-            _baseSettings.Add("showddTopic", showddTopic);
+            this.BaseSettings.Add("showddTopic", showddTopic);
 
             //Added by Rob Siera - 19 aug 2004 - Provide default Topic to search for
             var defaultTopic = new SettingItem<string, TextBox>()
@@ -552,7 +552,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "Default Topic",
                     Description = "Set the default Topic to search."
                 };
-            _baseSettings.Add("defaultTopic", defaultTopic);
+            this.BaseSettings.Add("defaultTopic", defaultTopic);
             //End addition Rob Siera
 
             var showddField = new SettingItem<bool, CheckBox>()
@@ -562,7 +562,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "Show Field list",
                     Description = "Show the field drop down list."
                 };
-            _baseSettings.Add("showddField", showddField);
+            this.BaseSettings.Add("showddField", showddField);
         }
 
         // Jes1111

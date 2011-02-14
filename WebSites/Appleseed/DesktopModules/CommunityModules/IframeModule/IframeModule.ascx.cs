@@ -105,7 +105,7 @@ namespace Appleseed.Content.Web.Modules
             url.Group = group;
             url.Order = groupBase + 20; //1;
             url.Value = "http://www.Appleseedportal.net";
-            _baseSettings.Add("URL", url);
+            this.BaseSettings.Add("URL", url);
 
             //MH: added to support width values
             var width = new SettingItem<string, TextBox>();
@@ -115,7 +115,7 @@ namespace Appleseed.Content.Web.Modules
             width.Value = "250";
             //width.MinValue = 1;
             //width.MaxValue = 2000;
-            _baseSettings.Add("Width", width);
+            this.BaseSettings.Add("Width", width);
 
             //MH: changed to StringDataType to support  percent or pixel values
             //SettingItem width = new SettingItem<int, TextBox>();
@@ -126,7 +126,7 @@ namespace Appleseed.Content.Web.Modules
             height.Value = "250";
             //height.MinValue = 1;
             //height.MaxValue = 2000;
-            _baseSettings.Add("Height", height);
+            this.BaseSettings.Add("Height", height);
         }
 
         #region Web Form Designer generated code

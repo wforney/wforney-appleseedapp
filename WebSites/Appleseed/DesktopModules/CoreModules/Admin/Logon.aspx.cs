@@ -100,9 +100,9 @@ namespace Appleseed.Admin
                 {
                     // User not provided, display logon
                     var controlStr = "~/DesktopModules/CoreModules/SignIn/Signin.ascx";
-                    if (this.portalSettings.CustomSettings.ContainsKey("SITESETTINGS_LOGIN_TYPE"))
+                    if (this.PortalSettings.CustomSettings.ContainsKey("SITESETTINGS_LOGIN_TYPE"))
                     {
-                        controlStr = Convert.ToString(this.portalSettings.CustomSettings["SITESETTINGS_LOGIN_TYPE"]);
+                        controlStr = Convert.ToString(this.PortalSettings.CustomSettings["SITESETTINGS_LOGIN_TYPE"]);
                     }
 
                     try

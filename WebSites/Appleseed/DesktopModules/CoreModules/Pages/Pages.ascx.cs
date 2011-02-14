@@ -46,7 +46,7 @@ namespace Appleseed.Content.Web.Modules
             EditBtn.ImageUrl = this.CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl;
 
             // If this is the first visit to the page, bind the tab data to the page listbox
-            portalPages = new PagesDB().GetPagesFlat(portalSettings.PortalID);
+            portalPages = new PagesDB().GetPagesFlat(this.PortalSettings.PortalID);
             if (!Page.IsPostBack) {
 
                 tabList.DataSource = portalPages;
@@ -82,7 +82,7 @@ namespace Appleseed.Content.Web.Modules
                         "If Checked the module acts has it always did. If not it uses the new short form which allows security to be set so the new tab will not be seen by all users.",
                     Order = 10
                 };
-            _baseSettings.Add("TAB_VERSION", pageVersion);
+            this.BaseSettings.Add("TAB_VERSION", pageVersion);
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace Appleseed.Content.Web.Modules
 
                     // write tab to database
                     PagesDB tabs = new PagesDB();
-                    t.ID = tabs.AddPage(portalSettings.PortalID, t.Name, t.Order);
+                    t.ID = tabs.AddPage(this.PortalSettings.PortalID, t.Name, t.Order);
 
                     // Reset the order numbers for the tabs within the list  
                     OrderPages();

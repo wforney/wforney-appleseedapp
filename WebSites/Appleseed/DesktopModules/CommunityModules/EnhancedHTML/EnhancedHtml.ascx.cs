@@ -95,7 +95,7 @@ namespace Appleseed.Content.Web.Modules
             int groupOrderBase = (int)_Group;
 
             // end of modification
-            HtmlEditorDataType.HtmlEditorSettings(this._baseSettings, _Group);
+            HtmlEditorDataType.HtmlEditorSettings(this.BaseSettings, _Group);
 
             var showTitlePage = new SettingItem<bool, CheckBox>()
                 {
@@ -105,7 +105,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "Show Title Page?",
                     Description = "Mark this if you like see the Title Page"
                 };
-            this._baseSettings.Add("ENHANCEDHTML_SHOWTITLEPAGE", showTitlePage);
+            this.BaseSettings.Add("ENHANCEDHTML_SHOWTITLEPAGE", showTitlePage);
 
             var showUpMenu = new SettingItem<bool, CheckBox>()
                 {
@@ -115,7 +115,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "Show Index Menu?",
                     Description = "Mark this if you would like to see an index menu with the titles of all pages"
                 };
-            this._baseSettings.Add("ENHANCEDHTML_SHOWUPMENU", showUpMenu);
+            this.BaseSettings.Add("ENHANCEDHTML_SHOWUPMENU", showUpMenu);
 
             var alignUpMenu = new List<SettingOption>
                 {
@@ -132,7 +132,7 @@ namespace Appleseed.Content.Web.Modules
                         Value = "1",
                         Order = groupOrderBase + 30
                     };
-            this._baseSettings.Add("ENHANCEDHTML_ALIGNUPMENU", labelAlignUpMenu);
+            this.BaseSettings.Add("ENHANCEDHTML_ALIGNUPMENU", labelAlignUpMenu);
 
             var showDownMenu = new SettingItem<bool, CheckBox>()
                 {
@@ -142,7 +142,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "Show Navigation Menu?",
                     Description = "Mark this if you like see a navigation menu with previous and next page"
                 };
-            this._baseSettings.Add("ENHANCEDHTML_SHOWDOWNMENU", showDownMenu);
+            this.BaseSettings.Add("ENHANCEDHTML_SHOWDOWNMENU", showDownMenu);
 
             var alignDownMenu = new List<SettingOption>
                 {
@@ -159,7 +159,7 @@ namespace Appleseed.Content.Web.Modules
                         Value = "3",
                         Order = groupOrderBase + 50
                     };
-            this._baseSettings.Add("ENHANCEDHTML_ALIGNDOWNMENU", labelAlignDownMenu);
+            this.BaseSettings.Add("ENHANCEDHTML_ALIGNDOWNMENU", labelAlignDownMenu);
 
             var addInvariant = new SettingItem<bool, CheckBox>()
                 {
@@ -170,7 +170,7 @@ namespace Appleseed.Content.Web.Modules
                     Description =
                         "Mark this if you like see pages with invariant culture after pages with actual culture code"
                 };
-            this._baseSettings.Add("ENHANCEDHTML_ADDINVARIANTCULTURE", addInvariant);
+            this.BaseSettings.Add("ENHANCEDHTML_ADDINVARIANTCULTURE", addInvariant);
 
             var showMultiMode = new SettingItem<bool, CheckBox>()
                 {
@@ -180,7 +180,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "Show Multi-Mode icon?",
                     Description = "Mark this if you like see icon multimode page"
                 };
-            this._baseSettings.Add("ENHANCEDHTML_SHOWMULTIMODE", showMultiMode);
+            this.BaseSettings.Add("ENHANCEDHTML_SHOWMULTIMODE", showMultiMode);
 
             var getContentsFromPortals = new SettingItem<bool, CheckBox>()
                 {
@@ -190,7 +190,7 @@ namespace Appleseed.Content.Web.Modules
                     EnglishName = "Get contents from others Portals?",
                     Description = "Mark this if you like get contents from modules in others portals in the same database"
                 };
-            this._baseSettings.Add("ENHANCEDHTML_GET_CONTENTS_FROM_PORTALS", getContentsFromPortals);
+            this.BaseSettings.Add("ENHANCEDHTML_GET_CONTENTS_FROM_PORTALS", getContentsFromPortals);
 
             this.SupportsWorkflow = true;
         }
@@ -694,7 +694,7 @@ namespace Appleseed.Content.Web.Modules
             var ehdb = new EnhancedHtmlDB();
 
             using (
-                var dr = ehdb.GetLocalizedPages(this.ModuleID, this.portalSettings.PortalUILanguage.LCID, this.Version))
+                var dr = ehdb.GetLocalizedPages(this.ModuleID, this.PortalSettings.PortalUILanguage.LCID, this.Version))
             {
                 while (dr.Read())
                 {
@@ -707,11 +707,11 @@ namespace Appleseed.Content.Web.Modules
 
                 if (tabla.Rows.Count == 0)
                 {
-                    if (this.portalSettings.PortalUILanguage.Parent.LCID != CultureInfo.InvariantCulture.LCID)
+                    if (this.PortalSettings.PortalUILanguage.Parent.LCID != CultureInfo.InvariantCulture.LCID)
                     {
                         using (
                             var dr1 = ehdb.GetLocalizedPages(
-                                this.ModuleID, this.portalSettings.PortalUILanguage.Parent.LCID, this.Version))
+                                this.ModuleID, this.PortalSettings.PortalUILanguage.Parent.LCID, this.Version))
                         {
                             while (dr1.Read())
                             {

@@ -53,7 +53,7 @@ namespace Appleseed.Content.Web.Modules.Discussion
         public DiscussionModule()
         {
             // Jminond - added editor support
-            HtmlEditorDataType.HtmlEditorSettings(this._baseSettings, SettingItemGroup.MODULE_SPECIAL_SETTINGS);
+            HtmlEditorDataType.HtmlEditorSettings(this.BaseSettings, SettingItemGroup.MODULE_SPECIAL_SETTINGS);
 
             /*
              * SettingItem setSortField = new SettingItem(new ListDataType("CreatedDate;Title"));

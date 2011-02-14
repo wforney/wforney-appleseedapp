@@ -32,8 +32,8 @@ namespace Appleseed.Content.Web.Modules
         {
             Src.FileNameOnly = true;
             Src.PreselectedFile = Src.Text;
-            Src.UploadDirectory = portalSettings.PortalFullPath + "/" +
-                                  moduleSettings["ENHANCEDLINKS_ICONPATH"].ToString();
+            Src.UploadDirectory = this.PortalSettings.PortalFullPath + "/" +
+                                  this.ModuleSettings["ENHANCEDLINKS_ICONPATH"].ToString();
 
             if (!Page.IsPostBack)
             {

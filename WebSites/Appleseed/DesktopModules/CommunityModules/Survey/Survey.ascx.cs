@@ -345,10 +345,10 @@ namespace Appleseed.Content.Web.Modules
                 {
                     Required = true, Order = 1, Value = 7, MinValue = 1, MaxValue = 365 
                 };
-            _baseSettings.Add("VoteDayPeriod", itmVoteDayPeriod);
+            this.BaseSettings.Add("VoteDayPeriod", itmVoteDayPeriod);
 
             var itmTest = new SettingItem<int, TextBox>() { Required = true, Order = 2, Value = 0 };
-            _baseSettings.Add("Test", itmTest);
+            this.BaseSettings.Add("Test", itmTest);
         }
 
         /// <summary>

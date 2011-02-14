@@ -37,10 +37,10 @@ namespace Appleseed.Content.Web.Modules
             this.PlaceholderButtons2.EnableViewState = false;
 
             //Controls must be created here
-            updateButton = new LinkButton();
-            updateButton.CssClass = "CommandButton";
+            this.UpdateButton = new LinkButton();
+            this.UpdateButton.CssClass = "CommandButton";
 
-            PlaceHolderButtons.Controls.Add(updateButton);
+            PlaceHolderButtons.Controls.Add(this.UpdateButton);
 
             // jminond added to top of property page so no need to scroll for save
             LinkButton update2 = new LinkButton();
@@ -106,9 +106,9 @@ namespace Appleseed.Content.Web.Modules
             cancel2.Click += new EventHandler(CancelButton_Click);
             PlaceholderButtons2.Controls.Add(cancel2);
 
-            cancelButton = new LinkButton();
-            cancelButton.CssClass = "CommandButton";
-            PlaceHolderButtons.Controls.Add(cancelButton);
+            this.CancelButton = new LinkButton();
+            this.CancelButton.CssClass = "CommandButton";
+            PlaceHolderButtons.Controls.Add(this.CancelButton);
 
 //			if(((UI.Page)this.Page).IsCssFileRegistered("tabsControl") == false)
 //			{
@@ -139,7 +139,7 @@ namespace Appleseed.Content.Web.Modules
             EditTable.Width = Appleseed.Framework.Settings.Config.SettingsGroupingWidth;
             EditTable.Height = Appleseed.Framework.Settings.Config.SettingsGroupingHeight;
             EditTable.CssClass = "st_control";
-            EditTable.DataSource = new SortedList(moduleSettings);
+            EditTable.DataSource = new SortedList(this.ModuleSettings);
             EditTable.DataBind();
         }
 
@@ -188,7 +188,7 @@ namespace Appleseed.Content.Web.Modules
         private void EditTable_UpdateControl(object sender,
                                              Appleseed.Framework.Web.UI.WebControls.SettingsTableEventArgs e)
         {
-            ModuleSettings.UpdateModuleSetting(ModuleID, ((SettingItem<string, TextBox>)e.CurrentItem).EditControl.ID, ((SettingItem<string, TextBox>)e.CurrentItem).Value);
+            Framework.Site.Configuration.ModuleSettings.UpdateModuleSetting(ModuleID, ((SettingItem<string, TextBox>)e.CurrentItem).EditControl.ID, ((SettingItem<string, TextBox>)e.CurrentItem).Value);
         }
     }
 }

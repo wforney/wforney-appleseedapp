@@ -36,23 +36,23 @@ namespace Appleseed.Content.Web.Modules
         {
             // Add the setting
             HtmlEditorDataType h = new HtmlEditorDataType();
-            h.Value = moduleSettings["Editor"].ToString();
+            h.Value = this.ModuleSettings["Editor"].ToString();
             DesktopText =
-                h.GetEditor(PlaceHolderHTMLEditor, ModuleID, bool.Parse(moduleSettings["ShowUpload"].ToString()),
-                            portalSettings);
+                h.GetEditor(PlaceHolderHTMLEditor, ModuleID, bool.Parse(this.ModuleSettings["ShowUpload"].ToString()),
+                            this.PortalSettings);
             // Construct the page
-            DesktopText.Width = new Unit(moduleSettings["Width"].ToString());
-            DesktopText.Height = new Unit(moduleSettings["Height"].ToString());
+            DesktopText.Width = new Unit(this.ModuleSettings["Width"].ToString());
+            DesktopText.Height = new Unit(this.ModuleSettings["Height"].ToString());
             // Construct the page
             // Added css Styles by Mario Endara <mario@softworks.com.uy> (2004/10/26)
-            updateButton.CssClass = "CommandButton";
-            PlaceHolderButtons.Controls.Add(updateButton);
+            this.UpdateButton.CssClass = "CommandButton";
+            PlaceHolderButtons.Controls.Add(this.UpdateButton);
             PlaceHolderButtons.Controls.Add(new LiteralControl("&#160;"));
-            cancelButton.CssClass = "CommandButton";
-            PlaceHolderButtons.Controls.Add(cancelButton);
+            this.CancelButton.CssClass = "CommandButton";
+            PlaceHolderButtons.Controls.Add(this.CancelButton);
             PlaceHolderButtons.Controls.Add(new LiteralControl("&#160;"));
-            deleteButton.CssClass = "CommandButton";
-            PlaceHolderButtons.Controls.Add(deleteButton);
+            this.DeleteButton.CssClass = "CommandButton";
+            PlaceHolderButtons.Controls.Add(this.DeleteButton);
             // If the page is being requested the first time, determine if an
             // Blog itemID value is specified, and if so populate page
             // contents with the Blog details
@@ -170,9 +170,9 @@ namespace Appleseed.Content.Web.Modules
         protected override void OnInit(EventArgs e)
         {
             //Controls must be created here
-            updateButton = new LinkButton();
-            cancelButton = new LinkButton();
-            deleteButton = new LinkButton();
+            this.UpdateButton = new LinkButton();
+            this.CancelButton = new LinkButton();
+            this.DeleteButton = new LinkButton();
             InitializeComponent();
             base.OnInit(e);
         }

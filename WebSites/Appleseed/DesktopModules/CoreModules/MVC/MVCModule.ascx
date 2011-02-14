@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="DesktopModules_CoreModules_MVC_MVCModule" Codebehind="MVCModule.ascx.cs" %>
 <span runat="server">
-    <!--<link rel="stylesheet" type="text/css" href="/Content/Themes/<%=portalSettings.PortalAlias %>/jquery-ui-1.7.1.custom.css" />
-    <link rel="stylesheet" type="text/css" href="/Content/Themes/<%=portalSettings.PortalAlias %>/jquery-ui-1.7.2.custom.css" />-->
-	<link rel="stylesheet" type="text/css" href="/Content/Themes/<%=portalSettings.PortalAlias %>/jquery-ui-1.8.1.custom.css" />
+    <!--<link rel="stylesheet" type="text/css" href="/Content/Themes/<%=this.PortalSettings.PortalAlias %>/jquery-ui-1.7.1.custom.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/Themes/<%=this.PortalSettings.PortalAlias %>/jquery-ui-1.7.2.custom.css" />-->
+	<link rel="stylesheet" type="text/css" href="/Content/Themes/<%=this.PortalSettings.PortalAlias %>/jquery-ui-1.8.1.custom.css" />
     <script type="text/javascript">
 
 

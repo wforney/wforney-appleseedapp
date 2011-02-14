@@ -108,7 +108,7 @@ namespace Appleseed.Framework.Localization
                         Order = (int)SettingItemGroup.THEME_LAYOUT_SETTINGS + 910,
                         Group = SettingItemGroup.THEME_LAYOUT_SETTINGS
                     };
-            _baseSettings.Add("LANGUAGESWITCHER_TYPES", languageSwitchType);
+            this.BaseSettings.Add("LANGUAGESWITCHER_TYPES", languageSwitchType);
 
             // Language Switcher Module - DisplayOptions
             var languageSwitcherDisplayOptions = new List<SettingOption>
@@ -135,7 +135,7 @@ namespace Appleseed.Framework.Localization
                         Order = (int)SettingItemGroup.THEME_LAYOUT_SETTINGS + 920,
                         Group = SettingItemGroup.THEME_LAYOUT_SETTINGS
                     };
-            _baseSettings.Add("LANGUAGESWITCHER_FLAGS", languageSwitchFlags);
+            this.BaseSettings.Add("LANGUAGESWITCHER_FLAGS", languageSwitchFlags);
 
             // Labels
             var languageSwitchLabels =
@@ -148,7 +148,7 @@ namespace Appleseed.Framework.Localization
                         Order = (int)SettingItemGroup.THEME_LAYOUT_SETTINGS + 930,
                         Group = SettingItemGroup.THEME_LAYOUT_SETTINGS
                     };
-            _baseSettings.Add("LANGUAGESWITCHER_LABELS", languageSwitchLabels);
+            this.BaseSettings.Add("LANGUAGESWITCHER_LABELS", languageSwitchLabels);
 
             // Language Switcher Module - NamesOptions
             var languageSwitcherNamesOptions = new List<SettingOption>
@@ -174,7 +174,7 @@ namespace Appleseed.Framework.Localization
                         Order = (int)SettingItemGroup.THEME_LAYOUT_SETTINGS + 940,
                         Group = SettingItemGroup.THEME_LAYOUT_SETTINGS
                     };
-            _baseSettings.Add("LANGUAGESWITCHER_NAMES", languageSwitcherName);
+            this.BaseSettings.Add("LANGUAGESWITCHER_NAMES", languageSwitcherName);
 
             // Use flag images from portal's images folder?
             var customFlags = new SettingItem<bool, CheckBox>
@@ -186,7 +186,7 @@ namespace Appleseed.Framework.Localization
                         "Check this if you want to use custom flags from portal's images folder. Custom flags are located in portal folder. /images/flags/",
                     Value = false
                 };
-            _baseSettings.Add("LANGUAGESWITCHER_CUSTOMFLAGS", customFlags);
+            this.BaseSettings.Add("LANGUAGESWITCHER_CUSTOMFLAGS", customFlags);
 
             SupportsWorkflow = false;
         }
@@ -254,7 +254,7 @@ namespace Appleseed.Framework.Localization
                 //LanguageSwitcher1.ChangeLanguageUrl = Page.Request.RawUrl;
 
                 if (bool.Parse(Settings["LANGUAGESWITCHER_CUSTOMFLAGS"].ToString()))
-                    LanguageSwitcher1.ImagePath = portalSettings.PortalFullPath + "/images/flags/";
+                    LanguageSwitcher1.ImagePath = this.PortalSettings.PortalFullPath + "/images/flags/";
                 else
                     LanguageSwitcher1.ImagePath = Path.WebPathCombine(Path.ApplicationRoot, "aspnet_client/flags/");
             }

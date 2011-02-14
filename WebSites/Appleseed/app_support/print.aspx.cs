@@ -20,13 +20,13 @@ namespace Appleseed
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            foreach (ModuleSettings module in this.portalSettings.ActivePage.Modules)
+            foreach (ModuleSettings module in this.PortalSettings.ActivePage.Modules)
             {
                 if (this.Request.Params["ModID"] != null && module.ModuleID == int.Parse(this.Request.Params["ModID"]))
                 {
                     // create an instance of the module
                     PortalModuleControl myPortalModule = (PortalModuleControl) LoadControl(Path.ApplicationRoot + "/" + module.DesktopSrc);
-                    myPortalModule.PortalID = portalSettings.PortalID;                                  
+                    myPortalModule.PortalID = this.PortalSettings.PortalID;                                  
                     myPortalModule.ModuleConfiguration = module;
 
                     // add the module to the placeholder

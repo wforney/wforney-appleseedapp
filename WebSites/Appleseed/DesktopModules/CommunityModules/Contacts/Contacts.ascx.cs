@@ -131,7 +131,7 @@ namespace Appleseed.Content.Web.Modules
             // setItem.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // setItem.Order = 1;
             // end of modification
-            _baseSettings.Add("SHOW_COLUMN_EMAIL", setItem);
+            this.BaseSettings.Add("SHOW_COLUMN_EMAIL", setItem);
 
             setItem = new SettingItem<bool, CheckBox>()
                 {
@@ -144,7 +144,7 @@ namespace Appleseed.Content.Web.Modules
             // setItem.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // setItem.Order = 1;
             // end of modification
-            _baseSettings.Add("SHOW_COLUMN_CONTACT1", setItem);
+            this.BaseSettings.Add("SHOW_COLUMN_CONTACT1", setItem);
 
             setItem = new SettingItem<bool, CheckBox>()
                 {
@@ -157,7 +157,7 @@ namespace Appleseed.Content.Web.Modules
             // setItem.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // setItem.Order = 2;
             // end of modification
-            _baseSettings.Add("SHOW_COLUMN_CONTACT2", setItem);
+            this.BaseSettings.Add("SHOW_COLUMN_CONTACT2", setItem);
             //MH: End
 
             setItem = new SettingItem<bool, CheckBox>()
@@ -171,7 +171,7 @@ namespace Appleseed.Content.Web.Modules
             // setItem.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // setItem.Order = 3;
             // end of modification
-            _baseSettings.Add("SHOW_COLUMN_FAX", setItem);
+            this.BaseSettings.Add("SHOW_COLUMN_FAX", setItem);
 
             setItem = new SettingItem<bool, CheckBox>()
                 {
@@ -184,7 +184,7 @@ namespace Appleseed.Content.Web.Modules
             // setItem.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // setItem.Order = 4;
             // end of modification
-            _baseSettings.Add("SHOW_COLUMN_ADDRESS", setItem);
+            this.BaseSettings.Add("SHOW_COLUMN_ADDRESS", setItem);
         }
 
         #region Global Implementation

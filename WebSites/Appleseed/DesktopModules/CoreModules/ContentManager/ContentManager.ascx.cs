@@ -150,7 +150,7 @@ namespace Appleseed.Content.Web.Modules
                 SourcePortal.SelectedIndex = i;
                 DestinationPortal.SelectedIndex = i;
 
-                if (SourcePortal.SelectedItem.Value == (portalSettings.PortalID).ToString())
+                if (SourcePortal.SelectedItem.Value == (this.PortalSettings.PortalID).ToString())
                     return;
             } //end for
         }
@@ -417,7 +417,7 @@ namespace Appleseed.Content.Web.Modules
                     Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS,
                     Description = "Enable or Disable Multi-Portal Support"
                 };
-            _baseSettings.Add("MultiPortalSupport", showPortals);
+            this.BaseSettings.Add("MultiPortalSupport", showPortals);
         }
 
         /// <summary>

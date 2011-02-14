@@ -96,7 +96,7 @@ namespace Appleseed.Content.Web.Modules
             // Set Editor Settings jviladiu@portalservices.net 2004/07/30
             // by Hongwei Shen
             // HtmlEditorDataType.HtmlEditorSettings (this._baseSettings, SettingItemGroup.MODULE_SPECIAL_SETTINGS);
-            HtmlEditorDataType.HtmlEditorSettings(_baseSettings, group);
+            HtmlEditorDataType.HtmlEditorSettings(this.BaseSettings, group);
 
             //Number of entries to display
             var EntriesToShow = new SettingItem<int, TextBox>();
@@ -107,7 +107,7 @@ namespace Appleseed.Content.Web.Modules
             EntriesToShow.Group = group;
             EntriesToShow.Order = groupBase + 20;
             // end of modification
-            _baseSettings.Add("Entries To Show", EntriesToShow);
+            this.BaseSettings.Add("Entries To Show", EntriesToShow);
 
             //Channel Description
             var Description = new SettingItem<string, TextBox>();
@@ -118,7 +118,7 @@ namespace Appleseed.Content.Web.Modules
             Description.Group = group;
             Description.Order = groupBase + 25;
             // end of modification
-            _baseSettings.Add("Description", Description);
+            this.BaseSettings.Add("Description", Description);
 
             //Channel Copyright
             var Copyright = new SettingItem<string, TextBox>();
@@ -129,7 +129,7 @@ namespace Appleseed.Content.Web.Modules
             Copyright.Group = group;
             Copyright.Order = groupBase + 30;
             // end of modification
-            _baseSettings.Add("Copyright", Copyright);
+            this.BaseSettings.Add("Copyright", Copyright);
 
             //Channel Language
             var Language = new SettingItem<string, TextBox>();
@@ -140,7 +140,7 @@ namespace Appleseed.Content.Web.Modules
             Language.Group = group;
             Language.Order = groupBase + 40;
             // end of modification
-            _baseSettings.Add("Language", Language);
+            this.BaseSettings.Add("Language", Language);
 
             //Author
             var Author = new SettingItem<string, TextBox>();
@@ -151,7 +151,7 @@ namespace Appleseed.Content.Web.Modules
             Author.Group = group;
             Author.Order = groupBase + 50;
             // end of modification
-            _baseSettings.Add("Author", Author);
+            this.BaseSettings.Add("Author", Author);
 
             //Author Email
             var AuthorEmail = new SettingItem<string, TextBox>();
@@ -162,7 +162,7 @@ namespace Appleseed.Content.Web.Modules
             AuthorEmail.Group = group;
             AuthorEmail.Order = groupBase + 60;
             // end of modification
-            _baseSettings.Add("Author Email", AuthorEmail);
+            this.BaseSettings.Add("Author Email", AuthorEmail);
 
             //Time to live in minutes for RSS
             //how long a channel can be cached before refreshing from the source
@@ -174,7 +174,7 @@ namespace Appleseed.Content.Web.Modules
             TimeToLive.Group = group;
             TimeToLive.Order = groupBase + 70;
             // end of modification
-            _baseSettings.Add("RSS Cache Time In Minutes", TimeToLive);
+            this.BaseSettings.Add("RSS Cache Time In Minutes", TimeToLive);
         }
 
         #region General Implementation

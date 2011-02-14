@@ -153,47 +153,47 @@ namespace Appleseed.Admin
             setSortField.Required = true;
             setSortField.Value = "Name";
             setSortField.Order = 1;
-            _baseSettings.Add("BLACKLIST_SORTFIELD", setSortField);
+            this.BaseSettings.Add("BLACKLIST_SORTFIELD", setSortField);
 
             var showColumnName = new SettingItem<bool, CheckBox>();
             showColumnName.Order = 2;
             showColumnName.Value = true;
-            _baseSettings.Add("BLACKLIST_SHOWCOLUMNNAME", showColumnName);
+            this.BaseSettings.Add("BLACKLIST_SHOWCOLUMNNAME", showColumnName);
 
             var showColumnEmail = new SettingItem<bool, CheckBox>();
             showColumnEmail.Order = 3;
             showColumnEmail.Value = true;
-            _baseSettings.Add("BLACKLIST_SHOWCOLUMNEMAIL", showColumnEmail);
+            this.BaseSettings.Add("BLACKLIST_SHOWCOLUMNEMAIL", showColumnEmail);
 
             var showColumnSendNewsletter = new SettingItem<bool, CheckBox>();
             showColumnSendNewsletter.Order = 4;
             showColumnSendNewsletter.Value = false;
-            _baseSettings.Add("BLACKLIST_SHOWCOLUMNSENDNEWSLETTER", showColumnSendNewsletter);
+            this.BaseSettings.Add("BLACKLIST_SHOWCOLUMNSENDNEWSLETTER", showColumnSendNewsletter);
 
             var showColumnReason = new SettingItem<bool, CheckBox>();
             showColumnReason.Order = 5;
             showColumnReason.Value = true;
-            _baseSettings.Add("BLACKLIST_SHOWCOLUMNREASON", showColumnReason);
+            this.BaseSettings.Add("BLACKLIST_SHOWCOLUMNREASON", showColumnReason);
 
             var showColumnDate = new SettingItem<bool, CheckBox>();
             showColumnDate.Order = 6;
             showColumnDate.Value = true;
-            _baseSettings.Add("BLACKLIST_SHOWCOLUMNDATE", showColumnDate);
+            this.BaseSettings.Add("BLACKLIST_SHOWCOLUMNDATE", showColumnDate);
 
             var showColumnLastSend = new SettingItem<bool, CheckBox>();
             showColumnLastSend.Order = 7;
             showColumnLastSend.Value = true;
-            _baseSettings.Add("BLACKLIST_SHOWCOLUMNLASTSEND", showColumnLastSend);
+            this.BaseSettings.Add("BLACKLIST_SHOWCOLUMNLASTSEND", showColumnLastSend);
 
             var showAllUsers = new SettingItem<bool, CheckBox>();
             showAllUsers.Order = 8;
             showAllUsers.Value = false;
-            _baseSettings.Add("BLACKLIST_SHOWALLUSERS", showAllUsers);
+            this.BaseSettings.Add("BLACKLIST_SHOWALLUSERS", showAllUsers);
 
             var showSubscribersOnly = new SettingItem<bool, CheckBox>();
             showSubscribersOnly.Order = 9;
             showSubscribersOnly.Value = false;
-            _baseSettings.Add("BLACKLIST_SHOWSUBSCRIBERSONLY", showSubscribersOnly);
+            this.BaseSettings.Add("BLACKLIST_SHOWSUBSCRIBERSONLY", showSubscribersOnly);
         }
 
         #region Web Form Designer generated code

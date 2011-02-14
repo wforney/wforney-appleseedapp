@@ -273,7 +273,7 @@ namespace Appleseed.Content.Web.Modules
             setMachineName.Order = groupBase + 20;
             setMachineName.EnglishName = "Machine Name";
             // end of modification
-            _baseSettings.Add("MachineName", setMachineName);
+            this.BaseSettings.Add("MachineName", setMachineName);
 
             var setSortField =
                 new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("EntryType;TimeGenerated;Source;EventID;Message"));
@@ -285,7 +285,7 @@ namespace Appleseed.Content.Web.Modules
             setSortField.Order = groupBase + 25;
             setSortField.EnglishName = "Sort Field";
             // end of modification
-            _baseSettings.Add("SortField", setSortField);
+            this.BaseSettings.Add("SortField", setSortField);
 
             var setSortDirection = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("ASC;DESC"));
             setSortDirection.Required = true;
@@ -296,7 +296,7 @@ namespace Appleseed.Content.Web.Modules
             setSortDirection.Order = groupBase + 30;
             setSortDirection.EnglishName = "Sort Direction";
             // end of modification
-            _baseSettings.Add("SortDirection", setSortDirection);
+            this.BaseSettings.Add("SortDirection", setSortDirection);
         }
 
         /// <summary>

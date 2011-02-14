@@ -182,7 +182,7 @@ namespace Appleseed.Content.Web.Modules
                 int moduleID = int.Parse(portalSettings.CustomSettings["SITESETTINGS_REGISTER_MODULEID"].ToString());
                 string moduleDesktopSrc = string.Empty;
                 if (moduleID > 0)
-                    moduleDesktopSrc = ModuleSettings.GetModuleDesktopSrc(moduleID);
+                    moduleDesktopSrc = Framework.Site.Configuration.ModuleSettings.GetModuleDesktopSrc(moduleID);
                 if (moduleDesktopSrc.Length == 0)
                     moduleDesktopSrc = RegisterPage;
                 Control myControl = LoadControl(moduleDesktopSrc);
@@ -263,7 +263,7 @@ namespace Appleseed.Content.Web.Modules
             // Add a new userRole to the database
             UsersDB users = new UsersDB();
                    
-            users.AddUserRole(roleID, userID, portalSettings.PortalAlias);
+            users.AddUserRole(roleID, userID, this.PortalSettings.PortalAlias);
 
             // Rebind list
             BindData();
@@ -282,7 +282,7 @@ namespace Appleseed.Content.Web.Modules
             Guid roleID = (Guid)userRoles.DataKeys[e.Item.ItemIndex];
 
             // update database
-            users.DeleteUserRole(roleID, userID, portalSettings.PortalAlias);
+            users.DeleteUserRole(roleID, userID, this.PortalSettings.PortalAlias);
 
             // Ensure that item is not editable
             userRoles.EditItemIndex = -1;
@@ -304,7 +304,7 @@ namespace Appleseed.Content.Web.Modules
             // bind users in role to DataList
             IList<AppleseedRole> roles = new List<AppleseedRole>();
             try {
-                roles = users.GetRolesByUser(currentUserID, portalSettings.PortalAlias);
+                roles = users.GetRolesByUser(currentUserID, this.PortalSettings.PortalAlias);
             } catch (Exception exc) {
                 ErrorHandler.Publish(LogLevel.Error, exc);
             }
@@ -313,7 +313,7 @@ namespace Appleseed.Content.Web.Modules
             userRoles.DataBind();
 
             // bind all portal roles to dropdownlist
-            IList<AppleseedRole> allRolesList = users.GetPortalRoles(portalSettings.PortalAlias);
+            IList<AppleseedRole> allRolesList = users.GetPortalRoles(this.PortalSettings.PortalAlias);
 
 
             // remove "All Users", "Authenticated Users" and "Unauthenticated Users" pseudo-roles
