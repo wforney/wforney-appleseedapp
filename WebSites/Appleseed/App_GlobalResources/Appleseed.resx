@@ -5591,4 +5591,10 @@ function confirmDelete()
   <data name="SIGNIN_SET_NEW_PWD_MSG" xml:space="preserve">
     <value>You can set a new password for your account going to the following link:</value>
   </data>
+  <data name="PASSWORD_AGAIN" xml:space="preserve">
+    <value>Repeat password</value>
+  </data>
+  <data name="PASSWORD_CHANGE_EXPLANATION" xml:space="preserve">
+    <value>Enter value to modify the password. If you don't want to change it, leave it empty.</value>
+  </data>
 </root>

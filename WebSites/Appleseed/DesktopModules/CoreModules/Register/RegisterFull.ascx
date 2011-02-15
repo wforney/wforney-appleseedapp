@@ -79,19 +79,42 @@
                                                 
                                         </td>
                                     </tr>
+                                    <tr runat="server" id="trPwdMessage">
+                                        <td></td>
+                                        <td><asp:Label ID="lblChPwd" runat="server" Font-Size="Smaller" Text="<%$ Resources:Appleseed, PASSWORD_CHANGE_EXPLANATION%>"
+                                                    textkey="OVERWRITE_VALUE"></asp:Label></td> 
+                                    </tr>
                                     <tr>
                                         <td>
-                                            <asp:Label ID="lblPwd" runat="server" CssClass="textogrisinformacion" Text="<%$ Resources:Appleseed, PASSWORD%>" 
+                                            <asp:Label ID="lblPwd" runat="server" CssClass="textogrisinformacion" Text="<%$ Resources:Appleseed, PASSWORD %>" 
                                             textkey="PASSWORD"></asp:Label>
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="tfPwd" runat="server" TextMode="Password"></asp:TextBox>
-                                           <asp:RequiredFieldValidator ID="rfvPwd" runat="server" ControlToValidate="tfPwd" Display="Dynamic"
-                                                Text="<%$ Resources:Appleseed, MUST_ENTER_PASSWORD%>"  textkey="MUST_ENTER_PASSWORD" Font-Size="11px"></asp:RequiredFieldValidator>
-                                            <asp:Label ID="lblChPwd" runat="server" Font-Size="Smaller" Text="<%$ Resources:Appleseed, OVERWRITE_VALUE%>"
-                                                textkey="OVERWRITE_VALUE" Visible="false"></asp:Label>
+                                           <div>
+                                                <asp:TextBox ID="tfPwd" runat="server" TextMode="Password"></asp:TextBox>
+                                           </div>
+                                           <div>
+                                                <asp:RequiredFieldValidator ID="rfvPwd" runat="server" ControlToValidate="tfPwd" Display="Dynamic"
+                                                    Text="<%$ Resources:Appleseed, MUST_ENTER_PASSWORD%>"  textkey="MUST_ENTER_PASSWORD" Font-Size="11px"></asp:RequiredFieldValidator>
+                                           </div>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                            <asp:Label ID="lblPwdAgain" runat="server" CssClass="textogrisinformacion" Text="<%$ Resources:Appleseed, PASSWORD_AGAIN %>" 
+                                            textkey="PASSWORD"></asp:Label>
+                                        </td>
+                                        <td>
+                                           <div>
+                                                <asp:TextBox ID="tfPwdAgain" runat="server" TextMode="Password"></asp:TextBox>
+                                           </div>
+                                           <div>
+                                                <asp:CompareValidator ID="cfvPwd" runat="server" ControlToValidate="tfPwd" ControlToCompare="tfPwdAgain" Type="String" Operator="Equal" Display="Dynamic"
+                                                    Text="<%$ Resources:Appleseed, PASSWORD_NOT_MATCH%>" textkey="PASSWORD_NOT_MATCH" Font-Size="11px"></asp:CompareValidator>
+                                           </div>
+                                        </td>
+                                    </tr>
+                                    
                                     <tr>
                                         <td>
                                             <asp:Label ID="lblCountry" runat="server" CssClass="textogrisinformacion" Text="<%$ Resources:Appleseed, COUNTRY%>" 

@@ -25,6 +25,7 @@ using System.Threading;
 public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalModuleControl, IEditUserProfile
 {
     private string _redirectPage;
+    private DateTime _defaultRegisterDate = new DateTime(DateTime.Today.Year, 1, 1);
 
     /// <summary>
     /// ddlDay control.
@@ -71,6 +72,7 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
     protected void Page_Load(object sender, EventArgs e)
     {
         LoadBirthDateControls();
+        trPwdMessage.Visible = false;
         if (!Page.IsPostBack) {
 
             BindCountry();
@@ -91,7 +93,7 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
             
             if (EditMode && !OuterCreation) {
                 lblTitle.Text = (string)GetGlobalResourceObject("Appleseed","USER_MODIFICATION");
-                lblChPwd.Visible = true;
+                trPwdMessage.Visible = true;
                 rfvPwd.Enabled = false;
             } else {
                 lblTitle.Text = (string)GetGlobalResourceObject("Appleseed", "USER_REGISTRY");
@@ -117,7 +119,7 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
                     //profileCommon.Address;
 
                     if ((DateTime)profileCommon.GetPropertyValue("BirthDate") == DateTime.MinValue) {
-                        BirthdayField = DateTime.Today.AddYears(-18);
+                        BirthdayField = _defaultRegisterDate;
                     } else {
                         BirthdayField = (DateTime)profileCommon.GetPropertyValue("BirthDate");
                     }
@@ -140,6 +142,7 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
             } else {
                 var firstOptionText = General.GetString("REGISTER_SELECT_COUNTRY", "Select Country", this);
                 this.ddlCountry.Items.Insert(0, new ListItem(string.Concat("-- ",firstOptionText), string.Empty));
+                BirthdayField = _defaultRegisterDate;
             }
         }
     }
@@ -225,7 +228,6 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
 
         ddlYear.DataSource = years;
         ddlYear.DataBind();
-        ddlYear.SelectedValue = DateTime.Today.AddYears(-18).Year.ToString();
     }
 
 
