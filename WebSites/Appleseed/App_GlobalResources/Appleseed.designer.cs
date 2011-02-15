@@ -11187,6 +11187,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Repeat password.
+        /// </summary>
+        internal static string PASSWORD_AGAIN {
+            get {
+                return ResourceManager.GetString("PASSWORD_AGAIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter value to modify the password. If you don&apos;t want to change it, leave it empty..
+        /// </summary>
+        internal static string PASSWORD_CHANGE_EXPLANATION {
+            get {
+                return ResourceManager.GetString("PASSWORD_CHANGE_EXPLANATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password fields do not match..
         /// </summary>
         internal static string PASSWORD_DO_NOT_MATCH {
