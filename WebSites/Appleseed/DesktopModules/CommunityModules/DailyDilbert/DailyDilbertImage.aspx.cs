@@ -47,7 +47,7 @@ namespace Appleseed.Content.Web.Modules
             Double dblImagePercent;
             try
             {
-                ImagePercent = moduleSettings["ImagePercent"].ToString();
+                ImagePercent = this.ModuleSettings["ImagePercent"].ToString();
                 dblImagePercent = Convert.ToDouble(ImagePercent);
             }
             catch

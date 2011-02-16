@@ -5,6 +5,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// DailyDilbert Module
     /// Based on VB Module Written by SnowCovered.com
@@ -42,13 +44,13 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public DailyDilbert()
         {
-            SettingItem setImagePercent = new SettingItem(new IntegerDataType());
+            var setImagePercent = new SettingItem<int, TextBox>();
             setImagePercent.Required = true;
-            setImagePercent.Value = "80";
+            setImagePercent.Value = 80;
             setImagePercent.Order = 1;
             setImagePercent.MinValue = 1;
             setImagePercent.MaxValue = 100;
-            _baseSettings.Add("ImagePercent", setImagePercent);
+            this.BaseSettings.Add("ImagePercent", setImagePercent);
         }
 
         #region Web Form Designer generated code

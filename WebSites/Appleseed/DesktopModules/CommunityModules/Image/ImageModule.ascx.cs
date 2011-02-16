@@ -6,6 +6,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// ImageModule
     /// Display an image on screen
@@ -22,7 +24,7 @@ namespace Appleseed.Content.Web.Modules
         private void Page_Load(object sender, EventArgs e)
         {
             string imageSrc =
-                Path.WebPathCombine(Path.ApplicationRoot, portalSettings.PortalPath, Settings["src"].ToString());
+                Path.WebPathCombine(Path.ApplicationRoot, this.PortalSettings.PortalPath, Settings["src"].ToString());
             string imageHeight = Settings["height"].ToString();
             string imageWidth = Settings["width"].ToString();
 
@@ -67,29 +69,17 @@ namespace Appleseed.Content.Web.Modules
             SettingItemGroup group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             int groupBase = (int) group;
 
-            SettingItem src = new SettingItem(new UploadedFileDataType()); //PortalUrlDataType
-            src.Required = true;
-            src.Group = group;
-            src.Order = groupBase + 25; //1;
-            _baseSettings.Add("src", src);
+            var src = new SettingItem<string, TextBox>(new UploadedFileDataType())
+                { Required = true, Group = group, Order = groupBase + 25 }; //PortalUrlDataType
+            this.BaseSettings.Add("src", src);
 
-            SettingItem width = new SettingItem(new IntegerDataType());
-            width.Required = true;
-            width.MinValue = 0;
-            width.MaxValue = 2048;
-            width.Value = "150";
-            width.Group = group;
-            width.Order = groupBase + 30; //2;
-            _baseSettings.Add("width", width);
+            var width = new SettingItem<int, TextBox>()
+                { Required = true, MinValue = 0, MaxValue = 2048, Value = 150, Group = group, Order = groupBase + 30 };
+            this.BaseSettings.Add("width", width);
 
-            SettingItem height = new SettingItem(new IntegerDataType());
-            height.Required = true;
-            height.MinValue = 0;
-            height.MaxValue = 2048;
-            height.Value = "250";
-            height.Group = group;
-            height.Order = groupBase + 35; //1;
-            _baseSettings.Add("height", height);
+            var height = new SettingItem<int, TextBox>()
+                { Required = true, MinValue = 0, MaxValue = 2048, Value = 250, Group = group, Order = groupBase + 35 };
+            this.BaseSettings.Add("height", height);
         }
 
         #region Web Form Designer generated code

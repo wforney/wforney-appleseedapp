@@ -26,23 +26,20 @@ namespace Appleseed.Content.Web.Modules
         {
             // Construct the page
             // Added css Styles by Mario Endara <mario@softworks.com.uy> (2004/10/26)
-            updateButton.CssClass = "CommandButton";
-            PlaceHolderButtons.Controls.Add(updateButton);
+            this.UpdateButton.CssClass = "CommandButton";
+            PlaceHolderButtons.Controls.Add(this.UpdateButton);
             PlaceHolderButtons.Controls.Add(new LiteralControl("&#160;"));
-            cancelButton.CssClass = "CommandButton";
-            PlaceHolderButtons.Controls.Add(cancelButton);
+            this.CancelButton.CssClass = "CommandButton";
+            PlaceHolderButtons.Controls.Add(this.CancelButton);
 
             if (Page.IsPostBack == false)
             {
                 if (ModuleID > 0)
                 {
-                    if (moduleSettings["Zip"] != null)
-                        Zip.Text = ((SettingItem) moduleSettings["Zip"]).ToString();
-                    else
-                        Zip.Text = "10001";
+                    this.Zip.Text = this.ModuleSettings["Zip"] != null ? this.ModuleSettings["Zip"].ToString() : "10001";
 
-                    if (moduleSettings["Option"] != null)
-                        Option.SelectedIndex = int.Parse(((SettingItem) moduleSettings["Option"]).ToString());
+                    if (this.ModuleSettings["Option"] != null)
+                        Option.SelectedIndex = int.Parse(this.ModuleSettings["Option"].ToString());
                 }
             }
         }
@@ -75,8 +72,8 @@ namespace Appleseed.Content.Web.Modules
             if (Page.IsValid == true)
             {
                 // Update settings in the database
-                ModuleSettings.UpdateModuleSetting(ModuleID, "Zip", Zip.Text);
-                ModuleSettings.UpdateModuleSetting(ModuleID, "Option", Option.SelectedIndex.ToString());
+                Framework.Site.Configuration.ModuleSettings.UpdateModuleSetting(ModuleID, "Zip", Zip.Text);
+                Framework.Site.Configuration.ModuleSettings.UpdateModuleSetting(ModuleID, "Option", Option.SelectedIndex.ToString());
 
                 RedirectBackToReferringPage();
             }
@@ -91,8 +88,8 @@ namespace Appleseed.Content.Web.Modules
         protected override void OnInit(EventArgs e)
         {
             //Controls must be created here
-            updateButton = new LinkButton();
-            cancelButton = new LinkButton();
+            this.UpdateButton = new LinkButton();
+            this.CancelButton = new LinkButton();
 
             this.Load += new EventHandler(this.Page_Load);
             base.OnInit(e);

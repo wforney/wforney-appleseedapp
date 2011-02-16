@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ModuleSettingsCustom.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   ModuleSettingsCustom extends the ModuleSettings class to allow authenticated users
@@ -12,9 +12,11 @@ namespace Appleseed.Framework.Site.Configuration
 {
     using System;
     using System.Collections;
+    using System.ComponentModel;
     using System.Data;
     using System.Data.SqlClient;
     using System.Web.UI;
+    using System.Web.UI.WebControls;
 
     using Appleseed.Framework.Exceptions;
     using Appleseed.Framework.Settings;
@@ -22,14 +24,16 @@ namespace Appleseed.Framework.Site.Configuration
 
     /// <summary>
     /// ModuleSettingsCustom extends the ModuleSettings class to allow authenticated users
-    ///     to 'customize' a module to their own preference.
+    ///   to 'customize' a module to their own preference.
     /// </summary>
+    /// <remarks>
+    /// </remarks>
     public class ModuleSettingsCustom : ModuleSettings
     {
         #region Constants and Fields
 
         /// <summary>
-        /// The str desktop src.
+        ///   The string desktop source.
         /// </summary>
         private const string StringsDesktopSrc = "DesktopSrc";
 
@@ -39,8 +43,8 @@ namespace Appleseed.Framework.Site.Configuration
 
         /// <summary>
         /// The GetModuleSettings Method returns a hashtable of
-        ///     custom module specific settings from the database. This method is
-        ///     used by some user control modules to access misc settings.
+        ///   custom module specific settings from the database. This method is
+        ///   used by some user control modules to access misc settings.
         /// </summary>
         /// <param name="moduleId">
         /// The module ID.
@@ -54,6 +58,8 @@ namespace Appleseed.Framework.Site.Configuration
         /// <returns>
         /// The hash table.
         /// </returns>
+        /// <remarks>
+        /// </remarks>
         public static Hashtable GetModuleUserSettings(int moduleId, Guid userId, Page page)
         {
             var controlPath = Path.ApplicationRoot + "/";
@@ -78,7 +84,8 @@ namespace Appleseed.Framework.Site.Configuration
             {
                 // Appleseed.Framework.Configuration.ErrorHandler.HandleException("There was a problem loading: '" + ControlPath + "'", ex);
                 // throw;
-                throw new AppleseedException(LogLevel.Fatal, string.Format("There was a problem loading: '{0}'", controlPath), ex);
+                throw new AppleseedException(
+                    LogLevel.Fatal, string.Format("There was a problem loading: '{0}'", controlPath), ex);
             }
 
             return setting;
@@ -86,7 +93,7 @@ namespace Appleseed.Framework.Site.Configuration
 
         /// <summary>
         /// Retrieves the custom user settings for the current user for this module
-        ///     from the database.
+        ///   from the database.
         /// </summary>
         /// <param name="moduleId">
         /// The module ID.
@@ -100,6 +107,8 @@ namespace Appleseed.Framework.Site.Configuration
         /// <returns>
         /// The hash table.
         /// </returns>
+        /// <remarks>
+        /// </remarks>
         public static Hashtable GetModuleUserSettings(int moduleId, Guid userId, Hashtable customSettings)
         {
             // Get Settings for this module from the database
@@ -107,32 +116,29 @@ namespace Appleseed.Framework.Site.Configuration
 
             // Create Instance of Connection and Command Object
             using (var connection = Config.SqlConnectionString)
+            using (var command = new SqlCommand("rb_GetModuleUserSettings", connection))
             {
-                using (var command = new SqlCommand("rb_GetModuleUserSettings", connection))
+                // Mark the Command as a SPROC
+                command.CommandType = CommandType.StoredProcedure;
+
+                // Add Parameters to SPROC
+                var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
+                command.Parameters.Add(parameterModuleId);
+
+                var parameterUserId = new SqlParameter("@UserID", SqlDbType.Int, 4) { Value = userId };
+                command.Parameters.Add(parameterUserId);
+
+                // Execute the command
+                connection.Open();
+                using (var dr = command.ExecuteReader(CommandBehavior.CloseConnection))
                 {
-                    // Mark the Command as a SPROC
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    // Add Parameters to SPROC
-                    var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
-                    command.Parameters.Add(parameterModuleId);
-
-                    var parameterUserId = new SqlParameter("@UserID", SqlDbType.Int, 4) { Value = userId };
-                    command.Parameters.Add(parameterUserId);
-
-                    // Execute the command
-                    connection.Open();
-                    using (var dr = command.ExecuteReader(CommandBehavior.CloseConnection))
+                    while (dr.Read())
                     {
-                        while (dr.Read())
-                        {
-                            settings[dr["SettingName"].ToString()] = dr["SettingValue"].ToString();
-                        }
+                        settings[dr["SettingName"].ToString()] = dr["SettingValue"].ToString();
                     }
                 }
             }
 
-            // foreach (string key in _customSettings.Keys)
             foreach (string key in customSettings.Keys)
             {
                 if (settings[key] == null)
@@ -140,13 +146,24 @@ namespace Appleseed.Framework.Site.Configuration
                     continue;
                 }
 
-                var s = (SettingItem)customSettings[key];
-                if (settings[key].ToString().Length != 0)
+                var s = customSettings[key];
+
+                if (settings[key].ToString().Length == 0)
                 {
-                    s.Value = settings[key].ToString();
+                    continue;
                 }
 
-                // _customSettings[key] = s;
+                var conv = TypeDescriptor.GetConverter(typeof(SettingItem<string, TextBox>));
+                if (conv == null)
+                {
+                    continue;
+                }
+
+                var setting = (SettingItem<string, TextBox>)conv.ConvertFrom(s);
+                if (setting != null)
+                {
+                    setting.Value = settings[key].ToString();
+                }
             }
 
             return customSettings;
@@ -154,7 +171,7 @@ namespace Appleseed.Framework.Site.Configuration
 
         /// <summary>
         /// The UpdateCustomModuleSetting Method updates a single module setting
-        ///     for the current user in the rb_ModuleUserSettings database table.
+        ///   for the current user in the rb_ModuleUserSettings database table.
         /// </summary>
         /// <param name="moduleId">
         /// The module ID.
@@ -168,32 +185,32 @@ namespace Appleseed.Framework.Site.Configuration
         /// <param name="value">
         /// The value.
         /// </param>
+        /// <remarks>
+        /// </remarks>
         public static void UpdateCustomModuleSetting(int moduleId, Guid userId, string key, string value)
         {
             // Create Instance of Connection and Command Object
             using (var connection = Config.SqlConnectionString)
+            using (var command = new SqlCommand("rb_UpdateModuleUserSetting", connection))
             {
-                using (var command = new SqlCommand("rb_UpdateModuleUserSetting", connection))
-                {
-                    // Mark the Command as a SPROC
-                    command.CommandType = CommandType.StoredProcedure;
+                // Mark the Command as a SPROC
+                command.CommandType = CommandType.StoredProcedure;
 
-                    // Add Parameters to SPROC
-                    var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
-                    command.Parameters.Add(parameterModuleId);
+                // Add Parameters to SPROC
+                var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
+                command.Parameters.Add(parameterModuleId);
 
-                    var parameterUserId = new SqlParameter("@UserID", SqlDbType.Int, 4) { Value = userId };
-                    command.Parameters.Add(parameterUserId);
+                var parameterUserId = new SqlParameter("@UserID", SqlDbType.Int, 4) { Value = userId };
+                command.Parameters.Add(parameterUserId);
 
-                    var parameterKey = new SqlParameter("@SettingName", SqlDbType.NVarChar, 50) { Value = key };
-                    command.Parameters.Add(parameterKey);
+                var parameterKey = new SqlParameter("@SettingName", SqlDbType.NVarChar, 50) { Value = key };
+                command.Parameters.Add(parameterKey);
 
-                    var parameterValue = new SqlParameter("@SettingValue", SqlDbType.NVarChar, 1500) { Value = value };
-                    command.Parameters.Add(parameterValue);
+                var parameterValue = new SqlParameter("@SettingValue", SqlDbType.NVarChar, 1500) { Value = value };
+                command.Parameters.Add(parameterValue);
 
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
+                connection.Open();
+                command.ExecuteNonQuery();
             }
         }
 

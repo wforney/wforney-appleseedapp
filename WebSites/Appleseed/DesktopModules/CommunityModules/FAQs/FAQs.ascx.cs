@@ -11,6 +11,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// IBS Portal FAQ module
     /// (c)2002 by Christopher S Judd, CDP &amp; Horizons, LLC
@@ -24,7 +26,7 @@ namespace Appleseed.Content.Web.Modules
         public FAQs()
         {
             // Set Editor Settings jviladiu@portalservices.net 2004/07/30
-            HtmlEditorDataType.HtmlEditorSettings(_baseSettings, SettingItemGroup.MODULE_SPECIAL_SETTINGS);
+            HtmlEditorDataType.HtmlEditorSettings(this.BaseSettings, SettingItemGroup.MODULE_SPECIAL_SETTINGS);
 
             SupportsWorkflow = false;
         }
@@ -119,7 +121,7 @@ namespace Appleseed.Content.Web.Modules
         public override void Install(IDictionary stateSaver)
         {
             string currentScriptName = Path.Combine(Server.MapPath(TemplateSourceDirectory), "install.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback
@@ -135,7 +137,7 @@ namespace Appleseed.Content.Web.Modules
         public override void Uninstall(IDictionary stateSaver)
         {
             string currentScriptName = Path.Combine(Server.MapPath(TemplateSourceDirectory), "uninstall.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback

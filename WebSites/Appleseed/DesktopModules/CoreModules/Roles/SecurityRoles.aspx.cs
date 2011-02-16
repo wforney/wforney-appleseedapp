@@ -88,7 +88,7 @@ namespace Appleseed.Content.Web.Modules
             {
                 // Add a new userRole to the database
                 UsersDB users = new UsersDB();
-                users.AddUserRole(roleId, userID, portalSettings.PortalAlias);
+                users.AddUserRole(roleId, userID, this.PortalSettings.PortalAlias);
             }
 
             // Rebind list
@@ -113,7 +113,7 @@ namespace Appleseed.Content.Web.Modules
             if (e.CommandName == "delete")
             {
                 // update database
-                users.DeleteUserRole(roleId, user.ProviderUserKey, portalSettings.PortalAlias);
+                users.DeleteUserRole(roleId, user.ProviderUserKey, this.PortalSettings.PortalAlias);
 
                 // Ensure that item is not editable
                 usersInRole.EditItemIndex = -1;
@@ -145,11 +145,11 @@ namespace Appleseed.Content.Web.Modules
             UsersDB users = new UsersDB();
 
             // bind users in role to DataList
-            usersInRole.DataSource = users.GetRoleMembers(roleId, portalSettings.PortalAlias);
+            usersInRole.DataSource = users.GetRoleMembers(roleId, this.PortalSettings.PortalAlias);
             usersInRole.DataBind();
 
             // bind all portal users to dropdownlist
-            allUsers.DataSource = users.GetUsers(portalSettings.PortalAlias);
+            allUsers.DataSource = users.GetUsers(this.PortalSettings.PortalAlias);
             allUsers.DataBind();
         }
     }

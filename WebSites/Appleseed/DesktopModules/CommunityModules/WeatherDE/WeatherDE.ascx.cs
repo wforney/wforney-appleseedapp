@@ -6,6 +6,9 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// WeatherDE (German Weather) using german zipcodes.
     /// Adapted from original version by: Mario Hartmann, Mario@Hartmann.net
@@ -28,53 +31,51 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public WeatherDE()
         {
-            SettingItem setZip = new SettingItem(new DoubleDataType());
-            setZip.MinValue = 0;
-            setZip.MaxValue = 99999;
-            setZip.Required = true;
-            setZip.Value = "88045";
-            setZip.Order = 1;
-            _baseSettings.Add("WeatherZip", setZip);
-
+            var setZip = new SettingItem<double, TextBox>
+                {
+                    MinValue = 0, MaxValue = 99999, Required = true, Value = 88045, Order = 1 
+                };
+            this.BaseSettings.Add("WeatherZip", setZip);
 
             // Module Weather Options
-            ArrayList ModuleWeatherOption = new ArrayList();
-            ModuleWeatherOption.Add(new SettingOption((int) WeatherOption.Today, "Today"));
-            ModuleWeatherOption.Add(new SettingOption((int) WeatherOption.Forecast, "Forecast"));
+            var moduleWeatherOption = new List<SettingOption>
+                {
+                    new SettingOption((int)WeatherOption.Today, "Today"),
+                    new SettingOption((int)WeatherOption.Forecast, "Forecast")
+                };
 
-            SettingItem setOption = new SettingItem(new CustomListDataType(ModuleWeatherOption, "Name", "Val"));
-            setOption.Required = true;
-            setOption.Value = ((int) WeatherOption.Today).ToString();
-            setOption.Order = 2;
-            _baseSettings.Add("WeatherOption", setOption);
-
+            var setOption =
+                new SettingItem<string, ListControl>(new CustomListDataType(moduleWeatherOption, "Name", "Val"))
+                    {
+                        Required = true, Value = ((int)WeatherOption.Today).ToString(), Order = 2 
+                    };
+            this.BaseSettings.Add("WeatherOption", setOption);
 
             // Module Weather Design
-            ArrayList ModuleWeatherDesignValue = new ArrayList();
+            var moduleWeatherDesignValue = new List<SettingOption>
+                {
+                    new SettingOption(0, "1"),
+                    new SettingOption(1, "1b"),
+                    new SettingOption(2, "1c"),
+                    new SettingOption(3, "2"),
+                    new SettingOption(4, "2b"),
+                    new SettingOption(5, "3")
+                };
 
-            ModuleWeatherDesignValue.Add(new SettingOption(0, "1"));
-            ModuleWeatherDesignValue.Add(new SettingOption(1, "1b"));
-            ModuleWeatherDesignValue.Add(new SettingOption(2, "1c"));
-            ModuleWeatherDesignValue.Add(new SettingOption(3, "2"));
-            ModuleWeatherDesignValue.Add(new SettingOption(4, "2b"));
-            ModuleWeatherDesignValue.Add(new SettingOption(5, "3"));
+            var setDesign =
+                new SettingItem<string, ListControl>(new CustomListDataType(moduleWeatherDesignValue, "Name", "Name"))
+                    {
+                        Required = true, Value = "1", Order = 3 
+                    };
+            this.BaseSettings.Add("WeatherDesign", setDesign);
 
-            SettingItem setDesign = new SettingItem(new CustomListDataType(ModuleWeatherDesignValue, "Name", "Name"));
-            setDesign.Required = true;
-            setDesign.Value = "1";
-            setDesign.Order = 3;
-            _baseSettings.Add("WeatherDesign", setDesign);
-
-            // Module Weather CityIndex		
-            SettingItem setCityIndex = new SettingItem(new DoubleDataType());
-            setCityIndex.MinValue = 0;
-            setCityIndex.MaxValue = 99999;
-            setCityIndex.Required = false;
-            setCityIndex.Value = "0";
-            setCityIndex.Order = 4;
-            _baseSettings.Add("WeatherCityIndex", setCityIndex);
+            // Module Weather CityIndex
+            var setCityIndex = new SettingItem<double, TextBox>
+                {
+                    MinValue = 0, MaxValue = 99999, Required = false, Value = 0, Order = 4 
+                };
+            this.BaseSettings.Add("WeatherCityIndex", setCityIndex);
         }
-
 
         /// <summary>
         /// Handles the Load event of the Page control.
@@ -109,10 +110,8 @@ namespace Appleseed.Content.Web.Modules
 
             string MyHTML = string.Empty;
             MyHTML += "<!-- BEGIN wetter.com-Button -->";
-            MyHTML += "<a href='http://www.wetter.com/home/extern/ex_search.php?ms=1&ss=1&sss=2&search=" + strZip +
-                      "' target='_new'>";
-            MyHTML += "<img src='http://www.wetter.com/home/woys/woys.php?," + strOption + "," + strDesign + ",DEPLZ," +
-                      strZip + "," + strCityIndex + "' border='0'></a>";
+            MyHTML += string.Format("<a href='http://www.wetter.com/home/extern/ex_search.php?ms=1&ss=1&sss=2&search={0}' target='_new'>", strZip);
+            MyHTML += string.Format("<img src='http://www.wetter.com/home/woys/woys.php?,{0},{1},DEPLZ,{2},{3}' border='0'></a>", strOption, strDesign, strZip, strCityIndex);
             MyHTML += "<!-- END wetter.com-Button -->";
 
             pWeatherDE.InnerHtml = MyHTML;

@@ -70,11 +70,15 @@ namespace Appleseed.Content.Web.Modules
 
             uploadpanel.Visible = _uploadIsEnabled;
 
-            _imageFolder = ((SettingItem) moduleSettings["FlashPath"]).FullPath;
-            if (IOHelper.CreateDirectory(Server.MapPath(_imageFolder)))
-                DisplayImages();
+            this._imageFolder = ((SettingItem<string, TextBox>)this.ModuleSettings["FlashPath"]).FullPath;
+            if (IOHelper.CreateDirectory(this.Server.MapPath(this._imageFolder)))
+            {
+                this.DisplayImages();
+            }
             else
-                uploadmessage.Text = _noFolderSpecifiedMessage;
+            {
+                this.uploadmessage.Text = this._noFolderSpecifiedMessage;
+            }
 
             Response.Write(_imageFolder);
         }
@@ -178,7 +182,7 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public void DisplayImages()
         {
-            _returnPath = "~~/" + ((SettingItem) moduleSettings["FlashPath"]).Value;
+            this._returnPath = string.Format("~~/{0}", ((SettingItem<string, TextBox>)this.ModuleSettings["FlashPath"]).Value);
             string[] galleryfolderarray = ReturnFolderContentArray();
             flashTable.Controls.Clear();
             if (galleryfolderarray == null || galleryfolderarray.Length == 0)

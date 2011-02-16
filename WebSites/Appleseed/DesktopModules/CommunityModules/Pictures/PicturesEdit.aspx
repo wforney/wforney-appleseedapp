@@ -158,11 +158,11 @@
                 </table>
                 <p>
                 </p>
-                <rbfwebui:linkbutton id="updateButton" runat="server" cssclass="CommandButton">Update</rbfwebui:linkbutton>
+                <rbfwebui:linkbutton id="UpdateButton" runat="server" cssclass="CommandButton">Update</rbfwebui:linkbutton>
                 &nbsp;&nbsp;
-                <rbfwebui:linkbutton id="cancelButton" runat="server" causesvalidation="False" cssclass="CommandButton">Cancel</rbfwebui:linkbutton>
+                <rbfwebui:linkbutton id="CancelButton" runat="server" causesvalidation="False" cssclass="CommandButton">Cancel</rbfwebui:linkbutton>
                 &nbsp;&nbsp;
-                <rbfwebui:linkbutton id="deleteButton" runat="server" causesvalidation="False" cssclass="CommandButton">Delete this item</rbfwebui:linkbutton>
+                <rbfwebui:linkbutton id="DeleteButton" runat="server" causesvalidation="False" cssclass="CommandButton">Delete this item</rbfwebui:linkbutton>
                 <br />
                 <hr noshade="noshade" size="1" width="500" />
                 <p>

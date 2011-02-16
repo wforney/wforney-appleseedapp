@@ -7,6 +7,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// MapQuest module
     /// Written by: Shaun Walker (released the module in VB.NET)
@@ -167,26 +169,26 @@ namespace Appleseed.Content.Web.Modules
             strURL += "&2y=" + EncodeValue(Settings["Country"].ToString());
             strURL += "&2z=" + EncodeValue(Settings["PostalCode"].ToString());
             /*
-			If Request.IsAuthenticated Then 
-			' if you have expanded the Users table in IBuySpy to include more demographic fields you can use them 
-			' here to automate the Get Directions feature 
+            If Request.IsAuthenticated Then 
+            ' if you have expanded the Users table in IBuySpy to include more demographic fields you can use them 
+            ' here to automate the Get Directions feature 
 
-			' Obtain PortalSettings from Current Context 
-			'Dim _portalSettings As PortalSettings = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings) 
+            ' Obtain PortalSettings from Current Context 
+            'Dim _portalSettings As PortalSettings = CType(HttpContext.Current.Items("PortalSettings"), PortalSettings) 
 
-			'Dim objUser As New ASPNetPortal.UsersDB() 
+            'Dim objUser As New ASPNetPortal.UsersDB() 
 
-			'Dim drUser As SqlDataReader = objUser.GetSingleUser(_portalSettings.PortalID, Int32.Parse(context.User.Identity.Name)) 
-			'If drUser.Read Then 
-			' strURL += "&1a=" & EncodeValue(drUser("Street").ToString) 
-			' strURL += "&1c=" & EncodeValue(drUser("City").ToString) 
-			' strURL += "&1s=" & EncodeValue(drUser("Region").ToString) 
-			' strURL += "&1y=" & EncodeValue(drUser("Country").ToString) 
-			' strURL += "&1z=" & EncodeValue(drUser("PostalCode").ToString) 
-			'End If 
-			'drUser.Close() 
-			End If
-			*/
+            'Dim drUser As SqlDataReader = objUser.GetSingleUser(_portalSettings.PortalID, Int32.Parse(context.User.Identity.Name)) 
+            'If drUser.Read Then 
+            ' strURL += "&1a=" & EncodeValue(drUser("Street").ToString) 
+            ' strURL += "&1c=" & EncodeValue(drUser("City").ToString) 
+            ' strURL += "&1s=" & EncodeValue(drUser("Region").ToString) 
+            ' strURL += "&1y=" & EncodeValue(drUser("Country").ToString) 
+            ' strURL += "&1z=" & EncodeValue(drUser("PostalCode").ToString) 
+            'End If 
+            'drUser.Close() 
+            End If
+            */
 
             return strURL;
         }
@@ -201,76 +203,76 @@ namespace Appleseed.Content.Web.Modules
             SettingItemGroup group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             int groupBase = (int) group;
 
-            SettingItem setLocation = new SettingItem(new StringDataType());
+            var setLocation = new SettingItem<string, TextBox>();
             setLocation.Required = true;
             setLocation.Group = group;
             setLocation.Order = groupBase + 20; //10;
-            _baseSettings.Add("Location", setLocation);
+            this.BaseSettings.Add("Location", setLocation);
 
-            SettingItem setStreet = new SettingItem(new StringDataType());
+            var setStreet = new SettingItem<string, TextBox>();
             setStreet.Required = false;
             setStreet.Group = group;
             setStreet.Order = groupBase + 25; //20;
-            _baseSettings.Add("Street", setStreet);
+            this.BaseSettings.Add("Street", setStreet);
 
-            SettingItem setCity = new SettingItem(new StringDataType());
+            var setCity = new SettingItem<string, TextBox>();
             setCity.Required = true;
             setCity.Group = group;
             setCity.Order = groupBase + 30;
-            _baseSettings.Add("City", setCity);
+            this.BaseSettings.Add("City", setCity);
 
-            SettingItem setRegion = new SettingItem(new StringDataType());
+            var setRegion = new SettingItem<string, TextBox>();
             setRegion.Required = false;
             setRegion.Group = group;
             setRegion.Order = groupBase + 35; //40;
             setRegion.Value = string.Empty; //Same as State for US
-            _baseSettings.Add("Region", setRegion);
+            this.BaseSettings.Add("Region", setRegion);
 
-            SettingItem setCountry = new SettingItem(new StringDataType());
+            var setCountry = new SettingItem<string, TextBox>();
             setCountry.Required = false;
             setCountry.Group = group;
             setCountry.Order = groupBase + 40; //50;
-            _baseSettings.Add("Country", setCountry);
+            this.BaseSettings.Add("Country", setCountry);
 
-            SettingItem setPostalCode = new SettingItem(new StringDataType());
+            var setPostalCode = new SettingItem<string, TextBox>();
             setPostalCode.Required = false;
             setPostalCode.Group = group;
             setPostalCode.Order = groupBase + 45; //60;
-            _baseSettings.Add("PostalCode", setPostalCode);
+            this.BaseSettings.Add("PostalCode", setPostalCode);
 
-            SettingItem setShowMap = new SettingItem(new BooleanDataType());
+            var setShowMap = new SettingItem<bool, CheckBox>();
             setShowMap.Group = group;
             setShowMap.Order = groupBase + 50; //70;
-            setShowMap.Value = "True";
-            _baseSettings.Add("ShowMap", setShowMap);
+            setShowMap.Value = true;
+            this.BaseSettings.Add("ShowMap", setShowMap);
 
-            SettingItem setShowAddress = new SettingItem(new BooleanDataType());
+            var setShowAddress = new SettingItem<bool, CheckBox>();
             setShowAddress.Group = group;
             setShowAddress.Order = groupBase + 55; //80;
-            setShowAddress.Value = "False";
-            _baseSettings.Add("ShowAddress", setShowAddress);
+            setShowAddress.Value = false;
+            this.BaseSettings.Add("ShowAddress", setShowAddress);
 
-            SettingItem setZoom = new SettingItem(new IntegerDataType());
+            var setZoom = new SettingItem<int, TextBox>();
             setZoom.Required = true;
             setZoom.Group = group;
             setZoom.Order = groupBase + 60; //90;
-            setZoom.Value = "7";
+            setZoom.Value = 7;
             setZoom.MinValue = 1;
             setZoom.MaxValue = 10;
-            _baseSettings.Add("Zoom", setZoom);
+            this.BaseSettings.Add("Zoom", setZoom);
 
-            SettingItem setShowZoom = new SettingItem(new BooleanDataType());
+            var setShowZoom = new SettingItem<bool, CheckBox>();
             setShowZoom.Group = group;
             setShowZoom.Order = groupBase + 65; //100;
-            setShowAddress.Value = "False";
-            _baseSettings.Add("ShowZoom", setShowZoom);
+            setShowAddress.Value = false;
+            this.BaseSettings.Add("ShowZoom", setShowZoom);
 
-            SettingItem setTarget = new SettingItem(new ListDataType("blank;parent;self;top"));
+            var setTarget = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("blank;parent;self;top"));
             setTarget.Required = true;
             setTarget.Group = group;
             setTarget.Order = groupBase + 70; //110;
             setTarget.Value = "blank";
-            _baseSettings.Add("Target", setTarget);
+            this.BaseSettings.Add("Target", setTarget);
         }
 
 

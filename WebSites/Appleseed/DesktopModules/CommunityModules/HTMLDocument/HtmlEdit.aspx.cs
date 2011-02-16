@@ -51,17 +51,17 @@ namespace Appleseed.Content.Web.Modules
         {
             // Add the setting
             HtmlEditorDataType h = new HtmlEditorDataType();
-            h.Value = moduleSettings["Editor"].ToString();
+            h.Value = this.ModuleSettings["Editor"].ToString();
             DesktopText =
-                h.GetEditor(PlaceHolderHTMLEditor, ModuleID, bool.Parse(moduleSettings["ShowUpload"].ToString()),
-                            portalSettings);
-            DesktopText.Width = new Unit(moduleSettings["Width"].ToString());
-            DesktopText.Height = new Unit(moduleSettings["Height"].ToString());
-            if (bool.Parse(moduleSettings["ShowMobile"].ToString()))
+                h.GetEditor(PlaceHolderHTMLEditor, ModuleID, bool.Parse(this.ModuleSettings["ShowUpload"].ToString()),
+                            this.PortalSettings);
+            DesktopText.Width = new Unit(this.ModuleSettings["Width"].ToString());
+            DesktopText.Height = new Unit(this.ModuleSettings["Height"].ToString());
+            if (bool.Parse(this.ModuleSettings["ShowMobile"].ToString()))
             {
                 MobileRow.Visible = true;
-                MobileSummary.Width = new Unit(moduleSettings["Width"].ToString());
-                MobileDetails.Width = new Unit(moduleSettings["Width"].ToString());
+                MobileSummary.Width = new Unit(this.ModuleSettings["Width"].ToString());
+                MobileDetails.Width = new Unit(this.ModuleSettings["Width"].ToString());
             }
             else
             {
@@ -69,11 +69,11 @@ namespace Appleseed.Content.Web.Modules
             }
             // Construct the page
             // Added css Styles by Mario Endara <mario@softworks.com.uy> (2004/10/26)
-            updateButton.CssClass = "CommandButton";
-            PlaceHolderButtons.Controls.Add(updateButton);
+            this.UpdateButton.CssClass = "CommandButton";
+            PlaceHolderButtons.Controls.Add(this.UpdateButton);
             PlaceHolderButtons.Controls.Add(new LiteralControl("&#160;"));
-            cancelButton.CssClass = "CommandButton";
-            PlaceHolderButtons.Controls.Add(cancelButton);
+            this.CancelButton.CssClass = "CommandButton";
+            PlaceHolderButtons.Controls.Add(this.CancelButton);
             if (Page.IsPostBack == false)
             {
                 // Obtain a single row of text information
@@ -132,8 +132,8 @@ namespace Appleseed.Content.Web.Modules
         protected override void OnInit(EventArgs e)
         {
             //Controls must be created here
-            updateButton = new LinkButton();
-            cancelButton = new LinkButton();
+            this.UpdateButton = new LinkButton();
+            this.CancelButton = new LinkButton();
             // Call requested by ASP.NET
             this.Load += new EventHandler(this.Page_Load);
             // Call base first

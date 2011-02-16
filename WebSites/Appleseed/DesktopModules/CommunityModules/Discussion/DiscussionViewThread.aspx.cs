@@ -7,7 +7,7 @@ using Appleseed.Framework.Content.Data;
 using Appleseed.Framework.Content.Security;
 using Appleseed.Framework.Web.UI;
 
-namespace Appleseed.Content.Web.Modules
+namespace Appleseed.Content.Web.Modules.Discussion
 {
     using System.Collections.Generic;
 

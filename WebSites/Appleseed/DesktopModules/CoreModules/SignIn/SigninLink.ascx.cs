@@ -82,7 +82,7 @@ namespace Appleseed.Content.Web.Modules
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void SigninLink_Load(object sender, EventArgs e)
         {
-            if (!bool.Parse(portalSettings.CustomSettings["SITESETTINGS_ALLOW_NEW_REGISTRATION"].ToString()))
+            if (!bool.Parse(this.PortalSettings.CustomSettings["SITESETTINGS_ALLOW_NEW_REGISTRATION"].ToString()))
                 RegisterBtn.Visible = false;
         }
     }

@@ -81,7 +81,7 @@ namespace Appleseed.Content.Web.Modules
                 }
                 else
                 {
-                    deleteButton.Visible = false; // Cannot delete an unexsistent item
+                    this.DeleteButton.Visible = false; // Cannot delete an unexsistent item
                 }
             }
         }
@@ -174,9 +174,9 @@ namespace Appleseed.Content.Web.Modules
 
             // Change by Geert.Audenaert@Syntegra.Com
             // Date: 10/2/2003
-            base.updateButton = this.updateButton;
-            base.deleteButton = this.deleteButton;
-            base.cancelButton = this.cancelButton;
+            base.UpdateButton = this.UpdateButton;
+            base.DeleteButton = this.DeleteButton;
+            base.CancelButton = this.CancelButton;
             // End Change Geert.Audenaert@Syntegra.Com
 
             base.OnInit(e);

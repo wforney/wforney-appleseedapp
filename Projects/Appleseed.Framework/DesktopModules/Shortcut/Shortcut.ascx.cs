@@ -47,18 +47,18 @@ namespace Appleseed.Content.Web.Modules
             if (HttpContext.Current != null && HttpContext.Current.Items["PortalSettings"] != null)
             {
                 //Do not remove these checks!! It fails installing modules on startup
-                PortalSettings portalSettings = (PortalSettings) HttpContext.Current.Items["PortalSettings"];
+                PortalSettings portalSettings1 = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
 
-                int p = portalSettings.PortalID;
+                int p = portalSettings1.PortalID;
 
                 // Get a list of modules of the current running portal
-                SettingItem LinkedModule =
-                    new SettingItem(
-                        new CustomListDataType(new ModulesDB().GetModulesSinglePortal(p), "ModuleTitle", "ModuleID"));
-                LinkedModule.Required = true;
-                LinkedModule.Order = 0;
-                LinkedModule.Value = "0";
-                _baseSettings.Add("LinkedModule", LinkedModule);
+                var linkedModule =
+                    new SettingItem<string, ListControl>(
+                        new CustomListDataType(new ModulesDB().GetModulesSinglePortal(p), "ModuleTitle", "ModuleID"))
+                        {
+                            Required = true, Order = 0, Value = "0" 
+                        };
+                this.BaseSettings.Add("LinkedModule", linkedModule);
             }
         }
 
@@ -70,14 +70,14 @@ namespace Appleseed.Content.Web.Modules
         private void Page_Load(object sender, EventArgs e)
         {
             /* Remove the IsPostBack check to allow contained controls to interpret the event
-			 * to resolve issue #860424
-			 * Author: Cemil Ayvaz
-			 * Email : cemil_ayvaz@yahoo.com
-			 * Date  : 2004-06-01
-			 * 
-			if(!IsPostBack)
-			{
-			*/
+             * to resolve issue #860424
+             * Author: Cemil Ayvaz
+             * Email : cemil_ayvaz@yahoo.com
+             * Date  : 2004-06-01
+             * 
+            if(!IsPostBack)
+            {
+            */
             string ControlPath = string.Empty;
 
             //Try to get info on linked control
@@ -113,13 +113,13 @@ namespace Appleseed.Content.Web.Modules
                 ModuleSettings m = new ModuleSettings();
                 m.ModuleID = LinkedModuleID;
                 m.PageID = ModuleConfiguration.PageID;
-                m.PaneName = ModuleConfiguration.PaneName;
-                m.ModuleTitle = ModuleConfiguration.ModuleTitle;
+                m.PaneName = this.ModuleConfiguration.PaneName;
+                m.ModuleTitle = this.ModuleConfiguration.ModuleTitle;
                 m.AuthorizedEditRoles = string.Empty; //Readonly
                 m.AuthorizedViewRoles = string.Empty; //Readonly
                 m.AuthorizedAddRoles = string.Empty; //Readonly
                 m.AuthorizedDeleteRoles = string.Empty; //Readonly
-                m.AuthorizedPropertiesRoles = ModuleConfiguration.AuthorizedPropertiesRoles;
+                m.AuthorizedPropertiesRoles = this.ModuleConfiguration.AuthorizedPropertiesRoles;
                 m.CacheTime = ModuleConfiguration.CacheTime;
                 m.ModuleOrder = ModuleConfiguration.ModuleOrder;
                 m.ShowMobile = ModuleConfiguration.ShowMobile;

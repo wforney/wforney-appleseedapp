@@ -45,42 +45,42 @@ namespace Appleseed.Content.Web.Modules
         {
             // Add the setting
             HtmlEditorDataType editor = new HtmlEditorDataType();
-            editor.Value = moduleSettings["Editor"].ToString();
+            editor.Value = this.ModuleSettings["Editor"].ToString();
             DesktopText =
-                editor.GetEditor(PlaceHolderHTMLEditor, ModuleID, bool.Parse(moduleSettings["ShowUpload"].ToString()),
-                                 portalSettings);
-            DesktopText.Width = new Unit(moduleSettings["Width"].ToString());
-            DesktopText.Height = new Unit(moduleSettings["Height"].ToString());
+                editor.GetEditor(PlaceHolderHTMLEditor, ModuleID, bool.Parse(this.ModuleSettings["ShowUpload"].ToString()),
+                                 this.PortalSettings);
+            DesktopText.Width = new Unit(this.ModuleSettings["Width"].ToString());
+            DesktopText.Height = new Unit(this.ModuleSettings["Height"].ToString());
 
             HtmlEditorDataType abstractEditor = new HtmlEditorDataType();
-            if (moduleSettings["ARTICLES_RICHABSTRACT"] != null &&
-                bool.Parse(moduleSettings["ARTICLES_RICHABSTRACT"].ToString()))
+            if (this.ModuleSettings["ARTICLES_RICHABSTRACT"] != null &&
+                bool.Parse(this.ModuleSettings["ARTICLES_RICHABSTRACT"].ToString()))
             {
-                abstractEditor.Value = moduleSettings["Editor"].ToString();
+                abstractEditor.Value = this.ModuleSettings["Editor"].ToString();
                 AbstractText =
                     abstractEditor.GetEditor(PlaceHolderAbstractHTMLEditor, ModuleID,
-                                             bool.Parse(moduleSettings["ShowUpload"].ToString()), portalSettings);
+                                             bool.Parse(this.ModuleSettings["ShowUpload"].ToString()), this.PortalSettings);
             }
             else
             {
                 abstractEditor.Value = "Plain Text";
                 AbstractText =
                     abstractEditor.GetEditor(PlaceHolderAbstractHTMLEditor, ModuleID,
-                                             bool.Parse(moduleSettings["ShowUpload"].ToString()), portalSettings);
+                                             bool.Parse(this.ModuleSettings["ShowUpload"].ToString()), this.PortalSettings);
             }
-            AbstractText.Width = new Unit(moduleSettings["Width"].ToString());
+            AbstractText.Width = new Unit(this.ModuleSettings["Width"].ToString());
             AbstractText.Height = new Unit("130px");
 
             // Construct the page
             // Added css Styles by Mario Endara <mario@softworks.com.uy> (2004/10/26)
-            updateButton.CssClass = "CommandButton";
-            PlaceHolderButtons.Controls.Add(updateButton);
+            this.UpdateButton.CssClass = "CommandButton";
+            PlaceHolderButtons.Controls.Add(this.UpdateButton);
             PlaceHolderButtons.Controls.Add(new LiteralControl("&#160;"));
-            cancelButton.CssClass = "CommandButton";
-            PlaceHolderButtons.Controls.Add(cancelButton);
+            this.CancelButton.CssClass = "CommandButton";
+            PlaceHolderButtons.Controls.Add(this.CancelButton);
             PlaceHolderButtons.Controls.Add(new LiteralControl("&#160;"));
-            deleteButton.CssClass = "CommandButton";
-            PlaceHolderButtons.Controls.Add(deleteButton);
+            this.DeleteButton.CssClass = "CommandButton";
+            PlaceHolderButtons.Controls.Add(this.DeleteButton);
             // If the page is being requested the first time, determine if an
             // Article itemID value is specified, and if so populate page
             // contents with the Article details
@@ -121,7 +121,7 @@ namespace Appleseed.Content.Web.Modules
                     //New article - set defaults
                     StartField.Text = DateTime.Now.ToShortDateString();
                     ExpireField.Text =
-                        DateTime.Now.AddDays(int.Parse(moduleSettings["DefaultVisibleDays"].ToString())).
+                        DateTime.Now.AddDays(int.Parse(this.ModuleSettings["DefaultVisibleDays"].ToString())).
                             ToShortDateString();
                     CreatedBy.Text = PortalSettings.CurrentUser.Identity.Email;
                     CreatedDate.Text = DateTime.Now.ToString();
@@ -210,12 +210,12 @@ namespace Appleseed.Content.Web.Modules
         {
             this.Load += new EventHandler(this.Page_Load);
             //Controls must be created here
-            updateButton = new LinkButton();
-            cancelButton = new LinkButton();
-            deleteButton = new LinkButton();
+            this.UpdateButton = new LinkButton();
+            this.CancelButton = new LinkButton();
+            this.DeleteButton = new LinkButton();
 
-            updateButton.Click += new EventHandler(updateButton_Click);
-            deleteButton.Click += new EventHandler(deleteButton_Click);
+            this.UpdateButton.Click += new EventHandler(updateButton_Click);
+            this.DeleteButton.Click += new EventHandler(deleteButton_Click);
 
             InitializeComponent();
             base.OnInit(e);

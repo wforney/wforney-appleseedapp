@@ -264,7 +264,7 @@ namespace Appleseed.Content.Web.Modules
             int groupBase = (int) group;
             // end of modification
 
-            SettingItem setMachineName = new SettingItem(new StringDataType());
+            var setMachineName = new SettingItem<string, TextBox>();
             setMachineName.Required = true;
             setMachineName.Value = ".";
             // Modified by Hongwei Shen
@@ -273,10 +273,10 @@ namespace Appleseed.Content.Web.Modules
             setMachineName.Order = groupBase + 20;
             setMachineName.EnglishName = "Machine Name";
             // end of modification
-            _baseSettings.Add("MachineName", setMachineName);
+            this.BaseSettings.Add("MachineName", setMachineName);
 
-            SettingItem setSortField =
-                new SettingItem(new ListDataType("EntryType;TimeGenerated;Source;EventID;Message"));
+            var setSortField =
+                new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("EntryType;TimeGenerated;Source;EventID;Message"));
             setSortField.Required = true;
             setSortField.Value = "TimeGenerated";
             // Modified by Hongwei Shen
@@ -285,9 +285,9 @@ namespace Appleseed.Content.Web.Modules
             setSortField.Order = groupBase + 25;
             setSortField.EnglishName = "Sort Field";
             // end of modification
-            _baseSettings.Add("SortField", setSortField);
+            this.BaseSettings.Add("SortField", setSortField);
 
-            SettingItem setSortDirection = new SettingItem(new ListDataType("ASC;DESC"));
+            var setSortDirection = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("ASC;DESC"));
             setSortDirection.Required = true;
             setSortDirection.Value = "DESC";
             // Modified by Hongwei Shen
@@ -296,7 +296,7 @@ namespace Appleseed.Content.Web.Modules
             setSortDirection.Order = groupBase + 30;
             setSortDirection.EnglishName = "Sort Direction";
             // end of modification
-            _baseSettings.Add("SortDirection", setSortDirection);
+            this.BaseSettings.Add("SortDirection", setSortDirection);
         }
 
         /// <summary>

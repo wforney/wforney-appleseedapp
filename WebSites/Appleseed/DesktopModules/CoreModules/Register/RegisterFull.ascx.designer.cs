@@ -147,24 +147,6 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull {
     protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
     
     /// <summary>
-    /// trPwdMessage control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.HtmlControls.HtmlTableRow trPwdMessage;
-    
-    /// <summary>
-    /// lblChPwd control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.Label lblChPwd;
-    
-    /// <summary>
     /// lblPwd control.
     /// </summary>
     /// <remarks>
@@ -192,31 +174,13 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull {
     protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPwd;
     
     /// <summary>
-    /// lblPwdAgain control.
+    /// lblChPwd control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Label lblPwdAgain;
-    
-    /// <summary>
-    /// tfPwdAgain control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.TextBox tfPwdAgain;
-    
-    /// <summary>
-    /// cfvPwd control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.CompareValidator cfvPwd;
+    protected global::System.Web.UI.WebControls.Label lblChPwd;
     
     /// <summary>
     /// lblCountry control.
