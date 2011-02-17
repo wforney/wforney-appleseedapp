@@ -46,7 +46,7 @@
                                         <td>
                                             <asp:TextBox ID="tfEmail" runat="server"
                                                 ValidationGroup="USER"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="tfEmail"
+                                            <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="tfEmail"
                                                   Display="Dynamic" ErrorMessage="MUST_ENTER_MAIL" Text="<%$ Resources:Appleseed, MUST_ENTER_MAIL%>" textkey="MUST_ENTER_MAIL" 
                                                   Font-Size="11px"
                                                   ValidationGroup="USER" />
@@ -63,8 +63,7 @@
                                             <div>
                                                 <asp:TextBox ID="tfPwd" runat="server" TextMode="Password" 
                                                     ValidationGroup="USER"></asp:TextBox>
-                                            </div>
-                                            <div>
+                                            
                                                 <asp:RequiredFieldValidator ID="rfvPwd" runat="server" ControlToValidate="tfPwd" Display="Dynamic"
                                                     Text="<%$ Resources:Appleseed, MUST_ENTER_PASSWORD%>"  textkey="MUST_ENTER_PASSWORD" Font-Size="11px"
                                                     ValidationGroup="USER"></asp:RequiredFieldValidator>
@@ -80,8 +79,7 @@
                                             <div>
                                                 <asp:TextBox ID="tfPwdAgain" runat="server" TextMode="Password"
                                                     ValidationGroup="USER"></asp:TextBox>
-                                            </div>
-                                            <div>
+                                            
                                                 <asp:CompareValidator ID="cfvPwd" runat="server" 
                                                     ControlToValidate="tfPwd" ControlToCompare="tfPwdAgain" 
                                                     Type="String" Operator="Equal" Display="Dynamic"
