@@ -252,25 +252,7 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                        <div class="wizardsectionheader">
-                                            Would you like to Encrypt Passwords?
-                                        </div>
-                                        <div class="wizardsection">
-                                            <table cellpadding="2" cellspacing="0" border="0">
-                                                <tr>
-                                                    <td width="100">
-                                                        &nbsp;
-                                                    </td>
-                                                    <td align="left">
-                                                        <asp:CheckBox ID="rb_encryptpassword" runat="server" Text="Encrypt User Passwords"
-                                                            Checked="false" /><br />
-                                                        <br />
-                                                        <span style="color: green;">Check this if you want to encrypt your passwords using HASH+SALT.(Recommended,
-                                                            not Required)</span>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
+                                        
                                     </asp:Panel>
                                     <asp:Panel ID="Install" runat="server" Visible="false">
                                         <div class="mainTitle">Installing Appleseed</div>

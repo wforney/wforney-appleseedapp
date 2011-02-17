@@ -1483,6 +1483,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change password.
+        /// </summary>
+        internal static string CHANGE_PWD {
+            get {
+                return ResourceManager.GetString("CHANGE_PWD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current password.
+        /// </summary>
+        internal static string CHANGE_PWD_CURRENT_PWD {
+            get {
+                return ResourceManager.GetString("CHANGE_PWD_CURRENT_PWD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New password.
         /// </summary>
         internal static string CHANGE_PWD_ENTER_NEW_PWD {
@@ -1569,6 +1587,15 @@ namespace Resources {
         internal static string CHANGE_PWD_USR_EXPLANATION {
             get {
                 return ResourceManager.GetString("CHANGE_PWD_USR_EXPLANATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong password.
+        /// </summary>
+        internal static string CHANGE_PWD_WRONG_PWD {
+            get {
+                return ResourceManager.GetString("CHANGE_PWD_WRONG_PWD", resourceCulture);
             }
         }
         
