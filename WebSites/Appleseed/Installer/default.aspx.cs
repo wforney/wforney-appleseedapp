@@ -90,7 +90,6 @@ namespace AppleseedWebApplication.Installer
         public string SmtpServerText;
         public string PortalPrefixText;
         public string EmailFromText;
-        public string EncryptPasswordText;
 
 
         /* TODO: protected string AdminPassword : randomly created admin password 
@@ -433,18 +432,6 @@ namespace AppleseedWebApplication.Installer
 
                             }
 
-                            else if (attrKey.Value == "EncryptPassword")
-                            {
-                                System.Xml.XmlAttribute attrENCPASSValue = setting.Attributes["value"];
-                                if (attrENCPASSValue != null)
-                                {
-                                    attrENCPASSValue.Value = EncryptPasswordText;
-                                    dirty = true;
-
-                                }
-
-                            }
-
                         }
                     }
                 }
@@ -724,7 +711,6 @@ namespace AppleseedWebApplication.Installer
                         PortalPrefixText = rb_portalprefix.Text;
                         SmtpServerText = rb_smtpserver.Text;
                         EmailFromText = rb_emailfrom.Text;
-                        EncryptPasswordText = rb_encryptpassword.Checked.ToString();
 
                         SetActivePanel(WizardPanel.Install, Install);
                     }

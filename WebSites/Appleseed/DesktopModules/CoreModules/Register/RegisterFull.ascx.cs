@@ -72,7 +72,21 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
     protected void Page_Load(object sender, EventArgs e)
     {
         LoadBirthDateControls();
-        trPwdMessage.Visible = false;
+        trPwd.Visible = false;
+        trPwdAgain.Visible = false;
+        lnkChangePassword.Visible = false;
+        panChangePwd.Visible = false;
+        ViewState["responseWithPopup"] = null;
+        if (!EditMode)
+        {
+            trPwd.Visible = true;
+            trPwdAgain.Visible = true;
+        }
+        else
+        {
+            lnkChangePassword.Visible = true;
+            panChangePwd.Visible = true;
+        }
         if (!Page.IsPostBack) {
 
             BindCountry();
@@ -93,11 +107,9 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
             
             if (EditMode && !OuterCreation) {
                 lblTitle.Text = (string)GetGlobalResourceObject("Appleseed","USER_MODIFICATION");
-                trPwdMessage.Visible = true;
-                rfvPwd.Enabled = false;
             } else {
                 lblTitle.Text = (string)GetGlobalResourceObject("Appleseed", "USER_REGISTRY");
-                //                this.BirthdayField.Date = DateTime.Today.AddYears(-18);
+                
                 if (OuterCreation)
                 {
                     lblSendNotification.Visible = true;
@@ -236,11 +248,38 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
         args.IsValid = recaptcha.IsValid;
     }
 
+    protected void cvCurrentPwdCorrect_ServerValidate(object source, ServerValidateEventArgs args)
+    {
+        args.IsValid = Membership.Provider.ValidateUser(tfEmail.Text, txtCurrentPwd.Text);
+    }
+
+
+
+
     protected void btnSave_Click(object sender, EventArgs e)
     {
         if (Page.IsValid)
         {
             SaveUserData();
+        }
+    }
+
+    protected void btnChangePwd_Click(object sender, EventArgs e)
+    {
+        if (Page.IsValid)
+        {
+            try
+            {
+                Membership.Provider.ChangePassword(tfEmail.Text, txtCurrentPwd.Text, txtNewPwd.Text);
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+            }
+        }
+        else
+        {
+            ViewState["responseWithPopup"] = true;
         }
     }
 
@@ -317,25 +356,6 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
             return result;
 
         } else {
-            if (!String.IsNullOrEmpty(tfPwd.Text)) {
-                string oldPwd = string.Empty;
-                try {
-                    oldPwd = Membership.Provider.GetPassword(tfEmail.Text, "answer");
-                } catch {
-                    try {
-                        oldPwd = Membership.Provider.GetPassword(tfEmail.Text, "llena");
-                    } catch {
-
-                    }
-                }
-                try {
-                    Membership.Provider.ChangePassword(tfEmail.Text, oldPwd, tfPwd.Text);
-                } catch (Exception exc) {
-                    lblError.Text = Resources.Appleseed.COULD_NOT_CHANGE_PASSWORD;
-                    ErrorHandler.Publish(LogLevel.Error, "Error al cambiar el password", exc);
-                }
-            }
-
             UpdateProfile();
             return (Guid)Membership.GetUser(tfEmail.Text, false).ProviderUserKey;
         }
