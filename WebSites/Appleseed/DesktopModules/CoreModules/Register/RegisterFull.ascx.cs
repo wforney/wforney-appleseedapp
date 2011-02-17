@@ -77,6 +77,10 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
         lnkChangePassword.Visible = false;
         panChangePwd.Visible = false;
         ViewState["responseWithPopup"] = null;
+
+        //captcha will only be displayed if the user is not authenticated.
+        trCaptcha.Visible = !Context.User.Identity.IsAuthenticated;
+
         if (!EditMode)
         {
             trPwd.Visible = true;
@@ -102,8 +106,6 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
                 tfEmail.Text = Request.QueryString["email"];
             }
 
-            //captcha will only be displayed if the user is not authenticated.
-            trCaptcha.Visible = !Context.User.Identity.IsAuthenticated;
             
             if (EditMode && !OuterCreation) {
                 lblTitle.Text = (string)GetGlobalResourceObject("Appleseed","USER_MODIFICATION");
@@ -245,6 +247,7 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
 
     protected void cvCaptcha_ServerValidate(object source, ServerValidateEventArgs args)
     {
+        recaptcha.Validate();
         args.IsValid = recaptcha.IsValid;
     }
 
