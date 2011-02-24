@@ -1,4 +1,4 @@
-<%@ control autoeventwireup="false" inherits="Appleseed.Content.Web.Modules.DailyDilbert"
-    language="c#" Codebehind="DailyDilbert.ascx.cs" %>
-<rbfwebui:hyperlink id="imgDilbert" runat="server" target="_new">
-</rbfwebui:hyperlink>
+<%@ Control CodeBehind="DailyDilbert.ascx.cs" Inherits="Appleseed.DesktopModules.CommunityModules.DailyDilbert.DailyDilbertModule"
+    Language="c#" %>
+<rbfwebui:HyperLink ID="imgDilbert" runat="server" Target="_new">
+</rbfwebui:HyperLink>

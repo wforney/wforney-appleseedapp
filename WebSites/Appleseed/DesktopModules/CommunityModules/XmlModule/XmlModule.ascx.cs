@@ -96,24 +96,26 @@ namespace Appleseed.Content.Web.Modules
             pt = new PortalUrlDataType { Value = this.Settings["XSLsrc"].ToString() };
             var xslsrc = pt.FullPath;
 
-            if (!string.IsNullOrEmpty(xslsrc))
+            if (string.IsNullOrEmpty(xslsrc))
             {
-                if (File.Exists(this.Server.MapPath(xslsrc)))
-                {
-                    this.xml1.TransformSource = xslsrc;
+                return;
+            }
 
-                    // Change - 28/Feb/2003 - Jeremy Esland
-                    // Builds cache dependency files list
-                    this.ModuleConfiguration.CacheDependency.Add(this.Server.MapPath(xslsrc));
-                }
-                else
-                {
-                    this.Controls.Add(
-                        new LiteralControl(
-                            string.Format(
-                                "<br /><span class='Error'>{0}<br />", 
-                                General.GetString("FILE_NOT_FOUND").Replace("%1%", xslsrc))));
-                }
+            if (File.Exists(this.Server.MapPath(xslsrc)))
+            {
+                this.xml1.TransformSource = xslsrc;
+
+                // Change - 28/Feb/2003 - Jeremy Esland
+                // Builds cache dependency files list
+                this.ModuleConfiguration.CacheDependency.Add(this.Server.MapPath(xslsrc));
+            }
+            else
+            {
+                this.Controls.Add(
+                    new LiteralControl(
+                        string.Format(
+                            "<br /><span class='Error'>{0}<br />", 
+                            General.GetString("FILE_NOT_FOUND").Replace("%1%", xslsrc))));
             }
         }
 
