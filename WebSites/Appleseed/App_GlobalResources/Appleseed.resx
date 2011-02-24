@@ -5600,4 +5600,19 @@ function confirmDelete()
 	<data name="Discussion_unknown">
 		<value xml:space="preserve">unknown</value>
 	</data>
+  <data name="PASSWORD_AGAIN" xml:space="preserve">
+    <value>Repeat password</value>
+  </data>
+  <data name="PASSWORD_CHANGE_EXPLANATION" xml:space="preserve">
+    <value>Enter value to modify the password. If you don't want to change it, leave it empty.</value>
+  </data>
+  <data name="CHANGE_PWD" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="CHANGE_PWD_CURRENT_PWD" xml:space="preserve">
+    <value>Current password</value>
+  </data>
+  <data name="CHANGE_PWD_WRONG_PWD" xml:space="preserve">
+    <value>Wrong password</value>
+  </data>
 </root>

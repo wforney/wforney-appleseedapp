@@ -1,32 +1,23 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="default.aspx.cs" company="--">
 //   Copyright © -- 2011. All Rights Reserved.
-// </copyright>
-// <summary>
-//   The default.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Collections;
+using System.IO;
+using System.Data.SqlClient;
+using Appleseed.Framework.Settings.Cache;
+using System.Net;
 
 namespace AppleseedWebApplication.Installer
 {
-    using System;
-    using System.Collections;
-    using System.Data.SqlClient;
-    using System.IO;
-    using System.Text;
-    using System.Threading;
-    using System.Web;
-    using System.Web.UI;
-    using System.Web.UI.WebControls;
-    using System.Xml;
-
-    using Appleseed.Framework.Core.Update;
-
-    /// <summary>
-    /// The default.
-    /// </summary>
-    public partial class Default : Page
+    public partial class Default : System.Web.UI.Page
     {
+
         /**************************************************************
         Title: Appleseed Web Installer v.1.0
         Author: Rahul Singh (Anant), rahul.singh@anant.us
@@ -50,587 +41,399 @@ namespace AppleseedWebApplication.Installer
         After running the installer it is highly recommended that you 
         set this value back to false to disable unauthorized access.
         **************************************************************/
-        #region Constants and Fields
+        bool INSTALLER_ENABLED = true;
 
-        /// <summary>
-        ///   The email from text.
-        /// </summary>
-        public string EmailFromText;
+        string PasswordForDB;
 
-        /// <summary>
-        ///   The encrypt password text.
-        /// </summary>
-        public string EncryptPasswordText;
+        // flag indicating that the web.config file was successfully updated. This only works if you have write access
+        // to your virtual directory.
+        bool updatedConfigFile = false;
 
-        /// <summary>
-        ///   The portal prefix text.
-        /// </summary>
-        public string PortalPrefixText;
+        // consant string used to allow host to pass the database name to the wizard. If the database can be found in the 
+        // list of database returned, the wizard will skip the database selection page.
+        private const string QSK_DATABASE = "database"; // query string key
 
-        /// <summary>
-        ///   The SMTP server text.
-        /// </summary>
-        public string SmtpServerText;
-
-        /// <summary>
-        ///   The query string key.
-        /// </summary>
-        private const string QskDatabase = "database";
-
-        /// <summary>
-        /// The installer enabled.
-        /// </summary>
-        private bool installerEnabled = true;
-
-        /// <summary>
-        ///   array list of InstallerMessages. We construct this on every page request to only keep track of the errors
-        ///   that have occurred during this web request. We don't store it in view state because we only want the errors
-        ///   that have happened on each page request
-        /// </summary>
+        // arraylist of InstallerMessages. We contruct this on every page request to only keep track of the errors
+        // that have occurred during this web request. We don't store it in viewstate because we only want the errors
+        // that have happened on each page request
         private ArrayList messages;
 
-        /// <summary>
-        ///   flag indicating that the web.config file was successfully updated. This only works if you have write access
-        ///   to your virtual directory.
-        /// </summary>
-        private bool updatedConfigFile;
-
-        #endregion
-
         // Class to encapsulate the module (method) along with the error message that occurred within the module(method)
+        public class InstallerMessage
+        {
+            public string Module;
+            public string Message;
+
+            public InstallerMessage(string module, string message)
+            {
+                Module = module;
+                Message = message;
+            }
+        };
+
+
+        public WizardPanel CurrentWizardPanel
+        {
+            get
+            {
+                if (ViewState["WizardPanel"] != null)
+                    return (WizardPanel)ViewState["WizardPanel"];
+
+                return WizardPanel.PreInstall;
+            }
+            set
+            {
+                ViewState["WizardPanel"] = value;
+            }
+        }
+
+        /* Site Information */
+
+        public string SmtpServerText;
+        public string PortalPrefixText;
+        public string EmailFromText;
+
 
         /* TODO: protected string AdminPassword : randomly created admin password 
             CreateKey(8);
 
         */
-        #region Enums
 
-        /// <summary>
-        /// The wizard panel.
-        /// </summary>
+
         public enum WizardPanel
         {
-            /// <summary>
-            ///   The pre install.
-            /// </summary>
-            PreInstall, 
-
-            /// <summary>
-            ///   The license.
-            /// </summary>
-            License, 
-
-            /// <summary>
-            ///   The connect to db.
-            /// </summary>
-            ConnectToDb, 
-
-            /// <summary>
-            ///   The select db.
-            /// </summary>
-            SelectDb, 
-
-            /// <summary>
-            ///   The site information.
-            /// </summary>
-            SiteInformation, 
-
-            /// <summary>
-            ///   The install.
-            /// </summary>
-            Install, 
-
-            /// <summary>
-            ///   The done.
-            /// </summary>
-            Done, 
-
-            /// <summary>
-            ///   The errors.
-            /// </summary>
-            Errors, 
+            PreInstall,
+            License,
+            ConnectToDb,
+            SelectDb,
+            SiteInformation,
+            Install,
+            Done,
+            Errors,
         }
 
-        #endregion
 
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets CurrentWizardPanel.
-        /// </summary>
-        public WizardPanel CurrentWizardPanel
+        void HideAllPanels()
         {
-            get
+            PreInstall.Visible = false;
+            License.Visible = false;
+            ConnectToDb.Visible = false;
+            SiteInformation.Visible = false;
+            Install.Visible = false;
+            Done.Visible = false;
+            Errors.Visible = false;
+        }
+
+        public void Page_Load()
+        {
+            // We use the installer enabled flag to prevent someone from accidentally running the web installer, or
+            // someone trying to maliciously trying to run the installer 
+            if (!INSTALLER_ENABLED)
             {
-                if (this.ViewState["WizardPanel"] != null)
+                //TODO: make this error display on a nice panel
+                Response.Write("<h1>Appleseed Installation Wizard is disabled.</h1>");
+                Response.Flush();
+                Response.End();
+            }
+            else
+            {
+                messages = new ArrayList();
+
+                if (!Page.IsPostBack)
                 {
-                    return (WizardPanel)this.ViewState["WizardPanel"];
+                    SetActivePanel(WizardPanel.PreInstall, PreInstall);
+                    CheckEnvironment();
                 }
-
-                return WizardPanel.PreInstall;
-            }
-
-            set
-            {
-                this.ViewState["WizardPanel"] = value;
             }
         }
 
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Nexts the panel.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The <see cref="System.EventArgs"/> instance containing the event data.
-        /// </param>
-        /// <remarks>
-        /// </remarks>
-        public void NextPanel(object sender, EventArgs e)
-        {
-            string errorMessage;
-
-            switch (this.CurrentWizardPanel)
-            {
-                case WizardPanel.PreInstall:
-                    this.SetActivePanel(WizardPanel.License, this.License);
-                    break;
-
-                case WizardPanel.License:
-                    if (this.chkIAgree.Checked)
-                    {
-                        this.SetActivePanel(WizardPanel.ConnectToDb, this.ConnectToDb);
-                        this.errIAgree.Visible = false;
-                    }
-                    else
-                    {
-                        this.errIAgree.Visible = true;
-                    }
-
-                    break;
-
-                case WizardPanel.ConnectToDb:
-                    if (this.ValidateConnectToDb(out errorMessage))
-                    {
-                        if (this.ValidateSelectDbListDatabases(out errorMessage))
-                        {
-                            if (this.Request.QueryString[QskDatabase] != null &&
-                                this.Request.QueryString[QskDatabase] != String.Empty)
-                            {
-                                try
-                                {
-                                    this.db_name_list.SelectedValue =
-                                        HttpUtility.UrlDecode(this.Request.QueryString[QskDatabase]);
-
-                                    this.SetActivePanel(WizardPanel.SiteInformation, this.SiteInformation);
-                                }
-                                catch
-                                {
-                                    // an error occurred setting the database, lets let the user select the database
-                                    this.SetActivePanel(WizardPanel.SelectDb, this.SelectDb);
-                                }
-                            }
-                            else
-                            {
-                                this.SetActivePanel(WizardPanel.SelectDb, this.SelectDb);
-                            }
-                        }
-                        else
-                        {
-                            this.lblErrMsgConnect.Text = errorMessage;
-                        }
-                    }
-                    else
-                    {
-                        this.lblErrMsgConnect.Text = errorMessage;
-                    }
-
-                    break;
-
-                case WizardPanel.SelectDb:
-                    if (this.ValidateSelectDb(out errorMessage))
-                    {
-                        this.SetActivePanel(WizardPanel.SiteInformation, this.SiteInformation);
-                    }
-                    else
-                    {
-                        this.lblErrMsg.Text = errorMessage;
-                    }
-
-                    break;
-
-                case WizardPanel.SiteInformation:
-
-                    if (this.CheckSiteInfoValid())
-                    {
-                        this.PortalPrefixText = this.rb_portalprefix.Text;
-                        this.SmtpServerText = this.rb_smtpserver.Text;
-                        this.EmailFromText = this.rb_emailfrom.Text;
-                        this.EncryptPasswordText = this.rb_encryptpassword.Checked.ToString();
-
-                        this.SetActivePanel(WizardPanel.Install, this.Install);
-                    }
-
-                    break;
-                case WizardPanel.Install:
-                    if (this.InstallConfig())
-                    {
-                        this.SetActivePanel(WizardPanel.Done, this.Done);
-                    }
-                    else
-                    {
-                        this.lstMessages.DataSource = this.messages;
-                        this.lstMessages.DataBind();
-
-                        this.SetActivePanel(WizardPanel.Errors, this.Errors);
-                    }
-
-                    break;
-
-                case WizardPanel.Done:
-                    Thread.Sleep(3000);
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Previouses the panel.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The <see cref="System.EventArgs"/> instance containing the event data.
-        /// </param>
-        /// <remarks>
-        /// </remarks>
-        public void PreviousPanel(object sender, EventArgs e)
-        {
-            switch (this.CurrentWizardPanel)
-            {
-                case WizardPanel.PreInstall:
-                    break;
-
-                case WizardPanel.License:
-                    this.SetActivePanel(WizardPanel.PreInstall, this.PreInstall);
-                    break;
-
-                case WizardPanel.ConnectToDb:
-                    this.SetActivePanel(WizardPanel.License, this.License);
-                    break;
-
-                case WizardPanel.SelectDb:
-                    this.SetActivePanel(WizardPanel.ConnectToDb, this.ConnectToDb);
-                    break;
-
-                case WizardPanel.SiteInformation:
-                    if (this.Page.Request.QueryString[QskDatabase] != null &&
-                        this.Page.Request.QueryString[QskDatabase] != String.Empty)
-                    {
-                        this.SetActivePanel(WizardPanel.ConnectToDb, this.ConnectToDb);
-                    }
-                    else
-                    {
-                        this.SetActivePanel(WizardPanel.SelectDb, this.SelectDb);
-                    }
-
-                    break;
-                case WizardPanel.Install:
-                    this.SetActivePanel(WizardPanel.SiteInformation, this.SiteInformation);
-                    break;
-                case WizardPanel.Done:
-                    this.SetActivePanel(WizardPanel.Install, this.Install);
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Reports the exception.
-        /// </summary>
-        /// <param name="module">
-        /// The module.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        /// <remarks>
-        /// </remarks>
         public void ReportException(string module, Exception e)
         {
             ReportException(module, e.Message);
         }
 
-        /// <summary>
-        /// Reports the exception.
-        /// </summary>
-        /// <param name="module">
-        /// The module.
-        /// </param>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <remarks>
-        /// </remarks>
         public void ReportException(string module, string message)
         {
-            this.messages.Add(new InstallerMessage(module, message));
+            messages.Add(new InstallerMessage(module, message));
         }
 
-        /// <summary>
-        /// Steps the class.
-        /// </summary>
-        /// <param name="panelName">
-        /// Name of the panel.
-        /// </param>
-        /// <returns>
-        /// The step class.
-        /// </returns>
-        /// <remarks>
-        /// </remarks>
-        public string StepClass(WizardPanel panelName)
+        void SetActivePanel(WizardPanel panel, Control controlToShow)
         {
-            var returnValue = this.CurrentWizardPanel != panelName ? "stepnotselected" : "stepselected";
 
-            return returnValue;
-        }
+            Panel currentPanel = FindControl(CurrentWizardPanel.ToString()) as Panel;
+            if (currentPanel != null)
+                currentPanel.Visible = false;
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event to initialize the page.
-        /// </summary>
-        /// <param name="e">
-        /// An <see cref="T:System.EventArgs"/> that contains the event data.
-        /// </param>
-        /// <remarks>
-        /// </remarks>
-        protected override void OnInit(EventArgs e)
-        {
-            // We use the installer enabled flag to prevent someone from accidentally running the web installer, or
-            // someone trying to maliciously trying to run the installer 
-            if (!this.installerEnabled)
+            switch (panel)
             {
-                // TODO: make this error display on a nice panel
-                this.Response.Write("<h1>Appleseed Installation Wizard is disabled.</h1>");
-                this.Response.Flush();
-                this.Response.End();
+                case WizardPanel.PreInstall:
+                    Previous.Enabled = false;
+                    License.Visible = false;
+                    break;
+                case WizardPanel.Done:
+                    Next.Enabled = false;
+                    Previous.Enabled = false;
+                    break;
+                case WizardPanel.Errors:
+                    Previous.Enabled = false;
+                    Next.Enabled = false;
+                    break;
+                default:
+                    Previous.Enabled = true;
+                    Next.Enabled = true;
+                    break;
+            }
+
+            controlToShow.Visible = true;
+            CurrentWizardPanel = panel;
+
+        }
+
+        private void CheckEnvironment()
+        {
+
+            string configFile = HttpContext.Current.Server.MapPath("~/web.config");
+            string logsDir = HttpContext.Current.Server.MapPath("~/rb_Logs");
+            string portalsDir = HttpContext.Current.Server.MapPath("~/Portals");
+
+            lblAspNetVersion.Text = "<span style='color:green;' >" + System.Environment.Version.ToString() + "</span>";
+            lblWebConfigWritable.Text = IfFileWritable(configFile);
+            lblLogsDirWritable.Text = IfDirectoryWritable(logsDir);
+            lblPortalsDirWritable.Text = IfDirectoryWritable(portalsDir);
+        }
+
+        private string IfFileWritable(string FileName)
+        {
+
+            string returnInfo = "";
+
+            FileInfo FileNameInfo = new FileInfo(FileName);
+
+            if (FileNameInfo.Exists)
+            {
+                returnInfo = "<span style='color:green;' >Exists</span>";
+
+                try
+                {
+                    StreamWriter sw = File.AppendText(FileName);
+                    sw.Write(" ");
+                    sw.Close();
+                    returnInfo += ",<span style='color:green;' >Writable</span>";
+
+                }
+                catch (Exception e)
+                {
+
+                    returnInfo += ",<span style='color:red;' >Un-Writable: " + e.Message + "</span>";
+                }
             }
             else
             {
-                this.messages = new ArrayList();
-
-                this.SetActivePanel(WizardPanel.PreInstall, this.PreInstall);
-                this.CheckEnvironment();
+                returnInfo = "File Doesn't Exist";
             }
 
-            base.OnInit(e);
+            return returnInfo;
         }
 
-        /// <summary>
-        /// Updates the web config.
-        /// </summary>
-        /// <returns>
-        /// The update web config.
-        /// </returns>
-        /// <remarks>
-        /// </remarks>
-        protected bool UpdateWebConfig()
+        private string IfDirectoryWritable(string DirectoryName)
         {
-            var returnValue = false;
-            try
+            string returnInfo = "";
+            string FileName = "TempFile.txt";
+
+            DirectoryInfo DirectoryNameInfo = new DirectoryInfo(DirectoryName);
+
+            if (DirectoryNameInfo.Exists)
             {
-                var doc = new XmlDocument { PreserveWhitespace = true };
+                returnInfo = "<span style='color:green;' >Exists</span>";
 
-                var configFile = HttpContext.Current.Server.MapPath("~/web.config");
-
-                doc.Load(configFile);
-                var dirty = false;
-
-                // for Appleseed 2.0
-                var ns = new XmlNamespaceManager(doc.NameTable);
-                ns.AddNamespace("x", "http://schemas.microsoft.com/.NetConfiguration/v2.0");
-
-                var connectionStrings = doc.SelectSingleNode("/x:configuration/x:connectionStrings", ns);
-                if (connectionStrings != null)
+                try
                 {
-                    foreach (XmlNode connString in connectionStrings)
-                    {
-                        if (connString.Name != "add")
-                        {
-                            continue;
-                        }
+                    StreamWriter sw = File.AppendText(DirectoryName + "\\" + FileName);
+                    sw.Write("-");
+                    sw.Close();
+                    File.Delete(DirectoryName + "\\" + FileName);
+                    returnInfo += ",<span style='color:green;' >Writable</span>";
 
-                        if (connString.Attributes == null)
-                        {
-                            continue;
-                        }
-
-                        var attrName = connString.Attributes["name"];
-                        if (attrName == null)
-                        {
-                            continue;
-                        }
-
-                        switch (attrName.Value)
-                        {
-                            case "ConnectionString":
-                                {
-                                    var attrCstrValue = connString.Attributes["connectionString"];
-                                    if (attrCstrValue != null)
-                                    {
-                                        attrCstrValue.Value = this.GetDatabaseConnectionString();
-                                        dirty = true;
-                                    }
-                                }
-
-                                break;
-                            case "Providers.ConnectionString":
-                                {
-                                    var attrPcstrValue = connString.Attributes["connectionString"];
-                                    if (attrPcstrValue != null)
-                                    {
-                                        attrPcstrValue.Value = this.GetDatabaseConnectionString();
-                                        dirty = true;
-                                    }
-                                }
-
-                                break;
-                            case "AppleseedProviders.ConnectionString":
-                                {
-                                    var attrRpcstrValue = connString.Attributes["connectionString"];
-                                    if (attrRpcstrValue != null)
-                                    {
-                                        attrRpcstrValue.Value = this.GetDatabaseConnectionString();
-                                        dirty = true;
-                                    }
-                                }
-
-                                break;
-                            case "Main.ConnectionString":
-                                {
-                                    var attrMcstrValue = connString.Attributes["connectionString"];
-                                    if (attrMcstrValue != null)
-                                    {
-                                        attrMcstrValue.Value = this.GetDatabaseConnectionString();
-                                        dirty = true;
-                                    }
-                                }
-
-                                break;
-                            case "AppleseedDBContext":
-                                {
-                                    var attrMcstrValue = connString.Attributes["connectionString"];
-                                    if (attrMcstrValue != null)
-                                    {
-                                        attrMcstrValue.Value = this.GetEntityModelConnectionString();
-                                        dirty = true;
-                                    }
-
-                                    var attrPvValue = connString.Attributes["providerName"];
-                                    if (attrPvValue != null)
-                                    {
-                                        attrPvValue.Value = "System.Data.EntityClient";
-                                        dirty = true;
-                                    }
-                                }
-
-                                break;
-                            case "AppleseedMembershipEntities":
-                                {
-                                    var attrMcstrValue = connString.Attributes["connectionString"];
-                                    if (attrMcstrValue != null)
-                                    {
-                                        attrMcstrValue.Value = this.GetMembershipModelConectionString();
-                                        dirty = true;
-                                    }
-
-                                    var attrPvValue = connString.Attributes["providerName"];
-                                    if (attrPvValue != null)
-                                    {
-                                        attrPvValue.Value = "System.Data.EntityClient";
-                                        dirty = true;
-                                    }
-                                }
-
-                                break;
-                        }
-                    }
+                }
+                catch (Exception e)
+                {
+                    returnInfo += ",<span style='color:red;' >Un-Writable: " + e.Message + "</span>";
                 }
 
-                var appSettings = doc.SelectSingleNode("/x:configuration/x:appSettings", ns);
-                if (appSettings != null)
+            }
+            else
+            {
+                returnInfo = "Directory Doesn't Exist";
+            }
+            return returnInfo;
+        }
+
+        /*******
+        private bool InstallDatabase() Deleted
+        TODO: do some initial database create here, let DB installer take care of rest.
+        take care of any aspnetdb role user assignments here using AddToRole
+        /// Name of the panel.
+        *******/
+
+        private bool InstallConfig()
+        {
+            using (Appleseed.Framework.Core.Update.Services s = new Appleseed.Framework.Core.Update.Services())
+            {
+               
+                if (s.RunDBUpdate(GetDatabaseConnectionString()))
                 {
-                    foreach (XmlNode setting in appSettings)
+                    UpdateWebConfig();
+                }
+                
+            }
+
+
+            return true;
+        }
+
+        protected bool UpdateWebConfig()
+        {
+            bool returnValue = false;
+            try
+            {
+                System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+                if (doc == null)
+                    return false;
+
+                doc.PreserveWhitespace = true;
+
+                string configFile = HttpContext.Current.Server.MapPath("~/web.config");
+
+                doc.Load(configFile);
+                bool dirty = false;
+
+                // for Appleseed 2.0
+                var ns = new System.Xml.XmlNamespaceManager(doc.NameTable);
+                ns.AddNamespace("x", "http://schemas.microsoft.com/.NetConfiguration/v2.0");
+
+                System.Xml.XmlNode connectionStrings = doc.SelectSingleNode("/x:configuration/x:connectionStrings", ns);
+                foreach (System.Xml.XmlNode connString in connectionStrings)
+                {
+                    if (connString.Name == "add")
                     {
-                        if (setting.Name != "add")
+                        System.Xml.XmlAttribute attrName = connString.Attributes["name"];
+                        if (attrName != null)
                         {
-                            continue;
+                            if (attrName.Value == "ConnectionString")
+                            {
+                                System.Xml.XmlAttribute attrCSTRValue = connString.Attributes["connectionString"];
+                                if (attrCSTRValue != null)
+                                {
+                                    attrCSTRValue.Value = GetDatabaseConnectionString();
+                                    dirty = true;
+                                }
+                            }
+                            else if (attrName.Value == "Providers.ConnectionString")
+                            {
+                                System.Xml.XmlAttribute attrPCSTRValue = connString.Attributes["connectionString"];
+                                if (attrPCSTRValue != null)
+                                {
+                                    attrPCSTRValue.Value = GetDatabaseConnectionString();
+                                    dirty = true;
+                                }
+                            }
+                            else if (attrName.Value == "AppleseedProviders.ConnectionString")
+                            {
+                                System.Xml.XmlAttribute attrRPCSTRValue = connString.Attributes["connectionString"];
+                                if (attrRPCSTRValue != null)
+                                {
+                                    attrRPCSTRValue.Value = GetDatabaseConnectionString();
+                                    dirty = true;
+                                }
+                            }
+                            else if (attrName.Value == "Main.ConnectionString")
+                            {
+                                System.Xml.XmlAttribute attrMCSTRValue = connString.Attributes["connectionString"];
+                                if (attrMCSTRValue != null)
+                                {
+                                    attrMCSTRValue.Value = GetDatabaseConnectionString();
+                                    dirty = true;
+                                }
+                            }
+                            else if (attrName.Value == "AppleseedDBContext")
+                            {
+                                System.Xml.XmlAttribute attrMCSTRValue = connString.Attributes["connectionString"];
+                                if (attrMCSTRValue != null)
+                                {
+                                    attrMCSTRValue.Value = GetEntityModelConnectionString();
+                                    dirty = true;
+                                }
+                                System.Xml.XmlAttribute attrPVValue = connString.Attributes["providerName"];
+                                if (attrPVValue != null)
+                                {
+                                    attrPVValue.Value = "System.Data.EntityClient";
+                                    dirty = true;
+                                }
+                            }
+                            else if (attrName.Value == "AppleseedMembershipEntities")
+                            {
+                                System.Xml.XmlAttribute attrMCSTRValue = connString.Attributes["connectionString"];
+                                if (attrMCSTRValue != null)
+                                {
+                                    attrMCSTRValue.Value = GetMembershipModelConectionString();
+                                    dirty = true;
+                                }
+                                System.Xml.XmlAttribute attrPVValue = connString.Attributes["providerName"];
+                                if (attrPVValue != null)
+                                {
+                                    attrPVValue.Value = "System.Data.EntityClient";
+                                    dirty = true;
+                                }
+                            }
                         }
 
-                        if (setting.Attributes == null)
-                        {
-                            continue;
-                        }
+                    }
 
-                        var attrKey = setting.Attributes["key"];
-                        if (attrKey == null)
-                        {
-                            continue;
-                        }
+                }
 
-                        switch (attrKey.Value)
-                        {
-                            case "SmtpServer":
+
+                System.Xml.XmlNode appSettings = doc.SelectSingleNode("/x:configuration/x:appSettings", ns);
+                foreach (System.Xml.XmlNode setting in appSettings)
+                {
+                    if (setting.Name == "add")
+                    {
+                        System.Xml.XmlAttribute attrKey = setting.Attributes["key"];
+                        if (attrKey != null)
+                        {                           
+                            if (attrKey.Value == "SmtpServer")
+                            {
+                                System.Xml.XmlAttribute attrSMTPValue = setting.Attributes["value"];
+                                if (attrSMTPValue != null)
                                 {
-                                    var attrSmtpValue = setting.Attributes["value"];
-                                    if (attrSmtpValue != null)
-                                    {
-                                        attrSmtpValue.Value = this.SmtpServerText;
-                                        dirty = true;
-                                    }
+                                    attrSMTPValue.Value = SmtpServerText;
+                                    dirty = true;
+
                                 }
 
-                                break;
-                            case "EmailFrom":
+                            }
+                            else if (attrKey.Value == "EmailFrom")
+                            {
+                                System.Xml.XmlAttribute attrEFROMValue = setting.Attributes["value"];
+                                if (attrEFROMValue != null)
                                 {
-                                    var attrEfromValue = setting.Attributes["value"];
-                                    if (attrEfromValue != null)
-                                    {
-                                        attrEfromValue.Value = this.EmailFromText;
-                                        dirty = true;
-                                    }
+                                    attrEFROMValue.Value = EmailFromText;
+                                    dirty = true;
+
                                 }
 
-                                break;
-                            case "PortalTitlePrefix":
+                            }
+                            else if (attrKey.Value == "PortalTitlePrefix")
+                            {
+                                System.Xml.XmlAttribute attrPREFIXValue = setting.Attributes["value"];
+                                if (attrPREFIXValue != null)
                                 {
-                                    var attrPrefixValue = setting.Attributes["value"];
-                                    if (attrPrefixValue != null)
-                                    {
-                                        attrPrefixValue.Value = this.PortalPrefixText;
-                                        dirty = true;
-                                    }
+                                    attrPREFIXValue.Value = PortalPrefixText;
+                                    dirty = true;
+
                                 }
 
-                                break;
-                            case "EncryptPassword":
-                                {
-                                    var attrEncpassValue = setting.Attributes["value"];
-                                    if (attrEncpassValue != null)
-                                    {
-                                        attrEncpassValue.Value = this.EncryptPasswordText;
-                                        dirty = true;
-                                    }
-                                }
+                            }
 
-                                break;
                         }
                     }
                 }
@@ -638,7 +441,8 @@ namespace AppleseedWebApplication.Installer
                 if (dirty)
                 {
                     // Save the document to a file and auto-indent the output.
-                    var writer = new XmlTextWriter(configFile, Encoding.UTF8) { Formatting = Formatting.Indented };
+                    System.Xml.XmlTextWriter writer = new System.Xml.XmlTextWriter(configFile, System.Text.Encoding.UTF8);
+                    writer.Formatting = System.Xml.Formatting.Indented;
                     doc.Save(writer);
                     writer.Flush();
                     writer.Close();
@@ -657,133 +461,6 @@ namespace AppleseedWebApplication.Installer
         /// </summary>
         /// <param name="directoryName">
         /// Name of the directory.
-        /// </param>
-        /// <returns>
-        /// The if directory writable.
-        /// </returns>
-        /// <remarks>
-        /// </remarks>
-        private static string IfDirectoryWritable(string directoryName)
-        {
-            string returnInfo;
-            const string FileName = "TempFile.txt";
-
-            var directoryNameInfo = new DirectoryInfo(directoryName);
-
-            if (directoryNameInfo.Exists)
-            {
-                returnInfo = "<span style=\"color:green;\">Exists</span>";
-
-                try
-                {
-                    var sw = File.AppendText(string.Format("{0}\\{1}", directoryName, FileName));
-                    sw.Write("-");
-                    sw.Close();
-                    File.Delete(string.Format("{0}\\{1}", directoryName, FileName));
-                    returnInfo += ",<span style='color:green;' >Writable</span>";
-                }
-                catch (Exception e)
-                {
-                    returnInfo += string.Format(",<span style='color:red;' >Un-Writable: {0}</span>", e.Message);
-                }
-            }
-            else
-            {
-                returnInfo = "Directory Doesn't Exist";
-            }
-
-            return returnInfo;
-        }
-
-        /// <summary>
-        /// Ifs the file writable.
-        /// </summary>
-        /// <param name="fileName">
-        /// Name of the file.
-        /// </param>
-        /// <returns>
-        /// The if file writable.
-        /// </returns>
-        /// <remarks>
-        /// </remarks>
-        private static string IfFileWritable(string fileName)
-        {
-            string returnInfo;
-
-            var fileNameInfo = new FileInfo(fileName);
-
-            if (fileNameInfo.Exists)
-            {
-                returnInfo = "<span style='color:green;' >Exists</span>";
-
-                try
-                {
-                    var sw = File.AppendText(fileName);
-                    sw.Write(" ");
-                    sw.Close();
-                    returnInfo += ",<span style='color:green;' >Writable</span>";
-                }
-                catch (Exception e)
-                {
-                    returnInfo += string.Format(",<span style='color:red;' >Un-Writable: {0}</span>", e.Message);
-                }
-            }
-            else
-            {
-                returnInfo = "File Doesn't Exist";
-            }
-
-            return returnInfo;
-        }
-
-        /// <summary>
-        /// Checks the environment.
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        private void CheckEnvironment()
-        {
-            var configFile = HttpContext.Current.Server.MapPath("~/web.config");
-            var logsDir = HttpContext.Current.Server.MapPath("~/rb_Logs");
-            var portalsDir = HttpContext.Current.Server.MapPath("~/Portals");
-
-            this.lblAspNetVersion.Text = string.Format("<span style=\"color:green;\">{0}</span>", Environment.Version);
-            this.lblWebConfigWritable.Text = IfFileWritable(configFile);
-            this.lblLogsDirWritable.Text = IfDirectoryWritable(logsDir);
-            this.lblPortalsDirWritable.Text = IfDirectoryWritable(portalsDir);
-        }
-
-        /// <summary>
-        /// Checks the site info valid.
-        /// </summary>
-        /// <returns>
-        /// The check site info valid.
-        /// </returns>
-        /// <remarks>
-        /// </remarks>
-        private bool CheckSiteInfoValid()
-        {
-            if (this.rb_smtpserver.Text.Trim().Length == 0)
-            {
-                this.req_rb_smtpserver.IsValid = false;
-                return false;
-            }
-
-            if (this.rb_portalprefix.Text.Trim().Length == 0)
-            {
-                this.req_rb_portalprefix.IsValid = false;
-                return false;
-            }
-
-            if (this.rb_emailfrom.Text.Trim().Length == 0)
-            {
-                this.req_rb_emailfrom.IsValid = false;
-                return false;
-            }
-
-            return true;
-        }
-
         /*
         TODO: use this to generate passwords as well.
         protected string CreateKey(int len)
@@ -805,174 +482,42 @@ namespace AppleseedWebApplication.Installer
         /// Gets the connection string.
         /// </summary>
         /// <returns>
-        /// The get connection string.
-        /// </returns>
-        /// <remarks>
-        /// </remarks>
         private string GetConnectionString()
         {
-            return String.Format(
-                "server={0};uid={1};pwd={2};Trusted_Connection={3}", 
-                this.db_server.Text, 
-                this.db_login.Text, 
-                this.db_password.Text, 
-                this.db_Connect.SelectedIndex == 0 ? "yes" : "no");
+            return String.Format("server={0};uid={1};pwd={2};Trusted_Connection={3}", db_server.Text, db_login.Text, db_password.Text, (db_Connect.SelectedIndex == 0 ? "yes" : "no"));
         }
 
-        /// <summary>
-        /// Gets the database connection string.
-        /// </summary>
-        /// <returns>
-        /// The get database connection string.
-        /// </returns>
-        /// <remarks>
-        /// </remarks>
         private string GetDatabaseConnectionString()
         {
-            return String.Format("{0};database={1}", this.GetConnectionString(), this.db_name_list.SelectedValue);
+            return String.Format("{0};database={1}", GetConnectionString(), db_name_list.SelectedValue);
         }
 
-        /// <summary>
-        /// Gets the entity model connection string.
-        /// </summary>
-        /// <returns>
-        /// The get entity model connection string.
-        /// </returns>
-        /// <remarks>
-        /// </remarks>
         private string GetEntityModelConnectionString()
         {
-            return
-                string.Format(
-                    "metadata=res://*/Models.AppleseedModel.csdl|res://*/Models.AppleseedModel.ssdl|res://*/Models.AppleseedModel.msl;provider=System.Data.SqlClient;provider connection string=\"Data Source={0};Initial Catalog={1};User ID={2};pwd={3};Trusted_Connection={4};MultipleActiveResultSets=True\"", 
-                    this.db_server.Text, 
-                    this.db_name_list.SelectedValue, 
-                    this.db_login.Text, 
-                    this.db_password.Text, 
-                    this.db_Connect.SelectedIndex == 0 ? "yes" : "no");
+            return string.Format("metadata=res://*/Models.AppleseedModel.csdl|res://*/Models.AppleseedModel.ssdl|res://*/Models.AppleseedModel.msl;provider=System.Data.SqlClient;provider connection string=\"Data Source={0};Initial Catalog={1};User ID={2};pwd={3};Trusted_Connection={4};MultipleActiveResultSets=True\"", db_server.Text, db_name_list.SelectedValue, db_login.Text, db_password.Text, (db_Connect.SelectedIndex == 0 ? "yes" : "no"));
         }
 
-        /// <summary>
-        /// Gets the membership model connection string.
-        /// </summary>
-        /// <returns>
-        /// The get membership model conection string.
-        /// </returns>
-        /// <remarks>
-        /// </remarks>
-        private string GetMembershipModelConectionString()
+        private string GetMembershipModelConectionString() 
         {
-            return
-                string.Format(
-                    "metadata=res://*/AppleseedMembershipModel.csdl|res://*/AppleseedMembershipModel.ssdl|res://*/AppleseedMembershipModel.msl;provider=System.Data.SqlClient;provider connection string=\"Data Source={0};Initial Catalog={1};User ID={2};pwd={3};Trusted_Connection={4};MultipleActiveResultSets=True\"", 
-                    this.db_server.Text, 
-                    this.db_name_list.SelectedValue, 
-                    this.db_login.Text, 
-                    this.db_password.Text, 
-                    this.db_Connect.SelectedIndex == 0 ? "yes" : "no");
+            return string.Format("metadata=res://*/AppleseedMembershipModel.csdl|res://*/AppleseedMembershipModel.ssdl|res://*/AppleseedMembershipModel.msl;provider=System.Data.SqlClient;provider connection string=\"Data Source={0};Initial Catalog={1};User ID={2};pwd={3};Trusted_Connection={4};MultipleActiveResultSets=True\"", db_server.Text, db_name_list.SelectedValue, db_login.Text, db_password.Text, (db_Connect.SelectedIndex == 0 ? "yes" : "no"));
         }
 
-        /// <summary>
-        /// Hides all panels.
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        private void HideAllPanels()
+
+        private bool Validate_ConnectToDb(out string errorMessage)
         {
-            this.PreInstall.Visible = false;
-            this.License.Visible = false;
-            this.ConnectToDb.Visible = false;
-            this.SiteInformation.Visible = false;
-            this.Install.Visible = false;
-            this.Done.Visible = false;
-            this.Errors.Visible = false;
-        }
 
-        /// <summary>
-        /// Installs the config.
-        /// </summary>
-        /// <returns>
-        /// The install config.
-        /// </returns>
-        /// <remarks>
-        /// </remarks>
-        private bool InstallConfig()
-        {
-            using (var s = new Services())
-            {
-                if (s.RunDBUpdate(this.GetDatabaseConnectionString()))
-                {
-                    this.UpdateWebConfig();
-                }
-            }
+            //	ConnectionString = "server=" + db_server.Text + ";uid="+ db_login.Text +";pwd=" + db_password.Text + ";Trusted_Connection=" + (db_Connect.SelectedIndex == 0 ? "yes" : "no");
 
-            return true;
-        }
-
-        /// <summary>
-        /// Sets the active panel.
-        /// </summary>
-        /// <param name="panel">
-        /// The panel.
-        /// </param>
-        /// <param name="controlToShow">
-        /// The control to show.
-        /// </param>
-        /// <remarks>
-        /// </remarks>
-        private void SetActivePanel(WizardPanel panel, Control controlToShow)
-        {
-            var currentPanel = this.FindControl(this.CurrentWizardPanel.ToString()) as Panel;
-            if (currentPanel != null)
-            {
-                currentPanel.Visible = false;
-            }
-
-            switch (panel)
-            {
-                case WizardPanel.PreInstall:
-                    this.Previous.Enabled = false;
-                    this.License.Visible = false;
-                    break;
-                case WizardPanel.Done:
-                    this.Next.Enabled = false;
-                    this.Previous.Enabled = false;
-                    break;
-                case WizardPanel.Errors:
-                    this.Previous.Enabled = false;
-                    this.Next.Enabled = false;
-                    break;
-                default:
-                    this.Previous.Enabled = true;
-                    this.Next.Enabled = true;
-                    break;
-            }
-
-            controlToShow.Visible = true;
-            this.CurrentWizardPanel = panel;
-        }
-
-        /// <summary>
-        /// Validates the connect to db.
-        /// </summary>
-        /// <param name="errorMessage">
-        /// The error message.
-        /// </param>
-        /// <returns>
-        /// The validate connect to db.
-        /// </returns>
-        /// <remarks>
-        /// </remarks>
-        private bool ValidateConnectToDb(out string errorMessage)
-        {
-            // ConnectionString = "server=" + db_server.Text + ";uid="+ db_login.Text +";pwd=" + db_password.Text + ";Trusted_Connection=" + (db_Connect.SelectedIndex == 0 ? "yes" : "no");
             try
             {
-                var connection = new SqlConnection(this.GetConnectionString());
+
+                SqlConnection connection = new SqlConnection(GetConnectionString());
                 connection.Open();
                 connection.Close();
-                errorMessage = string.Empty;
+
+                errorMessage = "";
                 return true;
+
             }
             catch (Exception e)
             {
@@ -986,23 +531,19 @@ namespace AppleseedWebApplication.Installer
         /// </summary>
         /// <param name="errorMessage">
         /// The error message.
-        /// </param>
-        /// <returns>
-        /// The validate select db.
-        /// </returns>
-        /// <remarks>
-        /// </remarks>
-        private bool ValidateSelectDb(out string errorMessage)
+        private bool Validate_SelectDb(out string errorMessage)
         {
+
             try
             {
-                using (var connection = new SqlConnection(this.GetDatabaseConnectionString()))
+
+                using (SqlConnection connection = new SqlConnection(GetDatabaseConnectionString()))
                 {
                     connection.Open();
                     connection.Close();
                 }
 
-                errorMessage = string.Empty;
+                errorMessage = "";
 
                 return true;
             }
@@ -1010,28 +551,20 @@ namespace AppleseedWebApplication.Installer
             {
                 switch (se.Number)
                 {
-                    case 4060: // login fails
-                        if (this.db_Connect.SelectedIndex == 0)
+                    case 4060:	// login fails
+                        if (db_Connect.SelectedIndex == 0)
                         {
-                            errorMessage =
-                                string.Format(
-                                    "The installer is unable to access the specified database using the Windows credentials that the web server is running under. Contact your system administrator to have them add	{0} to the list of authorized logins", 
-                                    Environment.UserName);
+                            errorMessage = "The installer is unable to access the specified database using the Windows credentials that the web server is running under. Contact your system administrator to have them add	" + Environment.UserName + " to the list of authorized logins";
                         }
                         else
                         {
-                            errorMessage =
-                                string.Format(
-                                    "You can't login to that database. Please select another one<br />{0}", se.Message);
+                            errorMessage = "You can't login to that database. Please select another one<br />" + se.Message;
                         }
-
                         break;
                     default:
-                        errorMessage = String.Format(
-                            "Number:{0}:<br />Message:{1}<br />{2}", se.Number, se.Message, this.GetConnectionString());
+                        errorMessage = String.Format("Number:{0}:<br/>Message:{1}", se.Number, se.Message) + "<br/>" + GetConnectionString();
                         break;
                 }
-
                 return false;
             }
             catch (Exception e)
@@ -1046,48 +579,49 @@ namespace AppleseedWebApplication.Installer
         /// </summary>
         /// <param name="errorMessage">
         /// The error message.
-        /// </param>
-        /// <returns>
-        /// The validate select db list databases.
-        /// </returns>
-        /// <remarks>
-        /// </remarks>
-        private bool ValidateSelectDbListDatabases(out string errorMessage)
+        private bool Validate_SelectDb_ListDatabases(out string errorMessage)
         {
+
             try
             {
-                var connection = new SqlConnection(this.GetConnectionString());
-                var command = new SqlCommand("select name from master..sysdatabases order by name asc", connection);
+                SqlConnection connection = new SqlConnection(GetConnectionString());
+                SqlDataReader dr;
+                SqlCommand command = new SqlCommand("select name from master..sysdatabases order by name asc", connection);
 
                 connection.Open();
 
                 // Change to the master database
+                //
                 connection.ChangeDatabase("master");
 
-                var dr = command.ExecuteReader();
+                dr = command.ExecuteReader();
 
-                this.db_name_list.Items.Clear();
+                db_name_list.Items.Clear();
 
                 while (dr.Read())
                 {
-                    var dbName = dr["name"] as string;
-                    if (dbName == null)
+                    string dbName = dr["name"] as String;
+                    if (dbName != null)
                     {
-                        continue;
-                    }
+                        if (dbName == "master" ||
+                            dbName == "msdb" ||
+                            dbName == "tempdb" ||
+                            dbName == "model")
+                        {
 
-                    if (((dbName == "master" || dbName == "msdb") || dbName == "tempdb") || dbName == "model")
-                    {
-                        // skip the system databases
-                        continue;
+                            // skip the system databases
+                            continue;
+                        }
+                        else
+                        {
+                            db_name_list.Items.Add(dbName);
+                        }
                     }
-
-                    this.db_name_list.Items.Add(dbName);
                 }
 
                 connection.Close();
 
-                errorMessage = string.Empty;
+                errorMessage = "";
 
                 return true;
             }
@@ -1098,47 +632,192 @@ namespace AppleseedWebApplication.Installer
             }
         }
 
-        #endregion
-
-        /// <summary>
-        /// The installer message.
-        /// </summary>
-        public class InstallerMessage
+        private bool CheckSiteInfoValid()
         {
-            #region Constants and Fields
-
-            /// <summary>
-            ///   The message.
-            /// </summary>
-            public string Message;
-
-            /// <summary>
-            ///   The module.
-            /// </summary>
-            public string Module;
-
-            #endregion
-
-            #region Constructors and Destructors
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="InstallerMessage"/> class.
-            /// </summary>
-            /// <param name="module">
-            /// The module.
-            /// </param>
-            /// <param name="message">
-            /// The message.
-            /// </param>
-            /// <remarks>
-            /// </remarks>
-            public InstallerMessage(string module, string message)
+            if (rb_smtpserver.Text.Trim().Length == 0)
             {
-                this.Module = module;
-                this.Message = message;
+                req_rb_smtpserver.IsValid = false;
+                return false;
             }
 
-            #endregion
+            if (rb_portalprefix.Text.Trim().Length == 0)
+            {
+                req_rb_portalprefix.IsValid = false;
+                return false;
+            }
+
+            if (rb_emailfrom.Text.Trim().Length == 0)
+            {
+                req_rb_emailfrom.IsValid = false;
+                return false;
+            }
+            return true;
         }
+
+
+
+        public void NextPanel(Object sender, EventArgs e)
+        {
+            string errorMessage = "";
+
+            switch (CurrentWizardPanel)
+            {
+
+                case WizardPanel.PreInstall:
+                    SetActivePanel(WizardPanel.License, License);
+                    break;
+
+                case WizardPanel.License:
+                    if (chkIAgree.Checked)
+                    {
+                        SetActivePanel(WizardPanel.ConnectToDb, ConnectToDb);
+                        errIAgree.Visible = false;
+                    }
+                    else
+                        errIAgree.Visible = true;
+                    break;
+
+                case WizardPanel.ConnectToDb:
+                    if (Validate_ConnectToDb(out errorMessage))
+                    {
+                        if (Validate_SelectDb_ListDatabases(out errorMessage))
+                        {
+                            if (this.Request.QueryString[QSK_DATABASE] != null &&
+                                this.Request.QueryString[QSK_DATABASE] != String.Empty)
+                            {
+
+                                try
+                                {
+                                    db_name_list.SelectedValue = HttpUtility.UrlDecode(this.Request.QueryString[QSK_DATABASE]);
+
+                                    SetActivePanel(WizardPanel.SiteInformation, SiteInformation);
+                                }
+                                catch
+                                {
+                                    // an error occured setting the database, lets let the user select the database
+                                    SetActivePanel(WizardPanel.SelectDb, SelectDb);
+                                }
+                            }
+                            else
+                                SetActivePanel(WizardPanel.SelectDb, SelectDb);
+                        }
+                        else
+                        {
+                            lblErrMsgConnect.Text = errorMessage;
+                        }
+                    }
+                    else
+                    {
+                        lblErrMsgConnect.Text = errorMessage;
+                    }
+                    break;
+
+                case WizardPanel.SelectDb:
+                    if (Validate_SelectDb(out errorMessage))
+                    {
+                        SetActivePanel(WizardPanel.SiteInformation, SiteInformation);
+
+                    }
+                    else
+                    {
+                        lblErrMsg.Text = errorMessage;
+                    }
+
+                    break;
+                
+                case WizardPanel.SiteInformation:
+                    
+                    if (CheckSiteInfoValid())
+                    {
+                        PortalPrefixText = rb_portalprefix.Text;
+                        SmtpServerText = rb_smtpserver.Text;
+                        EmailFromText = rb_emailfrom.Text;
+
+                        SetActivePanel(WizardPanel.Install, Install);
+                    }
+                    break;
+                case WizardPanel.Install:
+                    if (InstallConfig())
+                    {
+                        SetActivePanel(WizardPanel.Done, Done);
+                    }
+                    else
+                    {
+                        lstMessages.DataSource = messages;
+                        lstMessages.DataBind();
+
+                        SetActivePanel(WizardPanel.Errors, Errors);
+                    }
+
+                    break;
+
+                case WizardPanel.Done:
+                    System.Threading.Thread.Sleep(3000);
+                    break;
+
+            }
+        }
+
+
+
+        public void PreviousPanel(Object sender, EventArgs e)
+        {
+            switch (CurrentWizardPanel)
+            {
+
+                case WizardPanel.PreInstall:
+                    break;
+
+                case WizardPanel.License:
+                    SetActivePanel(WizardPanel.PreInstall, PreInstall);
+                    break;
+
+                case WizardPanel.ConnectToDb:
+                    SetActivePanel(WizardPanel.License, License);
+                    break;
+
+                case WizardPanel.SelectDb:
+                    SetActivePanel(WizardPanel.ConnectToDb, ConnectToDb);
+                    break;
+
+                case WizardPanel.SiteInformation:
+                    if (Page.Request.QueryString[QSK_DATABASE] != null &&
+                        Page.Request.QueryString[QSK_DATABASE] != String.Empty)
+                    {
+
+                        SetActivePanel(WizardPanel.ConnectToDb, ConnectToDb);
+                    }
+                    else
+                    {
+                        SetActivePanel(WizardPanel.SelectDb, SelectDb);
+                    }
+                    break;
+                case WizardPanel.Install:
+                    SetActivePanel(WizardPanel.SiteInformation, SiteInformation);
+                    break;
+                case WizardPanel.Done:
+                    SetActivePanel(WizardPanel.Install, Install);
+                    break;
+
+            }
+        }
+
+        public string StepClass(WizardPanel panelName)
+        {
+            string returnValue = "";
+
+            if (CurrentWizardPanel != panelName)
+            {
+                returnValue = "stepnotselected";
+            }
+            else
+            {
+                returnValue = "stepselected";
+            }
+
+            return returnValue;
+        }
+
+
     }
 }

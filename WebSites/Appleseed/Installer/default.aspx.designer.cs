@@ -229,15 +229,6 @@ namespace AppleseedWebApplication.Installer {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator req_rb_emailfrom;
         
         /// <summary>
-        /// rb_encryptpassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox rb_encryptpassword;
-        
-        /// <summary>
         /// Install control.
         /// </summary>
         /// <remarks>
