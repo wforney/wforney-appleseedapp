@@ -77,7 +77,7 @@
                 </td>
                 <td>
                     <rbfwebui:LinkButton ID="saveBtn" runat="server" CssClass="CommandButton" Text="Save User Changes"
-                        TextKey="SAVEUSER"></rbfwebui:LinkButton>
+                      ValidationGroup="USER"  TextKey="SAVEUSER"></rbfwebui:LinkButton>
                 </td>
             </tr>
         </table>

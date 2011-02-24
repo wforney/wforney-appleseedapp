@@ -158,7 +158,7 @@
 		<membership defaultProvider="AppleseedMembershipProvider">
 			<providers>
 				<clear />
-				<add name="AppleseedMembershipProvider" type="Appleseed.Framework.Providers.AppleseedMembershipProvider.AppleseedSqlMembershipProvider, Appleseed.Framework.Providers.AppleseedSqlMembershipProvider" connectionStringName="ConnectionString" applicationName="Appleseed" enablePasswordRetrieval="true" enablePasswordReset="true" requiresQuestionAndAnswer="false" requiresUniqueEmail="true" passwordFormat="Clear" maxInvalidPasswordAttempts="5" minRequiredPasswordLength="5" minRequiredNonalphanumericCharacters="0" passwordAttemptWindow="10" passwordStrengthRegularExpression="" />
+				<add name="AppleseedMembershipProvider" type="Appleseed.Framework.Providers.AppleseedMembershipProvider.AppleseedSqlMembershipProvider, Appleseed.Framework.Providers.AppleseedSqlMembershipProvider" connectionStringName="ConnectionString" applicationName="Appleseed" enablePasswordRetrieval="false" enablePasswordReset="true" requiresQuestionAndAnswer="false" requiresUniqueEmail="true" passwordFormat="Hashed" maxInvalidPasswordAttempts="5" minRequiredPasswordLength="5" minRequiredNonalphanumericCharacters="0" passwordAttemptWindow="10" passwordStrengthRegularExpression="" />
 			</providers>
 		</membership>
 		<roleManager enabled="true" defaultProvider="AppleseedSqlRoleProvider" cacheRolesInCookie="false" cookieName=".AppleseedRolesCookie" cookieTimeout="30" cookieSlidingExpiration="true" cookieProtection="All">

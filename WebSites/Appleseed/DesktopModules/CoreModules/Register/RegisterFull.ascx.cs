@@ -25,6 +25,7 @@ using System.Threading;
 public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalModuleControl, IEditUserProfile
 {
     private string _redirectPage;
+    private DateTime _defaultRegisterDate = new DateTime(DateTime.Today.Year, 1, 1);
 
     /// <summary>
     /// ddlDay control.
@@ -50,111 +51,101 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
 
     /// <summary>
     /// Gets a value indicating whether [outer creation].
-    /// </summary>
-    /// <remarks></remarks>
     private bool OuterCreation
     {
         get
         {
-            return this.Request.Params["outer"] != null && Convert.ToInt32(this.Request.Params["outer"]) == 1;
+            if (Request.Params["outer"] != null) {
+                return Convert.ToInt32(Request.Params["outer"]) == 1 ? true : false;
+            } else {
+                return false;
+            }
         }
     }
 
-    /// <summary>
-    /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
-    /// </summary>
-    /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    /// <remarks></remarks>
     protected override void OnInit(EventArgs e)
     {
-        if (this.PortalSettings.CustomSettings.ContainsKey("SITESETTINGS_RECAPTCHA_PUBLIC_KEY"))
-        {
-            recaptcha.PublicKey = Convert.ToString(this.PortalSettings.CustomSettings["SITESETTINGS_RECAPTCHA_PUBLIC_KEY"]);
-        }
-
-        if (this.PortalSettings.CustomSettings.ContainsKey("SITESETTINGS_RECAPTCHA_PRIVATE_KEY"))
-        {
-            recaptcha.PrivateKey = Convert.ToString(this.PortalSettings.CustomSettings["SITESETTINGS_RECAPTCHA_PRIVATE_KEY"]);
-        }
-
-        recaptcha.Language = this.PortalSettings.PortalContentLanguage.TwoLetterISOLanguageName;
-
-        this.lblError.Text = string.Empty;
-        this.lblSuceeded.Text = string.Empty;
-        this.pnlSuceeded.Visible = false;
-        this.pnlForm.Visible = true;
-
-        this.btnSave.Visible = !this.Request.FilePath.Contains("UsersManage.aspx");
-
-        if (Request.QueryString["email"] != null)
-        {
-            tfEmail.Text = Request.QueryString["email"];
-        }
-
-        //captcha will only be displayed if the user is not authenticated.
-        trCaptcha.Visible = !Context.User.Identity.IsAuthenticated;
-
-        if (EditMode && !OuterCreation)
-        {
-            lblTitle.Text = (string)GetGlobalResourceObject("Appleseed", "USER_MODIFICATION");
-            lblChPwd.Visible = true;
-            rfvPwd.Enabled = false;
-        }
-        else
-        {
-            lblTitle.Text = (string)GetGlobalResourceObject("Appleseed", "USER_REGISTRY");
-            //                this.BirthdayField.Date = DateTime.Today.AddYears(-18);
-            if (OuterCreation)
-            {
-                lblSendNotification.Visible = true;
-                chbSendNotification.Visible = true;
-                chbSendNotification.Checked = true;
-
-                //lblAssignCategory.Visible = true;
-                //ddlAssignCategory.Visible = true;
-                // BindCategory();
-            }
-        }
-
+        recaptcha.PublicKey = Convert.ToString(portalSettings.CustomSettings["SITESETTINGS_RECAPTCHA_PUBLIC_KEY"]);
+        recaptcha.PrivateKey = Convert.ToString(portalSettings.CustomSettings["SITESETTINGS_RECAPTCHA_PRIVATE_KEY"]);
+        recaptcha.Language = portalSettings.PortalContentLanguage.TwoLetterISOLanguageName;
         base.OnInit(e);
     }
 
     protected void Page_Load(object sender, EventArgs e)
     {
         LoadBirthDateControls();
-        if (!Page.IsPostBack)
+        trPwd.Visible = false;
+        trPwdAgain.Visible = false;
+        lnkChangePassword.Visible = false;
+        panChangePwd.Visible = false;
+        ViewState["responseWithPopup"] = null;
+
+        //captcha will only be displayed if the user is not authenticated.
+        trCaptcha.Visible = !Context.User.Identity.IsAuthenticated;
+
+        if (!EditMode)
         {
+            trPwd.Visible = true;
+            trPwdAgain.Visible = true;
+        }
+        else
+        {
+            lnkChangePassword.Visible = true;
+            panChangePwd.Visible = true;
+        }
+        if (!Page.IsPostBack) {
+
             BindCountry();
             BindDateCombos();
+            this.lblError.Text = string.Empty;
+            this.lblSuceeded.Text = string.Empty;
+            this.pnlSuceeded.Visible = false;
+            this.pnlForm.Visible = true;
+
+            this.btnSave.Visible = !this.Request.FilePath.Contains("UsersManage.aspx");
+
+            if (Request.QueryString["email"] != null) {
+                tfEmail.Text = Request.QueryString["email"];
+            }
+
             
-            if (EditMode)
-            {
+            if (EditMode && !OuterCreation) {
+                lblTitle.Text = (string)GetGlobalResourceObject("Appleseed","USER_MODIFICATION");
+            } else {
+                lblTitle.Text = (string)GetGlobalResourceObject("Appleseed", "USER_REGISTRY");
+                
+                if (OuterCreation)
+                {
+                    lblSendNotification.Visible = true;
+                    chbSendNotification.Visible = true;
+                chbSendNotification.Checked = true;
+
+                    //lblAssignCategory.Visible = true;
+                    //ddlAssignCategory.Visible = true;
+                    // BindCategory();
+                }
+            }
+
+            if (EditMode) {
                 //ProfileCommon profileCommon = Profile.GetProfile(UserName);
                 var profileCommon = ProfileBase.Create(UserName);
                 //AppleseedProfileCommon profileCommon = (AppleseedProfileCommon)temp;
 
-                if (profileCommon != null)
-                {
+                if (profileCommon != null) {
                     //profileCommon.Address;
 
-                    if ((DateTime)profileCommon.GetPropertyValue("BirthDate") == DateTime.MinValue)
-                    {
-                        BirthdayField = DateTime.Today.AddYears(-18);
-                    }
-                    else
-                    {
+                    if ((DateTime)profileCommon.GetPropertyValue("BirthDate") == DateTime.MinValue) {
+                        BirthdayField = _defaultRegisterDate;
+                    } else {
                         BirthdayField = (DateTime)profileCommon.GetPropertyValue("BirthDate");
                     }
 
 
                     this.tfCompany.Text = (string)profileCommon.GetPropertyValue("Company");
 
-                    try
-                    {
+                    try {
                         this.ddlCountry.SelectedValue = (string)profileCommon.GetPropertyValue("CountryID");
-                    }
-                    catch (Exception exc)
-                    {
+                    } catch (Exception exc) {
 
                         ErrorHandler.Publish(LogLevel.Error, Resources.Appleseed.PROFILE_COUNTRY_WRONG_ID, exc);
                     }
@@ -164,11 +155,10 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
                     this.tfPhone.Text = (string)profileCommon.GetPropertyValue("Phone");
                     this.chbReceiveNews.Checked = (bool)profileCommon.GetPropertyValue("SendNewsletter");
                 }
-            }
-            else
-            {
+            } else {
                 var firstOptionText = General.GetString("REGISTER_SELECT_COUNTRY", "Select Country", this);
-                this.ddlCountry.Items.Insert(0, new ListItem(string.Concat("-- ", firstOptionText), string.Empty));
+                this.ddlCountry.Items.Insert(0, new ListItem(string.Concat("-- ",firstOptionText), string.Empty));
+                BirthdayField = _defaultRegisterDate;
             }
         }
     }
@@ -203,8 +193,7 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
     {
         set
         {
-            if (value > DateTime.MinValue)
-            {
+            if (value > DateTime.MinValue) {
                 this.ddlDay.SelectedValue = value.Day.ToString();
                 this.ddlMonth.SelectedValue = value.Month.ToString();
                 this.ddlYear.SelectedValue = value.Year.ToString();
@@ -213,13 +202,12 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
         get
         {
             int day = Convert.ToInt32(this.ddlDay.SelectedValue);
-            int month = Convert.ToInt32(this.ddlMonth.SelectedValue);
+            int month = Convert.ToInt32(this.ddlMonth.SelectedValue);            
             int year = Convert.ToInt32(this.ddlYear.SelectedValue);
 
             //Si me ponen día 31 en un mes con 30 días, pongo 30.
             int daysInMonth = DateTime.DaysInMonth(year, month);
-            if (day > daysInMonth)
-            {
+            if (day > daysInMonth) {
                 day = daysInMonth;
             }
 
@@ -230,8 +218,7 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
     private void BindDateCombos()
     {
         List<int> days = new List<int>();
-        for (int i = 1; i <= 31; i++)
-        {
+        for (int i = 1; i <= 31; i++) {
             days.Insert(i - 1, i);
         }
 
@@ -241,9 +228,8 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
         var months = new Dictionary<int, string>();
         CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
         TextInfo textInfo = cultureInfo.TextInfo;
-        for (int j = 1; j <= 12; j++)
-        {
-            months.Add(j, j.ToString() + " - " + textInfo.ToTitleCase(DateTimeFormatInfo.CurrentInfo.GetMonthName(j)));
+        for (int j = 1; j <= 12; j++) {
+            months.Add(j,  j.ToString() + " - " + textInfo.ToTitleCase(DateTimeFormatInfo.CurrentInfo.GetMonthName(j)));
         }
 
         ddlMonth.DataSource = months;
@@ -252,27 +238,53 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
         ddlMonth.DataBind();
 
         List<int> years = new List<int>();
-        for (int k = 1900; k <= DateTime.Today.Year; k++)
-        {
+        for (int k = 1900; k <= DateTime.Today.Year; k++) {
             years.Insert(k - 1900, k);
         }
 
         ddlYear.DataSource = years;
         ddlYear.DataBind();
-        ddlYear.SelectedValue = DateTime.Today.AddYears(-18).Year.ToString();
     }
 
 
     protected void cvCaptcha_ServerValidate(object source, ServerValidateEventArgs args)
     {
+        recaptcha.Validate();
         args.IsValid = recaptcha.IsValid;
     }
+
+    protected void cvCurrentPwdCorrect_ServerValidate(object source, ServerValidateEventArgs args)
+    {
+        args.IsValid = Membership.Provider.ValidateUser(tfEmail.Text, txtCurrentPwd.Text);
+    }
+
+
+
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
         if (Page.IsValid)
         {
             SaveUserData();
+        }
+    }
+
+    protected void btnChangePwd_Click(object sender, EventArgs e)
+    {
+        if (Page.IsValid)
+        {
+            try
+            {
+                Membership.Provider.ChangePassword(tfEmail.Text, txtCurrentPwd.Text, txtNewPwd.Text);
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = ex.Message;
+            }
+        }
+        else
+        {
+            ViewState["responseWithPopup"] = true;
         }
     }
 
@@ -303,8 +315,7 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
     {
         get
         {
-            if (_redirectPage == null)
-            {
+            if (_redirectPage == null) {
                 return Request.Url.Segments[Request.Url.Segments.Length - 1] + "?TabID=" + PageID + "&mID=" + ModuleID + "&username=" + this.tfEmail.Text;
             }
 
@@ -318,10 +329,9 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
 
     public Guid SaveUserData()
     {
-        if (!EditMode)
-        {
+        if (!EditMode) {
             Guid result = Guid.Empty;
-
+            
             MembershipCreateStatus status = MembershipCreateStatus.Success;
             MembershipUser user = Membership.Provider.CreateUser(tfEmail.Text, tfPwd.Text, tfEmail.Text, "question", "answer", true, Guid.NewGuid(), out status);
             this.lblError.Text = string.Empty;
@@ -350,38 +360,7 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
             }
             return result;
 
-        }
-        else
-        {
-            if (!String.IsNullOrEmpty(tfPwd.Text))
-            {
-                string oldPwd = string.Empty;
-                try
-                {
-                    oldPwd = Membership.Provider.GetPassword(tfEmail.Text, "answer");
-                }
-                catch
-                {
-                    try
-                    {
-                        oldPwd = Membership.Provider.GetPassword(tfEmail.Text, "llena");
-                    }
-                    catch
-                    {
-
-                    }
-                }
-                try
-                {
-                    Membership.Provider.ChangePassword(tfEmail.Text, oldPwd, tfPwd.Text);
-                }
-                catch (Exception exc)
-                {
-                    lblError.Text = Resources.Appleseed.COULD_NOT_CHANGE_PASSWORD;
-                    ErrorHandler.Publish(LogLevel.Error, "Error al cambiar el password", exc);
-                }
-            }
-
+        } else {
             UpdateProfile();
             return (Guid)Membership.GetUser(tfEmail.Text, false).ProviderUserKey;
         }
@@ -427,33 +406,23 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
         //profile.SetPropertyValue("StateId", ); 
         //profile.SetPropertyValue("Zip", );
 
-        try
-        {
+        try {
             profile.Save();
             this.pnlSuceeded.Visible = true;
             this.pnlForm.Visible = false;
-            if (EditMode && !OuterCreation)
-            {
+            if (EditMode && !OuterCreation) {
                 this.lblSuceeded.Text = Resources.Appleseed.USER_UPDATED_SUCCESFULLY;
-            }
-            else
-            {
-                if (OuterCreation)
-                {
+            } else {
+                if (OuterCreation) {
                     this.lblSuceeded.Text = Resources.Appleseed.USER_UPDATED_SUCCESFULLY;
-                    if (chbSendNotification.Checked)
-                    {
+                    if (chbSendNotification.Checked) {
                         SendOuterCreationNotification(tfEmail.Text);
                     }
-                }
-                else
-                {
+                } else {
                     this.lblSuceeded.Text = Resources.Appleseed.USER_UPDATED_SUCCESFULLY + "." + Resources.Appleseed.ENTER_THROUGH_HOMEPAGE;
                 }
             }
-        }
-        catch (Exception exc)
-        {
+        } catch (Exception exc) {
             this.lblError.Text = Resources.Appleseed.USER_SAVING_ERROR;
             ErrorHandler.Publish(LogLevel.Error, "Error al salvar un perfil", exc);
         }
@@ -491,17 +460,16 @@ public partial class DesktopModules_CoreModules_Register_RegisterFull : PortalMo
     private void SendOuterCreationNotification(string email)
     {
         //TODO
-        string msg = Resources.Appleseed.NEW_USER_CREATED + this.PortalSettings.PortalName;
+        string msg = Resources.Appleseed.NEW_USER_CREATED + portalSettings.PortalName;
         msg += "<br/>" + Resources.Appleseed.USER + ": " + email;
         string pwd = Membership.GetUser(email).GetPassword();
         pwd = String.IsNullOrEmpty(pwd) ? "<vacío>" : pwd;
         msg += "<br/>" + Resources.Appleseed.PASSWORD + ": " + pwd;
         string uName = UserName;
-        if (string.IsNullOrEmpty(uName))
-        {
-            uName = Convert.ToString(this.PortalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_FROM"]);
+        if (string.IsNullOrEmpty(uName)) {
+            uName = Convert.ToString(portalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_FROM"]);
         }
-        SendMail(email, uName, "Nuevo usuario en " + this.PortalSettings.PortalName + "!", msg);
+        SendMail(email, uName, "Nuevo usuario en " + portalSettings.PortalName + "!", msg);
     }
 
     private void SendMail(string to, string from, string subject, string content)
