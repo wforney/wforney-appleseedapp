@@ -30,6 +30,7 @@ namespace Appleseed.Framework.Site.Configuration
     using System.Web.UI.WebControls;
     using System.Xml;
 
+    using Appleseed.Framework.Configuration.Settings;
     using Appleseed.Framework.DataTypes;
     using Appleseed.Framework.Design;
     using Appleseed.Framework.Exceptions;
@@ -60,7 +61,7 @@ namespace Appleseed.Framework.Site.Configuration
     [History("Jes1111", "2003/04/17", "Added new language-related properties and methods")]
     [History("Jes1111", "2003/04/23", "Corrected string comparison case problem in language settings")]
     [History("cisakson@yahoo.com", "2003/04/28", "Added a custom setting for Windows users to assign a portal Admin")]
-    public class PortalSettings
+    public class PortalSettings : ISettingHolder
     {
         #region Constants and Fields
 
@@ -636,9 +637,10 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
-        /// Gets the application physical path on the file system.
+        ///   Gets the application physical path on the file system.
         /// </summary>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// </remarks>
         [Obsolete("Please use Appleseed.Framework.Settings.Path.ApplicationPhysicalPath")]
         public static string ApplicationPhisicalPath
         {
@@ -664,10 +666,11 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
-        /// Gets or sets the current user.
+        ///   Gets or sets the current user.
         /// </summary>
         /// <value>The current user.</value>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// </remarks>
         public static AppleseedPrincipal CurrentUser
         {
             get
@@ -814,9 +817,10 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
-        /// Gets the SQL connection string.
+        ///   Gets the SQL connection string.
         /// </summary>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// </remarks>
         [Obsolete("Please use Appleseed.Framework.Settings.Config.SqlConnectionString")]
         public static SqlConnection SqlConnectionString
         {
@@ -1268,6 +1272,19 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
+        ///   Gets the settings.
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        public IDictionary<string, ISettingItem> Settings
+        {
+            get
+            {
+                return GetPortalCustomSettings(this.PortalID, GetPortalBaseSettings(this.PortalPath));
+            }
+        }
+
+        /// <summary>
         ///   Gets or sets a value indicating whether [show pages].
         /// </summary>
         /// <value><c>true</c> if [show pages]; otherwise, <c>false</c>.</value>
@@ -1424,8 +1441,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_ALT_THEME", themeAlt);
 
                 // Jes1111 - 2004-08-06 - Zen support
-                var allowModuleCustomThemes = new SettingItem<bool, CheckBox>
-                    {
+                var allowModuleCustomThemes = new SettingItem<bool, CheckBox> {
                         Order = groupOrderBase + 25, 
                         Group = group, 
                         Value = true, 
@@ -1440,8 +1456,7 @@ namespace Appleseed.Framework.Site.Configuration
                 // Show input for Portal Administrators when using Windows Authentication and Multi-portal
                 // cisakson@yahoo.com 28.April.2003
                 // This setting is removed in Global.asa for non-Windows authentication sites.
-                var portalAdmins = new SettingItem<string, TextBox>
-                    {
+                var portalAdmins = new SettingItem<string, TextBox> {
                         Order = groupOrderBase + 5, 
                         Group = group, 
                         Value = Config.ADAdministratorGroup, 
@@ -1454,8 +1469,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("WindowsAdmins", portalAdmins);
 
                 // Allow new registrations?
-                var allowNewRegistrations = new SettingItem<bool, CheckBox>
-                    {
+                var allowNewRegistrations = new SettingItem<bool, CheckBox> {
                         Order = groupOrderBase + 10, 
                         Group = group, 
                         Value = true, 
@@ -1499,8 +1513,7 @@ namespace Appleseed.Framework.Site.Configuration
 
                 // MH:end
                 // Register Layout Setting module id reference by manu
-                var regModuleId = new SettingItem<int, TextBox>
-                    {
+                var regModuleId = new SettingItem<int, TextBox> {
                         Value = 0, 
                         Required = true, 
                         Order = groupOrderBase + 16, 
@@ -1512,8 +1525,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_REGISTER_MODULEID", regModuleId);
 
                 // Send mail on new registration to
-                var onRegisterSendTo = new SettingItem<string, TextBox>
-                    {
+                var onRegisterSendTo = new SettingItem<string, TextBox> {
                         Value = string.Empty, 
                         Required = false, 
                         Order = groupOrderBase + 17, 
@@ -1524,8 +1536,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_ON_REGISTER_SEND_TO", onRegisterSendTo);
 
                 // Send mail on new registration to User from
-                var onRegisterSendFrom = new SettingItem<string, TextBox>
-                    {
+                var onRegisterSendFrom = new SettingItem<string, TextBox> {
                         Value = string.Empty, 
                         Required = false, 
                         Order = groupOrderBase + 18, 
@@ -1574,8 +1585,7 @@ namespace Appleseed.Framework.Site.Configuration
                 group = SettingItemGroup.META_SETTINGS;
 
                 // added: Jes1111 - page DOCTYPE setting
-                var docType = new SettingItem<string, TextBox>
-                    {
+                var docType = new SettingItem<string, TextBox> {
                         Order = groupOrderBase + 5, 
                         Group = group, 
                         EnglishName = "DOCTYPE string", 
@@ -1587,8 +1597,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_DOCTYPE", docType);
 
                 // by John Mandia <john.mandia@whitelightsolutions.com>
-                var tabTitle = new SettingItem<string, TextBox>
-                    {
+                var tabTitle = new SettingItem<string, TextBox> {
                         Order = groupOrderBase + 10, 
                         Group = group, 
                         EnglishName = "Page title", 
@@ -1607,8 +1616,7 @@ namespace Appleseed.Framework.Site.Configuration
                 TabUrlKeyword.Description = "This setting is not fully implemented yet. It was to help with search engine optimisation by allowing you to specify a default keyword that would appear in your url."; 
                 _baseSettings.Add("SITESETTINGS_PAGE_URL_KEYWORD", TabUrlKeyword);
                 */
-                var tabMetaKeyWords = new SettingItem<string, TextBox>
-                    {
+                var tabMetaKeyWords = new SettingItem<string, TextBox> {
                         Order = groupOrderBase + 15, 
                         Group = group, 
                         EnglishName = "Page keywords", 
@@ -1618,8 +1626,7 @@ namespace Appleseed.Framework.Site.Configuration
 
                 // john.mandia@whitelightsolutions.com: No Default Value In Case People Don't want Meta Keywords; http://sourceforge.net/tracker/index.php?func=detail&aid=915614&group_id=66837&atid=515929
                 baseSettings.Add("SITESETTINGS_PAGE_META_KEYWORDS", tabMetaKeyWords);
-                var tabMetaDescription = new SettingItem<string, TextBox>
-                    {
+                var tabMetaDescription = new SettingItem<string, TextBox> {
                         Order = groupOrderBase + 20, 
                         Group = group, 
                         EnglishName = "Page description", 
@@ -1629,8 +1636,7 @@ namespace Appleseed.Framework.Site.Configuration
 
                 // john.mandia@whitelightsolutions.com: No Default Value In Case People Don't want a defautl descripton
                 baseSettings.Add("SITESETTINGS_PAGE_META_DESCRIPTION", tabMetaDescription);
-                var tabMetaEncoding = new SettingItem<string, TextBox>
-                    {
+                var tabMetaEncoding = new SettingItem<string, TextBox> {
                         Order = groupOrderBase + 25, 
                         Group = group, 
                         EnglishName = "Page encoding", 
@@ -1639,8 +1645,7 @@ namespace Appleseed.Framework.Site.Configuration
                         Value = "<META http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1252\" />"
                     };
                 baseSettings.Add("SITESETTINGS_PAGE_META_ENCODING", tabMetaEncoding);
-                var tabMetaOther = new SettingItem<string, TextBox>
-                    {
+                var tabMetaOther = new SettingItem<string, TextBox> {
                         Order = groupOrderBase + 30, 
                         Group = group, 
                         EnglishName = "Default Additional Meta Tag Entries", 
@@ -1649,8 +1654,7 @@ namespace Appleseed.Framework.Site.Configuration
                         Value = string.Empty
                     };
                 baseSettings.Add("SITESETTINGS_PAGE_META_OTHERS", tabMetaOther);
-                var tabKeyPhrase = new SettingItem<string, TextBox>
-                    {
+                var tabKeyPhrase = new SettingItem<string, TextBox> {
                         Order = groupOrderBase + 35, 
                         Group = group, 
                         EnglishName = "Default Page Keyphrase", 
@@ -1661,8 +1665,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_PAGE_KEY_PHRASE", tabKeyPhrase);
 
                 // added: Jes1111 - <body> element attributes setting
-                var bodyAttributes = new SettingItem<string, TextBox>
-                    {
+                var bodyAttributes = new SettingItem<string, TextBox> {
                         Order = groupOrderBase + 45, 
                         Group = group, 
                         EnglishName = "&lt;body&gt; attributes", 
@@ -1673,8 +1676,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_BODYATTS", bodyAttributes);
 
                 // end by John Mandia <john.mandia@whitelightsolutions.com>
-                var glAnalytics = new SettingItem<string, TextBox>
-                    {
+                var glAnalytics = new SettingItem<string, TextBox> {
                         Order = groupOrderBase + 50, 
                         Group = group, 
                         EnglishName = "Google-Analytics Code", 
@@ -1683,8 +1685,7 @@ namespace Appleseed.Framework.Site.Configuration
                     };
                 baseSettings.Add("SITESETTINGS_GOOGLEANALYTICS", glAnalytics);
 
-                var alternativeUrl = new SettingItem<string, TextBox>
-                    {
+                var alternativeUrl = new SettingItem<string, TextBox> {
                         Order = groupOrderBase + 55, 
                         Group = group, 
                         EnglishName = "Alternative site url", 
@@ -1693,8 +1694,7 @@ namespace Appleseed.Framework.Site.Configuration
                     };
                 baseSettings.Add("SITESETTINGS_ALTERNATIVE_URL", alternativeUrl);
 
-                var addThisUsername = new SettingItem<string, TextBox>
-                    {
+                var addThisUsername = new SettingItem<string, TextBox> {
                         Order = groupOrderBase + 56, 
                         Group = group, 
                         EnglishName = "AddThis Username", 
@@ -1702,8 +1702,8 @@ namespace Appleseed.Framework.Site.Configuration
                         Value = "appleseedapp"
                     };
                 baseSettings.Add("SITESETTINGS_ADDTHIS_USERNAME", addThisUsername);
+
                 
-                #region Language/Culture Management
 
                 groupOrderBase = (int)SettingItemGroup.CULTURE_SETTINGS;
                 group = SettingItemGroup.CULTURE_SETTINGS;
@@ -1739,7 +1739,7 @@ namespace Appleseed.Framework.Site.Configuration
                 // jes1111 - LangList.Value = ConfigurationSettings.AppSettings["DefaultLanguage"]; 
                 baseSettings.Add("SITESETTINGS_DEFAULTLANG", langDefault);
 
-                #endregion
+                
 
                 #region Miscellaneous Settings
 
@@ -1747,8 +1747,7 @@ namespace Appleseed.Framework.Site.Configuration
                 group = SettingItemGroup.MISC_SETTINGS;
 
                 // Show modified by summary on/off
-                var showModifiedBy = new SettingItem<bool, CheckBox>
-                    {
+                var showModifiedBy = new SettingItem<bool, CheckBox> {
                         Order = groupOrderBase + 10, 
                         Group = group, 
                         Value = false, 
@@ -1769,8 +1768,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_DEFAULT_EDITOR", defaultEditor);
 
                 // Default Editor Width. jviladiu@portalServices.net 13/07/2004
-                var defaultWidth = new SettingItem<int, TextBox>
-                    {
+                var defaultWidth = new SettingItem<int, TextBox> {
                         Order = groupOrderBase + 25, 
                         Group = group, 
                         Value = 700, 
@@ -1780,8 +1778,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_EDITOR_WIDTH", defaultWidth);
 
                 // Default Editor Height. jviladiu@portalServices.net 13/07/2004
-                var defaultHeight = new SettingItem<int, TextBox>
-                    {
+                var defaultHeight = new SettingItem<int, TextBox> {
                         Order = groupOrderBase + 30, 
                         Group = group, 
                         Value = 400, 
@@ -1791,8 +1788,7 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add("SITESETTINGS_EDITOR_HEIGHT", defaultHeight);
 
                 // Show Upload (Active up editor only). jviladiu@portalServices.net 13/07/2004
-                var showUpload = new SettingItem<bool, CheckBox>
-                    {
+                var showUpload = new SettingItem<bool, CheckBox> {
                         Value = true, 
                         Order = groupOrderBase + 35, 
                         Group = group, 
@@ -1820,8 +1816,7 @@ namespace Appleseed.Framework.Site.Configuration
                 group = SettingItemGroup.MISC_SETTINGS;
 
                 // Show module arrows to an administrator
-                var showModuleArrows = new SettingItem<bool, CheckBox>
-                    {
+                var showModuleArrows = new SettingItem<bool, CheckBox> {
                         Order = groupOrderBase + 50, 
                         Group = group, 
                         Value = false, 
@@ -1832,8 +1827,7 @@ namespace Appleseed.Framework.Site.Configuration
 
                 // BOWEN 11 June 2005
                 // Use Recycler Module for deleted modules
-                var useRecycler = new SettingItem<bool, CheckBox>
-                    {
+                var useRecycler = new SettingItem<bool, CheckBox> {
                         Order = groupOrderBase + 55, 
                         Group = group, 
                         Value = true, 
@@ -2231,6 +2225,27 @@ namespace Appleseed.Framework.Site.Configuration
 
         #endregion
 
+        #region Implemented Interfaces
+
+        #region ISettingHolder
+
+        /// <summary>
+        /// Inserts or updates the setting.
+        /// </summary>
+        /// <param name="settingItem">
+        /// The setting item.
+        /// </param>
+        /// <remarks>
+        /// </remarks>
+        public void Upsert(ISettingItem settingItem)
+        {
+            UpdatePortalSetting(this.PortalID, settingItem.EnglishName, Convert.ToString(settingItem.Value));
+        }
+
+        #endregion
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -2308,12 +2323,12 @@ namespace Appleseed.Framework.Site.Configuration
                         // Add Parameters to SPROC
                         var parameterPortalAlias = new SqlParameter("@PortalAlias", SqlDbType.NVarChar, 50)
                             {
-                                Value = portalAlias 
+                               Value = portalAlias 
                             };
                         command.Parameters.Add(parameterPortalAlias);
                         var parameterSettingName = new SqlParameter("@SettingName", SqlDbType.NVarChar, 50)
                             {
-                                Value = "SITESETTINGS_DEFAULTLANG" 
+                               Value = "SITESETTINGS_DEFAULTLANG" 
                             };
                         command.Parameters.Add(parameterSettingName);
 
@@ -2424,7 +2439,7 @@ namespace Appleseed.Framework.Site.Configuration
 
                 // writer.WriteAttributeString("Label",mySubPage.PageName);
                 writer.WriteAttributeString(
-                    "UrlPageName",
+                    "UrlPageName", 
                     HttpUrlBuilder.UrlPageName(mysubPage.PageID) == HttpUrlBuilder.DefaultPage
                         ? mysubPage.PageName
                         : HttpUrlBuilder.UrlPageName(mysubPage.PageID).Replace(".aspx", string.Empty));

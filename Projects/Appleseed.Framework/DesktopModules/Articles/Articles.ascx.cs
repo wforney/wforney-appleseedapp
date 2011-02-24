@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Articles.ascx.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   Articles
@@ -24,7 +24,7 @@ namespace Appleseed.Content.Web.Modules
     using Appleseed.Framework.Web.UI.WebControls;
 
     /// <summary>
-    /// Articles
+    /// Articles module
     /// </summary>
     public class Articles : PortalModuleControl
     {
@@ -175,11 +175,10 @@ namespace Appleseed.Content.Web.Modules
         #region Public Methods
 
         /// <summary>
-        /// Install
+        /// Installs the specified state saver.
         /// </summary>
-        /// <param name="stateSaver">
-        /// The state.
-        /// </param>
+        /// <param name="stateSaver">The state saver.</param>
+        /// <remarks></remarks>
         public override void Install(IDictionary stateSaver)
         {
             var currentScriptName = Path.Combine(this.Server.MapPath(this.TemplateSourceDirectory), "install.sql");
@@ -221,9 +220,10 @@ namespace Appleseed.Content.Web.Modules
         }
 
         /// <summary>
-        /// Uninstall
+        /// Uninstalls the specified state saver.
         /// </summary>
-        /// <param name="stateSaver">The state.</param>
+        /// <param name="stateSaver">The state saver.</param>
+        /// <remarks></remarks>
         public override void Uninstall(IDictionary stateSaver)
         {
             var currentScriptName = Path.Combine(this.Server.MapPath(this.TemplateSourceDirectory), "uninstall.sql");
