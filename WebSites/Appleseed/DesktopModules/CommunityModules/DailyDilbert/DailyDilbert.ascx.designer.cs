@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Appleseed.Content.Web.Modules {
+namespace Appleseed.DesktopModules.CommunityModules.DailyDilbert {
     
     
-    public partial class DailyDilbert {
+    public partial class DailyDilbertModule {
         
         /// <summary>
         /// imgDilbert control.

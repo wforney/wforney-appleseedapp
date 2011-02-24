@@ -2,7 +2,7 @@
     Language="c#" CodeBehind="XmlModule.ascx.cs" %>
 <%@ Register Assembly="Appleseed.Framework" Namespace="Appleseed.Framework.Web.UI.WebControls"
     TagPrefix="rbfwebui" %>
-<rbfwebui:DesktopModuleTitle ID="ModuleTitle" runat="server" PropertiesText="PROPERTIES"
+<rbfwebui:DesktopModuleTitle ID="XmlModuleTitle" runat="server" PropertiesText="PROPERTIES"
     PropertiesUrl="~/DesktopModules/CoreModules/Admin/PropertyPage.aspx">
 </rbfwebui:DesktopModuleTitle>
 <span class="Normal">
