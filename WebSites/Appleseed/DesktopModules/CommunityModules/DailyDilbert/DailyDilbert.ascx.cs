@@ -85,8 +85,4 @@ namespace Appleseed.DesktopModules.CommunityModules.DailyDilbert
 
         #endregion
     }
-
-    public partial class DailyDilbertModule : DailyDilbertModule
-    {
-    }
 }
