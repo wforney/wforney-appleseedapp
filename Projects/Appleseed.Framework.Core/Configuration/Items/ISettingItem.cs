@@ -12,8 +12,6 @@ namespace Appleseed.Framework
     using System;
     using System.Web.UI;
 
-    using Appleseed.Framework.DataTypes;
-
     /// <summary>
     /// Setting item interface.
     /// </summary>

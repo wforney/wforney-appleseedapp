@@ -18,7 +18,7 @@ namespace Appleseed.Content.Web.Modules
     using Appleseed.Framework.Web.UI.WebControls;
 
     /// <summary>
-    /// SimpleMenuType
+    /// Simple Menu Type
     /// </summary>
     public class SimpleMenuType : UserControl
     {
