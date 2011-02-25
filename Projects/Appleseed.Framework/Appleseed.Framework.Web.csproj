@@ -158,7 +158,6 @@
     </Compile>
     <Compile Include="DesktopModules\SiteMap\ISitemapRenderer.cs" />
     <Compile Include="DesktopModules\SiteMap\SitemapItem.cs" />
-    <Compile Include="DesktopModules\SiteMap\SitemapItems.cs" />
     <Compile Include="DesktopModules\SiteMap\TableSitemapRenderer.cs" />
     <Compile Include="Content\Data\SurveyDB.cs" />
     <Compile Include="DAL\Modules\TasksDB.cs" />

@@ -17,6 +17,7 @@ namespace Appleseed.Content.Web.Modules
     using System.Collections.Generic;
     using System.Data;
     using System.Globalization;
+    using System.IO;
     using System.Web;
     using System.Web.UI;
     using System.Web.UI.WebControls;
@@ -26,7 +27,6 @@ namespace Appleseed.Content.Web.Modules
     using Appleseed.Framework.Data;
     using Appleseed.Framework.DataTypes;
     using Appleseed.Framework.Helpers;
-    using Appleseed.Framework.Settings;
     using Appleseed.Framework.Settings.Cache;
     using Appleseed.Framework.Site.Configuration;
     using Appleseed.Framework.Web.UI.WebControls;
@@ -37,6 +37,8 @@ namespace Appleseed.Content.Web.Modules
     ///   This module show a list of pages with navigation control
     ///   and language control.
     /// </summary>
+    /// <remarks>
+    /// </remarks>
     [History("jminond", "march 2005", "Changes for moving Tab to Page")]
     [History("Hongwei Shen", "September 2005", "fix the module specific setting grouping problem")]
     public partial class EnhancedHtml : PortalModuleControl
@@ -44,37 +46,37 @@ namespace Appleseed.Content.Web.Modules
         #region Constants and Fields
 
         /// <summary>
-        /// The token module.
+        ///   The token module.
         /// </summary>
         private const string TokenModule = "#MODULE#";
 
         /// <summary>
-        /// The token portal module.
+        ///   The token portal module.
         /// </summary>
         private const string TokenPortalModule = "#PORTALMODULE#";
 
         /// <summary>
-        /// The eh page id.
-        /// </summary>
-        private string ehPageId;
-
-        /// <summary>
-        /// The current menu separator.
+        ///   The current menu separator.
         /// </summary>
         private string currentMenuSeparator;
 
         /// <summary>
-        /// The current mode url.
+        ///   The current mode url.
         /// </summary>
         private string currentModeUrl;
 
         /// <summary>
-        /// The current url.
+        ///   The current url.
         /// </summary>
         private string currentUrl;
 
         /// <summary>
-        /// The mode id.
+        ///   The eh page id.
+        /// </summary>
+        private string ehPageId;
+
+        /// <summary>
+        ///   The mode id.
         /// </summary>
         private string modeId;
 
@@ -83,35 +85,36 @@ namespace Appleseed.Content.Web.Modules
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PortalModuleControl"/> class.
+        /// Initializes a new instance of the <see cref="EnhancedHtml"/> class. 
         /// </summary>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// </remarks>
         public EnhancedHtml()
         {
-            SettingItemGroup _Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
+            const SettingItemGroup Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
 
             // modified by Hongwei Shen(hongwei.shen@gmail.com) 12/9/2005
             // _groupOrderBase = 0;
-            int groupOrderBase = (int)_Group;
+            const int GroupOrderBase = (int)Group;
 
             // end of modification
-            HtmlEditorDataType.HtmlEditorSettings(this.BaseSettings, _Group);
+            HtmlEditorDataType.HtmlEditorSettings(this.BaseSettings, Group);
 
-            var showTitlePage = new SettingItem<bool, CheckBox>()
+            var showTitlePage = new SettingItem<bool, CheckBox>
                 {
                     Value = false,
-                    Order = groupOrderBase + 20,
-                    Group = _Group,
+                    Order = GroupOrderBase + 20,
+                    Group = Group,
                     EnglishName = "Show Title Page?",
                     Description = "Mark this if you like see the Title Page"
                 };
             this.BaseSettings.Add("ENHANCEDHTML_SHOWTITLEPAGE", showTitlePage);
 
-            var showUpMenu = new SettingItem<bool, CheckBox>()
+            var showUpMenu = new SettingItem<bool, CheckBox>
                 {
                     Value = false,
-                    Order = groupOrderBase + 25,
-                    Group = _Group,
+                    Order = GroupOrderBase + 25,
+                    Group = Group,
                     EnglishName = "Show Index Menu?",
                     Description = "Mark this if you would like to see an index menu with the titles of all pages"
                 };
@@ -130,15 +133,15 @@ namespace Appleseed.Content.Web.Modules
                         Description = "Select here the align for index menu",
                         EnglishName = "Align Index Menu",
                         Value = "1",
-                        Order = groupOrderBase + 30
+                        Order = GroupOrderBase + 30
                     };
             this.BaseSettings.Add("ENHANCEDHTML_ALIGNUPMENU", labelAlignUpMenu);
 
-            var showDownMenu = new SettingItem<bool, CheckBox>()
+            var showDownMenu = new SettingItem<bool, CheckBox>
                 {
                     Value = true,
-                    Order = groupOrderBase + 40,
-                    Group = _Group,
+                    Order = GroupOrderBase + 40,
+                    Group = Group,
                     EnglishName = "Show Navigation Menu?",
                     Description = "Mark this if you like see a navigation menu with previous and next page"
                 };
@@ -146,8 +149,8 @@ namespace Appleseed.Content.Web.Modules
 
             var alignDownMenu = new List<SettingOption>
                 {
-                    new SettingOption(1, General.GetString("LEFT", "Left")), 
-                    new SettingOption(2, General.GetString("CENTER", "Center")), 
+                    new SettingOption(1, General.GetString("LEFT", "Left")),
+                    new SettingOption(2, General.GetString("CENTER", "Center")),
                     new SettingOption(3, General.GetString("RIGHT", "Right"))
                 };
 
@@ -157,36 +160,36 @@ namespace Appleseed.Content.Web.Modules
                         Description = "Select here the align for index menu",
                         EnglishName = "Align Navigation Menu",
                         Value = "3",
-                        Order = groupOrderBase + 50
+                        Order = GroupOrderBase + 50
                     };
             this.BaseSettings.Add("ENHANCEDHTML_ALIGNDOWNMENU", labelAlignDownMenu);
 
-            var addInvariant = new SettingItem<bool, CheckBox>()
+            var addInvariant = new SettingItem<bool, CheckBox>
                 {
                     Value = true,
-                    Order = groupOrderBase + 60,
-                    Group = _Group,
+                    Order = GroupOrderBase + 60,
+                    Group = Group,
                     EnglishName = "Add Invariant Culture?",
                     Description =
                         "Mark this if you like see pages with invariant culture after pages with actual culture code"
                 };
             this.BaseSettings.Add("ENHANCEDHTML_ADDINVARIANTCULTURE", addInvariant);
 
-            var showMultiMode = new SettingItem<bool, CheckBox>()
+            var showMultiMode = new SettingItem<bool, CheckBox>
                 {
                     Value = true,
-                    Order = groupOrderBase + 70,
-                    Group = _Group,
+                    Order = GroupOrderBase + 70,
+                    Group = Group,
                     EnglishName = "Show Multi-Mode icon?",
                     Description = "Mark this if you like see icon multimode page"
                 };
             this.BaseSettings.Add("ENHANCEDHTML_SHOWMULTIMODE", showMultiMode);
 
-            var getContentsFromPortals = new SettingItem<bool, CheckBox>()
+            var getContentsFromPortals = new SettingItem<bool, CheckBox>
                 {
                     Value = false,
-                    Order = groupOrderBase + 80,
-                    Group = _Group,
+                    Order = GroupOrderBase + 80,
+                    Group = Group,
                     EnglishName = "Get contents from others Portals?",
                     Description = "Mark this if you like get contents from modules in others portals in the same database"
                 };
@@ -202,7 +205,8 @@ namespace Appleseed.Content.Web.Modules
         /// <summary>
         ///   GUID of module (mandatory)
         /// </summary>
-        /// <value></value>
+        /// <remarks>
+        /// </remarks>
         public override Guid GuidID
         {
             get
@@ -214,7 +218,9 @@ namespace Appleseed.Content.Web.Modules
         /// <summary>
         ///   Searchable module
         /// </summary>
-        /// <value></value>
+        /// <value><c>true</c> if searchable; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// </remarks>
         public override bool Searchable
         {
             get
@@ -230,12 +236,14 @@ namespace Appleseed.Content.Web.Modules
         /// <summary>
         /// Installs the specified state saver.
         /// </summary>
-        /// <param name="stateSaver">The state saver.</param>
-        /// <remarks></remarks>
+        /// <param name="stateSaver">
+        /// The state saver.
+        /// </param>
+        /// <remarks>
+        /// </remarks>
         public override void Install(IDictionary stateSaver)
         {
-            var currentScriptName = System.IO.Path.Combine(
-                this.Server.MapPath(this.TemplateSourceDirectory), "install.sql");
+            var currentScriptName = Path.Combine(this.Server.MapPath(this.TemplateSourceDirectory), "install.sql");
             var errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
@@ -261,6 +269,8 @@ namespace Appleseed.Content.Web.Modules
         /// <returns>
         /// The SELECT SQL to perform a search on the current module
         /// </returns>
+        /// <remarks>
+        /// </remarks>
         public override string SearchSqlSelect(int portalId, int userId, string searchString, string searchField)
         {
             // For better performance is necessary to add in 
@@ -292,12 +302,14 @@ namespace Appleseed.Content.Web.Modules
         /// <summary>
         /// Uninstalls the specified state saver.
         /// </summary>
-        /// <param name="stateSaver">The state saver.</param>
-        /// <remarks></remarks>
+        /// <param name="stateSaver">
+        /// The state saver.
+        /// </param>
+        /// <remarks>
+        /// </remarks>
         public override void Uninstall(IDictionary stateSaver)
         {
-            var currentScriptName = System.IO.Path.Combine(
-                this.Server.MapPath(this.TemplateSourceDirectory), "uninstall.sql");
+            var currentScriptName = Path.Combine(this.Server.MapPath(this.TemplateSourceDirectory), "uninstall.sql");
             var errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
@@ -312,12 +324,13 @@ namespace Appleseed.Content.Web.Modules
         /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
         /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-        /// <remarks></remarks>
+        /// <param name="e">
+        /// An <see cref="T:System.EventArgs"/> object that contains the event data.
+        /// </param>
+        /// <remarks>
+        /// </remarks>
         protected override void OnInit(EventArgs e)
         {
-            this.Load += this.Page_Load;
-
             if (!this.Page.IsCssFileRegistered("Mod_EnhancedHtml"))
             {
                 this.Page.RegisterCssFile("Mod_EnhancedHtml");
@@ -328,24 +341,26 @@ namespace Appleseed.Content.Web.Modules
         }
 
         /// <summary>
+        /// Raises the <see cref="E:System.Web.UI.Control.Load"/> event.
+        /// </summary>
+        /// <param name="e">
+        /// The <see cref="T:System.EventArgs"/> object that contains the event data.
+        /// </param>
+        /// <remarks>
         /// The Page_Load event handler on this User Control is
         ///   used to render blocks of HTML or text to the page.
         ///   The text/HTML to render is stored in the EnhancedHtml
         ///   database table.  This method uses the Appleseed.EnhancedHtmlDB()
         ///   data component to encapsulate all data functionality.
-        /// </summary>
-        /// <param name="sender">
-        /// The source of the event.
-        /// </param>
-        /// <param name="e">
-        /// The <see cref="T:System.EventArgs"/> instance containing the event data.
-        /// </param>
-        private void Page_Load(object sender, EventArgs e)
+        /// </remarks>
+        protected override void OnLoad(EventArgs e)
         {
-            var addInvariantCulture = bool.Parse(this.Settings["ENHANCEDHTML_ADDINVARIANTCULTURE"].ToString());
-            var showTitle = bool.Parse(this.Settings["ENHANCEDHTML_SHOWTITLEPAGE"].ToString());
-            this.estableceParametros();
-            var paginas = this.giveMePages(addInvariantCulture);
+            base.OnLoad(e);
+
+            var addInvariantCulture = this.Settings["ENHANCEDHTML_ADDINVARIANTCULTURE"].ToBoolean(CultureInfo.InvariantCulture);
+            var showTitle = this.Settings["ENHANCEDHTML_SHOWTITLEPAGE"].ToBoolean(CultureInfo.InvariantCulture);
+            this.EstableceParametros();
+            var paginas = this.GiveMePages(addInvariantCulture);
             if (paginas.Rows.Count == 0)
             {
                 return;
@@ -353,8 +368,6 @@ namespace Appleseed.Content.Web.Modules
 
             if (this.modeId == "1")
             {
-                
-
                 var ehMultiPageMode = General.GetString("ENHANCEDHTML_MULTIPAGEMODE", "Multi Page Mode");
 
                 foreach (DataRow fila in paginas.Rows)
@@ -365,28 +378,32 @@ namespace Appleseed.Content.Web.Modules
 
                     if (showTitle)
                     {
-                        aux += "<br /><td width='100%' align='left'><span class='EnhancedHtmlTitlePage'>" +
-                               fila["Title"] + "</span><hr></td>";
+                        aux +=
+                            string.Format(
+                                "<br /><td width='100%' align='left'><span class='EnhancedHtmlTitlePage'>{0}</span><hr></td>",
+                                fila["Title"]);
                     }
 
                     // Not show navigation in Print Page
                     if (paginas.Rows.Count > 1 && !this.NamingContainer.ToString().Equals("ASP.print_aspx"))
                     {
-                        aux += "<td align='right'><a href=" + this.dameUrl("&ModeID=0&EhPageID=" + fila["ItemID"]) + ">";
-                        aux += "<img src='" + Path.ApplicationRoot + "/DesktopModules/EnhancedHTML/multipage.gif' alt='" +
-                               ehMultiPageMode + "' border='0' /></a></td>";
+                        aux += string.Format(
+                            "<td align='right'><a href={0}>", this.DameUrl("&ModeID=0&EhPageID=" + fila["ItemID"]));
+                        aux +=
+                            string.Format(
+                                "<img src='{0}/DesktopModules/EnhancedHTML/multipage.gif' alt='{1}' border='0' /></a></td>",
+                                Framework.Settings.Path.ApplicationRoot,
+                                ehMultiPageMode);
                     }
 
                     aux += "</tr></table>";
 
                     this.HtmlHolder.Controls.Add(new LiteralControl(aux));
-                    this.HtmlHolder.Controls.Add(this.toShow(this.Content.ToString()));
+                    this.HtmlHolder.Controls.Add(this.ToShow(this.Content.ToString()));
                 }
             }
             else
             {
-                
-
                 var showMultiMode = bool.Parse(this.Settings["ENHANCEDHTML_SHOWMULTIMODE"].ToString()) &&
                                     paginas.Rows.Count > 1;
                 var showUpmenu = bool.Parse(this.Settings["ENHANCEDHTML_SHOWUPMENU"].ToString()) &&
@@ -402,8 +419,8 @@ namespace Appleseed.Content.Web.Modules
                     showDownmenu = false;
                 }
 
-                var alignUpmenu = this.dameAlineacion(this.Settings["ENHANCEDHTML_ALIGNUPMENU"].ToString());
-                var alignDownmenu = this.dameAlineacion(this.Settings["ENHANCEDHTML_ALIGNDOWNMENU"].ToString());
+                var alignUpmenu = DameAlineacion(this.Settings["ENHANCEDHTML_ALIGNUPMENU"].ToString());
+                var alignDownmenu = DameAlineacion(this.Settings["ENHANCEDHTML_ALIGNDOWNMENU"].ToString());
                 var upmenu = string.Empty;
                 var downmenu = string.Empty;
                 var titulo = string.Empty;
@@ -448,7 +465,7 @@ namespace Appleseed.Content.Web.Modules
                         titulo = (string)fila["Title"];
 
                         // fix by Rob Siera to prevent css problem with ContentPane A: classes being inherited (and not overwritten)
-                        upmenu += "<span class='EnhancedHtmlLink'>" + titulo + "</span>";
+                        upmenu += string.Format("<span class='EnhancedHtmlLink'>{0}</span>", titulo);
                         if (referencia.Length != 0)
                         {
                             prevRef = referencia;
@@ -456,8 +473,10 @@ namespace Appleseed.Content.Web.Modules
                     }
                     else
                     {
-                        referencia = "<a href='" + this.dameUrl("&ModeID=0&EhPageID=" + i) + "' " +
-                                     "class='EnhancedHtmlLink'>" + fila["Title"] + "</a>";
+                        referencia = string.Format(
+                            "<a href='{0}' class='EnhancedHtmlLink'>{1}</a>",
+                            this.DameUrl("&ModeID=0&EhPageID=" + i),
+                            fila["Title"]);
                         upmenu += referencia;
                         if (totalPages - 1 == actualPage)
                         {
@@ -471,7 +490,7 @@ namespace Appleseed.Content.Web.Modules
                     downmenu += prevRef + this.currentMenuSeparator;
                 }
 
-                downmenu += ehPage + " " + actualPage + " " + ehOf + " " + totalPages;
+                downmenu += string.Format("{0} {1} {2} {3}", ehPage, actualPage, ehOf, totalPages);
                 if (nextRef.Length != 0)
                 {
                     downmenu += this.currentMenuSeparator + nextRef;
@@ -480,13 +499,15 @@ namespace Appleseed.Content.Web.Modules
                 aux = "<br><table width='100%' border='0' cellpadding='0' cellspacing='0'><tr>";
                 if (showTitle)
                 {
-                    aux += "<td align='left'><span class='EnhancedHtmlTitlePage'>" + titulo + "</span></td>";
+                    aux += string.Format("<td align='left'><span class='EnhancedHtmlTitlePage'>{0}</span></td>", titulo);
                     if (showMultiMode)
                     {
-                        aux += "<td align='right'><a href=" + this.dameUrl("&ModeID=1") + ">";
-                        aux += "<img src='" + Path.ApplicationRoot +
-                               "/DesktopModules/EnhancedHTML/singlepage.gif' alt='" + ehSinglePageMode +
-                               "' border='0' /></a></td>";
+                        aux += string.Format("<td align='right'><a href={0}>", this.DameUrl("&ModeID=1"));
+                        aux +=
+                            string.Format(
+                                "<img src='{0}/DesktopModules/EnhancedHTML/singlepage.gif' alt='{1}' border='0' /></a></td>",
+                                Framework.Settings.Path.ApplicationRoot,
+                                ehSinglePageMode);
                     }
 
                     aux += "</tr><tr><td colspan=2><hr></td></tr><tr>";
@@ -494,14 +515,17 @@ namespace Appleseed.Content.Web.Modules
 
                 if (showUpmenu && totalPages != 0)
                 {
-                    aux += "<td class='EnhancedHtmlIndexMenu' align='" + alignUpmenu + "'>" + upmenu + "</td>";
+                    aux += string.Format("<td class='EnhancedHtmlIndexMenu' align='{0}'>{1}</td>", alignUpmenu, upmenu);
                 }
 
                 if (!showTitle && showMultiMode)
                 {
-                    aux += "<td align='right'><a href=" + this.dameUrl("&ModeID=1") + ">";
-                    aux += "<img src='" + Path.ApplicationRoot + "/DesktopModules/EnhancedHTML/singlepage.gif' alt='" +
-                           ehSinglePageMode + "' border='0' /></a></td>";
+                    aux += string.Format("<td align='right'><a href={0}>", this.DameUrl("&ModeID=1"));
+                    aux +=
+                        string.Format(
+                            "<img src='{0}/DesktopModules/EnhancedHTML/singlepage.gif' alt='{1}' border='0' /></a></td>",
+                            Framework.Settings.Path.ApplicationRoot,
+                            ehSinglePageMode);
                 }
 
                 if (!aux.Equals("<br><table width='100%' border='0' cellpadding='0' cellspacing='0'><tr>"))
@@ -511,41 +535,17 @@ namespace Appleseed.Content.Web.Modules
                     this.HtmlHolder.Controls.Add(new LiteralControl(aux));
                 }
 
-                this.HtmlHolder.Controls.Add(this.toShow(buffer));
+                this.HtmlHolder.Controls.Add(this.ToShow(buffer));
                 if (showDownmenu && totalPages != 0)
                 {
                     this.HtmlHolder.Controls.Add(
                         new LiteralControl(
-                            "<hr><table width='100%' border='0' cellpadding='0' cellspacing='0'><tr><td align='" +
-                            alignDownmenu + "'>" + downmenu + "</td></tr></table>"));
+                            string.Format(
+                                "<hr><table width='100%' border='0' cellpadding='0' cellspacing='0'><tr><td align='{0}'>{1}</td></tr></table>",
+                                alignDownmenu,
+                                downmenu)));
                 }
-
-                
             }
-        }
-
-        /// <summary>
-        /// Adds the page row.
-        /// </summary>
-        /// <param name="tabla">
-        /// The tabla.
-        /// </param>
-        /// <param name="item">
-        /// The item.
-        /// </param>
-        /// <param name="title">
-        /// The title.
-        /// </param>
-        /// <param name="content">
-        /// The content.
-        /// </param>
-        private void addPageRow(DataTable tabla, string item, string title, string content)
-        {
-            var fila = tabla.NewRow();
-            fila["ItemID"] = item;
-            fila["Title"] = title;
-            fila["DesktopHtml"] = this.Server.HtmlDecode(content);
-            tabla.Rows.Add(fila);
         }
 
         /// <summary>
@@ -557,7 +557,9 @@ namespace Appleseed.Content.Web.Modules
         /// <returns>
         /// The dame alineacion.
         /// </returns>
-        private string dameAlineacion(string n)
+        /// <remarks>
+        /// </remarks>
+        private static string DameAlineacion(string n)
         {
             if (n.Equals("1"))
             {
@@ -578,6 +580,32 @@ namespace Appleseed.Content.Web.Modules
         }
 
         /// <summary>
+        /// Adds the page row.
+        /// </summary>
+        /// <param name="tabla">
+        /// The tabla.
+        /// </param>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <param name="title">
+        /// The title.
+        /// </param>
+        /// <param name="content">
+        /// The content.
+        /// </param>
+        /// <remarks>
+        /// </remarks>
+        private void AddPageRow(DataTable tabla, string item, string title, string content)
+        {
+            var fila = tabla.NewRow();
+            fila["ItemID"] = item;
+            fila["Title"] = title;
+            fila["DesktopHtml"] = this.Server.HtmlDecode(content);
+            tabla.Rows.Add(fila);
+        }
+
+        /// <summary>
         /// Dames the URL.
         /// </summary>
         /// <param name="custom">
@@ -586,7 +614,9 @@ namespace Appleseed.Content.Web.Modules
         /// <returns>
         /// The dame url.
         /// </returns>
-        private string dameUrl(string custom)
+        /// <remarks>
+        /// </remarks>
+        private string DameUrl(string custom)
         {
             // Sugerence by Mario Endara mario@softworks.com.uy 21-jun-2004
             // for compatibility with handler splitter
@@ -597,13 +627,12 @@ namespace Appleseed.Content.Web.Modules
         /// <summary>
         /// Estableces the parametros.
         /// </summary>
-        private void estableceParametros()
+        /// <remarks>
+        /// </remarks>
+        private void EstableceParametros()
         {
             HttpCookie cookie1;
             DateTime time1;
-            TimeSpan span1;
-            int num1;
-            string moduleCookie;
             var moduleInUrl = false;
 
             if (this.Page.Request.Params["mID"] != null)
@@ -629,15 +658,14 @@ namespace Appleseed.Content.Web.Modules
             }
 
             this.currentModeUrl = this.currentUrl;
-            moduleCookie = "EnhancedHtml:" + this.ModuleID;
+            string moduleCookie = "EnhancedHtml:" + this.ModuleID;
             this.modeId = "0";
             if (this.Page.Request.Params["ModeID"] != null)
             {
                 this.modeId = this.Page.Request.Params["ModeID"];
-                cookie1 = new HttpCookie(moduleCookie);
-                cookie1.Value = this.modeId;
+                cookie1 = new HttpCookie(moduleCookie) { Value = this.modeId };
                 time1 = DateTime.Now;
-                span1 = new TimeSpan(90, 0, 0, 0);
+                TimeSpan span1 = new TimeSpan(90, 0, 0, 0);
                 cookie1.Expires = time1.Add(span1);
                 base.Response.AppendCookie(cookie1);
             }
@@ -649,7 +677,7 @@ namespace Appleseed.Content.Web.Modules
                 }
             }
 
-            num1 = this.currentModeUrl.IndexOf("ModeID=");
+            int num1 = this.currentModeUrl.IndexOf("ModeID=");
             if (num1 > 0)
             {
                 this.currentModeUrl = this.currentModeUrl.Substring(0, num1 - 1);
@@ -676,11 +704,13 @@ namespace Appleseed.Content.Web.Modules
         /// </param>
         /// <returns>
         /// </returns>
-        private DataTable giveMePages(bool addInvariantCulture)
+        /// <remarks>
+        /// </remarks>
+        private DataTable GiveMePages(bool addInvariantCulture)
         {
             var selected = false;
             var selectedPage = -1;
-            if (!(this.ehPageId == null))
+            if (this.ehPageId != null)
             {
                 selectedPage = int.Parse(this.ehPageId);
             }
@@ -698,7 +728,7 @@ namespace Appleseed.Content.Web.Modules
             {
                 while (dr.Read())
                 {
-                    this.addPageRow(tabla, dr["ItemID"].ToString(), (string)dr["Title"], (string)dr["DesktopHtml"]);
+                    this.AddPageRow(tabla, dr["ItemID"].ToString(), (string)dr["Title"], (string)dr["DesktopHtml"]);
                     if (int.Parse(dr["ItemID"].ToString()) == selectedPage)
                     {
                         selected = true;
@@ -715,7 +745,7 @@ namespace Appleseed.Content.Web.Modules
                         {
                             while (dr1.Read())
                             {
-                                this.addPageRow(
+                                this.AddPageRow(
                                     tabla, dr1["ItemID"].ToString(), (string)dr1["Title"], (string)dr1["DesktopHtml"]);
                                 if (int.Parse(dr1["ItemID"].ToString()) == selectedPage)
                                 {
@@ -734,7 +764,7 @@ namespace Appleseed.Content.Web.Modules
                     {
                         while (dr2.Read())
                         {
-                            this.addPageRow(
+                            this.AddPageRow(
                                 tabla, dr2["ItemID"].ToString(), (string)dr2["Title"], (string)dr2["DesktopHtml"]);
                             if (int.Parse(dr2["ItemID"].ToString()) == selectedPage)
                             {
@@ -761,7 +791,9 @@ namespace Appleseed.Content.Web.Modules
         /// </param>
         /// <returns>
         /// </returns>
-        private Control toShow(string text)
+        /// <remarks>
+        /// </remarks>
+        private Control ToShow(string text)
         {
             var module = 0;
             if (text.StartsWith(TokenModule))
@@ -783,7 +815,7 @@ namespace Appleseed.Content.Web.Modules
             {
                 if (dr.Read())
                 {
-                    controlPath = string.Format("{0}/{1}", Path.ApplicationRoot, dr["DesktopSrc"]);
+                    controlPath = string.Format("{0}/{1}", Framework.Settings.Path.ApplicationRoot, dr["DesktopSrc"]);
                 }
             }
 
@@ -801,18 +833,18 @@ namespace Appleseed.Content.Web.Modules
 
                 var m = new ModuleSettings
                     {
-                        ModuleID = module, 
-                        PageID = this.ModuleConfiguration.PageID, 
-                        PaneName = this.ModuleConfiguration.PaneName, 
-                        ModuleTitle = this.ModuleConfiguration.ModuleTitle, 
-                        AuthorizedEditRoles = string.Empty, 
-                        AuthorizedViewRoles = string.Empty, 
-                        AuthorizedAddRoles = string.Empty, 
-                        AuthorizedDeleteRoles = string.Empty, 
-                        AuthorizedPropertiesRoles = string.Empty, 
-                        CacheTime = this.ModuleConfiguration.CacheTime, 
-                        ModuleOrder = this.ModuleConfiguration.ModuleOrder, 
-                        ShowMobile = this.ModuleConfiguration.ShowMobile, 
+                        ModuleID = module,
+                        PageID = this.ModuleConfiguration.PageID,
+                        PaneName = this.ModuleConfiguration.PaneName,
+                        ModuleTitle = this.ModuleConfiguration.ModuleTitle,
+                        AuthorizedEditRoles = string.Empty,
+                        AuthorizedViewRoles = string.Empty,
+                        AuthorizedAddRoles = string.Empty,
+                        AuthorizedDeleteRoles = string.Empty,
+                        AuthorizedPropertiesRoles = string.Empty,
+                        CacheTime = this.ModuleConfiguration.CacheTime,
+                        ModuleOrder = this.ModuleConfiguration.ModuleOrder,
+                        ShowMobile = this.ModuleConfiguration.ShowMobile,
                         DesktopSrc = controlPath
                     };
 

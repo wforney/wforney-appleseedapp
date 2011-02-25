@@ -1,84 +1,110 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="UpdateEntry.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   The update entry.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Appleseed.Framework.Core.Update
+namespace Appleseed.Framework.Update
 {
     using System;
-    using System.Collections;
+    using System.Collections.Generic;
 
     /// <summary>
     /// The update entry.
     /// </summary>
     [Serializable]
-    public class UpdateEntry : IComparable
+    public class UpdateEntry : IComparable<UpdateEntry>
     {
-        #region Constants and Fields
+        #region Constructors and Destructors
 
         /// <summary>
-        /// The apply.
+        /// Initializes a new instance of the <see cref="UpdateEntry"/> class. 
         /// </summary>
-        public bool Apply;
+        /// <remarks>
+        /// </remarks>
+        public UpdateEntry()
+        {
+            this.Modules = new List<string>();
+            this.Version = string.Empty;
+            this.ScriptNames = new List<string>();
+        }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
-        /// The date.
+        ///   Gets or sets a value indicating whether this <see cref = "UpdateEntry" /> is apply.
         /// </summary>
-        public DateTime Date;
+        /// <value><c>true</c> if apply; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// </remarks>
+        public bool Apply { get; set; }
 
         /// <summary>
-        /// The modules.
+        ///   Gets or sets the date.
         /// </summary>
-        public ArrayList Modules = new ArrayList();
+        /// <value>The date.</value>
+        /// <remarks>
+        /// </remarks>
+        public DateTime Date { get; set; }
 
         /// <summary>
-        /// The version.
+        ///   Gets or sets the modules.
         /// </summary>
-        public string Version = string.Empty;
+        /// <value>The modules.</value>
+        /// <remarks>
+        /// </remarks>
+        public List<string> Modules { get; set; }
 
         /// <summary>
-        /// The version number.
+        ///   Gets or sets the script names.
         /// </summary>
-        public int VersionNumber;
+        /// <value>The script names.</value>
+        /// <remarks>
+        /// </remarks>
+        public List<string> ScriptNames { get; set; }
 
         /// <summary>
-        /// The script names.
+        ///   Gets or sets the version.
         /// </summary>
-        public ArrayList scriptNames = new ArrayList();
+        /// <value>The version.</value>
+        /// <remarks>
+        /// </remarks>
+        public string Version { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the version number.
+        /// </summary>
+        /// <value>The version number.</value>
+        /// <remarks>
+        /// </remarks>
+        public int VersionNumber { get; set; }
 
         #endregion
 
         #region Implemented Interfaces
 
-        #region IComparable
+        #region IComparable<UpdateEntry>
 
         /// <summary>
-        /// IComparable.CompareTo implementation.
+        /// Compares the current object with another object of the same type.
         /// </summary>
-        /// <param name="obj">
-        /// An object to compare with this instance.
-        /// </param>
         /// <returns>
-        /// A 32-bit signed integer that indicates the relative order of the objects being compared. The return value has these meanings: Value Meaning Less than zero This instance is less than obj. Zero This instance is equal to obj. Greater than zero This instance is greater than obj.
+        /// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
         /// </returns>
-        /// <exception cref="T:System.ArgumentException">
-        /// obj is not the same type as this instance. 
-        /// </exception>
-        public int CompareTo(object obj)
+        /// <param name="other">
+        /// An object to compare with this object.
+        /// </param>
+        public int CompareTo(UpdateEntry other)
         {
-            if (obj is UpdateEntry)
-            {
-                var upd = (UpdateEntry)obj;
-                
-                // if .. then Version numbers are equal else ..
-                return this.VersionNumber.CompareTo(upd.VersionNumber) == 0 ? this.Version.CompareTo(upd.Version) : this.VersionNumber.CompareTo(upd.VersionNumber);
-            }
-
-            throw new ArgumentException("object is not a UpdateEntry");
+            // if .. then Version numbers are equal else ..
+            return this.VersionNumber.CompareTo(other.VersionNumber) == 0
+                       ? this.Version.CompareTo(other.Version)
+                       : this.VersionNumber.CompareTo(other.VersionNumber);
         }
 
         #endregion

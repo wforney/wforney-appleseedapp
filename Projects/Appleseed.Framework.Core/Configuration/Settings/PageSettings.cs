@@ -23,6 +23,7 @@ namespace Appleseed.Framework.Site.Configuration
     using System.Web;
     using System.Web.UI.WebControls;
 
+    using Appleseed.Framework.Configuration.Settings;
     using Appleseed.Framework.DataTypes;
     using Appleseed.Framework.Design;
     using Appleseed.Framework.Localization;
@@ -35,7 +36,7 @@ namespace Appleseed.Framework.Site.Configuration
     /// PageSettings Class encapsulates the detailed settings 
     ///   for a specific Page in the Portal
     /// </summary>
-    public class PageSettings
+    public class PageSettings : ISettingHolder
     {
         #region Constants and Fields
 
@@ -70,10 +71,11 @@ namespace Appleseed.Framework.Site.Configuration
         #region Properties
 
         /// <summary>
-        /// Gets or sets the authorized roles.
+        ///   Gets or sets the authorized roles.
         /// </summary>
         /// <value>The authorized roles.</value>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// </remarks>
         public string AuthorizedRoles { get; set; }
 
         /// <summary>
@@ -89,17 +91,19 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
-        /// Gets or sets the name of the mobile page.
+        ///   Gets or sets the name of the mobile page.
         /// </summary>
         /// <value>The name of the mobile page.</value>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// </remarks>
         public string MobilePageName { get; set; }
 
         /// <summary>
-        /// Gets or sets the modules.
+        ///   Gets or sets the modules.
         /// </summary>
         /// <value>The modules.</value>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// </remarks>
         public List<IModuleSettings> Modules
         {
             get
@@ -114,17 +118,19 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
-        /// Gets or sets the page ID.
+        ///   Gets or sets the page ID.
         /// </summary>
         /// <value>The page ID.</value>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// </remarks>
         public int PageID { get; set; }
 
         /// <summary>
-        /// Gets or sets the page layout.
+        ///   Gets or sets the page layout.
         /// </summary>
         /// <value>The page layout.</value>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// </remarks>
         public string PageLayout { get; set; }
 
         /// <summary>
@@ -136,17 +142,19 @@ namespace Appleseed.Framework.Site.Configuration
         public string PageName { get; set; }
 
         /// <summary>
-        /// Gets or sets the page order.
+        ///   Gets or sets the page order.
         /// </summary>
         /// <value>The page order.</value>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// </remarks>
         public int PageOrder { get; set; }
 
         /// <summary>
-        /// Gets or sets the parent page ID.
+        ///   Gets or sets the parent page ID.
         /// </summary>
         /// <value>The parent page ID.</value>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// </remarks>
         public int ParentPageID { get; set; }
 
         /// <summary>
@@ -174,18 +182,33 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [show mobile].
+        ///   Gets the settings.
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        public IDictionary<string, ISettingItem> Settings
+        {
+            get
+            {
+                return this.GetPageCustomSettings(this.PageID);
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether [show mobile].
         /// </summary>
         /// <value><c>true</c> if [show mobile]; otherwise, <c>false</c>.</value>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// </remarks>
         public bool ShowMobile { get; set; }
 
         /// <summary>
-        /// Gets or sets the portal settings.
+        ///   Gets or sets the portal settings.
         /// </summary>
         /// <value>The portal settings.</value>
-        /// <remarks></remarks>
-        public PortalSettings portalSettings
+        /// <remarks>
+        /// </remarks>
+        public PortalSettings PortalSettings
         {
             get
             {
@@ -438,6 +461,27 @@ namespace Appleseed.Framework.Site.Configuration
 
         #endregion
 
+        #region Implemented Interfaces
+
+        #region ISettingHolder
+
+        /// <summary>
+        /// Inserts or updates the setting.
+        /// </summary>
+        /// <param name="settingItem">
+        /// The setting item.
+        /// </param>
+        /// <remarks>
+        /// </remarks>
+        public void Upsert(ISettingItem settingItem)
+        {
+            UpdatePageSettings(this.PageID, settingItem.EnglishName, settingItem.Value.ToString());
+        }
+
+        #endregion
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -450,13 +494,13 @@ namespace Appleseed.Framework.Site.Configuration
         {
             Hashtable imageMenuFiles;
 
-            if (!CurrentCache.Exists(Key.ImageMenuList(this.portalSettings.CurrentLayout)))
+            if (!CurrentCache.Exists(Key.ImageMenuList(this.PortalSettings.CurrentLayout)))
             {
                 imageMenuFiles = new Hashtable { { "-Default-", string.Empty } };
                 var layoutManager = new LayoutManager(this.PortalPath);
 
                 var menuDirectory = Path.WebPathCombine(
-                    layoutManager.PortalLayoutPath, this.portalSettings.CurrentLayout);
+                    layoutManager.PortalLayoutPath, this.PortalSettings.CurrentLayout);
                 if (Directory.Exists(menuDirectory))
                 {
                     menuDirectory = Path.WebPathCombine(menuDirectory, "menuimages");
@@ -464,7 +508,7 @@ namespace Appleseed.Framework.Site.Configuration
                 else
                 {
                     menuDirectory = Path.WebPathCombine(
-                        LayoutManager.Path, this.portalSettings.CurrentLayout, "menuimages");
+                        LayoutManager.Path, this.PortalSettings.CurrentLayout, "menuimages");
                 }
 
                 if (Directory.Exists(menuDirectory))
@@ -477,11 +521,11 @@ namespace Appleseed.Framework.Site.Configuration
                     }
                 }
 
-                CurrentCache.Insert(Key.ImageMenuList(this.portalSettings.CurrentLayout), imageMenuFiles, null);
+                CurrentCache.Insert(Key.ImageMenuList(this.PortalSettings.CurrentLayout), imageMenuFiles, null);
             }
             else
             {
-                imageMenuFiles = (Hashtable)CurrentCache.Get(Key.ImageMenuList(this.portalSettings.CurrentLayout));
+                imageMenuFiles = (Hashtable)CurrentCache.Get(Key.ImageMenuList(this.PortalSettings.CurrentLayout));
             }
 
             return imageMenuFiles;
@@ -603,13 +647,13 @@ namespace Appleseed.Framework.Site.Configuration
 
             // get the list of available layouts
             // changed: Jes1111 - 2004-08-06
-            var layoutsList = new ArrayList(new LayoutManager(this.portalSettings.PortalPath).GetLayouts());
+            var layoutsList = new ArrayList(new LayoutManager(this.PortalSettings.PortalPath).GetLayouts());
             var noCustomLayout = new LayoutItem { Name = string.Empty };
             layoutsList.Insert(0, noCustomLayout);
 
             // get the list of available themes
             // changed: Jes1111 - 2004-08-06
-            var themesList = new ArrayList(new ThemeManager(this.portalSettings.PortalPath).GetThemes());
+            var themesList = new ArrayList(new ThemeManager(this.PortalSettings.PortalPath).GetThemes());
             var noCustomTheme = new ThemeItem { Name = string.Empty };
             themesList.Insert(0, noCustomTheme);
 

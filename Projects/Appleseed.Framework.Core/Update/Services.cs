@@ -1,20 +1,19 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Services.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   The services.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Appleseed.Framework.Core.Update
+namespace Appleseed.Framework.Update
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
-    using System.Xml;
+    using System.Xml.Linq;
 
     using Appleseed.Framework.Data;
     using Appleseed.Framework.Helpers;
@@ -24,12 +23,14 @@ namespace Appleseed.Framework.Core.Update
     /// <summary>
     /// The services.
     /// </summary>
+    /// <remarks>
+    /// </remarks>
     public class Services : IDisposable
     {
         #region Constants and Fields
 
         /// <summary>
-        /// The scripts list.
+        ///   The scripts list.
         /// </summary>
         private UpdateEntry[] scriptsList;
 
@@ -42,6 +43,8 @@ namespace Appleseed.Framework.Core.Update
         ///   It does not rely on cached value and always gets the actual value.
         /// </summary>
         /// <value>The database version.</value>
+        /// <remarks>
+        /// </remarks>
         private static int DatabaseVersion
         {
             get
@@ -62,102 +65,99 @@ namespace Appleseed.Framework.Core.Update
         /// The run db update.
         /// </summary>
         /// <param name="connectionString">
+        /// The connection string.
         /// </param>
         /// <returns>
         /// The run db update.
         /// </returns>
+        /// <remarks>
+        /// </remarks>
         public bool RunDBUpdate(string connectionString)
         {
             CurrentCache.Insert(Portal.UniqueID + "_ConnectionString", connectionString);
 
             var databaseVersion = DatabaseVersion;
 
-            var xmlDocument = new XmlDocument();
-            var tempScriptsList = new ArrayList();
+            var tempScriptsList = new List<UpdateEntry>();
 
             if (databaseVersion < Portal.CodeVersion)
             {
-                ErrorHandler.Publish(LogLevel.Debug, string.Format("db:{0} Code:{1}", databaseVersion, Portal.CodeVersion));
+                ErrorHandler.Publish(
+                    LogLevel.Debug, string.Format("db:{0} Code:{1}", databaseVersion, Portal.CodeVersion));
 
                 // load the history file
-                var docPath = HttpContext.Current.Server.MapPath(string.Format("{0}/Setup/Scripts/History.xml", Path.ApplicationRoot));
-                xmlDocument.Load(docPath);
+                var docPath =
+                    HttpContext.Current.Server.MapPath(
+                        string.Format("{0}/Setup/Scripts/History.xml", Path.ApplicationRoot));
+                
+                var xmlDocument = XDocument.Load(docPath);
 
                 // get a list of <Release> nodes
-                if (xmlDocument.DocumentElement != null)
+                if (xmlDocument.Document != null)
                 {
-                    var releases = xmlDocument.DocumentElement.SelectNodes("Release");
+                    var releases = xmlDocument.Elements("Release");
 
                     // iterate over the <Release> nodes
                     // (we can do this because XmlNodeList implements IEnumerable)
-                    if (releases != null)
+                    foreach (var release in releases)
                     {
-                        foreach (XmlNode release in releases)
+                        var updateEntry = new UpdateEntry();
+
+                        // get the header information
+                        // we check for null to avoid exception if any of these nodes are not present
+                        if (release.Element("ID") != null)
                         {
-                            var updateEntry = new UpdateEntry();
+                            updateEntry.VersionNumber = Int32.Parse(release.Element("ID/text()").Value);
+                        }
 
-                            // get the header information
-                            // we check for null to avoid exception if any of these nodes are not present
-                            if (release.SelectSingleNode("ID") != null)
+                        if (release.Element("Version") != null)
+                        {
+                            updateEntry.Version = release.Element("Version/text()").Value;
+                        }
+
+                        if (release.Element("Script") != null)
+                        {
+                            updateEntry.ScriptNames.Add(release.Element("Script/text()").Value);
+                        }
+
+                        if (release.Element("Date") != null)
+                        {
+                            updateEntry.Date = DateTime.Parse(release.Element("Date/text()").Value);
+                        }
+
+                        // We should apply this patch
+                        if (databaseVersion < updateEntry.VersionNumber)
+                        {
+                            // Appleseed.Framework.Helpers.LogHelper.Logger.Log(Appleseed.Framework.Site.Configuration.LogLevel.Debug, "Detected version to apply: " + myUpdate.Version);
+                            updateEntry.Apply = true;
+
+                            // get a list of <Installer> nodes
+                            var installers = release.Elements("Modules/Installer/text()");
+
+                            // iterate over the <Installer> Nodes (in original document order)
+                            // (we can do this because XmlNodeList implements IEnumerable)
+                            foreach (var installer in installers)
                             {
-                                updateEntry.VersionNumber = Int32.Parse(release.SelectSingleNode("ID/text()").Value);
+                                // and build an ArrayList of the scripts... 
+                                updateEntry.Modules.Add(installer.Value);
+
+                                // Appleseed.Framework.Helpers.LogHelper.Logger.Log(Appleseed.Framework.Site.Configuration.LogLevel.Debug, "Detected module to install: " + installer.Value);
                             }
 
-                            if (release.SelectSingleNode("Version") != null)
+                            // get a <Script> node, if any
+                            var sqlScripts = release.Elements("Scripts/Script/text()");
+
+                            // iterate over the <Installer> Nodes (in original document order)
+                            // (we can do this because XmlNodeList implements IEnumerable)
+                            foreach (var sqlScript in sqlScripts)
                             {
-                                updateEntry.Version = release.SelectSingleNode("Version/text()").Value;
+                                // and build an ArrayList of the scripts... 
+                                updateEntry.ScriptNames.Add(sqlScript.Value);
+
+                                // Appleseed.Framework.Helpers.LogHelper.Logger.Log(Appleseed.Framework.Site.Configuration.LogLevel.Debug, "Detected script to run: " + sqlScript.Value);
                             }
 
-                            if (release.SelectSingleNode("Script") != null)
-                            {
-                                updateEntry.scriptNames.Add(release.SelectSingleNode("Script/text()").Value);
-                            }
-
-                            if (release.SelectSingleNode("Date") != null)
-                            {
-                                updateEntry.Date = DateTime.Parse(release.SelectSingleNode("Date/text()").Value);
-                            }
-
-                            // We should apply this patch
-                            if (databaseVersion < updateEntry.VersionNumber)
-                            {
-                                // Appleseed.Framework.Helpers.LogHelper.Logger.Log(Appleseed.Framework.Site.Configuration.LogLevel.Debug, "Detected version to apply: " + myUpdate.Version);
-                                updateEntry.Apply = true;
-
-                                // get a list of <Installer> nodes
-                                var installers = release.SelectNodes("Modules/Installer/text()");
-
-                                // iterate over the <Installer> Nodes (in original document order)
-                                // (we can do this because XmlNodeList implements IEnumerable)
-                                if (installers != null)
-                                {
-                                    foreach (XmlNode installer in installers)
-                                    {
-                                        // and build an ArrayList of the scripts... 
-                                        updateEntry.Modules.Add(installer.Value);
-
-                                        // Appleseed.Framework.Helpers.LogHelper.Logger.Log(Appleseed.Framework.Site.Configuration.LogLevel.Debug, "Detected module to install: " + installer.Value);
-                                    }
-                                }
-
-                                // get a <Script> node, if any
-                                var sqlScripts = release.SelectNodes("Scripts/Script/text()");
-
-                                // iterate over the <Installer> Nodes (in original document order)
-                                // (we can do this because XmlNodeList implements IEnumerable)
-                                if (sqlScripts != null)
-                                {
-                                    foreach (XmlNode sqlScript in sqlScripts)
-                                    {
-                                        // and build an ArrayList of the scripts... 
-                                        updateEntry.scriptNames.Add(sqlScript.Value);
-
-                                        // Appleseed.Framework.Helpers.LogHelper.Logger.Log(Appleseed.Framework.Site.Configuration.LogLevel.Debug, "Detected script to run: " + sqlScript.Value);
-                                    }
-                                }
-
-                                tempScriptsList.Add(updateEntry);
-                            }
+                            tempScriptsList.Add(updateEntry);
                         }
                     }
                 }
@@ -169,33 +169,28 @@ namespace Appleseed.Framework.Core.Update
                 }
                 else
                 {
-                    this.scriptsList = (UpdateEntry[])tempScriptsList.ToArray(typeof(UpdateEntry));
+                    this.scriptsList = tempScriptsList.ToArray();
 
                     // by Manu. Versions are sorted by version number
                     Array.Sort(this.scriptsList);
 
                     // Create a flat version for binding
                     var currentVersion = 0;
-                    var databindList = new ArrayList();
+                    var databindList = new List<string>();
                     foreach (var updateEntry in this.scriptsList.Where(updateEntry => updateEntry.Apply))
                     {
                         if (currentVersion != updateEntry.VersionNumber)
                         {
-                            databindList.Add("Version: " + updateEntry.VersionNumber);
+                            databindList.Add(string.Format("Version: {0}", updateEntry.VersionNumber));
                             currentVersion = updateEntry.VersionNumber;
                         }
 
-                        foreach (string scriptName in
-                            updateEntry.scriptNames.Cast<string>().Where(scriptName => scriptName.Length > 0))
-                        {
-                            databindList.Add("-- Script: " + scriptName);
-                        }
-
-                        foreach (string moduleInstaller in
-                            updateEntry.Modules.Cast<string>().Where(moduleInstaller => moduleInstaller.Length > 0))
-                        {
-                            databindList.Add("-- Module: " + moduleInstaller);
-                        }
+                        databindList.AddRange(
+                            updateEntry.ScriptNames.Where(scriptName => scriptName.Length > 0).Select(
+                                scriptName => string.Format("-- Script: {0}", scriptName)));
+                        databindList.AddRange(
+                            updateEntry.Modules.Where(moduleInstaller => moduleInstaller.Length > 0).Select(
+                                moduleInstaller => string.Format("-- Module: {0}", moduleInstaller)));
                     }
 
                     var errors = new List<object>();
@@ -207,7 +202,7 @@ namespace Appleseed.Framework.Core.Update
                             DatabaseVersion < Portal.CodeVersion)
                         {
                             // Version check (a script may update more than one version at once)
-                            foreach (string scriptName in updateEntry.scriptNames)
+                            foreach (var scriptName in updateEntry.ScriptNames)
                             {
                                 if (scriptName.Length <= 0)
                                 {
@@ -217,14 +212,14 @@ namespace Appleseed.Framework.Core.Update
                                 // It may be a module update only
                                 var currentScriptName =
                                     HttpContext.Current.Server.MapPath(
-                                        System.IO.Path.Combine(Path.ApplicationRoot + "/Setup/Scripts/", scriptName));
+                                        System.IO.Path.Combine(string.Format("{0}/Setup/Scripts/", Path.ApplicationRoot), scriptName));
                                 ErrorHandler.Publish(
                                     LogLevel.Info,
                                     string.Format(
                                         "CODE: {0} - DB: {1} - CURR: {2} - Applying: {3}",
-                                        Portal.CodeVersion,
-                                        DatabaseVersion,
-                                        updateEntry.VersionNumber,
+                                        Portal.CodeVersion, 
+                                        DatabaseVersion, 
+                                        updateEntry.VersionNumber, 
                                         currentScriptName));
                                 var myerrors = DBHelper.ExecuteScript(currentScriptName, true);
                                 errors.AddRange(myerrors); // Display errors if any
@@ -236,7 +231,7 @@ namespace Appleseed.Framework.Core.Update
 
                                 errors.Insert(0, string.Format("<p>{0}</p>", scriptName));
                                 ErrorHandler.Publish(
-                                    LogLevel.Error,
+                                    LogLevel.Error, 
                                     string.Format(
                                         "Version {0} completed with errors.  - {1}", updateEntry.Version, scriptName));
                                 break;
@@ -247,7 +242,7 @@ namespace Appleseed.Framework.Core.Update
                                                                    select
                                                                        HttpContext.Current.Server.MapPath(
                                                                            System.IO.Path.Combine(
-                                                                               Path.ApplicationRoot + "/",
+                                                                               Path.ApplicationRoot + "/", 
                                                                                moduleInstaller)))
                             {
                                 try
@@ -257,34 +252,34 @@ namespace Appleseed.Framework.Core.Update
                                 catch (Exception ex)
                                 {
                                     ErrorHandler.Publish(
-                                        LogLevel.Fatal,
+                                        LogLevel.Fatal, 
                                         string.Format(
-                                            "Exception in UpdateDatabaseCommand installing module: {0}",
-                                            currentModuleInstaller),
+                                            "Exception in UpdateDatabaseCommand installing module: {0}", 
+                                            currentModuleInstaller), 
                                         ex);
                                     if (ex.InnerException != null)
                                     {
                                         // Display more meaningful error message if InnerException is defined
                                         ErrorHandler.Publish(
-                                            LogLevel.Warn,
+                                            LogLevel.Warn, 
                                             string.Format(
-                                                "Exception in UpdateDatabaseCommand installing module: {0}",
-                                                currentModuleInstaller),
+                                                "Exception in UpdateDatabaseCommand installing module: {0}", 
+                                                currentModuleInstaller), 
                                             ex.InnerException);
                                         errors.Add(
                                             string.Format(
-                                                "Exception in UpdateDatabaseCommand installing module: {0}<br />{1}<br />{2}",
-                                                currentModuleInstaller,
-                                                ex.InnerException.Message,
+                                                "Exception in UpdateDatabaseCommand installing module: {0}<br />{1}<br />{2}", 
+                                                currentModuleInstaller, 
+                                                ex.InnerException.Message, 
                                                 ex.InnerException.StackTrace));
                                     }
                                     else
                                     {
                                         ErrorHandler.Publish(
-                                            LogLevel.Warn,
+                                            LogLevel.Warn, 
                                             string.Format(
-                                                "Exception in UpdateDatabaseCommand installing module: {0}",
-                                                currentModuleInstaller),
+                                                "Exception in UpdateDatabaseCommand installing module: {0}", 
+                                                currentModuleInstaller), 
                                             ex);
                                         errors.Add(ex.Message);
                                     }
@@ -294,34 +289,34 @@ namespace Appleseed.Framework.Core.Update
                             if (Equals(errors.Count, 0))
                             {
                                 // Update db with version
-                                string versionUpdater =
+                                var versionUpdater =
                                     string.Format(
-                                        "INSERT INTO [rb_Versions] ([Release],[Version],[ReleaseDate]) VALUES('{0}','{1}', CONVERT(datetime, '{2}/{3}/{4}', 101))",
-                                        updateEntry.VersionNumber,
-                                        updateEntry.Version,
-                                        updateEntry.Date.Month,
-                                        updateEntry.Date.Day,
+                                        "INSERT INTO [rb_Versions] ([Release],[Version],[ReleaseDate]) VALUES('{0}','{1}', CONVERT(datetime, '{2}/{3}/{4}', 101))", 
+                                        updateEntry.VersionNumber, 
+                                        updateEntry.Version, 
+                                        updateEntry.Date.Month, 
+                                        updateEntry.Date.Day, 
                                         updateEntry.Date.Year);
                                 DBHelper.ExeSQL(versionUpdater);
                                 ErrorHandler.Publish(
-                                    LogLevel.Info,
+                                    LogLevel.Info, 
                                     string.Format("Version number: {0} applied successfully.", updateEntry.Version));
 
                                 // Mark this update as done
                                 ErrorHandler.Publish(
-                                    LogLevel.Info,
+                                    LogLevel.Info, 
                                     string.Format("Successfully applied version: {0}", updateEntry.Version));
                             }
                         }
                         else
                         {
                             ErrorHandler.Publish(
-                                LogLevel.Info,
+                                LogLevel.Info, 
                                 string.Format(
-                                    "CODE: {0} - DB: {1} - CURR: {2} - Skipping: {3}",
-                                    Portal.CodeVersion,
-                                    DatabaseVersion,
-                                    updateEntry.VersionNumber,
+                                    "CODE: {0} - DB: {1} - CURR: {2} - Skipping: {3}", 
+                                    Portal.CodeVersion, 
+                                    DatabaseVersion, 
+                                    updateEntry.VersionNumber, 
                                     updateEntry.Version));
                         }
                     }
@@ -340,24 +335,32 @@ namespace Appleseed.Framework.Core.Update
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// </remarks>
         public void Dispose()
         {
             this.Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        #endregion
+
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Releases unmanaged and - optionally - managed resources.
         /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        /// <remarks></remarks>
+        /// <param name="disposing">
+        /// <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.
+        /// </param>
+        /// <remarks>
+        /// </remarks>
         protected void Dispose(bool disposing)
         {
             // TODO Implement the pattern properly.
         }
-
-        #endregion
 
         #endregion
     }

@@ -17,6 +17,7 @@ namespace Appleseed.Framework.Site.Configuration
     using System.Linq;
     using System.Web.UI;
 
+    using Appleseed.Framework.Configuration.Settings;
     using Appleseed.Framework.Settings;
     using Appleseed.Framework.Settings.Cache;
     using Appleseed.Framework.Web.UI.WebControls;
@@ -26,7 +27,7 @@ namespace Appleseed.Framework.Site.Configuration
     /// </summary>
     /// <remarks>
     /// </remarks>
-    public class ModuleSettings : IModuleSettings
+    public class ModuleSettings : IModuleSettings, ISettingHolder
     {
         #region Constants and Fields
 
@@ -35,335 +36,260 @@ namespace Appleseed.Framework.Site.Configuration
         /// </summary>
         private const string StringsDesktopSrc = "DesktopSrc";
 
-        /// <summary>
-        ///   The authorized add roles.
-        /// </summary>
-        private string authorizedAddRoles = "Admin;";
+        #endregion
+
+        #region Constructors and Destructors
 
         /// <summary>
-        ///   The authorized delete module roles.
+        /// Initializes a new instance of the <see cref="ModuleSettings"/> class.
         /// </summary>
-        private string authorizedDeleteModuleRoles = "Admin;";
-
-        /// <summary>
-        ///   The authorized delete roles.
-        /// </summary>
-        private string authorizedDeleteRoles = "Admin;";
-
-        /// <summary>
-        ///   The authorized edit roles.
-        /// </summary>
-        private string authorizedEditRoles = "Admin;";
-
-        /// <summary>
-        ///   The authorized move module roles.
-        /// </summary>
-        private string authorizedMoveModuleRoles = "Admin;";
-
-        /// <summary>
-        ///   The authorized properties roles.
-        /// </summary>
-        private string authorizedPropertiesRoles = "Admin;";
-
-        /// <summary>
-        ///   The authorized view roles.
-        /// </summary>
-        private string authorizedViewRoles = "All Users;";
-
-        /// <summary>
-        ///   The cache dependency.
-        /// </summary>
-        private ArrayList cacheDependency = new ArrayList();
-
-        /// <summary>
-        ///   The desktop source.
-        /// </summary>
-        private string desktopSrc = string.Empty;
-
-        /// <summary>
-        ///   The mobile source.
-        /// </summary>
-        private string mobileSrc = string.Empty;
-
-        /// <summary>
-        ///   The module title.
-        /// </summary>
-        private string moduleTitle = string.Empty;
-
-        /// <summary>
-        ///   The pane name.
-        /// </summary>
-        private string paneName = "no pane";
+        public ModuleSettings()
+        {
+            this.PaneName = "no pane";
+            this.ModuleTitle = string.Empty;
+            this.MobileSrc = string.Empty;
+            this.DesktopSrc = string.Empty;
+            this.CacheDependency = new ArrayList();
+            this.AuthorizedViewRoles = "All Users;";
+            this.AuthorizedPropertiesRoles = "Admin;";
+            this.AuthorizedMoveModuleRoles = "Admin;";
+            this.AuthorizedEditRoles = "Admin;";
+            this.AuthorizedDeleteRoles = "Admin;";
+            this.AuthorizedDeleteModuleRoles = "Admin;";
+            this.AuthorizedAddRoles = "Admin;";
+        }
 
         #endregion
 
         #region Properties
 
         /// <summary>
-        ///   The admin.
+        ///   Gets or sets a value indicating whether this <see cref = "IModuleSettings" /> is admin.
         /// </summary>
+        /// <value><c>true</c> if admin; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// </remarks>
         public bool Admin { get; set; }
 
         /// <summary>
-        ///   The authorized add roles.
+        ///   Gets or sets the authorized add roles.
         /// </summary>
-        public string AuthorizedAddRoles
-        {
-            get
-            {
-                return this.authorizedAddRoles;
-            }
-
-            set
-            {
-                this.authorizedAddRoles = value;
-            }
-        }
+        /// <value>The authorized add roles.</value>
+        /// <remarks>
+        /// </remarks>
+        public string AuthorizedAddRoles { get; set; }
 
         /// <summary>
-        ///   The authorized approve roles.
+        ///   Gets or sets the authorized approve roles.
         /// </summary>
+        /// <value>The authorized approve roles.</value>
+        /// <remarks>
+        /// </remarks>
         public string AuthorizedApproveRoles { get; set; }
 
         /// <summary>
-        ///   The authorized delete module roles.
+        ///   Gets or sets the authorized delete module roles.
         /// </summary>
-        public string AuthorizedDeleteModuleRoles
-        {
-            get
-            {
-                return this.authorizedDeleteModuleRoles;
-            }
-
-            set
-            {
-                this.authorizedDeleteModuleRoles = value;
-            }
-        }
+        /// <value>The authorized delete module roles.</value>
+        /// <remarks>
+        /// </remarks>
+        public string AuthorizedDeleteModuleRoles { get; set; }
 
         /// <summary>
-        ///   The authorized delete roles.
+        ///   Gets or sets the authorized delete roles.
         /// </summary>
-        public string AuthorizedDeleteRoles
-        {
-            get
-            {
-                return this.authorizedDeleteRoles;
-            }
-
-            set
-            {
-                this.authorizedDeleteRoles = value;
-            }
-        }
+        /// <value>The authorized delete roles.</value>
+        /// <remarks>
+        /// </remarks>
+        public string AuthorizedDeleteRoles { get; set; }
 
         /// <summary>
-        ///   The authorized edit roles.
+        ///   Gets or sets the authorized edit roles.
         /// </summary>
-        public string AuthorizedEditRoles
-        {
-            get
-            {
-                return this.authorizedEditRoles;
-            }
-
-            set
-            {
-                this.authorizedEditRoles = value;
-            }
-        }
+        /// <value>The authorized edit roles.</value>
+        /// <remarks>
+        /// </remarks>
+        public string AuthorizedEditRoles { get; set; }
 
         /// <summary>
-        ///   The authorized move module roles.
+        ///   Gets or sets the authorized move module roles.
         /// </summary>
-        public string AuthorizedMoveModuleRoles
-        {
-            get
-            {
-                return this.authorizedMoveModuleRoles;
-            }
-
-            set
-            {
-                this.authorizedMoveModuleRoles = value;
-            }
-        }
+        /// <value>The authorized move module roles.</value>
+        /// <remarks>
+        /// </remarks>
+        public string AuthorizedMoveModuleRoles { get; set; }
 
         /// <summary>
-        ///   The authorized properties roles.
+        ///   Gets or sets the authorized properties roles.
         /// </summary>
-        public string AuthorizedPropertiesRoles
-        {
-            get
-            {
-                return this.authorizedPropertiesRoles;
-            }
-
-            set
-            {
-                this.authorizedPropertiesRoles = value;
-            }
-        }
+        /// <value>The authorized properties roles.</value>
+        /// <remarks>
+        /// </remarks>
+        public string AuthorizedPropertiesRoles { get; set; }
 
         /// <summary>
-        ///   The authorized publishing roles.
+        ///   Gets or sets the authorized publishing roles.
         /// </summary>
+        /// <value>The authorized publishing roles.</value>
+        /// <remarks>
+        /// </remarks>
         public string AuthorizedPublishingRoles { get; set; }
 
         /// <summary>
-        ///   The authorized view roles.
+        ///   Gets or sets the authorized view roles.
         /// </summary>
-        public string AuthorizedViewRoles
-        {
-            get
-            {
-                return this.authorizedViewRoles;
-            }
-
-            set
-            {
-                this.authorizedViewRoles = value;
-            }
-        }
+        /// <value>The authorized view roles.</value>
+        /// <remarks>
+        /// </remarks>
+        public string AuthorizedViewRoles { get; set; }
 
         /// <summary>
-        ///   The cache dependency.
+        ///   Gets or sets the cache dependency.
         /// </summary>
-        public ArrayList CacheDependency
-        {
-            get
-            {
-                return this.cacheDependency;
-            }
-
-            set
-            {
-                this.cacheDependency = value;
-            }
-        }
+        /// <value>The cache dependency.</value>
+        /// <remarks>
+        /// </remarks>
+        public ArrayList CacheDependency { get; set; }
 
         /// <summary>
-        ///   The cache time.
+        ///   Gets or sets the cache time.
         /// </summary>
+        /// <value>The cache time.</value>
+        /// <remarks>
+        /// </remarks>
         public int CacheTime { get; set; }
 
         /// <summary>
-        ///   The cacheable.
+        ///   Gets or sets a value indicating whether this <see cref = "IModuleSettings" /> is cacheable.
         /// </summary>
+        /// <value><c>true</c> if cacheable; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// </remarks>
         public bool Cacheable { get; set; }
 
         /// <summary>
-        ///   The desktop source.
+        ///   Gets or sets the desktop SRC.
         /// </summary>
-        public string DesktopSrc
-        {
-            get
-            {
-                return this.desktopSrc;
-            }
-
-            set
-            {
-                this.desktopSrc = value;
-            }
-        }
+        /// <value>The desktop SRC.</value>
+        /// <remarks>
+        /// </remarks>
+        public string DesktopSrc { get; set; }
 
         /// <summary>
-        ///   The guid id.
+        ///   Gets or sets the GUID ID.
         /// </summary>
+        /// <value>The GUID ID.</value>
+        /// <remarks>
+        /// </remarks>
         public Guid GuidID { get; set; }
 
         /// <summary>
-        ///   The mobile source.
+        ///   Gets or sets the mobile SRC.
         /// </summary>
-        public string MobileSrc
-        {
-            get
-            {
-                return this.mobileSrc;
-            }
-
-            set
-            {
-                this.mobileSrc = value;
-            }
-        }
+        /// <value>The mobile SRC.</value>
+        /// <remarks>
+        /// </remarks>
+        public string MobileSrc { get; set; }
 
         /// <summary>
-        ///   The module def id.
+        ///   Gets or sets the module def ID.
         /// </summary>
+        /// <value>The module def ID.</value>
+        /// <remarks>
+        /// </remarks>
         public int ModuleDefID { get; set; }
 
         /// <summary>
-        ///   The module id.
+        ///   Gets or sets the module ID.
         /// </summary>
+        /// <value>The module ID.</value>
+        /// <remarks>
+        /// </remarks>
         public int ModuleID { get; set; }
 
         /// <summary>
-        ///   The module order.
+        ///   Gets or sets the module order.
         /// </summary>
+        /// <value>The module order.</value>
+        /// <remarks>
+        /// </remarks>
         public int ModuleOrder { get; set; }
 
         /// <summary>
-        ///   The module title.
+        ///   Gets or sets the module title.
         /// </summary>
-        public string ModuleTitle
-        {
-            get
-            {
-                return this.moduleTitle;
-            }
-
-            set
-            {
-                this.moduleTitle = value;
-            }
-        }
+        /// <value>The module title.</value>
+        /// <remarks>
+        /// </remarks>
+        public string ModuleTitle { get; set; }
 
         /// <summary>
-        ///   The page id.
+        ///   Gets or sets the page ID.
         /// </summary>
+        /// <value>The page ID.</value>
+        /// <remarks>
+        /// </remarks>
         public int PageID { get; set; }
 
         /// <summary>
-        ///   The pane name.
+        ///   Gets or sets the name of the pane.
         /// </summary>
-        public string PaneName
+        /// <value>The name of the pane.</value>
+        /// <remarks>
+        /// </remarks>
+        public string PaneName { get; set; }
+
+        /// <summary>
+        ///   Gets the settings.
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        public IDictionary<string, ISettingItem> Settings
         {
             get
             {
-                return this.paneName;
-            }
-
-            set
-            {
-                this.paneName = value;
+                return GetModuleSettings(this.ModuleID);
             }
         }
 
         /// <summary>
-        ///   The show every where.
+        ///   Gets or sets a value indicating whether [show every where].
         /// </summary>
+        /// <value><c>true</c> if [show every where]; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// </remarks>
         public bool ShowEveryWhere { get; set; }
 
         /// <summary>
-        ///   The show mobile.
+        ///   Gets or sets a value indicating whether [show mobile].
         /// </summary>
+        /// <value><c>true</c> if [show mobile]; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// </remarks>
         public bool ShowMobile { get; set; }
 
         /// <summary>
-        ///   The support collapsible.
+        ///   Gets or sets a value indicating whether [support collapsible].
         /// </summary>
+        /// <value><c>true</c> if [support collapsible]; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// </remarks>
         public bool SupportCollapsable { get; set; }
 
         /// <summary>
-        ///   The support workflow.
+        ///   Gets or sets a value indicating whether [support workflow].
         /// </summary>
+        /// <value><c>true</c> if [support workflow]; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// </remarks>
         public bool SupportWorkflow { get; set; }
 
         /// <summary>
-        ///   The workflow status.
+        ///   Gets or sets the workflow status.
         /// </summary>
+        /// <value>The workflow status.</value>
+        /// <remarks>
+        /// </remarks>
         public WorkflowState WorkflowStatus { get; set; }
 
         #endregion
@@ -578,6 +504,27 @@ namespace Appleseed.Framework.Site.Configuration
 
             CurrentCache.Remove(Key.ModuleSettings(moduleId));
         }
+
+        #endregion
+
+        #region Implemented Interfaces
+
+        #region ISettingHolder
+
+        /// <summary>
+        /// Inserts or updates the setting.
+        /// </summary>
+        /// <param name="settingItem">
+        /// The setting item.
+        /// </param>
+        /// <remarks>
+        /// </remarks>
+        public void Upsert(ISettingItem settingItem)
+        {
+            UpdateModuleSetting(this.ModuleID, settingItem.EnglishName, settingItem.Value.ToString());
+        }
+
+        #endregion
 
         #endregion
     }
