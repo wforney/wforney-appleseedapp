@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="AppleseedWebApplication.Installer.Default" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="Appleseed.Installer.Default" %>
 
 <html>
 <head>
@@ -87,23 +87,22 @@
                                             <ul>
                                                 <li style="margin-bottom: 8px;">
                                                     <div class="bold">
-                                                        Microsoft .NET Version :
-                                                        <asp:Literal EnableViewState="False" ID="lblAspNetVersion" runat="server" /></div>
+                                                        Microsoft .NET Version : <asp:Literal EnableViewState="False" ID="lblAspNetVersion"
+                                                            runat="server" /></div>
                                                 </li>
                                                 <li style="margin-bottom: 8px;">
                                                     <div class="bold">
-                                                        Web.Config :
-                                                        <asp:Literal EnableViewState="False" ID="lblWebConfigWritable" runat="server" /></div>
+                                                        Web.Config : <asp:Literal EnableViewState="False" ID="lblWebConfigWritable" runat="server" /></div>
                                                 </li>
                                                 <li style="margin-bottom: 8px;">
                                                     <div class="bold">
-                                                        RB Logs Directory :
-                                                        <asp:Literal EnableViewState="False" ID="lblLogsDirWritable" runat="server" /></div>
+                                                        RB Logs Directory : <asp:Literal EnableViewState="False" ID="lblLogsDirWritable"
+                                                            runat="server" /></div>
                                                 </li>
                                                 <li style="margin-bottom: 8px;">
                                                     <div class="bold">
-                                                        Portals Directory :
-                                                        <asp:Literal EnableViewState="False" ID="lblPortalsDirWritable" runat="server" /></div>
+                                                        Portals Directory : <asp:Literal EnableViewState="False" ID="lblPortalsDirWritable"
+                                                            runat="server" /></div>
                                                 </li>
                                             </ul>
                                         </div>
@@ -242,7 +241,6 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                        
                                     </asp:Panel>
                                     <asp:Panel ID="Install" runat="server" Visible="false">
                                         <div class="mainTitle">

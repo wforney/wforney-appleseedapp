@@ -1,19 +1,19 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Update.aspx.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   The update.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace AppleseedWebApplication.Installer
+namespace Appleseed.Installer
 {
     using System;
     using System.Web.UI;
 
-    using Appleseed.Framework.Core.Update;
     using Appleseed.Framework.Settings;
+    using Appleseed.Framework.Update;
 
     /// <summary>
     /// The update.
