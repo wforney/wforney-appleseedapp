@@ -1528,10 +1528,17 @@ namespace Appleseed.Framework.Web.UI
         private void InsertGlAnalyticsScript()
         {
             var include = true;
+            var useCustVars = false;
             try
             {
-                include = ConfigurationManager.AppSettings["INCLUDE_GOOGLEANALYTICS_SETTINGS"] == null ||
-                          Convert.ToBoolean(ConfigurationManager.AppSettings["INCLUDE_GOOGLEANALYTICS_SETTINGS"]);
+                include = (ConfigurationManager.AppSettings["INCLUDE_GOOGLEANALYTICS_SETTINGS"] == null ||
+                                Convert.ToBoolean(ConfigurationManager.AppSettings["INCLUDE_GOOGLEANALYTICS_SETTINGS"])) &&
+                           this.portalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"] != null &&
+                           !this.portalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"].ToString().Trim().Equals(string.Empty);
+
+                useCustVars = this.portalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS_CUSTOMVARS"] != null &&
+                            Convert.ToBoolean(this.portalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS_CUSTOMVARS"].ToString());
+
             }
             catch (Exception e)
             {
@@ -1540,29 +1547,38 @@ namespace Appleseed.Framework.Web.UI
 
             if (include)
             {
-                if (this.portalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"] != null &&
-                    !this.portalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"].ToString().Equals(string.Empty))
+                var script = new StringBuilder();
+                script.AppendFormat("<script type=\"text/javascript\">");
+                script.AppendFormat(
+                    "var gaJsHost = ((\"https:\" == document.location.protocol) ? \"https://ssl.\" : \"http://www.\");");
+                script.AppendFormat(
+                    "document.write(unescape(\"%3Cscript src='\" + gaJsHost + \"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E\"));");
+                script.AppendFormat("</script>");
+
+                script.AppendFormat("<script type=\"text/javascript\">");
+                script.AppendFormat(
+                    "try {{ var pageTracker = _gat._getTracker(\"{0}\");",
+                    this.portalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"]);
+                script.AppendFormat("pageTracker._trackPageview();");
+                if (PortalSettings.CurrentUser.Identity.IsAuthenticated && useCustVars)
                 {
-                    var script = new StringBuilder();
-                    script.AppendFormat("<script type=\"text/javascript\">");
-                    script.AppendFormat(
-                        "var gaJsHost = ((\"https:\" == document.location.protocol) ? \"https://ssl.\" : \"http://www.\");");
-                    script.AppendFormat(
-                        "document.write(unescape(\"%3Cscript src='\" + gaJsHost + \"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E\"));");
-                    script.AppendFormat("</script>");
-
-                    script.AppendFormat("<script type=\"text/javascript\">");
-                    script.AppendFormat(
-                        "try {{ var pageTracker = _gat._getTracker(\"{0}\");",
-                        this.portalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"]);
-                    script.AppendFormat("pageTracker._trackPageview();");
-                    script.AppendFormat("}} catch (err) {{ }}</script>");
-
-                    this.ClientScript.RegisterStartupScript(
-                        this.GetType(), "SITESETTINGS_GOOGLEANALYTICS", script.ToString(), false);
+                    var email = PortalSettings.CurrentUser.Identity.Email;
+                    var index = email.IndexOf('@');
+                    script.AppendFormat("pageTracker._setCustomVar( 1, \"User Type\", \"Member\", 1);");  //Slot 1, visitor-level scope.
+                    script.AppendFormat("pageTracker._setCustomVar( 2, \"Authenticated\", \"Yes\", 2);");  //Slot 2, session-level scope.
+                    if (index >= 0 && index < email.Length - 1)
+                    {
+                        script.AppendFormat("pageTracker._setCustomVar( 3, \"Domain\", \"" + email.Substring(index + 1) + "\", 1);");  //Slot 3, vsitor-level scope.
+                    }
                 }
+                script.AppendFormat("}} catch (err) {{ }}</script>");
+                //TODO: Add tracking variables
+
+                this.ClientScript.RegisterStartupScript(
+                    this.GetType(), "SITESETTINGS_GOOGLEANALYTICS", script.ToString(), false);
             }
         }
+
 
         /// <summary>
         /// Handles the Click event of the UpdateBtn control.

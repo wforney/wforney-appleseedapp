@@ -173,6 +173,9 @@
     <Reference Include="MySql.Data">
       <HintPath>..\..\Libs\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Sitemaps">
+      <HintPath>..\..\Libs\Newtonsoft.Sitemaps.dll</HintPath>
+    </Reference>
     <Reference Include="Novell.Directory.Ldap, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Libs\Novell.Directory.Ldap.dll</HintPath>

@@ -1583,6 +1583,14 @@ namespace Appleseed.Framework.Site.Configuration
                 glAnalytics.Value = string.Empty;
                 baseSettings.Add("SITESETTINGS_GOOGLEANALYTICS", glAnalytics);
 
+                var glAnalyticsCustomVars = new SettingItem(new BooleanDataType());
+                glAnalyticsCustomVars.Order = groupOrderBase + 52;
+                glAnalyticsCustomVars.Group = group;
+                glAnalyticsCustomVars.EnglishName = "Use Google-Analytics Custom Vars?";
+                glAnalyticsCustomVars.Description = "Allows you to use custom vars to track members, authenticated users and ther domain names.";
+                glAnalyticsCustomVars.Value = "False";
+                baseSettings.Add("SITESETTINGS_GOOGLEANALYTICS_CUSTOMVARS", glAnalytics);
+
                 var alternativeUrl = new SettingItem(new StringDataType());
                 alternativeUrl.Order = groupOrderBase + 55;
                 alternativeUrl.Group = group;

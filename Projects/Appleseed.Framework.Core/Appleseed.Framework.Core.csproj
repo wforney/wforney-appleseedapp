@@ -71,6 +71,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Libs\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Security, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Libs\Mono.Security.dll</HintPath>
@@ -131,8 +132,10 @@
     <Compile Include="Configuration\Settings\PageSettings.cs" />
     <Compile Include="Configuration\Settings\PageStripDetails.cs" />
     <Compile Include="Configuration\Settings\PortalSettings.cs" />
+    <Compile Include="DAL\AppleseedDynamicModel.cs" />
     <Compile Include="DAL\Database.cs" />
     <Compile Include="DAL\DBHelper.cs" />
+    <Compile Include="DAL\Massive.cs" />
     <Compile Include="DAL\ModulesDB.cs" />
     <Compile Include="DAL\PagesDB.cs" />
     <Compile Include="DAL\PortalsDB.cs" />

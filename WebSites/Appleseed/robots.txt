@@ -17,5 +17,5 @@ Disallow: /rb_logs/
 Disallow: /rb_tools/
 Disallow: /Resources/
 Disallow: /Setup/
-
+Sitemap: /sitemap.axd
 
