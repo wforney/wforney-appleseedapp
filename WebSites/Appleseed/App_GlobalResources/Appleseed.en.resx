@@ -1,0 +1,3448 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ABI">
+    <value>ABI</value>
+  </data>
+  <data name="ABSTRACT">
+    <value>Abstract</value>
+  </data>
+  <data name="ACCEPT">
+    <value>I Accept Terms and conditions</value>
+  </data>
+  <data name="ACCEPT_TERMS">
+    <value>I Accept Terms and conditions</value>
+  </data>
+  <data name="ACCESSDENIED">
+    <value>Access Denied</value>
+  </data>
+  <data name="ACCESS_DENIED">
+    <value>Access Denied</value>
+  </data>
+  <data name="ACCESS_DENIED_MESSAGE">
+    <value>Either you are not currently logged in, or you do not have access to this page within the portal. Please contact the portal administrator to obtain access.</value>
+  </data>
+  <data name="ACCOUNT_INFO">
+    <value>Account informations</value>
+  </data>
+  <data name="ACCOUNT_LOGIN">
+    <value>Account login</value>
+  </data>
+  <data name="ADD">
+    <value>Add</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERADD">
+    <value>Add</value>
+  </data>
+  <data name="ADDRESS">
+    <value>Address</value>
+  </data>
+  <data name="CONTACTS_ADDRESS">
+    <value>Address</value>
+  </data>
+  <data name="ADDTAB">
+    <value>Add New Page</value>
+  </data>
+  <data name="ADDUSER">
+    <value>Add user to this role</value>
+  </data>
+  <data name="ADD_ARTICLE">
+    <value>Add Article</value>
+  </data>
+  <data name="ADD_DOCUMENT">
+    <value>Add new document</value>
+  </data>
+  <data name="ADD_NEW">
+    <value>Add new</value>
+  </data>
+  <data name="ADD_NEW_USER">
+    <value>Add new user</value>
+  </data>
+  <data name="ADD_PORTAL">
+    <value>Add Portal</value>
+  </data>
+  <data name="ADD_VEHICLE">
+    <value>Add Vehicle</value>
+  </data>
+  <data name="ADMIN_MODULE">
+    <value>Admin module?</value>
+  </data>
+  <data name="ADVPAYM">
+    <value>Advance Payment</value>
+  </data>
+  <data name="ALBUMPATH">
+    <value>Album Path</value>
+  </data>
+  <data name="ALL">
+    <value>All</value>
+  </data>
+  <data name="PORTALSEARCH_ALL">
+    <value>All</value>
+  </data>
+  <data name="ALLOWBULKLOAD">
+    <value>Allow Bulk Load</value>
+  </data>
+  <data name="ALLOWNEWREGISTRATIONS">
+    <value>Allow New Registrations?</value>
+  </data>
+  <data name="SITESETTINGS_ALLOW_NEW_REGISTRATION">
+    <value>Allow New Registrations?</value>
+  </data>
+  <data name="ALLOWNEWREGISTRATIONS_DESCRIPTION">
+    <value>Check this to allow users register themselves. Leave blank for register through User Manager only.</value>
+  </data>
+  <data name="SITESETTINGS_ALLOW_NEW_REGISTRATION_DESCRIPTION">
+    <value>Check this to allow users register themselves. Leave blank for register through User Manager only.</value>
+  </data>
+  <data name="ALPHA_LIST_DESCRIPTION">
+    <value>Description</value>
+  </data>
+  <data name="ANNOUNCES_DESCRIPTION">
+    <value>Description</value>
+  </data>
+  <data name="DESCRIPTION">
+    <value>Description</value>
+  </data>
+  <data name="EVENTS_DESCRIPTION">
+    <value>Description</value>
+  </data>
+  <data name="TASK_DESCRIPTION">
+    <value>Description</value>
+  </data>
+  <data name="ALPHA_LIST_ITEM_DETAILS">
+    <value>Details</value>
+  </data>
+  <data name="ALPHA_LIST_LABEL1">
+    <value>Label 1</value>
+  </data>
+  <data name="ALPHA_LIST_LABEL2">
+    <value>Label 2</value>
+  </data>
+  <data name="ALPHA_LIST_READMORELINK">
+    <value>Read More</value>
+  </data>
+  <data name="ALPHA_LIST_TITLE">
+    <value>Title</value>
+  </data>
+  <data name="ANNOUNCES_TITLE">
+    <value>Title</value>
+  </data>
+  <data name="BLOG_TITLE">
+    <value>Title</value>
+  </data>
+  <data name="DISCUSION_TITLE">
+    <value>Title</value>
+  </data>
+  <data name="EVENTS_TITLE">
+    <value>Title</value>
+  </data>
+  <data name="MILESTONES_TITLE">
+    <value>Title</value>
+  </data>
+  <data name="PORTALSEARCH_TITLE">
+    <value>Title</value>
+  </data>
+  <data name="TASK_TITLE">
+    <value>Title</value>
+  </data>
+  <data name="TITLE">
+    <value>Title</value>
+  </data>
+  <data name="USERTABLE_TITLE">
+    <value>Title</value>
+  </data>
+  <data name="ALREADY_REGISTERED">
+    <value>is already registered.</value>
+  </data>
+  <data name="ALREADY_REGISTERED1">
+    <value>If you already have an account</value>
+  </data>
+  <data name="AM_ADDMODULE">
+    <value>Add Module</value>
+  </data>
+  <data name="AM_ADDMODULEBELOW">
+    <value>Add to "Organize Modules" Below</value>
+  </data>
+  <data name="AM_ADDMODULETOTAB">
+    <value>Add this Module to the page</value>
+  </data>
+  <data name="AM_ADDROLE">
+    <value>Add New Role</value>
+  </data>
+  <data name="AM_BASESOLUTION">
+    <value>Base solution</value>
+  </data>
+  <data name="AM_CENTERPANEL">
+    <value>Center Pane</value>
+  </data>
+  <data name="AM_LEFTPANEL">
+    <value>Left Mini Pane</value>
+  </data>
+  <data name="AM_MOBILETAB">
+    <value>Mobile Tab Name:</value>
+  </data>
+  <data name="AM_MODULELOCATION">
+    <value>Module Location:</value>
+  </data>
+  <data name="AM_MODULENAME">
+    <value>Module Name:</value>
+  </data>
+  <data name="AM_MODULETYPE">
+    <value>Module Type</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERTYPE">
+    <value>Module Type</value>
+  </data>
+  <data name="AM_MODULEVISIBLETO">
+    <value>Module Visible To:</value>
+  </data>
+  <data name="AM_ORGANIZEMODULE">
+    <value>Organize Modules</value>
+  </data>
+  <data name="AM_PORTALALIAS">
+    <value>Portal Alias</value>
+  </data>
+  <data name="AM_PORTALID">
+    <value>Portal ID</value>
+  </data>
+  <data name="AM_RIGHTPANEL">
+    <value>Right Mini Pane</value>
+  </data>
+  <data name="AM_ROLESAUTH">
+    <value>Authorized Roles</value>
+  </data>
+  <data name="AM_SHOWEDIT">
+    <value>Always show edit button?</value>
+  </data>
+  <data name="AM_SHOWMOBILE">
+    <value>Show to mobile users</value>
+  </data>
+  <data name="AM_SITEPATH">
+    <value>Site Path</value>
+  </data>
+  <data name="SITESETTINGS_SITE_PATH">
+    <value>Site Path</value>
+  </data>
+  <data name="SITE_PATH">
+    <value>Site Path</value>
+  </data>
+  <data name="AM_SITETITLE">
+    <value>Site Title</value>
+  </data>
+  <data name="SITESETTINGS_SITE_TITLE">
+    <value>Site Title</value>
+  </data>
+  <data name="SITE_TITLE">
+    <value>Site Title</value>
+  </data>
+  <data name="AM_TABNAME">
+    <value>Page Name and Layout</value>
+  </data>
+  <data name="AM_TABNAME1">
+    <value>Page Name</value>
+  </data>
+  <data name="AM_TABS">
+    <value>Pages</value>
+  </data>
+  <data name="AM_THEME">
+    <value>Theme</value>
+  </data>
+  <data name="MODULESETTINGS_THEME">
+    <value>Theme</value>
+  </data>
+  <data name="SITESETTINGS_THEME">
+    <value>Theme</value>
+  </data>
+  <data name="THEME">
+    <value>Theme</value>
+  </data>
+  <data name="ANNOUNCES_ADD">
+    <value>Add new Announce</value>
+  </data>
+  <data name="ANNOUNCES_DETAILS">
+    <value>Announcement Details</value>
+  </data>
+  <data name="ANNOUNCES_EXPIRES">
+    <value>Expires</value>
+  </data>
+  <data name="EVENTS_EXPIRES">
+    <value>Expires</value>
+  </data>
+  <data name="ANNOUNCES_READ_MORE_LINK">
+    <value>Read More Link</value>
+  </data>
+  <data name="ANNOUNCES_READ_MORE_MOBILE">
+    <value>Read More (Mobile)</value>
+  </data>
+  <data name="ANNOUNCES_VALID_DESCRIPTION">
+    <value>You Must Enter a Valid Description</value>
+  </data>
+  <data name="EVENTS_VALID_DESCRIPTION">
+    <value>You Must Enter a Valid Description</value>
+  </data>
+  <data name="ANNOUNCES_VALID_EXPIRE">
+    <value>You Must Enter a Valid Expiration Date</value>
+  </data>
+  <data name="EVENTS_VALID_EXPIRE">
+    <value>You Must Enter a Valid Expiration Date</value>
+  </data>
+  <data name="ANNOUNCES_VALID_TITLE">
+    <value>You must enter a valid Title</value>
+  </data>
+  <data name="ERROR_VALID_MILESTONE_TITLE">
+    <value>You must enter a valid Title</value>
+  </data>
+  <data name="EVENTS_VALID_TITLE">
+    <value>You must enter a valid Title</value>
+  </data>
+  <data name="TASK_TITLE_ERROR">
+    <value>You must enter a valid Title</value>
+  </data>
+  <data name="VALIDTITLE">
+    <value>You must enter a valid Title</value>
+  </data>
+  <data name="VALIDURL">
+    <value>You must enter a valid Title</value>
+  </data>
+  <data name="VALID_TITLE">
+    <value>You must enter a valid Title</value>
+  </data>
+  <data name="APOLOGISE">
+    <value>Apologise</value>
+  </data>
+  <data name="APPLY">
+    <value>Apply changes</value>
+  </data>
+  <data name="APPLYBUTTON">
+    <value>Apply changes</value>
+  </data>
+  <data name="APPLY_CHANGES">
+    <value>Apply changes</value>
+  </data>
+  <data name="APPLYMODULECHANGES">
+    <value>Apply module changes</value>
+  </data>
+  <data name="APPLY_MODULE_CHANGES">
+    <value>Apply module changes</value>
+  </data>
+  <data name="APPLYNAME">
+    <value>Apply Name and Password Changes</value>
+  </data>
+  <data name="APPLYTHEME">
+    <value>Apply Theme</value>
+  </data>
+  <data name="MODULESETTINGS_APPLY_THEME">
+    <value>Apply Theme</value>
+  </data>
+  <data name="APPLYTHEME_DESCRIPTION">
+    <value>Check this box to apply theme to this module</value>
+  </data>
+  <data name="MODULESETTINGS_APPLY_THEME_DESCRIPTION">
+    <value>Check this box to apply theme to this module</value>
+  </data>
+  <data name="APPROVE_MODULE_CONTENT">
+    <value>Approve Module Content</value>
+  </data>
+  <data name="AREA">
+    <value>Area</value>
+  </data>
+  <data name="DOCUMENT_AREA">
+    <value>Area</value>
+  </data>
+  <data name="ARTICLE_DETAIL">
+    <value>Article Detail</value>
+  </data>
+  <data name="AT_ADDTAB">
+    <value>Add page</value>
+  </data>
+  <data name="PM_ADD_PAGE">
+    <value>Add page</value>
+  </data>
+  <data name="AT_JUMPTOTAB">
+    <value>Jump to page</value>
+  </data>
+  <data name="AT_MOBILETABNAME">
+    <value>Mobile Page Name</value>
+  </data>
+  <data name="AT_SHOWMOBILE">
+    <value>Show Mobile</value>
+  </data>
+  <data name="AT_TABPARENT">
+    <value>Page Parent</value>
+  </data>
+  <data name="AT_TABTITLE">
+    <value>Page Title</value>
+  </data>
+  <data name="AUTHOR">
+    <value>Author</value>
+  </data>
+  <data name="DISCUSION_AUTHOR">
+    <value>Author</value>
+  </data>
+  <data name="Appleseed_RUNNING_VERSION">
+    <value>The running Appleseed version is</value>
+  </data>
+  <data name="BACK">
+    <value>Back</value>
+  </data>
+  <data name="USERTABLE_BACK">
+    <value>Back</value>
+  </data>
+  <data name="BANK">
+    <value>Bank</value>
+  </data>
+  <data name="BG-BG">
+    <value>BG-BG</value>
+  </data>
+  <data name="BG-BG_DESCRIPTION">
+    <value>BG-BG_DESCRIPTION</value>
+  </data>
+  <data name="BINDTOTAB">
+    <value>Bind to tab</value>
+  </data>
+  <data name="BIND_OPTION_CHILDREN">
+    <value>BindOptionChildren</value>
+  </data>
+  <data name="BIND_OPTION_CURRENT_CHILDS">
+    <value>BindOptionCurrentChilds</value>
+  </data>
+  <data name="BIND_OPTION_DEFINED_PARENT">
+    <value>BindOptionDefinedParent</value>
+  </data>
+  <data name="BIND_OPTION_NONE">
+    <value>BindOptionNone</value>
+  </data>
+  <data name="BIND_OPTION_SIBLINGS">
+    <value>BindOptionSiblings</value>
+  </data>
+  <data name="BIND_OPTION_SUBTAB_SIBLING">
+    <value>BindOptionSubtabSibling</value>
+  </data>
+  <data name="BIND_OPTION_TABSIBLING">
+    <value>BindOptionTabSibling</value>
+  </data>
+  <data name="BIND_OPTION_TOP">
+    <value>BindOptionTop</value>
+  </data>
+  <data name="BLACKLIST">
+    <value>Blacklist</value>
+  </data>
+  <data name="BLACKLISTED">
+    <value>Blacklisted</value>
+  </data>
+  <data name="BLACKLIST_ADD">
+    <value>Add to Blacklist</value>
+  </data>
+  <data name="BLACKLIST_ALL">
+    <value>Blacklist All</value>
+  </data>
+  <data name="BLACKLIST_DATE">
+    <value>Blacklist Date</value>
+  </data>
+  <data name="BLACKLIST_EMAIL">
+    <value>Blacklist Email</value>
+  </data>
+  <data name="BLACKLIST_LASTSEND">
+    <value>Blacklist Last Send</value>
+  </data>
+  <data name="BLACKLIST_NAME">
+    <value>Blacklist Name</value>
+  </data>
+  <data name="BLACKLIST_NONE">
+    <value>Blacklist None</value>
+  </data>
+  <data name="BLACKLIST_REASON">
+    <value>Blacklist Reason</value>
+  </data>
+  <data name="BLACKLIST_SENDNEWSLETTER">
+    <value>Blacklist Send News Letter</value>
+  </data>
+  <data name="BLACKLIST_SHOWALLUSERS">
+    <value>Blacklist Show All Users</value>
+  </data>
+  <data name="BLACKLIST_SHOWCOLUMNDATE">
+    <value>Blacklist Show Column Date</value>
+  </data>
+  <data name="BLACKLIST_SHOWCOLUMNEMAIL">
+    <value>Blacklist Show Column EMail</value>
+  </data>
+  <data name="BLACKLIST_SHOWCOLUMNLASTSEND">
+    <value>Blacklist Show Column Last Send</value>
+  </data>
+  <data name="BLACKLIST_SHOWCOLUMNREASON">
+    <value>Blacklist Show Column Reason</value>
+  </data>
+  <data name="BLACKLIST_SHOWCOLUMNSENDNEWSLETTER">
+    <value>Blacklist Show Column Send News Letter</value>
+  </data>
+  <data name="BLACKLIST_SHOWSUBSCRIBERSONLY">
+    <value>Blacklist Show Subscribers Only</value>
+  </data>
+  <data name="BLACKLIST_SORTFIELD">
+    <value>Blacklist Sort Field</value>
+  </data>
+  <data name="BLOG_ARCHIVES">
+    <value>Archives</value>
+  </data>
+  <data name="BLOG_COMMENTS">
+    <value>Comments</value>
+  </data>
+  <data name="BLOG_ENTRIES">
+    <value>Entries</value>
+  </data>
+  <data name="BLOG_ENTRY">
+    <value>Blog Entry</value>
+  </data>
+  <data name="BLOG_FEEDBACK">
+    <value>Feedback(</value>
+  </data>
+  <data name="BLOG_NAME">
+    <value>Name</value>
+  </data>
+  <data name="CONTACTS_NAME">
+    <value>Name</value>
+  </data>
+  <data name="NAME">
+    <value>Name</value>
+  </data>
+  <data name="PRODUCT_NAME">
+    <value>Name</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERNAME">
+    <value>Name</value>
+  </data>
+  <data name="SENDTHTS_NAME">
+    <value>Name</value>
+  </data>
+  <data name="BLOG_POSTED">
+    <value>Posted</value>
+  </data>
+  <data name="POSTED_DATE">
+    <value>Posted</value>
+  </data>
+  <data name="BLOG_POSTSFROM">
+    <value>Posts From</value>
+  </data>
+  <data name="BLOG_REMEMBER_ME">
+    <value>Remember Me?</value>
+  </data>
+  <data name="BLOG_STATISTICS">
+    <value>Statistics</value>
+  </data>
+  <data name="BLOG_SYNDICATION">
+    <value>Syndication</value>
+  </data>
+  <data name="BLOG_TITLE_FEEDBACK">
+    <value>Feedback</value>
+  </data>
+  <data name="BLOG_URL">
+    <value>URL</value>
+  </data>
+  <data name="URL">
+    <value>URL</value>
+  </data>
+  <data name="BOTTOM">
+    <value>Bottom</value>
+  </data>
+  <data name="BTN_HELP">
+    <value>Show help about this module</value>
+  </data>
+  <data name="BTN_PRINT">
+    <value>Print this</value>
+  </data>
+  <data name="BUTTON_DISPLAY_SETTINGS">
+    <value>Buttons and Display settings</value>
+  </data>
+  <data name="BUYNOW">
+    <value>Buy Now</value>
+  </data>
+  <data name="CA">
+    <value>CA</value>
+  </data>
+  <data name="CAB">
+    <value>CAB</value>
+  </data>
+  <data name="CACHETIMEOUT">
+    <value>Cache Timeout (in seconds)</value>
+  </data>
+  <data name="CACHETIMEOUT_DESCRIPTION">
+    <value>Cache Timeout (in seconds)</value>
+  </data>
+  <data name="CANCEL">
+    <value>Cancel</value>
+  </data>
+  <data name="CAPTION">
+    <value>Caption</value>
+  </data>
+  <data name="PICTURES_CAPTION">
+    <value>Caption</value>
+  </data>
+  <data name="CAT">
+    <value>Category</value>
+  </data>
+  <data name="CATEGORY">
+    <value>Category</value>
+  </data>
+  <data name="EVENTS_CATEGORY">
+    <value>Category</value>
+  </data>
+  <data name="CATS">
+    <value>cats</value>
+  </data>
+  <data name="CA_DESCRIPTION">
+    <value>CA_DESCRIPTION</value>
+  </data>
+  <data name="CENTER">
+    <value>Center</value>
+  </data>
+  <data name="CFISCALE">
+    <value>Fiscal Code</value>
+  </data>
+  <data name="CHANGE_DATE">
+    <value>Change date</value>
+  </data>
+  <data name="CHANGE_LANGUAGE">
+    <value>Change Language</value>
+  </data>
+  <data name="CHANGE_PASSWORD">
+    <value>Change password only if you want modify it:</value>
+  </data>
+  <data name="CHECKOUT">
+    <value>Check out</value>
+  </data>
+  <data name="PRODUCT_CHECKOUT">
+    <value>Check out</value>
+  </data>
+  <data name="CHECKOUT_AUTHORIZE">
+    <value>You need to confirm your order</value>
+  </data>
+  <data name="CHECKOUT_CART_IS_EMPTY">
+    <value>There are currently no items in your shopping cart!</value>
+  </data>
+  <data name="CHECKOUT_CC_EXPIRY">
+    <value>Expiration date:</value>
+  </data>
+  <data name="CHECKOUT_CC_NAME">
+    <value>Name on the card:</value>
+  </data>
+  <data name="CHECKOUT_CC_NUMBER">
+    <value>Card number:</value>
+  </data>
+  <data name="CHECKOUT_CC_TYPE">
+    <value>Card type:</value>
+  </data>
+  <data name="CHECKOUT_COPY_TO_SHIPPING_INFO">
+    <value>Reset my shipping information with my account information</value>
+  </data>
+  <data name="CHECKOUT_MAKE_SURE_ADDRESS_IS_CORRECT">
+    <value>Please make sure that the above email address is correct as it will be used to send a copy of your order.</value>
+  </data>
+  <data name="CHECKOUT_MAKE_SURE_ADDRESS_IS_CORRECT_2">
+    <value>If it is not the case, please.</value>
+  </data>
+  <data name="CHECKOUT_SELECT_PAYMENT">
+    <value>Select payment method</value>
+  </data>
+  <data name="CHECKOUT_STEP1">
+    <value>STEP 1/4: Profile Information</value>
+  </data>
+  <data name="CHECKOUT_STEP2">
+    <value>STEP 2/4: Shipping Information</value>
+  </data>
+  <data name="CHECKOUT_STEP3">
+    <value>STEP 3/4: Calculate Final Price</value>
+  </data>
+  <data name="CHECKOUT_STEP4">
+    <value>STEP 4/4: Process Payment</value>
+  </data>
+  <data name="CHECKOUT_TOTAL_PRODUCT">
+    <value>Total Products:</value>
+  </data>
+  <data name="CHECKOUT_TOTAL_SHIPPING">
+    <value>Total Shipping:</value>
+  </data>
+  <data name="CHECKOUT_VERIFY_INFORMATION">
+    <value>Please verify the information below to make sure it is correct.</value>
+  </data>
+  <data name="CHECKOUT_VERIFY_INFORMATION_CLICK_BACK">
+    <value>Click on the back button to go to the previous step, click on the continue button to proceed to the next step.</value>
+  </data>
+  <data name="CITY">
+    <value>City</value>
+  </data>
+  <data name="COLLECTION_PROPERTIES">
+    <value>Collection properties</value>
+  </data>
+  <data name="COMPANY">
+    <value>Company</value>
+  </data>
+  <data name="CONDITIONS">
+    <value>Terms of Service</value>
+  </data>
+  <data name="TERMSOFSERVICE">
+    <value>Terms of Service</value>
+  </data>
+  <data name="CONFIRM">
+    <value>Confirm</value>
+  </data>
+  <data name="CONFIRM_DELETE">
+    <value>Delete this item?</value>
+  </data>
+  <data name="CONFIRM_PASSWORD">
+    <value>Confirm password</value>
+  </data>
+  <data name="CONTACT">
+    <value>Contact</value>
+  </data>
+  <data name="CONTACTS_ADD">
+    <value>Add new contact</value>
+  </data>
+  <data name="CONTACTS_CONTACT1">
+    <value>Office</value>
+  </data>
+  <data name="CONTACTS_CONTACT2">
+    <value>Mobile</value>
+  </data>
+  <data name="CONTACTS_DETAILS">
+    <value>Contact Details</value>
+  </data>
+  <data name="CONTACTS_EMAIL">
+    <value>Email</value>
+  </data>
+  <data name="CONTACTS_FAX">
+    <value>Fax</value>
+  </data>
+  <data name="FAX">
+    <value>Fax</value>
+  </data>
+  <data name="CONTACTS_ROLE">
+    <value>Role</value>
+  </data>
+  <data name="CONTACTS_VALID_NAME">
+    <value>You must enter a valid Name</value>
+  </data>
+  <data name="VALID_NAME">
+    <value>You must enter a valid Name</value>
+  </data>
+  <data name="CONTINUE">
+    <value>Continue</value>
+  </data>
+  <data name="COULD_NOT_CHANGE_PASSWORD">
+    <value>Could not change password</value>
+  </data>
+  <data name="COUNTRIESFILTER">
+    <value>Allowed countries</value>
+  </data>
+  <data name="SITESETTINGS_COUNTRY_FILTER">
+    <value>Allowed countries</value>
+  </data>
+  <data name="COUNTRIESFILTER_DESCRIPTION">
+    <value>Allowed countries limits country list in RegisterFull page, leave blank for all.</value>
+  </data>
+  <data name="COUNTRY">
+    <value>Country/Region</value>
+  </data>
+  <data name="COUNTRY_AD">
+    <value>Andorra</value>
+  </data>
+  <data name="COUNTRY_AF">
+    <value>Afghanistan</value>
+  </data>
+  <data name="COUNTRY_AG">
+    <value>Antigua And Barbuda</value>
+  </data>
+  <data name="COUNTRY_AI">
+    <value>Anguilla</value>
+  </data>
+  <data name="COUNTRY_AL">
+    <value>Albania</value>
+  </data>
+  <data name="COUNTRY_AN">
+    <value>Netherlands Antilles</value>
+  </data>
+  <data name="COUNTRY_AO">
+    <value>Angola</value>
+  </data>
+  <data name="CREATEDBY">
+    <value>Created by</value>
+  </data>
+  <data name="CREATED_BY">
+    <value>Created by</value>
+  </data>
+  <data name="OWNER">
+    <value>Created by</value>
+  </data>
+  <data name="CULTURE">
+    <value>Culture</value>
+  </data>
+  <data name="MODULESETTINGS_CULTURE">
+    <value>Culture</value>
+  </data>
+  <data name="CULTUREIMGPORTAL">
+    <value>Use custom flags?</value>
+  </data>
+  <data name="LANGUAGESWITCHER_CUSTOMFLAGS">
+    <value>Use custom flags?</value>
+  </data>
+  <data name="CULTUREIMGPORTAL_DESCRIPTION">
+    <value>Check this if you want to use custom flags</value>
+  </data>
+  <data name="CULTURELIST">
+    <value>Culture List</value>
+  </data>
+  <data name="CULTURE_DESCRIPTION">
+    <value>Choose culture. Invariant cultures shows the module always.</value>
+  </data>
+  <data name="MODULESETTINGS_CULTURE_DESCRIPTION">
+    <value>Choose culture. Invariant cultures shows the module always.</value>
+  </data>
+  <data name="CULTURE_SETTINGS">
+    <value>Culture settings</value>
+  </data>
+  <data name="CUSTOMLAYOUT">
+    <value>Custom Layout</value>
+  </data>
+  <data name="CUSTOMLAYOUT_DESCRIPTION">
+    <value>Set a custom layout for this tab only</value>
+  </data>
+  <data name="CUSTOMMENUIMAGE">
+    <value>Custom Image Menu</value>
+  </data>
+  <data name="CUSTOMMENUIMAGE_DESCRIPTION">
+    <value>Set a custom menu image for this tab</value>
+  </data>
+  <data name="CUSTOMTHEME">
+    <value>Custom Theme</value>
+  </data>
+  <data name="CUSTOMTHEMEALT">
+    <value>Custom Alt Theme</value>
+  </data>
+  <data name="CUSTOMTHEMEALT_DESCRIPTION">
+    <value>Set a custom alternate theme for the modules in this tab only</value>
+  </data>
+  <data name="CUSTOMTHEME_DESCRIPTION">
+    <value>Set a custom theme for the modules in this tab only</value>
+  </data>
+  <data name="DA-DK">
+    <value>Title (da-DK)</value>
+  </data>
+  <data name="DA-DK_DESCRIPTION">
+    <value>Set title for Danish (Denmark) culture.</value>
+  </data>
+  <data name="DATE">
+    <value>Date</value>
+  </data>
+  <data name="USERTABLE_TYPE_DATETIME">
+    <value>Date</value>
+  </data>
+  <data name="DATE_OF_BIRTH">
+    <value>Date of birth</value>
+  </data>
+  <data name="DBTOOL_GETDATA">
+    <value>Data</value>
+  </data>
+  <data name="DBTOOL_GETINFO">
+    <value>Info</value>
+  </data>
+  <data name="DBTOOL_GETINFOEXTENDED">
+    <value>Info Extended</value>
+  </data>
+  <data name="DBTOOL_GETPROPERTIES">
+    <value>Properties</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERPROPERTIES">
+    <value>Properties</value>
+  </data>
+  <data name="DBTOOL_OWNER">
+    <value>Owner</value>
+  </data>
+  <data name="DOCUMENT_OWNER">
+    <value>Owner</value>
+  </data>
+  <data name="DBTOOL_QUERYEXECUTE">
+    <value>Execute Query</value>
+  </data>
+  <data name="DE-CH">
+    <value>Title (de-CH)</value>
+  </data>
+  <data name="DE-CH_DESCRIPTION">
+    <value>Set title for German (Switzerland) culture.</value>
+  </data>
+  <data name="DE-DE">
+    <value>Title (de-DE)</value>
+  </data>
+  <data name="DE-DE_DESCRIPTION">
+    <value>Set title for German (Germany) culture.</value>
+  </data>
+  <data name="DECLINE">
+    <value>No, thanks!</value>
+  </data>
+  <data name="DEFAULTEMAIL">
+    <value>Sender Email</value>
+  </data>
+  <data name="DEFAULTNAME">
+    <value>Sender Name</value>
+  </data>
+  <data name="DEFAULTVISIBLEDAYS">
+    <value>Default Days Visible</value>
+  </data>
+  <data name="DELAYEXPIRE">
+    <value>Default delay expire date</value>
+  </data>
+  <data name="DELETE">
+    <value>Delete</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERDELETE">
+    <value>Delete</value>
+  </data>
+  <data name="DELETEBTN">
+    <value>Delete selected item</value>
+  </data>
+  <data name="DELETEITEM">
+    <value>Delete selected item</value>
+  </data>
+  <data name="DELETEMODULE">
+    <value>Delete this module </value>
+  </data>
+  <data name="DELETE_PORTAL">
+    <value>Delete portal</value>
+  </data>
+  <data name="DELETE_THIS_ITEM">
+    <value>Delete this item</value>
+  </data>
+  <data name="DELETE_THIS_MODULE_TYPE">
+    <value>Delete this module type</value>
+  </data>
+  <data name="DELETE_USER">
+    <value>Delete this user</value>
+  </data>
+  <data name="DELUSER">
+    <value>Remove user from this role</value>
+  </data>
+  <data name="DESKTOP_SOURCE">
+    <value>Desktop Source</value>
+  </data>
+  <data name="DIRECTURL">
+    <value>A direct url that can be used to logon automatically</value>
+  </data>
+  <data name="NEWSLETTER_DIRECTURL">
+    <value>A direct url that can be used to logon automatically</value>
+  </data>
+  <data name="DISCUSSION_LAST_UPDATE">
+    <value>Last Update</value>
+  </data>
+  <data name="DISCUSSION_MSGEXPAND">
+    <value>Expand the thread of this topic inside this browser page</value>
+  </data>
+  <data name="DISCUSSION_MSGSELECT">
+    <value>Open the thread of this topic in a new browser page</value>
+  </data>
+  <data name="DISCUSSION_REPLYS">
+    <value>Number of replys to this topic</value>
+  </data>
+  <data name="DISCUSSION_VIEWED">
+    <value>Number of times this topic has been viewed</value>
+  </data>
+  <data name="DOCUMENTPATH">
+    <value>Document path</value>
+  </data>
+  <data name="DOCUMENTPATH_DESCRIPTION">
+    <value>Folder for store the documents</value>
+  </data>
+  <data name="DOCUMENTS_DBSAVE">
+    <value>Save files in DataBase?</value>
+  </data>
+  <data name="DOCUMENTS_DBSAVE_DESCRIPTION">
+    <value>Mark this if you like save files in DataBase</value>
+  </data>
+  <data name="DOCUMENTS_FOLDER">
+    <value>Documents folder</value>
+  </data>
+  <data name="DOCUMENTS_SHOWAREA">
+    <value>Show Area column</value>
+  </data>
+  <data name="DOCUMENTS_SHOWAREA_DESCRIPTION">
+    <value>Mark this if the area column should be displayed</value>
+  </data>
+  <data name="DOCUMENTS_SHOWIMAGES">
+    <value>Show Image Icons?</value>
+  </data>
+  <data name="DOCUMENTS_SHOWIMAGES_DESCRIPTION">
+    <value>Mark this if you like see Image Icons</value>
+  </data>
+  <data name="DOCUMENTS_SHOWLASTUPDATED">
+    <value>Show Last Updated column</value>
+  </data>
+  <data name="DOCUMENTS_SHOWLASTUPDATED_DESCRIPTION">
+    <value>Mark this if the Last Updated column should be displayed</value>
+  </data>
+  <data name="DOCUMENTS_SHOWOWNER">
+    <value>Show Owner column?</value>
+  </data>
+  <data name="DOCUMENTS_SHOWOWNER_DESCRIPTION">
+    <value>Mark this if the owner column should be displayed</value>
+  </data>
+  <data name="DOCUMENTS_SHOWTITLE">
+    <value>Show Title column?</value>
+  </data>
+  <data name="DOCUMENTS_SHOWTITLE_DESCRIPTION">
+    <value>Mark this if the title column should be displayed</value>
+  </data>
+  <data name="DOCUMENTS_SORTBY_DIRECTION">
+    <value>Sort ascending or descending?</value>
+  </data>
+  <data name="DOCUMENTS_SORTBY_DIRECTION_DESCRIPTION">
+    <value>Ascending: A to Z or 0 - 9. Descending: Z - A or 9 - 0.</value>
+  </data>
+  <data name="DOCUMENTS_SORTBY_DIRECTION_LIST">
+    <value>Ascending;Descending</value>
+  </data>
+  <data name="DOCUMENTS_SORTBY_FIELD">
+    <value>Sort Field?</value>
+  </data>
+  <data name="DOCUMENTS_SORTBY_FIELD_DESCRIPTION">
+    <value>Sort by File Name or by Created Date?</value>
+  </data>
+  <data name="DOCUMENTS_SORTBY_FIELD_LIST">
+    <value>File Name;Created Date</value>
+  </data>
+  <data name="DOCUMENTS_SOURCE">
+    <value>Document source</value>
+  </data>
+  <data name="DOCUMENT_DETAILS">
+    <value>Document detail</value>
+  </data>
+  <data name="DOCUMENT_LAST_UPDATED">
+    <value>Last updated</value>
+  </data>
+  <data name="LAST_UPDATED">
+    <value>Last updated</value>
+  </data>
+  <data name="DONOTRESENDWITHIN">
+    <value>Do not resend within (days)</value>
+  </data>
+  <data name="DONOTRESENDWITHIN_DESCRIPTION">
+    <value>To avoid spam and duplicate sent you cannot email an user more than one time in specifed number of days.</value>
+  </data>
+  <data name="DONT_RESIZE">
+    <value>Don’t Resize</value>
+  </data>
+  <data name="PICTURES_DONT_RESIZE">
+    <value>Don’t Resize</value>
+  </data>
+  <data name="DRAGNDROP">
+    <value>DragNDrop</value>
+  </data>
+  <data name="DS_BODY">
+    <value>Body</value>
+  </data>
+  <data name="DS_LASTREPLYDATE">
+    <value>Date of last reply</value>
+  </data>
+  <data name="DS_MSGDETAILS">
+    <value>Message Detail</value>
+  </data>
+  <data name="DS_NEWTHREAD">
+    <value>Add New Thread</value>
+  </data>
+  <data name="DS_ORIGINALMSG">
+    <value>Original Message</value>
+  </data>
+  <data name="DS_REPLYTHISMSG">
+    <value>Reply to this Message</value>
+  </data>
+  <data name="EDIT">
+    <value>Edit</value>
+  </data>
+  <data name="SECURITYCHECK_HEADEREDIT">
+    <value>Edit</value>
+  </data>
+  <data name="EDITBTN">
+    <value>Edit selected item’s properties</value>
+  </data>
+  <data name="EDITOR">
+    <value>Editor</value>
+  </data>
+  <data name="EDITOR_DESCRIPTION">
+    <value>Select the Html Editor for Module</value>
+  </data>
+  <data name="EDIT_ACCESS_DENIED">
+    <value>Edit Denied</value>
+  </data>
+  <data name="EDIT_ACCESS_DENIED_MESSAGE">
+    <value>Either you are not currently logged in, or you do not have access to modify the current portal module content. Please contact the portal administrator to obtain edit access for this module.</value>
+  </data>
+  <data name="EDIT_PORTAL">
+    <value>Edit Portal</value>
+  </data>
+  <data name="EDIT_PROFILE">
+    <value>Edit profile</value>
+  </data>
+  <data name="HEADER_EDIT_PROFILE">
+    <value>Edit profile</value>
+  </data>
+  <data name="EDIT_THIS_ITEM">
+    <value>Edit this item</value>
+  </data>
+  <data name="EDIT_USER">
+    <value>Edit this user</value>
+  </data>
+  <data name="ELECTRONICDELIVERY">
+    <value>Electronic Delivery</value>
+  </data>
+  <data name="ELECTRONICDELIVERY_DESCRIPTION">
+    <value>Electronic Delivery Description</value>
+  </data>
+  <data name="EMAIL">
+    <value>E-Mail</value>
+  </data>
+  <data name="MAIL">
+    <value>E-Mail</value>
+  </data>
+  <data name="EMAILORWINDOW">
+    <value>Email (or Windows domain name)</value>
+  </data>
+  <data name="EN">
+    <value>Title (en)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_EN">
+    <value>Title (en)</value>
+  </data>
+  <data name="EN-US">
+    <value>Title (en-US)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_EN-US">
+    <value>Title (en-US)</value>
+  </data>
+  <data name="EN-US_DESCRIPTION">
+    <value>Set title for English (United States) culture.</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_EN-US_DESCRIPTION">
+    <value>Set title for English (United States) culture.</value>
+  </data>
+  <data name="END_DATE">
+    <value>End date</value>
+  </data>
+  <data name="EVENTS_END_DATE">
+    <value>End date</value>
+  </data>
+  <data name="ENHANCEDHTML_ADDINVARIANTCULTURE">
+    <value>Add Invariant Culture?</value>
+  </data>
+  <data name="ENHANCEDHTML_ADDINVARIANTCULTURE_DESCRIPTION">
+    <value>Mark this if you like see pages with invariant culture after pages with actual culture code</value>
+  </data>
+  <data name="ENHANCEDHTML_ALIGNDOWNMENU">
+    <value>Align Navigation Menu</value>
+  </data>
+  <data name="ENHANCEDHTML_ALIGNDOWNMENU_DESCRIPTION">
+    <value>Select here the align for index menu</value>
+  </data>
+  <data name="ENHANCEDHTML_ALIGNUPMENU_DESCRIPTION">
+    <value>Select here the align for index menu</value>
+  </data>
+  <data name="ENHANCEDHTML_ALIGNUPMENU">
+    <value>Align Index Menu</value>
+  </data>
+  <data name="ENHANCEDHTML_GET_CONTENTS_FROM_PORTALS">
+    <value>Get contents from others Portals?</value>
+  </data>
+  <data name="ENHANCEDHTML_GET_CONTENTS_FROM_PORTALS_DESCRIPTION">
+    <value>Mark this if you like get contents from modules in others portals in the same database</value>
+  </data>
+  <data name="ENHANCEDHTML_OF">
+    <value>of</value>
+  </data>
+  <data name="OF">
+    <value>of</value>
+  </data>
+  <data name="ENHANCEDHTML_PAGE">
+    <value>Page</value>
+  </data>
+  <data name="PAGE">
+    <value>Page</value>
+  </data>
+  <data name="ENHANCEDHTML_SELECT_MODULE">
+    <value>Select a module from this portal for show the contents in this page</value>
+  </data>
+  <data name="ENHANCEDHTML_SELECT_MODULE_PORTAL">
+    <value>Select a module in database portals for show the contents in this page</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWDOWNMENU">
+    <value>Show Navigation Menu?</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWDOWNMENU_DESCRIPTION">
+    <value>Mark this if you like see a navigation menu with previous and next page</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWMULTIMODE">
+    <value>Show Multi-Mode icon?</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWMULTIMODE_DESCRIPTION">
+    <value>Mark this if you like see icon multimode page</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWTITLEPAGE">
+    <value>Show Title Page?</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWTITLEPAGE_DESCRIPTION">
+    <value>Mark this if you like see the Title Page</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWUPMENU">
+    <value>Show Index Menu?</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWUPMENU_DESCRIPTION">
+    <value>Mark this if you like see a index menu whith the titles of all pages</value>
+  </data>
+  <data name="ENHANCEDHTML_SINGLEPAGEMODE">
+    <value>Single Page Mode</value>
+  </data>
+  <data name="ENHANCEDLINKS_DEFAULTIMAGE">
+    <value>Default Image for link</value>
+  </data>
+  <data name="ENHANCEDLINKS_DEFAULTIMAGE_DESCRIPTION">
+    <value>Select here a image for links with no special setting image</value>
+  </data>
+  <data name="ENHANCEDLINKS_DROPDOWNLIST">
+    <value>DropDownList</value>
+  </data>
+  <data name="LANGSWITCHTYPE_DROPDOWNLIST">
+    <value>DropDownList</value>
+  </data>
+  <data name="ENHANCEDLINKS_EXPANDALL">
+    <value>Show Description</value>
+  </data>
+  <data name="ENHANCEDLINKS_EXPANDALL_DESCRIPTION">
+    <value>Mark this if you like to see the description down the link</value>
+  </data>
+  <data name="ENHANCEDLINKS_ICONPATH">
+    <value>Container for Icons</value>
+  </data>
+  <data name="ENHANCEDLINKS_ICONPATH_DESCRIPTION">
+    <value>Portal directory for upload used icons</value>
+  </data>
+  <data name="ENHANCEDLINKS_LINKS">
+    <value>Links</value>
+  </data>
+  <data name="LANGSWITCHTYPE_LINKS">
+    <value>Links</value>
+  </data>
+  <data name="ENHANCEDLINKS_MAXCOLUMS">
+    <value>Max Colums</value>
+  </data>
+  <data name="ENHANCEDLINKS_MAXCOLUMS_DESCRIPTION">
+    <value>Maximun number of colums</value>
+  </data>
+  <data name="ENHANCEDLINKS_SWITCHERTYPES">
+    <value>Style Links</value>
+  </data>
+  <data name="ENHANCEDLINKS_SWITCHERTYPES_DESCRIPTION">
+    <value>Select here how your module should look like</value>
+  </data>
+  <data name="ENTER_THROUGH_HOMEPAGE">
+    <value>You can enter site from homepage</value>
+  </data>
+  <data name="EN_DESCRIPTION">
+    <value>Set title for English culture.</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_EN_DESCRIPTION">
+    <value>Set title for English culture.</value>
+  </data>
+  <data name="ERROR_COMPLETION_DATE">
+    <value>Enter The Estimated Completion Date</value>
+  </data>
+  <data name="ERROR_VALID_COMPLETION_DATE">
+    <value>Enter The Estimated Completion Date</value>
+  </data>
+  <data name="ERROR_ENTER_A_FILE_NAME">
+    <value>Enter a File Name</value>
+  </data>
+  <data name="ERROR_ENTER_A_MODULE_NAME">
+    <value>Enter a Module Name</value>
+  </data>
+  <data name="ERROR_ENTER_A_SOURCE_PATH">
+    <value>Enter a Source Path</value>
+  </data>
+  <data name="ERROR_INVALID_MODULE">
+    <value>Invalid Module</value>
+  </data>
+  <data name="ERROR_QUIZ_ANSWER">
+    <value>Please pick an answer!</value>
+  </data>
+  <data name="ERROR_SUBJECT">
+    <value>You Must Enter the Subject oh the Message.</value>
+  </data>
+  <data name="ERROR_VALID_DATE">
+    <value>Please insert a valid date</value>
+  </data>
+  <data name="ERROR_VALID_DESCRIPTION">
+    <value>Please insert a valid Description</value>
+  </data>
+  <data name="ERROR_VALID_EMAIL">
+    <value>You must use a valid email address</value>
+  </data>
+  <data name="ERROR_VALID_ENDDATE">
+    <value>You Must Enter a Valid End Date</value>
+  </data>
+  <data name="ERROR_VALID_ID">
+    <value>ID must be an integer</value>
+  </data>
+  <data name="ERROR_VALID_MESSAGE_TEXT">
+    <value>Please enter message text.</value>
+  </data>
+  <data name="SENDTHTS_BODY_ERR">
+    <value>Please enter message text.</value>
+  </data>
+  <data name="ERROR_VALID_MILESTONE_STATUS">
+    <value>Enter The Status of this Milestone</value>
+  </data>
+  <data name="ERROR_VALID_NAME">
+    <value>Please insert a valid name</value>
+  </data>
+  <data name="ERROR_VALID_STARTDATE">
+    <value>You Must Enter a Valid Start Date</value>
+  </data>
+  <data name="TASK_STARTDATE_ERROR">
+    <value>You Must Enter a Valid Start Date</value>
+  </data>
+  <data name="ERROR_VALID_TITLE">
+    <value>Please insert a valid title</value>
+  </data>
+  <data name="ERROR_VALID_URL">
+    <value>You Must Enter a Valid URL</value>
+  </data>
+  <data name="ERROR_VALID_VIEWORDER">
+    <value>You must enter a valid View Order</value>
+  </data>
+  <data name="VALIDORDER">
+    <value>You must enter a valid View Order</value>
+  </data>
+  <data name="VALID_VIEWORDER">
+    <value>You must enter a valid View Order</value>
+  </data>
+  <data name="ERROR_VALID_WHEREWHEN">
+    <value>Please insert a valid Where When field</value>
+  </data>
+  <data name="ERROR_VALID_WHERE_WHEN">
+    <value>Please insert a valid Where When field</value>
+  </data>
+  <data name="ES">
+    <value>Title (es)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_ES">
+    <value>Title (es)</value>
+  </data>
+  <data name="ES_DESCRIPTION">
+    <value>Set title for Spanish culture.</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_ES_DESCRIPTION">
+    <value>Set title for Spanish culture.</value>
+  </data>
+  <data name="EVENTS_ADD">
+    <value>Add new event</value>
+  </data>
+  <data name="EVENTS_ALLDAY">
+    <value>All Day Event</value>
+  </data>
+  <data name="EVENTS_BOOKING_REQUIRED">
+    <value>Booking required</value>
+  </data>
+  <data name="EVENTS_DETAILS">
+    <value>Event detail</value>
+  </data>
+  <data name="EVENTS_EMAIL">
+    <value>EMail for infos</value>
+  </data>
+  <data name="EVENTS_ENABLED">
+    <value>Enabled</value>
+  </data>
+  <data name="EVENTS_GROUP">
+    <value>Group</value>
+  </data>
+  <data name="EVENTS_PAYMENT">
+    <value>Payment</value>
+  </data>
+  <data name="EVENTS_PLACE">
+    <value>Place</value>
+  </data>
+  <data name="EVENTS_PRICES">
+    <value>Prices</value>
+  </data>
+  <data name="EVENTS_SITEURL">
+    <value>Site URL</value>
+  </data>
+  <data name="LOGINHOMEPAGE">
+    <value>Site URL</value>
+  </data>
+  <data name="EVENTS_STARTAT">
+    <value>Start At</value>
+  </data>
+  <data name="EVENTS_STARTDATE">
+    <value>Start Date</value>
+  </data>
+  <data name="EVENTS_START_DATE">
+    <value>Start Date</value>
+  </data>
+  <data name="START_DATE">
+    <value>Start Date</value>
+  </data>
+  <data name="TASK_STARTDATE">
+    <value>Start Date</value>
+  </data>
+  <data name="EVENTS_STARTTIME">
+    <value>Start time</value>
+  </data>
+  <data name="EVENTS_TIMETABLE">
+    <value>Time details</value>
+  </data>
+  <data name="EVENTS_VALID_WHEN-WHERE">
+    <value>You Must Enter a Valid Time/Location</value>
+  </data>
+  <data name="EVENTS_WHEN-WHERE">
+    <value>Where/When</value>
+  </data>
+  <data name="EVENTS_WHEREWHEN">
+    <value>Where When</value>
+  </data>
+  <data name="EXCERPT">
+    <value>Excerpt</value>
+  </data>
+  <data name="EXPIRE_DATE">
+    <value>Expire date</value>
+  </data>
+  <data name="F010">
+    <value>F010</value>
+  </data>
+  <data name="FAQ_ANSWER">
+    <value>Answer</value>
+  </data>
+  <data name="FAQ_Q">
+    <value>Q</value>
+  </data>
+  <data name="FAQ_QUESTION">
+    <value>Question</value>
+  </data>
+  <data name="SURVEY_QUESTION">
+    <value>Question</value>
+  </data>
+  <data name="FILEMAN_FILENAME">
+    <value>FileName</value>
+  </data>
+  <data name="FILEMAN_MODIFIED">
+    <value>Modified</value>
+  </data>
+  <data name="FILEMAN_SIZE">
+    <value>Size (KB)</value>
+  </data>
+  <data name="FILE_NAME">
+    <value>File Name</value>
+  </data>
+  <data name="FILE_NOT_FOUND">
+    <value>File %1% not found</value>
+  </data>
+  <data name="FILE_UPLOAD">
+    <value>File upload</value>
+  </data>
+  <data name="FILE_UPLOAD_ERROR">
+    <value>The file you uploaded is not valid.</value>
+  </data>
+  <data name="FIXED_WIDTH_AND_HEIGHT">
+    <value>Fixed width and height</value>
+  </data>
+  <data name="PICTURES_FIXED_WIDTH_AND_HEIGHT">
+    <value>Fixed width and height</value>
+  </data>
+  <data name="FLASH_BACKGROUNDCOLOR">
+    <value>Background Color</value>
+  </data>
+  <data name="FLASH_GALLERY">
+    <value>Flash Gallery</value>
+  </data>
+  <data name="FLASH_PATH">
+    <value>Swf File Path</value>
+  </data>
+  <data name="FLASH_SELECT_FILE">
+    <value>1.Select the file:</value>
+  </data>
+  <data name="FLASH_SETTINGS">
+    <value>Flash Settings</value>
+  </data>
+  <data name="FLASH_UPLOAD_FILE">
+    <value>2.Upload the file</value>
+  </data>
+  <data name="FLASH_UPLOAD_TITLE">
+    <value>Upload Flash File</value>
+  </data>
+  <data name="FRIENDLY_NAME">
+    <value>Friendly Name</value>
+  </data>
+  <data name="FROM">
+    <value>from</value>
+  </data>
+  <data name="POSTED_BY">
+    <value>from</value>
+  </data>
+  <data name="FUEL">
+    <value>Fuel</value>
+  </data>
+  <data name="GATEWAY_WIRE_TRANSFER">
+    <value>Wire Transfer</value>
+  </data>
+  <data name="GOOGLE_SEARCH">
+    <value>Search</value>
+  </data>
+  <data name="PORTALSEARCH_SEARCH">
+    <value>Search</value>
+  </data>
+  <data name="SEARCH">
+    <value>Search</value>
+  </data>
+  <data name="SECURITYCHECK_SEARCH">
+    <value>Search</value>
+  </data>
+  <data name="GOOGLE_START">
+    <value>Start</value>
+  </data>
+  <data name="GOTO_PAGE">
+    <value>Goto to page: </value>
+  </data>
+  <data name="GUID">
+    <value>Guid</value>
+  </data>
+  <data name="HEADER_HELP">
+    <value>Help</value>
+  </data>
+  <data name="HEADER_LOGOFF">
+    <value>Logoff</value>
+  </data>
+  <data name="LOGOFF">
+    <value>Logoff</value>
+  </data>
+  <data name="HEADER_MANAGE_TAB">
+    <value>Edit This Page</value>
+  </data>
+  <data name="HEADER_SAVE_DESKTOP">
+    <value>Save Desktop</value>
+  </data>
+  <data name="HEADER_WELCOME">
+    <value>Welcome</value>
+  </data>
+  <data name="WELCOME">
+    <value>Welcome</value>
+  </data>
+  <data name="HEIGHT">
+    <value>Height</value>
+  </data>
+  <data name="HEIGHT_DESCRIPTION">
+    <value>The height of editor control</value>
+  </data>
+  <data name="HERE">
+    <value>Here</value>
+  </data>
+  <data name="HOME">
+    <value>Home</value>
+  </data>
+  <data name="PORTAL_HOME">
+    <value>Home</value>
+  </data>
+  <data name="HORIZONTAL">
+    <value>Horizontal</value>
+  </data>
+  <data name="PICTURES_HORIZONTAL">
+    <value>Horizontal</value>
+  </data>
+  <data name="HTMLDOCUMENT_TODO_ADDCONTENT">
+    <value>Todo: Add Content...</value>
+  </data>
+  <data name="HTMLTEMPLATE">
+    <value>HTML Template</value>
+  </data>
+  <data name="HTMLTEMPLATEURL">
+    <value>HTML Template</value>
+  </data>
+  <data name="HTMLTEMPLATE_DESCRIPTION">
+    <value>Select an HTML module that the will be used as base for this newsletter sent with this module.</value>
+  </data>
+  <data name="HTML_DESKTOP_CONTENT">
+    <value>Desktop HTML Content</value>
+  </data>
+  <data name="HTML_EDITOR">
+    <value>HTML Editor</value>
+  </data>
+  <data name="HTML_MOBILE_DETAILS">
+    <value>Mobile Details</value>
+  </data>
+  <data name="HTML_MOBILE_SUMMARY">
+    <value>Mobile Summary</value>
+  </data>
+  <data name="ICONFILE">
+    <value>Icon File</value>
+  </data>
+  <data name="IMAGE">
+    <value>Image</value>
+  </data>
+  <data name="IMAGELOGO">
+    <value>Image Logo</value>
+  </data>
+  <data name="IMAGELOGO_DESCRIPTION">
+    <value>Image Logo URL</value>
+  </data>
+  <data name="IMAGE_DETAIL">
+    <value>Image detail</value>
+  </data>
+  <data name="IMAGE_UPLOAD_ERROR">
+    <value>The image you uploaded is not valid. Please verify file type and extension (eg: .jpg)</value>
+  </data>
+  <data name="IN">
+    <value>in</value>
+  </data>
+  <data name="INSERT_CONFIRM">
+    <value>’Confirm’ must not be left blank.</value>
+  </data>
+  <data name="INSERT_EMAIL">
+    <value>’EMail’ must not be left blank.</value>
+  </data>
+  <data name="SENDTHTS_EMAILBLANK">
+    <value>’EMail’ must not be left blank.</value>
+  </data>
+  <data name="INSERT_NAME">
+    <value>’Name’ must not be left blank</value>
+  </data>
+  <data name="INSERT_PASSWORD">
+    <value>’Password’ must not be left blank.</value>
+  </data>
+  <data name="IT">
+    <value>Title (it)</value>
+  </data>
+  <data name="IT-IT">
+    <value>Title (it-IT)</value>
+  </data>
+  <data name="IT-IT_DESCRIPTION">
+    <value>Set title for Italian (Italy) culture.</value>
+  </data>
+  <data name="IT_DESCRIPTION">
+    <value>Set title for Italian culture.</value>
+  </data>
+  <data name="KEYWORD">
+    <value>Keyword:</value>
+  </data>
+  <data name="LANGSWITCHTDISPLAY_CULTURELIST">
+    <value>Using Culture Name</value>
+  </data>
+  <data name="LANGSWITCHTDISPLAY_NONE">
+    <value>None</value>
+  </data>
+  <data name="NONE">
+    <value>None</value>
+  </data>
+  <data name="LANGSWITCHTDISPLAY_UICULTURELIST">
+    <value>Using UI Culture Name</value>
+  </data>
+  <data name="LANGSWITCHTNAMES_DISPLAYNAME">
+    <value>Display Name</value>
+  </data>
+  <data name="LANGSWITCHTNAMES_ENGLISHNAME">
+    <value>English Name</value>
+  </data>
+  <data name="LANGSWITCHTNAMES_NATIVENAME">
+    <value>Native Name</value>
+  </data>
+  <data name="LANGSWITCHTYPE_DISABLED">
+    <value>Disabled</value>
+  </data>
+  <data name="LANGSWITCHTYPE_FLAGS">
+    <value>Only Flags</value>
+  </data>
+  <data name="LANGSWITCHTYPE_FLAGSHORIZONTAL">
+    <value>Only Flags Horizontal</value>
+  </data>
+  <data name="LANGSWITCHTYPE_FORM">
+    <value>Form</value>
+  </data>
+  <data name="LANGSWITCHTYPE_LINKSHORIZONTAL">
+    <value>Links Horizontal</value>
+  </data>
+  <data name="LANGUAGESWITCHER_CUSTOMFLAGS_DESCRIPTION">
+    <value>Check this if you want to use custom flags from portal’s images folder. Custom flags are located in portal folder. /images/flags/</value>
+  </data>
+  <data name="LANGUAGESWITCHER_FLAGS">
+    <value>Show Flags as</value>
+  </data>
+  <data name="LANGUAGESWITCHER_FLAGS_DESCRIPTION">
+    <value>Select here how flags should look like.</value>
+  </data>
+  <data name="LANGUAGESWITCHER_LABELS">
+    <value>Show Labels as</value>
+  </data>
+  <data name="LANGUAGESWITCHER_LABELS_DESCRIPTION">
+    <value>Select here how Labels should look like.</value>
+  </data>
+  <data name="LANGUAGESWITCHER_NAMES">
+    <value>Show names as</value>
+  </data>
+  <data name="LANGUAGESWITCHER_NAMES_DESCRIPTION">
+    <value>Select here how names should look like.</value>
+  </data>
+  <data name="LANGUAGESWITCHER_TYPES">
+    <value>Language Switcher Type</value>
+  </data>
+  <data name="LANGUAGESWITCHTYPE">
+    <value>Language Switcher Type</value>
+  </data>
+  <data name="LANGUAGESWITCHER_TYPES_DESCRIPTION">
+    <value>Select here how your language switcher should look like.</value>
+  </data>
+  <data name="LANGUAGESWITCHTYPE_DESCRIPTION">
+    <value>Select here how your language switcher should look like.</value>
+  </data>
+  <data name="LASTNAME">
+    <value>Last name</value>
+  </data>
+  <data name="LAYOUT">
+    <value>Layout</value>
+  </data>
+  <data name="LEFT">
+    <value>Left</value>
+  </data>
+  <data name="LET_USER_CHOOSE">
+    <value>Let the user choose</value>
+  </data>
+  <data name="LINKDETAILS">
+    <value>Link Details</value>
+  </data>
+  <data name="LINKEDMODULE">
+    <value>Linked Module</value>
+  </data>
+  <data name="LINKGROUP">
+    <value>Link Group?</value>
+  </data>
+  <data name="LOAD_THEME_ERROR">
+    <value>Unable to load theme %1%. Default not available</value>
+  </data>
+  <data name="LOGINHOMEPAGE_DESCRIPTION">
+    <value>The Url or the Home page of the site used for build the instant login url. Leave blank if using the current site.</value>
+  </data>
+  <data name="LOGIN_FAILED">
+    <value>Login failed!</value>
+  </data>
+  <data name="LOGON">
+    <value>Logon</value>
+  </data>
+  <data name="MAINTAIN_ASPECT_FIXED_HEIGHT">
+    <value>Maintain aspect fixed height</value>
+  </data>
+  <data name="PICTURES_MAINTAIN_ASPECT_FIXED_HEIGHT">
+    <value>Maintain aspect fixed height</value>
+  </data>
+  <data name="MAINTAIN_ASPECT_FIXED_WIDTH">
+    <value>Maintain aspect fixed width</value>
+  </data>
+  <data name="PICTURES_MAINTAIN_ASPECT_FIXED_WIDTH">
+    <value>Maintain aspect fixed width</value>
+  </data>
+  <data name="MARK">
+    <value>Mark:</value>
+  </data>
+  <data name="MAXHITS">
+    <value>Max hits</value>
+  </data>
+  <data name="MERCHANT">
+    <value>Merchant ID</value>
+  </data>
+  <data name="META_SETTINGS">
+    <value>Meta settings</value>
+  </data>
+  <data name="MIDDLE">
+    <value>Middle</value>
+  </data>
+  <data name="MILESTONES_COMPLETION_DATE">
+    <value>Compl.Date</value>
+  </data>
+  <data name="MILESTONES_DETAIL">
+    <value>Milestones Details</value>
+  </data>
+  <data name="MILESTONES_STATUS">
+    <value>Status</value>
+  </data>
+  <data name="TASK_STATUS">
+    <value>Status</value>
+  </data>
+  <data name="MISC_SETTINGS">
+    <value>Miscellaneous settings</value>
+  </data>
+  <data name="MOBILEURL">
+    <value>Mobile Url</value>
+  </data>
+  <data name="MOBILE_SOURCE">
+    <value>Mobile Source</value>
+  </data>
+  <data name="MODEL">
+    <value>Model:</value>
+  </data>
+  <data name="MODIFIED_BY">
+    <value>Modified by</value>
+  </data>
+  <data name="MODULENAME">
+    <value>Module name</value>
+  </data>
+  <data name="MODULESETTINGS_MODULE_NAME">
+    <value>Module name</value>
+  </data>
+  <data name="MODULESETTINGS">
+    <value>Module settings</value>
+  </data>
+  <data name="MODULESETTINGS_SETTINGS">
+    <value>Module settings</value>
+  </data>
+  <data name="MODULESETTINGS_BASE_SETTINGS">
+    <value>Edit base settings</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY">
+    <value>Display Buttons as:</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY_BOTH">
+    <value>Image and Text (CSS)</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY_DESCRIPTION">
+    <value>Choose how you want module buttons to be displayed. Note that settings other than ’Image only’ may require Zen or special treatment in the Theme.</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY_IMAGE">
+    <value>Image only</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY_IMAGECSS">
+    <value>Image only (CSS)</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY_TEXT">
+    <value>Text only</value>
+  </data>
+  <data name="MODULESETTINGS_CACHE_TIMEOUT">
+    <value>Cache Timeout</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_HEIGHT">
+    <value>Content Height</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_HEIGHT_DESCRIPTION">
+    <value>Minimum height(in pixels) of the content area of this module. (0 for none)</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_SCROLLING">
+    <value>Content Scrolling</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_SCROLLING_DESCRIPTION">
+    <value>Set to enable/disable scrolling of Content based on height and width settings.</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_WIDTH">
+    <value>Content Width</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_WIDTH_DESCRIPTION">
+    <value>Minimum width(in pixels) of the content area of this module. (0 for none)</value>
+  </data>
+  <data name="MODULESETTINGS_MOVE_TO_TAB">
+    <value>Move to tab</value>
+  </data>
+  <data name="MOVE_TO_TAB">
+    <value>Move to tab</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_ADD">
+    <value>Roles that can add</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_APPROVING">
+    <value>Approve roles</value>
+  </data>
+  <data name="SWI_ROLESAPPROVING">
+    <value>Approve roles</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_DELETE">
+    <value>Roles that can delete</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_DELETE_MODULES">
+    <value>Roles that can delete modules</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_EDIT">
+    <value>Roles that can edit</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_EDIT_COLLECTION">
+    <value>Roles that can edit properties</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_MOVE_MODULES">
+    <value>Roles that can move modules</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_PUBLISHING">
+    <value>Publishing roles</value>
+  </data>
+  <data name="MODULESETTINGS_ROLE_VIEW">
+    <value>Roles that can view</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_ARROW_BUTTONS">
+    <value>Show Arrow Admin Buttons</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_ARROW_BUTTONS_DESCRIPTION">
+    <value>Show Arrow Admin buttons?</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_COLLAPSABLE">
+    <value>Can collapse window?</value>
+  </data>
+  <data name="SHOWCOLLAPSABLE">
+    <value>Can collapse window?</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_EVERYWHERE">
+    <value>Show on every page?</value>
+  </data>
+  <data name="SHOWEVERYWHERE">
+    <value>Show on every page?</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_HELP_BUTTON">
+    <value>Show Help Button</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_HELP_BUTTON_DESCRIPTION">
+    <value>Show help button in title if exists documentation for this module</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_MODIFIED_BY">
+    <value>Show modified by</value>
+  </data>
+  <data name="SHOWMODIFIEDBY">
+    <value>Show modified by</value>
+  </data>
+  <data name="SITESETTINGS_SHOW_MODIFIED_BY">
+    <value>Show modified by</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_MODIFIED_BY_DESCRIPTION">
+    <value>Switches ’Show Modified by’ display on/off</value>
+  </data>
+  <data name="SHOWMODIFIEDBY_DESCRIPTION">
+    <value>Switches ’Show Modified by’ display on/off</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_PRINT_BUTTION">
+    <value>Show Print Button</value>
+  </data>
+  <data name="SHOWPRINTBUTTON">
+    <value>Show Print Button</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_PRINT_BUTTION_DESCRIPTION">
+    <value>Show print button in view mode?</value>
+  </data>
+  <data name="SHOWPRINTBUTTON_DESCRIPTION">
+    <value>Show print button in view mode?</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_TITLE">
+    <value>Show Title</value>
+  </data>
+  <data name="SHOWTITLE">
+    <value>Show Title</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_TITLE_DESCRIPTION">
+    <value>Switches title display on/off</value>
+  </data>
+  <data name="SHOWTITLE_DESCRIPTION">
+    <value>Switches title display on/off</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_TITLE_PRINT">
+    <value>Show Title for Print</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_TITLE_PRINT_DESCRIPTION">
+    <value>Show Title for this module in print popup?</value>
+  </data>
+  <data name="MODULESETTINGS_SUPPORT_WORKFLOW">
+    <value>Enable workflow</value>
+  </data>
+  <data name="MODULESETTINGS__SUPPORT_WORKFLOW">
+    <value>Enable workflow</value>
+  </data>
+  <data name="MODULESETTINGS_THEME_ALT">
+    <value>Alt</value>
+  </data>
+  <data name="MODULESETTINGS_THEME_DEFAULT">
+    <value>Default</value>
+  </data>
+  <data name="MODULESETTINGS_THEME_DESCRIPTION">
+    <value>Choose theme for this module</value>
+  </data>
+  <data name="THEME_DESCRIPTION">
+    <value>Choose theme for this module</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_EN-GB">
+    <value>Title (en-GB)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_EN-GB_DESCRIPTION">
+    <value>Set title for English (United Kingdom) culture.</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_FR">
+    <value>Title (fr)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_FR_DESCRIPTION">
+    <value>Set title for French culture.</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_NL-BE">
+    <value>Title (nl-BE)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_NL-BE_DESCRIPTION">
+    <value>Set title for Dutch (Belgium) culture.</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_ZH-CN">
+    <value>Title (zh-CN)</value>
+  </data>
+  <data name="ZH-CN">
+    <value>Title (zh-CN)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_ZH-CN_DESCRIPTION">
+    <value>Set title for Chinese (People’s Republic of China) culture.</value>
+  </data>
+  <data name="ZH-CN_DESCRIPTION">
+    <value>Set title for Chinese (People’s Republic of China) culture.</value>
+  </data>
+  <data name="MODULESETTINGS_WIDTH_STRETCHING">
+    <value>Module Auto Stretch</value>
+  </data>
+  <data name="MODULESETTINGS_WIDTH_STRETCHING_DESCRIPTION">
+    <value>Set to enable/disable automatic stretching of the module’s width to fill the empty area to the right of the module.</value>
+  </data>
+  <data name="MODULE_IMAGE_FOLDER">
+    <value>Default Image Folder</value>
+  </data>
+  <data name="SITESETTINGS_DEFAULT_IMAGE_FOLDER">
+    <value>Default Image Folder</value>
+  </data>
+  <data name="MODULE_IMAGE_FOLDER_DESCRIPTION">
+    <value>This folder is used for editor in this module to take and upload images</value>
+  </data>
+  <data name="MODULE_SPECIAL_SETTINGS">
+    <value>Specific Module settings</value>
+  </data>
+  <data name="MODULE_TITLE">
+    <value>New Module Name</value>
+  </data>
+  <data name="MODULE_TYPE_DEFINITION">
+    <value>Module Type Definition</value>
+  </data>
+  <data name="MOVEDOWN">
+    <value>Move selected item up in list</value>
+  </data>
+  <data name="MOVEUP">
+    <value>Move selected item up in list</value>
+  </data>
+  <data name="MOVELEFT">
+    <value>Move selected item on left</value>
+  </data>
+  <data name="MOVERIGHT">
+    <value>Move selected item on right</value>
+  </data>
+  <data name="MOVE_DOWN">
+    <value>Move down</value>
+  </data>
+  <data name="MOVE_LEFT">
+    <value>Move left</value>
+  </data>
+  <data name="MOVE_RIGHT">
+    <value>Move right</value>
+  </data>
+  <data name="MOVE_TO">
+    <value>Move to </value>
+  </data>
+  <data name="MOVE_UP">
+    <value>Move up</value>
+  </data>
+  <data name="MUST_ENTER_MAIL">
+    <value>You must enter a mail address</value>
+  </data>
+  <data name="MUST_ENTER_NAME">
+    <value>You must enter a name</value>
+  </data>
+  <data name="MUST_ENTER_PASSWORD">
+    <value>You must enter a password</value>
+  </data>
+  <data name="NAVIGATION_SETTINGS">
+    <value>Navigation settings</value>
+  </data>
+  <data name="NEWSLETTER_BLACKLISTED">
+    <value>Blacklisted by </value>
+  </data>
+  <data name="NEWSLETTER_HTML_MODE">
+    <value>Html Mode</value>
+  </data>
+  <data name="NEWSLETTER_INSERT_BREAK_LINES">
+    <value>Insert Break Lines</value>
+  </data>
+  <data name="NEWSLETTER_MESSAGE_BODY">
+    <value>Message Body</value>
+  </data>
+  <data name="NEWSLETTER_MSG">
+    <value>This message will be sent to {1} registered users that subscribed to the Newsletter:</value>
+  </data>
+  <data name="NEWSLETTER_MSG_TEST">
+    <value>Test message will be sent to: {1} [{2}] - TEST MODE</value>
+  </data>
+  <data name="NEWSLETTER_PASSWORD">
+    <value>Password</value>
+  </data>
+  <data name="PASSWORD">
+    <value>Password</value>
+  </data>
+  <data name="NEWSLETTER_SENDER_EMAIL_ADDRESS">
+    <value>Sender email address</value>
+  </data>
+  <data name="NEWSLETTER_SENDER_OPTIONAL_NAME">
+    <value>Your Name (optional)</value>
+  </data>
+  <data name="NEWSLETTER_SUBJECT">
+    <value>Subject</value>
+  </data>
+  <data name="SUBJECT">
+    <value>Subject</value>
+  </data>
+  <data name="NEWSLETTER_TITLE">
+    <value>Newsletter Subscribers</value>
+  </data>
+  <data name="NEWSLETTER_USEREMAIL">
+    <value>UserEmail</value>
+  </data>
+  <data name="USEREMAIL">
+    <value>UserEmail</value>
+  </data>
+  <data name="NEWSLETTER_USERNAME">
+    <value>UserName</value>
+  </data>
+  <data name="USERNAME">
+    <value>UserName</value>
+  </data>
+  <data name="NEW_FOLDER">
+    <value>New Folder ?</value>
+  </data>
+  <data name="NEW_PORTAL_ERROR">
+    <value>There was an error creating the new portal. May be the portal exists. Try change portal alias.</value>
+  </data>
+  <data name="NEW_USER_CREATED">
+    <value>A new user have been created in site </value>
+  </data>
+  <data name="NEXT">
+    <value>Next</value>
+  </data>
+  <data name="NOTE">
+    <value>Notes</value>
+  </data>
+  <data name="NO_ACCOUNT">
+    <value>If you have not an account</value>
+  </data>
+  <data name="NO_FILE_MESSAGE">
+    <value>You must Enter a Valid File Name.</value>
+  </data>
+  <data name="NO_FOLDER_SPECIFIED_MESSAGE">
+    <value>Unable to create directory specified in FlashPath</value>
+  </data>
+  <data name="NO_IMAGE_MESSAGE">
+    <value>No Files to show.</value>
+  </data>
+  <data name="NO_MODULE">
+    <value>No module</value>
+  </data>
+  <data name="OK">
+    <value>OK</value>
+  </data>
+  <data name="ON">
+    <value>on</value>
+  </data>
+  <data name="ONLY_FEATURED">
+    <value>Show Only Featured</value>
+  </data>
+  <data name="OR">
+    <value>or</value>
+  </data>
+  <data name="ORDER_OK">
+    <value>Your order was succesfully sent</value>
+  </data>
+  <data name="ORDER_RECEIPT_NUMBER">
+    <value>Receipt number</value>
+  </data>
+  <data name="ORDER_WAIT_CONFIRM">
+    <value>Please wait for our Confirm by email.</value>
+  </data>
+  <data name="OVERWRITE_VALUE">
+    <value>Enter value to modify existing one</value>
+  </data>
+  <data name="PASSWORD_DO_NOT_MATCH">
+    <value>Password fields do not match.</value>
+  </data>
+  <data name="PASSWORD_NOT_MATCH">
+    <value>Password fields do not match.</value>
+  </data>
+  <data name="PHONE">
+    <value>Phone</value>
+  </data>
+  <data name="PICTURES_DISPLAY_ORDER">
+    <value>Display Order</value>
+  </data>
+  <data name="PICTURES_FILE">
+    <value>File</value>
+  </data>
+  <data name="USERTABLE_TYPE_FILE">
+    <value>File</value>
+  </data>
+  <data name="PICTURES_FLIP">
+    <value>Flip</value>
+  </data>
+  <data name="PICTURES_INCLUDE_EXIF">
+    <value>Include EXIF</value>
+  </data>
+  <data name="PICTURES_KEYWORDS">
+    <value>Keywords</value>
+  </data>
+  <data name="PICTURES_LONG_DESCRIPTION">
+    <value>Long Description</value>
+  </data>
+  <data name="PICTURES_ROTATE">
+    <value>Rotate</value>
+  </data>
+  <data name="PICTURES_SHORT_DESCRIPTION">
+    <value>Short Description</value>
+  </data>
+  <data name="PICTURES_VERTICAL">
+    <value>Vertical</value>
+  </data>
+  <data name="VERTICAL">
+    <value>Vertical</value>
+  </data>
+  <data name="PIVA">
+    <value>Company number</value>
+  </data>
+  <data name="PM_ABOVE_SELECTED">
+    <value>Above Selected</value>
+  </data>
+  <data name="PM_ADD_PAGES">
+    <value>Add Pages</value>
+  </data>
+  <data name="PM_ADD_PAGE_AS">
+    <value>Add Page as:</value>
+  </data>
+  <data name="PM_ADD_PAGE_FULL_DETAILED">
+    <value>Add Page with full details</value>
+  </data>
+  <data name="PM_ASSIGN_AS_PARENT_PAGE">
+    <value>Assign this page as parent to selected pages.</value>
+  </data>
+  <data name="PM_BELOW_SELECTED">
+    <value>Below Selected</value>
+  </data>
+  <data name="PM_CHILD_TO_SELECTED">
+    <value>Child to Selected</value>
+  </data>
+  <data name="PM_DELETE_PAGE">
+    <value>Delete selected page</value>
+  </data>
+  <data name="PM_EDIT_PAGE">
+    <value>Edit page</value>
+  </data>
+  <data name="PM_ORDER_PAGES">
+    <value>Order Pages</value>
+  </data>
+  <data name="PM_PAGE_ACTIONS">
+    <value>Page Actions</value>
+  </data>
+  <data name="PM_SAVE_PAGE_ORDER">
+    <value>Save site page order</value>
+  </data>
+  <data name="PM_SELECTED_PAGE">
+    <value>Selected Page:</value>
+  </data>
+  <data name="PM_SHOW_PAGE_ACTIONS">
+    <value>Show page actions panel</value>
+  </data>
+  <data name="PM_SHOW_SORT_TREE_ACTIONS">
+    <value>Show sort panel</value>
+  </data>
+  <data name="PORTALS">
+    <value>Portals</value>
+  </data>
+  <data name="PORTALSEARCH_FIELD">
+    <value>Field</value>
+  </data>
+  <data name="PORTALSEARCH_HIT">
+    <value>hit</value>
+  </data>
+  <data name="PORTALSEARCH_HITS">
+    <value>hits</value>
+  </data>
+  <data name="PORTALSEARCH_LINK">
+    <value>Link</value>
+  </data>
+  <data name="PORTALSEARCH_MISSING">
+    <value>missing</value>
+  </data>
+  <data name="PORTALSEARCH_MODULE">
+    <value>Module</value>
+  </data>
+  <data name="PORTALSEARCH_MODULETITLE">
+    <value>Module Title</value>
+  </data>
+  <data name="PORTALSEARCH_TAB">
+    <value>Page</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERTAB">
+    <value>Page</value>
+  </data>
+  <data name="PORTALSEARCH_TESTINFO">
+    <value>TestInfo</value>
+  </data>
+  <data name="PORTALSEARCH_TOPIC">
+    <value>Topic</value>
+  </data>
+  <data name="TOPICNAME">
+    <value>Topic</value>
+  </data>
+  <data name="PORTALSEARCH_USER">
+    <value>User</value>
+  </data>
+  <data name="USER">
+    <value>User</value>
+  </data>
+  <data name="PREVIEW">
+    <value>Preview</value>
+  </data>
+  <data name="PREVIOUS">
+    <value>Prev</value>
+  </data>
+  <data name="PRICE">
+    <value>Price:</value>
+  </data>
+  <data name="PRICE_FROM">
+    <value>Price From:</value>
+  </data>
+  <data name="PRODUCTS_DISPLAYING_ORDER">
+    <value>Displaying order: </value>
+  </data>
+  <data name="PRODUCTS_INSTRUCTIONS">
+    <value>You can select categories of products on the menu below.</value>
+  </data>
+  <data name="PRODUCTS_NO_ORDERS_TO_DISPLAY">
+    <value>You have no orders to display.</value>
+  </data>
+  <data name="PRODUCTS_ORDER_HISTORY_DISPLAY">
+    <value>Displaying your orders history. Click on the order ID to display the details of the corresponding order</value>
+  </data>
+  <data name="PRODUCT_ADD_TO_CART">
+    <value>Add to Cart</value>
+  </data>
+  <data name="PRODUCT_CATEGORY_NOT_FOUND">
+    <value>Category not found</value>
+  </data>
+  <data name="PRODUCT_CONTINUE_SHOPPING">
+    <value>Continue shopping</value>
+  </data>
+  <data name="PRODUCT_DISPLAY_FEATURED_ITEMS">
+    <value>Displaying featured items</value>
+  </data>
+  <data name="PRODUCT_EMPTY_CART">
+    <value>There are currently no items in your shopping cart.</value>
+  </data>
+  <data name="PRODUCT_ID">
+    <value>ProductID</value>
+  </data>
+  <data name="PRODUCT_INCLUDING_TAXES">
+    <value>(inc. tax)</value>
+  </data>
+  <data name="PRODUCT_INPUT_PROBLEM">
+    <value>There has been a problem with one or more of your inputs.</value>
+  </data>
+  <data name="PRODUCT_MUST_LOG_IN_FOR_CHECKOUT">
+    <value>You must first login or register to check out!</value>
+  </data>
+  <data name="PRODUCT_ORDER_DATE_CREATED">
+    <value>Date Created</value>
+  </data>
+  <data name="PRODUCT_ORDER_DATE_MODIFIED">
+    <value>Last Modified</value>
+  </data>
+  <data name="PRODUCT_ORDER_REFERENCE">
+    <value>Order Reference</value>
+  </data>
+  <data name="PRODUCT_ORDER_TOTAL">
+    <value>Total</value>
+  </data>
+  <data name="PRODUCT_TOTAL">
+    <value>Total</value>
+  </data>
+  <data name="TOTAL">
+    <value>Total</value>
+  </data>
+  <data name="PRODUCT_PAYMENT_METHOD">
+    <value>Payment Method</value>
+  </data>
+  <data name="PRODUCT_PRICE">
+    <value>Price</value>
+  </data>
+  <data name="PRODUCT_PRICE_NOT_AVAILABLE">
+    <value>Please contact us to purchase this item.</value>
+  </data>
+  <data name="PRODUCT_PRICE_WITH_TAX">
+    <value>Price With Tax</value>
+  </data>
+  <data name="PRODUCT_QUANTITY">
+    <value>Quantity</value>
+  </data>
+  <data name="PRODUCT_REFERENCE">
+    <value>Reference</value>
+  </data>
+  <data name="PRODUCT_REMOVE">
+    <value>Remove</value>
+  </data>
+  <data name="PRODUCT_SHIPPING">
+    <value>Shipping</value>
+  </data>
+  <data name="PRODUCT_SHIPPING_INFORMATION">
+    <value>Shipping Information</value>
+  </data>
+  <data name="PRODUCT_SHIPPING_METHOD">
+    <value>Shipping Method</value>
+  </data>
+  <data name="PRODUCT_SHOP_HOME">
+    <value>Shop home</value>
+  </data>
+  <data name="PRODUCT_SUBTOTAL">
+    <value>Subtotal</value>
+  </data>
+  <data name="PRODUCT_TOTAL_EXPENSES">
+    <value>Total Expenses</value>
+  </data>
+  <data name="PRODUCT_TOTAL_PRICE_(INC._TAXES)">
+    <value>Total Price (inc Taxes)</value>
+  </data>
+  <data name="PRODUCT_TOTAL_TAXES">
+    <value>Total Taxes</value>
+  </data>
+  <data name="PRODUCT_TOTAL_WEIGHT">
+    <value>Total Weight</value>
+  </data>
+  <data name="PRODUCT_TOTAL_WITH_TAXES">
+    <value>Total with Taxes</value>
+  </data>
+  <data name="PRODUCT_UNIT">
+    <value>Unit</value>
+  </data>
+  <data name="PRODUCT_UPDATE">
+    <value>Update</value>
+  </data>
+  <data name="UPDATE">
+    <value>Update</value>
+  </data>
+  <data name="PRODUCT_VIEW_ACCOUNT">
+    <value>View account</value>
+  </data>
+  <data name="PRODUCT_VIEW_CART">
+    <value>View cart</value>
+  </data>
+  <data name="PROFILE_COUNTRY_WRONG_ID">
+    <value>User profile has a wrong country id</value>
+  </data>
+  <data name="PROFILE_INFO">
+    <value>Profile informations</value>
+  </data>
+  <data name="PROPERTIES">
+    <value>Edit collection properties</value>
+  </data>
+  <data name="PROV_STATE">
+    <value>State/Province</value>
+  </data>
+  <data name="READ_FULL_ANNOUNCE">
+    <value>Read full story</value>
+  </data>
+  <data name="REASON">
+    <value>Reason</value>
+  </data>
+  <data name="RECEIVE_NEWS">
+    <value>Receive news</value>
+  </data>
+  <data name="REGISTER">
+    <value>Register</value>
+  </data>
+  <data name="SITESETTINGS_REGISTER_SIMPLE">
+    <value>Register</value>
+  </data>
+  <data name="REGISTERED_USERS">
+    <value>Registered users</value>
+  </data>
+  <data name="REGISTER_DESCRIPTION">
+    <value>Choose here how Register Page should look like.</value>
+  </data>
+  <data name="SITESETTINGS_REGISTER_TYPE_DESCRIPTION">
+    <value>Choose here how Register Page should look like.</value>
+  </data>
+  <data name="REGISTER_DIFFERENT">
+    <value>Please register using a different email address.</value>
+  </data>
+  <data name="REGISTER_NOW">
+    <value>Register and Sign In Now</value>
+  </data>
+  <data name="REGISTER_REQUIRED">
+    <value>To use this module you have to register.</value>
+  </data>
+  <data name="REGISTRATION_FAILED">
+    <value>Registration Failed!</value>
+  </data>
+  <data name="REMEMBER_LOGIN">
+    <value>Remember Login</value>
+  </data>
+  <data name="RETURN">
+    <value>Return</value>
+  </data>
+  <data name="RETURNHOME">
+    <value>Return to Portal Home</value>
+  </data>
+  <data name="RETURN_HOME">
+    <value>Return to Portal Home</value>
+  </data>
+  <data name="RIGHT">
+    <value>Right</value>
+  </data>
+  <data name="ROLESADD">
+    <value>Roles that can add content</value>
+  </data>
+  <data name="ROLESCOLLECTION">
+    <value>Roles that can edit collection content</value>
+  </data>
+  <data name="ROLESDELETE">
+    <value>Roles that can delete content</value>
+  </data>
+  <data name="ROLESEDIT">
+    <value>Roles that can edit content</value>
+  </data>
+  <data name="ROLESVIEW">
+    <value>Roles that can view content</value>
+  </data>
+  <data name="ROLES_DESCRIPTION">
+    <value>Roles</value>
+  </data>
+  <data name="ROLE_ADD_NEW_USER">
+    <value>Create new user and add to role</value>
+  </data>
+  <data name="ROLE_ADD_USER">
+    <value>Add existing user to role</value>
+  </data>
+  <data name="ROLE_CHANGE_MEMBERS">
+    <value>Change Role Members</value>
+  </data>
+  <data name="ROLE_ERROR_ADD">
+    <value>Add New Failed!  There is already an entry for &lt;u&gt;%1%&lt;/u&gt; in the Users database.&lt;br&gt;Please use Add Existing for this user.</value>
+  </data>
+  <data name="ROLE_MEMBERSHIP">
+    <value>Role Membership: </value>
+  </data>
+  <data name="ROLE_NEW_ROLE">
+    <value>New Role</value>
+  </data>
+  <data name="ROLE_SAVE_CHANGES">
+    <value>Save Role Changes</value>
+  </data>
+  <data name="ROOM_NUMBER">
+    <value>Number of rooms</value>
+  </data>
+  <data name="ROOT_LEVEL">
+    <value>Root Level</value>
+  </data>
+  <data name="SAVE">
+    <value>Save Changes</value>
+  </data>
+  <data name="SAVE_CHANGES">
+    <value>Save Changes</value>
+  </data>
+  <data name="SAVEUSER">
+    <value>Save User Changes</value>
+  </data>
+  <data name="SAVE_AND_CLOSE">
+    <value>Save and close</value>
+  </data>
+  <data name="SECURITY">
+    <value>Security</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERADMIN">
+    <value>Admin</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERDELMOD">
+    <value>Delete Mod.</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERMOVE">
+    <value>Move</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERVIEW">
+    <value>View</value>
+  </data>
+  <data name="SECURITYCHECK_ONLYADMIN">
+    <value>Only Admin Modules</value>
+  </data>
+  <data name="SECURITY_USER_SETTINGS">
+    <value>Users and Security settings</value>
+  </data>
+  <data name="SELECT_ALL">
+    <value>Select all</value>
+  </data>
+  <data name="SELECT_NONE">
+    <value>Select none</value>
+  </data>
+  <data name="SENDNEWSLETTER">
+    <value>Send Newsletter</value>
+  </data>
+  <data name="SEND_NEWSLETTER">
+    <value>Send Newsletter</value>
+  </data>
+  <data name="SENDTHTS_BODY">
+    <value>Message Body:</value>
+  </data>
+  <data name="SENDTHTS_CLEAR">
+    <value>Clear</value>
+  </data>
+  <data name="SENDTHTS_DES_TXT">
+    <value>Write a description here...</value>
+  </data>
+  <data name="SENDTHTS_EMAILVALID">
+    <value>Please enter a valid email address.</value>
+  </data>
+  <data name="SENDTHTS_RECIPIENT">
+    <value>Recipient’s EMail address not set.</value>
+  </data>
+  <data name="SENDTHTS_REMAIL">
+    <value>Real EMail Address</value>
+  </data>
+  <data name="SENDTHTS_SEND">
+    <value>Send</value>
+  </data>
+  <data name="SENDTHTS_SENT">
+    <value>The message was sent - thank you for your message!</value>
+  </data>
+  <data name="SENDTHTS_SUBJECT">
+    <value>Subject: (optional)</value>
+  </data>
+  <data name="SENDTHTS_YREMAIL">
+    <value>Your EMail Address:</value>
+  </data>
+  <data name="SENDTHTS_YRNAME">
+    <value>Your Name: (optional)</value>
+  </data>
+  <data name="SEND_NOTIFICATION">
+    <value>Send notification</value>
+  </data>
+  <data name="SETTINGS">
+    <value>Settings</value>
+  </data>
+  <data name="SETTING_BETWEEN">
+    <value>%1% must be between %2% and %3%!</value>
+  </data>
+  <data name="SETTING_REQUIRED">
+    <value>%1% is required!</value>
+  </data>
+  <data name="SHARE">
+    <value>Share</value>
+  </data>
+  <data name="SHOWABSTRACT">
+    <value>Show abstract</value>
+  </data>
+  <data name="SHOWCREATEDBYUSER">
+    <value>Show created by user</value>
+  </data>
+  <data name="SHOWCREATEDDATE">
+    <value>Show create date</value>
+  </data>
+  <data name="SHOWDATE">
+    <value>Show Date</value>
+  </data>
+  <data name="SHOWLINK">
+    <value>Show link</value>
+  </data>
+  <data name="SHOWMOBILE">
+    <value>Show to mobile users?</value>
+  </data>
+  <data name="SHOWMODULENAME">
+    <value>Show module name</value>
+  </data>
+  <data name="SHOWMODULETITLE">
+    <value>Show module title</value>
+  </data>
+  <data name="SHOWSEARCHTITLE">
+    <value>Show search title</value>
+  </data>
+  <data name="SHOWTABNAME">
+    <value>Show tab name</value>
+  </data>
+  <data name="SHOWTESTINFO">
+    <value>Show test info</value>
+  </data>
+  <data name="SHOWUPLOAD">
+    <value>Upload?</value>
+  </data>
+  <data name="SITESETTINGS_SHOWUPLOAD">
+    <value>Upload?</value>
+  </data>
+  <data name="SHOWUPLOAD_DESCRIPTION">
+    <value>Only used if Editor is ActiveUp HtmlTextBox</value>
+  </data>
+  <data name="SITESETTINGS_SHOWUPLOAD_DESCRIPTION">
+    <value>Only used if Editor is ActiveUp HtmlTextBox</value>
+  </data>
+  <data name="SHOW_COLUMN_ADDRESS_DESCRIPTION">
+    <value>Switch for displaying the Address column or not.</value>
+  </data>
+  <data name="SHOW_COLUMN_CONTACT1_DESCRIPTION">
+    <value>Switch for displaying the contact1 column or not.</value>
+  </data>
+  <data name="SHOW_COLUMN_CONTACT2_DESCRIPTION">
+    <value>Switch for displaying the contact2 column or not.</value>
+  </data>
+  <data name="SHOW_COLUMN_EMAIL_DESCRIPTION">
+    <value>Switch for displaying the email column or not.</value>
+  </data>
+  <data name="SHOW_COLUMN_FAX_DESCRIPTION">
+    <value>Switch for displaying the Fax column or not.</value>
+  </data>
+  <data name="SHOW_FLASH_GALLERY">
+    <value>Show Flash Gallery</value>
+  </data>
+  <data name="SIGNIN">
+    <value>Sign-in</value>
+  </data>
+  <data name="SIGNIN_ALLOW_REMEMBER_LOGIN">
+    <value>Allow Remember Login</value>
+  </data>
+  <data name="SIGNIN_ALLOW_REMEMBER_LOGIN_DESCRIPTION">
+    <value>If Checked allows to remember logins</value>
+  </data>
+  <data name="SIGNIN_ALLOW_SEND_PASSWORD">
+    <value>Allow Send Password</value>
+  </data>
+  <data name="SIGNIN_ALLOW_SEND_PASSWORD_DESCRIPTION">
+    <value>If Checked allows user to ask to get password by email if he forgotten</value>
+  </data>
+  <data name="SIGNIN_ENTER_EMAIL_ADDR">
+    <value>Please enter an E-Mail address</value>
+  </data>
+  <data name="SIGNIN_PWD_MISSING_IN_DB">
+    <value>Your password was not found in the database.</value>
+  </data>
+  <data name="SIGNIN_PWD_REQUESTED">
+    <value>The password you have requested is:</value>
+  </data>
+  <data name="SIGNIN_PWD_TO">
+    <value>Password to:</value>
+  </data>
+  <data name="SIGNIN_PWD_WAS_SENT">
+    <value>Your password has been sent to the email address you provided.</value>
+  </data>
+  <data name="SIGNIN_SEND_PWD">
+    <value>Send Password</value>
+  </data>
+  <data name="SIGNIN_THANK_YOU">
+    <value>Thank you and we hope you enjoy your visit to</value>
+  </data>
+  <data name="SIGNIN_YOU_CAN_LOGIN_FROM">
+    <value>You can login from</value>
+  </data>
+  <data name="SITESETTINGS_ALLOW_MODULE_CUSTOM_THEMES">
+    <value>Allow Module Custom Themes?</value>
+  </data>
+  <data name="SITESETTINGS_ALLOW_MODULE_CUSTOM_THEMES_DESCRIPTION">
+    <value>Select to allow Custom Theme to be set on Modules.</value>
+  </data>
+  <data name="SITESETTINGS_ALT_THEME">
+    <value>Alternate Theme</value>
+  </data>
+  <data name="THEMEALT">
+    <value>Alternate Theme</value>
+  </data>
+  <data name="SITESETTINGS_ALT_THEME_DESCRIPTION">
+    <value>Specify the site level alternate theme here.</value>
+  </data>
+  <data name="SITESETTINGS_BODYATTS">
+    <value>&amp;lt;body&amp;gt; attributes</value>
+  </data>
+  <data name="SITESETTINGS_BODYATTS_DESCRIPTION">
+    <value>Allows you to enter a string which will be inserted within the &lt;body&gt; element, e.g. leftmargin="0" bottommargin="0", etc. NOTE: not advisable to use this to inject onload() function calls as there is a programmatic function for that. NOTE also that is your CSS is well sorted you should not need anything here.</value>
+  </data>
+  <data name="SITESETTINGS_COUNTRY_FILTER_DESCRIPTION">
+    <value>Allowed countries limits country list in RegisterFull page, select ’World’ for no filter.</value>
+  </data>
+  <data name="SITESETTINGS_DEFAULT_EDITOR">
+    <value>Default Editor</value>
+  </data>
+  <data name="SITESETTINGS_DEFAULT_EDITOR_DESCRIPTION">
+    <value>This Editor is used by workflow and is the default for new modules.</value>
+  </data>
+  <data name="SITESETTINGS_DEFAULT_IMAGE_FOLDER_DESCRIPTION">
+    <value>Set the default image folder used by Current Editor</value>
+  </data>
+  <data name="SITESETTINGS_DOCTYPE">
+    <value>DOCTYPE string</value>
+  </data>
+  <data name="SITESETTINGS_DOCTYPE_DESCRIPTION">
+    <value>Allows you to enter a DOCTYPE string which will be inserted as the first line of the HTML output page (i.e. above the &lt;html&gt; element). Use this to force Quirks or Standards mode, particularly in IE. See &lt;a href="http://gutfeldt.ch/matthias/articles/doctypeswitch/table.html" target="_blank"&gt;here&lt;/a&gt; for details. NOTE: Appleseed.Zen requires a setting that guarantees Standards mode on all browsers.</value>
+  </data>
+  <data name="SITESETTINGS_EDITOR_HEIGHT">
+    <value>Editor Height</value>
+  </data>
+  <data name="SITESETTINGS_EDITOR_HEIGHT_DESCRIPTION">
+    <value>Default Editor Height</value>
+  </data>
+  <data name="SITESETTINGS_EDITOR_WIDTH">
+    <value>Editor Width</value>
+  </data>
+  <data name="SITESETTINGS_EDITOR_WIDTH_DESCRIPTION">
+    <value>Default Editor Width</value>
+  </data>
+  <data name="SITESETTINGS_LANGLIST">
+    <value>Language list</value>
+  </data>
+  <data name="SITESETTINGS_LANGLIST_DESCRIPTION">
+    <value>This is a list of the languages that the site will support,it’s in format &lt;UI-Culture&gt;=&lt;Formatting-Culture&gt;.</value>
+  </data>
+  <data name="SITESETTINGS_LOGO">
+    <value>Logo</value>
+  </data>
+  <data name="SITESETTINGS_LOGO_DESCRIPTION">
+    <value>Enter the name of logo file here.</value>
+  </data>
+  <data name="SITESETTINGS_ON_REGISTER_SEND_TO">
+    <value>Send Mail To</value>
+  </data>
+  <data name="SITESETTINGS_ON_REGISTER_SEND_TO_DESCRIPTION">
+    <value>On new registration a mail will be send to the email address you provide here.</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_KEY_PHRASE">
+    <value>Default Page Keyphrase</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_KEY_PHRASE_DESCRIPTION">
+    <value>This setting can be used by a module or by a control. It allows you to define a common message for the entire portal e.g. Welcome to x portal! This can be used for search engine optimisation. It allows you to define a keyword rich phrase to be used throughout your portal.</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_LAYOUT">
+    <value>Page layout</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_LAYOUT_DESCRIPTION">
+    <value>Specify the site level page layout here.</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_DESCRIPTION">
+    <value>Default Page Description</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_DESCRIPTION_DESCRIPTION">
+    <value>This setting is to help with search engine optimisation. Enter a default description (Not too long though. 1 paragraph is enough) that describes your portal.</value>
+  </data>
+  <data name="TABMETADESCRIPTION_DESCRIPTION">
+    <value>This setting is to help with search engine optimisation. Enter a default description (Not too long though. 1 paragraph is enough) that describes your portal.</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_ENCODING">
+    <value>Default Page Encoding</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_ENCODING_DESCRIPTION">
+    <value>Every time your browser returns a page it looks to see what format it is retrieving. This allows you to specify the default content type.</value>
+  </data>
+  <data name="TABMETAENCODING_DESCRIPTION">
+    <value>Every time your browser returns a page it looks to see what format it is retrieving. This allows you to specify the default content type.</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_KEYWORDS">
+    <value>Default Page Keywords</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_KEYWORDS_DESCRIPTION">
+    <value>This setting is to help with search engine optimisation. Enter 1-15 Default Keywords that represent what your site is about.</value>
+  </data>
+  <data name="TABMETAKEYWORDS_DESCRIPTION">
+    <value>This setting is to help with search engine optimisation. Enter 1-15 Default Keywords that represent what your site is about.</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_OTHERS">
+    <value>Default Additional Meta Tag Entries</value>
+  </data>
+  <data name="TABMETAOTHER">
+    <value>Default Additional Meta Tag Entries</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_OTHERS_DESCRIPTION">
+    <value>This setting allows you to enter new tags into the Tab / Page’s HEAD Tag. As an example we have added a portal tag to identify the version, but you could have a meta refresh tag or something else like a css reference instead.</value>
+  </data>
+  <data name="TABMETAOTHER_DESCRIPTION">
+    <value>This setting allows you to enter new tags into the Tab / Page’s HEAD Tag. As an example we have added a portal tag to identify the version, but you could have a meta refresh tag or something else like a css reference instead.</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_TITLE">
+    <value>Default Page Title</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_TITLE_DESCRIPTION">
+    <value>Allows you to enter a default tab / page title (Shows at the top of your browser).</value>
+  </data>
+  <data name="TABTITLE_DESCRIPTION">
+    <value>Allows you to enter a default tab / page title (Shows at the top of your browser).</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_URL_KEYWORD">
+    <value>A Default Keyword To Identify all Tabs / Pages</value>
+  </data>
+  <data name="TABURLKEYWORD">
+    <value>A Default Keyword To Identify all Tabs / Pages</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_URL_KEYWORD_DESCRIPTION">
+    <value>This setting is not fully implemented yet. It was to help with search engine optimisation by allowing you to specify a default keyword that would appear in your url.</value>
+  </data>
+  <data name="TABURLKEYWORD_DESCRIPTION">
+    <value>This setting is not fully implemented yet. It was to help with search engine optimisation by allowing you to specify a default keyword that would appear in your url.</value>
+  </data>
+  <data name="SITESETTINGS_REGISTER_FULL">
+    <value>RegisterFull</value>
+  </data>
+  <data name="SITESETTINGS_REGISTER_MODULEID">
+    <value>Register Module ID</value>
+  </data>
+  <data name="SITESETTINGS_REGISTER_MODULEID_DESCRIPTION">
+    <value>Some custom registration may require additional settings, type here the ID of the module from where we should load settings (0= not used). Usually this module is added in an hidden area.</value>
+  </data>
+  <data name="SITESETTINGS_REGISTER_TYPE">
+    <value>Register Type</value>
+  </data>
+  <data name="SITESETTINGS_SHOW_MODIFIED_BY_DESCRIPTION">
+    <value>Check to show by whom the module is last modified.</value>
+  </data>
+  <data name="SITESETTINGS_SHOW_MODULE_ARROWS">
+    <value>Show module arrows</value>
+  </data>
+  <data name="SITESETTINGS_SHOW_MODULE_ARROWS_DESCRIPTION">
+    <value>Check to show the arrows in the module title to move modules.</value>
+  </data>
+  <data name="SITESETTINGS_TERMS_OF_SERVICE">
+    <value>Terms file name</value>
+  </data>
+  <data name="SITESETTINGS_TERMS_OF_SERVICE_DESCRIPTION">
+    <value>Type here a file name used for showing terms and condition in each register page. Provide localized version adding _&lt;culturename&gt;. E.g. Terms.txt, will search for Terms.txt and for Terms_en-US.txt</value>
+  </data>
+  <data name="TERMSOFSERVICE_DESCRIPTION">
+    <value>Type here a file name used for showing terms and condition in each register page. Provide localized version adding _&lt;culturename&gt;. E.g. Terms.txt, will search for Terms.txt and for Terms_en-US.txt</value>
+  </data>
+  <data name="SITESETTINGS_THEME_DESCRIPTION">
+    <value>Specify the site level theme here.</value>
+  </data>
+  <data name="SM_MENUBINDINGTYPE">
+    <value>MenuBindingType</value>
+  </data>
+  <data name="SM_MENUTYPE">
+    <value>MenuType</value>
+  </data>
+  <data name="SM_MENUTYPE_DESCRIPTION">
+    <value>Sets the type of menu this module use.</value>
+  </data>
+  <data name="SM_MENU_REPEATDIRECTION">
+    <value>Menu RepeatDirection</value>
+  </data>
+  <data name="SM_MENU_REPEATDIRECTION_DESCRIPTION">
+    <value>Sets the repeat direction for menu rendering.</value>
+  </data>
+  <data name="SM_PARENTTABID">
+    <value>Parent Page Id</value>
+  </data>
+  <data name="SM_PARENTTABID_DESCRIPTION">
+    <value>Sets the Id of the Parent Page for the menu (this page may be hidden or inaccessible for the logged on user.)</value>
+  </data>
+  <data name="SORTFIELD">
+    <value>Sort field</value>
+  </data>
+  <data name="SORTORDER">
+    <value>Sort order</value>
+  </data>
+  <data name="SUBMIT">
+    <value>Submit</value>
+  </data>
+  <data name="SURVEY_SUBMIT">
+    <value>Submit</value>
+  </data>
+  <data name="SUBTITLE">
+    <value>Subtitle</value>
+  </data>
+  <data name="SURVEY_ADDNEWOPTION">
+    <value>Add New Option</value>
+  </data>
+  <data name="SURVEY_ADDOPTBELOW">
+    <value>Add to ’Options’ Below</value>
+  </data>
+  <data name="SURVEY_DETAILSOPTIONS">
+    <value>Survey Details Options</value>
+  </data>
+  <data name="SURVEY_NEWOPTION">
+    <value>New Option</value>
+  </data>
+  <data name="SURVEY_OPTIONS">
+    <value>Options</value>
+  </data>
+  <data name="SURVEY_OPTION_ERR">
+    <value>Please, insert the option.</value>
+  </data>
+  <data name="SWI_BUTTON_MIN">
+    <value>SWI_BUTTON_MIN</value>
+  </data>
+  <data name="SWI_PUBLISH">
+    <value>Publish</value>
+  </data>
+  <data name="SWI_READYTOAPPROVE">
+    <value>Request approval</value>
+  </data>
+  <data name="SWI_REVERT">
+    <value>Revert</value>
+  </data>
+  <data name="SWI_ROLESPUBLISHING">
+    <value>Authorized publishing roles</value>
+  </data>
+  <data name="SWI_SUPPORTWORKFLOW">
+    <value>Enable workflow support</value>
+  </data>
+  <data name="SWI_SWAPTOPRODUCTION">
+    <value>Switch to production version</value>
+  </data>
+  <data name="SWI_SWAPTOSTAGING">
+    <value>Switch to staging version</value>
+  </data>
+  <data name="TABKEYPHRASE">
+    <value>Default Page Keyphrase</value>
+  </data>
+  <data name="TABKEYPHRASE_DESCRIPTION">
+    <value>This setting can be used by a module or by a control. It allows you to define a common message for the entire portal e.g. Welcome to x portal! This can be used for search engine optimisation. It allows you to define a keyword rich phrase to be used throug</value>
+  </data>
+  <data name="TABKEYPHRASE_EN">
+    <value>Page Key Phrase (en)</value>
+  </data>
+  <data name="TABKEYPHRASE_EN_DESCRIPTION">
+    <value>Key Phrase for this Page for English culture.</value>
+  </data>
+  <data name="TABKEYPHRASE_ES">
+    <value>Page Key Phrase (es)</value>
+  </data>
+  <data name="TABKEYPHRASE_ES_DESCRIPTION">
+    <value>Key Phrase this Tab/Page for Spanish culture.</value>
+  </data>
+  <data name="TABLAYOUT">
+    <value>Default Layout</value>
+  </data>
+  <data name="TABLEEDIT_MSG_CONNECT">
+    <value>Please connect to a database... (check settings)</value>
+  </data>
+  <data name="TABLEEDIT_SELECT_TABLE">
+    <value> Select a Table </value>
+  </data>
+  <data name="TABLINK">
+    <value>Static Link URL</value>
+  </data>
+  <data name="TABLINK_DESCRIPTION">
+    <value>Allows this tab to act as a navigation link to any URL.</value>
+  </data>
+  <data name="TABMETADESCRIPTION">
+    <value>Default Tab / Page Description</value>
+  </data>
+  <data name="TABMETAENCODING">
+    <value>Default Tab / Page Encoding</value>
+  </data>
+  <data name="TABMETAKEYWORDS">
+    <value>Default Tab / Page Keywords</value>
+  </data>
+  <data name="TABPLACEHOLDER">
+    <value>Act as a Placeholder?</value>
+  </data>
+  <data name="TABPLACEHOLDER_DESCRIPTION">
+    <value>Allows this tab to act as a navigation placeholder only.</value>
+  </data>
+  <data name="TABTITLE">
+    <value>Title of the tab</value>
+  </data>
+  <data name="TAB_DELETE_FAILED">
+    <value>Delete failed. There are still modules on the tab you are trying to delete or there are other tabs linked to it. Please remove all modules and linked tabs before attempting to delete again.</value>
+  </data>
+  <data name="TAB_NAME">
+    <value>New Page (insert name)</value>
+  </data>
+  <data name="TAB_PARENT">
+    <value>Parent page</value>
+  </data>
+  <data name="TAB_TITLE_Appleseed_HELP">
+    <value>Appleseed Help</value>
+  </data>
+  <data name="TARGET">
+    <value>Target</value>
+  </data>
+  <data name="TASK_ASSIGNEDTO">
+    <value>Assigned To</value>
+  </data>
+  <data name="TASK_COMPLETION">
+    <value>% Complete</value>
+  </data>
+  <data name="TASK_COMPLETION_ERROR">
+    <value>Must be an integer from 0 to 100</value>
+  </data>
+  <data name="TASK_DETAIL">
+    <value>Task Detail</value>
+  </data>
+  <data name="TASK_DUEDATE">
+    <value>Due Date</value>
+  </data>
+  <data name="TASK_DUEDATE_ERROR">
+    <value>You Must Enter a Valid Due Date</value>
+  </data>
+  <data name="TASK_PRIORITY">
+    <value>Priority</value>
+  </data>
+  <data name="TASK_PRIORITY_0">
+    <value>High</value>
+  </data>
+  <data name="TASK_PRIORITY_1">
+    <value>Normal</value>
+  </data>
+  <data name="TASK_PRIORITY_2">
+    <value>Low</value>
+  </data>
+  <data name="TASK_STATE_0">
+    <value>Not started</value>
+  </data>
+  <data name="TASK_STATE_1">
+    <value>In progress</value>
+  </data>
+  <data name="TASK_STATE_2">
+    <value>Complete</value>
+  </data>
+  <data name="TELEPHONE">
+    <value>Telephone</value>
+  </data>
+  <data name="TESTMODE">
+    <value>Test Mode</value>
+  </data>
+  <data name="TESTMODE_DESCRIPTION">
+    <value>Use Test Mode for testing your settings. It will send only one email to the address specified as sender. Useful for testing</value>
+  </data>
+  <data name="TESTUSERID">
+    <value>Test user ID</value>
+  </data>
+  <data name="THEME_LAYOUT_SETTINGS">
+    <value>Theme and layout settings</value>
+  </data>
+  <data name="THUMBNAILHEIGHT">
+    <value>Thumbnail Height</value>
+  </data>
+  <data name="THUMBNAILLAYOUT">
+    <value>Thumbnail Layout</value>
+  </data>
+  <data name="THUMBNAILRESIZE">
+    <value>Thumbnail Resize</value>
+  </data>
+  <data name="THUMBNAILWIDTH">
+    <value>Thumbnail Width</value>
+  </data>
+  <data name="TI_ROLEADMINISTRATIONADDTOROLE">
+    <value>Select Sorting Criteria</value>
+  </data>
+  <data name="TI_ROLEADMINISTRATIONTITLE">
+    <value>Welcome to role administration. Please use this tool to select a single user or multiple users and either add them to a role or remove them.</value>
+  </data>
+  <data name="TO">
+    <value>to</value>
+  </data>
+  <data name="TOP">
+    <value>Top</value>
+  </data>
+  <data name="TOPICNAME_DESCRIPTION">
+    <value>Select a topic for this module. You may filter itmes by topic in Portal Search.</value>
+  </data>
+  <data name="TOURISTIC_AUTO">
+    <value>Auto</value>
+  </data>
+  <data name="TOURISTIC_NOFILTER">
+    <value>No filter</value>
+  </data>
+  <data name="TOURISTIC_THISMONTH">
+    <value>This month only</value>
+  </data>
+  <data name="TOURISTIC_THISYEAR">
+    <value>This year only</value>
+  </data>
+  <data name="TRANSLATOR">
+    <value>Manu / IBS</value>
+  </data>
+  <data name="TRANSLATOR_EMAIL">
+    <value>manu-dea@hotmail dot it</value>
+  </data>
+  <data name="TYPE">
+    <value>Type</value>
+  </data>
+  <data name="USERTABLE_TYPE">
+    <value>Type</value>
+  </data>
+  <data name="UNCHECKED_USERS">
+    <value>Unchecked users</value>
+  </data>
+  <data name="UPDATE_YOUR_PROFILE">
+    <value>Update your profile</value>
+  </data>
+  <data name="UPLOAD_FILE">
+    <value>Upload file</value>
+  </data>
+  <data name="UPLOAD_IMAGE">
+    <value>Upload Image</value>
+  </data>
+  <data name="UPLOAD_SUCCESS_MESSAGE">
+    <value>File successfully uploaded!</value>
+  </data>
+  <data name="UPLOAD_TO_WEB">
+    <value>Upload to Web Server</value>
+  </data>
+  <data name="UP_TO">
+    <value>up to</value>
+  </data>
+  <data name="URL_TO_BROWSE">
+    <value>URL to browse</value>
+  </data>
+  <data name="USERBLOCK">
+    <value>Group users</value>
+  </data>
+  <data name="USERBLOCK_DESCRIPTION">
+    <value>Select the maximum number of users. For sending emails to all you have to repeat the process. Use small values to avoid server timeouts.</value>
+  </data>
+  <data name="USERTABLE_EDITROW">
+    <value>Edit Table Row</value>
+  </data>
+  <data name="USERTABLE_INASCORDER">
+    <value>In Ascending Order</value>
+  </data>
+  <data name="USERTABLE_INDSCORDER">
+    <value>In Descending Order</value>
+  </data>
+  <data name="USERTABLE_MANAGETABLE">
+    <value>Manage Table</value>
+  </data>
+  <data name="USERTABLE_MOVEFIELDDOWN">
+    <value>Move Field Down</value>
+  </data>
+  <data name="USERTABLE_MOVEFIELDUP">
+    <value>Move Field Up</value>
+  </data>
+  <data name="USERTABLE_NEWFIELD">
+    <value>Add New Field</value>
+  </data>
+  <data name="USERTABLE_SORTEDBY">
+    <value>Sorted By</value>
+  </data>
+  <data name="USERTABLE_TYPE_BOOLEAN">
+    <value>True/False</value>
+  </data>
+  <data name="USERTABLE_TYPE_DECIMAL">
+    <value>Decimal</value>
+  </data>
+  <data name="USERTABLE_TYPE_INT32">
+    <value>Integer</value>
+  </data>
+  <data name="USERTABLE_TYPE_STRING">
+    <value>Text</value>
+  </data>
+  <data name="USERTABLE_VISIBLE">
+    <value>Visible</value>
+  </data>
+  <data name="USER_ALREADY_EXISTS">
+    <value>User already exists</value>
+  </data>
+  <data name="USER_MANAGE">
+    <value>Manage User</value>
+  </data>
+  <data name="USER_MESSAGE1">
+    <value>Users must be registered to view secure content.</value>
+  </data>
+  <data name="USER_MESSAGE2">
+    <value>Users may add themselves using the Register form, and Administrators may add users to specific roles using the Security Roles function above.</value>
+  </data>
+  <data name="USER_MESSAGE3">
+    <value>This section permits Administrators to manage users and their security roles directly.</value>
+  </data>
+  <data name="USER_MESSAGE_DOMAIN3">
+    <value>This section permits Administrators to manage users and their security roles directly.</value>
+  </data>
+  <data name="USER_MESSAGE_DOMAIN1">
+    <value>Domain users do not need to be registered to access portal content that is available to ’All Users’</value>
+  </data>
+  <data name="USER_MESSAGE_DOMAIN2">
+    <value>Administrators may add domain users to specific roles using the Security Roles function above.</value>
+  </data>
+  <data name="USER_MODIFICATION">
+    <value>User modification</value>
+  </data>
+  <data name="USER_NEW_USER">
+    <value>New User created </value>
+  </data>
+  <data name="USER_REGISTRY">
+    <value>User registry</value>
+  </data>
+  <data name="USER_SAVING_ERROR">
+    <value>An error ocurred while trying to save user. Please try again</value>
+  </data>
+  <data name="USER_UPDATED_SUCCESFULLY">
+    <value>User updated succesfully</value>
+  </data>
+  <data name="USE_INSTALLER">
+    <value>Use Installer</value>
+  </data>
+  <data name="VALID_ADDRESS">
+    <value>You must enter a valid address</value>
+  </data>
+  <data name="VALID_CITY">
+    <value>You must enter a valid city</value>
+  </data>
+  <data name="VALID_CODE">
+    <value>You must enter a valid Code</value>
+  </data>
+  <data name="VALID_DATE">
+    <value>You Must Enter a valid Date</value>
+  </data>
+  <data name="VALID_EMAIL">
+    <value>Must use a valid email address.</value>
+  </data>
+  <data name="VALID_FIELD">
+    <value>Please insert a valid value</value>
+  </data>
+  <data name="VALID_FILE_NAME">
+    <value>You must enter a valid File Name</value>
+  </data>
+  <data name="VALID_NUMBER">
+    <value>You must enter a valid Number</value>
+  </data>
+  <data name="VALID_PHONE">
+    <value>You must enter a valid phone #</value>
+  </data>
+  <data name="VALID_ZIP">
+    <value>You must enter a valid zip code</value>
+  </data>
+  <data name="VIEWORDER">
+    <value>View Order</value>
+  </data>
+  <data name="VIEW_ORDER">
+    <value>View Order</value>
+  </data>
+  <data name="WEBSITE">
+    <value>Web Site</value>
+  </data>
+  <data name="WEB_FARM_SUPPORT">
+    <value>Store in database (web farm support)</value>
+  </data>
+  <data name="WHOSLOGGEDONCACHETIMEOUT">
+    <value>Specify an amount of time the who’s logged on module will wait before checking again (0 - 60000)</value>
+  </data>
+  <data name="WHOS_LOGGED_ON_1">
+    <value>There are currently:</value>
+  </data>
+  <data name="WHOS_LOGGED_ON_2">
+    <value>anonymous users online</value>
+  </data>
+  <data name="WHOS_LOGGED_ON_3">
+    <value> registered users online: </value>
+  </data>
+  <data name="WIDTH">
+    <value>Width</value>
+  </data>
+  <data name="WIDTH_DESCRIPTION">
+    <value>The width of editor control</value>
+  </data>
+  <data name="XMLSRC">
+    <value>XML Source file</value>
+  </data>
+  <data name="XSLSRC">
+    <value>XSL Transform</value>
+  </data>
+  <data name="YEAR">
+    <value>Year:</value>
+  </data>
+  <data name="YEARS">
+    <value>Years (Max)</value>
+  </data>
+  <data name="ZIP">
+    <value>Postal Code</value>
+  </data>
+  <data name="ORIGINALHEIGHT">
+    <value>Original Height</value>
+  </data>
+  <data name="ORIGINALRESIZE">
+    <value>Original Resize</value>
+  </data>
+  <data name="ORIGINALWIDTH">
+    <value>Original Width</value>
+  </data>
+  <data name="REPEATCOLUMNS">
+    <value>Images per Column</value>
+  </data>
+  <data name="REPEATDIRECTION">
+    <value>Repeat Direction</value>
+  </data>
+  <data name="REPEATDIRECTIONSETTING">
+    <value>Repeat Direction</value>
+  </data>
+  <data name="DEFAULT_IMAGE_EDITOR">
+    <value>Default image editor</value>
+  </data>
+  <data name="IMAGELAYOUT">
+    <value>Image Layout</value>
+  </data>
+  <data name="ENHANCEDLINKS_GENERALIMAGE">
+    <value>General Image</value>
+  </data>
+  <data name="ENHANCEDLINKS_GENERALIMAGE_DESCRIPTION">
+    <value>Select a general image for the module</value>
+  </data>
+  <data name="INSERT_IMAGE_FROM_GALLERY">
+    <value>Insert image from gallery</value>
+  </data>
+  <data name="PICTURESPERPAGE">
+    <value>Pictures per Page</value>
+  </data>
+  <data name="SHOWTHUMBNAILSPANEL">
+    <value>Show thumbnail panel</value>
+  </data>
+  <data name="AM_TOPPANEL">
+    <value>Top Pane</value>
+  </data>
+  <data name="AM_BOTOMPANEL">
+    <value>Bottom Pane</value>
+  </data>
+  <data name="TABKEYPHRASE_ES-ES">
+    <value>Page Key Phrase (es-ES)</value>
+  </data>
+  <data name="ERROR_NOT_ALLOWED_PARENT">
+    <value>Selecting this parent is not allowed</value>
+  </data>
+</root>

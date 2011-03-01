@@ -1,0 +1,549 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Appleseed.Modules.Discussion</name>
+    </assembly>
+    <members>
+        <member name="T:Appleseed.Content.Web.ModulesDiscussion">
+            <summary>
+            The discussion module allwos for simple threaded discussion 
+            with full HTML support in the discussion.
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussion.TopLevelList">
+            <summary>
+            Top level item
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussion.DetailList">
+            <summary>
+            details of thread list
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussion.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            On the first invocation of Page_Load, the data is bound using BindList();
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussion.BindList">
+            <summary>
+            The BindList method obtains the list of top-level messages
+            from the Discussion table and then databinds them against
+            the "TopLevelList" asp:datalist server control.  It uses 
+            the Appleseed.DiscussionDB() data component to encapsulate 
+            all data access functionality.
+            </summary>
+            <returns>returns nothing (void)</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussion.GetThreadMessages">
+            <summary>
+            The GetThreadMessages method is used to obtain the list
+            of messages contained within a sub-topic of the
+            a top-level discussion message thread.  This method is
+            used to populate the "DetailList" asp:datalist server control
+            in the SelectedItemTemplate of "TopLevelList".
+            </summary>
+            <returns>returns a SqlDataReader object</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussion.TopLevelListOrDetailList_Select(System.Object,System.Web.UI.WebControls.DataListCommandEventArgs)">
+            <summary>
+            The TopLevelList_Select server event handler is used to
+            expand/collapse a selected discussion topic and delte individual items
+            </summary>
+            <param name="Sender"></param>
+            <param name="e">DataListCommandEventAargs e</param>
+            <returns>void return</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussion.OnItemDataBound(System.Object,System.Web.UI.WebControls.DataListItemEventArgs)">
+            <summary>
+            set up a client-side javascript dialog to confirm deletions
+            the 'confirm' dialog is called when onClick is triggered
+            if the dialog returns false the server never gets the delete request
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussion.GetReplyImage">
+            <summary>
+            GetReplyImage
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussion.GetEditImage(System.String)">
+            <summary>
+            GetEditImage
+            </summary>
+            <param name="itemUserEmail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussion.GetDeleteImage(System.Int32,System.String)">
+            <summary>
+            GetDeleteImage
+            </summary>
+            <param name="itemID"></param>
+            <param name="itemUserEmail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussion.FormatUrlEditItem(System.Int32,System.String)">
+            <summary>
+            The FormatUrl method is a helper messages called by a
+            databinding statement within the &lt;asp:DataList&gt; server
+            control template.  It is defined as a helper method here
+            (as opposed to inline within the template) to improve 
+            code organization and avoid embedding logic within the 
+            content template.</summary>
+            <param name="itemID">ID of the currently selected topic</param>
+            <param name="mode"></param>
+            <returns>Returns a properly formatted URL to call the DiscussionEdit page</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussion.FormatUrlShowThread(System.Int32)">
+            <summary>
+            FormatUrlShowThread
+            </summary>
+            <param name="itemID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussion.NodeImage(System.Int32)">
+            <summary>
+            The NodeImage method is a helper method called by a
+            databinding statement within the &lt;asp:datalist&gt; server
+            control template.  It controls whether or not an item
+            in the list should be rendered as an expandable topic
+            or just as a single node within the list.
+            </summary>
+            <param name="count">Number of replys to the selected topic</param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussion.getLocalImage(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="img"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussion.SearchSqlSelect(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Searchable module implementation
+            </summary>
+            <param name="portalID">The portal ID</param>
+            <param name="userID">ID of the user is searching</param>
+            <param name="searchString">The text to search</param>
+            <param name="searchField">The fields where perfoming the search</param>
+            <returns>The SELECT sql to perform a search on the current module</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussion.#ctor">
+            <summary>
+            Public constructor. Sets base settings for module.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussion.OnInit(System.EventArgs)">
+            <summary>
+            Raises Init event
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussion.Install(System.Collections.IDictionary)">
+            <summary>
+            
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussion.Uninstall(System.Collections.IDictionary)">
+            <summary>
+            
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesDiscussion.Searchable">
+            <summary>
+            Searchable module
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesDiscussion.GuidID">
+            <summary>
+            Module GUID
+            </summary>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesDiscussionDB">
+            <summary>
+            DiscussionDB Class
+            
+            Class that encapsulates all data logic necessary to add/query/delete
+            discussions within the Portal database.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionDB.GetTopLevelMessages(System.Int32)">
+            <summary>
+            GetTopLevelMessages Method
+            
+            Returns details for all of the messages in the discussion specified by ModuleID.
+            
+            Other relevant sources:
+                + <a href="GetTopLevelMessages.htm" style="color:green">GetTopLevelMessages Stored Procedure</a>
+            </summary>
+            <param name="moduleID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionDB.GetThreadMessages(System.Int32,System.Char)">
+            <summary>
+            GetThreadMessages Method
+            
+            Returns details for all of the messages the thread, as identified by the Parent id string.
+            
+            displayOrder csan be the full display order of any post, it will be truncated
+            by the stored procedure to find the root of the thread, and then all children
+            are returned
+            
+            Other relevant sources:
+                + <a href="GetThreadMessages.htm" style="color:green">GetThreadMessages Stored Procedure</a>
+            </summary>
+            <param name="itemID"></param>
+            <param name="showRoot"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionDB.DeleteSingleMessage(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="itemID"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionDB.IncrementViewCount(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="itemID"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionDB.DeleteChildren(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="itemID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionDB.GetSingleMessage(System.Int32)">
+            <summary>
+            GetSingleMessage Method
+            
+            The GetSingleMessage method returns the details for the message
+            specified by the itemID parameter.
+            
+            Other relevant sources:
+                + <a href="GetSingleMessage.htm" style="color:green">GetSingleMessage Stored Procedure</a>
+            </summary>
+            <param name="itemID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionDB.AddMessage(System.Int32,System.Int32,System.String,System.String,System.String,System.String)">
+            <summary>
+            AddMessage Method
+            
+            The AddMessage method adds a new message within the
+            Discussions database table, and returns ItemID value as a result.
+            
+            Other relevant sources:
+                + <a href="AddMessage.htm" style="color:green">AddMessage Stored Procedure</a>
+            </summary>
+            <param name="moduleID"></param>
+            <param name="parentID"></param>
+            <param name="userName"></param>
+            <param name="title"></param>
+            <param name="body"></param>
+            <param name="mode"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesDiscussionEdit">
+            <summary>
+            Edit discussion page
+            this deals with one thred
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.submitButton">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.Body">
+            <summary>
+            
+            </summary>		
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.BodyField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.Title">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.TitleField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.CreatedByUser">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.CreatedDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.OriginalMessagePanel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.discussion_edit_instructions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.title_label">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.Requiredfieldvalidator1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.body_label">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.EditPanel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.Label2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.Label3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.Label4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.Label1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.DescriptionField">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionEdit.DiscussionEditInstructions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionEdit.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The Page_Load server event handler on this page is used
+            to obtain the ModuleID and ItemID of the discussion list,
+            and to then display the message contents.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionEdit.GetMode">
+            <summary>
+            Determine Mode from the URL
+            the mode can be Reply, Add, or Edit
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionEdit.SubmitBtn_Click(System.Object,System.EventArgs)">
+            <summary>
+            The SubmitBtn_Click server event handler on this page is used
+            to handle the scenario where a user clicks the "submit"
+            button after entering a response to a message post.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionEdit.CancelBtn_Click(System.Object,System.EventArgs)">
+            <summary>
+            The CancelBtn_Click server event handler on this page is used
+            to handle the scenario where a user clicks the "cancel"
+            button to discard a message post and toggle out of
+            edit mode.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionEdit.LoadSettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionEdit.OnInit(System.EventArgs)">
+            <summary>
+            Raises OnInitEvent
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionEdit.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesDiscussionEdit.AllowedModules">
+            <summary>
+            Set the module guids with free access to this page
+            </summary>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesDiscussionPermissions">
+            <summary>
+            Summary description for DiscussionHelpers.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionPermissions.HasAddPermissions(System.Int32)">
+            <summary>
+            See whether the current user has permissions to add a post to the discussion thread
+            </summary>
+            <param name="ModuleID">ID of the current Discussion Module</param>
+            <returns>Returns true or flase</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionPermissions.HasEditPermissions(System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="ModuleID"></param>
+            <param name="itemUserEmail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionPermissions.HasDeletePermissions(System.Int32,System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="ModuleID"></param>
+            <param name="itemID"></param>
+            <param name="itemUserEmail"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesDiscussionViewThread">
+            <summary>
+            DiscussionViewThread
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesDiscussionViewThread.ThreadList">
+            <summary>
+            datalist for thread list
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionViewThread.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            On the first invocation of Page_Load, the data is bound using BindList();
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionViewThread.GetItemID">
+            <summary> extracts this threads ItemID from the URL </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionViewThread.BindList(System.Int32)">
+            <summary> Binds the threads from the database to the list control </summary>
+            <param name="ItemID"> itemID of ANY of the topics in the thread </param>
+            <returns>returns nothing</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionViewThread.ThreadList_Select(System.Object,System.Web.UI.WebControls.DataListCommandEventArgs)">
+            <summary> ThreadList_Select processes user events to add, edit, and delete topics </summary>
+            <param name="Sender"></param>
+            <param name="e">DataListCommandEventAargs e</param>
+            <returns>returns nothing</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionViewThread.OnItemDataBound(System.Object,System.Web.UI.WebControls.DataListItemEventArgs)">
+            <summary> Invoked when each data row is bound to the list.
+            Adds a clientside Java script to confirm row deltes </summary>
+            <param name="sender"></param>
+            <param name="e">DataListCommandEventAargs e</param>
+            <returns>returns nothing</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionViewThread.GetReplyImage">
+            <summary>
+            GetReplyImage check to see whether the current user has permissions to contribute to the discussion thread
+            Users with proper permission see an image they can click  on to post a reply, otherwise they see nothing.
+            </summary>
+            <returns>Returns either a 1x1 image or the reply.gif icon</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionViewThread.GetEditImage(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="itemUserEmail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionViewThread.GetDeleteImage(System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="itemID"></param>
+            <param name="itemUserEmail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionViewThread.FormatUrlEditItem(System.Int32,System.String)">
+            <summary>
+            The FormatUrl method is a helper messages called by a
+            databinding statement within the &lt;asp:DataList&gt; server
+            control template.  It is defined as a helper method here
+            (as opposed to inline within the template) to improve 
+            code organization and avoid embedding logic within the 
+            content template.</summary>
+            <param name="item">ID of the currently selected topic</param>
+            <param name="mode"></param>
+            <returns>Returns a properly formatted URL to call the DiscussionEdit page</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionViewThread.NodeImage(System.Int32)">
+            <summary>
+            The NodeImage method is a helper method called by a
+            databinding statement within the &lt;asp:datalist&gt; server
+            control template.  It controls whether or not an item
+            in the list should be rendered as an expandable topic
+            or just as a single node within the list.
+            </summary>
+            <param name="count">Number of replys to the selected topic</param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionViewThread.getLocalImage(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="img"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionViewThread.LoadSettings">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesDiscussionViewThread.OnInit(System.EventArgs)">
+            <summary>
+            Raises Init event
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesDiscussionViewThread.AllowedModules">
+            <summary>
+            Set the module guids with free access to this page
+            </summary>
+        </member>
+    </members>
+</doc>

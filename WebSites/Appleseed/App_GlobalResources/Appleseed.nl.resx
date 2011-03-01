@@ -1,0 +1,3803 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <xsd:element name="root" msdata:IsDataSet="true">
+          <xsd:complexType>
+              <xsd:choice maxOccurs="unbounded">
+                  <xsd:element name="data">
+                      <xsd:complexType>
+                          <xsd:sequence>
+                              <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                              <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                          </xsd:sequence>
+                          <xsd:attribute name="name" type="xsd:string" />
+                          <xsd:attribute name="type" type="xsd:string" />
+                          <xsd:attribute name="mimetype" type="xsd:string" />
+                      </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="resheader">
+                      <xsd:complexType>
+                          <xsd:sequence>
+                              <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                          </xsd:sequence>
+                          <xsd:attribute name="name" type="xsd:string" use="required" />
+                      </xsd:complexType>
+                  </xsd:element>
+              </xsd:choice>
+          </xsd:complexType>
+      </xsd:element>
+  </xsd:schema>
+  <resheader name="ResMimeType">
+      <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="Version">
+      <value>1.0.0.0</value>
+  </resheader>
+  <resheader name="Reader">
+      <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="Writer">
+      <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ABSTRACT">
+      <value>Samenvatting</value>
+  </data>
+  <data name="ACCEPT_TERMS">
+      <value>Ik accepteer de termen en de voorwaarden</value>
+  </data>
+  <data name="ACCESS_DENIED">
+      <value>Toegang geweigerd</value>
+  </data>
+  <data name="ACCESS_DENIED_MESSAGE">
+      <value>Ofwel ben je momenteel niet ingelogd, of heb je geen toegang tot deze pagina. Gelieve contact op te nemen met de webmaster</value>
+  </data>
+  <data name="ACCESSDENIED">
+      <value>Toegang geweigerd</value>
+  </data>
+  <data name="ACCOUNT_INFO">
+      <value>Lidmaatschap info</value>
+  </data>
+  <data name="ACCOUNT_LOGIN">
+      <value>Inloggen</value>
+  </data>
+  <data name="ADD">
+      <value>Toevoegen</value>
+  </data>
+  <data name="ADD_ARTICLE">
+      <value>Toevoegen</value>
+  </data>
+  <data name="ADD_DOCUMENT">
+      <value>Nieuw document toevoegen</value>
+  </data>
+  <data name="ADD_NEW">
+      <value>Nieuwe toevoegen</value>
+  </data>
+  <data name="ADD_NEW_USER">
+      <value>Nieuwe gebruiker toevoegen</value>
+  </data>
+  <data name="ADD_PORTAL">
+      <value>Portaal toevoegen</value>
+  </data>
+  <data name="ADD_VEHICLE">
+      <value>Voeg Voertuig toe</value>
+  </data>
+  <data name="ADDRESS">
+      <value>Adres</value>
+  </data>
+  <data name="ADDTAB">
+      <value>Nieuwe pagina toevoegen</value>
+  </data>
+  <data name="ADDUSER">
+      <value>Gebruiker toevoegen aan deze rol</value>
+  </data>
+  <data name="ADMIN_MODULE">
+      <value>Administratie module?</value>
+  </data>
+  <data name="ADVPAYM">
+      <value>Voorafbetaling</value>
+  </data>
+  <data name="ALBUMPATH">
+      <value>Album Path</value>
+  </data>
+  <data name="ALL">
+      <value>Allen</value>
+  </data>
+  <data name="ALLOWBULKLOAD"></data>
+  <data name="ALLOWNEWREGISTRATIONS">
+      <value>Nieuwe registraties toestaan?</value>
+  </data>
+  <data name="ALLOWNEWREGISTRATIONS_DESCRIPTION">
+      <value>Vink aan om nieuwe gebruikers registraties toe te staan. Laat leeg wanneer alleen via de User Manager gebruikers kunnen worden toegevoegd.</value>
+  </data>
+  <data name="ALPHA_LIST_DESCRIPTION">
+      <value>Omschrijving</value>
+  </data>
+  <data name="ALPHA_LIST_ITEM_DETAILS"></data>
+  <data name="ALPHA_LIST_LABEL1"></data>
+  <data name="ALPHA_LIST_LABEL2"></data>
+  <data name="ALPHA_LIST_READMORELINK">
+      <value>Lees meer …</value>
+  </data>
+  <data name="ALPHA_LIST_TITLE">
+      <value>Titel</value>
+  </data>
+  <data name="ALREADY_REGISTERED">
+      <value>is reeds geregistreerd</value>
+  </data>
+  <data name="ALREADY_REGISTERED1">
+      <value>Als je al lid bent</value>
+  </data>
+  <data name="AM_ADDMODULE">
+      <value>Module toevoegen</value>
+  </data>
+  <data name="AM_ADDMODULEBELOW">
+      <value>Toevoegen aan ’Modules Organiseren’ hieronder</value>
+  </data>
+  <data name="AM_ADDMODULETOTAB">
+      <value>Voeg deze Module toe aan de pagina</value>
+  </data>
+  <data name="AM_ADDROLE">
+      <value>Nieuwe rol toevoegen</value>
+  </data>
+  <data name="AM_BASESOLUTION">
+      <value>Basis oplossing</value>
+  </data>
+  <data name="AM_CENTERPANEL">
+      <value>Midden Kolom</value>
+  </data>
+  <data name="AM_LEFTPANEL">
+      <value>Linker Kolom</value>
+  </data>
+  <data name="AM_MOBILETAB">
+      <value>Paginanaam Mobiel</value>
+  </data>
+  <data name="AM_MODULELOCATION">
+      <value>Module locatie:</value>
+  </data>
+  <data name="AM_MODULENAME">
+      <value>Modulenaam</value>
+  </data>
+  <data name="AM_MODULETYPE">
+      <value>Moduletype</value>
+  </data>
+  <data name="AM_MODULEVISIBLETO">
+      <value>Module zichtbaar voor:</value>
+  </data>
+  <data name="AM_ORGANIZEMODULE">
+      <value>Modules Organiseren</value>
+  </data>
+  <data name="AM_PAGEVISIBLETO">
+      <value>Pagina zichtbaar voor:</value>
+  </data>
+  <data name="AM_PORTALALIAS">
+      <value>Portaal Alias</value>
+  </data>
+  <data name="AM_PORTALID">
+      <value>Portaal ID</value>
+  </data>
+  <data name="AM_RIGHTPANEL">
+      <value>Rechter Kolom</value>
+  </data>
+  <data name="AM_ROLESAUTH">
+      <value>Geauthorizeerde rollen</value>
+  </data>
+  <data name="AM_SHOWEDIT">
+      <value>Bewerken knop altijd laten zien</value>
+  </data>
+  <data name="AM_SHOWMOBILE">
+      <value>Tonen aan mobiele gebruikers</value>
+  </data>
+  <data name="AM_SITEPATH">
+      <value>Site pad</value>
+  </data>
+  <data name="AM_SITETITLE">
+      <value>Site titel</value>
+  </data>
+  <data name="AM_TABNAME">
+      <value>Paginanaam en lay-out</value>
+  </data>
+  <data name="AM_TABNAME1">
+      <value>Paginanaam</value>
+  </data>
+  <data name="AM_TABS">
+      <value>Pagina's</value>
+  </data>
+  <data name="AM_THEME">
+      <value>Opmaak</value>
+  </data>
+  <data name="ANNOUNCES_ADD">
+      <value>Nieuwe mededeling toevoegen</value>
+  </data>
+  <data name="ANNOUNCES_DESCRIPTION">
+      <value>Omschrijving</value>
+  </data>
+  <data name="ANNOUNCES_DETAILS">
+      <value>Mededeling details</value>
+  </data>
+  <data name="ANNOUNCES_EXPIRES">
+      <value>Verloopt</value>
+  </data>
+  <data name="ANNOUNCES_READ_MORE_LINK">
+      <value>Lees meer link</value>
+  </data>
+  <data name="ANNOUNCES_READ_MORE_MOBILE">
+      <value>Lees meer (mobiel)</value>
+  </data>
+  <data name="ANNOUNCES_TITLE">
+      <value>Titel</value>
+  </data>
+  <data name="ANNOUNCES_VALID_DESCRIPTION">
+      <value>U moet een correcte omschrijving invullen</value>
+  </data>
+  <data name="ANNOUNCES_VALID_EXPIRE">
+      <value>U moet een correcte verloopdatum invullen</value>
+  </data>
+  <data name="ANNOUNCES_VALID_TITLE">
+      <value>U moet een correcte titel invullen</value>
+  </data>
+  <data name="APPLY">
+      <value>Wijzigingen opslaan</value>
+  </data>
+  <data name="APPLY_CHANGES">
+      <value>Wijzigingen opslaan</value>
+  </data>
+  <data name="APPLY_MODULE_CHANGES">
+      <value>Wijzigingen module opslaan</value>
+  </data>
+  <data name="APPLYBUTTON">
+      <value>Wijzigingen opslaan</value>
+  </data>
+  <data name="APPLYMODULECHANGES">
+      <value>Wijzigingen module opslaan</value>
+  </data>
+  <data name="APPLYNAME">
+      <value>Naam en wachtwoord wijzigingen opslaan</value>
+  </data>
+  <data name="APPLYTHEME">
+      <value>Nieuw opmaak opslaan</value>
+  </data>
+  <data name="APPLYTHEME_DESCRIPTION">
+      <value>Vink aan voor toepassen opmaak voor deze module</value>
+  </data>
+  <data name="AREA">
+      <value>Omgeving</value>
+  </data>
+  <data name="ARTICLE_DETAIL">
+      <value>Artikel detail</value>
+  </data>
+  <data name="AT_ADDPAGE">
+      <value>Pagina toevoegen</value>
+  </data>
+  <data name="AT_ADDTAB">
+      <value>Pagina toevoegen</value>
+  </data>
+  <data name="AT_JUMPTOPAGE">
+      <value>Wilt U driect naar de nieuwe pagina gaan?</value>
+  </data>
+  <data name="AT_JUMPTOTAB">
+      <value>Ga naar pagina</value>
+  </data>
+  <data name="AT_MOBILETABNAME">
+      <value>Paginanaam mobiel</value>
+  </data>
+  <data name="AT_PAGEPARENT">
+      <value>Moeder pagina:</value>
+  </data>
+  <data name="AT_PAGETITLE">
+      <value>Paginatitel:</value>
+  </data>
+  <data name="AT_SHOWMOBILE">
+      <value>Mobiel tonen</value>
+  </data>
+  <data name="AT_TABPARENT">
+      <value>Moeder pagina</value>
+  </data>
+  <data name="AT_TABTITLE">
+      <value>Paginatitel</value>
+  </data>
+  <data name="AUTHOR">
+      <value>Auteur</value>
+  </data>
+  <data name="BACK">
+      <value>Terug</value>
+  </data>
+  <data name="BANK"></data>
+  <data name="BG-BG"></data>
+  <data name="BG-BG_DESCRIPTION"></data>
+  <data name="BIND_OPTION_CHILDREN"></data>
+  <data name="BIND_OPTION_CURRENT_CHILDS"></data>
+  <data name="BIND_OPTION_DEFINED_PARENT"></data>
+  <data name="BIND_OPTION_NONE"></data>
+  <data name="BIND_OPTION_PAGESIBLING"></data>
+  <data name="BIND_OPTION_SIBLINGS"></data>
+  <data name="BIND_OPTION_SUBPAGE_SIBLING"></data>
+  <data name="BIND_OPTION_SUBTAB_SIBLING"></data>
+  <data name="BIND_OPTION_TABSIBLING"></data>
+  <data name="BIND_OPTION_TOP"></data>
+  <data name="BINDTOTAB"></data>
+  <data name="BLACKLIST">
+      <value>Zwarte lijst</value>
+  </data>
+  <data name="BLACKLIST_ADD">
+      <value>Aan zwarte lijst toevoegen</value>
+  </data>
+  <data name="BLACKLIST_ALL">
+      <value>Allen toevoegen aan zwarte lijst</value>
+  </data>
+  <data name="BLACKLIST_DATE">
+      <value>Datum</value>
+  </data>
+  <data name="BLACKLIST_EMAIL">
+      <value>E-mail</value>
+  </data>
+  <data name="BLACKLIST_LASTSEND">
+      <value>Laatst verzonden</value>
+  </data>
+  <data name="BLACKLIST_NAME">
+      <value>Naam</value>
+  </data>
+  <data name="BLACKLIST_NONE">
+      <value>Geen</value>
+  </data>
+  <data name="BLACKLIST_REASON">
+      <value>Reden</value>
+  </data>
+  <data name="BLACKLIST_SENDNEWSLETTER">
+      <value>Stuur nieuwsbrief</value>
+  </data>
+  <data name="BLACKLIST_SHOWALLUSERS">
+      <value>Toon alle gebruikers</value>
+  </data>
+  <data name="BLACKLIST_SHOWCOLUMNDATE">
+      <value>Toon datum kolom</value>
+  </data>
+  <data name="BLACKLIST_SHOWCOLUMNEMAIL">
+      <value>Toon e-mail kolom</value>
+  </data>
+  <data name="BLACKLIST_SHOWCOLUMNLASTSEND">
+      <value>Toon laatst verzonden kolom</value>
+  </data>
+  <data name="BLACKLIST_SHOWCOLUMNNAME">
+      <value>Toon naam kolom</value>
+  </data>
+  <data name="BLACKLIST_SHOWCOLUMNREASON">
+      <value>Toon reden kolom</value>
+  </data>
+  <data name="BLACKLIST_SHOWCOLUMNSENDNEWSLETTER">
+      <value>Toon stuur nieuwsbrief kolom</value>
+  </data>
+  <data name="BLACKLIST_SHOWSUBSCRIBERSONLY">
+      <value>Alleen nieuwsbrieflezers tonen</value>
+  </data>
+  <data name="BLACKLIST_SORTFIELD">
+      <value>Sorteer veld</value>
+  </data>
+  <data name="BLACKLISTED">
+      <value>Toegevoegd aan zwarte lijst</value>
+  </data>
+  <data name="BLOG_ARCHIVES">
+      <value>Archief</value>
+  </data>
+  <data name="BLOG_COMMENTS">
+      <value>Opmerkingen</value>
+  </data>
+  <data name="BLOG_ENTRIES">
+      <value>Items</value>
+  </data>
+  <data name="BLOG_ENTRY">
+      <value>Blog item</value>
+  </data>
+  <data name="BLOG_FEEDBACK">
+      <value>Terugkoppeling (</value>
+  </data>
+  <data name="BLOG_NAME">
+      <value>Naam</value>
+  </data>
+  <data name="BLOG_POSTED">
+      <value>Gepost op</value>
+  </data>
+  <data name="BLOG_POSTSFROM">
+      <value>Posts van</value>
+  </data>
+  <data name="BLOG_REMEMBER_ME">
+      <value>Onthoud mij</value>
+  </data>
+  <data name="BLOG_STATISTICS">
+      <value>Statistieken</value>
+  </data>
+  <data name="BLOG_SYNDICATION">
+      <value>Syndication</value>
+  </data>
+  <data name="BLOG_TITLE">
+      <value>Titel</value>
+  </data>
+  <data name="BLOG_TITLE_FEEDBACK">
+      <value>Terugkoppeling</value>
+  </data>
+  <data name="BLOG_URL"></data>
+  <data name="BOTTOM">
+      <value>Onderaan</value>
+  </data>
+  <data name="BTN_HELP">
+      <value>Toon help voor deze module</value>
+  </data>
+  <data name="BTN_PRINT">
+      <value>Afdrukken</value>
+  </data>
+  <data name="BUTTON_DISPLAY_SETTINGS">
+      <value>Knoppen en visuele instellingen</value>
+  </data>
+  <data name="BUYNOW">
+      <value>Koop Nu</value>
+  </data>
+  <data name="CA"></data>
+  <data name="CA_DESCRIPTION"></data>
+  <data name="CACHETIMEOUT">
+      <value>Cache Timeout (in seconden)</value>
+  </data>
+  <data name="CACHETIMEOUT_DESCRIPTION">
+      <value>Cache Timeout (in seconden)</value>
+  </data>
+  <data name="CANCEL">
+      <value>Annuleer</value>
+  </data>
+  <data name="CAPTION">
+      <value>Ondertitel</value>
+  </data>
+  <data name="CAT">
+      <value>Categorie</value>
+  </data>
+  <data name="CATEGORY">
+      <value>Categorie</value>
+  </data>
+  <data name="CATS">
+      <value>Categorieen</value>
+  </data>
+  <data name="CENTER">
+      <value>Midden</value>
+  </data>
+  <data name="CFISCALE">
+      <value>BTW nr</value>
+  </data>
+  <data name="CHANGE_DATE">
+      <value>Wijzig datum</value>
+  </data>
+  <data name="CHANGE_LANGUAGE">
+      <value>Wijzig Taal</value>
+  </data>
+  <data name="CHANGE_PASSWORD">
+      <value>Vul alleen een wachtwoord in als U het wilt wijzigen</value>
+  </data>
+  <data name="CHECKOUT">
+      <value>Uitchecken</value>
+  </data>
+  <data name="CHECKOUT_ADDRESS">
+      <value>Adres:</value>
+  </data>
+  <data name="CHECKOUT_AUTHORIZE">
+      <value>U moet uw order bevestigen</value>
+  </data>
+  <data name="CHECKOUT_CART_IS_EMPTY">
+      <value>Er zij geen items in uw winkelwagen</value>
+  </data>
+  <data name="CHECKOUT_CC_EXPIRY">
+      <value>Vervaldatum:</value>
+  </data>
+  <data name="CHECKOUT_CC_NAME">
+      <value>Naam op de kaart:</value>
+  </data>
+  <data name="CHECKOUT_CC_NUMBER">
+      <value>Creditcard nummer:</value>
+  </data>
+  <data name="CHECKOUT_CC_TYPE">
+      <value>Kaarttype:</value>
+  </data>
+  <data name="CHECKOUT_CFISCALE">
+      <value>Fiscaal:</value>
+  </data>
+  <data name="CHECKOUT_CITY">
+      <value>Stad:</value>
+  </data>
+  <data name="CHECKOUT_COMPANY">
+      <value>Bedrijf:</value>
+  </data>
+  <data name="CHECKOUT_COPY_TO_SHIPPING_INFO">
+      <value>Gebruik accountinformatie als verzendgegevens</value>
+  </data>
+  <data name="CHECKOUT_COUNTRY">
+      <value>Land:</value>
+  </data>
+  <data name="CHECKOUT_EMAIL">
+      <value>E-mail:</value>
+  </data>
+  <data name="CHECKOUT_ERROR_PROCESSING_CART">
+      <value>Er is een fout opgetreden.</value>
+  </data>
+  <data name="CHECKOUT_ERROR_PROCESSING_SHIPPING">
+      <value>Er is een fout opgetreden bij de verwerking van uw verzendgegevens</value>
+  </data>
+  <data name="CHECKOUT_FAX">
+      <value>Faxnummer:</value>
+  </data>
+  <data name="CHECKOUT_MAKE_SURE_ADDRESS_IS_CORRECT">
+      <value>Verzeker U ervan dat bovenstaand e-mail adres klopt omdat dit wordt gebruikt voor de bevestiging van uw order.</value>
+  </data>
+  <data name="CHECKOUT_MAKE_SURE_ADDRESS_IS_CORRECT_2"></data>
+  <data name="CHECKOUT_NAME">
+      <value>Naam:</value>
+  </data>
+  <data name="CHECKOUT_PHONE">
+      <value>Telefoon:</value>
+  </data>
+  <data name="CHECKOUT_PIVA">
+      <value>Bedrijfsnummer:</value>
+  </data>
+  <data name="CHECKOUT_PROV_STATE">
+      <value>Provincie / Regio:</value>
+  </data>
+  <data name="CHECKOUT_SELECT_PAYMENT">
+      <value>Kies betalingswijze</value>
+  </data>
+  <data name="CHECKOUT_SEND_NEWSLETTER">
+      <value>Stuur nieuwsbrief:</value>
+  </data>
+  <data name="CHECKOUT_STEP1">
+      <value>STEP 1/4: Profiel Information</value>
+  </data>
+  <data name="CHECKOUT_STEP2">
+      <value>STEP 2/4: Verzending Information</value>
+  </data>
+  <data name="CHECKOUT_STEP3">
+      <value>STEP 3/4: Bereken totaal prijs</value>
+  </data>
+  <data name="CHECKOUT_STEP4">
+      <value>STEP 4/4: Betaling verwerken</value>
+  </data>
+  <data name="CHECKOUT_TOTAL_PRODUCT">
+      <value>Totaal producten:</value>
+  </data>
+  <data name="CHECKOUT_TOTAL_SHIPPING">
+      <value>Totaal verzending:</value>
+  </data>
+  <data name="CHECKOUT_VERIFY_INFORMATION">
+      <value>Controleer onderstaande gegevens.</value>
+  </data>
+  <data name="CHECKOUT_VERIFY_INFORMATION_CLICK_BACK">
+      <value>Klik de terug knop om naar de vorige stap te gaan.</value>
+  </data>
+  <data name="CHECKOUT_ZIP">
+      <value>Postcode:</value>
+  </data>
+  <data name="CITY">
+      <value>Plaats</value>
+  </data>
+  <data name="COLLECTION_PROPERTIES">
+      <value>Collectie eigenschappen</value>
+  </data>
+  <data name="COMPANY">
+      <value>Bedrijf</value>
+  </data>
+  <data name="CONDITIONS">
+      <value>Voorwaarden</value>
+  </data>
+  <data name="CONFIRM">
+      <value>Wachtwoord bevestigen</value>
+  </data>
+  <data name="CONFIRM_DELETE">
+      <value>Dit item verwijderen?</value>
+  </data>
+  <data name="CONTACT">
+      <value>Contactpersoon</value>
+  </data>
+  <data name="CONTACT_ADDRESS">
+      <value>Adres</value>
+  </data>
+  <data name="CONTACT_CONTACT1">
+      <value>Kantoor</value>
+  </data>
+  <data name="CONTACT_CONTACT2">
+      <value>Mobiele telefoon</value>
+  </data>
+  <data name="CONTACT_EMAIL">
+      <value>E-mail</value>
+  </data>
+  <data name="CONTACT_FAX">
+      <value>Faxnummer</value>
+  </data>
+  <data name="CONTACT_NAME">
+      <value>Naam</value>
+  </data>
+  <data name="CONTACT_ROLE">
+      <value>Functie</value>
+  </data>
+  <data name="CONTACTS_ADD">
+      <value>Nieuwe contactpersoon toevoegen</value>
+  </data>
+  <data name="CONTACTS_ADDRESS">
+      <value>Adres</value>
+  </data>
+  <data name="CONTACTS_CONTACT1">
+      <value>Kantoor</value>
+  </data>
+  <data name="CONTACTS_CONTACT2">
+      <value>Mobiele telefoon</value>
+  </data>
+  <data name="CONTACTS_DETAILS">
+      <value>Contact details</value>
+  </data>
+  <data name="CONTACTS_EMAIL">
+      <value>E-mail</value>
+  </data>
+  <data name="CONTACTS_FAX">
+      <value>Faxnummer</value>
+  </data>
+  <data name="CONTACTS_NAME">
+      <value>Naam</value>
+  </data>
+  <data name="CONTACTS_ROLE">
+      <value>Functie</value>
+  </data>
+  <data name="CONTACTS_VALID_NAME">
+      <value>Gelieve een correcte naam in te vullen.</value>
+  </data>
+  <data name="CONTENTTYPE">
+      <value>Content Type</value>
+  </data>
+  <data name="CONTINUE">
+      <value>Verder</value>
+  </data>
+  <data name="COPYALL">
+      <value>Alles kopiëren -&gt;</value>
+  </data>
+  <data name="COPYITEM">
+      <value>Kopieer -&gt;</value>
+  </data>
+  <data name="COUNTRIESFILTER">
+      <value>Toegelaten landen</value>
+  </data>
+  <data name="COUNTRIESFILTER_DESCRIPTION">
+      <value>Toegelaten landen, beperkt het aantal zichtbare landen bij registratie pagina. Leeg laten voor alle landen</value>
+  </data>
+  <data name="COUNTRY">
+      <value>Land/Regio</value>
+  </data>
+  <data name="COUNTRY_AD">
+      <value>Andorra</value>
+  </data>
+  <data name="COUNTRY_AE">
+      <value>Verenigde Arabische Emiraten</value>
+  </data>
+  <data name="COUNTRY_AF"></data>
+  <data name="COUNTRY_AG"></data>
+  <data name="COUNTRY_AI"></data>
+  <data name="COUNTRY_AL">
+      <value>Albanië</value>
+  </data>
+  <data name="COUNTRY_AM">
+      <value>Armenië</value>
+  </data>
+  <data name="COUNTRY_AN">
+      <value>Nederlandse Antillen</value>
+  </data>
+  <data name="COUNTRY_AO"></data>
+  <data name="COUNTRY_AQ">
+      <value>Antarctica</value>
+  </data>
+  <data name="COUNTRY_AR">
+      <value>Argentinië</value>
+  </data>
+  <data name="COUNTRY_AS"></data>
+  <data name="COUNTRY_AT">
+      <value>Oostenrijk</value>
+  </data>
+  <data name="COUNTRY_AU">
+      <value>Australië</value>
+  </data>
+  <data name="COUNTRY_AW"></data>
+  <data name="COUNTRY_AZ"></data>
+  <data name="COUNTRY_BA"></data>
+  <data name="COUNTRY_BB"></data>
+  <data name="COUNTRY_BD"></data>
+  <data name="COUNTRY_BE">
+      <value>België</value>
+  </data>
+  <data name="COUNTRY_BF"></data>
+  <data name="COUNTRY_BG">
+      <value>Bulgarije</value>
+  </data>
+  <data name="COUNTRY_BH"></data>
+  <data name="COUNTRY_BI">
+      <value>Burundi</value>
+  </data>
+  <data name="COUNTRY_BJ"></data>
+  <data name="COUNTRY_BM"></data>
+  <data name="COUNTRY_BN"></data>
+  <data name="COUNTRY_BO">
+      <value>Bolivië</value>
+  </data>
+  <data name="COUNTRY_BR">
+      <value>Brazilië</value>
+  </data>
+  <data name="COUNTRY_BS">
+      <value>Bahamas</value>
+  </data>
+  <data name="COUNTRY_BT"></data>
+  <data name="COUNTRY_BV"></data>
+  <data name="COUNTRY_BW"></data>
+  <data name="COUNTRY_BY"></data>
+  <data name="COUNTRY_BZ"></data>
+  <data name="COUNTRY_CA"></data>
+  <data name="COUNTRY_CC"></data>
+  <data name="COUNTRY_CD"></data>
+  <data name="COUNTRY_CF"></data>
+  <data name="COUNTRY_CG"></data>
+  <data name="COUNTRY_CH">
+      <value>Zwitserland</value>
+  </data>
+  <data name="COUNTRY_CI">
+      <value>Ivoorkust</value>
+  </data>
+  <data name="COUNTRY_CK"></data>
+  <data name="COUNTRY_CL">
+      <value>Chili</value>
+  </data>
+  <data name="COUNTRY_CM">
+      <value>Kameroen</value>
+  </data>
+  <data name="COUNTRY_CN"></data>
+  <data name="COUNTRY_CO"></data>
+  <data name="COUNTRY_CR"></data>
+  <data name="COUNTRY_CU"></data>
+  <data name="COUNTRY_CV"></data>
+  <data name="COUNTRY_CX"></data>
+  <data name="COUNTRY_CY"></data>
+  <data name="COUNTRY_CZ">
+      <value>Tsjechië</value>
+  </data>
+  <data name="COUNTRY_DE">
+      <value>Duitsland</value>
+  </data>
+  <data name="COUNTRY_DJ"></data>
+  <data name="COUNTRY_DK">
+      <value>Denemarken</value>
+  </data>
+  <data name="COUNTRY_DM"></data>
+  <data name="COUNTRY_DO"></data>
+  <data name="COUNTRY_DZ">
+      <value>Algerije</value>
+  </data>
+  <data name="COUNTRY_EC"></data>
+  <data name="COUNTRY_EE"></data>
+  <data name="COUNTRY_EG">
+      <value>Egypte</value>
+  </data>
+  <data name="COUNTRY_ER">
+      <value>Eritrea</value>
+  </data>
+  <data name="COUNTRY_ES">
+      <value>Spanje</value>
+  </data>
+  <data name="COUNTRY_ET">
+      <value>Ethiopië</value>
+  </data>
+  <data name="COUNTRY_FI"></data>
+  <data name="COUNTRY_FJ">
+      <value>Fiji eilanden</value>
+  </data>
+  <data name="COUNTRY_FK">
+      <value>Falkland eilanden</value>
+  </data>
+  <data name="COUNTRY_FM"></data>
+  <data name="COUNTRY_FO"></data>
+  <data name="COUNTRY_FR">
+      <value>Frankrijk</value>
+  </data>
+  <data name="COUNTRY_GA"></data>
+  <data name="COUNTRY_GB">
+      <value>Verenigd Koninkrijk</value>
+  </data>
+  <data name="COUNTRY_GD"></data>
+  <data name="COUNTRY_GE"></data>
+  <data name="COUNTRY_GF"></data>
+  <data name="COUNTRY_GH"></data>
+  <data name="COUNTRY_GI"></data>
+  <data name="COUNTRY_GL"></data>
+  <data name="COUNTRY_GM"></data>
+  <data name="COUNTRY_GN"></data>
+  <data name="COUNTRY_GP"></data>
+  <data name="COUNTRY_GQ"></data>
+  <data name="COUNTRY_GR">
+      <value>Griekenland</value>
+  </data>
+  <data name="COUNTRY_GS"></data>
+  <data name="COUNTRY_GT">
+      <value>Guatemala</value>
+  </data>
+  <data name="COUNTRY_GU"></data>
+  <data name="COUNTRY_GW"></data>
+  <data name="COUNTRY_GY"></data>
+  <data name="COUNTRY_HK">
+      <value>Hong Kong</value>
+  </data>
+  <data name="COUNTRY_HM"></data>
+  <data name="COUNTRY_HN">
+      <value>Honduras</value>
+  </data>
+  <data name="COUNTRY_HR">
+      <value>Kroatië</value>
+  </data>
+  <data name="COUNTRY_HT"></data>
+  <data name="COUNTRY_HU">
+      <value>Hongarije</value>
+  </data>
+  <data name="COUNTRY_ID">
+      <value>Indonesië</value>
+  </data>
+  <data name="COUNTRY_IE">
+      <value>Ierland</value>
+  </data>
+  <data name="COUNTRY_IL"></data>
+  <data name="COUNTRY_IN"></data>
+  <data name="COUNTRY_IO"></data>
+  <data name="COUNTRY_IQ">
+      <value>Irak</value>
+  </data>
+  <data name="COUNTRY_IR"></data>
+  <data name="COUNTRY_IS">
+      <value>IJsland</value>
+  </data>
+  <data name="COUNTRY_IT">
+      <value>Italië</value>
+  </data>
+  <data name="COUNTRY_JM"></data>
+  <data name="COUNTRY_JO">
+      <value>Jordanië</value>
+  </data>
+  <data name="COUNTRY_JP"></data>
+  <data name="COUNTRY_KE">
+      <value>Kenia</value>
+  </data>
+  <data name="COUNTRY_KG"></data>
+  <data name="COUNTRY_KH"></data>
+  <data name="COUNTRY_KI"></data>
+  <data name="COUNTRY_KM"></data>
+  <data name="COUNTRY_KN"></data>
+  <data name="COUNTRY_KP">
+      <value>Noord Korea</value>
+  </data>
+  <data name="COUNTRY_KR"></data>
+  <data name="COUNTRY_KW">
+      <value>Koeweit</value>
+  </data>
+  <data name="COUNTRY_KY"></data>
+  <data name="COUNTRY_KZ"></data>
+  <data name="COUNTRY_LA"></data>
+  <data name="COUNTRY_LB"></data>
+  <data name="COUNTRY_LC"></data>
+  <data name="COUNTRY_LI"></data>
+  <data name="COUNTRY_LK"></data>
+  <data name="COUNTRY_LR">
+      <value>Liberië</value>
+  </data>
+  <data name="COUNTRY_LS"></data>
+  <data name="COUNTRY_LT"></data>
+  <data name="COUNTRY_LU">
+      <value>Luxemburg</value>
+  </data>
+  <data name="COUNTRY_LV"></data>
+  <data name="COUNTRY_LY"></data>
+  <data name="COUNTRY_MA">
+      <value>Marokko</value>
+  </data>
+  <data name="COUNTRY_MC"></data>
+  <data name="COUNTRY_MD">
+      <value>Moldavië</value>
+  </data>
+  <data name="COUNTRY_MG"></data>
+  <data name="COUNTRY_MH"></data>
+  <data name="COUNTRY_MK"></data>
+  <data name="COUNTRY_ML"></data>
+  <data name="COUNTRY_MM"></data>
+  <data name="COUNTRY_MN">
+      <value>Mongolië</value>
+  </data>
+  <data name="COUNTRY_MO"></data>
+  <data name="COUNTRY_MP"></data>
+  <data name="COUNTRY_MQ"></data>
+  <data name="COUNTRY_MR"></data>
+  <data name="COUNTRY_MS"></data>
+  <data name="COUNTRY_MT"></data>
+  <data name="COUNTRY_MU"></data>
+  <data name="COUNTRY_MV"></data>
+  <data name="COUNTRY_MW"></data>
+  <data name="COUNTRY_MX"></data>
+  <data name="COUNTRY_MY"></data>
+  <data name="COUNTRY_MZ"></data>
+  <data name="COUNTRY_NA">
+      <value>Namibië</value>
+  </data>
+  <data name="COUNTRY_NC"></data>
+  <data name="COUNTRY_NE"></data>
+  <data name="COUNTRY_NF"></data>
+  <data name="COUNTRY_NG"></data>
+  <data name="COUNTRY_NI"></data>
+  <data name="COUNTRY_NL">
+      <value>Nederland</value>
+  </data>
+  <data name="COUNTRY_NN">
+      <value>Onbekend</value>
+  </data>
+  <data name="COUNTRY_NO">
+      <value>Noorwegen</value>
+  </data>
+  <data name="COUNTRY_NP"></data>
+  <data name="COUNTRY_NR"></data>
+  <data name="COUNTRY_NU"></data>
+  <data name="COUNTRY_NZ">
+      <value>Nieuw Zeeland</value>
+  </data>
+  <data name="COUNTRY_OM"></data>
+  <data name="COUNTRY_PA"></data>
+  <data name="COUNTRY_PE"></data>
+  <data name="COUNTRY_PF"></data>
+  <data name="COUNTRY_PG"></data>
+  <data name="COUNTRY_PH"></data>
+  <data name="COUNTRY_PK"></data>
+  <data name="COUNTRY_PL">
+      <value>Polen</value>
+  </data>
+  <data name="COUNTRY_PM"></data>
+  <data name="COUNTRY_PN"></data>
+  <data name="COUNTRY_PR"></data>
+  <data name="COUNTRY_PT"></data>
+  <data name="COUNTRY_PW"></data>
+  <data name="COUNTRY_PY"></data>
+  <data name="COUNTRY_QA"></data>
+  <data name="COUNTRY_RE"></data>
+  <data name="COUNTRY_RO"></data>
+  <data name="COUNTRY_RU">
+      <value>Rusland</value>
+  </data>
+  <data name="COUNTRY_RW">
+      <value>Ruanda</value>
+  </data>
+  <data name="COUNTRY_SA"></data>
+  <data name="COUNTRY_SB"></data>
+  <data name="COUNTRY_SC"></data>
+  <data name="COUNTRY_SD"></data>
+  <data name="COUNTRY_SE">
+      <value>Zweden</value>
+  </data>
+  <data name="COUNTRY_SG"></data>
+  <data name="COUNTRY_SH"></data>
+  <data name="COUNTRY_SI">
+      <value>Slovenië</value>
+  </data>
+  <data name="COUNTRY_SJ"></data>
+  <data name="COUNTRY_SK"></data>
+  <data name="COUNTRY_SL"></data>
+  <data name="COUNTRY_SM"></data>
+  <data name="COUNTRY_SN"></data>
+  <data name="COUNTRY_SO"></data>
+  <data name="COUNTRY_SR">
+      <value>Suriname</value>
+  </data>
+  <data name="COUNTRY_ST"></data>
+  <data name="COUNTRY_SV"></data>
+  <data name="COUNTRY_SY"></data>
+  <data name="COUNTRY_SZ"></data>
+  <data name="COUNTRY_TC"></data>
+  <data name="COUNTRY_TD"></data>
+  <data name="COUNTRY_TF"></data>
+  <data name="COUNTRY_TG"></data>
+  <data name="COUNTRY_TH"></data>
+  <data name="COUNTRY_TJ"></data>
+  <data name="COUNTRY_TK"></data>
+  <data name="COUNTRY_TL"></data>
+  <data name="COUNTRY_TM"></data>
+  <data name="COUNTRY_TN">
+      <value>Tunesië</value>
+  </data>
+  <data name="COUNTRY_TO"></data>
+  <data name="COUNTRY_TR">
+      <value>Turkije</value>
+  </data>
+  <data name="COUNTRY_TT"></data>
+  <data name="COUNTRY_TV"></data>
+  <data name="COUNTRY_TW"></data>
+  <data name="COUNTRY_TZ"></data>
+  <data name="COUNTRY_UA"></data>
+  <data name="COUNTRY_UG"></data>
+  <data name="COUNTRY_UM"></data>
+  <data name="COUNTRY_US">
+      <value>Verenigde Staten</value>
+  </data>
+  <data name="COUNTRY_UY"></data>
+  <data name="COUNTRY_UZ"></data>
+  <data name="COUNTRY_VA"></data>
+  <data name="COUNTRY_VC"></data>
+  <data name="COUNTRY_VE"></data>
+  <data name="COUNTRY_VG"></data>
+  <data name="COUNTRY_VI"></data>
+  <data name="COUNTRY_VN"></data>
+  <data name="COUNTRY_VU"></data>
+  <data name="COUNTRY_WF"></data>
+  <data name="COUNTRY_WS"></data>
+  <data name="COUNTRY_YE"></data>
+  <data name="COUNTRY_YT"></data>
+  <data name="COUNTRY_YU">
+      <value>Joegoslavië</value>
+  </data>
+  <data name="COUNTRY_ZA">
+      <value>Zuid Afrika</value>
+  </data>
+  <data name="COUNTRY_ZM"></data>
+  <data name="COUNTRY_ZW"></data>
+  <data name="CREATED_BY">
+      <value>Aangemaakt door</value>
+  </data>
+  <data name="CREATED_ON">
+      <value>Aangemaakt op</value>
+  </data>
+  <data name="CREATEDBY">
+      <value>Aangemaakt door</value>
+  </data>
+  <data name="CULTURE">
+      <value>Cultuur</value>
+  </data>
+  <data name="CULTURE_DESCRIPTION">
+      <value>Kies cultuur.</value>
+  </data>
+  <data name="CULTURE_SETTINGS">
+      <value>Cultuur instellingen.</value>
+  </data>
+  <data name="CULTUREIMGPORTAL">
+      <value>Gebruik vlaggen?</value>
+  </data>
+  <data name="CULTUREIMGPORTAL_DESCRIPTION">
+      <value>Vink aan voor gebruik vlaggen</value>
+  </data>
+  <data name="CULTURELIST">
+      <value>Culture lijst</value>
+  </data>
+  <data name="CUSTOMLAYOUT">
+      <value>Specifieke Layout</value>
+  </data>
+  <data name="CUSTOMLAYOUT_DESCRIPTION">
+      <value>Selecteer een layout specifiek voor deze pagina</value>
+  </data>
+  <data name="CUSTOMMENUIMAGE">
+      <value>Aangepast Image Menu</value>
+  </data>
+  <data name="CUSTOMMENUIMAGE_DESCRIPTION">
+      <value>Set a custom menu image for this Pagina</value>
+  </data>
+  <data name="CUSTOMTHEME">
+      <value>Specifieke Thema</value>
+  </data>
+  <data name="CUSTOMTHEME_DESCRIPTION">
+      <value>Selecteer een thema specifiek voor de modules van deze pagina</value>
+  </data>
+  <data name="CUSTOMTHEMEALT">
+      <value>Specifieke Alt Thema</value>
+  </data>
+  <data name="CUSTOMTHEMEALT_DESCRIPTION">
+      <value>Selecteer een alternatief thema specifiek voor de modules van deze pagina</value>
+  </data>
+  <data name="DA-DK"></data>
+  <data name="DA-DK_DESCRIPTION"></data>
+  <data name="DATE">
+      <value>Datum</value>
+  </data>
+  <data name="DBTOOL_GETDATA">
+      <value>Datums</value>
+  </data>
+  <data name="DBTOOL_GETINFO"></data>
+  <data name="DBTOOL_GETINFOEXTENDED">
+      <value>Uitgebreide info</value>
+  </data>
+  <data name="DBTOOL_GETPROPERTIES">
+      <value>Eigenschappen</value>
+  </data>
+  <data name="DBTOOL_OWNER">
+      <value>Auteur</value>
+  </data>
+  <data name="DBTOOL_QUERYEXECUTE">
+      <value>Query uitvoeren</value>
+  </data>
+  <data name="DE-CH">
+      <value>Titel [de-CH]</value>
+  </data>
+  <data name="DE-CH_DESCRIPTION">
+      <value>Titel voor Duits (Zwitserland) cultuur</value>
+  </data>
+  <data name="DECLINE">
+      <value>Nee, dank u!</value>
+  </data>
+  <data name="DE-DE">
+      <value>Titel [de-DE]</value>
+  </data>
+  <data name="DE-DE_DESCRIPTION">
+      <value>Titel voor Duits (Duitsland) cultuur</value>
+  </data>
+  <data name="DEFAULT_IMAGE_EDITOR">
+      <value>Standaard </value>
+  </data>
+  <data name="DEFAULTEMAIL">
+      <value>E-mail verzender</value>
+  </data>
+  <data name="DEFAULTNAME">
+      <value>Naam verzender</value>
+  </data>
+  <data name="DEFAULTVISIBLEDAYS">
+      <value>Standaard Zichtbare Dagen</value>
+  </data>
+  <data name="DELAYEXPIRE">
+      <value>Standaard wacht vervaldatum</value>
+  </data>
+  <data name="DELETE">
+      <value>Verwijder</value>
+  </data>
+  <data name="DELETE_PORTAL">
+      <value>Schrap portaal</value>
+  </data>
+  <data name="DELETE_THIS_ITEM">
+      <value>Verwijder dit item</value>
+  </data>
+  <data name="DELETE_THIS_MODULE_TYPE">
+      <value>Verwijder dit module type</value>
+  </data>
+  <data name="DELETE_USER">
+      <value>Gebruiker verwijderen</value>
+  </data>
+  <data name="DELETEBTN">
+      <value>Verwijder geselecteerde item</value>
+  </data>
+  <data name="DELETEITEM">
+      <value>Verwijder geselecteerde item</value>
+  </data>
+  <data name="DELETELEFT">
+      <value>&lt;- Verwijder</value>
+  </data>
+  <data name="DELETEMODULE">
+      <value>Verwijder deze module</value>
+  </data>
+  <data name="DELETERIGHT">
+      <value>Verwijder -&gt;</value>
+  </data>
+  <data name="DELUSER">
+      <value>Verwijder gebruiker van rol</value>
+  </data>
+  <data name="DESCRIPTION">
+      <value>Beschrijving</value>
+  </data>
+  <data name="DESKTOP_SOURCE">
+      <value>Desktop bron</value>
+  </data>
+  <data name="DIRECTURL">
+      <value>A directe URL die gebruikt kan worden om automatisch in te loggen</value>
+  </data>
+  <data name="DISCUSION_AUTHOR">
+      <value>Auteur</value>
+  </data>
+  <data name="DISCUSION_LAST_UPDATE">
+      <value>Laatst gewijzigd op</value>
+  </data>
+  <data name="DISCUSION_TITLE">
+      <value>Titel</value>
+  </data>
+  <data name="DISCUSSION_DELETE_RESPONSE">
+      <value>Verwijder antwoord</value>
+  </data>
+  <data name="DISCUSSION_LAST_UPDATE">
+      <value>Laatst gewijzigd</value>
+  </data>
+  <data name="DISCUSSION_MSGCOLLAPSE">
+      <value>Draadje inklappen</value>
+  </data>
+  <data name="DISCUSSION_MSGEXPAND">
+      <value>Draadje uitklappen</value>
+  </data>
+  <data name="DISCUSSION_MSGSELECT">
+      <value>Draad openen in nieuwe browser scherm</value>
+  </data>
+  <data name="DISCUSSION_REPLYS">
+      <value>Aantal reply's op dit onderwerp</value>
+  </data>
+  <data name="DISCUSSION_VIEWED">
+      <value>Het aantal tijden is dit onderwerp bekeken</value>
+  </data>
+  <data name="DOCUMENT_AREA">
+      <value>Catergorie</value>
+  </data>
+  <data name="DOCUMENT_DETAILS">
+      <value>Documentgegevens</value>
+  </data>
+  <data name="DOCUMENT_LAST_UPDATED">
+      <value>Laatst geactualiseerd</value>
+  </data>
+  <data name="DOCUMENT_OWNER">
+      <value>Eigenaar</value>
+  </data>
+  <data name="DOCUMENTPATH">
+      <value>Document pad</value>
+  </data>
+  <data name="DOCUMENTPATH_DESCRIPTION">
+      <value>Map waar documenten worden opgeslagen</value>
+  </data>
+  <data name="DOCUMENTS_DBSAVE">
+      <value>Bestanden in database opslaan?</value>
+  </data>
+  <data name="DOCUMENTS_DBSAVE_DESCRIPTION">
+      <value>Aanvinken wanneer bestanen in database opgeslagen moeten worden</value>
+  </data>
+  <data name="DOCUMENTS_FOLDER">
+      <value>Documentmap</value>
+  </data>
+  <data name="DOCUMENTS_SHOWAREA">
+      <value>Categorie kolom tonen?</value>
+  </data>
+  <data name="DOCUMENTS_SHOWAREA_DESCRIPTION"></data>
+  <data name="DOCUMENTS_SHOWIMAGES">
+      <value>Iconen van afbeeldingen tonen?</value>
+  </data>
+  <data name="DOCUMENTS_SHOWIMAGES_DESCRIPTION"></data>
+  <data name="DOCUMENTS_SHOWLASTUPDATED">
+      <value>Toon Laatst gewijzigd kolom</value>
+  </data>
+  <data name="DOCUMENTS_SHOWLASTUPDATED_DESCRIPTION"></data>
+  <data name="DOCUMENTS_SHOWOWNER">
+      <value>Toon Eigenaar kolom?</value>
+  </data>
+  <data name="DOCUMENTS_SHOWOWNER_DESCRIPTION"></data>
+  <data name="DOCUMENTS_SHOWTITLE">
+      <value>Toon titel kolom?</value>
+  </data>
+  <data name="DOCUMENTS_SHOWTITLE_DESCRIPTION"></data>
+  <data name="DOCUMENTS_SORTBY_DIRECTION">
+      <value>Opgaand of neergaand sorteren?</value>
+  </data>
+  <data name="DOCUMENTS_SORTBY_DIRECTION_DESCRIPTION">
+      <value>Opgaand: A tot Z of 0 - 9. Neergaand: Z - A of 9 - 0. </value>
+  </data>
+  <data name="DOCUMENTS_SORTBY_DIRECTION_LIST">
+      <value>Opgaand; Neergaand</value>
+  </data>
+  <data name="DOCUMENTS_SORTBY_FIELD">
+      <value>Sorteer veld?</value>
+  </data>
+  <data name="DOCUMENTS_SORTBY_FIELD_DESCRIPTION">
+      <value>Sorteer op Bestandsnaam of aanmaak datum?</value>
+  </data>
+  <data name="DOCUMENTS_SORTBY_FIELD_LIST">
+      <value>Bestandsnaam; Aanmaak datum</value>
+  </data>
+  <data name="DOCUMENTS_SOURCE">
+      <value>Documentbron</value>
+  </data>
+  <data name="DONOTRESENDWITHIN">
+      <value>Niet opnieuw sturen in (dagen)</value>
+  </data>
+  <data name="DONOTRESENDWITHIN_DESCRIPTION">
+      <value>Om spam te voorkomen kunt u een gebruiker niet meer dan eens in een aantal dagen mailen.</value>
+  </data>
+  <data name="DONT_RESIZE">
+      <value>Niet vergroten/verkleinen</value>
+  </data>
+  <data name="DS_AUTHOR">
+      <value>Auteur</value>
+  </data>
+  <data name="DS_BODY">
+      <value>Bericht</value>
+  </data>
+  <data name="DS_DATE">
+      <value>Datum</value>
+  </data>
+  <data name="DS_DISPLAY_THREADS">
+      <value>Alle draadjes van dit onderwerp tonen</value>
+  </data>
+  <data name="DS_LASTREPLYDATE">
+      <value>Datum van laatste antwoord</value>
+  </data>
+  <data name="DS_MSGDETAILS">
+      <value>Berichtgegegevens</value>
+  </data>
+  <data name="DS_NEWTHREAD">
+      <value>Nieuwe thread toevoegen</value>
+  </data>
+  <data name="DS_ORIGINALMSG">
+      <value>Origineel bericht</value>
+  </data>
+  <data name="DS_REPLYTHISMSG">
+      <value>Reageren op dit bericht</value>
+  </data>
+  <data name="DS_RETURN_LIST">
+      <value>Terugkeren naar berichten lijst</value>
+  </data>
+  <data name="ECOMMERCE_ACCOUNT_LOGIN"></data>
+  <data name="ECOMMERCE_GATEWAY_CARIGE_TITLE"></data>
+  <data name="ECOMMERCE_GATEWAY_TITLE"></data>
+  <data name="ECOMMERCE_KO_MSG1"></data>
+  <data name="ECOMMERCE_KO_MSG2"></data>
+  <data name="ECOMMERCE_KO_MSG3"></data>
+  <data name="ECOMMERCE_LOGIN_EMAILSUBJECTOK"></data>
+  <data name="ECOMMERCE_LOGIN_ENTEREMAIL"></data>
+  <data name="ECOMMERCE_LOGIN_FAILED"></data>
+  <data name="ECOMMERCE_LOGON_MSGCANCEL"></data>
+  <data name="ECOMMERCE_LOGON_MSGREGISTER"></data>
+  <data name="ECOMMERCE_OK_MSG1"></data>
+  <data name="ECOMMERCE_OK_MSG2"></data>
+  <data name="ECOMMERCE_OK_MSG3"></data>
+  <data name="ECOMMERCE_SECURE_TITLE"></data>
+  <data name="EDIT">
+      <value>Bewerken</value>
+  </data>
+  <data name="EDIT_ACCESS_DENIED">
+      <value>Bewerken niet toegestaan</value>
+  </data>
+  <data name="EDIT_ACCESS_DENIED_MESSAGE">
+      <value>Ofwel ben je momenteel niet ingelogd, of heb je geen toegang om deze pagina te bewerken.</value>
+  </data>
+  <data name="EDIT_PORTAL">
+      <value>Portaal bewerken</value>
+  </data>
+  <data name="EDIT_PROFILE">
+      <value>Profiel bewerken</value>
+  </data>
+  <data name="EDIT_THIS_ITEM">
+      <value>Bewerk dit item</value>
+  </data>
+  <data name="EDIT_USER">
+      <value>Gebruiker bewerken</value>
+  </data>
+  <data name="EDITBTN">
+      <value>Eigenschappen geselecteerde items bewerken</value>
+  </data>
+  <data name="EDITOR">
+      <value>Redacteur</value>
+  </data>
+  <data name="EDITOR_DESCRIPTION">
+      <value>Selecteer de Html Editor voor de Module</value>
+  </data>
+  <data name="ELECTRONICDELIVERY">
+      <value>Electronische levering</value>
+  </data>
+  <data name="ELECTRONICDELIVERY_DESCRIPTION"></data>
+  <data name="EMAIL">
+      <value>E-mail</value>
+  </data>
+  <data name="EMAILORWINDOW">
+      <value>E-mail (of Windows Domeinnaam)</value>
+  </data>
+  <data name="EMF_ADDRESSES_NOT_OK">
+      <value>De E-mail adressen zijn incorrect</value>
+  </data>
+  <data name="EMF_BCC"></data>
+  <data name="EMF_CC"></data>
+  <data name="EMF_HTMLBODY_ERROR">
+      <value>U moet de HTML tekst van de body invoeren.</value>
+  </data>
+  <data name="EMF_SUBJECT">
+      <value>Onderwerp</value>
+  </data>
+  <data name="EMF_SUBJECT_ERROR">
+      <value>U moet de bericht titel invoeren.</value>
+  </data>
+  <data name="EMF_TEXTBODY_ERROR">
+      <value>U moet de TEXT body invoeren.</value>
+  </data>
+  <data name="EMF_TO">
+      <value>Aan</value>
+  </data>
+  <data name="EN">
+      <value>Titel (en)</value>
+  </data>
+  <data name="EN_DESCRIPTION">
+      <value>Titel voor Engelse cultuur.</value>
+  </data>
+  <data name="END_DATE">
+      <value>Einddatum</value>
+  </data>
+  <data name="ENHANCEDHTML_ADDINVARIANTCULTURE">
+      <value>Voeg Onveranderlijke Cultuur toe?</value>
+  </data>
+  <data name="ENHANCEDHTML_ADDINVARIANTCULTURE_DESCRIPTION"></data>
+  <data name="ENHANCEDHTML_ALIGNDOWNMENU">
+      <value>Navigatiemenu uitlijnen</value>
+  </data>
+  <data name="ENHANCEDHTML_ALIGNDOWNMENU_DESCRIPTION"></data>
+  <data name="ENHANCEDHTML_ALIGNUPMENU">
+      <value>Indexmenu uitlijnen</value>
+  </data>
+  <data name="ENHANCEDHTML_ALIGNUPMENU_DESCRIPTION"></data>
+  <data name="ENHANCEDHTML_CANCEL">
+      <value>Annuleer</value>
+  </data>
+  <data name="ENHANCEDHTML_CONFIRMDELETEMESSAGE">
+      <value>Weet u zeker dat U dit item wilt verwijderen?</value>
+  </data>
+  <data name="ENHANCEDHTML_CONTENT_FROM">
+      <value>Inhoud van</value>
+  </data>
+  <data name="ENHANCEDHTML_DELETEPAGE">
+      <value>Verwijder pagina</value>
+  </data>
+  <data name="ENHANCEDHTML_EDITOR">
+      <value>Redacteur</value>
+  </data>
+  <data name="ENHANCEDHTML_EDITOR_DESCRIPTION">
+      <value>Selecteer de Html Editor voor de Module</value>
+  </data>
+  <data name="ENHANCEDHTML_EDITPAGE">
+      <value>Wijzig pagina</value>
+  </data>
+  <data name="ENHANCEDHTML_GET_CONTENTS_FROM_PORTALS">
+      <value>Content van andere Portals overnemen?</value>
+  </data>
+  <data name="ENHANCEDHTML_GET_CONTENTS_FROM_PORTALS_DESCRIPTION">
+      <value>Selecteer dit wanneer u content van modules uit andere portals wilt opslaan in deze database.</value>
+  </data>
+  <data name="ENHANCEDHTML_LANGUAGE">
+      <value>Taal</value>
+  </data>
+  <data name="ENHANCEDHTML_MULTIPAGEMODE">
+      <value>Multi Pagina Modus</value>
+  </data>
+  <data name="ENHANCEDHTML_NEWPAGE">
+      <value>Nieuwe pagina</value>
+  </data>
+  <data name="ENHANCEDHTML_OF">
+      <value>van</value>
+  </data>
+  <data name="ENHANCEDHTML_PAGE">
+      <value>Pagina</value>
+  </data>
+  <data name="ENHANCEDHTML_PAGENAME">
+      <value>Paginanaam</value>
+  </data>
+  <data name="ENHANCEDHTML_RETURN">
+      <value>Terug</value>
+  </data>
+  <data name="ENHANCEDHTML_SELECT_MODULE"></data>
+  <data name="ENHANCEDHTML_SELECT_MODULE_PORTAL"></data>
+  <data name="ENHANCEDHTML_SHOWALLPAGES">
+      <value>Alle pagina's</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWDOWNMENU">
+      <value>Navigatiemenu tonen</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWDOWNMENU_DESCRIPTION"></data>
+  <data name="ENHANCEDHTML_SHOWMULTIMODE">
+      <value>Toon Multi Pagina Modus icoon?</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWMULTIMODE_DESCRIPTION"></data>
+  <data name="ENHANCEDHTML_SHOWTITLEPAGE">
+      <value>Toon Titel Pagina?</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWTITLEPAGE_DESCRIPTION"></data>
+  <data name="ENHANCEDHTML_SHOWUPLOAD">
+      <value>Toon upload?</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWUPLOAD_DESCRIPTION">
+      <value>Alleen gebruiken wanneer als editor de ActiveUp HtmlTextBox wordt gebruikt</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWUPMENU">
+      <value>Indexmenu tonen?</value>
+  </data>
+  <data name="ENHANCEDHTML_SHOWUPMENU_DESCRIPTION"></data>
+  <data name="ENHANCEDHTML_SINGLEPAGEMODE">
+      <value>Enkel Pagina Modus</value>
+  </data>
+  <data name="ENHANCEDHTML_UPDATE">
+      <value>Update</value>
+  </data>
+  <data name="ENHANCEDHTML_VIEWORDER">
+      <value>Volgorde</value>
+  </data>
+  <data name="ENHANCEDLINK_GALLERYTITLE">
+      <value>Icoon gallery</value>
+  </data>
+  <data name="ENHANCEDLINK_ICON">
+      <value>Iconen uploaden</value>
+  </data>
+  <data name="ENHANCEDLINK_SELECT">
+      <value>1. Selecteer afbeelding</value>
+  </data>
+  <data name="ENHANCEDLINK_UPLOAD">
+      <value>2. Bestand uploaden</value>
+  </data>
+  <data name="ENHANCEDLINKS_DEFAULTIMAGE">
+      <value>Standaard afbeelding voor Link</value>
+  </data>
+  <data name="ENHANCEDLINKS_DEFAULTIMAGE_DESCRIPTION">
+      <value>Selecteer standaard afbeelding</value>
+  </data>
+  <data name="ENHANCEDLINKS_DROPDOWNLIST">
+      <value>Dropdown lijst</value>
+  </data>
+  <data name="ENHANCEDLINKS_EDITLINK">
+      <value>Link wijzigen</value>
+  </data>
+  <data name="ENHANCEDLINKS_EXPANDALL">
+      <value>Omschrijving tonen</value>
+  </data>
+  <data name="ENHANCEDLINKS_EXPANDALL_DESCRIPTION"></data>
+  <data name="ENHANCEDLINKS_GENERALIMAGE">
+      <value>Algemene afbeelding</value>
+  </data>
+  <data name="ENHANCEDLINKS_GENERALIMAGE_DESCRIPTION">
+      <value>Selecteer algemene afbeelding voor alle modules</value>
+  </data>
+  <data name="ENHANCEDLINKS_ICONPATH">
+      <value>Container voor icoonen</value>
+  </data>
+  <data name="ENHANCEDLINKS_ICONPATH_DESCRIPTION">
+      <value>Map waar iconen worden opgeslagen</value>
+  </data>
+  <data name="ENHANCEDLINKS_LINKS"></data>
+  <data name="ENHANCEDLINKS_LINKSHORIZONTAL">
+      <value>Horizontale links</value>
+  </data>
+  <data name="ENHANCEDLINKS_MAXCOLUMS">
+      <value>Max aantal kolommen</value>
+  </data>
+  <data name="ENHANCEDLINKS_MAXCOLUMS_DESCRIPTION"></data>
+  <data name="ENHANCEDLINKS_SWITCHERTYPES">
+      <value>Style links</value>
+  </data>
+  <data name="ENHANCEDLINKS_SWITCHERTYPES_DESCRIPTION">
+      <value>Selecteer hoe module eruit moet zien</value>
+  </data>
+  <data name="EN-US">
+      <value>Titel (en-US)</value>
+  </data>
+  <data name="EN-US_DESCRIPTION">
+      <value>Titel voor Engels (Verenigde Staten) cultuur.</value>
+  </data>
+  <data name="ERROR">
+      <value>Fout</value>
+  </data>
+  <data name="ERROR_403">
+      <value>Toegang / wijzig rechten zijn gewijgerd.</value>
+  </data>
+  <data name="ERROR_403_MESSAGE">
+      <value>U heeft niet de juiste rechten voor de gevraagde pagina.</value>
+  </data>
+  <data name="ERROR_404">
+      <value>Pagina niet gevonden.</value>
+  </data>
+  <data name="ERROR_404_MESSAGE">
+      <value>Onze excuses, de opgevraagde pagina kan niet worden gevonden.</value>
+  </data>
+  <data name="ERROR_COMPLETION_DATE">
+      <value>Voor de verwachte voltooingsdatum in</value>
+  </data>
+  <data name="ERROR_ENTER_A_FILE_NAME">
+      <value>Vul bestandnaam in</value>
+  </data>
+  <data name="ERROR_ENTER_A_MODULE_NAME">
+      <value>Vul Modulenaam in</value>
+  </data>
+  <data name="ERROR_ENTER_A_SOURCE_PATH">
+      <value>Vul bron map in</value>
+  </data>
+  <data name="ERROR_FILE_NAME">
+      <value>Geef bestandsnaam op</value>
+  </data>
+  <data name="ERROR_INVALID_MODULE">
+      <value>Ongeldige module</value>
+  </data>
+  <data name="ERROR_NOT_ALLOWED_PARENT">
+      <value>Ongeldige selectie</value>
+  </data>
+  <data name="ERROR_QUIZ_ANSWER">
+      <value>Selecteer een antwoord aub!</value>
+  </data>
+  <data name="ERROR_SUBJECT">
+      <value>U moet een Onderwerp opgeven.</value>
+  </data>
+  <data name="ERROR_VALID_COMPLETION_DATE">
+      <value>Geef verwachte datum van voltooiing</value>
+  </data>
+  <data name="ERROR_VALID_DATE">
+      <value>Correcte datum invullen aub.</value>
+  </data>
+  <data name="ERROR_VALID_DESCRIPTION">
+      <value>Correcte beschrijving invullen aub.</value>
+  </data>
+  <data name="ERROR_VALID_EMAIL">
+      <value>Correcte e-mailadres invullen aub.</value>
+  </data>
+  <data name="ERROR_VALID_ENDDATE">
+      <value>Geldige Einddatum opgeven aub.</value>
+  </data>
+  <data name="ERROR_VALID_EXPIRE_DATE">
+      <value>Geldige Verloopdatum opgeven aub.</value>
+  </data>
+  <data name="ERROR_VALID_ID">
+      <value>ID moet een geheel getal zijn</value>
+  </data>
+  <data name="ERROR_VALID_MESSAGE_TEXT">
+      <value>Boodschap invullen aub.</value>
+  </data>
+  <data name="ERROR_VALID_MILESTONE_STATUS">
+      <value>Voer status van mijlpaal in</value>
+  </data>
+  <data name="ERROR_VALID_MILESTONE_TITLE">
+      <value>U moet een geldige titel invoeren</value>
+  </data>
+  <data name="ERROR_VALID_NAME">
+      <value>U moet een geldige Naam invoeren</value>
+  </data>
+  <data name="ERROR_VALID_STARTDATE">
+      <value>U moet een geldige startdatum invoeren</value>
+  </data>
+  <data name="ERROR_VALID_TITLE">
+      <value>Correcte titel invullen aub.</value>
+  </data>
+  <data name="ERROR_VALID_URL">
+      <value>U moet een geldige URL invoeren</value>
+  </data>
+  <data name="ERROR_VALID_VIEWORDER">
+      <value>U moet een geldige volgorde index invoeren</value>
+  </data>
+  <data name="ERROR_VALID_WHERE_WHEN">
+      <value>Correcte waar/wanneer invullen aub.</value>
+  </data>
+  <data name="ERROR_VALID_WHEREWHEN">
+      <value>Correcte waar/wanneer invullen aub.</value>
+  </data>
+  <data name="ES">
+      <value>Titel (es)</value>
+  </data>
+  <data name="ES_DESCRIPTION">
+      <value>Titel voor Spaanse cultuur.</value>
+  </data>
+  <data name="ES-ES">
+      <value>Titel (es-es)</value>
+  </data>
+  <data name="ES-ES_DESCRIPTION">
+      <value>Titel voor Spaanse cultuur.</value>
+  </data>
+  <data name="EVENTS_ADD">
+      <value>Nieuwe gebeurtenis toevoegen</value>
+  </data>
+  <data name="EVENTS_ALLDAY">
+      <value>Duurt hele dag</value>
+  </data>
+  <data name="EVENTS_BOOKING_REQUIRED">
+      <value>Inschrijven verplicht</value>
+  </data>
+  <data name="EVENTS_CATEGORY">
+      <value>Categorie</value>
+  </data>
+  <data name="EVENTS_DESCRIPTION">
+      <value>Omschrijving</value>
+  </data>
+  <data name="EVENTS_DETAILS">
+      <value>Gebeurtenis details</value>
+  </data>
+  <data name="EVENTS_EMAIL">
+      <value>E-mail voor informatie</value>
+  </data>
+  <data name="EVENTS_ENABLED">
+      <value>Activeer</value>
+  </data>
+  <data name="EVENTS_END_DATE">
+      <value>Einddatum</value>
+  </data>
+  <data name="EVENTS_EXPIRES">
+      <value>Vervalt</value>
+  </data>
+  <data name="EVENTS_GROUP">
+      <value>Groep</value>
+  </data>
+  <data name="EVENTS_PAYMENT">
+      <value>Betaling</value>
+  </data>
+  <data name="EVENTS_PLACE">
+      <value>Locatie</value>
+  </data>
+  <data name="EVENTS_PRICES">
+      <value>Prijs</value>
+  </data>
+  <data name="EVENTS_SITEURL">
+      <value>URL</value>
+  </data>
+  <data name="EVENTS_START_DATE">
+      <value>Startdatum</value>
+  </data>
+  <data name="EVENTS_STARTAT">
+      <value>Begint om</value>
+  </data>
+  <data name="EVENTS_STARTDATE">
+      <value>Startdatum</value>
+  </data>
+  <data name="EVENTS_STARTTIME">
+      <value>Starttijd</value>
+  </data>
+  <data name="EVENTS_TIMETABLE">
+      <value>Tijdstip</value>
+  </data>
+  <data name="EVENTS_TITLE">
+      <value>Titel</value>
+  </data>
+  <data name="EVENTS_VALID_DESCRIPTION">
+      <value>U moet een correcte omschrijving invullen</value>
+  </data>
+  <data name="EVENTS_VALID_EXPIRE">
+      <value>U moet een correcte verloopdatum invullen</value>
+  </data>
+  <data name="EVENTS_VALID_TITLE">
+      <value>U moet een correcte titel invullen</value>
+  </data>
+  <data name="EVENTS_VALID_WHEN-WHERE">
+      <value>U moet een correcte tijd/locatie invullen</value>
+  </data>
+  <data name="EVENTS_WHEN-WHERE">
+      <value>Waar/Wanneer</value>
+  </data>
+  <data name="EVENTS_WHEREWHEN">
+      <value>Waar/Wanneer</value>
+  </data>
+  <data name="EXCERPT">
+      <value>Samenvatting</value>
+  </data>
+  <data name="EXPIRE_DATE">
+      <value>Vervaldatum</value>
+  </data>
+  <data name="FAQ_A"></data>
+  <data name="FAQ_ANSWER">
+      <value>Antwoord</value>
+  </data>
+  <data name="FAQ_ANSWER_ERR">
+      <value>Fout in antwoord</value>
+  </data>
+  <data name="FAQ_DETAILS"></data>
+  <data name="FAQ_Q"></data>
+  <data name="FAQ_QUESTION">
+      <value>Vraag</value>
+  </data>
+  <data name="FAQ_QUESTION_ERR">
+      <value>Fout in vraag</value>
+  </data>
+  <data name="FAX"></data>
+  <data name="FILE_CATEGORY">
+      <value>Categorie</value>
+  </data>
+  <data name="FILE_NAME">
+      <value>Bestandsnaam</value>
+  </data>
+  <data name="FILE_NOT_FOUND">
+      <value>Bestand %1% niet gevonden</value>
+  </data>
+  <data name="FILE_UPLOAD">
+      <value>Bestand</value>
+  </data>
+  <data name="FILE_UPLOAD_ERROR">
+      <value>Het upgeloade bestand is niet correct</value>
+  </data>
+  <data name="FILEMAN_FILENAME">
+      <value>Bestandsnaam</value>
+  </data>
+  <data name="FILEMAN_MODIFIED">
+      <value>Gewijzigd</value>
+  </data>
+  <data name="FILEMAN_SIZE">
+      <value>Grootte (KB)</value>
+  </data>
+  <data name="FIXED_WIDTH_AND_HEIGHT">
+      <value>Vaste breedte en hoogte</value>
+  </data>
+  <data name="FIXEDSHIPPING"></data>
+  <data name="FIXEDSHIPPING_DESCRIPTION"></data>
+  <data name="FLASH_BACKGROUNDCOLOR">
+      <value>Achtergrond kleur</value>
+  </data>
+  <data name="FLASH_GALLERY">
+      <value>Flash Gallery</value>
+  </data>
+  <data name="FLASH_PATH">
+      <value>SWF pad</value>
+  </data>
+  <data name="FLASH_SELECT_FILE">
+      <value>1. Selecteer bestand:</value>
+  </data>
+  <data name="FLASH_SETTINGS">
+      <value>Flash instellingen</value>
+  </data>
+  <data name="FLASH_UPLOAD_FILE">
+      <value>2. Upload het bestand</value>
+  </data>
+  <data name="FLASH_UPLOAD_TITLE">
+      <value>Upload Flash bestand</value>
+  </data>
+  <data name="FRIENDLY_NAME">
+      <value>Weergave naam</value>
+  </data>
+  <data name="FROM">
+      <value>Van</value>
+  </data>
+  <data name="GATEWAY_WIRE_TRANSFER"></data>
+  <data name="GENERAL_ERROR_MESSAGE">
+      <value>This Section is in Maintenance</value>
+  </data>
+  <data name="GOOGLE_SEARCH">
+      <value>Zoek</value>
+  </data>
+  <data name="GOOGLE_START">
+      <value>De start</value>
+  </data>
+  <data name="GOTO_PAGE">
+      <value>Ga naar pagina</value>
+  </data>
+  <data name="GUID">
+      <value>GUID</value>
+  </data>
+  <data name="HEADER_EDIT_PROFILE">
+      <value>Profiel bewerken</value>
+  </data>
+  <data name="HEADER_HELP">
+      <value>Help</value>
+  </data>
+  <data name="HEADER_LOGOFF">
+      <value>Uitloggen</value>
+  </data>
+  <data name="HEADER_MANAGE_TAB">
+      <value>Bewerk pagina</value>
+  </data>
+  <data name="HEADER_SAVE_DESKTOP">
+      <value>Bureaublad opslaan</value>
+  </data>
+  <data name="HEADER_WELCOME">
+      <value>Welkom</value>
+  </data>
+  <data name="HEIGHT">
+      <value>Hoogte</value>
+  </data>
+  <data name="HEIGHT_DESCRIPTION">
+      <value>De hoogte van de editor</value>
+  </data>
+  <data name="HERE">
+      <value>Hier</value>
+  </data>
+  <data name="HOME">
+      <value>Home</value>
+  </data>
+  <data name="HORIZONTAL">
+      <value>Horizontaal</value>
+  </data>
+  <data name="HTML_DESKTOP_CONTENT">
+      <value>Desktop HTML inhoud</value>
+  </data>
+  <data name="HTML_EDITOR">
+      <value>HTML Editor</value>
+  </data>
+  <data name="HTML_MOBILE_DETAILS">
+      <value>Mobiele details</value>
+  </data>
+  <data name="HTML_MOBILE_SUMMARY">
+      <value>Mobiele Samenvatting</value>
+  </data>
+  <data name="HTMLDOCUMENT_TODO_ADDCONTENT">
+      <value>Te doen: Uw tekst toevoegen...</value>
+  </data>
+  <data name="HTMLTEMPLATE">
+      <value>HTML Sjabloon</value>
+  </data>
+  <data name="HTMLTEMPLATE_DESCRIPTION">
+      <value>Selecteer een HTML module die als basis dient voor de nieuwsbrief die met deze module wordt verzonden.</value>
+  </data>
+  <data name="HTMLTEMPLATEURL">
+      <value>HTML Sjabloon URL</value>
+  </data>
+  <data name="ICONFILE">
+      <value>icoonbestand</value>
+  </data>
+  <data name="IMAGE">
+      <value>Afbeelding</value>
+  </data>
+  <data name="IMAGE_DETAIL">
+      <value>Afbeelding gegevens</value>
+  </data>
+  <data name="IMAGE_UPLOAD_ERROR">
+      <value>De upgeloade afbeelding is niet correct.  Controleer het bestandstype en extensie  (vb: .gif/.jpg)</value>
+  </data>
+  <data name="IMAGELOGO">
+      <value>Logo (afbeelding)</value>
+  </data>
+  <data name="IMAGELOGO_DESCRIPTION">
+      <value>Logo (url afbeelding)</value>
+  </data>
+  <data name="IN"></data>
+  <data name="INSERT_CONFIRM">
+      <value>’Bevestigen’ moet worden ingevuld</value>
+  </data>
+  <data name="INSERT_EMAIL">
+      <value>’E-mail’ moet worden ingevuld</value>
+  </data>
+  <data name="INSERT_IMAGE_FROM_GALLERY">
+      <value>Afbeelding uit gallery invoegen</value>
+  </data>
+  <data name="INSERT_NAME">
+      <value>’Naam’ moet worden ingevuld</value>
+  </data>
+  <data name="INSERT_PASSWORD">
+      <value>’Wachtwoord’ moet worden ingevuld</value>
+  </data>
+  <data name="INSTALL_MANUALLY">
+      <value>Handmatig installeren</value>
+  </data>
+  <data name="INSTALLER_FILE">
+      <value>Installatie bestand</value>
+  </data>
+  <data name="IT">
+      <value>Titel (it)</value>
+  </data>
+  <data name="IT_DESCRIPTION">
+      <value>Vastgestelde titel voor Italiaanse cultuur.</value>
+  </data>
+  <data name="IT-IT">
+      <value>Titel (it-IT)</value>
+  </data>
+  <data name="IT-IT_DESCRIPTION">
+      <value>Titel voor Italiaanse (Italië) cultuur.</value>
+  </data>
+  <data name="LANGSWITCHTDISPLAY_CULTURELIST">
+      <value>Het gebruiken van de Naam van de Cultuur</value>
+  </data>
+  <data name="LANGSWITCHTDISPLAY_NONE">
+      <value>Geen</value>
+  </data>
+  <data name="LANGSWITCHTDISPLAY_UICULTURELIST">
+      <value>Het gebruiken van de Naam van de Cultuur UI</value>
+  </data>
+  <data name="LANGSWITCHTNAMES_DISPLAYNAME">
+      <value>Weergave naam</value>
+  </data>
+  <data name="LANGSWITCHTNAMES_ENGLISHNAME">
+      <value>Engelse Naam</value>
+  </data>
+  <data name="LANGSWITCHTNAMES_NATIVENAME">
+      <value>Inheemse Naam</value>
+  </data>
+  <data name="LANGSWITCHTYPE_DISABLED">
+      <value>Inactief</value>
+  </data>
+  <data name="LANGSWITCHTYPE_DROPDOWNLIST">
+      <value>Dropdown lijst</value>
+  </data>
+  <data name="LANGSWITCHTYPE_FLAGS">
+      <value>Enkel vlaggen</value>
+  </data>
+  <data name="LANGSWITCHTYPE_FLAGSHORIZONTAL">
+      <value>Enkel vlaggen horizontaal</value>
+  </data>
+  <data name="LANGSWITCHTYPE_FORM">
+      <value>Formulier</value>
+  </data>
+  <data name="LANGSWITCHTYPE_LINKS"></data>
+  <data name="LANGSWITCHTYPE_LINKSHORIZONTAL">
+      <value>Plaats links horizontaal</value>
+  </data>
+  <data name="LANGUAGESWITCHER_CUSTOMFLAGS">
+      <value>Specifieke vlaggen gebruiken?</value>
+  </data>
+  <data name="LANGUAGESWITCHER_CUSTOMFLAGS_DESCRIPTION">
+      <value>Check this if you want to use custom flags from portal’s images folder. Custom flags are located in portal folder. /images/flags/</value>
+  </data>
+  <data name="LANGUAGESWITCHER_FLAGS">
+      <value>Vlaggen tonen als</value>
+  </data>
+  <data name="LANGUAGESWITCHER_FLAGS_DESCRIPTION">
+      <value>Selecteer hier hoe de vlaggen eruit moeten zien</value>
+  </data>
+  <data name="LANGUAGESWITCHER_LABELS">
+      <value>Labels tonen als</value>
+  </data>
+  <data name="LANGUAGESWITCHER_LABELS_DESCRIPTION"></data>
+  <data name="LANGUAGESWITCHER_NAMES">
+      <value>Namen tonen als</value>
+  </data>
+  <data name="LANGUAGESWITCHER_NAMES_DESCRIPTION"></data>
+  <data name="LANGUAGESWITCHER_TYPES">
+      <value>Taal wissel type</value>
+  </data>
+  <data name="LANGUAGESWITCHER_TYPES_DESCRIPTION">
+      <value>Selecteer hier hoe de taal wisselaar eruit moet zien</value>
+  </data>
+  <data name="LANGUAGESWITCHTYPE">
+      <value>Taal wissel type</value>
+  </data>
+  <data name="LANGUAGESWITCHTYPE_DESCRIPTION">
+      <value>Selecteer taal switcher</value>
+  </data>
+  <data name="LAST_UPDATED">
+      <value>Laatst bijgewerkt</value>
+  </data>
+  <data name="LASTNAME">
+      <value>Achternaam</value>
+  </data>
+  <data name="LAYOUT"></data>
+  <data name="LEFT">
+      <value>Links</value>
+  </data>
+  <data name="LET_USER_CHOOSE">
+      <value>Laat de gebruiker kiezen</value>
+  </data>
+  <data name="LINKDETAILS">
+      <value>Link omschrijving</value>
+  </data>
+  <data name="LINKEDMODULE">
+      <value>Gelinkte module</value>
+  </data>
+  <data name="LINKGROUP">
+      <value>Link groep?</value>
+  </data>
+  <data name="LOAD_THEME_ERROR">
+      <value>Niet mogelijk opmaak model %1% te laden. Standaard thema niet beschikbaar.</value>
+  </data>
+  <data name="LOGIN_FAILED">
+      <value>Inloggen mislukt!</value>
+  </data>
+  <data name="LOGINHOMEPAGE">
+      <value>Site URL</value>
+  </data>
+  <data name="LOGINHOMEPAGE_DESCRIPTION">
+      <value>The Url or the Home page of the site used to build the instant login url. Leave blank if using the current site.</value>
+  </data>
+  <data name="LOGOFF">
+      <value>Uitloggen</value>
+  </data>
+  <data name="LOGON">
+      <value>Inloggen</value>
+  </data>
+  <data name="MAINTAIN_ASPECT_FIXED_HEIGHT">
+      <value>Behoud vaste hoogte</value>
+  </data>
+  <data name="MAINTAIN_ASPECT_FIXED_WIDTH">
+      <value>Behoud vaste breedte</value>
+  </data>
+  <data name="MARK">
+      <value>Markeer:</value>
+  </data>
+  <data name="MAXHITS">
+      <value>Max. aantal gevonden items</value>
+  </data>
+  <data name="MDF_SETTINGS">
+      <value>Module Data Filter instellingen</value>
+  </data>
+  <data name="MERCHANT">
+      <value>Verkopers ID</value>
+  </data>
+  <data name="META_SETTINGS">
+      <value>Meta instellingen</value>
+  </data>
+  <data name="MIDDLE">
+      <value>Midden</value>
+  </data>
+  <data name="MILESTONE_COMPL_DATE">
+      <value>Voltooings datum</value>
+  </data>
+  <data name="MILESTONE_STATUS"></data>
+  <data name="MILESTONE_TITLE">
+      <value>Titel</value>
+  </data>
+  <data name="MILESTONES_COMPLETION_DATE">
+      <value>Voltooings datum</value>
+  </data>
+  <data name="MILESTONES_DETAIL">
+      <value>Mijlpaal details</value>
+  </data>
+  <data name="MILESTONES_STATUS"></data>
+  <data name="MILESTONES_TITLE">
+      <value>Titel</value>
+  </data>
+  <data name="MISC_SETTINGS">
+      <value>Overige Instellingen</value>
+  </data>
+  <data name="MOBILE_SOURCE">
+      <value>Mobiele bron</value>
+  </data>
+  <data name="MOBILEURL">
+      <value>Mobiele URL</value>
+  </data>
+  <data name="MODEL"></data>
+  <data name="MODIFIED_BY">
+      <value>Gewijzigd door</value>
+  </data>
+  <data name="MODULE_DEFS_ADMIN">
+      <value>Admin Modules</value>
+  </data>
+  <data name="MODULE_DEFS_USER">
+      <value>Gebruikers Modules</value>
+  </data>
+  <data name="MODULE_IMAGE_FOLDER">
+      <value>Standaard afbeeldingen map</value>
+  </data>
+  <data name="MODULE_IMAGE_FOLDER_DESCRIPTION">
+      <value>Deze map wordt door de editors gebruikt om afbeeldingen toe te voegen.</value>
+  </data>
+  <data name="MODULE_SPECIAL_SETTINGS">
+      <value>Module specifieke instellingen</value>
+  </data>
+  <data name="MODULE_TITLE">
+      <value>Nieuwe module naam</value>
+  </data>
+  <data name="MODULE_TYPE_DEFINITION">
+      <value>Module type definitie</value>
+  </data>
+  <data name="MODULENAME">
+      <value>Modulenaam</value>
+  </data>
+  <data name="MODULESETTINGS">
+      <value>Module instellingen</value>
+  </data>
+  <data name="MODULESETTINGS__SUPPORT_WORKFLOW">
+      <value>Workflow activeren</value>
+  </data>
+  <data name="MODULESETTINGS_APPLY_THEME">
+      <value>Thema toepassen</value>
+  </data>
+  <data name="MODULESETTINGS_APPLY_THEME_DESCRIPTION">
+      <value>Aanvinken om thema toe te passen op deze module</value>
+  </data>
+  <data name="MODULESETTINGS_BASE_SETTINGS">
+      <value>Wijzig basisinstellingen</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY">
+      <value>Knoppen weergeven als:</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY_BOTH">
+      <value>Afbeelding en Tekst (CSS)</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY_DESCRIPTION">
+      <value>Kies hoe module knoppen moeten worden weergegeven. Instellingen anders dan "Alleen afbeeldingen" hebben speciale thema's nodig zoals bijvoorbeeld Zen.</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY_IMAGE">
+      <value>Alleen afbeeldingen</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY_IMAGECSS">
+      <value>Alleen afbeeldingen (CSS)</value>
+  </data>
+  <data name="MODULESETTINGS_BUTTON_DISPLAY_TEXT">
+      <value>Alleen tekst</value>
+  </data>
+  <data name="MODULESETTINGS_CACHE_TIMEOUT">
+      <value>Cache Timeout</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_HEIGHT">
+      <value>Content Hoogte</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_HEIGHT_DESCRIPTION">
+      <value>Minimum height(in pixels) of the content area of this module. (0 for none)</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_SCROLLING">
+      <value>Content Scrolling</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_SCROLLING_DESCRIPTION">
+      <value>Set to enable/disable scrolling of Content based on height and width settings.</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_WIDTH">
+      <value>Content Breedte</value>
+  </data>
+  <data name="MODULESETTINGS_CONTENT_WIDTH_DESCRIPTION">
+      <value>Minimum width(in pixels) of the content area of this module. (0 for none)</value>
+  </data>
+  <data name="MODULESETTINGS_CULTURE">
+      <value>Cultuur</value>
+  </data>
+  <data name="MODULESETTINGS_CULTURE_DESCRIPTION">
+      <value>Kies Cultuur. Invariante cultuur toont de module altijd.</value>
+  </data>
+  <data name="MODULESETTINGS_MODULE_NAME">
+      <value>Module naam</value>
+  </data>
+  <data name="MODULESETTINGS_MOVE_TO_TAB">
+      <value>Verplaats naar pagina</value>
+  </data>
+  <data name="MODULESETTINGS_ROLE_VIEW">
+      <value>Wie mag bekijken?</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_ADD">
+      <value>Wie mag toevoegen?</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_APPROVING">
+      <value>Wie keurt goed?</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_DELETE">
+      <value>Wie mag verwijderen?</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_DELETE_MODULES">
+      <value>Wie mag modules verwijderen?</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_EDIT">
+      <value>Wie mag wijzigen?</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_EDIT_COLLECTION">
+      <value>Wie mag eigenschappen wijzigen?</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_MOVE_MODULES">
+      <value>Wie mag modules verplaatsten?</value>
+  </data>
+  <data name="MODULESETTINGS_ROLES_PUBLISHING">
+      <value>Wie mag publiceren?</value>
+  </data>
+  <data name="MODULESETTINGS_SETTINGS">
+      <value>Module instellingen</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_ARROW_BUTTONS">
+      <value>Admin pijlen laten zien?</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_ARROW_BUTTONS_DESCRIPTION"></data>
+  <data name="MODULESETTINGS_SHOW_COLLAPSABLE">
+      <value>Schermen in kunnen klappen?</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_EVERYWHERE">
+      <value>Tonen op elke pagina?</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_HELP_BUTTON">
+      <value>Help knop tonen?</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_HELP_BUTTON_DESCRIPTION">
+      <value>Help knop tonen als documentatie aanwezig is voor deze module?</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_MODIFIED_BY">
+      <value>Toon Gewijzigd door</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_MODIFIED_BY_DESCRIPTION"></data>
+  <data name="MODULESETTINGS_SHOW_PRINT_BUTTION">
+      <value>Toon Print knop</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_PRINT_BUTTION_DESCRIPTION">
+      <value>Toon print knop in view modus?</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_TITLE">
+      <value>Toon Titel</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_TITLE_DESCRIPTION"></data>
+  <data name="MODULESETTINGS_SHOW_TITLE_PRINT">
+      <value>Titel tonen in Print preview?</value>
+  </data>
+  <data name="MODULESETTINGS_SHOW_TITLE_PRINT_DESCRIPTION"></data>
+  <data name="MODULESETTINGS_SUPPORT_WORKFLOW">
+      <value>Activeer workflow</value>
+  </data>
+  <data name="MODULESETTINGS_THEME">
+      <value>Thema</value>
+  </data>
+  <data name="MODULESETTINGS_THEME_ALT"></data>
+  <data name="MODULESETTINGS_THEME_DEFAULT">
+      <value>Standaard</value>
+  </data>
+  <data name="MODULESETTINGS_THEME_DESCRIPTION">
+      <value>Kies thema voor deze module</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_BG-BG"></data>
+  <data name="MODULESETTINGS_TITLE_BG-BG_DESCRIPTION"></data>
+  <data name="MODULESETTINGS_TITLE_CA"></data>
+  <data name="MODULESETTINGS_TITLE_CA_DESCRIPTION"></data>
+  <data name="MODULESETTINGS_TITLE_EN">
+      <value>Titel (en)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_EN_DESCRIPTION">
+      <value>Titel voor Engelse cultuur.</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_EN-GB">
+      <value>Titel (en-GB)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_EN-GB_DESCRIPTION">
+      <value>Titel voor Engelse (Verenigd Koninkrijk) cultuur.</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_EN-US">
+      <value>Titel (en-US)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_EN-US_DESCRIPTION">
+      <value>Titel voor Engelse (Verenigde Staten) cultuur.</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_ES">
+      <value>Titel (es)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_ES_DESCRIPTION">
+      <value>Titel voor Spaanse cultuur.</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_ES-ES">
+      <value>Titel (es-es)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_ES-ES_DESCRIPTION">
+      <value>Titel voor Spaanse cultuur.</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_FR">
+      <value>Titel (fr)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_FR_DESCRIPTION">
+      <value>Titel voor Franse cultuur.</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_IT">
+      <value>Titel (it)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_IT_DESCRIPTION">
+      <value>Titel voor Italiaanse cultuur.</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_NL-BE">
+      <value>Titel (nl-BE)</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_NL-BE_DESCRIPTION">
+      <value>Titel voor Belgische cultuur</value>
+  </data>
+  <data name="MODULESETTINGS_TITLE_ZH-CN"></data>
+  <data name="MODULESETTINGS_TITLE_ZH-CN_DESCRIPTION"></data>
+  <data name="MODULESETTINGS_WIDTH_STRETCHING">
+      <value>Module automatsch oprekken</value>
+  </data>
+  <data name="MODULESETTINGS_WIDTH_STRETCHING_DESCRIPTION"></data>
+  <data name="MOVE_DOWN">
+      <value>Verplaats omlaag</value>
+  </data>
+  <data name="MOVE_LEFT">
+      <value>Verplaats naar links</value>
+  </data>
+  <data name="MOVE_RIGHT">
+      <value>Verplaats naar rechts</value>
+  </data>
+  <data name="MOVE_TO">
+      <value>Verplaats naar</value>
+  </data>
+  <data name="MOVE_TO_TAB">
+      <value>Verplaats naar pagina</value>
+  </data>
+  <data name="MOVE_UP">
+      <value>Verplaats omhoog</value>
+  </data>
+  <data name="MOVEDOWN">
+      <value>Geselecteeerde item naar beneden in de lijst verplaatsen</value>
+  </data>
+  <data name="MOVEITEMLEFT">
+      <value>&lt;- Verplaats</value>
+  </data>
+  <data name="MOVEITEMRIGHT">
+      <value>Verplaats -&gt;</value>
+  </data>
+  <data name="MOVELEFT">
+      <value>Geselecteeerde item naar links verplaatsen</value>
+  </data>
+  <data name="MOVERIGHT">
+      <value>Geselecteeerde item naar rechts verplaatsen</value>
+  </data>
+  <data name="MOVEUP">
+      <value>Geselecteeerde item naar boven in de lijst verplaatsen</value>
+  </data>
+  <data name="NAME">
+      <value>Naam</value>
+  </data>
+  <data name="NAVIGATION_SETTINGS">
+      <value>Navigatie instellingen</value>
+  </data>
+  <data name="NEW_FOLDER">
+      <value>Nieuw map?</value>
+  </data>
+  <data name="NEW_PORTAL_ERROR">
+      <value>Er was een fout bij het creëren van de nieuwe portal. Misschien bestaat de portal reeds. Probeer een andere Portal alias.</value>
+  </data>
+  <data name="NEWSLETTER_BLACKLISTED">
+      <value>Aan zwarte lijst toegevoegd door</value>
+  </data>
+  <data name="NEWSLETTER_DIRECTURL">
+      <value>Een URL die gebruikt kan worden om automatisch in te loggen</value>
+  </data>
+  <data name="NEWSLETTER_HTML_MODE">
+      <value>HTML modus</value>
+  </data>
+  <data name="NEWSLETTER_INSERT_BREAK_LINES">
+      <value>Break lines invoegen</value>
+  </data>
+  <data name="NEWSLETTER_MESSAGE_BODY">
+      <value>Bericht</value>
+  </data>
+  <data name="NEWSLETTER_MSG">
+      <value>Dit bericht wordt verstuurd naar {1} geregistreerde gebruikers van de nieuwsbrief.</value>
+  </data>
+  <data name="NEWSLETTER_MSG_TEST">
+      <value>Dit bericht wordt verzonden naar: {1} [{2}] - TEST MODE</value>
+  </data>
+  <data name="NEWSLETTER_PASSWORD">
+      <value>Wachtwoord</value>
+  </data>
+  <data name="NEWSLETTER_SENDER_EMAIL_ADDRESS">
+      <value>E-mail afzender</value>
+  </data>
+  <data name="NEWSLETTER_SENDER_OPTIONAL_NAME">
+      <value>Uw naam (optioneel)</value>
+  </data>
+  <data name="NEWSLETTER_SUBJECT">
+      <value>Onderwerp</value>
+  </data>
+  <data name="NEWSLETTER_TITLE">
+      <value>Nieuwsbrief abonnees</value>
+  </data>
+  <data name="NEXT">
+      <value>Volgende</value>
+  </data>
+  <data name="NO_ACCOUNT">
+      <value>Als U nog geen account heeft</value>
+  </data>
+  <data name="NO_FILE_MESSAGE">
+      <value>U moet een geldig bestand selecteren</value>
+  </data>
+  <data name="NO_FOLDER_SPECIFIED_MESSAGE">
+      <value>Kan map niet aanmaken.</value>
+  </data>
+  <data name="NO_IMAGE_MESSAGE">
+      <value>Geen bestanden.</value>
+  </data>
+  <data name="NO_MODULE">
+      <value>Geen module</value>
+  </data>
+  <data name="NONE">
+      <value>geen</value>
+  </data>
+  <data name="NOTE">
+      <value>Notities</value>
+  </data>
+  <data name="OF">
+      <value>van</value>
+  </data>
+  <data name="OK"></data>
+  <data name="ON">
+      <value>op</value>
+  </data>
+  <data name="ONLY_FEATURED">
+      <value>Show Only Featured</value>
+  </data>
+  <data name="OR">
+      <value>of</value>
+  </data>
+  <data name="ORDER_OK">
+      <value>Uw bestelling is verzonden</value>
+  </data>
+  <data name="ORDER_RECEIPT_NUMBER">
+      <value>Ontvangstnummer</value>
+  </data>
+  <data name="ORDER_WAIT_CONFIRM">
+      <value>U ontvangt een bevestiging per E-mail</value>
+  </data>
+  <data name="OWNER">
+      <value>Gemaakt door</value>
+  </data>
+  <data name="PAGE">
+      <value>Pagina</value>
+  </data>
+  <data name="PASSWORD">
+      <value>Wachtwoord</value>
+  </data>
+  <data name="PASSWORD_DO_NOT_MATCH">
+      <value>Wachtwoord velden komen niet overeen</value>
+  </data>
+  <data name="PASSWORD_NOT_MATCH">
+      <value>Wachtwoord velden komen niet overeen</value>
+  </data>
+  <data name="PHONE">
+      <value>Telefoon</value>
+  </data>
+  <data name="PICTURES_CAPTION">
+      <value>Bijschrift</value>
+  </data>
+  <data name="PICTURES_DISPLAY_ORDER">
+      <value>Volgorde</value>
+  </data>
+  <data name="PICTURES_DONT_RESIZE">
+      <value>Niet verkleinen/vergroten</value>
+  </data>
+  <data name="PICTURES_FAILED_TO_LOAD">
+      <value>Kan templates niet laden.</value>
+  </data>
+  <data name="PICTURES_FILE">
+      <value>Bestand</value>
+  </data>
+  <data name="PICTURES_FIXED_WIDTH_AND_HEIGHT">
+      <value>Hoogte en breedte verhouding vergrendelen</value>
+  </data>
+  <data name="PICTURES_FLIP">
+      <value>Omdraaien</value>
+  </data>
+  <data name="PICTURES_HORIZONTAL">
+      <value>Horizontaal</value>
+  </data>
+  <data name="PICTURES_INCLUDE_EXIF">
+      <value>Inclusief extra foto info (EXIF)</value>
+  </data>
+  <data name="PICTURES_KEYWORDS">
+      <value>Trefwoorden</value>
+  </data>
+  <data name="PICTURES_LONG_DESCRIPTION">
+      <value>Uitgebreide Omschrijving</value>
+  </data>
+  <data name="PICTURES_MAINTAIN_ASPECT_FIXED_HEIGHT">
+      <value>Verhouding vergrendelen op hoogte</value>
+  </data>
+  <data name="PICTURES_MAINTAIN_ASPECT_FIXED_WIDTH">
+      <value>Verhouding vergrendelen op breedte</value>
+  </data>
+  <data name="PICTURES_ROTATE">
+      <value>Roteren</value>
+  </data>
+  <data name="PICTURES_SHORT_DESCRIPTION">
+      <value>Korte omschrijving</value>
+  </data>
+  <data name="PICTURES_VERTICAL">
+      <value>Verticaal</value>
+  </data>
+  <data name="PIVA">
+      <value>Tel bedrijf</value>
+  </data>
+  <data name="PORTAL_HOME"></data>
+  <data name="PORTALS"></data>
+  <data name="PORTALSEARCH_ALL">
+      <value>Alle</value>
+  </data>
+  <data name="PORTALSEARCH_FIELD">
+      <value>Veld</value>
+  </data>
+  <data name="PORTALSEARCH_HIT">
+      <value>gevonden</value>
+  </data>
+  <data name="PORTALSEARCH_HITS">
+      <value>gevonden</value>
+  </data>
+  <data name="PORTALSEARCH_LINK">
+      <value>link</value>
+  </data>
+  <data name="PORTALSEARCH_MISSING">
+      <value>ontbreekt</value>
+  </data>
+  <data name="PORTALSEARCH_MODULE"></data>
+  <data name="PORTALSEARCH_MODULETITLE">
+      <value>Module naam</value>
+  </data>
+  <data name="PORTALSEARCH_SEARCH">
+      <value>Zoek</value>
+  </data>
+  <data name="PORTALSEARCH_TAB">
+      <value>Onderdeel</value>
+  </data>
+  <data name="PORTALSEARCH_TESTINFO">
+      <value>Testinfo</value>
+  </data>
+  <data name="PORTALSEARCH_TITLE">
+      <value>Titel</value>
+  </data>
+  <data name="PORTALSEARCH_TOPIC"></data>
+  <data name="PORTALSEARCH_USER">
+      <value>Gebruiker</value>
+  </data>
+  <data name="POSTED_BY">
+      <value>van</value>
+  </data>
+  <data name="POSTED_DATE">
+      <value>Gepost</value>
+  </data>
+  <data name="PREVIEW"></data>
+  <data name="PREVIOUS">
+      <value>Vorige</value>
+  </data>
+  <data name="PRICE">
+      <value>Prijs:</value>
+  </data>
+  <data name="PRICE_FROM">
+      <value>Prijs van:</value>
+  </data>
+  <data name="PRODUCT_ACCOUNT_INFORMATION">
+      <value>Account informatie:</value>
+  </data>
+  <data name="PRODUCT_ADD_OPTION"></data>
+  <data name="PRODUCT_ADD_TO_CART">
+      <value>Toevoegen aan winkelmand</value>
+  </data>
+  <data name="PRODUCT_CANNOT_UPDATE"></data>
+  <data name="PRODUCT_CATEGORY"></data>
+  <data name="PRODUCT_CATEGORY_DESCRIPTION"></data>
+  <data name="PRODUCT_CATEGORY_NOT_FOUND">
+      <value>Categorie niet gevonden</value>
+  </data>
+  <data name="PRODUCT_CHECKOUT">
+      <value>Uitchecken</value>
+  </data>
+  <data name="PRODUCT_CONTINUE_SHOPPING">
+      <value>Verdergaan met winkelen</value>
+  </data>
+  <data name="PRODUCT_DELETE_OPTION"></data>
+  <data name="PRODUCT_DISPLAY_FEATURED_ITEMS"></data>
+  <data name="PRODUCT_EMPTY_CART"></data>
+  <data name="PRODUCT_FEATURED_ITEM"></data>
+  <data name="PRODUCT_FEATURED_ITEM_DESCRIPTION"></data>
+  <data name="PRODUCT_HOME"></data>
+  <data name="PRODUCT_ID"></data>
+  <data name="PRODUCT_INCLUDING_TAXES">
+      <value>(incl. BTW)</value>
+  </data>
+  <data name="PRODUCT_INPUT_PROBLEM"></data>
+  <data name="PRODUCT_MODELNAME"></data>
+  <data name="PRODUCT_MODELNUMBER"></data>
+  <data name="PRODUCT_MUST_LOG_IN_FOR_CHECKOUT">
+      <value>U moet eerst inloggen of registreren om te kunnen afrekenen!</value>
+  </data>
+  <data name="PRODUCT_NAME">
+      <value>Naam</value>
+  </data>
+  <data name="PRODUCT_OPTIONS">
+      <value>Opties</value>
+  </data>
+  <data name="PRODUCT_ORDER_DATE_CREATED">
+      <value>Datum van creatie</value>
+  </data>
+  <data name="PRODUCT_ORDER_DATE_MODIFIED">
+      <value>Laatst aangepast</value>
+  </data>
+  <data name="PRODUCT_ORDER_REFERENCE">
+      <value>Referentie bestelling</value>
+  </data>
+  <data name="PRODUCT_ORDER_TOTAL">
+      <value>Totaal</value>
+  </data>
+  <data name="PRODUCT_PAYMENT_METHOD">
+      <value>Payment Method</value>
+  </data>
+  <data name="PRODUCT_PRICE">
+      <value>Prijs</value>
+  </data>
+  <data name="PRODUCT_PRICE_NOT_AVAILABLE">
+      <value>Neem contact met ons op om dit product aan te kopen.</value>
+  </data>
+  <data name="PRODUCT_PRICE_WITH_TAX">
+      <value>Price With Tax</value>
+  </data>
+  <data name="PRODUCT_QUANTITY">
+      <value>Hoeveelheid</value>
+  </data>
+  <data name="PRODUCT_REFERENCE">
+      <value>Referentie</value>
+  </data>
+  <data name="PRODUCT_REMOVE">
+      <value>Verwijder</value>
+  </data>
+  <data name="PRODUCT_SELECT_CATEGORY"></data>
+  <data name="PRODUCT_SHIPPING"></data>
+  <data name="PRODUCT_SHIPPING_INFORMATION"></data>
+  <data name="PRODUCT_SHIPPING_METHOD"></data>
+  <data name="PRODUCT_SHOP_HOME"></data>
+  <data name="PRODUCT_SUBTOTAL"></data>
+  <data name="PRODUCT_TAXRATE"></data>
+  <data name="PRODUCT_TOTAL">
+      <value>Totaal</value>
+  </data>
+  <data name="PRODUCT_TOTAL_EXPENSES"></data>
+  <data name="PRODUCT_TOTAL_PRICE_(INC._TAXES)"></data>
+  <data name="PRODUCT_TOTAL_TAXES"></data>
+  <data name="PRODUCT_TOTAL_WEIGHT"></data>
+  <data name="PRODUCT_TOTAL_WITH_TAXES"></data>
+  <data name="PRODUCT_UNIT"></data>
+  <data name="PRODUCT_UNITPRICE"></data>
+  <data name="PRODUCT_UPDATE"></data>
+  <data name="PRODUCT_VIEW_ACCOUNT"></data>
+  <data name="PRODUCT_VIEW_CART"></data>
+  <data name="PRODUCT_WEIGHT"></data>
+  <data name="PRODUCTS_DISPLAYING_ORDER"></data>
+  <data name="PRODUCTS_INSTRUCTIONS"></data>
+  <data name="PRODUCTS_NO_ORDERS_TO_DISPLAY"></data>
+  <data name="PRODUCTS_ORDER_HISTORY_DISPLAY"></data>
+  <data name="PROFILE_INFO">
+      <value>Mijn gegevens</value>
+  </data>
+  <data name="PROFILE_INFO_ERROR">
+      <value>Fout: Uw gegevens konden niet worden opgehaald</value>
+  </data>
+  <data name="PROPERTIES">
+      <value>Eigenschappen</value>
+  </data>
+  <data name="PROV_STATE">
+      <value>Provincie</value>
+  </data>
+  <data name="Appleseed_RUNNING_VERSION">
+      <value>De huidige Appleseed versie is</value>
+  </data>
+  <data name="READ_FULL_ANNOUNCE">
+      <value>Lees verder...</value>
+  </data>
+  <data name="REASON">
+      <value>Reden</value>
+  </data>
+  <data name="REGISTER">
+      <value>Registreren</value>
+  </data>
+  <data name="REGISTER_DESCRIPTION">
+      <value>Kies hier een Registratie-pagina.</value>
+  </data>
+  <data name="REGISTER_DIFFERENT">
+      <value>Gelieve te registreren met een andere e-mailadres.</value>
+  </data>
+  <data name="REGISTER_NOW">
+      <value>Registreer en log nu in</value>
+  </data>
+  <data name="REGISTER_REQUIRED">
+      <value>Om deze pagina te kunnen bekijken moet U geregistreerd zijn</value>
+  </data>
+  <data name="REGISTERED_USERS">
+      <value>Geregistreerde gebruikers</value>
+  </data>
+  <data name="REGISTRATION_FAILED">
+      <value>Registratie mislukt!</value>
+  </data>
+  <data name="REGISTRATION_FAILED_EXISTING_EMAIL_ADDRESS">
+      <value>Registratie mislukt. Dit e-mail adres is reeds in gebruik. Kies een ander e-mail adres of gebruik de wachtwoord reminder om uw wachtwoord op te vragen.</value>
+  </data>
+  <data name="REMEMBER_LOGIN">
+      <value>Automatisch inloggen</value>
+  </data>
+  <data name="RETURN">
+      <value>Terug</value>
+  </data>
+  <data name="RETURN_HOME">
+      <value>Terug naar Homepage</value>
+  </data>
+  <data name="RETURNHOME">
+      <value>Terug naar Homepage</value>
+  </data>
+  <data name="RIGHT">
+      <value>Rechts</value>
+  </data>
+  <data name="ROLE_ADD_NEW_USER">
+      <value>Maak nieuwe gebruiker aan en geef hem deze Rol</value>
+  </data>
+  <data name="ROLE_ADD_USER">
+      <value>Bestaande gebruiker aan Rol toevoegen</value>
+  </data>
+  <data name="ROLE_CHANGE_MEMBERS">
+      <value>Wijzig Rollen lidmaatschap</value>
+  </data>
+  <data name="ROLE_DELETE_FAILED">
+      <value>Het verwijderen van deze Rol is mislukt. Zorg er eerst voor dat er geen gebruikers meer zijn van deze Rol</value>
+  </data>
+  <data name="ROLE_ERROR_ADD">
+      <value>Kan nieuw Rol niet toevoegen!  Er is reeds een entry voor &lt;u&gt;%1%&lt;/u&gt; in de gebruikersdatabase.&lt;br&gt;Please use Add Existing for this user.</value>
+  </data>
+  <data name="ROLE_MEMBERSHIP">
+      <value>Rol Lidmaatschap:</value>
+  </data>
+  <data name="ROLE_NEW_ROLE">
+      <value>Nieuwe Rol</value>
+  </data>
+  <data name="ROLE_SAVE_CHANGES">
+      <value>Rol aanpassingen opslaan</value>
+  </data>
+  <data name="ROLES_DESCRIPTION">
+      <value>Rollen</value>
+  </data>
+  <data name="ROLESADD">
+      <value>Rollen die kunnen content toevoegen</value>
+  </data>
+  <data name="ROLESCOLLECTION">
+      <value>Rollen die kunnen content collectie wijzigen</value>
+  </data>
+  <data name="ROLESDELETE">
+      <value>Rollen die kunnen content verwijderen</value>
+  </data>
+  <data name="ROLESEDIT">
+      <value>Rollen die kunnen content wijzigen</value>
+  </data>
+  <data name="ROLESVIEW">
+      <value>Rollen die kunnen content bekijken</value>
+  </data>
+  <data name="ROOM_NUMBER">
+      <value>Aantal kamers</value>
+  </data>
+  <data name="ROOT_LEVEL">
+      <value>Root niveau</value>
+  </data>
+  <data name="SAVE">
+      <value>Wijzigingen opslaan</value>
+  </data>
+  <data name="SAVE_AND_CLOSE">
+      <value>Opslaan en afsluiten</value>
+  </data>
+  <data name="SAVE_CHANGES">
+      <value>Wijzigingen opslaan</value>
+  </data>
+  <data name="SAVE_DESKTOP">
+      <value>Desktop opslaan</value>
+  </data>
+  <data name="SAVEUSER">
+      <value>Opslaan en afsluiten</value>
+  </data>
+  <data name="SEARCH">
+      <value>Zoeken</value>
+  </data>
+  <data name="SECURITY">
+      <value>Beveiliging</value>
+  </data>
+  <data name="SECURITY_USER_SETTINGS">
+      <value>Gebruikers- en beveiligingsinstellingen</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERADD">
+      <value>Toevoegen</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERADMIN"></data>
+  <data name="SECURITYCHECK_HEADERDELETE">
+      <value>Verwijder</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERDELMOD">
+      <value>Verwijder Mod.</value>
+  </data>
+  <data name="SECURITYCHECK_HEADEREDIT">
+      <value>Wijzig</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERMOVE">
+      <value>Verplaats</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERNAME">
+      <value>Naam</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERPROPERTIES">
+      <value>Eigenschappen</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERTAB">
+      <value>Tab</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERTYPE">
+      <value>Module Type</value>
+  </data>
+  <data name="SECURITYCHECK_HEADERVIEW">
+      <value>Bekijken</value>
+  </data>
+  <data name="SECURITYCHECK_ONLYADMIN">
+      <value>Alleen Admin Modules</value>
+  </data>
+  <data name="SECURITYCHECK_SEARCH">
+      <value>Zoeken</value>
+  </data>
+  <data name="SELECT">
+      <value>Selecteer</value>
+  </data>
+  <data name="SELECT_ALL">
+      <value>Selecteer alles</value>
+  </data>
+  <data name="SELECT_NONE">
+      <value>Selecteer niets</value>
+  </data>
+  <data name="SEND_NEWSLETTER">
+      <value>Verstuur nieuwsbrief</value>
+  </data>
+  <data name="SENDNEWSLETTER">
+      <value>Verstuur nieuwsbrief</value>
+  </data>
+  <data name="SENDTHTS_BODY">
+      <value>Tekst van bericht:</value>
+  </data>
+  <data name="SENDTHTS_BODY_ERR">
+      <value>Geef uw berichtentekst op aub.</value>
+  </data>
+  <data name="SENDTHTS_CLEAR">
+      <value>Wissen</value>
+  </data>
+  <data name="SENDTHTS_DES_TXT">
+      <value>Geef hier een omschrijving...</value>
+  </data>
+  <data name="SENDTHTS_EMAILBLANK">
+      <value>’E-mail’ mag niet leeg zijn.</value>
+  </data>
+  <data name="SENDTHTS_EMAILVALID">
+      <value>Geef een geldig e-mailadres op aub.</value>
+  </data>
+  <data name="SENDTHTS_NAME">
+      <value>Naam</value>
+  </data>
+  <data name="SENDTHTS_RECIPIENT">
+      <value>E-mailadres geadresseerde werd niet gespecifieerd.</value>
+  </data>
+  <data name="SENDTHTS_REMAIL">
+      <value>Werkelijk e-mailadres</value>
+  </data>
+  <data name="SENDTHTS_SEND">
+      <value>Verzenden</value>
+  </data>
+  <data name="SENDTHTS_SENT">
+      <value>Uw bericht is succesvol verzonden. Bedankt voor uw bericht!</value>
+  </data>
+  <data name="SENDTHTS_SUBJECT">
+      <value>Onderwerp: (optioneel)</value>
+  </data>
+  <data name="SENDTHTS_YREMAIL">
+      <value>Uw E-mailadres:</value>
+  </data>
+  <data name="SENDTHTS_YRNAME">
+      <value>Uw naam: (optioneel)</value>
+  </data>
+  <data name="SETTING_BETWEEN">
+      <value>%1% moet tussen %2% en %3% zijn!</value>
+  </data>
+  <data name="SETTING_REQUIRED">
+      <value>%1% is vereist!</value>
+  </data>
+  <data name="SETTINGS">
+      <value>Instellingen</value>
+  </data>
+  <data name="SHOW_COLUMN_ADDRESS">
+      <value>Switch for displaying the Address column or not.</value>
+  </data>
+  <data name="SHOW_COLUMN_CONTACT1">
+      <value>Switch for displaying the contact1 column or not.</value>
+  </data>
+  <data name="SHOW_COLUMN_CONTACT2">
+      <value>Switch for displaying the contact2 column or not.</value>
+  </data>
+  <data name="SHOW_COLUMN_EMAIL">
+      <value>Switch for displaying the email column or not.</value>
+  </data>
+  <data name="SHOW_COLUMN_FAX">
+      <value>Switch for displaying the Fax column or not.</value>
+  </data>
+  <data name="SHOW_FLASH_GALLERY">
+      <value>Toon Flash Gallery</value>
+  </data>
+  <data name="SHOWABSTRACT">
+      <value>Samenvatting tonen</value>
+  </data>
+  <data name="SHOWCOLLAPSABLE">
+      <value>Vensters laten inklappen?</value>
+  </data>
+  <data name="SHOWCREATEDBYUSER">
+      <value>Toon ’gemaakt door gebruiker’</value>
+  </data>
+  <data name="SHOWCREATEDDATE">
+      <value>Toon aanmaak datum</value>
+  </data>
+  <data name="SHOWDATE">
+      <value>Toon datum</value>
+  </data>
+  <data name="SHOWEVERYWHERE">
+      <value>Toon op iedere pagina?</value>
+  </data>
+  <data name="SHOWLINK">
+      <value>Toon link</value>
+  </data>
+  <data name="SHOWMOBILE">
+      <value>Toon aan mobiele gebruikers?</value>
+  </data>
+  <data name="SHOWMODIFIEDBY">
+      <value>Toon Gewijzigd door</value>
+  </data>
+  <data name="SHOWMODIFIEDBY_DESCRIPTION"></data>
+  <data name="SHOWMODULENAME">
+      <value>Toon Module naam</value>
+  </data>
+  <data name="SHOWMODULETITLE">
+      <value>Toon module titel</value>
+  </data>
+  <data name="SHOWPRINTBUTTON">
+      <value>Toon printknop?</value>
+  </data>
+  <data name="SHOWPRINTBUTTON_DESCRIPTION">
+      <value>Toon printknop aan de bezoekers?</value>
+  </data>
+  <data name="SHOWSEARCHTITLE">
+      <value>Toon titel</value>
+  </data>
+  <data name="SHOWTABNAME">
+      <value>Toon pagina naam</value>
+  </data>
+  <data name="SHOWTESTINFO">
+      <value>Toon test info</value>
+  </data>
+  <data name="SHOWTITLE">
+      <value>Toon Titel</value>
+  </data>
+  <data name="SHOWTITLE_DESCRIPTION">
+      <value>Zet ’Titel’ display aan/uit</value>
+  </data>
+  <data name="SHOWUPLOAD">
+      <value>Uploaden?</value>
+  </data>
+  <data name="SHOWUPLOAD_DESCRIPTION">
+      <value>Wordt alleen gebruikt bij ActiveUp HTML Editor</value>
+  </data>
+  <data name="SIGNIN">
+      <value>Inloggen</value>
+  </data>
+  <data name="SIGNIN_ALLOW_AUTOCOMPLETE">
+      <value>IE autocomplete toestaan</value>
+  </data>
+  <data name="SIGNIN_ALLOW_AUTOCOMPLETE_DESCRIPTION"></data>
+  <data name="SIGNIN_ALLOW_REMEMBER_LOGIN">
+      <value>Automatisch inloggen toestaan</value>
+  </data>
+  <data name="SIGNIN_ALLOW_REMEMBER_LOGIN_DESCRIPTION"></data>
+  <data name="SIGNIN_ALLOW_SEND_PASSWORD">
+      <value>Wachtwoord toezenden toestaan</value>
+  </data>
+  <data name="SIGNIN_ALLOW_SEND_PASSWORD_DESCRIPTION"></data>
+  <data name="SIGNIN_AUTOMATICALLYHIDE">
+      <value>Automatisch verbergen</value>
+  </data>
+  <data name="SIGNIN_ENTER_EMAIL_ADDR">
+      <value>Gelieve een e-mailadres in te vullen.</value>
+  </data>
+  <data name="SIGNIN_PWD_MISSING_IN_DB">
+      <value>Uw wachtwoord is niet gevonden.</value>
+  </data>
+  <data name="SIGNIN_PWD_REQUESTED">
+      <value>Uw aangevraagde wachtwoord is:</value>
+  </data>
+  <data name="SIGNIN_PWD_TO">
+      <value>Wachtwoord voor:</value>
+  </data>
+  <data name="SIGNIN_PWD_WAS_SEND">
+      <value>Uw wachtwoord is verstuurd naar het e-mailadres</value>
+  </data>
+  <data name="SIGNIN_PWD_WAS_SENT">
+      <value>Uw wachtwoord is verstuurd naar het e-mailadres</value>
+  </data>
+  <data name="SIGNIN_SEND_PWD">
+      <value>Wachtwoord versturen</value>
+  </data>
+  <data name="SIGNIN_THANK_YOU">
+      <value>Dank u voor uw bezoek</value>
+  </data>
+  <data name="SIGNIN_URL_WARNING"></data>
+  <data name="SIGNIN_USE_DIRECT_URL">
+      <value>of gebruik directe URL</value>
+  </data>
+  <data name="SIGNIN_YOU_CAN_LOGIN_FROM">
+      <value>U kunt inloggen vanaf</value>
+  </data>
+  <data name="SITE_PATH">
+      <value>Site pad</value>
+  </data>
+  <data name="SITE_TITLE">
+      <value>Site titel</value>
+  </data>
+  <data name="SITESETTINGS_ALLOW_MODULE_CUSTOM_THEMES">
+      <value>Aangepaste thema's per module toestaan</value>
+  </data>
+  <data name="SITESETTINGS_ALLOW_MODULE_CUSTOM_THEMES_DESCRIPTION"></data>
+  <data name="SITESETTINGS_ALLOW_NEW_REGISTRATION">
+      <value>Nieuwe registraties mogelijk?</value>
+  </data>
+  <data name="SITESETTINGS_ALLOW_NEW_REGISTRATION_DESCRIPTION">
+      <value>Activeer dit om bezoeker toe te laten zichzelf te registreren of laat inactief om enkel via Gebruikersbeheer te registreren.</value>
+  </data>
+  <data name="SITESETTINGS_ALT_THEME">
+      <value>Alternatief thema</value>
+  </data>
+  <data name="SITESETTINGS_ALT_THEME_DESCRIPTION">
+      <value>Specificeer Alternatief thema op site niveau.</value>
+  </data>
+  <data name="SITESETTINGS_BODYATTS">
+      <value>&lt;body&gt; attributen</value>
+  </data>
+  <data name="SITESETTINGS_BODYATTS_DESCRIPTION"></data>
+  <data name="SITESETTINGS_COUNTRY_FILTER">
+      <value>Toegelaten landen</value>
+  </data>
+  <data name="SITESETTINGS_COUNTRY_FILTER_DESCRIPTION">
+      <value>Enkel de geselecteerde landen kunnen gekozen worden in het registratiescherm. Selecteer ’World’ om alle landen toe te laten.</value>
+  </data>
+  <data name="SITESETTINGS_DEFAULT_EDITOR">
+      <value>Standaard Editor</value>
+  </data>
+  <data name="SITESETTINGS_DEFAULT_EDITOR_DESCRIPTION"></data>
+  <data name="SITESETTINGS_DEFAULT_IMAGE_FOLDER">
+      <value>Standaard afbeeldingen map</value>
+  </data>
+  <data name="SITESETTINGS_DEFAULT_IMAGE_FOLDER_DESCRIPTION"></data>
+  <data name="SITESETTINGS_DOCTYPE"></data>
+  <data name="SITESETTINGS_DOCTYPE_DESCRIPTION">
+      <value>Voegt een DOCTYPE string toe als eerste regel (boven de &lt;html&gt; tag). Gebruiken om Quirks of Standards mode te forceren, met name in IE.</value>
+  </data>
+  <data name="SITESETTINGS_EDITOR_HEIGHT">
+      <value>Editor hoogte</value>
+  </data>
+  <data name="SITESETTINGS_EDITOR_HEIGHT_DESCRIPTION">
+      <value>Standaard Editor hoogte</value>
+  </data>
+  <data name="SITESETTINGS_EDITOR_WIDTH">
+      <value>Editor breedte</value>
+  </data>
+  <data name="SITESETTINGS_EDITOR_WIDTH_DESCRIPTION">
+      <value>Standaard Editor breedte</value>
+  </data>
+  <data name="SITESETTINGS_LANGLIST">
+      <value>Talenlijst</value>
+  </data>
+  <data name="SITESETTINGS_LANGLIST_DESCRIPTION">
+      <value>Dit is de lijst van talen dat deze site ondersteunt (in dit formaat: &lt;UI-Culture&gt;=&lt;Formatting-Culture&gt; gescheiden door punt-comma).</value>
+  </data>
+  <data name="SITESETTINGS_LOGO">
+      <value>Logo</value>
+  </data>
+  <data name="SITESETTINGS_LOGO_DESCRIPTION">
+      <value>Geef de naam van het logobestand hier op.</value>
+  </data>
+  <data name="SITESETTINGS_ON_REGISTER_SEND_FROM">
+      <value>Registratiemail afzender</value>
+  </data>
+  <data name="SITESETTINGS_ON_REGISTER_SEND_FROM_DESCRIPTION">
+      <value>Bij nieuwe registraties wordt een welkomsmail gestuurd vanaf dit adres.</value>
+  </data>
+  <data name="SITESETTINGS_ON_REGISTER_SEND_TO">
+      <value>Stuur registratiebevestiging naar</value>
+  </data>
+  <data name="SITESETTINGS_ON_REGISTER_SEND_TO_DESCRIPTION">
+      <value>Bij nieuwe registraties wordt naar dit mail adres een notificatie gestuurd.</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_KEY_PHRASE">
+      <value>Standaard pagina kernzin</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_KEY_PHRASE_DESCRIPTION"></data>
+  <data name="SITESETTINGS_PAGE_LAYOUT">
+      <value>Pagina layout</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_LAYOUT_DESCRIPTION">
+      <value>Pagina layout voor de hele site.</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_DESCRIPTION">
+      <value>Standaard pagina omschrijving</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_DESCRIPTION_DESCRIPTION"></data>
+  <data name="SITESETTINGS_PAGE_META_ENCODING">
+      <value>Standaard pagina Encoding</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_ENCODING_DESCRIPTION"></data>
+  <data name="SITESETTINGS_PAGE_META_KEYWORDS">
+      <value>Standaard pagina Keywords</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_KEYWORDS_DESCRIPTION">
+      <value>Deze instelling helpt bij zoekmachine optimalisatie. Voeg 1-15 trefwoorden in die representatief zijn voor de website.</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_OTHERS">
+      <value>Standaard additionele Meta Tags</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_META_OTHERS_DESCRIPTION"></data>
+  <data name="SITESETTINGS_PAGE_TITLE">
+      <value>Standaard pagina Titel</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_TITLE_DESCRIPTION"></data>
+  <data name="SITESETTINGS_PAGE_URL_KEYWORD">
+      <value>Een standaard trefwoord die alle pagina's identificeerd</value>
+  </data>
+  <data name="SITESETTINGS_PAGE_URL_KEYWORD_DESCRIPTION"></data>
+  <data name="SITESETTINGS_REGISTER_FULL">
+      <value>Uitgebreide registratie</value>
+  </data>
+  <data name="SITESETTINGS_REGISTER_MODULEID">
+      <value>Registratie module ID</value>
+  </data>
+  <data name="SITESETTINGS_REGISTER_MODULEID_DESCRIPTION"></data>
+  <data name="SITESETTINGS_REGISTER_SIMPLE">
+      <value>Eenvoudige registratie</value>
+  </data>
+  <data name="SITESETTINGS_REGISTER_TYPE">
+      <value>Registratie Type</value>
+  </data>
+  <data name="SITESETTINGS_REGISTER_TYPE_DESCRIPTION">
+      <value>Kies hier hoe de registratie pagina er uit moet zien</value>
+  </data>
+  <data name="SITESETTINGS_SHOW_MODIFIED_BY">
+      <value>Toon ’aangepast door...’</value>
+  </data>
+  <data name="SITESETTINGS_SHOW_MODIFIED_BY_DESCRIPTION">
+      <value>Aanvinken om te tonen door wie de module het laatst is aangepast</value>
+  </data>
+  <data name="SITESETTINGS_SHOW_MODULE_ARROWS">
+      <value>Module pijlen tonen</value>
+  </data>
+  <data name="SITESETTINGS_SHOW_MODULE_ARROWS_DESCRIPTION">
+      <value>Aanvinken om pijlen te tonen waarmee modules verplaatst kunnen worden</value>
+  </data>
+  <data name="SITESETTINGS_SHOWUPLOAD">
+      <value>Upload tonen?</value>
+  </data>
+  <data name="SITESETTINGS_SHOWUPLOAD_DESCRIPTION">
+      <value>Wordt alleen gebruikt bij ActiveUp HTML Editor</value>
+  </data>
+  <data name="SITESETTINGS_SITE_PATH">
+      <value>Site Pad</value>
+  </data>
+  <data name="SITESETTINGS_SITE_TITLE">
+      <value>Site Titel</value>
+  </data>
+  <data name="SITESETTINGS_TERMS_OF_SERVICE">
+      <value>Bestandsnaam Algemene Voorwaarden</value>
+  </data>
+  <data name="SITESETTINGS_TERMS_OF_SERVICE_DESCRIPTION"></data>
+  <data name="SITESETTINGS_THEME">
+      <value>Thema</value>
+  </data>
+  <data name="SITESETTINGS_THEME_DESCRIPTION"></data>
+  <data name="SITESETTINGS_USE_RECYCLER">
+      <value>Prullenbak gebruiken voor verwijderde modules.</value>
+  </data>
+  <data name="SITESETTINGS_USE_RECYCLER_DESCRIPTION">
+      <value>Aanvinken om verwijderde modules naar de prullenbak te verplaatsen. Ze worden dan niet definitief verwijderd.</value>
+  </data>
+  <data name="SMARTERROR_403HEADING">
+      <value>Niet geauthorizeerd</value>
+  </data>
+  <data name="SMARTERROR_403TEXT">
+      <value>U heeft niet de juiste rechten voor de gevraagde pagina.</value>
+  </data>
+  <data name="SMARTERROR_404HEADING">
+      <value>Pagina niet gevonden.</value>
+  </data>
+  <data name="SMARTERROR_404TEXT">
+      <value>De pagina waar u naar zoekt bestaat niet.</value>
+  </data>
+  <data name="SMARTERROR_500HEADING">
+      <value>Onze excuses.</value>
+  </data>
+  <data name="SMARTERROR_500TEXT">
+      <value>Onze excuses. We kunnen uw aanvraag niet uitvoeren. Mogelijk is het een tijdelijke storing, probeer het later nog eens.</value>
+  </data>
+  <data name="SMARTERROR_SUPPORTDETAILS_HEADING">
+      <value>Support details</value>
+  </data>
+  <data name="SORTFIELD">
+      <value>Sorteerveld</value>
+  </data>
+  <data name="SORTORDER">
+      <value>Sorteer volgorde</value>
+  </data>
+  <data name="START_DATE">
+      <value>Startddatum</value>
+  </data>
+  <data name="SUBJECT">
+      <value>Onderwerp</value>
+  </data>
+  <data name="SUBMIT">
+      <value>Versturen</value>
+  </data>
+  <data name="SUBTITLE">
+      <value>Subtitel</value>
+  </data>
+  <data name="SURVEY_ADDBELOW">
+      <value>Toevoegen aan "Vragen" hieronder</value>
+  </data>
+  <data name="SURVEY_ADDNEWOPTION">
+      <value>Nieuwe optie toevoegen</value>
+  </data>
+  <data name="SURVEY_ADDNEWQUESTION">
+      <value>Nieuwe vraag toevoegen</value>
+  </data>
+  <data name="SURVEY_ADDOPTBELOW">
+      <value>Toevoegen aan "opties" hieronder</value>
+  </data>
+  <data name="SURVEY_CHECKBOXES"></data>
+  <data name="SURVEY_DETAILS">
+      <value>Enquête details</value>
+  </data>
+  <data name="SURVEY_DETAILSOPTIONS">
+      <value>Enquête details opties</value>
+  </data>
+  <data name="SURVEY_NEWOPTION">
+      <value>Nieuwe optie</value>
+  </data>
+  <data name="SURVEY_NEWQUESTION">
+      <value>Nieuwe vraag</value>
+  </data>
+  <data name="SURVEY_OPTION_ERR">
+      <value>Voeg een optie toe, aub.</value>
+  </data>
+  <data name="SURVEY_OPTIONS">
+      <value>Opties</value>
+  </data>
+  <data name="SURVEY_OPTIONTYPE">
+      <value>Optie type:</value>
+  </data>
+  <data name="SURVEY_QUESTION">
+      <value>Vraag</value>
+  </data>
+  <data name="SURVEY_QUESTION_ERR">
+      <value>Voeg een vraag toe, aub.</value>
+  </data>
+  <data name="SURVEY_QUESTIONS">
+      <value>Vragen:</value>
+  </data>
+  <data name="SURVEY_RADIOBUTTONS">
+      <value>Radio Buttons</value>
+  </data>
+  <data name="SURVEY_SUBMIT">
+      <value>Verzenden</value>
+  </data>
+  <data name="SURVEY_TITLE">
+      <value>Enquête</value>
+  </data>
+  <data name="SURVEY_VOTES">
+      <value>Stemmen</value>
+  </data>
+  <data name="SWI_APPROVE">
+      <value>Goedkeuren</value>
+  </data>
+  <data name="SWI_APPROVESENDMAIL">
+      <value>Goedkeuren &amp; E-mail verzenden</value>
+  </data>
+  <data name="SWI_BUTTON_MAX">
+      <value>Scherm maximalizeren</value>
+  </data>
+  <data name="SWI_BUTTON_MIN">
+      <value>Scherm minimalizeren</value>
+  </data>
+  <data name="SWI_PUBLISH">
+      <value>Publiceer</value>
+  </data>
+  <data name="SWI_READYTOAPPROVE">
+      <value>Aanvraag goedkeuren</value>
+  </data>
+  <data name="SWI_READYTOAPPROVESENDMAIL">
+      <value>Aanvraag goedkeuren &amp; E-mail verzenden</value>
+  </data>
+  <data name="SWI_REJECT">
+      <value>Afwijzen</value>
+  </data>
+  <data name="SWI_REJECT_BODY">
+      <value>U kunt de afgewezen content vinden op:</value>
+  </data>
+  <data name="SWI_REJECT_SUBJECT1">
+      <value>De nieuwe content van</value>
+  </data>
+  <data name="SWI_REJECT_SUBJECT2">
+      <value>is afgewezen</value>
+  </data>
+  <data name="SWI_REJECTSENDMAIL">
+      <value>Afwijzen &amp; E-mail verzenden</value>
+  </data>
+  <data name="SWI_REQUEST_APPROVAL_SUBJECT">
+      <value>Aanvraag goedkeuring nieuwe content van '</value>
+  </data>
+  <data name="SWI_REQUEST_BODY">
+      <value>U kunt de nieuwe content vinden op:</value>
+  </data>
+  <data name="SWI_REQUEST_PUBLISH_SUBJECT">
+      <value>Aanvraag publicering nieuwe content van '</value>
+  </data>
+  <data name="SWI_REVERT">
+      <value>Revert</value>
+  </data>
+  <data name="SWI_ROLESAPPROVING">
+      <value>Toegelaten rollen</value>
+  </data>
+  <data name="SWI_ROLESPUBLISHING">
+      <value>Toegelaten publiceer rollen</value>
+  </data>
+  <data name="SWI_SUPPORTWORKFLOW">
+      <value>Activeer workflow ondersteuning</value>
+  </data>
+  <data name="SWI_SWAPTOPRODUCTION">
+      <value>Ga naar productie versie</value>
+  </data>
+  <data name="SWI_SWAPTOSTAGING">
+      <value>Ga naar staging versie</value>
+  </data>
+  <data name="TAB_DELETE_FAILED">
+      <value>Verwijderen is niet gelukt. Verwijder eerst alle modules in een pagina en alle gelinkte tabs voor het verwijderen van een tab.</value>
+  </data>
+  <data name="TAB_NAME">
+      <value>Nieuwe pagina (naam opgeven)</value>
+  </data>
+  <data name="TAB_PARENT">
+      <value>Moeder pagina (Parent)</value>
+  </data>
+  <data name="TAB_TITLE_Appleseed_HELP"></data>
+  <data name="TABKEYPHRASE">
+      <value>Standaard pagina Keyphrase</value>
+  </data>
+  <data name="TABKEYPHRASE_BG-BG"></data>
+  <data name="TABKEYPHRASE_BG-BG_DESCRIPTION"></data>
+  <data name="TABKEYPHRASE_DESCRIPTION"></data>
+  <data name="TABKEYPHRASE_EN"></data>
+  <data name="TABKEYPHRASE_EN_DESCRIPTION"></data>
+  <data name="TABKEYPHRASE_ES"></data>
+  <data name="TABKEYPHRASE_ES_DESCRIPTION"></data>
+  <data name="TABKEYPHRASE_ES-ES"></data>
+  <data name="TABKEYPHRASE_ES-ES_DESCRIPTION"></data>
+  <data name="TABKEYPHRASE_SR_SP_CYRL"></data>
+  <data name="TABKEYPHRASE_SR_SP_CYRL_DESCRIPTION"></data>
+  <data name="TABKEYPHRASE_SR_SP_LATN"></data>
+  <data name="TABKEYPHRASE_SR_SP_LATN_DESCRIPTION"></data>
+  <data name="TABLAYOUT">
+      <value>Standaard lay-out</value>
+  </data>
+  <data name="TABLEEDIT_MSG_CONNECT">
+      <value>Selecteer een database verbinding bij instellingen.</value>
+  </data>
+  <data name="TABLEEDIT_SELECT_TABLE">
+      <value>Selecteer een tabel</value>
+  </data>
+  <data name="TABLINK">
+      <value>URL van statische link</value>
+  </data>
+  <data name="TABLINK_DESCRIPTION"></data>
+  <data name="TABMETADESCRIPTION">
+      <value>Standaard pagina Description</value>
+  </data>
+  <data name="TABMETADESCRIPTION_DESCRIPTION"></data>
+  <data name="TABMETAENCODING">
+      <value>Standaard pagina Encoding</value>
+  </data>
+  <data name="TABMETAENCODING_DESCRIPTION"></data>
+  <data name="TABMETAKEYWORDS">
+      <value>Standaard pagina Keywords</value>
+  </data>
+  <data name="TABMETAKEYWORDS_DESCRIPTION"></data>
+  <data name="TABMETAOTHER"></data>
+  <data name="TABMETAOTHER_DESCRIPTION"></data>
+  <data name="TABPLACEHOLDER"></data>
+  <data name="TABPLACEHOLDER_DESCRIPTION"></data>
+  <data name="TABTITLE">
+      <value>Paginatitel</value>
+  </data>
+  <data name="TABTITLE_DESCRIPTION"></data>
+  <data name="TABURLKEYWORD"></data>
+  <data name="TABURLKEYWORD_DESCRIPTION"></data>
+  <data name="TARGET">
+      <value>Doel</value>
+  </data>
+  <data name="TASK_ASSIGNEDTO">
+      <value>Toegewezen aan</value>
+  </data>
+  <data name="TASK_COMPLETION">
+      <value>% voltooid</value>
+  </data>
+  <data name="TASK_COMPLETION_ERROR">
+      <value>Moet een geheel getal zijn tussen 0 en 100</value>
+  </data>
+  <data name="TASK_DESCRIPTION">
+      <value>Omschrijving</value>
+  </data>
+  <data name="TASK_DETAIL">
+      <value>Taak Detail</value>
+  </data>
+  <data name="TASK_DUEDATE">
+      <value>Vervaldag</value>
+  </data>
+  <data name="TASK_DUEDATE_ERROR">
+      <value>U dient een geldige vervaldag op te geven</value>
+  </data>
+  <data name="TASK_PRIORITY">
+      <value>Prioriteit</value>
+  </data>
+  <data name="TASK_PRIORITY_0">
+      <value>Hoog</value>
+  </data>
+  <data name="TASK_PRIORITY_1">
+      <value>Normaal</value>
+  </data>
+  <data name="TASK_PRIORITY_2">
+      <value>Laag</value>
+  </data>
+  <data name="TASK_STARTDATE">
+      <value>Startdatum</value>
+  </data>
+  <data name="TASK_STARTDATE_ERROR">
+      <value>U dient een geldige startdatum op te geven</value>
+  </data>
+  <data name="TASK_STATE_0">
+      <value>Niet gestart</value>
+  </data>
+  <data name="TASK_STATE_1">
+      <value>Aan de gang</value>
+  </data>
+  <data name="TASK_STATE_2">
+      <value>Voltooid</value>
+  </data>
+  <data name="TASK_STATUS"></data>
+  <data name="TASK_TITLE">
+      <value>Titel</value>
+  </data>
+  <data name="TASK_TITLE_ERROR">
+      <value>U dient een geldige titel op te geven</value>
+  </data>
+  <data name="TERMSOFSERVICE">
+      <value>Algemene Voorwaarden</value>
+  </data>
+  <data name="TERMSOFSERVICE_DESCRIPTION">
+      <value>Geef hier bestandsnaam op met Algemene voorwaarden. Deze zal in registratiepagina getoond worden. Provide localized version adding _&lt;culturename&gt;. E.g. Terms.txt, will search for Terms.txt and for Terms_en-US.txt</value>
+  </data>
+  <data name="TESTMODE">
+      <value>Testmodus</value>
+  </data>
+  <data name="TESTMODE_DESCRIPTION">
+      <value>Use Test Mode for testing your settings. It will send only one email to the address specified as sender. Useful for testing</value>
+  </data>
+  <data name="THEME">
+      <value>Thema</value>
+  </data>
+  <data name="THEME_DESCRIPTION">
+      <value>Kies Thema voor deze module</value>
+  </data>
+  <data name="THEME_LAYOUT_SETTINGS">
+      <value>Thema en Layout instellingen</value>
+  </data>
+  <data name="THEMEALT">
+      <value>Alternatief thema</value>
+  </data>
+  <data name="TI_ROLEADMINISTRATIONADDTOROLE">
+      <value>Selecteer sorterings criteria</value>
+  </data>
+  <data name="TI_ROLEADMINISTRATIONREMOVEFROMROLE">
+      <value>Verwijder gebruiker(s) van geselecteerde Rol</value>
+  </data>
+  <data name="TI_ROLEADMINISTRATIONSELECTIONADDLABEL">
+      <value>Geselecteerde gebruiker(s) word(t)(en) toegevoegd aan:</value>
+  </data>
+  <data name="TI_ROLEADMINISTRATIONSELECTIONREMOVELABEL">
+      <value>Geselecteerde gebruiker(s) word(t)(en) verwijderd van:</value>
+  </data>
+  <data name="TI_ROLEADMINISTRATIONSELECTIONROLENAME">
+      <value>Komt in geen enkele Rol voor - selecteer een Rol van de lijst hierboven</value>
+  </data>
+  <data name="TI_ROLEADMINISTRATIONSELECTIONWARNING">
+      <value>Selecteer een of meer gebruikers voor verzending</value>
+  </data>
+  <data name="TI_ROLEADMINISTRATIONTITLE">
+      <value>Gebruik deze tool om gebruikers aan Rollen toe te voegen of juist te verwijderen.</value>
+  </data>
+  <data name="TITLE">
+      <value>Titel</value>
+  </data>
+  <data name="TO">
+      <value>naar</value>
+  </data>
+  <data name="TOP">
+      <value>Boven</value>
+  </data>
+  <data name="TOPICNAME">
+      <value>Categorie</value>
+  </data>
+  <data name="TOPICNAME_DESCRIPTION">
+      <value>Selecteer een categorie. U kunt later items filteren in Portal Search.</value>
+  </data>
+  <data name="TOTAL">
+      <value>Totaal</value>
+  </data>
+  <data name="TOURISTIC_AUTO"></data>
+  <data name="TOURISTIC_NOFILTER">
+      <value>Geen filter</value>
+  </data>
+  <data name="TOURISTIC_THISMONTH">
+      <value>Enkel deze maand</value>
+  </data>
+  <data name="TOURISTIC_THISYEAR">
+      <value>Enkel dit jaar</value>
+  </data>
+  <data name="TR"></data>
+  <data name="TR_DESCRIPTION"></data>
+  <data name="TRANSLATOR">
+      <value>Yannick Smits</value>
+  </data>
+  <data name="TRANSLATOR_EMAIL">
+      <value>info@goyaweb.nl</value>
+  </data>
+  <data name="TR-TR"></data>
+  <data name="TR-TR_DESCRIPTION"></data>
+  <data name="TYPE"></data>
+  <data name="UNCHECKED_USERS">
+      <value>Niet geverifieerde gebruikers</value>
+  </data>
+  <data name="UNKNOWN">
+      <value>Onbekend</value>
+  </data>
+  <data name="UPDATE">
+      <value>Bijwerken</value>
+  </data>
+  <data name="UPDATE_YOUR_PROFILE">
+      <value>Uw profiel bijwerken</value>
+  </data>
+  <data name="UPLOAD_FILE">
+      <value>Bestand uploaden</value>
+  </data>
+  <data name="UPLOAD_IMAGE">
+      <value>Afbeelding uploaden</value>
+  </data>
+  <data name="UPLOAD_SUCCESS_MESSAGE">
+      <value>Met succes geupload dossier!</value>
+  </data>
+  <data name="UPLOAD_TO_WEB">
+      <value>Uploaden naar Webserver</value>
+  </data>
+  <data name="URL"></data>
+  <data name="URL_TO_BROWSE">
+      <value>URL om te zoeken</value>
+  </data>
+  <data name="USE_INSTALLER">
+      <value>Installer gebruiken</value>
+  </data>
+  <data name="USER_MANAGE">
+      <value>Gebruikersbeheer</value>
+  </data>
+  <data name="USER_MESSAGE_DOMAIN1">
+      <value>Domein gebruiker moeten niet geregistreerd zijn voor toegang tot portaal content dat beschikbaar is voor ’Alle Gebruikers’</value>
+  </data>
+  <data name="USER_MESSAGE_DOMAIN2">
+      <value>Beheerders kunnen domeingebruikers toevoegen aan specifieke rollen.</value>
+  </data>
+  <data name="USER_MESSAGE_DOMAIN3">
+      <value>Dit onderdeel laat Administrators toe om gebruikers en hun rollen te beheren.</value>
+  </data>
+  <data name="USER_MESSAGE1">
+      <value>Gebruikers moeten geregistreerd zijn om toegang te krijgen tot beveiligde pagina’s en modules.</value>
+  </data>
+  <data name="USER_MESSAGE2">
+      <value>Gebruikers kunnen zichzelf registreren waarna Administrators de geregistreerde gebruikers specifieke rollen kan toekennen.</value>
+  </data>
+  <data name="USER_MESSAGE3">
+      <value>Dit onderdeel laat Administrators toe om gebruikers en hun rollen te beheren.</value>
+  </data>
+  <data name="USER_NEW_USER">
+      <value>Nieuwe gebruiker aangemaakt</value>
+  </data>
+  <data name="USERBLOCK">
+      <value>Gebruikers groeperen</value>
+  </data>
+  <data name="USERBLOCK_DESCRIPTION">
+      <value>Selecteer maximaal aantal gebruikers. Bij verzenden van E-mails naar iedereen kunnen time-outs zich voordoen; dan aantal verminderen.</value>
+  </data>
+  <data name="USEREMAIL">
+      <value>E-mail gebruiker</value>
+  </data>
+  <data name="USERNAME">
+      <value>Naam gebruiker</value>
+  </data>
+  <data name="USERTABLE_BACK">
+      <value>Terug</value>
+  </data>
+  <data name="USERTABLE_EDITROW">
+      <value>Wijzig tabelrij</value>
+  </data>
+  <data name="USERTABLE_INASCORDER">
+      <value>(Stijgend)</value>
+  </data>
+  <data name="USERTABLE_INDSCORDER">
+      <value>(Dalend)</value>
+  </data>
+  <data name="USERTABLE_MANAGETABLE">
+      <value>Tabel beheren</value>
+  </data>
+  <data name="USERTABLE_MOVEFIELDDOWN">
+      <value>Naar beneden verplaatsen</value>
+  </data>
+  <data name="USERTABLE_MOVEFIELDUP">
+      <value>Naar boven verplaatsen</value>
+  </data>
+  <data name="USERTABLE_NEWFIELD">
+      <value>Nieuw veld toevoegen</value>
+  </data>
+  <data name="USERTABLE_SORTEDBY">
+      <value>Sorteer op</value>
+  </data>
+  <data name="USERTABLE_TITLE">
+      <value>Titel</value>
+  </data>
+  <data name="USERTABLE_TYPE"></data>
+  <data name="USERTABLE_TYPE_BOOLEAN">
+      <value>Ja/Nee</value>
+  </data>
+  <data name="USERTABLE_TYPE_DATETIME">
+      <value>Datum</value>
+  </data>
+  <data name="USERTABLE_TYPE_DECIMAL">
+      <value>Decimaal</value>
+  </data>
+  <data name="USERTABLE_TYPE_FILE">
+      <value>Bestand</value>
+  </data>
+  <data name="USERTABLE_TYPE_INT32"></data>
+  <data name="USERTABLE_TYPE_STRING">
+      <value>Tekst</value>
+  </data>
+  <data name="USERTABLE_VISIBLE">
+      <value>Zichtbaar</value>
+  </data>
+  <data name="VALID_ADDRESS">
+      <value>U moet een correct adres invullen.</value>
+  </data>
+  <data name="VALID_CITY">
+      <value>U moet een correcte stad invullen.</value>
+  </data>
+  <data name="VALID_CODE">
+      <value>U moet een correcte code invullen.</value>
+  </data>
+  <data name="VALID_DATE">
+      <value>U moet een correcte datum invullen.</value>
+  </data>
+  <data name="VALID_EMAIL">
+      <value>U moet een correct E-mail adres invullen.</value>
+  </data>
+  <data name="VALID_FIELD">
+      <value>Gelieve een correcte waarde op te geven.</value>
+  </data>
+  <data name="VALID_FILE_NAME">
+      <value>U moet een correcte bestandsnaam invullen.</value>
+  </data>
+  <data name="VALID_NAME">
+      <value>U moet een correcte naam invullen.</value>
+  </data>
+  <data name="VALID_NUMBER">
+      <value>U moet een correct getal invullen.</value>
+  </data>
+  <data name="VALID_PHONE">
+      <value>U moet een correct telefoonnummer invullen.</value>
+  </data>
+  <data name="VALID_TITLE">
+      <value>U moet een correcte titel invullen.</value>
+  </data>
+  <data name="VALID_VIEWORDER">
+      <value>U moet een correcte volgorde invullen.</value>
+  </data>
+  <data name="VALID_ZIP">
+      <value>U moet een correcte postcode invullen.</value>
+  </data>
+  <data name="VALIDORDER">
+      <value>U moet een correcte volgorde invullen.</value>
+  </data>
+  <data name="VALIDTITLE">
+      <value>U moet een correcte titel invullen.</value>
+  </data>
+  <data name="VALIDURL">
+      <value>U moet een correcte URL invullen.</value>
+  </data>
+  <data name="VERTICAL">
+      <value>Verticaal</value>
+  </data>
+  <data name="VIEW_ORDER">
+      <value>Volgorde</value>
+  </data>
+  <data name="VIEWORDER">
+      <value>Volgorde</value>
+  </data>
+  <data name="WEB_FARM_SUPPORT">
+      <value>Opslaan in database (Ondersteuning voor webserverclusters)</value>
+  </data>
+  <data name="WEBSITE">
+      <value>Website</value>
+  </data>
+  <data name="WELCOME">
+      <value>Welkom</value>
+  </data>
+  <data name="WHOS_LOGGED_ON_1">
+      <value>Er zijn momenteel:</value>
+  </data>
+  <data name="WHOS_LOGGED_ON_2">
+      <value>anonieme gebruikers online</value>
+  </data>
+  <data name="WHOS_LOGGED_ON_3">
+      <value>geregistreerde gebruikers online:</value>
+  </data>
+  <data name="WHOSLOGGEDONCACHETIMEOUT">
+      <value>Specifieer hoelang de ’Who’s online module’ wacht voor opnieuw te proberen (0 - 60000)</value>
+  </data>
+  <data name="WIDTH">
+      <value>Breedte</value>
+  </data>
+  <data name="WIDTH_DESCRIPTION">
+      <value>De breedte van de editor</value>
+  </data>
+  <data name="XMLSRC">
+      <value>XML bronbestand</value>
+  </data>
+  <data name="XSLSRC">
+      <value>XSL bronbestand</value>
+  </data>
+  <data name="YEAR">
+      <value>Jaar:</value>
+  </data>
+  <data name="YEARS">
+      <value>Jaren (Max)</value>
+  </data>
+  <data name="ZH-CN">
+      <value>Titel (zh-cn)</value>
+  </data>
+  <data name="ZH-CN_DESCRIPTION">
+      <value>Titel voor de Chinese cultuur (van de Volksrepubliek China).</value>
+  </data>
+  <data name="ZIP">
+      <value>Postcode</value>
+  </data>
+</root>

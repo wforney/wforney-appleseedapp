@@ -1,0 +1,20 @@
+.ModuleContent{
+	padding:10px;
+	border:none;
+	margin-top: 5px;
+	margin-right:0px;
+	margin-bottom:0px;
+	margin-left:0px;
+	color:#333333;
+	max-width:940px;
+	position:relative;
+}
+
+div.Control_Panel_Table{
+	position:absolute;
+	top:0px;
+	right:0px;
+	z-index:150;
+    margin: 0px;
+    padding: 0px;
+}
