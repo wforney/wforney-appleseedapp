@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AppleseedWebApplication.Installer {
+namespace Appleseed.Installer {
     
     
     public partial class Default {

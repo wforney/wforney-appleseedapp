@@ -28,7 +28,7 @@
                         <rbfwebui:linkbutton id="btnApprove" runat="server" cssclass="CommandButton" text="Approve"
                             textkey="SWI_APPROVE"></rbfwebui:linkbutton>
                         &nbsp;
-                        <rbfwebui:linkbutton id="cancelButton" runat="server" cssclass="CommandButton" text="Cancel"
+                        <rbfwebui:linkbutton id="CancelButton" runat="server" cssclass="CommandButton" text="Cancel"
                             textkey="CANCEL"></rbfwebui:linkbutton>
                     </td>
                 </tr>

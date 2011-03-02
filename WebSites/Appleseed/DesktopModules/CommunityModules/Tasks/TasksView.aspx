@@ -102,7 +102,7 @@
                     </tr>
                 </table>
                 <p>
-                    <rbfwebui:LinkButton id="cancelButton" runat="server" causesvalidation="False" class="CommandButton"
+                    <rbfwebui:LinkButton id="CancelButton" runat="server" causesvalidation="False" class="CommandButton"
                         text="Cancel">
                     </rbfwebui:LinkButton>
                     <br>

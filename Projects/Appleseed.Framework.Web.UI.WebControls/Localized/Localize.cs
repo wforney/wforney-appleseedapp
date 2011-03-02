@@ -65,7 +65,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
         }
 
         /// <summary>
-        ///     Set the resource key
+        ///     Gets or sets the resource key
         /// </summary>
         /// <value>The text key.</value>
         [ToolboxItem("textkey")]

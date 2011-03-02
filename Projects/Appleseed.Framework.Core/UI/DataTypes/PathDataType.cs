@@ -1,26 +1,45 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="PathDataType.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Path Data Type
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace Appleseed.Framework.DataTypes
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
-    /// PathDataType
+    /// Path Data Type
     /// </summary>
-    public class PathDataType : StringDataType
+    public class PathDataType : BaseDataType<string, TextBox>
     {
+        #region Properties
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="PathDataType"/> class.
+        ///   Gets the description.
         /// </summary>
-        public PathDataType()
+        public override string Description
         {
-            InnerDataType = PropertiesDataType.String;
-            //InitializeComponents();
+            get
+            {
+                return "File System path";
+            }
         }
 
         /// <summary>
-        /// Gets or sets the value.
+        ///   Gets or sets the value.
         /// </summary>
         /// <value>The value.</value>
         public override string Value
         {
-            get { return base.Value; }
+            get
+            {
+                return base.Value;
+            }
+
             set
             {
                 value = value.Replace("/", "\\");
@@ -28,13 +47,6 @@ namespace Appleseed.Framework.DataTypes
             }
         }
 
-        /// <summary>
-        /// String
-        /// </summary>
-        /// <value></value>
-        public override string Description
-        {
-            get { return "File System path"; }
-        }
+        #endregion
     }
 }

@@ -1,22 +1,22 @@
-<%@ control autoeventwireup="false" inherits="Appleseed.Content.Web.Modules.Milestones"
-    language="c#" Codebehind="Milestones.ascx.cs" %>
-<asp:datagrid id="myDataGrid" runat="server" autogeneratecolumns="false" borderwidth="0"
-    cellpadding="5" enableviewstate="true" headerstyle-cssclass="Normal" headerstyle-font-bold="true"
-    itemstyle-cssclass="Normal" width="100%">
-    <columns>
-        <rbfwebui:templatecolumn>
-            <itemtemplate>
-                <rbfwebui:HyperLink ID="editLink" TextKey="EDIT" Text="Edit" ImageUrl='<%# CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
+<%@ Control AutoEventWireup="false" Inherits="Appleseed.Content.Web.Modules.Milestones"
+    Language="c#" CodeBehind="Milestones.ascx.cs" %>
+<asp:DataGrid ID="myDataGrid" runat="server" AutoGenerateColumns="false" BorderWidth="0"
+    CellPadding="5" EnableViewState="true" HeaderStyle-CssClass="Normal" HeaderStyle-Font-Bold="true"
+    ItemStyle-CssClass="Normal" Width="100%">
+    <Columns>
+        <rbfwebui:TemplateColumn>
+            <ItemTemplate>
+                <rbfwebui:HyperLink ID="editLink" TextKey="EDIT" Text="Edit" ImageUrl='<%# this.CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
                     NavigateUrl='<%# Appleseed.Framework.HttpUrlBuilder.BuildUrl("~/DesktopModules/CommunityModules/MileStones/MilestonesEdit.aspx", "ItemID=" + DataBinder.Eval(Container.DataItem,"ItemID") + "&Mid=" + ModuleID) %>'
                     Visible="<%# IsEditable %>" runat="server" />
-            </itemtemplate>
-        </rbfwebui:templatecolumn>
-        <rbfwebui:boundcolumn runat="server" datafield="Title" headertext="Title" textkey="MILESTONE_TITLE">
-        </rbfwebui:boundcolumn>
-        <rbfwebui:boundcolumn runat="server" datafield="EstCompleteDate" dataformatstring="{0:d}"
-            headertext="Compl. Date" textkey="MILESTONE_COMPL_DATE">
-        </rbfwebui:boundcolumn>
-        <rbfwebui:boundcolumn runat="server" datafield="Status" headertext="Status" textkey="MILESTONE_STATUS">
-        </rbfwebui:boundcolumn>
-    </columns>
-</asp:datagrid>
+            </ItemTemplate>
+        </rbfwebui:TemplateColumn>
+        <rbfwebui:BoundColumn runat="server" DataField="Title" HeaderText="Title" TextKey="MILESTONE_TITLE">
+        </rbfwebui:BoundColumn>
+        <rbfwebui:BoundColumn runat="server" DataField="EstCompleteDate" DataFormatString="{0:d}"
+            HeaderText="Compl. Date" TextKey="MILESTONE_COMPL_DATE">
+        </rbfwebui:BoundColumn>
+        <rbfwebui:BoundColumn runat="server" DataField="Status" HeaderText="Status" TextKey="MILESTONE_STATUS">
+        </rbfwebui:BoundColumn>
+    </Columns>
+</asp:DataGrid>

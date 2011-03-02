@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ProviderConfiguration.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   The provider configuration.
@@ -17,40 +17,35 @@ namespace Appleseed.Framework.Provider
     /// <summary>
     /// The provider configuration.
     /// </summary>
+    /// <remarks>
+    /// </remarks>
     public class ProviderConfiguration
     {
         #region Constants and Fields
 
         /// <summary>
-        ///     The providers.
+        ///   The providers.
         /// </summary>
         private readonly Hashtable providers = new Hashtable();
-
-        /// <summary>
-        ///     The default provider.
-        /// </summary>
-        private string defaultProvider;
 
         #endregion
 
         #region Properties
 
         /// <summary>
-        ///     Gets the default provider
+        ///   Gets the default provider
         /// </summary>
         /// <value>The default provider.</value>
-        public string DefaultProvider
-        {
-            get
-            {
-                return this.defaultProvider;
-            }
-        }
+        /// <remarks>
+        /// </remarks>
+        public string DefaultProvider { get; private set; }
 
         /// <summary>
-        ///     Gets the loaded providers
+        ///   Gets the loaded providers
         /// </summary>
         /// <value>The providers.</value>
+        /// <remarks>
+        /// </remarks>
         public Hashtable Providers
         {
             get
@@ -72,6 +67,8 @@ namespace Appleseed.Framework.Provider
         /// <returns>
         /// The Provider Configuration.
         /// </returns>
+        /// <remarks>
+        /// </remarks>
         public static ProviderConfiguration GetProviderConfiguration(string provider)
         {
             return (ProviderConfiguration)ConfigurationManager.GetSection(string.Format("providers/{0}", provider));
@@ -83,6 +80,8 @@ namespace Appleseed.Framework.Provider
         /// <param name="node">
         /// Node representing configuration information
         /// </param>
+        /// <remarks>
+        /// </remarks>
         public void LoadValuesFromConfigurationXml(XmlNode node)
         {
             var attributeCollection = node.Attributes;
@@ -90,7 +89,7 @@ namespace Appleseed.Framework.Provider
             // Get the default provider
             if (attributeCollection != null)
             {
-                this.defaultProvider = attributeCollection["defaultProvider"].Value;
+                this.DefaultProvider = attributeCollection["defaultProvider"].Value;
             }
 
             // Read child nodes
@@ -110,6 +109,8 @@ namespace Appleseed.Framework.Provider
         /// <param name="node">
         /// The configuration node.
         /// </param>
+        /// <remarks>
+        /// </remarks>
         private void GetProviders(XmlNode node)
         {
             foreach (XmlNode provider in node.ChildNodes)

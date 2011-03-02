@@ -9,7 +9,7 @@
 </head>
 <body>
     <div>
-        <script language='javascript' type='text/javascript' src='<%: Url.Resource("Scripts.jquery-1.4.1.min.js") %>'></script>
+        <script language='javascript' type='text/javascript' src='<%: Url.Resource("Scripts.jquery-1.5.min.js") %>'></script>
         <link rel="stylesheet" type="text/css" href='<%: Url.Resource("Content.style.css") %>' />
         <ul>
             <li>RenderAction works !</li>

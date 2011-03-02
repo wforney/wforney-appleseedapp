@@ -1,194 +1,202 @@
-using System;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Appleseed.Framework;
-using Appleseed.Framework.DataTypes;
-using Appleseed.Framework.Settings;
-using Appleseed.Framework.Settings.Cache;
-using Appleseed.Framework.Site.Configuration;
-using Appleseed.Framework.Site.Data;
-using Appleseed.Framework.Web.UI.WebControls;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Shortcut.ascx.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Shortcut control provide a quick way to duplicate
+//   a module content in different page of the portal
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System;
+    using System.Web;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+
+    using Appleseed.Framework;
+    using Appleseed.Framework.DataTypes;
+    using Appleseed.Framework.Settings;
+    using Appleseed.Framework.Settings.Cache;
+    using Appleseed.Framework.Site.Configuration;
+    using Appleseed.Framework.Site.Data;
+    using Appleseed.Framework.Web.UI.WebControls;
+
     /// <summary>
     /// Shortcut control provide a quick way to duplicate
-    /// a module content in different page of the portal
+    ///   a module content in different page of the portal
     /// </summary>
+    /// <remarks>
+    /// </remarks>
     [History("jminond", "march 2005", "Changes for moving Tab to Page")]
-    [History("Mario Hartmann", "mario@hartmann.net", "1.1", "2003/10/08", "moved to seperate folder")]
+    [History("Mario Hartmann", "mario@hartmann.net", "1.1", "2003/10/08", "moved to separate folder")]
     public class Shortcut : PortalModuleControl
     {
+        #region Constants and Fields
+
         /// <summary>
-        /// 
+        /// The place holder module.
         /// </summary>
         protected PlaceHolder PlaceHolderModule;
 
-// removed Jes1111 - 2004/09/29 - to support new rendering method
-//		/// <summary>
-//		/// No theme for this module 
-//		/// </summary>
-//		public override bool ApplyTheme
-//        {
-//            get
-//            {
-//                return(false);
-//            }
-//        }
+        #endregion
+
+        #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Shortcut"/> class.
+        /// Initializes a new instance of the <see cref="Shortcut"/> class. 
         /// </summary>
+        /// <remarks>
+        /// </remarks>
         public Shortcut()
         {
             // Obtain PortalSettings from Current Context
-            if (HttpContext.Current != null && HttpContext.Current.Items["PortalSettings"] != null)
+            if (HttpContext.Current == null || HttpContext.Current.Items["PortalSettings"] == null)
             {
-                //Do not remove these checks!! It fails installing modules on startup
-                PortalSettings portalSettings = (PortalSettings) HttpContext.Current.Items["PortalSettings"];
+                return;
+            }
 
-                int p = portalSettings.PortalID;
+            // Do not remove these checks!! It fails installing modules on startup
+            var portalSettings1 = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
 
-                // Get a list of modules of the current running portal
-                SettingItem LinkedModule =
-                    new SettingItem(
-                        new CustomListDataType(new ModulesDB().GetModulesSinglePortal(p), "ModuleTitle", "ModuleID"));
-                LinkedModule.Required = true;
-                LinkedModule.Order = 0;
-                LinkedModule.Value = "0";
-                _baseSettings.Add("LinkedModule", LinkedModule);
+            var p = portalSettings1.PortalID;
+
+            // Get a list of modules of the current running portal
+            var linkedModule =
+                new SettingItem<string, ListControl>(
+                    new CustomListDataType(new ModulesDB().GetModulesSinglePortal(p), "ModuleTitle", "ModuleID"))
+                    {
+                        Required = true,
+                        Order = 0,
+                        Value = "0"
+                    };
+            this.BaseSettings.Add("LinkedModule", linkedModule);
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   GUID of module (mandatory)
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        public override Guid GuidID
+        {
+            get
+            {
+                return new Guid("{F9F9C3A4-6E16-43b4-B540-984DDB5F1CD2}");
             }
         }
 
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        private void Page_Load(object sender, EventArgs e)
-        {
-            /* Remove the IsPostBack check to allow contained controls to interpret the event
-			 * to resolve issue #860424
-			 * Author: Cemil Ayvaz
-			 * Email : cemil_ayvaz@yahoo.com
-			 * Date  : 2004-06-01
-			 * 
-			if(!IsPostBack)
-			{
-			*/
-            string ControlPath = string.Empty;
+        #endregion
 
-            //Try to get info on linked control
-            int LinkedModuleID = Int32.Parse(Settings["LinkedModule"].ToString());
-            SqlDataReader dr = ModuleSettings.GetModuleDefinitionByID(LinkedModuleID);
+        #region Methods
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        /// <remarks></remarks>
+        protected override void OnInit(EventArgs e)
+        {
+            var controlPath = string.Empty;
+
+            // Try to get info on linked control
+            var linkedModuleId = Int32.Parse(this.Settings["LinkedModule"].ToString());
+            var dr = ModuleSettings.GetModuleDefinitionByID(linkedModuleId);
             try
             {
                 if (dr.Read())
-                    ControlPath = Path.ApplicationRoot + "/" + dr["DesktopSrc"].ToString();
+                {
+                    controlPath = string.Format("{0}/{1}", Path.ApplicationRoot, dr["DesktopSrc"]);
+                }
             }
             finally
             {
                 dr.Close();
             }
 
-            //Load control
+            // Load control
             PortalModuleControl portalModule;
             try
             {
-                if (ControlPath == null || ControlPath.Length == 0)
+                if (controlPath.Length == 0)
                 {
-                    PlaceHolderModule.Controls.Add(
-                        new LiteralControl("Module '" + LinkedModuleID +
-                                           "' not found!  Use Admin panel to add a linked control."));
+                    this.PlaceHolderModule.Controls.Add(
+                        new LiteralControl(
+                            string.Format("Module '{0}' not found!  Use Admin panel to add a linked control.", linkedModuleId)));
                     return;
                 }
-                portalModule = (PortalModuleControl) Page.LoadControl(ControlPath);
 
-                //Sets portal ID
-                portalModule.PortalID = PortalID;
+                portalModule = (PortalModuleControl)this.Page.LoadControl(controlPath);
 
-                //Update settings
-                ModuleSettings m = new ModuleSettings();
-                m.ModuleID = LinkedModuleID;
-                m.PageID = ModuleConfiguration.PageID;
-                m.PaneName = ModuleConfiguration.PaneName;
-                m.ModuleTitle = ModuleConfiguration.ModuleTitle;
-                m.AuthorizedEditRoles = string.Empty; //Readonly
-                m.AuthorizedViewRoles = string.Empty; //Readonly
-                m.AuthorizedAddRoles = string.Empty; //Readonly
-                m.AuthorizedDeleteRoles = string.Empty; //Readonly
-                m.AuthorizedPropertiesRoles = ModuleConfiguration.AuthorizedPropertiesRoles;
-                m.CacheTime = ModuleConfiguration.CacheTime;
-                m.ModuleOrder = ModuleConfiguration.ModuleOrder;
-                m.ShowMobile = ModuleConfiguration.ShowMobile;
-                m.DesktopSrc = ControlPath;
-                m.MobileSrc = string.Empty; //Not supported yet
+                // Sets portal ID
+                portalModule.PortalID = this.PortalID;
+
+                // Update settings
+                var m = new ModuleSettings
+                    {
+                        ModuleID = linkedModuleId,
+                        PageID = this.ModuleConfiguration.PageID,
+                        PaneName = this.ModuleConfiguration.PaneName,
+                        ModuleTitle = this.ModuleConfiguration.ModuleTitle,
+                        AuthorizedEditRoles = string.Empty,   // read only
+                        AuthorizedViewRoles = string.Empty,   // read only
+                        AuthorizedAddRoles = string.Empty,    // read only
+                        AuthorizedDeleteRoles = string.Empty, // read only
+                        AuthorizedPropertiesRoles = this.ModuleConfiguration.AuthorizedPropertiesRoles,
+                        CacheTime = this.ModuleConfiguration.CacheTime,
+                        ModuleOrder = this.ModuleConfiguration.ModuleOrder,
+                        ShowMobile = this.ModuleConfiguration.ShowMobile,
+                        DesktopSrc = controlPath,
+                        MobileSrc = string.Empty, // not supported yet
+                        SupportCollapsable = this.ModuleConfiguration.SupportCollapsable
+                    };
+
                 // added bja@reedtek.com
-                m.SupportCollapsable = ModuleConfiguration.SupportCollapsable;
-
                 portalModule.ModuleConfiguration = m;
 
-                portalModule.Settings["MODULESETTINGS_APPLY_THEME"] = Settings["MODULESETTINGS_APPLY_THEME"];
-                portalModule.Settings["MODULESETTINGS_THEME"] = Settings["MODULESETTINGS_THEME"];
+                portalModule.Settings["MODULESETTINGS_APPLY_THEME"] = this.Settings["MODULESETTINGS_APPLY_THEME"];
+                portalModule.Settings["MODULESETTINGS_THEME"] = this.Settings["MODULESETTINGS_THEME"];
 
                 // added so ShowTitle is independent of the Linked Module
-                portalModule.Settings["MODULESETTINGS_SHOW_TITLE"] = Settings["MODULESETTINGS_SHOW_TITLE"];
+                portalModule.Settings["MODULESETTINGS_SHOW_TITLE"] = this.Settings["MODULESETTINGS_SHOW_TITLE"];
+
                 // added so that shortcut works for module "print this..." feature
-                PlaceHolderModule.ID = "Shortcut";
+                this.PlaceHolderModule.ID = "Shortcut";
 
                 // added so AllowCollapsable -- bja@reedtek.com
-                portalModule.Settings["AllowCollapsable"] = Settings["AllowCollapsable"];
+                portalModule.Settings["AllowCollapsable"] = this.Settings["AllowCollapsable"];
 
-                //Add control to the page
-                PlaceHolderModule.Controls.Add(portalModule);
+                // Add control to the page
+                this.PlaceHolderModule.Controls.Add(portalModule);
             }
             catch (Exception ex)
             {
-                ErrorHandler.Publish(LogLevel.Error, "Shortcut: Unable to load control '" + ControlPath + "'!", ex);
-                PlaceHolderModule.Controls.Add(
-                    new LiteralControl("<br><span class=NormalRed>" + "Unable to load control '" + ControlPath + "'!" +
-                                       "<br>"));
-                PlaceHolderModule.Controls.Add(new LiteralControl(ex.Message));
-                return; //The controls has failed!
+                ErrorHandler.Publish(LogLevel.Error, string.Format("Shortcut: Unable to load control '{0}'!", controlPath), ex);
+                this.PlaceHolderModule.Controls.Add(
+                    new LiteralControl(
+                        string.Format("<br /><span class=\"NormalRed\">Unable to load control '{0}'!</span><br />", controlPath)));
+                this.PlaceHolderModule.Controls.Add(new LiteralControl(ex.Message));
+                return; // The controls has failed!
             }
 
-            //Set title
-            portalModule.PropertiesUrl =
-                HttpUrlBuilder.BuildUrl("~/DesktopModules/CoreModules/Admin/PropertyPage.aspx", PageID, "mID=" + ModuleID.ToString());
+            // Set title
+            portalModule.PropertiesUrl = HttpUrlBuilder.BuildUrl(
+                "~/DesktopModules/CoreModules/Admin/PropertyPage.aspx", this.PageID, "mID=" + this.ModuleID);
             portalModule.PropertiesText = "PROPERTIES";
-            portalModule.AddUrl = string.Empty; //Readonly
-            portalModule.AddText = string.Empty; //Readonly
-            portalModule.EditUrl = string.Empty; //Readonly
-            portalModule.EditText = string.Empty; //Readonly
+            portalModule.AddUrl = string.Empty; // Readonly
+            portalModule.AddText = string.Empty; // Readonly
+            portalModule.EditUrl = string.Empty; // Readonly
+            portalModule.EditText = string.Empty; // Readonly
+
             // jes1111
-            portalModule.OriginalModuleID = ModuleID;
-            CurrentCache.Remove(Key.ModuleSettings(LinkedModuleID));
-        }
+            portalModule.OriginalModuleID = this.ModuleID;
+            CurrentCache.Remove(Key.ModuleSettings(linkedModuleId));
 
-        #region General Implementaion
-
-        /// <summary>
-        /// GUID of module (mandatory)
-        /// </summary>
-        /// <value></value>
-        public override Guid GuidID
-        {
-            get { return new Guid("{F9F9C3A4-6E16-43b4-B540-984DDB5F1CD2}"); }
-        }
-
-        #endregion
-
-        #region Web Form Designer generated code
-
-        /// <summary>
-        /// On init
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnInit(EventArgs e)
-        {
-            this.Load += new EventHandler(this.Page_Load);
             base.OnInit(e);
         }
 

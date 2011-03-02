@@ -11,6 +11,7 @@ using Appleseed.Framework.Web.UI;
 namespace Appleseed.Content.Web.Modules
 {
     using System.Collections.Generic;
+    using System.Web.UI.WebControls;
 
     /// <summary>
     /// View picture page
@@ -50,12 +51,12 @@ namespace Appleseed.Content.Web.Modules
                         pictureItem =
                             (PictureItem)
                             Page.LoadControl(Path.ApplicationRoot + "/Design/PictureLayouts/" +
-                                             moduleSettings["ImageLayout"]);
+                                             this.ModuleSettings["ImageLayout"]);
 
                         metadata.LoadXml((string) dr["MetadataXml"]);
 
                         XmlAttribute albumPath = metadata.CreateAttribute("AlbumPath");
-                        albumPath.Value = ((SettingItem) moduleSettings["AlbumPath"]).FullPath;
+                        albumPath.Value = ((SettingItem<string, TextBox>) this.ModuleSettings["AlbumPath"]).FullPath;
 
                         XmlAttribute itemID = metadata.CreateAttribute("ItemID");
                         itemID.Value = ((int) dr["ItemID"]).ToString();

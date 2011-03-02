@@ -1,111 +1,118 @@
-using System;
-using System.IO;
-using System.Text;
-using System.Web.UI;
-using System.Xml;
-using System.Xml.XPath;
-using System.Xml.Xsl;
-using Appleseed.Framework;
-using Appleseed.Framework.DataTypes;
-using Appleseed.Framework.Helpers;
-using Appleseed.Framework.Web.UI.WebControls;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="XmlLangModule.ascx.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   XML Language Module v1.1 - based (loosely) on the original XML module with added
+//   support for content language selection via the PortalContentLanguage
+//   property in PortalSettings. By Jes1111
+//   Now supports "Print this..." and "Email this..." buttons
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System;
+    using System.IO;
+    using System.Text;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+    using System.Xml;
+    using System.Xml.XPath;
+    using System.Xml.Xsl;
+
+    using Appleseed.Framework;
+    using Appleseed.Framework.DataTypes;
+    using Appleseed.Framework.Helpers;
+    using Appleseed.Framework.Web.UI.WebControls;
+
     /// <summary>
     /// XML Language Module v1.1 - based (loosely) on the original XML module with added
-    /// support for content language selection via the PortalContentLanguage
-    /// property in PortalSettings. By Jes1111
-    /// Now supports "Print this..." and "Email this..." buttons
+    ///   support for content language selection via the PortalContentLanguage
+    ///   property in PortalSettings. By Jes1111
+    ///   Now supports "Print this..." and "Email this..." buttons
     /// </summary>
     public partial class XmlLangModule : PortalModuleControl
     {
-        /// <summary>
-        /// The Page_Load event handler on this User Control uses
-        /// the Portal configuration system to obtain an xml document
-        /// and xsl/t transform file location.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void Page_Load(object sender, EventArgs e)
-        {
-            XslTransform xs;
-            XPathDocument xd;
-            XsltArgumentList xa = new XsltArgumentList();
-            XslHelper xh = new XslHelper();
-            StringBuilder sb = new StringBuilder();
-            TextWriter tw = new StringWriter(sb);
-            PortalUrlDataType pt;
-
-            pt = new PortalUrlDataType();
-            pt.Value = Settings["XMLsrc"].ToString();
-            string xmlsrc = Server.MapPath(pt.FullPath);
-            pt = new PortalUrlDataType();
-            pt.Value = Settings["XSLsrc"].ToString();
-            string xslsrc = Server.MapPath(pt.FullPath);
-
-            if ((xmlsrc != null) && (xmlsrc.Length != 0)
-                && (xslsrc != null) && (xslsrc.Length != 0)
-                && File.Exists(xmlsrc)
-                && File.Exists(xslsrc))
-            {
-                xd = new XPathDocument(xmlsrc);
-                xs = new XslTransform();
-                xs.Load(xslsrc);
-                xa.AddParam("Lang", string.Empty, portalSettings.PortalContentLanguage.Name.ToLower());
-                xa.AddExtensionObject("urn:Appleseed", xh);
-#if FW10
-				xs.Transform(xd, xa, tw);
-#else
-                xs.Transform(xd, xa, tw, new XmlUrlResolver());
-#endif
-                Content = sb.ToString();
-                ContentHolder.Controls.Add(new LiteralControl(Content.ToString()));
-
-                ModuleConfiguration.CacheDependency.Add(xslsrc);
-                ModuleConfiguration.CacheDependency.Add(xmlsrc);
-            }
-        }
-
+        #region Constructors and Destructors
 
         /// <summary>
-        /// Constructor
+        ///   Initializes a new instance of the <see cref = "XmlLangModule" /> class.
         /// </summary>
         public XmlLangModule()
         {
-            SettingItem XMLsrc = new SettingItem(new PortalUrlDataType());
-            XMLsrc.Required = true;
-            XMLsrc.Order = 1;
-            _baseSettings.Add("XMLsrc", XMLsrc);
+            var xmlSrc = new SettingItem<string, TextBox>(new PortalUrlDataType()) { Required = true, Order = 1 };
+            this.BaseSettings.Add("XMLsrc", xmlSrc);
 
-            SettingItem XSLsrc = new SettingItem(new PortalUrlDataType());
-            XSLsrc.Required = true;
-            XSLsrc.Order = 2;
-            _baseSettings.Add("XSLsrc", XSLsrc);
+            var xslSrc = new SettingItem<string, TextBox>(new PortalUrlDataType()) { Required = true, Order = 2 };
+            this.BaseSettings.Add("XSLsrc", xslSrc);
 
-            SupportsWorkflow = false;
-            SupportsBack = false;
+            this.SupportsWorkflow = false;
+            this.SupportsBack = false;
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
-        /// GUID of module (mandatory)
+        ///   GUID of module (mandatory)
         /// </summary>
         /// <value></value>
         public override Guid GuidID
         {
-            get { return new Guid("{E16DD121-267E-4268-A497-BDA6314E21A5}"); }
+            get
+            {
+                return new Guid("{E16DD121-267E-4268-A497-BDA6314E21A5}");
+            }
         }
 
-        #region Web Form Designer generated code
+        #endregion
+
+        #region Methods
 
         /// <summary>
-        /// On init
+        /// The Page_Load event handler on this User Control uses
+        ///   the Portal configuration system to obtain an xml document
+        ///   and xsl/t transform file location.
         /// </summary>
-        /// <param name="e"></param>
-        protected override void OnInit(EventArgs e)
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
+        protected override void OnLoad(EventArgs e)
         {
-            this.Load += new EventHandler(this.Page_Load);
-            base.OnInit(e);
+            base.OnLoad(e);
+
+            var xa = new XsltArgumentList();
+            var xh = new XslHelper();
+            var sb = new StringBuilder();
+            var tw = XmlWriter.Create(new StringWriter(sb));
+
+            var pt = new PortalUrlDataType { Value = this.Settings["XMLsrc"].ToString() };
+            var xmlsrc = this.Server.MapPath(pt.FullPath);
+            pt = new PortalUrlDataType { Value = this.Settings["XSLsrc"].ToString() };
+            var xslsrc = this.Server.MapPath(pt.FullPath);
+
+            if (string.IsNullOrEmpty(xmlsrc) || string.IsNullOrEmpty(xslsrc) || !File.Exists(xmlsrc) ||
+                !File.Exists(xslsrc))
+            {
+                return;
+            }
+
+            var xd = new XPathDocument(xmlsrc);
+            var xs = XslHelper.GetXslt(xslsrc);
+            xa.AddParam("Lang", string.Empty, this.PortalSettings.PortalContentLanguage.Name.ToLower());
+            xa.AddExtensionObject("urn:Appleseed", xh);
+#if FW10
+            xs.Transform(xd, xa, tw);
+#else
+            xs.Transform(xd, xa, tw, new XmlUrlResolver());
+#endif
+            this.Content = sb.ToString();
+            this.ContentHolder.Controls.Add(new LiteralControl(this.Content.ToString()));
+
+            this.ModuleConfiguration.CacheDependency.Add(xslsrc);
+            this.ModuleConfiguration.CacheDependency.Add(xmlsrc);
         }
 
         #endregion

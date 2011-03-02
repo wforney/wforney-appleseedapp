@@ -1,8 +1,18 @@
-using System;
-// Created by Manu
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="LogLevel.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Defines the level of the event to log
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+ // Created by Manu
 
 namespace Appleseed.Framework
 {
+    using System;
+
     /// <summary>
     /// Defines the level of the event to log
     /// </summary>
@@ -10,27 +20,32 @@ namespace Appleseed.Framework
     public enum LogLevel
     {
         /// <summary>
-        /// None
+        ///   None
         /// </summary>
-        None = 0,
+        None = 0, 
+
         /// <summary>
-        /// Debug
+        ///   Debug
         /// </summary>
-        Debug = 2,
+        Debug = 2, 
+
         /// <summary>
-        /// Info
+        ///   Info
         /// </summary>
-        Info = 4,
+        Info = 4, 
+
         /// <summary>
-        /// Warn
+        ///   Warn
         /// </summary>
-        Warn = 8,
+        Warn = 8, 
+
         /// <summary>
-        /// Error
+        ///   Error
         /// </summary>
-        Error = 16,
+        Error = 16, 
+
         /// <summary>
-        /// Fatal
+        ///   Fatal
         /// </summary>
         Fatal = 32
     }

@@ -56,10 +56,6 @@
     <DocumentationFile>bin\Release\Appleseed.Framework.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ActiveUp.WebControls.HtmlTextBox, Version=2.1.1188.22068, Culture=neutral, PublicKeyToken=debdbfc6bad3ccfc">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Libs\ActiveUp.WebControls.HtmlTextBox.dll</HintPath>
-    </Reference>
     <Reference Include="DateTextBoxControls, Version=1.0.8.42693, Culture=neutral, PublicKeyToken=e747becda5e0f01b">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Libs\DateTextBoxControls.dll</HintPath>
@@ -162,7 +158,6 @@
     </Compile>
     <Compile Include="DesktopModules\SiteMap\ISitemapRenderer.cs" />
     <Compile Include="DesktopModules\SiteMap\SitemapItem.cs" />
-    <Compile Include="DesktopModules\SiteMap\SitemapItems.cs" />
     <Compile Include="DesktopModules\SiteMap\TableSitemapRenderer.cs" />
     <Compile Include="Content\Data\SurveyDB.cs" />
     <Compile Include="DAL\Modules\TasksDB.cs" />

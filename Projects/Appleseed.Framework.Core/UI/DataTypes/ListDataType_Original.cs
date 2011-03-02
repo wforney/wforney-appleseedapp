@@ -1,191 +1,229 @@
-using System;
-using System.IO;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ListDataType_Original.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   List Data Type
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.DataTypes
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.IO;
+    using System.Web.UI.WebControls;
+
     /// <summary>
-    /// ListDataType
+    /// List Data Type
     /// </summary>
-    public class ListDataType : BaseDataType
+    /// <typeparam name="T">
+    /// The value type.
+    /// </typeparam>
+    /// <typeparam name="TEditor">
+    /// The editor control type.
+    /// </typeparam>
+    public class ListDataType<T, TEditor> : BaseDataType<T, TEditor>
+        where TEditor : ListControl
     {
-        private string _dataValueField;
-        private string _dataTextField;
+        #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ListDataType"/> class.
+        /// Initializes a new instance of the <see cref="ListDataType&lt;T, TEditor&gt;"/> class.
         /// </summary>
         public ListDataType()
         {
-            InnerDataType = PropertiesDataType.List;
+            // this.Type = PropertiesDataType.List;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ListDataType"/> class.
+        /// Initializes a new instance of the <see cref="ListDataType&lt;T, TEditor&gt;"/> class.
         /// </summary>
-        /// <param name="CsvList">The CSV list.</param>
-        public ListDataType(string CsvList)
+        /// <param name="csvList">The CSV list.</param>
+        public ListDataType(string csvList)
         {
-            InnerDataType = PropertiesDataType.List;
-            InnerDataSource = CsvList;
-            //InitializeComponents();
+            // this.Type = PropertiesDataType.List;
+            this.InnerDataSource = csvList;
+
+            // InitializeComponents();
         }
 
         /// <summary>
-        /// Returning dropdown list databound to FileInfo[] array
+        /// Initializes a new instance of the <see cref="ListDataType&lt;T, TEditor&gt;"/> class.
         /// </summary>
         /// <param name="fileList">The file list.</param>
-        public ListDataType(FileInfo[] fileList)
+        public ListDataType(IEnumerable<FileInfo> fileList)
         {
-            InnerDataType = PropertiesDataType.List;
-            InnerDataSource = fileList;
-            //this._dataTextField = "Name";
-            //this._dataValueField = "Name";
-            //InitializeComponents();
-            //innerControl.DataBind();
+            // this.Type = PropertiesDataType.List;
+            this.InnerDataSource = fileList;
+
+            // this._dataTextField = "Name";
+            // this._dataValueField = "Name";
+            // InitializeComponents();
+            // innerControl.DataBind();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ListDataType"/> class.
+        /// Initializes a new instance of the <see cref="ListDataType&lt;T, TEditor&gt;"/> class.
         /// </summary>
-        /// <param name="_dataSource">The _data source.</param>
-        /// <param name="_textField">The _text field.</param>
-        /// <param name="_dataField">The _data field.</param>
-        public ListDataType(object _dataSource, string _textField, string _dataField)
+        /// <param name="dataSource">The data source.</param>
+        /// <param name="textField">The text field.</param>
+        /// <param name="dataField">The data field.</param>
+        public ListDataType(object dataSource, string textField, string dataField)
         {
-            InnerDataType = PropertiesDataType.List;
-            InnerDataSource = _dataSource;
-            DataTextField = _textField;
-            DataValueField = _dataField;
-            //InitializeComponents();
+            // this.Type = PropertiesDataType.List;
+            this.InnerDataSource = dataSource;
+            this.DataTextField = textField;
+            this.DataValueField = dataField;
+
+            // InitializeComponents();
         }
 
+        #endregion
+
+        #region Properties
 
         /// <summary>
-        /// InitializeComponents
-        /// </summary>
-        protected override void InitializeComponents()
-        {
-            //Dropdown list
-            using (DropDownList dd = new DropDownList())
-            {
-                dd.CssClass = "NormalTextBox";
-                dd.Width = new Unit(controlWidth);
-                dd.DataSource = DataSource;
-                dd.DataValueField = DataValueField;
-                dd.DataTextField = DataTextField;
-                dd.DataBind();
-
-                innerControl = dd;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the data value field.
-        /// </summary>
-        /// <value>The data value field.</value>
-        public override string DataValueField
-        {
-            get { return _dataValueField; }
-            set { _dataValueField = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the data text field.
-        /// </summary>
-        /// <value>The data text field.</value>
-        public override string DataTextField
-        {
-            get { return _dataTextField; }
-            set { _dataTextField = value; }
-        }
-
-        /// <summary>
-        /// Gets DataSource
-        /// Should be overrided from inherited classes
+        ///   Gets DataSource
+        ///   Should be overridden from inherited classes
         /// </summary>
         /// <value>The data source.</value>
         public override object DataSource
         {
             get
             {
-                if (InnerDataSource != null)
-                    if (InnerDataSource is string)
-                    {
-                        return InnerDataSource.ToString().Split(';');
-                    }
-                    else
-                    {
-                        return InnerDataSource;
-                    }
-                else
-                    return null;
+                return this.InnerDataSource == null
+                           ? null
+                           : (this.InnerDataSource is string
+                                  ? this.InnerDataSource.ToString().Split(';')
+                                  : this.InnerDataSource);
             }
-            set { InnerDataSource = value; }
+
+            set
+            {
+                this.InnerDataSource = value;
+            }
         }
 
+        /// <summary>
+        ///   Gets or sets the data text field.
+        /// </summary>
+        /// <value>The data text field.</value>
+        public override string DataTextField { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the data value field.
+        /// </summary>
+        /// <value>The data value field.</value>
+        public override string DataValueField { get; set; }
+
+        /*
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
         /// <value>The value.</value>
         public override string Value
         {
-            get { return (innerValue); }
+            get { return (this.Value); }
             set
             {
-                innerValue = value;
+                this.Value = value;
 
-                //				DropDownList dd = (DropDownList) innerControl;
-                //				if (dd.Items.FindByValue(value) != null)
-                //				{
-                //					dd.ClearSelection();
-                //					dd.Items.FindByValue(value).Selected = true;
-                //					innerValue = value;
-                //				}
-                //				else
-                //				{
-                //					//Invalid value
-                //				}            
+                // DropDownList dd = (DropDownList) innerControl;
+                // if (dd.Items.FindByValue(value) != null)
+                // {
+                //     dd.ClearSelection();
+                //     dd.Items.FindByValue(value).Selected = true;
+                //     innerValue = value;
+                // }
+                // else
+                // {
+                //     //Invalid value
+                // }            
             }
         }
-
+        */
 
         /// <summary>
-        /// EditControl
+        ///   Gets or sets the edit control.
         /// </summary>
-        /// <value>The edit control.</value>
-        public override Control EditControl
+        /// <value>
+        ///   The edit control.
+        /// </value>
+        public override TEditor EditControl
         {
             get
             {
-                if (innerControl == null)
-                    InitializeComponents();
+                if (this.InnerControl == null)
+                {
+                    this.InitializeComponents();
+                }
 
-                //Update value in control
-                DropDownList dd = (DropDownList) innerControl;
+                // Update value in control
+                var dd = this.InnerControl;
                 dd.ClearSelection();
-                if (dd.Items.FindByValue(Value) != null)
-                    dd.Items.FindByValue(Value).Selected = true;
-                //Return control
-                return innerControl;
+                if (dd.Items.FindByValue(this.Value.ToString()) != null)
+                {
+                    dd.Items.FindByValue(this.Value.ToString()).Selected = true;
+                }
+
+                // Return control
+                return this.InnerControl;
             }
+
             set
             {
-                if (value.GetType().Name == "DropDownList")
+                if (value.GetType().Name != "DropDownList")
                 {
-                    innerControl = value;
-                    //Update value from control
-                    DropDownList dd = (DropDownList) innerControl;
-                    if (dd.SelectedItem != null)
-                        Value = dd.SelectedItem.Value;
-                    else
-                        Value = string.Empty;
-                }
-                else
                     throw new ArgumentException(
-                        "A DropDownList values is required, a '" + value.GetType().Name + "' is given.", "EditControl");
+                        "EditControl", 
+                        string.Format("A DropDownList values is required, a '{0}' is given.", value.GetType().Name));
+                }
+
+                this.InnerControl = value;
+
+                // Update value from control
+                var conv = TypeDescriptor.GetConverter(typeof(T));
+                if (conv != null)
+                {
+                    var conv2 = TypeDescriptor.GetConverter(typeof(TEditor));
+                    if (conv2 != null)
+                    {
+                        var dd = conv2.ConvertFrom(this.InnerControl) as DropDownList;
+                        if (dd != null)
+                        {
+                            var val = conv.ConvertFrom(dd.SelectedItem.Value);
+                            this.Value = (dd.SelectedItem != null ? val : string.Empty) is T ? (T)(dd.SelectedItem != null ? val : string.Empty) : default(T);
+                        }
+                    }
+                }
             }
         }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Initializes the components.
+        /// </summary>
+        protected override void InitializeComponents()
+        {
+            // Dropdown list
+            var dd = new DropDownList
+                {
+                    CssClass = "NormalTextBox", 
+                    Width = new Unit(this.ControlWidth), 
+                    DataSource = this.DataSource, 
+                    DataValueField = this.DataValueField, 
+                    DataTextField = this.DataTextField
+                };
+            dd.DataBind();
+
+            this.InnerControl = dd as TEditor;
+        }
+
+        #endregion
     }
 }

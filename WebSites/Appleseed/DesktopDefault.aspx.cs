@@ -1,261 +1,331 @@
-using System;
-using System.IO;
-using Appleseed.Framework;
-using Appleseed.Framework.Design;
-using Appleseed.Framework.Security;
-using Appleseed.Framework.Settings;
-using Appleseed.Framework.Site.Configuration;
-using Appleseed.Framework.Web.UI;
-using History = Appleseed.Framework.History;
-using System.Web;
-using Appleseed.Framework.Core.Model;
-using System.Collections.Generic;
-using System.Collections;
-using WebUI = System.Web.UI;
-using WebUIControls = System.Web.UI.WebControls;
-using Html = System.Web.UI.HtmlControls;
-using System.Web.Services;
-using System.Web.Security;
-using Appleseed.Framework.Providers.AppleseedMembershipProvider;
-using System.Security.Cryptography;
-using System.Text;
-using Appleseed.Framework.Providers.AppleseedRoleProvider;
-using System.Linq;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DesktopDefault.aspx.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   The DesktopDefault.aspx page is used
+//   to load and populate each Portal View.
+//   It accomplishes this by reading the layout configuration
+//   of the portal from the Portal Configuration system,
+//   and then using this information to dynamically
+//   instantiate portal modules (each implemented
+//   as an ASP.NET User Control), and then inject them into the page.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed
 {
- 
-	/// <summary> 
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.UI.HtmlControls;
+    using System.Web.UI.WebControls;
+
+    using Appleseed.Framework;
+    using Appleseed.Framework.Core.Model;
+    using Appleseed.Framework.Design;
+    using Appleseed.Framework.Security;
+
+    using Page = Appleseed.Framework.Web.UI.Page;
+
+    /// <summary>
     /// The DesktopDefault.aspx page is used 
-    /// to load and populate each Portal View.
-    /// It accomplishes this by reading the layout configuration 
-    /// of the portal from the Portal Configuration	system, 
-    /// and then using this information to dynamically 
-    /// instantiate portal modules (each implemented 
-    /// as an ASP.NET User Control), and then inject them into the page.
+    ///   to load and populate each Portal View.
+    ///   It accomplishes this by reading the layout configuration 
+    ///   of the portal from the Portal Configuration system,
+    ///   and then using this information to dynamically 
+    ///   instantiate portal modules (each implemented 
+    ///   as an ASP.NET User Control), and then inject them into the page.
     /// </summary>
     public partial class DesktopDefault : Page
     {
-        #region Web Form Designer generated code
+        // private bool isMasterPageLayout = false;
+        #region Constants and Fields
 
+        /// <summary>
+        /// The layout base page.
+        /// </summary>
+        private const string LayoutBasePage = "DesktopDefault.ascx";
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the OnInit event at Page level<br/>
+        /// Performs OnInit events that are common to all Pages<br/>
+        /// Can be overridden
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"></see> that contains the event data.</param>
         protected override void OnInit(EventArgs e)
         {
-            //this.Load += new EventHandler(this.DesktopDefault_Load);
+            // this.Load += new EventHandler(this.DesktopDefault_Load);
             base.OnInit(e);
             this.DesktopDefault_Load(this, null);
         }
 
-        #endregion
-
         /// <summary>
-        /// Handles the Load event of the DesktopDefault control.
+        /// Raises the <see cref="System.Web.UI.Page.PreInit"/> event.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void DesktopDefault_Load(object sender, EventArgs e)
-        {
-            if (!Request.Url.PathAndQuery.Contains("site"))
-            {
-                int pageId = portalSettings.ActivePage.PageID;
-                if (pageId == 0)
-                {
-                    pageId = Convert.ToInt32(SiteMap.RootNode.ChildNodes[0].Key);
-                }
-                Response.Redirect(HttpUrlBuilder.BuildUrl(pageId));
-            }
-
-
-            if (!PortalSecurity.IsInRoles(portalSettings.ActivePage.AuthorizedRoles) && !User.IsInRole("Admins"))
-            {
-               
-                 
-                PortalSecurity.AccessDenied();
-            } else {
-                if (Request.Params["r"] == null || Request.Params["r"].ToString() != "0") {
-                    MembershipUser user = Membership.GetUser();
-                }
-                string userName = Request.Params["u"];
-                string pass = Request.Params["p"];
-                if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(pass)) {
-                    //PortalSecurity.SignOn(userName, pass, false, "~/DesktopDefault.aspx");
-					bool rem = (Request.Params["rem"] ?? "0").ToString().Equals("1") ? true : false;
-                    PortalSecurity.SignOn(userName, pass, rem, "~/DesktopDefault.aspx");                    
-					Response.Redirect("~/DesktopDefault.aspx");
-                }
-                LoadPage();
-            }
-        }
-
-
-        //private bool isMasterPageLayout = false;
-        const string LAYOUT_BASE_PAGE = "DesktopDefault.ascx";
-
         protected override void OnPreInit(EventArgs e)
         {
-            MASTERPAGE_BASE_PAGE = "PanesMaster.master";
+            this.MasterpageBasePage = "PanesMaster.master";
             base.OnPreInit(e);
         }
 
+        /// <summary>
+        /// Determines whether the specified HTML control has children.
+        /// </summary>
+        /// <param name="htmlControl">
+        /// The HTML control.
+        /// </param>
+        /// <param name="pageModules">
+        /// The page modules.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the specified HTML control has children; otherwise, <c>false</c>.
+        /// </returns>
+        private static bool HasChilds(
+            Control htmlControl, 
+            IDictionary<string, List<Control>> pageModules)
+        {
+            return
+                htmlControl.Controls.OfType<ContentPlaceHolder>().Any(
+                    control => pageModules.ContainsKey(control.ID.ToLower()));
+        }
 
         /// <summary>
-        /// Loads the page.
+        /// Hides the not filled.
         /// </summary>
-        private void LoadPage()
+        /// <param name="topPlaceHolder">
+        /// The top place holder.
+        /// </param>
+        /// <param name="pageModulesByPlaceHolder">
+        /// The page modules by place holder.
+        /// </param>
+        private static void HideNotFilled(
+            Control topPlaceHolder, 
+            IDictionary<string, List<Control>> pageModulesByPlaceHolder)
         {
-         
-
-            if (IsMasterPageLayout) {
-
-                //Obtain page modules by placeholder
-                Dictionary<string, ArrayList> pageModulesByPlaceHolder = ModelServices.GetCurrentPageModules();
-
-                //Obtain top masterpage
-                WebUI.MasterPage mp = GetTopMasterPage();
-
-                List<WebUI.Control> controllist = new List<WebUI.Control>();
-
-                //Obtain top masterpage placeholders
-                foreach (WebUI.Control control in mp.Controls){
-                    if (control is System.Web.UI.HtmlControls.HtmlForm)
-                    {
-                        foreach (WebUI.Control control2 in control.Controls)
-                            if (control2 is WebUIControls.ContentPlaceHolder)
-                                controllist.Add(control2);
-                    }
-                }
-
-                //foreach top placeholder
-                foreach (WebUIControls.ContentPlaceHolder placeHolder in controllist)
-                {
-
-                    var insidePlaceHolders = AllPlaceHoldersInControl(placeHolder);
-
-                    //foreach pane placeholder in the page
-                    foreach (KeyValuePair<string, ArrayList> pageModuleInPlaceHolder in pageModulesByPlaceHolder)
-                    {
-                        //find out if current top placeholder contains current pane
-                        System.Web.UI.Control container = placeHolder.FindControl(pageModuleInPlaceHolder.Key);
-                        if (container != null)
-                        {
-                            //wrap current pane modules them inside custom span (to dragndrop)
-                            container.Controls.Clear();
-                            Html.HtmlGenericControl span = new Html.HtmlGenericControl("div");
-                            span.Attributes.Add("id", pageModuleInPlaceHolder.Key);
-                            span.Attributes.Add("class", "draggable-container");
-                            foreach (WebUI.Control control in pageModuleInPlaceHolder.Value)
-                            {
-                                span.Controls.Add(control);
-                            }
-                            container.Controls.Add(span);
-
-                            insidePlaceHolders.RemoveAll(d => d.ID.ToLower() == pageModuleInPlaceHolder.Key.ToLower());
-                        }
-                    }
-
-                    foreach (var v in insidePlaceHolders)
-                    {
-                        var container = placeHolder.FindControl(v.ID);
-                        container.Controls.Clear();
-                        Html.HtmlGenericControl span = new Html.HtmlGenericControl("div");
-                        span.Attributes.Add("id", v.ID);
-                        span.Attributes.Add("class", "draggable-container");
-                        span.Style["display"] = "none";
-                        container.Controls.Add(span);
-                    }
-
-                    //then, hide empty top placeholders
-                    HideNotFilled(placeHolder, pageModulesByPlaceHolder, insidePlaceHolders);
-                }
-            } else {
-
-                string defaultLayoutPath = string.Concat(LayoutManager.WebPath, "/Default/", LAYOUT_BASE_PAGE);
-
-                try {
-                    string layoutPath = string.Concat(portalSettings.PortalLayoutPath, LAYOUT_BASE_PAGE);
-                    System.Web.UI.Control layoutControl = Page.LoadControl(layoutPath);
-                    if (layoutControl != null) {
-                        LayoutPlaceHolder.Controls.Add(layoutControl);
-                    } else {
-                        throw new FileNotFoundException(string.Format("While loading {1} layoutControl is null, control not found in path {0}!!", layoutPath, Request.RawUrl));
-                    }
-                } catch (System.Web.HttpException ex) {
-                    Appleseed.Framework.ErrorHandler.Publish(Appleseed.Framework.LogLevel.Error, "FileOrDirectoryNotFound", ex);
-                    LayoutPlaceHolder.Controls.Add(Page.LoadControl(defaultLayoutPath));
-                } catch (System.IO.DirectoryNotFoundException ex) {
-                    Appleseed.Framework.ErrorHandler.Publish(Appleseed.Framework.LogLevel.Error, "DirectoryNotFound", ex);
-                    LayoutPlaceHolder.Controls.Add(Page.LoadControl(defaultLayoutPath));
-                } catch (FileNotFoundException ex) {
-                    Appleseed.Framework.ErrorHandler.Publish(Appleseed.Framework.LogLevel.Error, "FileNotFound", ex);
-                    LayoutPlaceHolder.Controls.Add(Page.LoadControl(defaultLayoutPath));
-                }
+            foreach (var htmlControl in
+                topPlaceHolder.Controls.OfType<HtmlControl>().Where(
+                    htmlControl => htmlControl.Attributes["hideWhenEmpty"] != null).Where(
+                        htmlControl =>
+                        Convert.ToBoolean(htmlControl.Attributes["hideWhenEmpty"]) &&
+                        !HasChilds(htmlControl, pageModulesByPlaceHolder)))
+            {
+                htmlControl.Style["display"] = "none";
             }
         }
 
-        private List<WebUIControls.ContentPlaceHolder> AllPlaceHoldersInControl(WebUI.Control placeHolder)
+        /// <summary>
+        /// The all place holders in control.
+        /// </summary>
+        /// <param name="placeHolder">
+        /// The place holder.
+        /// </param>
+        /// <returns>
+        /// A list of content place holders.
+        /// </returns>
+        private List<ContentPlaceHolder> AllPlaceHoldersInControl(Control placeHolder)
         {
-            List<WebUIControls.ContentPlaceHolder> result = new List<WebUIControls.ContentPlaceHolder>();
-            foreach (WebUI.Control control in placeHolder.Controls)
+            var result = new List<ContentPlaceHolder>();
+            foreach (Control control in placeHolder.Controls)
             {
-                if (control is WebUIControls.ContentPlaceHolder)
-                    result.Add(control as WebUIControls.ContentPlaceHolder);
+                if (control is ContentPlaceHolder)
+                {
+                    result.Add(control as ContentPlaceHolder);
+                }
                 else
-                    result.AddRange(AllPlaceHoldersInControl(control));
+                {
+                    result.AddRange(this.AllPlaceHoldersInControl(control));
+                }
             }
-
 
             return result;
         }
 
-
-
-        private void HideNotFilled(WebUIControls.ContentPlaceHolder topPlaceHolder, Dictionary<string, ArrayList> pageModulesByPlaceHolder, List<WebUIControls.ContentPlaceHolder> emptyHolders)
+        /// <summary>
+        /// Handles the Load event of the DesktopDefault control.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
+        private void DesktopDefault_Load(object sender, EventArgs e)
         {
-            foreach (WebUI.Control control in topPlaceHolder.Controls)
+            if (!this.Request.Url.PathAndQuery.Contains("site"))
             {
-                if (control is Html.HtmlControl)
+                var pageId = this.PortalSettings.ActivePage.PageID;
+                if (pageId == 0)
                 {
-                    Html.HtmlControl htmlControl = (Html.HtmlControl)control;
-                    if (htmlControl.Attributes["hideWhenEmpty"] != null)
-                    {
-                        //htmlControl.Visible = !(Convert.ToBoolean(htmlControl.Attributes["hideWhenEmpty"])
-                        //                        && !HasChilds(htmlControl, pageModulesByPlaceHolder));
-                        if (Convert.ToBoolean(htmlControl.Attributes["hideWhenEmpty"])
-                                                && !HasChilds(htmlControl, pageModulesByPlaceHolder, emptyHolders))
-                        {
-                            htmlControl.Style["display"] = "none";
-                        }
-                    }
+                    pageId = Convert.ToInt32(SiteMap.RootNode.ChildNodes[0].Key);
                 }
+
+                this.Response.Redirect(HttpUrlBuilder.BuildUrl(pageId));
+            }
+
+            if (!PortalSecurity.IsInRoles(this.PortalSettings.ActivePage.AuthorizedRoles) &&
+                !this.User.IsInRole("Admins"))
+            {
+                PortalSecurity.AccessDenied();
+            }
+            else
+            {
+                if (this.Request.Params["r"] == null || this.Request.Params["r"] != "0")
+                {
+                    var user = Membership.GetUser();
+                }
+
+                var userName = this.Request.Params["u"];
+                var pass = this.Request.Params["p"];
+                if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(pass))
+                {
+                    // PortalSecurity.SignOn(userName, pass, false, "~/DesktopDefault.aspx");
+                    var rem = (this.Request.Params["rem"] ?? "0").Equals("1") ? true : false;
+                    PortalSecurity.SignOn(userName, pass, rem, "~/DesktopDefault.aspx");
+                    this.Response.Redirect("~/DesktopDefault.aspx");
+                }
+
+                this.LoadPage();
             }
         }
 
-
-        private bool HasChilds(Html.HtmlControl htmlControl, Dictionary<string, ArrayList> pageModules, List<WebUIControls.ContentPlaceHolder> emptyHolders)
+        /// <summary>
+        /// Gets the top master page.
+        /// </summary>
+        /// <returns>
+        /// The master page.
+        /// </returns>
+        private MasterPage GetTopMasterPage()
         {
-            bool res = false;
-            foreach (WebUI.Control control in htmlControl.Controls) {
-                if (control is WebUIControls.ContentPlaceHolder) {
-                    if (pageModules.ContainsKey(control.ID.ToLower()) 
-                        /*|| emptyHolders.Exists(d => d.ID == control.ID)*/)
-                    {
-                        res = true;
-                        break;
-                    }
-                }
+            var mp = this.Master;
+            if (mp == null)
+            {
+                return null;
             }
 
-            return res;
-        }
-
-        private WebUI.MasterPage GetTopMasterPage()
-        {
-            WebUI.MasterPage mp = this.Master;
-            while (mp.Master != null) {
+            while (mp.Master != null)
+            {
                 mp = mp.Master;
             }
 
             return mp;
         }
 
+        /// <summary>
+        /// Loads the page.
+        /// </summary>
+        private void LoadPage()
+        {
+            if (this.IsMasterPageLayout)
+            {
+                // Obtain page modules by placeholder
+                var pageModulesByPlaceHolder = ModelServices.GetCurrentPageModules();
+
+                // Obtain top master page
+                var mp = this.GetTopMasterPage();
+
+                var controllist = new List<Control>();
+
+                // Obtain top master page placeholders
+                foreach (var control in mp.Controls.OfType<HtmlForm>())
+                {
+                    controllist.AddRange(control.Controls.OfType<ContentPlaceHolder>());
+                }
+
+                // for each top placeholder
+                foreach (ContentPlaceHolder placeHolder in controllist)
+                {
+                    var insidePlaceHolders = this.AllPlaceHoldersInControl(placeHolder);
+
+                    // for each pane placeholder in the page
+                    foreach (var pageModuleInPlaceHolder in pageModulesByPlaceHolder)
+                    {
+                        // find out if current top placeholder contains current pane
+                        var container = placeHolder.FindControl(pageModuleInPlaceHolder.Key);
+                        if (container == null)
+                        {
+                            continue;
+                        }
+
+                        // wrap current pane modules them inside custom span (to drag-n-drop)
+                        container.Controls.Clear();
+                        var span = new HtmlGenericControl("div");
+                        span.Attributes.Add("id", pageModuleInPlaceHolder.Key);
+                        span.Attributes.Add("class", "draggable-container");
+                        foreach (var control in pageModuleInPlaceHolder.Value)
+                        {
+                            span.Controls.Add(control);
+                        }
+
+                        container.Controls.Add(span);
+
+                        var holder = pageModuleInPlaceHolder;
+                        insidePlaceHolders.RemoveAll(d => d.ID.ToLower() == holder.Key.ToLower());
+                    }
+
+                    foreach (var v in insidePlaceHolders)
+                    {
+                        var container = placeHolder.FindControl(v.ID);
+                        container.Controls.Clear();
+                        var span = new HtmlGenericControl("div");
+                        span.Attributes.Add("id", v.ID);
+                        span.Attributes.Add("class", "draggable-container");
+                        span.Style["display"] = "none";
+                        container.Controls.Add(span);
+                    }
+
+                    // then, hide empty top placeholders
+                    HideNotFilled(placeHolder, pageModulesByPlaceHolder);
+                }
+            }
+            else
+            {
+                var defaultLayoutPath = string.Concat(LayoutManager.WebPath, "/Default/", LayoutBasePage);
+
+                try
+                {
+                    var layoutPath = string.Concat(this.PortalSettings.PortalLayoutPath, LayoutBasePage);
+                    var layoutControl = this.Page.LoadControl(layoutPath);
+                    if (layoutControl != null)
+                    {
+                        this.LayoutPlaceHolder.Controls.Add(layoutControl);
+                    }
+                    else
+                    {
+                        throw new FileNotFoundException(
+                            string.Format(
+                                "While loading {1} layoutControl is null, control not found in path {0}!!", 
+                                layoutPath, 
+                                this.Request.RawUrl));
+                    }
+                }
+                catch (HttpException ex)
+                {
+                    ErrorHandler.Publish(LogLevel.Error, "FileOrDirectoryNotFound", ex);
+                    this.LayoutPlaceHolder.Controls.Add(this.Page.LoadControl(defaultLayoutPath));
+                }
+                catch (DirectoryNotFoundException ex)
+                {
+                    ErrorHandler.Publish(LogLevel.Error, "DirectoryNotFound", ex);
+                    this.LayoutPlaceHolder.Controls.Add(this.Page.LoadControl(defaultLayoutPath));
+                }
+                catch (FileNotFoundException ex)
+                {
+                    ErrorHandler.Publish(LogLevel.Error, "FileNotFound", ex);
+                    this.LayoutPlaceHolder.Controls.Add(this.Page.LoadControl(defaultLayoutPath));
+                }
+            }
+        }
+
+        #endregion
     }
 }

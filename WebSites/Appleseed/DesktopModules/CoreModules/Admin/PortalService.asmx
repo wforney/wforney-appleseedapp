@@ -1,1 +1,1 @@
-<%@ WebService Language="C#" CodeBehind="PortalService.cs" Class="PortalService" %>
+<%@ WebService Language="C#" CodeBehind="PortalService.asmx.cs" Class="Appleseed.DesktopModules.CoreModules.Admin.PortalService" %>

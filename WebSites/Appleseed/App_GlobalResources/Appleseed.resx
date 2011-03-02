@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -5591,6 +5591,15 @@ function confirmDelete()
   <data name="SIGNIN_SET_NEW_PWD_MSG" xml:space="preserve">
     <value>You can set a new password for your account going to the following link:</value>
   </data>
+  <data name="Signin_SendPasswordBtnClick_Please_enter_you_email_address">
+    <value xml:space="preserve">Please enter you email address</value>
+  </data>
+  <data name="Signin_LoginBtnClick_Login_failed">
+    <value xml:space="preserve">Login failed</value>
+  </data>
+	<data name="Discussion_unknown">
+		<value xml:space="preserve">unknown</value>
+	</data>
   <data name="PASSWORD_AGAIN" xml:space="preserve">
     <value>Repeat password</value>
   </data>

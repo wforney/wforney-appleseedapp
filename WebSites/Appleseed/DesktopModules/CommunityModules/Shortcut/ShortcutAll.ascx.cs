@@ -6,27 +6,31 @@ using History=Appleseed.Framework.History;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// ShortcutAll module provide a quick way to duplicate
     /// a module content in different page from different portals 
     /// </summary>
-    [History("Mario Hartmann", "mario@hartmann.net", "1.3", "2003/10/08", "moved to seperate folder")]
+    [History("Mario Hartmann", "mario@hartmann.net", "1.3", "2003/10/08", "moved to separate folder")]
     public partial class ShortcutAll : Shortcut
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:ShortcutAll"/> class.
+        /// Initializes a new instance of the <see cref="ShortcutAll"/> class.
         /// </summary>
+        /// <remarks></remarks>
         public ShortcutAll()
         {
             // Get a list of modules of all portals
-            SettingItem LinkedModule =
-                new SettingItem(
-                    new CustomListDataType(new ModulesDB().GetModulesAllPortals(), "ModuleTitle", "ModuleID"));
-            LinkedModule.Required = true;
-            LinkedModule.Order = 0;
-            LinkedModule.Value = "0";
-            //Overrides the base setting
-            _baseSettings["LinkedModule"] = LinkedModule;
+            var linkedModule =
+                new SettingItem<string, ListControl>(
+                    new CustomListDataType(new ModulesDB().GetModulesAllPortals(), "ModuleTitle", "ModuleID"))
+                    {
+                        Required = true, Order = 0, Value = "0" 
+                    };
+            
+            // Overrides the base setting
+            this.BaseSettings["LinkedModule"] = linkedModule;
         }
 
         #region General Implementation
@@ -52,7 +56,7 @@ namespace Appleseed.Content.Web.Modules
         {
             base.OnInit(e);
 
-            int p = portalSettings.PortalID;
+            int p = this.PortalSettings.PortalID;
         }
 
         #endregion

@@ -1,50 +1,75 @@
-using System;
-using System.Data.SqlClient;
-using System.IO;
-using System.Web;
-using System.Web.UI.WebControls;
-using Appleseed.Framework;
-using Appleseed.Framework.Security;
-using Appleseed.Framework.Site.Data;
-using Appleseed.Framework.Web.UI.WebControls;
-using History=Appleseed.Framework.History;
-using Localize=Appleseed.Framework.Web.UI.WebControls.Localize;
-using Path=Appleseed.Framework.Settings.Path;
-using Appleseed.Framework.Core.Model;
-using System.Collections.Generic;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Viewer.ascx.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   This module has been built by John Mandia (www.whitelightsolutions.com)
+//   It allows administrators to give permission to selected roles to add modules to pages
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Content.Web.Modules.AddModule
 {
+    using System;
+    using System.IO;
+    using System.Web;
+    using System.Web.UI.WebControls;
+
+    using Appleseed.Framework;
+    using Appleseed.Framework.Core.Model;
+    using Appleseed.Framework.Security;
+    using Appleseed.Framework.Site.Data;
+    using Appleseed.Framework.Web.UI.WebControls;
+
+    using Localize = Appleseed.Framework.Web.UI.WebControls.Localize;
+    using Path = Appleseed.Framework.Settings.Path;
+
     /// <summary>
     /// This module has been built by John Mandia (www.whitelightsolutions.com)
-    /// It allows administrators to give permission to selected roles to add modules to pages
+    ///   It allows administrators to give permission to selected roles to add modules to pages
     /// </summary>
+    /// <remarks>
+    /// </remarks>
     [History("jminond", "2006/03/25", "Converted to partial class")]
     [History("jminond", "2006/03/19", "Corrected adding module to root page for site")]
     [History("jminond", "2005/03/10", "Changes for moving Tab to Page")]
     public partial class Viewer : PortalModuleControl
     {
+        #region Constants and Fields
+
         /// <summary>
-        /// Localized label for add module
+        ///   Localized label for add module
         /// </summary>
         protected Localize addmodule;
 
-        #region Page Load
+        #endregion
+
+        #region Properties
 
         /// <summary>
-        /// The Page_Load event handler on this User Control is used to
-        /// load all the modules that are currently on this tab
+        ///   Marks This Module To Be An Admin Module
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Page_Load(object sender, EventArgs e)
+        /// <value><c>true</c> if [admin module]; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// </remarks>
+        public override bool AdminModule
         {
-            // If first visit to the page, update all entries
-            if (Page.IsPostBack == false)
+            get
             {
-                BindData();
-                SetHelpPath();
-                SetModuleName();
+                return true;
+            }
+        }
+
+        /// <summary>
+        ///   Gets the GUID for this module.
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        public override Guid GuidID
+        {
+            get
+            {
+                return new Guid("{350CED6F-6739-43f3-8BF1-1D95187CA0BF}");
             }
         }
 
@@ -53,129 +78,84 @@ namespace Appleseed.Content.Web.Modules.AddModule
         #region Methods
 
         /// <summary>
-        /// The BindData helper method is used to update the tab's
-        /// layout panes with the current configuration information
+        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
         /// </summary>
-        private void BindData()
+        /// <param name="e">
+        /// An <see cref="T:System.EventArgs"/> object that contains the event data.
+        /// </param>
+        /// <remarks>
+        /// </remarks>
+        protected override void OnInit(EventArgs e)
         {
-            // Populate the "Add Module" Data
-            ModulesDB m = new ModulesDB();
+            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+            this.InitializeComponent();
 
-            SqlDataReader drCurrentModuleDefinitions = m.GetCurrentModuleDefinitions(portalSettings.PortalID);
+            // Create a new Title the control
+            // 			ModuleTitle = new DesktopModuleTitle();
+            // Set here title properties
+            // Add title ad the very beginning of
+            // the control's controls collection
+            // 			Controls.AddAt(0, ModuleTitle);
 
-            try
-            {
-//				if(this.ArePropertiesEditable)
-//				{
-//					while(drCurrentModuleDefinitions.Read())
-//					{
-//						moduleType.Items.Add(new ListItem(drCurrentModuleDefinitions["FriendlyName"].ToString(),drCurrentModuleDefinitions["ModuleDefID"].ToString() + "|" + GetHelpPath(drCurrentModuleDefinitions["DesktopSrc"].ToString())));
-//					}
-//				}
-//				else
-//				{
-                while (drCurrentModuleDefinitions.Read())
-                {
-                    // Added by Mario Endara <mario@softworks.com.uy> 2004/11/04
-                    // only users members of the "Amins" role can add Admin modules to a Tab
-                    if (PortalSecurity.IsInRoles("Admins") == true ||
-                        !(bool.Parse(drCurrentModuleDefinitions["Admin"].ToString())))
-                    {
-                        moduleType.Items.Add(
-                            new ListItem(drCurrentModuleDefinitions["FriendlyName"].ToString(),
-                                         drCurrentModuleDefinitions["ModuleDefID"].ToString() + "|" +
-                                         GetHelpPath(drCurrentModuleDefinitions["DesktopSrc"].ToString())));
-
-
-                        Dictionary<string,string> actions = ModelServices.GetMVCActionModules();
-                        foreach (string key in actions.Keys) {
-                            moduleType.Items.Add(new ListItem(key, actions[key]));
-                        }
-                    }
-                }
-//				}
-            }
-            finally
-            {
-                drCurrentModuleDefinitions.Close();
-            }
+            // Call base init procedure
+            base.OnInit(e);
         }
 
+        /// <summary>
+        /// Raises the <see cref="E:System.Web.UI.Control.Load"/> event.
+        /// </summary>
+        /// <param name="e">
+        /// The <see cref="T:System.EventArgs"/> object that contains the event data.
+        /// </param>
+        /// <remarks>
+        /// </remarks>
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            // If first visit to the page, update all entries
+            if (this.Page.IsPostBack)
+            {
+                return;
+            }
+
+            this.BindData();
+            this.SetHelpPath();
+            this.SetModuleName();
+        }
+
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the moduleType control.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
+        /// <remarks>
+        /// </remarks>
+        protected void moduleType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.SetHelpPath();
+            this.SetModuleName();
+        }
 
         /// <summary>
         /// Gets the folder help path.
         /// </summary>
-        /// <param name="desktopSrc">Desktop SRC.</param>
-        /// <returns>The name of the help folder in the correct format</returns>
-        private string GetHelpPath(string desktopSrc)
+        /// <param name="desktopSrc">
+        /// Desktop SRC.
+        /// </param>
+        /// <returns>
+        /// The name of the help folder in the correct format
+        /// </returns>
+        /// <remarks>
+        /// </remarks>
+        private static string GetHelpPath(string desktopSrc)
         {
-            string helpPath = desktopSrc.Replace(".", "_").ToString();
+            var helpPath = desktopSrc.Replace(".", "_");
             return "Appleseed/" + helpPath;
-        }
-
-        private void SetModuleName()
-        {
-            //by Manu, set title like module name
-            if (moduleType.SelectedItem != null)
-                moduleTitle.Text = moduleType.SelectedItem.Text;
-        }
-
-        /// <summary>
-        /// Sets the help path. This method checks to see whether the currently selected module has a
-        /// help file associated with it. If it does then it shows the help icon. If it doesn't then it
-        /// hides it.
-        /// </summary>
-        private void SetHelpPath()
-        {
-            SetDatata(moduleType.SelectedValue.ToString());
-        }
-
-        private void SetDatata(string modulePath)
-        {
-            string folderName = modulePath;
-            int start = folderName.IndexOf("|");
-            folderName = folderName.Substring(start + 1);
-            int fileNameStart = folderName.LastIndexOf("/");
-            string fileName = folderName.Substring(fileNameStart + 1);
-            string completePath = folderName + "/" + fileName;
-
-
-            if (
-                File.Exists(
-                    HttpContext.Current.Server.MapPath(Path.ApplicationRoot + "/rb_documentation/" + completePath +
-                                                       ".xml")))
-            {
-                AddModuleHelp.Visible = true;
-                string javaScript = "HelpWindow=window.open('"
-                                    + Path.ApplicationRoot + "/rb_documentation/Viewer.aspx?loc=" + folderName + "&src=" +
-                                    fileName
-                                    +
-                                    "','HelpWindow','toolbar=no,location=no,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,width=640,height=480,left=15,top=15'); return false;";
-                AddModuleHelp.Attributes.Add("onclick", javaScript);
-                AddModuleHelp.Attributes.Add("style", "cursor: hand;");
-                AddModuleHelp.NavigateUrl = string.Empty;
-                AddModuleHelp.ImageUrl = CurrentTheme.GetImage("Buttons_Help", "Help.gif").ImageUrl;
-                AddModuleHelp.ToolTip = moduleType.SelectedItem.Text.ToString() + " Help";
-            }
-            else
-            {
-                AddModuleHelp.Visible = false;
-            }
-        }
-
-        #endregion
-
-        #region Events
-
-        /// <summary>
-        /// Each time the module selection is changed it checks to see if that particular module has a help file.
-        /// </summary>
-        /// <param name="sender">Sender.</param>
-        /// <param name="e">E.</param>
-        protected void moduleType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SetHelpPath();
-            SetModuleName();
         }
 
         /*[Ajax.AjaxMethod]*/
@@ -202,144 +182,231 @@ namespace Appleseed.Content.Web.Modules.AddModule
          * */
 
         /// <summary>
-        /// The AddModule_Click server event handler 
-        /// on this page is used to add a new portal module 
-        /// into the tab
+        /// The AddModule_Click server event handler
+        ///   on this page is used to add a new portal module
+        ///   into the tab
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AddModule_Click(Object sender, EventArgs e)
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
+        /// <remarks>
+        /// </remarks>
+        private void AddModule_Click(object sender, EventArgs e)
         {
             // TODO: IF PAGE ID = 0 Then we know it's home page, cant we get from db the id?
-            //PagesDB _d = new PagesDB();
-            int pid = PageID;
+            // PagesDB _d = new PagesDB();
+            var pid = this.PageID;
             if (pid == 0)
-                pid = PagesDB.PortalHomePageID(PortalID);
+            {
+                pid = PagesDB.PortalHomePageId(this.PortalID);
+            }
 
             if (pid != 0)
             {
-                // All new modules go to the end of the contentpane
-                string selectedModule = moduleType.SelectedItem.Value.ToString();
-                int start = selectedModule.IndexOf("|");
-                int moduleID = Convert.ToInt32(selectedModule.Substring(0, start).Trim());
+                // All new modules go to the end of the content pane
+                var selectedModule = this.moduleType.SelectedItem.Value;
+                var start = selectedModule.IndexOf("|");
+                var moduleID = Convert.ToInt32(selectedModule.Substring(0, start).Trim());
 
                 // Hide error message in case there was a previous error.
-                moduleError.Visible = false;
+                this.moduleError.Visible = false;
 
                 // This allows the user to pick what type of people can view the module being added.
-                // If Authorised Roles is selected from the dropdown then every role that has view permission for the
+                // If Authorized Roles is selected from the dropdown then every role that has view permission for the
                 // Add Role module will be added to the view permissions of the module being added.
-                string viewPermissionRoles = viewPermissions.SelectedValue.ToString();
+                var viewPermissionRoles = this.viewPermissions.SelectedValue;
                 if (viewPermissionRoles == "Authorised Roles")
                 {
-                    viewPermissionRoles = PortalSecurity.GetViewPermissions(ModuleID);
+                    viewPermissionRoles = PortalSecurity.GetViewPermissions(this.ModuleID);
                 }
 
                 try
                 {
-                    ModuleItem m = new ModuleItem();
-                    m.Title = moduleTitle.Text;
-                    m.ModuleDefID = moduleID;
-                    m.Order = 999;
+                    var m = new ModuleItem { Title = this.moduleTitle.Text, ModuleDefID = moduleID, Order = 999 };
 
                     // save to database
-                    ModulesDB _mod = new ModulesDB();
-                    m.ID =
-                        _mod.AddModule(pid, m.Order, paneLocation.SelectedValue.ToString(), m.Title, m.ModuleDefID, 0,
-                                       PortalSecurity.GetEditPermissions(ModuleID), viewPermissionRoles,
-                                       PortalSecurity.GetAddPermissions(ModuleID),
-                                       PortalSecurity.GetDeletePermissions(ModuleID),
-                                       PortalSecurity.GetPropertiesPermissions(ModuleID),
-                                       PortalSecurity.GetMoveModulePermissions(ModuleID),
-                                       PortalSecurity.GetDeleteModulePermissions(ModuleID), false,
-                                       PortalSecurity.GetPublishPermissions(ModuleID), false, false, false);
+                    var mod = new ModulesDB();
+                    m.ID = mod.AddModule(
+                        pid, 
+                        m.Order, 
+                        this.paneLocation.SelectedValue, 
+                        m.Title, 
+                        m.ModuleDefID, 
+                        0, 
+                        PortalSecurity.GetEditPermissions(this.ModuleID), 
+                        viewPermissionRoles, 
+                        PortalSecurity.GetAddPermissions(this.ModuleID), 
+                        PortalSecurity.GetDeletePermissions(this.ModuleID), 
+                        PortalSecurity.GetPropertiesPermissions(this.ModuleID), 
+                        PortalSecurity.GetMoveModulePermissions(this.ModuleID), 
+                        PortalSecurity.GetDeleteModulePermissions(this.ModuleID), 
+                        false, 
+                        PortalSecurity.GetPublishPermissions(this.ModuleID), 
+                        false, 
+                        false, 
+                        false);
                 }
                 catch (Exception ex)
                 {
-                    moduleError.Visible = true;
-                    ErrorHandler.Publish(LogLevel.Error,
-                                         "There was an error with the Add Module Module while trying to add a new module.",
-                                         ex);
+                    this.moduleError.Visible = true;
+                    ErrorHandler.Publish(
+                        LogLevel.Error, 
+                        "There was an error with the Add Module Module while trying to add a new module.", 
+                        ex);
                 }
                 finally
                 {
-                    if (moduleError.Visible == false)
+                    if (this.moduleError.Visible == false)
                     {
                         // Reload page to pick up changes
-                        Response.Redirect(Request.RawUrl, false);
+                        this.Response.Redirect(this.Request.RawUrl, false);
                     }
                 }
             }
             else
             {
-                //moduleError.TextKey = "ADDMODULE_HOMEPAGEERROR";
-                moduleError.Text =
-                    General.GetString("ADDMODULE_HOMEPAGEERROR",
-                                      "You are currently on the homepage using the default virtual ID (The default ID is set when no specific page is selected. e.g. www.yourdomain.com. Please select your homepage from the Navigation menu e.g. 'Home' so that you can add a module against the page's actual ID.");
-                moduleError.Visible = true;
+                // moduleError.TextKey = "ADDMODULE_HOMEPAGEERROR";
+                this.moduleError.Text = General.GetString(
+                    "ADDMODULE_HOMEPAGEERROR", 
+                    "You are currently on the homepage using the default virtual ID (The default ID is set when no specific page is selected. e.g. www.yourdomain.com. Please select your homepage from the Navigation menu e.g. 'Home' so that you can add a module against the page's actual ID.");
+                this.moduleError.Visible = true;
             }
         }
 
-        #endregion
-
-        #region General Implementation
-
         /// <summary>
-        /// Gets the GUID for this module.
+        /// The BindData helper method is used to update the tab's
+        ///   layout panes with the current configuration information
         /// </summary>
-        /// <value></value>
-        public override Guid GuidID
+        /// <remarks>
+        /// </remarks>
+        private void BindData()
         {
-            get { return new Guid("{350CED6F-6739-43f3-8BF1-1D95187CA0BF}"); }
-        }
+            // Populate the "Add Module" Data
+            var m = new ModulesDB();
 
-        /// <summary>
-        /// Marks This Module To Be An Admin Module
-        /// </summary>
-        public override bool AdminModule
-        {
-            get { return true; }
-        }
+            var drCurrentModuleDefinitions = m.GetCurrentModuleDefinitions(this.PortalSettings.PortalID);
 
-        /// <summary>
-        /// Public constructor. Sets base settings for module.
-        /// </summary>
-        public Viewer()
-        {
-        }
+            try
+            {
+                // 				if(this.ArePropertiesEditable)
+                // 				{
+                // 					while(drCurrentModuleDefinitions.Read())
+                // 					{
+                // 						moduleType.Items.Add(new ListItem(drCurrentModuleDefinitions["FriendlyName"].ToString(),drCurrentModuleDefinitions["ModuleDefID"].ToString() + "|" + GetHelpPath(drCurrentModuleDefinitions["DesktopSrc"].ToString())));
+                // 					}
+                // 				}
+                // 				else
+                // 				{
+                while (drCurrentModuleDefinitions.Read())
+                {
+                    // Added by Mario Endara <mario@softworks.com.uy> 2004/11/04
+                    // only users members of the "Amins" role can add Admin modules to a Tab
+                    if (PortalSecurity.IsInRoles("Admins") ||
+                        !bool.Parse(drCurrentModuleDefinitions["Admin"].ToString()))
+                    {
+                        this.moduleType.Items.Add(
+                            new ListItem(
+                                drCurrentModuleDefinitions["FriendlyName"].ToString(), 
+                                string.Format(
+                                    "{0}|{1}", 
+                                    drCurrentModuleDefinitions["ModuleDefID"], 
+                                    GetHelpPath(drCurrentModuleDefinitions["DesktopSrc"].ToString()))));
 
-        #endregion
+                        var actions = ModelServices.GetMVCActionModules();
+                        foreach (var key in actions.Keys)
+                        {
+                            this.moduleType.Items.Add(new ListItem(key, actions[key]));
+                        }
+                    }
+                }
 
-        #region Web Form Designer generated code
-
-        /// <summary>
-        /// Raises OnInitEvent
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnInit(EventArgs e)
-        {
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            InitializeComponent();
-
-            // Create a new Title the control
-//			ModuleTitle = new DesktopModuleTitle();
-            // Set here title properties
-            // Add title ad the very beginning of
-            // the control's controls collection
-//			Controls.AddAt(0, ModuleTitle);
-
-            // Call base init procedure
-            base.OnInit(e);
+                // 				}
+            }
+            finally
+            {
+                drCurrentModuleDefinitions.Close();
+            }
         }
 
         /// <summary>
         /// Initializes the component.
         /// </summary>
+        /// <remarks>
+        /// </remarks>
         private void InitializeComponent()
         {
-            this.moduleType.SelectedIndexChanged += new EventHandler(this.moduleType_SelectedIndexChanged);
-            this.AddModuleBtn.Click += new EventHandler(this.AddModule_Click);
-            this.Load += new EventHandler(this.Page_Load);
+            this.moduleType.SelectedIndexChanged += this.moduleType_SelectedIndexChanged;
+            this.AddModuleBtn.Click += this.AddModule_Click;
+        }
+
+        /// <summary>
+        /// Sets the datata.
+        /// </summary>
+        /// <param name="modulePath">
+        /// The module path.
+        /// </param>
+        /// <remarks>
+        /// </remarks>
+        private void SetDatata(string modulePath)
+        {
+            var folderName = modulePath;
+            var start = folderName.IndexOf("|");
+            folderName = folderName.Substring(start + 1);
+            var fileNameStart = folderName.LastIndexOf("/");
+            var fileName = folderName.Substring(fileNameStart + 1);
+            var completePath = folderName + "/" + fileName;
+
+            if (
+                File.Exists(
+                    HttpContext.Current.Server.MapPath(
+                        string.Format("{0}/rb_documentation/{1}.xml", Path.ApplicationRoot, completePath))))
+            {
+                this.AddModuleHelp.Visible = true;
+                var javaScript =
+                    string.Format(
+                        "HelpWindow=window.open('{0}/rb_documentation/Viewer.aspx?loc={1}&src={2}','HelpWindow','toolbar=no,location=no,directories=no,status=no,menubar=yes,scrollbars=yes,resizable=yes,width=640,height=480,left=15,top=15'); return false;", 
+                        Path.ApplicationRoot, 
+                        folderName, 
+                        fileName);
+                this.AddModuleHelp.Attributes.Add("onclick", javaScript);
+                this.AddModuleHelp.Attributes.Add("style", "cursor: hand;");
+                this.AddModuleHelp.NavigateUrl = string.Empty;
+                this.AddModuleHelp.ImageUrl = this.CurrentTheme.GetImage("Buttons_Help", "Help.gif").ImageUrl;
+                this.AddModuleHelp.ToolTip = this.moduleType.SelectedItem.Text + " Help";
+            }
+            else
+            {
+                this.AddModuleHelp.Visible = false;
+            }
+        }
+
+        /// <summary>
+        /// Sets the help path. This method checks to see whether the currently selected module has a
+        ///   help file associated with it. If it does then it shows the help icon. If it doesn't then it
+        ///   hides it.
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        private void SetHelpPath()
+        {
+            this.SetDatata(this.moduleType.SelectedValue);
+        }
+
+        /// <summary>
+        /// Sets the name of the module.
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        private void SetModuleName()
+        {
+            // by Manu, set title like module name
+            if (this.moduleType.SelectedItem != null)
+            {
+                this.moduleTitle.Text = this.moduleType.SelectedItem.Text;
+            }
         }
 
         #endregion

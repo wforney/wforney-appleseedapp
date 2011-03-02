@@ -715,419 +715,419 @@ GO
 
 /****** Oggetto: tabella [Countries]    Data dello script: 07/11/2002 22.27.58 ******/
 CREATE TABLE [Countries] (
-	[PK_IDCountry] [nchar] (2) NOT NULL ,
-	[IT] [nvarchar] (50) NULL ,
-	[EN] [nvarchar] (50) NULL ,
-	[FR] [nvarchar] (50) NULL ,
-	[ES] [nvarchar] (50) NULL ,
-	[DE] [nvarchar] (50) NULL ,
-	[PT] [nvarchar] (50) NULL 
+    [PK_IDCountry] [nchar] (2) NOT NULL ,
+    [IT] [nvarchar] (50) NULL ,
+    [EN] [nvarchar] (50) NULL ,
+    [FR] [nvarchar] (50) NULL ,
+    [ES] [nvarchar] (50) NULL ,
+    [DE] [nvarchar] (50) NULL ,
+    [PT] [nvarchar] (50) NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [GeneralModuleDefinitions]    Data dello script: 07/11/2002 22.27.58 ******/
 CREATE TABLE [GeneralModuleDefinitions] (
-	[GeneralModDefID]  uniqueidentifier ROWGUIDCOL  NOT NULL ,
-	[ClassName] [nvarchar] (128) NULL ,
-	[FriendlyName] [nvarchar] (128) NOT NULL ,
-	[DesktopSrc] [nvarchar] (256) NOT NULL ,
-	[MobileSrc] [nvarchar] (256) NOT NULL ,
-	[Admin] [bit] NULL 
+    [GeneralModDefID]  uniqueidentifier ROWGUIDCOL  NOT NULL ,
+    [ClassName] [nvarchar] (128) NULL ,
+    [FriendlyName] [nvarchar] (128) NOT NULL ,
+    [DesktopSrc] [nvarchar] (256) NOT NULL ,
+    [MobileSrc] [nvarchar] (256) NOT NULL ,
+    [Admin] [bit] NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [Layouts]    Data dello script: 07/11/2002 22.27.59 ******/
 CREATE TABLE [Layouts] (
-	[LayoutID] [int] IDENTITY (1, 1) NOT NULL ,
-	[PortalID] [int] NULL ,
-	[FriendlyName] [nvarchar] (128) NOT NULL ,
-	[DesktopSrc] [nvarchar] (256) NOT NULL ,
-	[MobileSrc] [nvarchar] (256) NULL 
+    [LayoutID] [int] IDENTITY (1, 1) NOT NULL ,
+    [PortalID] [int] NULL ,
+    [FriendlyName] [nvarchar] (128) NOT NULL ,
+    [DesktopSrc] [nvarchar] (256) NOT NULL ,
+    [MobileSrc] [nvarchar] (256) NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [Portals]    Data dello script: 07/11/2002 22.27.59 ******/
 CREATE TABLE [Portals] (
-	[PortalID] [int] IDENTITY (-1, 1) NOT NULL ,
-	[PortalAlias] [nvarchar] (128) NOT NULL ,
-	[PortalName] [nvarchar] (128) NOT NULL ,
-	[PortalPath] [nvarchar] (128) NULL ,
-	[AlwaysShowEditButton] [bit] NOT NULL 
+    [PortalID] [int] IDENTITY (-1, 1) NOT NULL ,
+    [PortalAlias] [nvarchar] (128) NOT NULL ,
+    [PortalName] [nvarchar] (128) NOT NULL ,
+    [PortalPath] [nvarchar] (128) NULL ,
+    [AlwaysShowEditButton] [bit] NOT NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [Solutions]    Data dello script: 07/11/2002 22.28.00 ******/
 CREATE TABLE [Solutions] (
-	[SolutionsID] [int] IDENTITY (1, 1) NOT NULL ,
-	[SolDescription] [nvarchar] (100) NOT NULL 
+    [SolutionsID] [int] IDENTITY (1, 1) NOT NULL ,
+    [SolDescription] [nvarchar] (100) NOT NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [ModuleDefinitions]    Data dello script: 07/11/2002 22.28.00 ******/
 CREATE TABLE [ModuleDefinitions] (
-	[ModuleDefID] [int] IDENTITY (1, 1) NOT NULL ,
-	[PortalID] [int] NOT NULL ,
-	[GeneralModDefID] [uniqueidentifier] NOT NULL 
+    [ModuleDefID] [int] IDENTITY (1, 1) NOT NULL ,
+    [PortalID] [int] NOT NULL ,
+    [GeneralModDefID] [uniqueidentifier] NOT NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [PortalSettings]    Data dello script: 07/11/2002 22.28.00 ******/
 CREATE TABLE [PortalSettings] (
-	[PortalID] [int] NOT NULL ,
-	[SettingName] [nvarchar] (50) NOT NULL ,
-	[SettingValue] [nvarchar] (1500) NOT NULL 
+    [PortalID] [int] NOT NULL ,
+    [SettingName] [nvarchar] (50) NOT NULL ,
+    [SettingValue] [nvarchar] (1500) NOT NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [Roles]    Data dello script: 07/11/2002 22.28.01 ******/
 CREATE TABLE [Roles] (
-	[RoleID] [int] IDENTITY (1,1) NOT NULL ,
-	[PortalID] [int] NOT NULL ,
-	[RoleName] [nvarchar] (50) NOT NULL ,
-	[Permission] [tinyint] NULL 
+    [RoleID] [int] IDENTITY (1,1) NOT NULL ,
+    [PortalID] [int] NOT NULL ,
+    [RoleName] [nvarchar] (50) NOT NULL ,
+    [Permission] [tinyint] NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [SolutionModuleDefinitions]    Data dello script: 07/11/2002 22.28.01 ******/
 CREATE TABLE [SolutionModuleDefinitions] (
-	[SolutionModDefID] [int] IDENTITY (1, 1) NOT NULL ,
-	[GeneralModDefID] [uniqueidentifier] NOT NULL ,
-	[SolutionsID] [int] NOT NULL 
+    [SolutionModDefID] [int] IDENTITY (1, 1) NOT NULL ,
+    [GeneralModDefID] [uniqueidentifier] NOT NULL ,
+    [SolutionsID] [int] NOT NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [States]    Data dello script: 07/11/2002 22.28.02 ******/
 CREATE TABLE [States] (
-	[PK_IDState] [int] NOT NULL ,
-	[Description] [nvarchar] (50) NULL ,
-	[IDCountry_FK] [nchar] (2) NOT NULL 
+    [PK_IDState] [int] NOT NULL ,
+    [Description] [nvarchar] (50) NULL ,
+    [IDCountry_FK] [nchar] (2) NOT NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [Tabs]    Data dello script: 07/11/2002 22.28.02 ******/
 CREATE TABLE [Tabs] (
-	[TabID] [int] IDENTITY (1, 1) NOT NULL ,
-	[ParentTabID] [int] NULL ,
-	[TabOrder] [int] NOT NULL ,
-	[PortalID] [int] NOT NULL ,
-	[TabName] [nvarchar] (50) NOT NULL ,
-	[MobileTabName] [nvarchar] (50) NOT NULL ,
-	[AuthorizedRoles] [nvarchar] (256) NULL ,
-	[ShowMobile] [bit] NOT NULL ,
-	[TabLayout] [int] NULL 
+    [TabID] [int] IDENTITY (1, 1) NOT NULL ,
+    [ParentTabID] [int] NULL ,
+    [TabOrder] [int] NOT NULL ,
+    [PortalID] [int] NOT NULL ,
+    [TabName] [nvarchar] (50) NOT NULL ,
+    [MobileTabName] [nvarchar] (50) NOT NULL ,
+    [AuthorizedRoles] [nvarchar] (256) NULL ,
+    [ShowMobile] [bit] NOT NULL ,
+    [TabLayout] [int] NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [Modules]    Data dello script: 07/11/2002 22.28.03 ******/
 CREATE TABLE [Modules] (
-	[ModuleID] [int] IDENTITY (1, 1) NOT NULL ,
-	[TabID] [int] NOT NULL ,
-	[ModuleDefID] [int] NOT NULL ,
-	[ModuleOrder] [int] NOT NULL ,
-	[PaneName] [nvarchar] (50) NOT NULL ,
-	[ModuleTitle] [nvarchar] (256) NULL ,
-	[AuthorizedEditRoles] [nvarchar] (256) NULL ,
-	[AuthorizedViewRoles] [nvarchar] (256) NULL ,
-	[AuthorizedAddRoles] [nvarchar] (256) NULL ,
-	[AuthorizedDeleteRoles] [nvarchar] (256) NULL ,
-	[AuthorizedPropertiesRoles] [nvarchar] (256) NULL ,
-	[CacheTime] [int] NOT NULL ,
-	[ShowMobile] [bit] NULL 
+    [ModuleID] [int] IDENTITY (1, 1) NOT NULL ,
+    [TabID] [int] NOT NULL ,
+    [ModuleDefID] [int] NOT NULL ,
+    [ModuleOrder] [int] NOT NULL ,
+    [PaneName] [nvarchar] (50) NOT NULL ,
+    [ModuleTitle] [nvarchar] (256) NULL ,
+    [AuthorizedEditRoles] [nvarchar] (256) NULL ,
+    [AuthorizedViewRoles] [nvarchar] (256) NULL ,
+    [AuthorizedAddRoles] [nvarchar] (256) NULL ,
+    [AuthorizedDeleteRoles] [nvarchar] (256) NULL ,
+    [AuthorizedPropertiesRoles] [nvarchar] (256) NULL ,
+    [CacheTime] [int] NOT NULL ,
+    [ShowMobile] [bit] NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [Users]    Data dello script: 07/11/2002 22.28.03 ******/
 CREATE TABLE [Users] (
-	[UserID] [int] IDENTITY (1, 1) NOT NULL ,
-	[PortalID] [int] NOT NULL ,
-	[Name] [nvarchar] (50) NOT NULL ,
-	[Company] [nvarchar] (50) NULL ,
-	[Address] [nvarchar] (50) NULL ,
-	[City] [nvarchar] (50) NULL ,
-	[Zip] [nvarchar] (6) NULL ,
-	[IDCountry_FK] [nchar] (2) NULL ,
-	[IDState_FK] [int] NULL ,
-	[PIva] [nvarchar] (11) NULL ,
-	[CFiscale] [nvarchar] (16) NULL ,
-	[Phone] [nvarchar] (50) NULL ,
-	[Fax] [nvarchar] (50) NULL ,
-	[Password] [nvarchar] (20) NULL ,
-	[Email] [nvarchar] (100) NOT NULL ,
-	[SendNewsletter] [bit] NULL ,
-	[MailChecked] [tinyint] NULL ,
-	[LastSend] [smalldatetime] NULL 
+    [UserID] [int] IDENTITY (1, 1) NOT NULL ,
+    [PortalID] [int] NOT NULL ,
+    [Name] [nvarchar] (50) NOT NULL ,
+    [Company] [nvarchar] (50) NULL ,
+    [Address] [nvarchar] (50) NULL ,
+    [City] [nvarchar] (50) NULL ,
+    [Zip] [nvarchar] (6) NULL ,
+    [IDCountry_FK] [nchar] (2) NULL ,
+    [IDState_FK] [int] NULL ,
+    [PIva] [nvarchar] (11) NULL ,
+    [CFiscale] [nvarchar] (16) NULL ,
+    [Phone] [nvarchar] (50) NULL ,
+    [Fax] [nvarchar] (50) NULL ,
+    [Password] [nvarchar] (20) NULL ,
+    [Email] [nvarchar] (100) NOT NULL ,
+    [SendNewsletter] [bit] NULL ,
+    [MailChecked] [tinyint] NULL ,
+    [LastSend] [smalldatetime] NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [Announcements]    Data dello script: 07/11/2002 22.28.04 ******/
 CREATE TABLE [Announcements] (
-	[ItemID] [int] IDENTITY (1,1) NOT NULL ,
-	[ModuleID] [int] NOT NULL ,
-	[CreatedByUser] [varchar] (100) NULL ,
-	[CreatedDate] [datetime] NULL ,
-	[Title] [varchar] (150) NULL ,
-	[MoreLink] [varchar] (150) NULL ,
-	[MobileMoreLink] [varchar] (150) NULL ,
-	[ExpireDate] [datetime] NULL ,
-	[Description] [varchar] (2000) NULL 
+    [ItemID] [int] IDENTITY (1,1) NOT NULL ,
+    [ModuleID] [int] NOT NULL ,
+    [CreatedByUser] [varchar] (100) NULL ,
+    [CreatedDate] [datetime] NULL ,
+    [Title] [varchar] (150) NULL ,
+    [MoreLink] [varchar] (150) NULL ,
+    [MobileMoreLink] [varchar] (150) NULL ,
+    [ExpireDate] [datetime] NULL ,
+    [Description] [varchar] (2000) NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [Contacts]    Data dello script: 07/11/2002 22.28.04 ******/
 CREATE TABLE [Contacts] (
-	[ItemID] [int] IDENTITY (1,1) NOT NULL ,
-	[ModuleID] [int] NOT NULL ,
-	[CreatedByUser] [nvarchar] (100) NULL ,
-	[CreatedDate] [datetime] NULL ,
-	[Name] [nvarchar] (50) NULL ,
-	[Role] [nvarchar] (100) NULL ,
-	[Email] [nvarchar] (100) NULL ,
-	[Contact1] [nvarchar] (250) NULL ,
-	[Contact2] [nvarchar] (250) NULL 
+    [ItemID] [int] IDENTITY (1,1) NOT NULL ,
+    [ModuleID] [int] NOT NULL ,
+    [CreatedByUser] [nvarchar] (100) NULL ,
+    [CreatedDate] [datetime] NULL ,
+    [Name] [nvarchar] (50) NULL ,
+    [Role] [nvarchar] (100) NULL ,
+    [Email] [nvarchar] (100) NULL ,
+    [Contact1] [nvarchar] (250) NULL ,
+    [Contact2] [nvarchar] (250) NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [Discussion]    Data dello script: 07/11/2002 22.28.05 ******/
 CREATE TABLE [Discussion] (
-	[ItemID] [int] IDENTITY (1,1) NOT NULL ,
-	[ModuleID] [int] NOT NULL ,
-	[Title] [nvarchar] (100) NULL ,
-	[CreatedDate] [datetime] NULL ,
-	[Body] [nvarchar] (3000) NULL ,
-	[DisplayOrder] [nvarchar] (750) NULL ,
-	[CreatedByUser] [nvarchar] (100) NULL 
+    [ItemID] [int] IDENTITY (1,1) NOT NULL ,
+    [ModuleID] [int] NOT NULL ,
+    [Title] [nvarchar] (100) NULL ,
+    [CreatedDate] [datetime] NULL ,
+    [Body] [nvarchar] (3000) NULL ,
+    [DisplayOrder] [nvarchar] (750) NULL ,
+    [CreatedByUser] [nvarchar] (100) NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [Documents]    Data dello script: 07/11/2002 22.28.05 ******/
 CREATE TABLE [Documents] (
-	[ItemID] [int] IDENTITY (1,1) NOT NULL ,
-	[ModuleID] [int] NOT NULL ,
-	[CreatedByUser] [nvarchar] (100) NULL ,
-	[CreatedDate] [datetime] NULL ,
-	[FileNameUrl] [nvarchar] (250) NULL ,
-	[FileFriendlyName] [nvarchar] (150) NULL ,
-	[Category] [nvarchar] (50) NULL ,
-	[Content] [image] NULL ,
-	[ContentType] [nvarchar] (50) NULL ,
-	[ContentSize] [int] NULL 
+    [ItemID] [int] IDENTITY (1,1) NOT NULL ,
+    [ModuleID] [int] NOT NULL ,
+    [CreatedByUser] [nvarchar] (100) NULL ,
+    [CreatedDate] [datetime] NULL ,
+    [FileNameUrl] [nvarchar] (250) NULL ,
+    [FileFriendlyName] [nvarchar] (150) NULL ,
+    [Category] [nvarchar] (50) NULL ,
+    [Content] [image] NULL ,
+    [ContentType] [nvarchar] (50) NULL ,
+    [ContentSize] [int] NULL 
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [Events]    Data dello script: 07/11/2002 22.28.06 ******/
 CREATE TABLE [Events] (
-	[ItemID] [int] IDENTITY (1,1) NOT NULL ,
-	[ModuleID] [int] NOT NULL ,
-	[CreatedByUser] [nvarchar] (100) NULL ,
-	[CreatedDate] [datetime] NULL ,
-	[Title] [nvarchar] (150) NULL ,
-	[WhereWhen] [nvarchar] (150) NULL ,
-	[Description] [nvarchar] (2000) NULL ,
-	[ExpireDate] [datetime] NULL 
+    [ItemID] [int] IDENTITY (1,1) NOT NULL ,
+    [ModuleID] [int] NOT NULL ,
+    [CreatedByUser] [nvarchar] (100) NULL ,
+    [CreatedDate] [datetime] NULL ,
+    [Title] [nvarchar] (150) NULL ,
+    [WhereWhen] [nvarchar] (150) NULL ,
+    [Description] [nvarchar] (2000) NULL ,
+    [ExpireDate] [datetime] NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [HtmlText]    Data dello script: 07/11/2002 22.28.06 ******/
 CREATE TABLE [HtmlText] (
-	[ModuleID] [int] NOT NULL ,
-	[DesktopHtml] [ntext] NOT NULL ,
-	[MobileSummary] [ntext] NOT NULL ,
-	[MobileDetails] [ntext] NOT NULL 
+    [ModuleID] [int] NOT NULL ,
+    [DesktopHtml] [ntext] NOT NULL ,
+    [MobileSummary] [ntext] NOT NULL ,
+    [MobileDetails] [ntext] NOT NULL 
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [Links]    Data dello script: 07/11/2002 22.28.07 ******/
 CREATE TABLE [Links] (
-	[ItemID] [int] IDENTITY (1,1) NOT NULL ,
-	[ModuleID] [int] NOT NULL ,
-	[CreatedByUser] [nvarchar] (100) NULL ,
-	[CreatedDate] [datetime] NULL ,
-	[Title] [nvarchar] (100) NULL ,
-	[Url] [nvarchar] (250) NULL ,
-	[MobileUrl] [nvarchar] (250) NULL ,
-	[ViewOrder] [int] NULL ,
-	[Description] [nvarchar] (2000) NULL 
+    [ItemID] [int] IDENTITY (1,1) NOT NULL ,
+    [ModuleID] [int] NOT NULL ,
+    [CreatedByUser] [nvarchar] (100) NULL ,
+    [CreatedDate] [datetime] NULL ,
+    [Title] [nvarchar] (100) NULL ,
+    [Url] [nvarchar] (250) NULL ,
+    [MobileUrl] [nvarchar] (250) NULL ,
+    [ViewOrder] [int] NULL ,
+    [Description] [nvarchar] (2000) NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [ModuleSettings]    Data dello script: 07/11/2002 22.28.07 ******/
 CREATE TABLE [ModuleSettings] (
-	[ModuleID] [int] NOT NULL ,
-	[SettingName] [nvarchar] (50) NOT NULL ,
-	[SettingValue] [nvarchar] (1500) NOT NULL 
+    [ModuleID] [int] NOT NULL ,
+    [SettingName] [nvarchar] (50) NOT NULL ,
+    [SettingValue] [nvarchar] (1500) NOT NULL 
 ) ON [PRIMARY]
 GO
 
 /****** Oggetto: tabella [UserRoles]    Data dello script: 07/11/2002 22.28.07 ******/
 CREATE TABLE [UserRoles] (
-	[UserID] [int] NOT NULL ,
-	[RoleID] [int] NOT NULL 
+    [UserID] [int] NOT NULL ,
+    [RoleID] [int] NOT NULL 
 ) ON [PRIMARY]
 GO
 
 ALTER TABLE [Countries] WITH NOCHECK ADD 
-	CONSTRAINT [PK_Countries] PRIMARY KEY  CLUSTERED 
-	(
-		[PK_IDCountry]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_Countries] PRIMARY KEY  CLUSTERED 
+    (
+        [PK_IDCountry]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [GeneralModuleDefinitions] WITH NOCHECK ADD 
-	CONSTRAINT [PK_GeneralModuleDefinitions] PRIMARY KEY  CLUSTERED 
-	(
-		[GeneralModDefID]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_GeneralModuleDefinitions] PRIMARY KEY  CLUSTERED 
+    (
+        [GeneralModDefID]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [Layouts] WITH NOCHECK ADD 
-	CONSTRAINT [PK_Layouts] PRIMARY KEY  CLUSTERED 
-	(
-		[LayoutID]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_Layouts] PRIMARY KEY  CLUSTERED 
+    (
+        [LayoutID]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [Solutions] WITH NOCHECK ADD 
-	CONSTRAINT [PK_Solutions] PRIMARY KEY  CLUSTERED 
-	(
-		[SolutionsID]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_Solutions] PRIMARY KEY  CLUSTERED 
+    (
+        [SolutionsID]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [PortalSettings] WITH NOCHECK ADD 
-	CONSTRAINT [PK_PortalSettings] PRIMARY KEY  CLUSTERED 
-	(
-		[PortalID],
-		[SettingName]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_PortalSettings] PRIMARY KEY  CLUSTERED 
+    (
+        [PortalID],
+        [SettingName]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [SolutionModuleDefinitions] WITH NOCHECK ADD 
-	CONSTRAINT [PK_SolutionModuleDefintions] PRIMARY KEY  CLUSTERED 
-	(
-		[SolutionModDefID]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_SolutionModuleDefintions] PRIMARY KEY  CLUSTERED 
+    (
+        [SolutionModDefID]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [States] WITH NOCHECK ADD 
-	CONSTRAINT [PK_States] PRIMARY KEY  CLUSTERED 
-	(
-		[PK_IDState]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_States] PRIMARY KEY  CLUSTERED 
+    (
+        [PK_IDState]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [GeneralModuleDefinitions] WITH NOCHECK ADD 
-	CONSTRAINT [IX_GeneralModuleDefinitions] UNIQUE  NONCLUSTERED 
-	(
-		[FriendlyName]
-	)  ON [PRIMARY] 
+    CONSTRAINT [IX_GeneralModuleDefinitions] UNIQUE  NONCLUSTERED 
+    (
+        [FriendlyName]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [Portals] WITH NOCHECK ADD 
-	CONSTRAINT [PK_Portals] PRIMARY KEY  NONCLUSTERED 
-	(
-		[PortalID]
-	)  ON [PRIMARY] ,
-	CONSTRAINT [IX_Portals] UNIQUE  NONCLUSTERED 
-	(
-		[PortalAlias]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_Portals] PRIMARY KEY  NONCLUSTERED 
+    (
+        [PortalID]
+    )  ON [PRIMARY] ,
+    CONSTRAINT [IX_Portals] UNIQUE  NONCLUSTERED 
+    (
+        [PortalAlias]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [ModuleDefinitions] WITH NOCHECK ADD 
-	CONSTRAINT [PK_ModuleDefinitions] PRIMARY KEY  NONCLUSTERED 
-	(
-		[ModuleDefID]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_ModuleDefinitions] PRIMARY KEY  NONCLUSTERED 
+    (
+        [ModuleDefID]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [Roles] WITH NOCHECK ADD 
-	CONSTRAINT [DF_Roles_Permission] DEFAULT (1) FOR [Permission],
-	CONSTRAINT [PK_Roles] PRIMARY KEY  NONCLUSTERED 
-	(
-		[RoleID]
-	)  ON [PRIMARY] ,
-	CONSTRAINT [IX_Roles] UNIQUE  NONCLUSTERED 
-	(
-		[PortalID],
-		[RoleName]
-	)  ON [PRIMARY] 
+    CONSTRAINT [DF_Roles_Permission] DEFAULT (1) FOR [Permission],
+    CONSTRAINT [PK_Roles] PRIMARY KEY  NONCLUSTERED 
+    (
+        [RoleID]
+    )  ON [PRIMARY] ,
+    CONSTRAINT [IX_Roles] UNIQUE  NONCLUSTERED 
+    (
+        [PortalID],
+        [RoleName]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [Tabs] WITH NOCHECK ADD 
-	CONSTRAINT [PK_Tabs] PRIMARY KEY  NONCLUSTERED 
-	(
-		[TabID]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_Tabs] PRIMARY KEY  NONCLUSTERED 
+    (
+        [TabID]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [Modules] WITH NOCHECK ADD 
-	CONSTRAINT [PK_Modules] PRIMARY KEY  NONCLUSTERED 
-	(
-		[ModuleID]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_Modules] PRIMARY KEY  NONCLUSTERED 
+    (
+        [ModuleID]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [Users] WITH NOCHECK ADD 
-	CONSTRAINT [DF_Users_SendNewsletter] DEFAULT (1) FOR [SendNewsletter],
-	CONSTRAINT [DF_Users_MailChecked] DEFAULT (0) FOR [MailChecked],
-	CONSTRAINT [PK_Users] PRIMARY KEY  NONCLUSTERED 
-	(
-		[UserID]
-	)  ON [PRIMARY] ,
-	CONSTRAINT [IX_Users] UNIQUE  NONCLUSTERED 
-	(
-		[Email],
-		[PortalID]
-	)  ON [PRIMARY] 
+    CONSTRAINT [DF_Users_SendNewsletter] DEFAULT (1) FOR [SendNewsletter],
+    CONSTRAINT [DF_Users_MailChecked] DEFAULT (0) FOR [MailChecked],
+    CONSTRAINT [PK_Users] PRIMARY KEY  NONCLUSTERED 
+    (
+        [UserID]
+    )  ON [PRIMARY] ,
+    CONSTRAINT [IX_Users] UNIQUE  NONCLUSTERED 
+    (
+        [Email],
+        [PortalID]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [Announcements] WITH NOCHECK ADD 
-	CONSTRAINT [PK_Announcements] PRIMARY KEY  NONCLUSTERED 
-	(
-		[ItemID]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_Announcements] PRIMARY KEY  NONCLUSTERED 
+    (
+        [ItemID]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [Contacts] WITH NOCHECK ADD 
-	CONSTRAINT [PK_Contacts] PRIMARY KEY  NONCLUSTERED 
-	(
-		[ItemID]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_Contacts] PRIMARY KEY  NONCLUSTERED 
+    (
+        [ItemID]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [Discussion] WITH NOCHECK ADD 
-	CONSTRAINT [PK_Discussion] PRIMARY KEY  NONCLUSTERED 
-	(
-		[ItemID]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_Discussion] PRIMARY KEY  NONCLUSTERED 
+    (
+        [ItemID]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [Documents] WITH NOCHECK ADD 
-	CONSTRAINT [PK_Documents] PRIMARY KEY  NONCLUSTERED 
-	(
-		[ItemID]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_Documents] PRIMARY KEY  NONCLUSTERED 
+    (
+        [ItemID]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [Events] WITH NOCHECK ADD 
-	CONSTRAINT [PK_Events] PRIMARY KEY  NONCLUSTERED 
-	(
-		[ItemID]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_Events] PRIMARY KEY  NONCLUSTERED 
+    (
+        [ItemID]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [HtmlText] WITH NOCHECK ADD 
-	CONSTRAINT [PK_HtmlText] PRIMARY KEY  NONCLUSTERED 
-	(
-		[ModuleID]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_HtmlText] PRIMARY KEY  NONCLUSTERED 
+    (
+        [ModuleID]
+    )  ON [PRIMARY] 
 GO
 
 ALTER TABLE [Links] WITH NOCHECK ADD 
-	CONSTRAINT [PK_Links] PRIMARY KEY  NONCLUSTERED 
-	(
-		[ItemID]
-	)  ON [PRIMARY] 
+    CONSTRAINT [PK_Links] PRIMARY KEY  NONCLUSTERED 
+    (
+        [ItemID]
+    )  ON [PRIMARY] 
 GO
 
  CREATE  INDEX [IX_PortalSettings] ON [PortalSettings]([PortalID], [SettingName]) ON [PRIMARY]
@@ -1137,198 +1137,198 @@ GO
 GO
 
 ALTER TABLE [ModuleDefinitions] ADD 
-	CONSTRAINT [FK_ModuleDefinitions_GeneralModuleDefinitions] FOREIGN KEY 
-	(
-		[GeneralModDefID]
-	) REFERENCES [GeneralModuleDefinitions] (
-		[GeneralModDefID]
-	) ON DELETE CASCADE 
+    CONSTRAINT [FK_ModuleDefinitions_GeneralModuleDefinitions] FOREIGN KEY 
+    (
+        [GeneralModDefID]
+    ) REFERENCES [GeneralModuleDefinitions] (
+        [GeneralModDefID]
+    ) ON DELETE CASCADE 
 GO
 
 ALTER TABLE [PortalSettings] ADD 
-	CONSTRAINT [FK_PortalSettings_Portals] FOREIGN KEY 
-	(
-		[PortalID]
-	) REFERENCES [Portals] (
-		[PortalID]
-	) ON DELETE CASCADE 
+    CONSTRAINT [FK_PortalSettings_Portals] FOREIGN KEY 
+    (
+        [PortalID]
+    ) REFERENCES [Portals] (
+        [PortalID]
+    ) ON DELETE CASCADE 
 GO
 
 ALTER TABLE [Roles] ADD 
-	CONSTRAINT [FK_Roles_Portals] FOREIGN KEY 
-	(
-		[PortalID]
-	) REFERENCES [Portals] (
-		[PortalID]
-	) ON DELETE CASCADE  NOT FOR REPLICATION 
+    CONSTRAINT [FK_Roles_Portals] FOREIGN KEY 
+    (
+        [PortalID]
+    ) REFERENCES [Portals] (
+        [PortalID]
+    ) ON DELETE CASCADE  NOT FOR REPLICATION 
 GO
 
 ALTER TABLE [SolutionModuleDefinitions] ADD 
-	CONSTRAINT [FK_SolutionModuleDefinitions_GeneralModuleDefinitions] FOREIGN KEY 
-	(
-		[GeneralModDefID]
-	) REFERENCES [GeneralModuleDefinitions] (
-		[GeneralModDefID]
-	),
-	CONSTRAINT [FK_SolutionModuleDefintions_Solutions] FOREIGN KEY 
-	(
-		[SolutionsID]
-	) REFERENCES [Solutions] (
-		[SolutionsID]
-	)
+    CONSTRAINT [FK_SolutionModuleDefinitions_GeneralModuleDefinitions] FOREIGN KEY 
+    (
+        [GeneralModDefID]
+    ) REFERENCES [GeneralModuleDefinitions] (
+        [GeneralModDefID]
+    ),
+    CONSTRAINT [FK_SolutionModuleDefintions_Solutions] FOREIGN KEY 
+    (
+        [SolutionsID]
+    ) REFERENCES [Solutions] (
+        [SolutionsID]
+    )
 GO
 
 ALTER TABLE [States] ADD 
-	CONSTRAINT [FK_States_Countries] FOREIGN KEY 
-	(
-		[IDCountry_FK]
-	) REFERENCES [Countries] (
-		[PK_IDCountry]
-	)
+    CONSTRAINT [FK_States_Countries] FOREIGN KEY 
+    (
+        [IDCountry_FK]
+    ) REFERENCES [Countries] (
+        [PK_IDCountry]
+    )
 GO
 
 ALTER TABLE [Tabs] ADD 
-	CONSTRAINT [FK_Tabs_Layouts] FOREIGN KEY 
-	(
-		[TabLayout]
-	) REFERENCES [Layouts] (
-		[LayoutID]
-	) ON UPDATE CASCADE ,
-	CONSTRAINT [FK_Tabs_Portals] FOREIGN KEY 
-	(
-		[PortalID]
-	) REFERENCES [Portals] (
-		[PortalID]
-	) ON DELETE CASCADE ,
-	CONSTRAINT [FK_Tabs_Tabs] FOREIGN KEY 
-	(
-		[ParentTabID]
-	) REFERENCES [Tabs] (
-		[TabID]
-	)
+    CONSTRAINT [FK_Tabs_Layouts] FOREIGN KEY 
+    (
+        [TabLayout]
+    ) REFERENCES [Layouts] (
+        [LayoutID]
+    ) ON UPDATE CASCADE ,
+    CONSTRAINT [FK_Tabs_Portals] FOREIGN KEY 
+    (
+        [PortalID]
+    ) REFERENCES [Portals] (
+        [PortalID]
+    ) ON DELETE CASCADE ,
+    CONSTRAINT [FK_Tabs_Tabs] FOREIGN KEY 
+    (
+        [ParentTabID]
+    ) REFERENCES [Tabs] (
+        [TabID]
+    )
 GO
 
 ALTER TABLE [Modules] ADD 
-	CONSTRAINT [FK_Modules_ModuleDefinitions1] FOREIGN KEY 
-	(
-		[ModuleDefID]
-	) REFERENCES [ModuleDefinitions] (
-		[ModuleDefID]
-	) ON DELETE CASCADE ,
-	CONSTRAINT [FK_Modules_Tabs1] FOREIGN KEY 
-	(
-		[TabID]
-	) REFERENCES [Tabs] (
-		[TabID]
-	) ON DELETE CASCADE 
+    CONSTRAINT [FK_Modules_ModuleDefinitions1] FOREIGN KEY 
+    (
+        [ModuleDefID]
+    ) REFERENCES [ModuleDefinitions] (
+        [ModuleDefID]
+    ) ON DELETE CASCADE ,
+    CONSTRAINT [FK_Modules_Tabs1] FOREIGN KEY 
+    (
+        [TabID]
+    ) REFERENCES [Tabs] (
+        [TabID]
+    ) ON DELETE CASCADE 
 GO
 
 ALTER TABLE [Users] ADD 
-	CONSTRAINT [FK_Users_Countries] FOREIGN KEY 
-	(
-		[IDCountry_FK]
-	) REFERENCES [Countries] (
-		[PK_IDCountry]
-	),
-	CONSTRAINT [FK_Users_Portals] FOREIGN KEY 
-	(
-		[PortalID]
-	) REFERENCES [Portals] (
-		[PortalID]
-	) ON DELETE CASCADE ,
-	CONSTRAINT [FK_Users_States] FOREIGN KEY 
-	(
-		[IDState_FK]
-	) REFERENCES [States] (
-		[PK_IDState]
-	)
+    CONSTRAINT [FK_Users_Countries] FOREIGN KEY 
+    (
+        [IDCountry_FK]
+    ) REFERENCES [Countries] (
+        [PK_IDCountry]
+    ),
+    CONSTRAINT [FK_Users_Portals] FOREIGN KEY 
+    (
+        [PortalID]
+    ) REFERENCES [Portals] (
+        [PortalID]
+    ) ON DELETE CASCADE ,
+    CONSTRAINT [FK_Users_States] FOREIGN KEY 
+    (
+        [IDState_FK]
+    ) REFERENCES [States] (
+        [PK_IDState]
+    )
 GO
 
 ALTER TABLE [Announcements] ADD 
-	CONSTRAINT [FK_Announcements_Modules] FOREIGN KEY 
-	(
-		[ModuleID]
-	) REFERENCES [Modules] (
-		[ModuleID]
-	) ON DELETE CASCADE  NOT FOR REPLICATION 
+    CONSTRAINT [FK_Announcements_Modules] FOREIGN KEY 
+    (
+        [ModuleID]
+    ) REFERENCES [Modules] (
+        [ModuleID]
+    ) ON DELETE CASCADE  NOT FOR REPLICATION 
 GO
 
 ALTER TABLE [Contacts] ADD 
-	CONSTRAINT [FK_Contacts_Modules] FOREIGN KEY 
-	(
-		[ModuleID]
-	) REFERENCES [Modules] (
-		[ModuleID]
-	) ON DELETE CASCADE  NOT FOR REPLICATION 
+    CONSTRAINT [FK_Contacts_Modules] FOREIGN KEY 
+    (
+        [ModuleID]
+    ) REFERENCES [Modules] (
+        [ModuleID]
+    ) ON DELETE CASCADE  NOT FOR REPLICATION 
 GO
 
 ALTER TABLE [Discussion] ADD 
-	CONSTRAINT [FK_Discussion_Modules] FOREIGN KEY 
-	(
-		[ModuleID]
-	) REFERENCES [Modules] (
-		[ModuleID]
-	) ON DELETE CASCADE  NOT FOR REPLICATION 
+    CONSTRAINT [FK_Discussion_Modules] FOREIGN KEY 
+    (
+        [ModuleID]
+    ) REFERENCES [Modules] (
+        [ModuleID]
+    ) ON DELETE CASCADE  NOT FOR REPLICATION 
 GO
 
 ALTER TABLE [Documents] ADD 
-	CONSTRAINT [FK_Documents_Modules] FOREIGN KEY 
-	(
-		[ModuleID]
-	) REFERENCES [Modules] (
-		[ModuleID]
-	) ON DELETE CASCADE  NOT FOR REPLICATION 
+    CONSTRAINT [FK_Documents_Modules] FOREIGN KEY 
+    (
+        [ModuleID]
+    ) REFERENCES [Modules] (
+        [ModuleID]
+    ) ON DELETE CASCADE  NOT FOR REPLICATION 
 GO
 
 ALTER TABLE [Events] ADD 
-	CONSTRAINT [FK_Events_Modules] FOREIGN KEY 
-	(
-		[ModuleID]
-	) REFERENCES [Modules] (
-		[ModuleID]
-	) ON DELETE CASCADE  NOT FOR REPLICATION 
+    CONSTRAINT [FK_Events_Modules] FOREIGN KEY 
+    (
+        [ModuleID]
+    ) REFERENCES [Modules] (
+        [ModuleID]
+    ) ON DELETE CASCADE  NOT FOR REPLICATION 
 GO
 
 ALTER TABLE [HtmlText] ADD 
-	CONSTRAINT [FK_HtmlText_Modules] FOREIGN KEY 
-	(
-		[ModuleID]
-	) REFERENCES [Modules] (
-		[ModuleID]
-	) ON DELETE CASCADE  NOT FOR REPLICATION 
+    CONSTRAINT [FK_HtmlText_Modules] FOREIGN KEY 
+    (
+        [ModuleID]
+    ) REFERENCES [Modules] (
+        [ModuleID]
+    ) ON DELETE CASCADE  NOT FOR REPLICATION 
 GO
 
 ALTER TABLE [Links] ADD 
-	CONSTRAINT [FK_Links_Modules] FOREIGN KEY 
-	(
-		[ModuleID]
-	) REFERENCES [Modules] (
-		[ModuleID]
-	) ON DELETE CASCADE  NOT FOR REPLICATION 
+    CONSTRAINT [FK_Links_Modules] FOREIGN KEY 
+    (
+        [ModuleID]
+    ) REFERENCES [Modules] (
+        [ModuleID]
+    ) ON DELETE CASCADE  NOT FOR REPLICATION 
 GO
 
 ALTER TABLE [ModuleSettings] ADD 
-	CONSTRAINT [FK_ModuleSettings_Modules] FOREIGN KEY 
-	(
-		[ModuleID]
-	) REFERENCES [Modules] (
-		[ModuleID]
-	) ON DELETE CASCADE  ON UPDATE CASCADE 
+    CONSTRAINT [FK_ModuleSettings_Modules] FOREIGN KEY 
+    (
+        [ModuleID]
+    ) REFERENCES [Modules] (
+        [ModuleID]
+    ) ON DELETE CASCADE  ON UPDATE CASCADE 
 GO
 
 ALTER TABLE [UserRoles] ADD 
-	CONSTRAINT [FK_UserRoles_Roles] FOREIGN KEY 
-	(
-		[RoleID]
-	) REFERENCES [Roles] (
-		[RoleID]
-	),
-	CONSTRAINT [FK_UserRoles_Users] FOREIGN KEY 
-	(
-		[UserID]
-	) REFERENCES [Users] (
-		[UserID]
-	) ON DELETE CASCADE 
+    CONSTRAINT [FK_UserRoles_Roles] FOREIGN KEY 
+    (
+        [RoleID]
+    ) REFERENCES [Roles] (
+        [RoleID]
+    ),
+    CONSTRAINT [FK_UserRoles_Users] FOREIGN KEY 
+    (
+        [UserID]
+    ) REFERENCES [Users] (
+        [UserID]
+    ) ON DELETE CASCADE 
 GO
 
 SET QUOTED_IDENTIFIER OFF 
@@ -1553,7 +1553,7 @@ GO
 
 CREATE PROCEDURE AddUser
 (
-	@PortalID	int,
+    @PortalID	int,
     @Name     nvarchar(50),
     @Email    nvarchar(100),
     @Password nvarchar(20),
@@ -1598,7 +1598,7 @@ GO
 /****** Oggetto: stored procedure AddUserFull    Data dello script: 07/11/2002 22.28.08 ******/
 CREATE PROCEDURE AddUserFull
 (
-	@PortalID	    int,
+    @PortalID	    int,
     @Name		    nvarchar(50),
     @Company	    nvarchar(50),
     @Address	    nvarchar(50),
@@ -1611,8 +1611,8 @@ CREATE PROCEDURE AddUserFull
     @Email		    nvarchar(100),
     @Password	    nvarchar(20),
     @SendNewsletter	bit,
-	@IDCountry_FK	nchar(2),  
-	@IDState_FK		int,
+    @IDCountry_FK	nchar(2),  
+    @IDState_FK		int,
     @UserID		    int OUTPUT
 )
 AS
@@ -1622,18 +1622,18 @@ INSERT INTO Users
     PortalID,
     Name,
     Company,
-	Address,		
-	City,		
-	Zip,		
-	Phone,		
-	Fax,		
-	PIva,		
-	CFiscale,	
-	Email,		
-	Password,
-	SendNewsletter,
-	IDCountry_FK,
-	IDState_FK
+    Address,		
+    City,		
+    Zip,		
+    Phone,		
+    Fax,		
+    PIva,		
+    CFiscale,	
+    Email,		
+    Password,
+    SendNewsletter,
+    IDCountry_FK,
+    IDState_FK
 )
 
 VALUES
@@ -1641,18 +1641,18 @@ VALUES
     @PortalID,
     @Name,
     @Company,
-	@Address,	
-	@City,	
-	@Zip,	
-	@Phone,	
-	@Fax,	
-	@PIva,	
-	@CFiscale,
+    @Address,	
+    @City,	
+    @Zip,	
+    @Phone,	
+    @Fax,	
+    @PIva,	
+    @CFiscale,
     @Email,
     @Password,
     @SendNewsletter,
-	@IDCountry_FK,
-	@IDState_FK
+    @IDCountry_FK,
+    @IDState_FK
 )
 
 SELECT
@@ -2060,7 +2060,7 @@ SELECT
 FROM
     ModuleDefinitions
 INNER JOIN
-	GeneralModuleDefinitions ON ModuleDefinitions.GeneralModDefID = GeneralModuleDefinitions.GeneralModDefID
+    GeneralModuleDefinitions ON ModuleDefinitions.GeneralModDefID = GeneralModuleDefinitions.GeneralModDefID
 WHERE   
     ModuleDefinitions.PortalID = @PortalID
 ORDER BY
@@ -2082,8 +2082,8 @@ GO
 CREATE PROCEDURE
 GetGeneralModuleDefinitionByName
 (
-	@FriendlyName nvarchar(128),
-	@ModuleID uniqueidentifier OUTPUT
+    @FriendlyName nvarchar(128),
+    @ModuleID uniqueidentifier OUTPUT
 )
 AS
 
@@ -2194,21 +2194,21 @@ CREATE PROCEDURE GetSingleArticle
 AS
 
 SELECT		ItemID,
-			ModuleID,
-			CreatedByUser,
-			CreatedDate,
-			Title, 
-			Subtitle, 
-			Abstract, 
-			Description, 
-			StartDate, 
-			ExpireDate, 
-			IsInNewsletter, 
-			MoreLink, 
-			TemplateXSLT, 
-			PhotoId1, 
-			PhotoId2, 
-			PhotoId3
+            ModuleID,
+            CreatedByUser,
+            CreatedDate,
+            Title, 
+            Subtitle, 
+            Abstract, 
+            Description, 
+            StartDate, 
+            ExpireDate, 
+            IsInNewsletter, 
+            MoreLink, 
+            TemplateXSLT, 
+            PhotoId1, 
+            PhotoId2, 
+            PhotoId3
 FROM	Articles
 WHERE   (ItemID = @ItemID)
 
@@ -2242,13 +2242,13 @@ FROM
 (
 
 SELECT		Articles.ItemID, 
-			Articles.ModuleID, 
-			Articles.CreatedByUser, 
-			Articles.CreatedDate, 
-			Articles.Title, 
-			Articles.Subtitle, 
-			Articles.Abstract, 
-			Articles.Description, 
+            Articles.ModuleID, 
+            Articles.CreatedByUser, 
+            Articles.CreatedDate, 
+            Articles.Title, 
+            Articles.Subtitle, 
+            Articles.Abstract, 
+            Articles.Description, 
             Articles.StartDate, 
             Articles.ExpireDate, 
             Articles.IsInNewsletter, 
@@ -2262,7 +2262,7 @@ SELECT		Articles.ItemID,
             ImageVariations_2.Variation AS Variation3
             
 FROM        Images Images_2 
-			INNER JOIN
+            INNER JOIN
             ImageVariations ImageVariations_2 ON Images_2.ItemID = ImageVariations_2.ImageID RIGHT OUTER JOIN
             Articles ON Images_2.ItemID = Articles.PhotoId3 LEFT OUTER JOIN
             ImageVariations INNER JOIN
@@ -2294,7 +2294,7 @@ CREATE PROCEDURE GetSingleModuleDefinition
 )
 AS
 SELECT
-	GeneralModDefID, 
+    GeneralModDefID, 
     FriendlyName,
     DesktopSrc,
     MobileSrc,
@@ -2661,8 +2661,8 @@ CREATE PROCEDURE UpdateUserFull
     @Email		    nvarchar(100),
     @Password	    nvarchar(20),
     @SendNewsletter	bit,
-	@IDCountry_FK	nchar(2),  
-	@IDState_FK		int
+    @IDCountry_FK	nchar(2),  
+    @IDState_FK		int
 )
 AS
 
@@ -2715,9 +2715,9 @@ AS
 SELECT     @UserName = Users.Name
 FROM      Users
 WHERE
-	(
-	Users.Email = @Email AND Users.Password = @Password AND Users.PortalID = @PortalID
-	)
+    (
+    Users.Email = @Email AND Users.Password = @Password AND Users.PortalID = @PortalID
+    )
 
 
 
@@ -2801,7 +2801,7 @@ GO
 /****** Oggetto: stored procedure GetCountries    Data dello script: 07/11/2002 22.28.10 ******/
 CREATE PROCEDURE GetCountries
 (
-	@IDLang	nchar(2) = 'IT'
+    @IDLang	nchar(2) = 'IT'
 )
 
 AS
@@ -2809,13 +2809,13 @@ AS
 SELECT
 PK_IdCountry,
 CASE @IDLang
-	WHEN 'IT' THEN Countries.IT
-	WHEN 'EN' THEN Countries.EN
-	WHEN 'DE' THEN Countries.DE
-	WHEN 'FR' THEN Countries.FR
-	WHEN 'ES' THEN Countries.ES
-	WHEN 'PT' THEN Countries.PT
-	ELSE Countries.EN
+    WHEN 'IT' THEN Countries.IT
+    WHEN 'EN' THEN Countries.EN
+    WHEN 'DE' THEN Countries.DE
+    WHEN 'FR' THEN Countries.FR
+    WHEN 'ES' THEN Countries.ES
+    WHEN 'PT' THEN Countries.PT
+    ELSE Countries.EN
 END AS Description
 FROM	countries
 ORDER BY Description
@@ -2834,58 +2834,58 @@ GO
 /****** Oggetto: stored procedure GetCountriesFiltered    Data dello script: 07/11/2002 22.28.10 ******/
 CREATE PROCEDURE GetCountriesFiltered
 (
-	@IDLang	nchar(2) = 'IT',
-	@Filter nvarchar(1000)
+    @IDLang	nchar(2) = 'IT',
+    @Filter nvarchar(1000)
 )
 
 AS
 
 IF (@IDLang = 'IT')
 BEGIN
-	SELECT	PK_IdCountry, IT AS Description
-	FROM    countries
-	WHERE  @Filter LIKE '%' + PK_IdCountry + '%'
-	ORDER BY Description
+    SELECT	PK_IdCountry, IT AS Description
+    FROM    countries
+    WHERE  @Filter LIKE '%' + PK_IdCountry + '%'
+    ORDER BY Description
 END
 
 IF (@IDLang = 'EN')
 BEGIN
-	SELECT	PK_IdCountry, EN AS Description
-	FROM	countries
-	WHERE  @Filter LIKE '%' + PK_IdCountry + '%'
-	ORDER BY Description
+    SELECT	PK_IdCountry, EN AS Description
+    FROM	countries
+    WHERE  @Filter LIKE '%' + PK_IdCountry + '%'
+    ORDER BY Description
 END
 
 IF (@IDLang = 'FR')
 BEGIN
-	SELECT	PK_IdCountry, FR AS Description
-	FROM	countries
-	WHERE  @Filter LIKE '%' + PK_IdCountry + '%'
-	ORDER BY Description
+    SELECT	PK_IdCountry, FR AS Description
+    FROM	countries
+    WHERE  @Filter LIKE '%' + PK_IdCountry + '%'
+    ORDER BY Description
 END
 
 IF (@IDLang = 'ES')
 BEGIN
-	SELECT	PK_IdCountry, ES AS Description
-	FROM	countries
-	WHERE  @Filter LIKE '%' + PK_IdCountry + '%'
-	ORDER BY Description
+    SELECT	PK_IdCountry, ES AS Description
+    FROM	countries
+    WHERE  @Filter LIKE '%' + PK_IdCountry + '%'
+    ORDER BY Description
 END
 
 IF (@IDLang = 'DE')
 BEGIN
-	SELECT	PK_IdCountry, DE AS Description
-	FROM	countries
-	WHERE  @Filter LIKE '%' + PK_IdCountry + '%'
-	ORDER BY Description
+    SELECT	PK_IdCountry, DE AS Description
+    FROM	countries
+    WHERE  @Filter LIKE '%' + PK_IdCountry + '%'
+    ORDER BY Description
 END
 
 IF (@IDLang = 'PT')
 BEGIN
-	SELECT	PK_IdCountry, PT AS Description
-	FROM	countries
-	WHERE  @Filter LIKE '%' + PK_IdCountry + '%'
-	ORDER BY Description
+    SELECT	PK_IdCountry, PT AS Description
+    FROM	countries
+    WHERE  @Filter LIKE '%' + PK_IdCountry + '%'
+    ORDER BY Description
 END
 GO
 
@@ -3016,9 +3016,9 @@ GO
 CREATE PROCEDURE
 GetModuleDefinitionByName
 (
-	@PortalID int,
-	@FriendlyName nvarchar(128),
-	@ModuleID int OUTPUT
+    @PortalID int,
+    @FriendlyName nvarchar(128),
+    @ModuleID int OUTPUT
 )
 AS
 
@@ -3152,10 +3152,10 @@ CREATE PROCEDURE GetPortalsModules
     @ModuleID  uniqueidentifier
 )
 AS
-	SELECT     Portals.PortalID, Portals.PortalAlias, Portals.PortalName, ModuleDefinitions.ModuleDefID
-	FROM         Portals LEFT OUTER JOIN
-	                      ModuleDefinitions ON Portals.PortalID = ModuleDefinitions.PortalID
-	WHERE     (ModuleDefinitions.GeneralModDefID = @ModuleID)
+    SELECT     Portals.PortalID, Portals.PortalAlias, Portals.PortalName, ModuleDefinitions.ModuleDefID
+    FROM         Portals LEFT OUTER JOIN
+                          ModuleDefinitions ON Portals.PortalID = ModuleDefinitions.PortalID
+    WHERE     (ModuleDefinitions.GeneralModDefID = @ModuleID)
 GO
 
 SET QUOTED_IDENTIFIER OFF 
@@ -3171,21 +3171,21 @@ GO
 /****** Oggetto: stored procedure GetSingleCountry    Data dello script: 07/11/2002 22.28.11 ******/
 CREATE PROCEDURE GetSingleCountry
 (
-	@IDState int,
-	@IDLang	nchar(2) = 'IT'
+    @IDState int,
+    @IDLang	nchar(2) = 'IT'
 )
 
 AS
 SELECT
 Countries.PK_IDCountry,
 CASE @IDLang
-	WHEN 'IT' THEN Countries.IT
-	WHEN 'EN' THEN Countries.EN
-	WHEN 'DE' THEN Countries.DE
-	WHEN 'FR' THEN Countries.FR
-	WHEN 'ES' THEN Countries.ES
-	WHEN 'PT' THEN Countries.PT
-	ELSE Countries.EN
+    WHEN 'IT' THEN Countries.IT
+    WHEN 'EN' THEN Countries.EN
+    WHEN 'DE' THEN Countries.DE
+    WHEN 'FR' THEN Countries.FR
+    WHEN 'ES' THEN Countries.ES
+    WHEN 'PT' THEN Countries.PT
+    ELSE Countries.EN
 END AS Description
 FROM States INNER JOIN
      Countries ON States.IDCountry_FK = Countries.PK_IDCountry
@@ -3239,12 +3239,12 @@ GO
 /****** Oggetto: stored procedure GetStates    Data dello script: 07/11/2002 22.28.11 ******/
 CREATE PROCEDURE GetStates
 (
-	@IDCountry_FK nchar(2)
+    @IDCountry_FK nchar(2)
 )
 
 AS
 SELECT  Description, 
-		PK_IDState
+        PK_IDState
 FROM    States
 WHERE	IDCountry_FK = @IDCountry_FK
 ORDER BY Description 
@@ -3264,7 +3264,7 @@ GO
 /****** Oggetto: stored procedure GetTabsFlat    Data dello script: 07/11/2002 22.28.11 ******/
 CREATE PROCEDURE GetTabsFlat
 (
-	@PortalID int
+    @PortalID int
 )
 AS
 
@@ -3307,8 +3307,8 @@ GO
 /****** Oggetto: stored procedure GetTabsParent    Data dello script: 07/11/2002 22.28.11 ******/
 CREATE PROCEDURE GetTabsParent
 (
-	@PortalID int,
-	@TabID int
+    @PortalID int,
+    @TabID int
 )
 AS
 SELECT 0 TabID, ' Livello principale' TabName
@@ -3334,8 +3334,8 @@ GO
 /****** Oggetto: stored procedure GetTabsinTab    Data dello script: 07/11/2002 22.28.11 ******/
 CREATE PROCEDURE GetTabsinTab
 (
-	@PortalID int,
-	@TabID int
+    @PortalID int,
+    @TabID int
 )
 AS
 SELECT     TabID, TabName, ParentTabID, TabOrder, AuthorizedRoles
@@ -3364,23 +3364,23 @@ CREATE PROCEDURE UpdateModuleDefinitions
 AS
 
 IF (@ischecked = 0)
-	/*DELETE IF CLEARED */
-	DELETE FROM ModuleDefinitions WHERE ModuleDefinitions.GeneralModDefID = @GeneralModDefID AND PortalID = @PortalID
-	
+    /*DELETE IF CLEARED */
+    DELETE FROM ModuleDefinitions WHERE ModuleDefinitions.GeneralModDefID = @GeneralModDefID AND PortalID = @PortalID
+    
 ELSE
 IF NOT (EXISTS (SELECT ModuleDefID FROM ModuleDefinitions WHERE GeneralModDefID = @GeneralModDefID AND PortalID = @PortalID))
-	/* ADD IF CHECKED */
+    /* ADD IF CHECKED */
 BEGIN
-			INSERT INTO ModuleDefinitions
-			(
-				PortalID,
-				GeneralModDefID
-			)
-			VALUES
-			(
-				@PortalID,
-				@GeneralModDefID
-			)
+            INSERT INTO ModuleDefinitions
+            (
+                PortalID,
+                GeneralModDefID
+            )
+            VALUES
+            (
+                @PortalID,
+                @GeneralModDefID
+            )
 END
 
 GO
@@ -3553,7 +3553,7 @@ GO
 CREATE PROCEDURE
 GetModuleDefinitionByID
 (
-	@ModuleID int
+    @ModuleID int
 )
 AS
 
@@ -3586,13 +3586,13 @@ SELECT      0 AS ModuleID, 'Nessun modulo' AS ModuleTitle, '' as PortalAlias
 
 UNION
 
-	SELECT     Modules.ModuleID, Portals.PortalAlias + '\' + Modules.ModuleTitle AS ModuleTitle, PortalAlias
-	FROM         Modules INNER JOIN
-	                      Tabs ON Modules.TabID = Tabs.TabID INNER JOIN
-	                      Portals ON Tabs.PortalID = Portals.PortalID INNER JOIN
-	                      ModuleDefinitions ON Modules.ModuleDefID = ModuleDefinitions.ModuleDefID INNER JOIN
-	                      GeneralModuleDefinitions ON ModuleDefinitions.GeneralModDefID = GeneralModuleDefinitions.GeneralModDefID
-	WHERE     (Modules.ModuleID > 0) AND (GeneralModuleDefinitions.Admin = 0)
+    SELECT     Modules.ModuleID, Portals.PortalAlias + '\' + Modules.ModuleTitle AS ModuleTitle, PortalAlias
+    FROM         Modules INNER JOIN
+                          Tabs ON Modules.TabID = Tabs.TabID INNER JOIN
+                          Portals ON Tabs.PortalID = Portals.PortalID INNER JOIN
+                          ModuleDefinitions ON Modules.ModuleDefID = ModuleDefinitions.ModuleDefID INNER JOIN
+                          GeneralModuleDefinitions ON ModuleDefinitions.GeneralModDefID = GeneralModuleDefinitions.GeneralModDefID
+    WHERE     (Modules.ModuleID > 0) AND (GeneralModuleDefinitions.Admin = 0)
 
 ORDER BY PortalAlias, Modules.ModuleTitle
 
@@ -3612,8 +3612,8 @@ GO
 /****** Oggetto: stored procedure GetModulesByName    Data dello script: 07/11/2002 22.28.12 ******/
 CREATE PROCEDURE GetModulesByName
 (
-	@ModuleName varchar(128),
-	@PortalID int
+    @ModuleName varchar(128),
+    @PortalID int
 )
 AS
 
@@ -3651,11 +3651,11 @@ SELECT      0 ModuleID, ' Nessun modulo' ModuleTitle
 
 UNION
 
-	SELECT     Modules.ModuleID, Modules.ModuleTitle
-	FROM         Modules INNER JOIN
-	                      Tabs ON Modules.TabID = Tabs.TabID
-	WHERE     (Tabs.PortalID = @PortalID)
-	ORDER BY Modules.ModuleTitle
+    SELECT     Modules.ModuleID, Modules.ModuleTitle
+    FROM         Modules INNER JOIN
+                          Tabs ON Modules.TabID = Tabs.TabID
+    WHERE     (Tabs.PortalID = @PortalID)
+    ORDER BY Modules.ModuleTitle
 
 GO
 
@@ -3789,44 +3789,44 @@ CREATE PROCEDURE GetSingleUser
 (
     @Email nvarchar(100),
     @PortalID int,
-	@IDLang	nchar(2) = 'IT'
+    @IDLang	nchar(2) = 'IT'
 )
 AS
 
 SELECT
-	Users.UserID,
-	Users.Email,
-	Users.Password,
-	Users.Name,
-	Users.Company,
-	Users.Address,
-	Users.City,
-	Users.Zip,
-	Users.IDCountry_FK,
-	Users.IDState_FK,
-	Users.PIva,
-	Users.CFiscale,
-	Users.Phone,
-	Users.Fax,
-	Users.SendNewsletter,
-	Users.MailChecked,
-	Users.PortalID,
-	States.Description AS State, 
-	CASE @IDLang
-		WHEN 'IT' THEN Countries.IT
-		WHEN 'EN' THEN Countries.EN
-		WHEN 'DE' THEN Countries.DE
-		WHEN 'FR' THEN Countries.FR
-		WHEN 'ES' THEN Countries.ES
-		WHEN 'PT' THEN Countries.PT
-		ELSE Countries.EN
-	END AS Country
-					  
+    Users.UserID,
+    Users.Email,
+    Users.Password,
+    Users.Name,
+    Users.Company,
+    Users.Address,
+    Users.City,
+    Users.Zip,
+    Users.IDCountry_FK,
+    Users.IDState_FK,
+    Users.PIva,
+    Users.CFiscale,
+    Users.Phone,
+    Users.Fax,
+    Users.SendNewsletter,
+    Users.MailChecked,
+    Users.PortalID,
+    States.Description AS State, 
+    CASE @IDLang
+        WHEN 'IT' THEN Countries.IT
+        WHEN 'EN' THEN Countries.EN
+        WHEN 'DE' THEN Countries.DE
+        WHEN 'FR' THEN Countries.FR
+        WHEN 'ES' THEN Countries.ES
+        WHEN 'PT' THEN Countries.PT
+        ELSE Countries.EN
+    END AS Country
+                      
 FROM 
-	Users LEFT OUTER JOIN
-	Countries ON Users.IDCountry_FK = Countries.PK_IDCountry LEFT OUTER JOIN
-	States ON Users.IDState_FK = States.PK_IDState
-	
+    Users LEFT OUTER JOIN
+    Countries ON Users.IDCountry_FK = Countries.PK_IDCountry LEFT OUTER JOIN
+    States ON Users.IDState_FK = States.PK_IDState
+    
 WHERE
 (Users.Email = @Email) AND (Users.PortalID = @PortalID)
 GO
@@ -3913,7 +3913,7 @@ GO
 /****** Oggetto: stored procedure UpdateUser    Data dello script: 07/11/2002 22.28.12 ******/
 CREATE PROCEDURE UpdateUser
 (
-	@PortalID		int,
+    @PortalID		int,
     @UserID         int,
     @Name			nvarchar(50),
     @Email          nvarchar(100),
@@ -4711,7 +4711,7 @@ GO
 /* returns all roles for the specified user */
 CREATE PROCEDURE GetRolesByUser
 (
-	@PortalID		int,
+    @PortalID		int,
     @Email         nvarchar(100)
 )
 AS

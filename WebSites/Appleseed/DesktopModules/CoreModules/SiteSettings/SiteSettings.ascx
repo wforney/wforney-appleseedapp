@@ -22,7 +22,7 @@
     </tr>
 </table>
 <rbfwebui:settingstable id="EditTable" runat="server" />
-<rbfwebui:linkbutton id="updateButton" runat="server" cssclass="CommandButton" text="Apply Changes"
+<rbfwebui:linkbutton id="UpdateButton" runat="server" cssclass="CommandButton" text="Apply Changes"
     textkey="APPLY">
 </rbfwebui:linkbutton>
 

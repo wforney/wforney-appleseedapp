@@ -1,119 +1,117 @@
-using System.Collections;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
-using Appleseed.Framework;
-using Appleseed.Framework.Site.Configuration;
-using Appleseed.Framework.Web.UI.WebControls;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="SimpleMenuType.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   SimpleMenuType
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Content.Web.Modules
 {
-	/// <summary>
-	/// SimpleMenuType
-	/// </summary>
-	public class SimpleMenuType :UserControl
-	{
+    using System.Collections.Generic;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+
+    using Appleseed.Framework;
+    using Appleseed.Framework.Site.Configuration;
+    using Appleseed.Framework.Web.UI.WebControls;
+
+    /// <summary>
+    /// Simple Menu Type
+    /// </summary>
+    public class SimpleMenuType : UserControl
+    {
+        #region Constants and Fields
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:SimpleMenuType"/> class.
+        /// The menu bind option.
         /// </summary>
-		public SimpleMenuType()
-		{
-			//
-			// TODO: Add constructor logic here
-			//
-		}
+        private BindOption menuBindOption = BindOption.BindOptionNone;
 
-
-		private Hashtable _settings;
         /// <summary>
-        /// Gets or sets the module settings.
+        /// The menu repeat direction.
         /// </summary>
-        /// <value>The module settings.</value>
-		public Hashtable ModuleSettings
-		{
-			get
-			{
-				return _settings;
-			}
-			set
-			{
-				_settings = value ;
-			}
-		}
-		
+        private RepeatDirection menuRepeatDirection;
 
-		private PortalSettings _portalSettings;
         /// <summary>
-        /// Gets or sets the global portal settings.
+        /// The parent tab id.
+        /// </summary>
+        private int parentTabId;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets the global portal settings.
         /// </summary>
         /// <value>The global portal settings.</value>
-		public PortalSettings GlobalPortalSettings
-		{
-			get
-			{
-				return _portalSettings;
-			}
-			set
-			{
-				_portalSettings = value ;
-			}
-		}
-		
+        public PortalSettings GlobalPortalSettings { get; set; }
 
-		private BindOption menuBindOption = BindOption.BindOptionNone;
         /// <summary>
-        /// Gets the menu bind option.
+        ///   Gets the menu bind option.
         /// </summary>
         /// <value>The menu bind option.</value>
-		public BindOption MenuBindOption
-		{
-		get
-		{
-			if (ModuleSettings["sm_MenuBindingType"] != null )
-			menuBindOption = (BindOption) int.Parse("0" +  ModuleSettings["sm_MenuBindingType"].ToString());
-			return menuBindOption;
-		}
-}
+        public BindOption MenuBindOption
+        {
+            get
+            {
+                if (this.ModuleSettings["sm_MenuBindingType"] != null)
+                {
+                    this.menuBindOption =
+                        (BindOption)int.Parse("0" + this.ModuleSettings["sm_MenuBindingType"].ToString());
+                }
 
+                return this.menuBindOption;
+            }
+        }
 
-
-		private RepeatDirection menuRepeatDirection;
         /// <summary>
-        /// Gets the menu repeat direction.
+        ///   Gets the menu repeat direction.
         /// </summary>
         /// <value>The menu repeat direction.</value>
-		public RepeatDirection MenuRepeatDirection
-		{
-			get
-			{
-				if (ModuleSettings["sm_Menu_RepeatDirection"] != null && ModuleSettings["sm_Menu_RepeatDirection"].ToString() == "0" ) 
-					menuRepeatDirection = RepeatDirection.Horizontal; 
-				else
-					menuRepeatDirection = RepeatDirection.Vertical;
+        public RepeatDirection MenuRepeatDirection
+        {
+            get
+            {
+                if (this.ModuleSettings["sm_Menu_RepeatDirection"] != null &&
+                    this.ModuleSettings["sm_Menu_RepeatDirection"].ToString() == "0")
+                {
+                    this.menuRepeatDirection = RepeatDirection.Horizontal;
+                }
+                else
+                {
+                    this.menuRepeatDirection = RepeatDirection.Vertical;
+                }
 
-				return menuRepeatDirection;
+                return this.menuRepeatDirection;
+            }
+        }
 
-			}
-		}
-	
-
-
-		private int parentTabID = 0;
         /// <summary>
-        /// Gets the parent page ID.
+        ///   Gets or sets the module settings.
+        /// </summary>
+        /// <value>The module settings.</value>
+        public Dictionary<string, ISettingItem> ModuleSettings { get; set; }
+
+        /// <summary>
+        ///   Gets the parent page ID.
         /// </summary>
         /// <value>The parent page ID.</value>
-		public int ParentPageID
-		{
-			get
-			{
-				if (ModuleSettings["sm_ParentPageID"] != null)
-					parentTabID = int.Parse(ModuleSettings["sm_ParentPageID"].ToString());
-			
-				return parentTabID;
+        public int ParentPageID
+        {
+            get
+            {
+                if (this.ModuleSettings["sm_ParentPageID"] != null)
+                {
+                    this.parentTabId = int.Parse(this.ModuleSettings["sm_ParentPageID"].ToString());
+                }
 
-			}
-		}
+                return this.parentTabId;
+            }
+        }
 
-	}
+        #endregion
+    }
 }
