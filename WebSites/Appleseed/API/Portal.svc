@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="AppleseedWebApplication.API.Portal" CodeBehind="Portal.svc.cs" %>

@@ -41,7 +41,7 @@ namespace Appleseed.Content.Web.Modules
                 if (Context.User.Identity.IsAuthenticated)
                 {
                     char[] separator = {';'};
-                    string[] deleteRoles = Module.AuthorizedDeleteRoles.Split(separator);
+                    string[] deleteRoles = this.Module.AuthorizedDeleteRoles.Split(separator);
                     foreach (string role in deleteRoles)
                     {
                         if (role.Length > 0)
@@ -55,7 +55,7 @@ namespace Appleseed.Content.Web.Modules
                 }
                 lnkRSS.HRef = HttpUrlBuilder.BuildUrl("~/DesktopModules/CommunityModules/Blog/RSS.aspx", PageID, "&mID=" + ModuleID);
                 imgRSS.Src = HttpUrlBuilder.BuildUrl("~/DesktopModules/CommunityModules/Blog/xml.gif");
-                lblCopyright.Text = moduleSettings["Copyright"].ToString();
+                lblCopyright.Text = this.ModuleSettings["Copyright"].ToString();
 
                 BindData();
             }

@@ -108,7 +108,7 @@ namespace Appleseed.Content.Web.Modules
             }
 
             // Get the list of registered users from the database
-            allUsers.DataSource = new UsersDB().GetUsers(portalSettings.PortalAlias);
+            allUsers.DataSource = new UsersDB().GetUsers(this.PortalSettings.PortalAlias);
             // bind all portal users to dropdownlist
             allUsers.DataBind();
         }

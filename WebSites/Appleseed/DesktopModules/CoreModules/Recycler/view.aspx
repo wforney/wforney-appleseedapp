@@ -14,15 +14,15 @@
                     </td>
                 </tr>
             </table>
-            <rbfwebui:linkbutton id="updateButton" runat="server" cssclass="CommandButton" text="Update"></rbfwebui:linkbutton>
+            <rbfwebui:linkbutton id="UpdateButton" runat="server" cssclass="CommandButton" text="Update"></rbfwebui:linkbutton>
             <asp:dropdownlist id="ddTabs" runat="server" autopostback="True" datasource="<%# portalTabs %>"
                 datatextfield="PageName" datavaluefield="PageID" onselectedindexchanged="ddTabs_SelectedIndexChanged">
             </asp:dropdownlist>&nbsp;
             <rbfwebui:linkbutton id="restoreButton" runat="server" cssclass="CommandButton" onclick="restoreButton_Click"
                 text="Restore"></rbfwebui:linkbutton>&nbsp;
-            <rbfwebui:linkbutton id="cancelButton" runat="server" causesvalidation="False" cssclass="CommandButton"
+            <rbfwebui:linkbutton id="CancelButton" runat="server" causesvalidation="False" cssclass="CommandButton"
                 text="Cancel"></rbfwebui:linkbutton>&nbsp;
-            <rbfwebui:linkbutton id="deleteButton" runat="server" causesvalidation="False" cssclass="CommandButton"
+            <rbfwebui:linkbutton id="DeleteButton" runat="server" causesvalidation="False" cssclass="CommandButton"
                 text="Delete this item"></rbfwebui:linkbutton>
             <hr noshade="noshade" size="1" width="500" />
         </asp:panel>

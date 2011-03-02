@@ -1,44 +1,54 @@
-<%@ control autoeventwireup="false" inherits="Appleseed.Content.Web.Modules.Signin" language="c#" Codebehind="Signin.ascx.cs" %>
+<%@ Control Inherits="AppleseedWebApplication.DesktopModules.CoreModules.SignIn.Signin"
+    Language="c#" CodeBehind="Signin.ascx.cs" %>
 <table align="center" border="0" cellpadding="1" cellspacing="1" width="100%">
     <tr>
         <td class="Normal" nowrap="nowrap">
-            <rbfwebui:localize id="EmailLabel" runat="server" text="Email" textkey="EMAIL">
-            </rbfwebui:localize></td>
+            <rbfwebui:Localize ID="EmailLabel" runat="server" Text="Email" TextKey="EMAIL">
+            </rbfwebui:Localize>
+        </td>
     </tr>
     <tr>
         <td nowrap="nowrap">
-            <asp:textbox id="email" runat="server" columns="24" cssclass="NormalTextBox"></asp:textbox></td>
+            <asp:TextBox ID="email" runat="server" Columns="24" CssClass="NormalTextBox"></asp:TextBox>
+        </td>
     </tr>
     <tr>
         <td class="Normal" nowrap="nowrap">
-            <rbfwebui:localize id="PasswordLabel" runat="server" text="Password" textkey="PASSWORD">
-            </rbfwebui:localize></td>
+            <rbfwebui:Localize ID="PasswordLabel" runat="server" Text="Password" TextKey="PASSWORD">
+            </rbfwebui:Localize>
+        </td>
     </tr>
     <tr>
         <td nowrap="nowrap">
-            <asp:textbox id="password" runat="server" columns="24" cssclass="NormalTextBox" textmode="password"></asp:textbox></td>
+            <asp:TextBox ID="password" runat="server" Columns="24" CssClass="NormalTextBox" TextMode="password"></asp:TextBox>
+        </td>
     </tr>
     <tr>
         <td nowrap="nowrap">
-            <asp:checkbox id="RememberCheckBox" runat="server" cssclass="Normal" text="<%$ Resources:Appleseed, REMEMBER_LOGIN %> " /></td>
+            <asp:CheckBox ID="RememberCheckBox" runat="server" CssClass="Normal" Text="<%$ Resources:Appleseed, REMEMBER_LOGIN %> " />
+        </td>
     </tr>
     <tr>
         <td nowrap="nowrap">
-            <rbfwebui:button id="LoginBtn" runat="server" cssclass="CommandButton" enableviewstate="False"
-                text="Sign in" textkey="SIGNIN"/></td>
+            <rbfwebui:Button ID="LoginBtn" runat="server" CssClass="CommandButton" EnableViewState="False"
+                Text="Sign in" TextKey="SIGNIN" />
+        </td>
     </tr>
     <tr>
         <td nowrap="nowrap">
-            <rbfwebui:button id="RegisterBtn" runat="server" cssclass="CommandButton" enableviewstate="False"
-                text="Register" textkey="REGISTER" /></td>
+            <rbfwebui:Button ID="RegisterBtn" runat="server" CssClass="CommandButton" EnableViewState="False"
+                Text="Register" TextKey="REGISTER" />
+        </td>
     </tr>
     <tr>
         <td nowrap="nowrap">
-            <rbfwebui:button id="SendPasswordBtn" runat="server" cssclass="CommandButton" enableviewstate="False"
-                text="Forgotten Password?" textkey="SIGNIN_PWD_LOST" /></td>
+            <rbfwebui:Button ID="SendPasswordBtn" runat="server" CssClass="CommandButton" EnableViewState="False"
+                Text="Forgotten Password?" TextKey="SIGNIN_PWD_LOST" />
+        </td>
     </tr>
     <tr>
         <td>
-            <rbfwebui:label id="Message" runat="server" cssclass="Error"></rbfwebui:label></td>
+            <rbfwebui:Label ID="Message" runat="server" CssClass="Error"></rbfwebui:Label>
+        </td>
     </tr>
 </table>

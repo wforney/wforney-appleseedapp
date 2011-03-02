@@ -42,7 +42,7 @@ namespace Appleseed.Content.Web.Modules
         protected void BindData()
         {
             // Get the portal's defs from the database
-            SqlDataReader dr = new ModulesDB().GetCurrentModuleDefinitions(portalSettings.PortalID);
+            SqlDataReader dr = new ModulesDB().GetCurrentModuleDefinitions(this.PortalSettings.PortalID);
 
             DataTable userTable = new DataTable();
             userTable.Columns.Add(new DataColumn("FriendlyName", typeof (string)));

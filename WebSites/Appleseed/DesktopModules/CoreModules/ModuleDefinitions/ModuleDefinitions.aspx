@@ -178,11 +178,11 @@
                         </div>
                     </p>
                     <p>
-                        <rbfwebui:LinkButton ID="updateButton" runat="server" class="CommandButton" Text="Update"
+                        <rbfwebui:LinkButton ID="UpdateButton" runat="server" class="CommandButton" Text="Update"
                             TextKey="UPDATE" OnClick="OnUpdate">Update</rbfwebui:LinkButton>&nbsp;
-                        <rbfwebui:LinkButton ID="cancelButton" runat="server" CausesValidation="False" class="CommandButton"
+                        <rbfwebui:LinkButton ID="CancelButton" runat="server" CausesValidation="False" class="CommandButton"
                             Text="Cancel" TextKey="CANCEL" OnClick="OnCancel">Cancel</rbfwebui:LinkButton>&nbsp;
-                        <rbfwebui:LinkButton ID="deleteButton" runat="server" CausesValidation="False" class="CommandButton"
+                        <rbfwebui:LinkButton ID="DeleteButton" runat="server" CausesValidation="False" class="CommandButton"
                             Text="Delete this module type" TextKey="DELETE_THIS_MODULE_TYPE" OnClick="OnDelete">Delete this module type</rbfwebui:LinkButton></p>
                     <p>
                         <rbfwebui:Label ID="lblErrorDetail" runat="server" CssClass="Error"></rbfwebui:Label></p>

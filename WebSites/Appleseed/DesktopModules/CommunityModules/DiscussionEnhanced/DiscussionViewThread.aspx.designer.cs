@@ -7,8 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
-{
+namespace Appleseed.Content.Web.Modules.DiscussionEnhanced {
     
     
     public partial class DiscussionViewThread {

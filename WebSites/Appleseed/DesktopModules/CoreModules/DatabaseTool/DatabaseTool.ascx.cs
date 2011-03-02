@@ -4,10 +4,12 @@ using System.Data.SqlClient;
 using Appleseed.Framework;
 using Appleseed.Framework.DataTypes;
 using Appleseed.Framework.Web.UI.WebControls;
-using Label=System.Web.UI.WebControls.Label;
+using Label = System.Web.UI.WebControls.Label;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// DatabaseTool Module
     /// Based on VB code Written by Sreedhar Koganti (w3coder)
@@ -372,61 +374,34 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public DatabaseTool()
         {
-            SettingItem Trusted_Connection = new SettingItem(new BooleanDataType());
-            Trusted_Connection.Order = 1;
+            var trustedConnection = new SettingItem<bool, CheckBox> { Order = 1, Value = true };
             //Trusted_Connection.Required = true;   // hmmm... problem here! Dont set to true!" 
-            Trusted_Connection.Value = "True";
-            _baseSettings.Add("Trusted Connection", Trusted_Connection);
+            this.BaseSettings.Add("Trusted Connection", trustedConnection);
 
-            SettingItem ServerName = new SettingItem(new StringDataType());
-            ServerName.Order = 2;
-            ServerName.Required = true;
-            ServerName.Value = "localhost";
-            _baseSettings.Add("ServerName", ServerName);
+            var serverName = new SettingItem<string, TextBox> { Order = 2, Required = true, Value = "localhost" };
+            this.BaseSettings.Add("ServerName", serverName);
 
-            SettingItem DatabaseName = new SettingItem(new StringDataType());
-            DatabaseName.Order = 3;
-            DatabaseName.Required = true;
-            DatabaseName.Value = "Appleseed";
-            _baseSettings.Add("DatabaseName", DatabaseName);
+            var databaseName = new SettingItem<string, TextBox> { Order = 3, Required = true, Value = "Appleseed" };
+            this.BaseSettings.Add("DatabaseName", databaseName);
 
-            SettingItem UserID = new SettingItem(new StringDataType());
-            UserID.Order = 4;
-            UserID.Required = false;
-            UserID.Value = string.Empty;
-            _baseSettings.Add("UserID", UserID);
+            var userId = new SettingItem<string, TextBox> { Order = 4, Required = false, Value = string.Empty };
+            this.BaseSettings.Add("UserID", userId);
 
-            SettingItem Password = new SettingItem(new StringDataType());
-            Password.Order = 5;
-            Password.Required = false;
-            Password.Value = string.Empty;
-            _baseSettings.Add("Password", Password);
+            var password = new SettingItem<string, TextBox> { Order = 5, Required = false, Value = string.Empty };
+            this.BaseSettings.Add("Password", password);
 
-            SettingItem InfoFields = new SettingItem(new StringDataType());
-            InfoFields.Order = 6;
-            InfoFields.Required = true;
-            InfoFields.Value = "name,id,xtype,uid"; // for table sysobjects
-            _baseSettings.Add("InfoFields", InfoFields);
+            var infoFields = new SettingItem<string, TextBox> { Order = 6, Required = true, Value = "name,id,xtype,uid" };
+            this.BaseSettings.Add("InfoFields", infoFields);
 
-            SettingItem InfoExtendedFields = new SettingItem(new StringDataType());
-            InfoExtendedFields.Order = 7;
-            InfoExtendedFields.Required = true;
-            InfoExtendedFields.Value = "*"; // for table sysobjects
-            _baseSettings.Add("InfoExtendedFields", InfoExtendedFields);
+            var infoExtendedFields = new SettingItem<string, TextBox> { Order = 7, Required = true, Value = "*" };
+            this.BaseSettings.Add("InfoExtendedFields", infoExtendedFields);
 
-            SettingItem ShowQueryBox = new SettingItem(new BooleanDataType());
-            ShowQueryBox.Order = 8;
+            var showQueryBox = new SettingItem<bool, CheckBox> { Order = 8, Value = true };
             //ShowQueryBox.Required = true;   // hmmm... problem here! Dont set to true!" 
-            ShowQueryBox.Value = "True";
-            _baseSettings.Add("Show Query Box", ShowQueryBox);
+            this.BaseSettings.Add("Show Query Box", showQueryBox);
 
-            SettingItem QueryBoxHeight = new SettingItem(new IntegerDataType());
-            QueryBoxHeight.Order = 9;
-            QueryBoxHeight.Required = true;
-            QueryBoxHeight.Value = "150";
-            QueryBoxHeight.MinValue = 10;
-            QueryBoxHeight.MaxValue = 2000;
-            _baseSettings.Add("Query Box Height", QueryBoxHeight);
+            var queryBoxHeight = new SettingItem<int, TextBox> { Order = 9, Required = true, Value = 150, MinValue = 10, MaxValue = 2000 };
+            this.BaseSettings.Add("Query Box Height", queryBoxHeight);
         }
 
         #region Web Form Designer generated code
@@ -444,8 +419,8 @@ namespace Appleseed.Content.Web.Modules
             this.btnGetObjectData.Click += new EventHandler(this.GetObjectData_Click);
             this.btnQueryExecute.Click += new EventHandler(this.QueryExecute_Click);
             this.Load += new EventHandler(this.Page_Load);
-//			ModuleTitle = new DesktopModuleTitle();
-//			Controls.AddAt(0, ModuleTitle);
+            //			ModuleTitle = new DesktopModuleTitle();
+            //			Controls.AddAt(0, ModuleTitle);
             base.OnInit(e);
         }
 

@@ -10,6 +10,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// Display some text from a xml file. 
     /// </summary>
@@ -78,23 +80,23 @@ namespace Appleseed.Content.Web.Modules
                 }
 
                 /* These are now in file demo.quote
-				col.Add("Service is the rent we pay for being. It is the very purpose of life, and not something you do in your spare time. <br> --- Marion Wright Edelman");
-				col.Add("You must be the change you wish to see in the world. <br> --- Mahatma Ghandi");
-				col.Add("Make others happy and joyful. Your happiness will multiply a thousand fold. <br> --- Swami Sivananda");
-				col.Add("The influence of each human being on others in this life is a kind of immortality. <br> --- John Quincy Adams");
-				col.Add("Love sought is good, but given unsought is better. <br> --- Shakespeare");
-				col.Add("Here is a test to find out whether your mission in life is complete. If you're alive, it isn't. <br> --- Richard Bach");
-				col.Add("There is no such thing in anyone's life as an unimportant day. <br> --- Alexander Woollcott");
-				col.Add("How far you go in life depends on your being tender with the young, compassionate with the aged, sympathetic with the striving and tolerant of the weak and the strong. Because someday in life you will have been all of these. <br> --- George Washington Carver");
-				col.Add("People rarely succeed unless they have fun in what they are doing. <br> --- Dale Carnegie");
-				col.Add("Sit on a baby's bib and SPIT HAPPENS <br> --- Anonymous");
-				col.Add("May the smile on your face Come straight from your heart <br> --- Anonymous");
-				col.Add("Most good judgment comes from experience. Most experience comes from bad judgment. <br> --- Anonymous");
-				col.Add("The true \"final frontier\" is in the minds and the will of people. <br> -- Gen. Michael E. Ryan, U.S. Air Force Chief of Staff");
-				col.Add("I don't pretend to understand the Universe - it's a great deal bigger than I am. <br> -- Thomas Carlyle");
-				col.Add("When we try to pick out anything else in the Universe, we find it hitched to everything else in the Universe. <br> -- John Muir");
-				col.Add("Not all who wander are lost. <br> -- Tolkien");
-				*/
+                col.Add("Service is the rent we pay for being. It is the very purpose of life, and not something you do in your spare time. <br> --- Marion Wright Edelman");
+                col.Add("You must be the change you wish to see in the world. <br> --- Mahatma Ghandi");
+                col.Add("Make others happy and joyful. Your happiness will multiply a thousand fold. <br> --- Swami Sivananda");
+                col.Add("The influence of each human being on others in this life is a kind of immortality. <br> --- John Quincy Adams");
+                col.Add("Love sought is good, but given unsought is better. <br> --- Shakespeare");
+                col.Add("Here is a test to find out whether your mission in life is complete. If you're alive, it isn't. <br> --- Richard Bach");
+                col.Add("There is no such thing in anyone's life as an unimportant day. <br> --- Alexander Woollcott");
+                col.Add("How far you go in life depends on your being tender with the young, compassionate with the aged, sympathetic with the striving and tolerant of the weak and the strong. Because someday in life you will have been all of these. <br> --- George Washington Carver");
+                col.Add("People rarely succeed unless they have fun in what they are doing. <br> --- Dale Carnegie");
+                col.Add("Sit on a baby's bib and SPIT HAPPENS <br> --- Anonymous");
+                col.Add("May the smile on your face Come straight from your heart <br> --- Anonymous");
+                col.Add("Most good judgment comes from experience. Most experience comes from bad judgment. <br> --- Anonymous");
+                col.Add("The true \"final frontier\" is in the minds and the will of people. <br> -- Gen. Michael E. Ryan, U.S. Air Force Chief of Staff");
+                col.Add("I don't pretend to understand the Universe - it's a great deal bigger than I am. <br> -- Thomas Carlyle");
+                col.Add("When we try to pick out anything else in the Universe, we find it hitched to everything else in the Universe. <br> -- John Muir");
+                col.Add("Not all who wander are lost. <br> -- Tolkien");
+                */
 
                 quoteText = (string) col[objRan.Next(col.Count)];
             }
@@ -119,65 +121,82 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public Quote()
         {
-            SettingItem setQuoteSource = new SettingItem(new ListDataType("File;My Quote"));
-            setQuoteSource.Value = "File";
-            setQuoteSource.Order = 1;
-            setQuoteSource.EnglishName = "Quote source?";
-            setQuoteSource.Description = "Get quotes from a file or display the text from field My Quote";
-            _baseSettings.Add("Quote source", setQuoteSource);
+            var setQuoteSource =
+                new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("File;My Quote"))
+                    {
+                        Value = "File",
+                        Order = 1,
+                        EnglishName = "Quote source?",
+                        Description = "Get quotes from a file or display the text from field My Quote"
+                    };
+            this.BaseSettings.Add("Quote source", setQuoteSource);
 
-            ListDataType fileList = new ListDataType(GetListOfQuoteFiles());
-            SettingItem setQuoteFile = new SettingItem(fileList);
-            setQuoteFile.Value = "demo.quote";
-            setQuoteFile.Order = 2;
-            setQuoteFile.EnglishName = "Quote file";
-            setQuoteFile.Description = "The name of the file containing quotes";
-            _baseSettings.Add("Quote file", setQuoteFile);
+            var fileList = new ListDataType<string, ListControl>(this.GetListOfQuoteFiles());
+            var setQuoteFile = new SettingItem<string, ListControl>(fileList)
+                {
+                    Value = "demo.quote",
+                    Order = 2,
+                    EnglishName = "Quote file",
+                    Description = "The name of the file containing quotes"
+                };
+            this.BaseSettings.Add("Quote file", setQuoteFile);
 
-            SettingItem setMyQuote = new SettingItem(new StringDataType());
-            setMyQuote.Value = "Enter your a quote here!";
-            setMyQuote.Order = 3;
-            setMyQuote.EnglishName = "My Quote";
-            setMyQuote.Description = "Enter any quote here and set Quote source to My Quote";
-            _baseSettings.Add("My Quote", setMyQuote);
+            var setMyQuote = new SettingItem<string, TextBox>
+                {
+                    Value = "Enter your a quote here!",
+                    Order = 3,
+                    EnglishName = "My Quote",
+                    Description = "Enter any quote here and set Quote source to My Quote"
+                };
+            this.BaseSettings.Add("My Quote", setMyQuote);
 
-            SettingItem setTextSize =
-                new SettingItem(new ListDataType("Default;H1 (largest);H2;H3;H4;H5;H6 (smallest)"));
-            setTextSize.Value = "Default";
-            setTextSize.Order = 4;
-            setTextSize.EnglishName = "Text size";
-            setTextSize.Description =
-                "Text size of the quote text. The 6 build-in heading sizes (HTML tag <H1>,<H2>,etc)";
-            _baseSettings.Add("Text size", setTextSize);
+            var setTextSize =
+                new SettingItem<string, ListControl>(
+                    new ListDataType<string, ListControl>("Default;H1 (largest);H2;H3;H4;H5;H6 (smallest)"))
+                    {
+                        Value = "Default",
+                        Order = 4,
+                        EnglishName = "Text size",
+                        Description = "Text size of the quote text. The 6 build-in heading sizes (HTML tag <H1>,<H2>,etc)"
+                    };
+            this.BaseSettings.Add("Text size", setTextSize);
 
-            SettingItem setDisplayInItalic = new SettingItem(new BooleanDataType());
-            setDisplayInItalic.Value = "true";
-            setDisplayInItalic.Order = 5;
-            setDisplayInItalic.EnglishName = "Display in italic?";
-            setDisplayInItalic.Description = "Display all the quote text in italic style (HTML tag <i>)";
-            _baseSettings.Add("Display in italic", setDisplayInItalic);
+            var setDisplayInItalic = new SettingItem<bool, CheckBox>
+                {
+                    Value = true,
+                    Order = 5,
+                    EnglishName = "Display in italic?",
+                    Description = "Display all the quote text in italic style (HTML tag <i>)"
+                };
+            this.BaseSettings.Add("Display in italic", setDisplayInItalic);
 
-            SettingItem setDisplayInBold = new SettingItem(new BooleanDataType());
-            setDisplayInBold.Value = "false";
-            setDisplayInBold.Order = 6;
-            setDisplayInBold.EnglishName = "Display in bold?";
-            setDisplayInBold.Description = "Display all the quote text in bold/fat letters (HTML tag <b>)";
-            _baseSettings.Add("Display in bold", setDisplayInBold);
+            var setDisplayInBold = new SettingItem<bool, CheckBox>
+                {
+                    Value = false,
+                    Order = 6,
+                    EnglishName = "Display in bold?",
+                    Description = "Display all the quote text in bold/fat letters (HTML tag <b>)"
+                };
+            this.BaseSettings.Add("Display in bold", setDisplayInBold);
 
-            SettingItem setStartTag = new SettingItem(new StringDataType());
-            setStartTag.Value = "";
-            setStartTag.Order = 7;
-            setStartTag.EnglishName = "Start tag";
-            setStartTag.Description =
-                "Enter any special customizing HTML start tag here, e.g. a marquee tag make the text scroll";
-            _baseSettings.Add("Start tag", setStartTag);
+            var setStartTag = new SettingItem<string, TextBox>
+                {
+                    Value = string.Empty,
+                    Order = 7,
+                    EnglishName = "Start tag",
+                    Description =
+                        "Enter any special customizing HTML start tag here, e.g. a marquee tag make the text scroll"
+                };
+            this.BaseSettings.Add("Start tag", setStartTag);
 
-            SettingItem setEndTag = new SettingItem(new StringDataType());
-            setEndTag.Value = "";
-            setEndTag.Order = 8;
-            setEndTag.EnglishName = "End tag";
-            setEndTag.Description = "Must correspond to the Start tag";
-            _baseSettings.Add("End tag", setEndTag);
+            var setEndTag = new SettingItem<string, TextBox>
+                {
+                    Value = string.Empty,
+                    Order = 8,
+                    EnglishName = "End tag",
+                    Description = "Must correspond to the Start tag"
+                };
+            this.BaseSettings.Add("End tag", setEndTag);
         }
 
         /// <summary>

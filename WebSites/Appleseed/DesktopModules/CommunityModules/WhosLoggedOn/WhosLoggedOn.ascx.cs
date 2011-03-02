@@ -1,14 +1,19 @@
-using System;
-using System.Collections;
-using System.IO;
-using Appleseed.Framework;
-using Appleseed.Framework.Data;
-using Appleseed.Framework.DataTypes;
-using Appleseed.Framework.Monitoring;
-using Appleseed.Framework.Web.UI.WebControls;
-
 namespace Appleseed.Content.Web.Modules
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Web.UI.WebControls;
+
+    using Appleseed.Framework;
+    using Appleseed.Framework.Data;
+    using Appleseed.Framework.DataTypes;
+    using Appleseed.Framework.Monitoring;
+    using Appleseed.Framework.Web.UI.WebControls;
+
+    using Label = Appleseed.Framework.Web.UI.WebControls.Label;
+
     /// <summary>
     /// Who's Logged On Module - Uses the monitoring database table to work
     /// out and display who is currently logged on, anonymous or otherwise
@@ -45,17 +50,17 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public WhosLoggedOn()
         {
-            SettingItem cacheTime = new SettingItem(new IntegerDataType());
+            var cacheTime = new SettingItem<int, TextBox>();
             cacheTime.Required = true;
             cacheTime.Order = 0;
-            cacheTime.Value = "1";
+            cacheTime.Value = 1;
             cacheTime.MinValue = 0;
             cacheTime.MaxValue = 60000;
             cacheTime.Description =
                 General.GetString("WHOSLOGGEDONCACHETIMEOUT",
                                   "Specify an amount of time the who's logged on module will wait before checking again (0 - 60000)",
                                   this);
-            _baseSettings.Add("CacheTimeout", cacheTime);
+            this.BaseSettings.Add("CacheTimeout", cacheTime);
         }
 
         /// <summary>
@@ -65,13 +70,14 @@ namespace Appleseed.Content.Web.Modules
         /// <param name="e">e</param>
         private void AppleseedVersion_Load(object sender, EventArgs e)
         {
-            int cacheTime = Int32.Parse((SettingItem) Settings["CacheTimeout"]);
+            int cacheTime = ((SettingItem<int, TextBox>)Settings["CacheTimeout"]).Value;
 
             int anonUserCount, regUsersOnlineCount;
             string regUsersString;
-            Utility.FillUsersOnlineCache(portalSettings.PortalID,
-                                         minutesToCheckForUsers,
-                                         cacheTime,
+            Utility.FillUsersOnlineCache(
+                this.PortalSettings.PortalID,
+                this.minutesToCheckForUsers,
+                cacheTime,
                                          out anonUserCount,
                                          out regUsersOnlineCount,
                                          out regUsersString);
@@ -101,7 +107,7 @@ namespace Appleseed.Content.Web.Modules
             string currentScriptName = Path.Combine(Server.MapPath(TemplateSourceDirectory), "install.sql");
 
 
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback
@@ -116,7 +122,7 @@ namespace Appleseed.Content.Web.Modules
         public override void Uninstall(IDictionary stateSaver)
         {
             string currentScriptName = Path.Combine(Server.MapPath(TemplateSourceDirectory), "uninstall.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback

@@ -5,7 +5,7 @@
     <Columns>
         <rbfwebui:TemplateColumn>
             <ItemTemplate>
-                <rbfwebui:HyperLink TextKey="EDIT" Text="Edit" ID="editLink" ImageUrl='<%# CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
+                <rbfwebui:HyperLink TextKey="EDIT" Text="Edit" ID="editLink" ImageUrl='<%# this.CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl %>'
                     NavigateUrl='<%# Appleseed.Framework.HttpUrlBuilder.BuildUrl("~/DesktopModules/CommunityModules/Documents/DocumentsEdit.aspx","ItemID=" + DataBinder.Eval(Container.DataItem,"ItemID")  + "&mid=" + ModuleID) %>'
                     runat="server" />
             </ItemTemplate>

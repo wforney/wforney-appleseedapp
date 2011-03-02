@@ -32,7 +32,7 @@
                         <rbfwebui:linkbutton id="btnRequestApproval" runat="server" cssclass="CommandButton"
                             text="Request approval" textkey="SWI_READYTOAPPROVE"></rbfwebui:linkbutton>
                         &nbsp;
-                        <rbfwebui:linkbutton id="cancelButton" runat="server" cssclass="CommandButton" text="Cancel"
+                        <rbfwebui:linkbutton id="CancelButton" runat="server" cssclass="CommandButton" text="Cancel"
                             textkey="CANCEL"></rbfwebui:linkbutton>
                     </td>
                 </tr>

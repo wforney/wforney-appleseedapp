@@ -1,47 +1,51 @@
-using System;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="UrlDataType.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   URL Data Type
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.DataTypes
 {
+    using System;
+    using System.Web.UI.WebControls;
+
     /// <summary>
-    /// UrlDataType
+    /// URL Data Type
     /// </summary>
-    public class UrlDataType : BaseDataType
+    public class UrlDataType : BaseDataType<Uri, TextBox>
     {
-        protected new string innerValue = "http://localhost";
+        #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UrlDataType"/> class.
+        ///   Initializes a new instance of the <see cref = "UrlDataType" /> class.
         /// </summary>
         public UrlDataType()
         {
-            InnerDataType = PropertiesDataType.String;
-            //InitializeComponents();
+            // this.Type = PropertiesDataType.String;
+            this.Value = new Uri("http://localhost");
+
+            // InitializeComponents();
         }
 
-        /// <summary>
-        /// Gets or sets the value.
-        /// </summary>
-        /// <value>The value.</value>
-        public override string Value
-        {
-            get { return base.Value; }
-            set
-            {
-                //Check type
-                if ((value != null) && (value.Length != 0)) //Check by Bill (blarm)
-                    base.Value = new Uri(value).ToString();
-                else
-                    base.Value = value;
-            }
-        }
+        #endregion
+
+        #region Properties
 
         /// <summary>
-        /// Gets the description.
+        ///   Gets the description.
         /// </summary>
         /// <value>The description.</value>
         public override string Description
         {
-            get { return "Full valid URI"; }
+            get
+            {
+                return "Full valid URI";
+            }
         }
+
+        #endregion
     }
 }

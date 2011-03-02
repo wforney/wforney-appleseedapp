@@ -39,7 +39,7 @@ namespace Appleseed.Content.Web.Modules
             {
                 XmlDocument _checkXml = new XmlDocument();
 
-                myFolder = Path.WebPathCombine(portalSettings.PortalPath, "MagicUrl");
+                myFolder = Path.WebPathCombine(this.PortalSettings.PortalPath, "MagicUrl");
                 if (!Directory.Exists(Server.MapPath(myFolder)))
                     Directory.CreateDirectory(Server.MapPath(myFolder));
 

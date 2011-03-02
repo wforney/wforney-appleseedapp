@@ -36,14 +36,14 @@ namespace Appleseed.Content.Web.Modules
         /// <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
         private void Page_Load(object sender, EventArgs e)
         {
-            lblQuiz.Text = moduleSettings["QuizName"].ToString();
+            lblQuiz.Text = this.ModuleSettings["QuizName"].ToString();
 
             PieUrl = new PortalUrlDataType();
             PieUrl.Value = "/Quiz/Pie.gif";
 
             PortalUrlDataType pt;
             pt = new PortalUrlDataType();
-            pt.Value = moduleSettings["XMLsrc"].ToString();
+            pt.Value = this.ModuleSettings["XMLsrc"].ToString();
             string xmlsrc = pt.FullPath;
 
             bool xmlsrcOk = false;

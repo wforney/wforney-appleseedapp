@@ -1,113 +1,124 @@
-using System;
-using System.IO;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Appleseed.Framework;
-using Appleseed.Framework.Data;
-using Appleseed.Framework.Site.Configuration;
-using Appleseed.Framework.Site.Data;
-using Appleseed.Framework.Content.Data;
-using Appleseed.Framework.Users.Data;
-using Appleseed.Framework.DataTypes;
-using Appleseed.Framework.Web.UI.WebControls;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="XmlModule.ascx.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Xml Module
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System;
+    using System.IO;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
 
-	/// <summary>
-	/// Xml Module
-	/// </summary>
-	public partial class XmlModule : PortalModuleControl
-	{
+    using Appleseed.Framework;
+    using Appleseed.Framework.DataTypes;
+    using Appleseed.Framework.Web.UI.WebControls;
+
+    /// <summary>
+    /// Xml Module
+    /// </summary>
+    public partial class XmlModule : PortalModuleControl
+    {
+        #region Constructors and Destructors
+
         /// <summary>
-        /// The Page_Load event handler on this User Control uses
-        /// the Portal configuration system to obtain an xml document
-        /// and xsl/t transform file location.  It then sets these
-        /// properties on an &lt;asp:Xml&gt; server control.
+        ///   Initializes a new instance of the <see cref = "XmlModule" /> class.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		private void Page_Load(object sender, EventArgs e)
-		{
-			PortalUrlDataType pt;
+        public XmlModule()
+        {
+            var xmlSrc = new SettingItem<string, TextBox>(new PortalUrlDataType()) { Required = true, Order = 1 };
+            this.BaseSettings.Add("XMLsrc", xmlSrc);
 
-			pt = new PortalUrlDataType();
-			pt.Value = Settings["XMLsrc"].ToString();
-			string xmlsrc = pt.FullPath;
+            var xslSrc = new SettingItem<string, TextBox>(new PortalUrlDataType()) { Required = true, Order = 2 };
+            this.BaseSettings.Add("XSLsrc", xslSrc);
+        }
 
-			if ((xmlsrc != null) && (xmlsrc.Length != 0))
-			{
-				if (File.Exists(Server.MapPath(xmlsrc)))
-				{
-					xml1.DocumentSource = xmlsrc;
-					// Change - 28/Feb/2003 - Jeremy Esland
-					// Builds cache dependency files list
-					this.ModuleConfiguration.CacheDependency.Add(Server.MapPath(xmlsrc));
-				}
-				else
-				{
-					Controls.Add(new LiteralControl("<br>" + "<span class='Error'>" +General.GetString("FILE_NOT_FOUND").Replace("%1%", xmlsrc) + "<br>"));
-				}
-			}
+        #endregion
 
-			pt = new PortalUrlDataType();
-			pt.Value = Settings["XSLsrc"].ToString();
-			string xslsrc = pt.FullPath;
-
-			if ((xslsrc != null) && (xslsrc.Length != 0))
-			{
-				if (File.Exists(Server.MapPath(xslsrc)))
-				{
-					xml1.TransformSource = xslsrc;
-					// Change - 28/Feb/2003 - Jeremy Esland
-					// Builds cache dependency files list
-					this.ModuleConfiguration.CacheDependency.Add(Server.MapPath(xslsrc));
-				}
-				else
-				{
-					Controls.Add(new LiteralControl("<br>" + "<span class='Error'>" +General.GetString("FILE_NOT_FOUND").Replace("%1%", xslsrc) + "<br>"));
-				}
-			}
-		}
+        #region Properties
 
         /// <summary>
-        /// Contsructor
-        /// </summary>
-		public XmlModule()
-		{
-			SettingItem XMLsrc = new SettingItem(new PortalUrlDataType());
-			XMLsrc.Required = true;
-			XMLsrc.Order = 1;
-			this._baseSettings.Add("XMLsrc", XMLsrc);
-
-			SettingItem XSLsrc = new SettingItem(new PortalUrlDataType());
-			XSLsrc.Required = true;
-			XSLsrc.Order = 2;
-			this._baseSettings.Add("XSLsrc", XSLsrc);
-		}
-
-        /// <summary>
-        /// GUID of module (mandatory)
+        ///   GUID of module (mandatory)
         /// </summary>
         /// <value></value>
-		public override Guid GuidID
-		{
-			get
-			{
-				return new Guid("{BE224332-03DE-42B7-B127-AE1F1BD0FADC}");
-			}
-		}
+        public override Guid GuidID
+        {
+            get
+            {
+                return new Guid("{BE224332-03DE-42B7-B127-AE1F1BD0FADC}");
+            }
+        }
 
-		#region Web Form Designer generated code
+        #endregion
+
+        #region Methods
+
         /// <summary>
-        /// On init
+        /// The Page_Load event handler on this User Control uses
+        ///   the Portal configuration system to obtain an xml document
+        ///   and xsl/t transform file location.  It then sets these
+        ///   properties on an &lt;asp:Xml&gt; server control.
         /// </summary>
-        /// <param name="e"></param>
-		override protected void OnInit(EventArgs e)
-		{
-            this.Load += new EventHandler(this.Page_Load);
-			base.OnInit(e);
-		}
-		#endregion
-	}
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            var pt = new PortalUrlDataType { Value = this.Settings["XMLsrc"].ToString() };
+            var xmlsrc = pt.FullPath;
+
+            if (!string.IsNullOrEmpty(xmlsrc))
+            {
+                if (File.Exists(this.Server.MapPath(xmlsrc)))
+                {
+                    this.xml1.DocumentSource = xmlsrc;
+
+                    // Change - 28/Feb/2003 - Jeremy Esland
+                    // Builds cache dependency files list
+                    this.ModuleConfiguration.CacheDependency.Add(this.Server.MapPath(xmlsrc));
+                }
+                else
+                {
+                    this.Controls.Add(
+                        new LiteralControl(
+                            string.Format(
+                                "<br /><span class='Error'>{0}<br />", 
+                                General.GetString("FILE_NOT_FOUND").Replace("%1%", xmlsrc))));
+                }
+            }
+
+            pt = new PortalUrlDataType { Value = this.Settings["XSLsrc"].ToString() };
+            var xslsrc = pt.FullPath;
+
+            if (string.IsNullOrEmpty(xslsrc))
+            {
+                return;
+            }
+
+            if (File.Exists(this.Server.MapPath(xslsrc)))
+            {
+                this.xml1.TransformSource = xslsrc;
+
+                // Change - 28/Feb/2003 - Jeremy Esland
+                // Builds cache dependency files list
+                this.ModuleConfiguration.CacheDependency.Add(this.Server.MapPath(xslsrc));
+            }
+            else
+            {
+                this.Controls.Add(
+                    new LiteralControl(
+                        string.Format(
+                            "<br /><span class='Error'>{0}<br />", 
+                            General.GetString("FILE_NOT_FOUND").Replace("%1%", xslsrc))));
+            }
+        }
+
+        #endregion
+    }
 }

@@ -120,7 +120,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
             {
                 base.CreateChildControls();
 
-                PortalModuleControl module = (PortalModuleControl) Page.LoadControl(_moduleConfiguration.DesktopSrc);
+                PortalModuleControl module = (PortalModuleControl) Page.LoadControl(this._moduleConfiguration.DesktopSrc);
 
                 module.ModuleConfiguration = ModuleConfiguration;
                 module.PortalID = PortalID;
@@ -160,11 +160,11 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
                 // change 28/Feb/2003 - Jeremy Esland - Cache
                 // added file dependencies for cache insert
-                if (_moduleConfiguration.CacheDependency != null)
+                if (this._moduleConfiguration.CacheDependency != null)
                 {
-                    string[] dependencyList = new string[_moduleConfiguration.CacheDependency.Count];
+                    string[] dependencyList = new string[this._moduleConfiguration.CacheDependency.Count];
                     int i = 0;
-                    foreach (string thisfile in _moduleConfiguration.CacheDependency)
+                    foreach (string thisfile in this._moduleConfiguration.CacheDependency)
                     {
                         dependencyList[i] = thisfile;
                         i++;

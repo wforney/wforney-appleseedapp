@@ -1,19 +1,37 @@
-using System.Web.UI.WebControls;
-using Appleseed.Framework.Web.UI.WebControls;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ISitemapRenderer.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   This defines an interface for a Sitemap renderer.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Content.Web.Modules.Sitemap
 {
-	/// <summary>
-	/// This defines an interface for a Sitemap renderer.
-	/// </summary>
-	public interface ISitemapRenderer
-	{
+    using System.Collections.Generic;
+    using System.Web.UI.WebControls;
+
+    /// <summary>
+    /// This defines an interface for a Sitemap renderer.
+    /// </summary>
+    public interface ISitemapRenderer
+    {
+        #region Public Methods
 
         /// <summary>
-        /// The Render interface function
+        /// Renders the specified list.
         /// </summary>
-        /// <param name="list">The list.</param>
-        /// <returns></returns>
-		WebControl Render(SitemapItems list);
-	}
+        /// <param name="list">
+        /// The list.
+        /// </param>
+        /// <returns>
+        /// A web control.
+        /// </returns>
+        /// <remarks>
+        /// </remarks>
+        WebControl Render(IList<SitemapItem> list);
+
+        #endregion
+    }
 }

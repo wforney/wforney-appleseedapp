@@ -27,7 +27,7 @@ namespace Appleseed.Content.Web.Modules
 
         protected void BindData(string SortField)
         {
-            DataTable dt = RecyclerDB.GetModulesInRecycler(portalSettings.PortalID, SortField);
+            DataTable dt = RecyclerDB.GetModulesInRecycler(this.PortalSettings.PortalID, SortField);
             DataGrid1.DataSource = dt;
 
             DataGrid1.DataBind();

@@ -123,7 +123,7 @@
                         <td colspan="4">
                             <rbfwebui:LinkButton ID="saveButton" runat="server" class="CommandButton" Text="Save Changes"
                                 TextKey="SAVE_CHANGES">Save Page</rbfwebui:LinkButton>&nbsp;
-                            <rbfwebui:LinkButton ID="cancelButton" runat="server" class="CommandButton" Text="Cancel"
+                            <rbfwebui:LinkButton ID="CancelButton" runat="server" class="CommandButton" Text="Cancel"
                                 TextKey="CANCEL"></rbfwebui:LinkButton>
                         </td>
                     </tr>

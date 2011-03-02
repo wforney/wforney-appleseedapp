@@ -32,11 +32,11 @@ namespace Appleseed.Content.Web.Modules
         {
             // Construct the page
             // Added css Styles by Mario Endara <mario@softworks.com.uy> (2004/10/26)
-            updateButton.CssClass = "CommandButton";
-            PlaceHolderButtons.Controls.Add(updateButton);
+            this.UpdateButton.CssClass = "CommandButton";
+            PlaceHolderButtons.Controls.Add(this.UpdateButton);
             PlaceHolderButtons.Controls.Add(new LiteralControl("&#160;"));
-            cancelButton.CssClass = "CommandButton";
-            PlaceHolderButtons.Controls.Add(cancelButton);
+            this.CancelButton.CssClass = "CommandButton";
+            PlaceHolderButtons.Controls.Add(this.CancelButton);
 
             if (Page.IsPostBack == false)
             {
@@ -46,22 +46,25 @@ namespace Appleseed.Content.Web.Modules
 
                 if (ModuleID > 0)
                 {
-                    if (moduleSettings["WeatherZip"] != null)
-                        WeatherZip.Text = ((SettingItem) moduleSettings["WeatherZip"]).ToString();
+                    if (this.ModuleSettings["WeatherZip"] != null)
+                        WeatherZip.Text = this.ModuleSettings["WeatherZip"].ToString();
 
-                    if (moduleSettings["WeatherCityIndex"] != null)
-                        WeatherCityIndex.Text = ((SettingItem) moduleSettings["WeatherCityIndex"]).ToString();
+                    if (this.ModuleSettings["WeatherCityIndex"] != null)
+                        WeatherCityIndex.Text = this.ModuleSettings["WeatherCityIndex"].ToString();
 
-                    if (moduleSettings["WeatherSetting"] != null)
+                    if (this.ModuleSettings["WeatherSetting"] != null)
                         WeatherSetting.SelectedIndex =
-                            int.Parse(((SettingItem) moduleSettings["WeatherSetting"]).ToString());
+                            int.Parse(this.ModuleSettings["WeatherSetting"].ToString());
 
-                    if (moduleSettings["WeatherDesign"] != null)
+                    if (this.ModuleSettings["WeatherDesign"] != null)
                     {
                         for (int i = 0; i < WeatherDesign.Items.Count; i++)
-                            if (WeatherDesign.Items[i].Value ==
-                                (((SettingItem) moduleSettings["WeatherDesign"]).ToString()))
+                        {
+                            if (WeatherDesign.Items[i].Value == this.ModuleSettings["WeatherDesign"].ToString())
+                            {
                                 WeatherDesign.SelectedIndex = i;
+                            }
+                        }
                     }
                 }
             }
@@ -93,11 +96,11 @@ namespace Appleseed.Content.Web.Modules
             if (Page.IsValid == true)
             {
                 // Update settings in the database
-                ModuleSettings.UpdateModuleSetting(ModuleID, "WeatherZip", WeatherZip.Text);
-                ModuleSettings.UpdateModuleSetting(ModuleID, "WeatherCityIndex", WeatherCityIndex.Text);
-                ModuleSettings.UpdateModuleSetting(ModuleID, "WeatherSetting",
+                Framework.Site.Configuration.ModuleSettings.UpdateModuleSetting(ModuleID, "WeatherZip", WeatherZip.Text);
+                Framework.Site.Configuration.ModuleSettings.UpdateModuleSetting(ModuleID, "WeatherCityIndex", WeatherCityIndex.Text);
+                Framework.Site.Configuration.ModuleSettings.UpdateModuleSetting(ModuleID, "WeatherSetting",
                                                    WeatherSetting.Items[WeatherSetting.SelectedIndex].Value);
-                ModuleSettings.UpdateModuleSetting(ModuleID, "WeatherDesign",
+                Framework.Site.Configuration.ModuleSettings.UpdateModuleSetting(ModuleID, "WeatherDesign",
                                                    WeatherDesign.Items[WeatherDesign.SelectedIndex].Value);
                 RedirectBackToReferringPage();
             }
@@ -112,8 +115,8 @@ namespace Appleseed.Content.Web.Modules
         protected override void OnInit(EventArgs e)
         {
             //Controls must be created here
-            updateButton = new LinkButton();
-            cancelButton = new LinkButton();
+            this.UpdateButton = new LinkButton();
+            this.CancelButton = new LinkButton();
 
             this.Load += new EventHandler(this.Page_Load);
             base.OnInit(e);

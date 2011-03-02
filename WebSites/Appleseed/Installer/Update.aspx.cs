@@ -1,23 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Appleseed.Framework.Settings;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Update.aspx.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   The update.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-namespace AppleseedWebApplication.Installer
+namespace Appleseed.Installer
 {
-    public partial class Update : System.Web.UI.Page
+    using System;
+    using System.Web.UI;
+
+    using Appleseed.Framework.Settings;
+    using Appleseed.Framework.Update;
+
+    /// <summary>
+    /// The update.
+    /// </summary>
+    public partial class Update : Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+        #region Methods
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Web.UI.Control.Load"/> event.
+        /// </summary>
+        /// <param name="e">
+        /// The <see cref="T:System.EventArgs"/> object that contains the event data.
+        /// </param>
+        protected override void OnLoad(EventArgs e)
         {
-            using (var s = new Appleseed.Framework.Core.Update.Services())
+            base.OnLoad(e);
+
+            using (var s = new Services())
             {
                 s.RunDBUpdate(Config.ConnectionString);
             }
 
-            Response.Redirect("~/Default.aspx");
+            this.Response.Redirect("~/Default.aspx");
         }
+
+        #endregion
     }
 }

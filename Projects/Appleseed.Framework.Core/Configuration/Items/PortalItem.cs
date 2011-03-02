@@ -1,68 +1,85 @@
-using System;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="PortalItem.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   This class encapsulates the basic attributes of a Portal, and is used
+//   by the administration pages when manipulating Portals.  PortalItem implements
+//   the IComparable interface so that an ArrayList of PortalItems may be sorted
+//   by PortalOrder, using the ArrayList's Sort() method.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework
 {
+    using System;
+
     /// <summary>
     /// This class encapsulates the basic attributes of a Portal, and is used
-    /// by the administration pages when manipulating Portals.  PortalItem implements 
-    /// the IComparable interface so that an ArrayList of PortalItems may be sorted
-    /// by PortalOrder, using the ArrayList's Sort() method.
+    ///   by the administration pages when manipulating Portals.  PortalItem implements
+    ///   the IComparable interface so that an ArrayList of PortalItems may be sorted
+    ///   by PortalOrder, using the ArrayList's Sort() method.
     /// </summary>
+    /// <remarks>
+    /// </remarks>
     public class PortalItem : IComparable
     {
-        private string _name;
-        private string _path;
-        private int _ID;
+        #region Properties
 
         /// <summary>
-        /// Name
-        /// </summary>
-        /// <value>The name.</value>
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-
-        /// <summary>
-        /// Path
-        /// </summary>
-        /// <value>The path.</value>
-        public string Path
-        {
-            get { return _path; }
-            set { _path = value; }
-        }
-
-        /// <summary>
-        /// ID
+        /// Gets or sets the ID.
         /// </summary>
         /// <value>The ID.</value>
-        public int ID
-        {
-            get { return _ID; }
-            set { _ID = value; }
-        }
+        /// <remarks></remarks>
+        public int ID { get; set; }
 
         /// <summary>
-        /// Public comparer
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>The name.</value>
+        /// <remarks></remarks>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the path.
+        /// </summary>
+        /// <value>The path.</value>
+        /// <remarks></remarks>
+        public string Path { get; set; }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Returns a <see cref="System.String"/> that represents this instance.
+        /// </summary>
+        /// <returns>A <see cref="System.String"/> that represents this instance.</returns>
+        /// <remarks></remarks>
+        public override string ToString()
+        {
+            return this.Name;
+        }
+
+        #endregion
+
+        #region Implemented Interfaces
+
+        #region IComparable
+
+        /// <summary>
+        /// Compares to.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns></returns>
+        /// <remarks></remarks>
         public int CompareTo(object value)
         {
-            return CompareTo(Name);
+            return this.CompareTo(this.Name);
         }
 
-        /// <summary>
-        /// ToString
-        /// </summary>
-        /// <returns>
-        /// A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
-        /// </returns>
-        public override string ToString()
-        {
-            return Name;
-        }
+        #endregion
+
+        #endregion
     }
 }
