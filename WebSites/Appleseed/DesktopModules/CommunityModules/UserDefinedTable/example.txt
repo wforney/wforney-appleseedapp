@@ -1,0 +1,98 @@
+A quick introduction to User Defined Table Module
+-------------------------------------------------
+
+Step 0: Login to your Portal as Administrator
+Step 1: Copy the files "example1.xslt" and "example2.xslt" and "example3.xslt" and "example4.xslt" 
+        to your Portal Root directory (for example  \Portals\Appleseed\ )
+
+Step 2: Add a User Defined Table Module (UDT) to a page of your Portal.
+Step 3: Click the 'Manage Table' button and add 2 fields:
+        field 1:  Name='title'     Type='Text'
+        field 2:  Name='artist'    Type='Text'
+Step 4: Click the ADD icon to add at least one record. Fill in the data of your favorite CD. Save the data.
+
+RESULT: Now you see the data in it's traditional layout.
+
+Step 5: Change the properties of this UDT like this:
+        XSL source: example1.xls       (note: don't provide the path \Portals\Appleseed\)
+        XSL data = 0
+        Display XML = False
+
+RESULT: Now you see the data in a table that is defined in the .xslt file
+        This .xslt file transforms the underlying XML data file using XSL
+        For introduction to XSL see http://www.w3schools.com/xsl/xsl_intro.asp
+        The design a good XSL file you need to know the underlying XML structure (see step 6)
+
+Step 6: Change the properties of this UDT like this:
+        Display XML = True
+        !! NOTE: While being on the Edit Module Properties page 
+        !!       make a note of the mID parameter in the URL of the current page.
+        !!       This is the ID of this module. We will need it in a while.
+
+RESULT: Now you see the data in XML format. 
+        Notice that each record has an additional field holding the URL to edit the data.
+        This URL is used to provide an Edit button.
+        You can only use one XSL file per UDT
+
+Step 7: Add a SECOND UDT to the same page
+Step 8: Change the properties of this UDT like this:
+        XSL source: example2.xls       (note: don't provide the path \Portals\Appleseed\)
+        XSL data = <mID that you noted in Step 6>
+        Display XML = False
+        
+RESULT: Now you see the data of the First UDT in a table as is defined in the Second .xslt file
+        Using the strong select features of XSL this gives you a very flexible tool to display data
+        of one table in different ways thoughout the whole Portal.
+
+Step 9: Add a THIRTH UDT to the same page
+Step 8: Change the properties of this UDT like this:
+        XSL source: example3.xls       (note: don't provide the path \Portals\Appleseed\)
+        XSL data = <mID that you noted in Step 6>
+        Display XML = False
+        
+RESULT: Now you see the data of the First UDT in a table as is defined in the thirth .xslt file
+        But this time you can click on the fields in the Table header to change the sort direction.
+        When you look inside example3.xslt you will see that a special link is used to get this result.
+        Namely link to  href="@@sort.xxxxxxx@@" replacing xxxxxxx with the name op field. 
+        Note that this is case sensitive !!
+
+Step 9: Add a FOURTH UDT to the same page
+Step 8: Change the properties of this UDT like this:
+        XSL source: example4.xls       (note: don't provide the path \Portals\Appleseed\)
+        XSL data = <mID that you noted in Step 6>
+        Display XML = False
+
+RESULT: Now you see the data of the First UDT in a table as is defined in the fourth .xslt file
+        But this time you also have a link "Show detail" which show that perticular record in the way as defined in the XLST file.
+        When you look inside example4.xslt you will see that is much more complicated that the previous files.
+        But don't be dassled by this, because you don't have to change much.
+        You only have to change two parts, namely after  <!-- START - LIST VIEW TEMPATE -->  and   <!-- START - DETAIL VIEW TEMPATE -->
+        
+        Note that this XSL uses special command @@imgsortorder.xxxxx@@ where xxxxx is fieldname.  
+        This string if found in XSL will be replaced by an IMG specifying the order in which this field is ordered. 
+        If this field isn't ordered, that it will be replace by a empty string.
+        Note that this is case sensitive !!
+        
+        Note that this XSL uses css classes Grid_Header and Grid_Item
+	
+	Note that this XSL supports multilingual text using method nr 4 explained on this site:
+	http://www.topxml.com/xsltStylesheets/xslt_multilingual.asp
+	
+	Note: Esperantus support !!
+	Whenever you use the string @@localize.ESPERANTUSKEY@@ where 'ESPERANTUSKEY' is replaced by a valid key (case sensitive !) 
+	then this string is replaced by the appropriate value of the key in the current language
+        Note that this is case sensitive !!
+
+       
+        
+
+Rob Siera
+www.xtrasite.be
+29 Nov 2004
+(last update 19 dec 2004)
+
+        
+
+        
+        
+        

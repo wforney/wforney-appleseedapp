@@ -1,0 +1,39 @@
+.EnhancedHtmlTitlePage /* Enhanced module support */
+{
+	font-weight: normal;
+	font-size: 12pt;
+	color: #333333;
+	font-family: Verdana, Helvetica, sans-serif;
+}
+.EnhancedHtmlLink
+{
+	font-weight: bold;
+	font-size: 10pt;
+	color: #333333;
+	font-family: Verdana, Helvetica, sans-serif;
+}
+A.EnhancedHtmlLink:link
+{
+	color: #000000;
+	text-decoration: none;
+}
+A.EnhancedHtmlLink:visited
+{
+	color: #999999;
+	text-decoration: none;
+}
+A.EnhancedHtmlLink:hover
+{
+	color: #cccccc;
+	text-decoration: none;
+}
+A.EnhancedHtmlLink:focus
+{
+	color: #cccccc;
+	text-decoration: none;
+}
+A.EnhancedHtmlLink:active
+{
+	color: #333333;
+	text-decoration: none;
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Modules>
+	<Module>
+		<FriendlyName>Quote</FriendlyName>
+		<DesktopSource>DesktopModules/CommunityModules/Quote/Quote.ascx</DesktopSource>
+		<MobileSource></MobileSource>
+	</Module>
+</Modules>
