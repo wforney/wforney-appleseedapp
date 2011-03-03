@@ -148,8 +148,8 @@ namespace Appleseed.Content.Web.Modules
 
                 // added mID by Mario Endara <mario@softworks.com.uy> to support security check (2004/11/09)
                 Response.Redirect(
-                    HttpUrlBuilder.BuildUrl("~/DesktopModules/CoreModules/Pages/PageLayout.aspx", t.ID,
-                                            "mID=" + ModuleID.ToString() + "&returntabid=" + Page.PageID));
+                    string.Concat("~/DesktopModules/CoreModules/Pages/PageLayout.aspx?PageID=", t.ID, "&mID=", ModuleID.ToString(),
+                                  "&Alias=", portalSettings.PortalAlias, "&returntabid=", Page.PageID));
             }
         }
 

@@ -333,7 +333,20 @@ namespace Appleseed
                 context.Response.Cookies["refreshed"].Value = "false";
                 context.Response.Cookies["refreshed"].Expires = DateTime.Now.AddMinutes(1);
             }
-           
+
+            
+
+            //This is done in order to allow the sitemap to reference a page that is outside this website.
+            var targetPage = Request.Params["sitemapTargetPage"];
+            if (!string.IsNullOrEmpty(targetPage))
+            {
+                int pageId;
+                if (int.TryParse(targetPage, out pageId))
+                {
+                    var url = HttpUrlBuilder.BuildUrl(pageId);
+                    Response.Redirect(url);
+                }
+            }
         }
 
 

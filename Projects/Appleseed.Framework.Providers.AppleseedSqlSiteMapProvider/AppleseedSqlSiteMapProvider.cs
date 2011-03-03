@@ -14,6 +14,7 @@ using System.Web.Caching;
 using Appleseed.Framework;
 using System.Collections;
 using System.Threading;
+using Appleseed.Framework.Settings;
 
 namespace Appleseed.Framework.Providers.AppleseedSiteMapProvider
 {
@@ -193,8 +194,6 @@ namespace Appleseed.Framework.Providers.AppleseedSiteMapProvider
                                         node.Url = node.Url + "?lnkId=" + node.Key;
                                     AddNode(node, parentNode);
                                 }
-
-                               
                             }
                         } while (reader.Read());
 
@@ -249,7 +248,11 @@ namespace Appleseed.Framework.Providers.AppleseedSiteMapProvider
             string roles = reader.IsDBNull(_indexAuthorizedRoles) ? null : reader.GetString(_indexAuthorizedRoles).Trim();
 
             string url = HttpUrlBuilder.BuildUrl(id);
-
+            if (!url.StartsWith(Path.ApplicationRoot) || !url.StartsWith(Path.ApplicationFullPath))
+            {
+                url = HttpUrlBuilder.BuildUrl("~/Default.aspx", "sitemapTargetPage=" + id);
+            }
+            
             // If roles were specified, turn the list into a string array
             string[] rolelist = null;
             if (!String.IsNullOrEmpty(roles)) {
