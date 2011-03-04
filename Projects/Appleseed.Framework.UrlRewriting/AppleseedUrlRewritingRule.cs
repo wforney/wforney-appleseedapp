@@ -88,14 +88,19 @@ namespace Appleseed.Framework.UrlRewriting
         /// <returns>The rewritten URL.</returns>
         public override string RewriteUrl(string url)
         {
-            var handler = string.Format("/{0}/", this.handlerFlag);
+            var handler = string.Format("/{0}", this.handlerFlag);
             var rewrittenUrl = url.Substring(0, url.IndexOf(handler));
 
-            var parts =
-                url.Substring(url.IndexOf(handler) + handler.Length).Split('/');
+            var parts = url.Substring(url.IndexOf(handler) + handler.Length).Split(new char[] {'/'}, System.StringSplitOptions.RemoveEmptyEntries);
 
             rewrittenUrl += string.Format("/{0}", this.friendlyPageName);
-            var queryString = string.Format("?pageId={0}", parts[parts.Length - 2]);
+
+            var pageId = "0"; //this is made in order to allow urls formed only with the handler (/site/ been the default). Those urls will be redirected to the portal home.
+            if (parts.Length >= 2)
+            {
+                pageId = parts[parts.Length - 2];
+            }              
+            var queryString = string.Format("?pageId={0}", pageId);
 
             if (parts.Length > 2)
             {
