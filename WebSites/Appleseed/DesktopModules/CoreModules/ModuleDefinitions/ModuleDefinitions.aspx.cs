@@ -1,462 +1,568 @@
-using System;
-using System.Collections;
-using System.Data.SqlClient;
-using System.Threading;
-using System.Web.UI.WebControls;
-using Appleseed.Framework;
-using Appleseed.Framework.Helpers;
-using Appleseed.Framework.Settings;
-using Appleseed.Framework.Site.Data;
-using Appleseed.Framework.Web.UI;
-using Appleseed.Framework.Core.Model;
-using Appleseed.Framework.Web.UI.WebControls;
-using io=System.IO;
-using System.Reflection;
-using System.Linq;
-using System.Collections.Generic;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ModuleDefinitions.aspx.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Add/Remove modules, assign modules to portals
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.AdminAll
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Threading;
+    using System.Web.UI.WebControls;
+
+    using Appleseed.Framework;
+    using Appleseed.Framework.Core.Model;
+    using Appleseed.Framework.Helpers;
+    using Appleseed.Framework.Site.Data;
+    using Appleseed.Framework.Web.UI;
+
+    using Path = Appleseed.Framework.Settings.Path;
+
     /// <summary>
     /// Add/Remove modules, assign modules to portals
     /// </summary>
     public partial class ModuleDefinitions : EditItemPage
     {
-        private Guid defID;
+        #region Constants and Fields
 
         /// <summary>
-        /// The Page_Load server event handler on this page is used
-        /// to populate the role information for the page
+        ///   The def id.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        private void Page_Load(object sender, EventArgs e)
-        {
-            // Verify that the current user has access to access this page
-            // Removed by Mario Endara <mario@softworks.com.uy> (2004/11/04)
-            //			if (PortalSecurity.IsInRoles("Admins") == false) 
-            //				PortalSecurity.AccessDeniedEdit();
+        private Guid defId;
 
-            // Calculate security defID
-            if (Request.Params["defID"] != null)
-                defID = new Guid(Request.Params["defID"]);
+        #endregion
 
-            ModulesDB modules = new ModulesDB();
-           
-
-            // If this is the first visit to the page, bind the definition data 
-            if (!Page.IsPostBack) {
-                if (defID.Equals(Guid.Empty)) {
-                    ChangeInstallMode(EditMode.Installer);
-                    // new module definition
-                    InstallerFileName.Text = "DesktopModules/[ModuleFolder]/install.xml";
-                    FriendlyName.Text = "";
-                    DesktopSrc.Text = "";
-                    MobileSrc.Text = "";
-                } else {
-                    
-                    // Obtain the module definition to edit from the database
-                    SqlDataReader dr = modules.GetSingleModuleDefinition(defID);
-
-                    // Read in first row from database
-                    string friendlyName = string.Empty;
-                    string desktopSrc = string.Empty;
-                    while (dr.Read())
-                    {
-                        friendlyName = dr["FriendlyName"].ToString();
-                        FriendlyName.Text = friendlyName;
-                        desktopSrc = dr["DesktopSrc"].ToString();
-                        DesktopSrc.Text = desktopSrc;
-                        MobileSrc.Text = dr["MobileSrc"].ToString();
-                        lblGUID.Text = dr["GeneralModDefID"].ToString();
-                    }
-                    dr.Close(); //by Manu, fixed bug 807858
-
-                    if (DesktopSrc.Text.Contains(".aspx") || DesktopSrc.Text.Contains(".ascx"))
-                    {
-                        ChangeInstallMode(EditMode.Manually);
-                    }
-                    else
-                    {
-                        this.FriendlyNameMVC.Text = friendlyName;
-
-                        ChangeInstallMode(EditMode.MVC);
-                        Dictionary<string, string> items = ModelServices.GetMVCActionModules();
-                        foreach (ListItem item in GetPortableAreaModules())
-                        {
-                            items.Add(item.Text, item.Value);
-                        }
-                        this.ddlAction.DataSource = items;
-                        this.ddlAction.DataBind();
-
-                        string val = ddlAction.Items[0].Value;
-                        foreach (ListItem item in ddlAction.Items)
-                        {
-                            if (item.Text.Contains(desktopSrc.Replace("/", "\\")))
-                            {
-                                val = item.Value;
-                                break;
-                            }
-                        }
-
-                        this.ddlAction.SelectedValue = val;
-                    }
-                }
-
-                // Populate checkbox list with all portals
-                // and "check" the ones already configured for this tab
-                SqlDataReader portals = modules.GetModuleInUse(defID);
-
-                // Clear existing items in checkboxlist
-                PortalsName.Items.Clear();
-
-                while (portals.Read()) {
-                    if (Convert.ToInt32(portals["PortalID"]) >= 0) {
-                        ListItem item = new ListItem();
-                        item.Text = (string)portals["PortalName"];
-                        item.Value = portals["PortalID"].ToString();
-
-                        if ((portals["checked"].ToString()) == "1")
-                            item.Selected = true;
-                        else
-                            item.Selected = false;
-
-                        PortalsName.Items.Add(item);
-                    }
-                }
-                portals.Close(); //by Manu, fixed bug 807858
-
-              
-            }
-        }
-
-        private ListItem[] GetPortableAreaModules()
-        {
-            List<ListItem> result = new List<ListItem>();
-            foreach (io.FileInfo file in new io.DirectoryInfo(Server.MapPath("~/bin/")).GetFiles("*.dll"))
-            {
-                Assembly assembly = Assembly.LoadFile(file.FullName);
-                string areaName = assembly.GetName().Name;
-                try
-                {
-                    var modules = from t in assembly.GetTypes()
-                                  where t.IsClass && t.Namespace == areaName + ".Controllers"
-                                  && t.GetMethods().FirstOrDefault(d => d.Name == "Module") != null
-                                  select new
-                                  {
-                                      AssemblyFullName = assembly.FullName,
-                                      AreaName = areaName,
-                                      Module = t.Name
-                                  };
-
-
-                    foreach (var module in modules)
-                    {
-                        string moduleName = module.Module.Replace("Controller", "");
-                        //ModelServices.RegisterPortableAreaModule(module.AreaName, module.AssemblyFullName, moduleName);
-                        string itemValue = String.Format("Areas\\{0}\\Views\\{1}\\Module", module.AreaName, moduleName);
-                        string itemText = String.Format("[PortableArea] Areas\\{0}\\Views\\{1}\\Module", module.AreaName, moduleName);
-
-                        result.Add(new ListItem(itemText, itemValue));
-
-                    }
-                }
-                catch (Exception exc) { ErrorHandler.Publish(LogLevel.Debug, exc); }
-            }
-
-            return result.ToArray();
-        }
+        #region Properties
 
         /// <summary>
-        /// Set the module guids with free access to this page
+        ///   Set the module guids with free access to this page
         /// </summary>
         /// <value>The allowed modules.</value>
         protected override List<string> AllowedModules
         {
             get
             {
-                List<string> al = new List<string>();
-                al.Add("D04BB5EA-A792-4E87-BFC7-7D0ED3ADD582");
+                var al = new List<string> { "D04BB5EA-A792-4E87-BFC7-7D0ED3ADD582" };
                 return al;
             }
         }
 
-        /// <summary>
-        /// OnUpdate installs or refresh module definiton on db
-        /// </summary>
-        /// <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        protected override void OnUpdate(EventArgs e)
-        {
-            if (Page.IsValid) {
-                try {
-
-                    if (chbMVCAction.Visible || chbPortableAreas.Visible) {
-                        //Es un módulo clásico
-
-                        if (!btnUseInstaller.Visible) {
-                            ModuleInstall.InstallGroup(Server.MapPath(Path.ApplicationRoot + "/" + InstallerFileName.Text),
-                                                       lblGUID.Text == string.Empty);
-                        } else {
-                            ModuleInstall.Install(FriendlyName.Text, DesktopSrc.Text, MobileSrc.Text,
-                                                  lblGUID.Text == string.Empty);
-                        }
-                       
-                        // Update the module definition
-                        
-
-                    } else {
-                        //Es una acción MVC
-                        string path = this.ddlAction.SelectedValue;
-
-
-                        path = path.Substring(path.IndexOf("Areas"));
-                        path = path.Replace("\\", "/");
-                        path = path.Replace(".aspx", string.Empty);
-                        path = path.Replace(".ascx", string.Empty);
-
-                        string name = this.FriendlyNameMVC.Text;
-
-                        defID = Appleseed.Framework.Core.Model.ModelServices.AddMVCActionModule(name, path);
-
-                    }
-                    ModulesDB modules = new ModulesDB();
-
-                    for (int i = 0; i < PortalsName.Items.Count; i++) {
-                        modules.UpdateModuleDefinitions(defID, Convert.ToInt32(PortalsName.Items[i].Value),
-                                                        PortalsName.Items[i].Selected);
-                    }
-
-
-                    // Redirect back to the portal admin page
-                    RedirectBackToReferringPage();
-                } catch (ThreadAbortException) {
-                    //normal with redirect 
-                } catch (Exception ex) {
-                    lblErrorDetail.Text =
-                        General.GetString("MODULE_DEFINITIONS_INSTALLING", "An error occurred installing.", this) +
-                        "<br>";
-                    lblErrorDetail.Text += ex.Message + "<br>";
-                    if (!btnUseInstaller.Visible)
-                        lblErrorDetail.Text += " Installer: " +
-                                               Server.MapPath(Path.ApplicationRoot + "/" + InstallerFileName.Text);
-                    else
-                        lblErrorDetail.Text += " Module: '" + FriendlyName.Text + "' - Source: '" + DesktopSrc.Text +
-                                               "' - Mobile: '" + MobileSrc.Text + "'";
-                    lblErrorDetail.Visible = true;
-
-                    ErrorHandler.Publish(LogLevel.Error, lblErrorDetail.Text, ex);
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// Delete a Module definition
-        /// </summary>
-        /// <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        protected override void OnDelete(EventArgs e)
-        {
-            try {
-                if (!btnUseInstaller.Visible)
-                    ModuleInstall.UninstallGroup(Server.MapPath(Path.ApplicationRoot + "/" + InstallerFileName.Text));
-                else
-                    ModuleInstall.Uninstall(DesktopSrc.Text, MobileSrc.Text);
-
-                // Redirect back to the portal admin page
-                RedirectBackToReferringPage();
-            } catch (ThreadAbortException) {
-                //normal with redirect 
-            } catch (Exception ex) {
-                lblErrorDetail.Text =
-                    General.GetString("MODULE_DEFINITIONS_DELETE_ERROR", "An error occurred deleting module.", this);
-                lblErrorDetail.Visible = true;
-                ErrorHandler.Publish(LogLevel.Error, lblErrorDetail.Text, ex);
-            }
-        }
-
-        /// <summary>
-        /// Handles the Click event of the selectAllButton control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        private void selectAllButton_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < PortalsName.Items.Count; i++) {
-                PortalsName.Items[i].Selected = true;
-            }
-        }
-
-        /// <summary>
-        /// Handles the Click event of the selectNoneButton control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        private void selectNoneButton_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < PortalsName.Items.Count; i++) {
-                PortalsName.Items[i].Selected = false;
-            }
-        }
-
-        #region Web Form Designer generated code
-
-        /// <summary>
-        /// OnInit
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"></see> that contains the event data.</param>
-        protected override void OnInit(EventArgs e)
-        {
-            this.btnUseInstaller.Click += new EventHandler(this.btnUseInstaller_Click);
-            this.btnDescription.Click += new EventHandler(this.btnDescription_Click);
-            this.chbMVCAction.Click += new EventHandler(chbMVCAction_Click);
-            this.chbPortableAreas.Click += new EventHandler(chbPortableAreas_Click);
-            this.selectAllButton.Click += new EventHandler(this.selectAllButton_Click);
-            this.selectNoneButton.Click += new EventHandler(this.selectNoneButton_Click);
-            this.Load += new EventHandler(this.Page_Load);
-            base.OnInit(e);
-        }
-
-
-
         #endregion
 
+        #region Public Methods
+
         /// <summary>
-        /// Handles the Click event of the btnUseInstaller control.
+        /// Changes install mode.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        private void btnUseInstaller_Click(object sender, EventArgs e)
-        {
-            ChangeInstallMode(EditMode.Installer);
-        }
-
-
-        void chbMVCAction_Click(object sender, EventArgs e)
-        {
-            ChangeInstallMode(EditMode.MVC);
-        }
-
-         void chbPortableAreas_Click(object sender, EventArgs e)
-        {
-            ChangeInstallMode(EditMode.PortableAreas);
-        }
-
-         protected void btnRegisterPortableAreas_Click(object sender, EventArgs e)
-         {
-
-             List<String> modulesRegistered = new List<string>();
-             foreach (io.FileInfo file in new io.DirectoryInfo(Server.MapPath("~/bin/")).GetFiles("*.dll"))
-             {
-                 Assembly assembly = Assembly.LoadFile(file.FullName);
-                 string areaName = assembly.GetName().Name;
-                 try
-                 {
-                     var modules = from t in assembly.GetTypes()
-                                   where t.IsClass && t.Namespace == areaName + ".Controllers"
-                                   && t.GetMethods().FirstOrDefault(d => d.Name == "Module") != null
-                                   select new
-                                   {
-                                       AssemblyFullName = assembly.FullName,
-                                       AreaName = areaName,
-                                       Module = t.Name
-                                   };
-
-
-                     foreach (var module in modules)
-                     {
-                         string moduleName = module.Module.Replace("Controller", "");
-                         ModelServices.RegisterPortableAreaModule(module.AreaName, module.AssemblyFullName, moduleName);
-                         modulesRegistered.Add(module.AreaName + " - " + moduleName);
-                     }
-                 }
-                 catch (Exception exc) { ErrorHandler.Publish(LogLevel.Debug, exc); }
-             }
-
-             
-             registeredAreas.DataSource = modulesRegistered;
-             registeredAreas.DataBind();
-         }
-
+        /// <param name="mode">
+        /// The edit mode.
+        /// </param>
         public void ChangeInstallMode(EditMode mode)
         {
-            portalsDiv.Visible = true;
+            this.portalsDiv.Visible = true;
 
-            switch (mode) {
+            switch (mode)
+            {
                 case EditMode.Installer:
-                    tableInstaller.Visible = true;
-                    tableManual.Visible = false;
-                    tableMVC.Visible = false;
-                    tablePortableAreas.Visible = false;
+                    this.tableInstaller.Visible = true;
+                    this.tableManual.Visible = false;
+                    this.tableMVC.Visible = false;
+                    this.tablePortableAreas.Visible = false;
 
-                    btnUseInstaller.Visible = false;
-                    btnDescription.Visible = true;
-                    chbMVCAction.Visible = true;
-                    deleteButton.Visible = true;
-                    chbPortableAreas.Visible = true;
+                    this.btnUseInstaller.Visible = false;
+                    this.btnDescription.Visible = true;
+                    this.chbMVCAction.Visible = true;
+                    this.DeleteButton.Visible = true;
+                    this.chbPortableAreas.Visible = true;
 
                     break;
                 case EditMode.Manually:
-                    tableInstaller.Visible = false;
-                    tableManual.Visible = true;
-                    tableMVC.Visible = false;
-                    tablePortableAreas.Visible = false;
+                    this.tableInstaller.Visible = false;
+                    this.tableManual.Visible = true;
+                    this.tableMVC.Visible = false;
+                    this.tablePortableAreas.Visible = false;
 
-                    btnUseInstaller.Visible = true;
-                    btnDescription.Visible = false;
-                    chbMVCAction.Visible = true;
-                    deleteButton.Visible = true;
-                    chbPortableAreas.Visible = true;
+                    this.btnUseInstaller.Visible = true;
+                    this.btnDescription.Visible = false;
+                    this.chbMVCAction.Visible = true;
+                    this.DeleteButton.Visible = true;
+                    this.chbPortableAreas.Visible = true;
 
                     break;
                 case EditMode.MVC:
-                    tableInstaller.Visible = false;
-                    tableManual.Visible = false;
-                    tableMVC.Visible = true;
-                    tablePortableAreas.Visible = false;
+                    this.tableInstaller.Visible = false;
+                    this.tableManual.Visible = false;
+                    this.tableMVC.Visible = true;
+                    this.tablePortableAreas.Visible = false;
 
-                    btnUseInstaller.Visible = true;
-                    btnDescription.Visible = true;
-                    chbMVCAction.Visible = false;
-                    deleteButton.Visible = false;
-                    chbPortableAreas.Visible = true;
+                    this.btnUseInstaller.Visible = true;
+                    this.btnDescription.Visible = true;
+                    this.chbMVCAction.Visible = false;
+                    this.DeleteButton.Visible = false;
+                    this.chbPortableAreas.Visible = true;
 
                     break;
                 case EditMode.PortableAreas:
-                    tableInstaller.Visible = false;
-                    tableManual.Visible = false;
-                    tableMVC.Visible = false;
-                    tablePortableAreas.Visible = true;
+                    this.tableInstaller.Visible = false;
+                    this.tableManual.Visible = false;
+                    this.tableMVC.Visible = false;
+                    this.tablePortableAreas.Visible = true;
 
-                    btnUseInstaller.Visible = true;
-                    btnDescription.Visible = true;
-                    chbMVCAction.Visible = true;
-                    chbPortableAreas.Visible = false;
+                    this.btnUseInstaller.Visible = true;
+                    this.btnDescription.Visible = true;
+                    this.chbMVCAction.Visible = true;
+                    this.chbPortableAreas.Visible = false;
 
-                    deleteButton.Visible = false;
-                    portalsDiv.Visible = false;
+                    this.DeleteButton.Visible = false;
+                    this.portalsDiv.Visible = false;
                     break;
                 default:
                     break;
             }
         }
 
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Delete a Module definition
+        /// </summary>
+        /// <param name="e">
+        /// The <see cref="T:System.EventArgs"/> instance containing the event data.
+        /// </param>
+        protected override void OnDelete(EventArgs e)
+        {
+            try
+            {
+                if (!this.btnUseInstaller.Visible)
+                {
+                    ModuleInstall.UninstallGroup(
+                        this.Server.MapPath(string.Format("{0}/{1}", Path.ApplicationRoot, this.InstallerFileName.Text)));
+                }
+                else
+                {
+                    ModuleInstall.Uninstall(this.DesktopSrc.Text, this.MobileSrc.Text);
+                }
+
+                // Redirect back to the portal admin page
+                this.RedirectBackToReferringPage();
+            }
+            catch (ThreadAbortException)
+            {
+                // normal with redirect 
+            }
+            catch (Exception ex)
+            {
+                this.lblErrorDetail.Text = General.GetString(
+                    "MODULE_DEFINITIONS_DELETE_ERROR", "An error occurred deleting module.", this);
+                this.lblErrorDetail.Visible = true;
+                ErrorHandler.Publish(LogLevel.Error, this.lblErrorDetail.Text, ex);
+            }
+        }
+
+        /// <summary>
+        /// Handles OnInit event
+        /// </summary>
+        /// <param name="e">
+        /// An <see cref="T:System.EventArgs"></see> that contains the event data.
+        /// </param>
+        protected override void OnInit(EventArgs e)
+        {
+            var modules = new ModulesDB();
+
+            // Calculate security defID
+            if (this.Request.Params["defID"] != null)
+            {
+                this.defId = new Guid(this.Request.Params["defID"]);
+            }
+
+            if (this.defId.Equals(Guid.Empty))
+            {
+                this.ChangeInstallMode(EditMode.Installer);
+
+                // new module definition
+                this.InstallerFileName.Text = @"DesktopModules/[ModuleFolder]/install.xml";
+                this.FriendlyName.Text = string.Empty;
+                this.DesktopSrc.Text = string.Empty;
+                this.MobileSrc.Text = string.Empty;
+            }
+            else
+            {
+                // Obtain the module definition to edit from the database
+                var dr = modules.GetSingleModuleDefinition(this.defId);
+
+                // Read in first row from database
+                var friendlyName = dr.FriendlyName;
+                this.FriendlyName.Text = friendlyName;
+                var desktopSrc = dr.DesktopSource;
+                this.DesktopSrc.Text = desktopSrc;
+                this.MobileSrc.Text = dr.MobileSource;
+                this.lblGUID.Text = dr.GeneralModDefID.ToString();
+
+                if (this.DesktopSrc.Text.Contains(".aspx") || this.DesktopSrc.Text.Contains(".ascx"))
+                {
+                    this.ChangeInstallMode(EditMode.Manually);
+                }
+                else
+                {
+                    this.FriendlyNameMVC.Text = friendlyName;
+
+                    this.ChangeInstallMode(EditMode.MVC);
+                    var items = ModelServices.GetMVCActionModules();
+                    foreach (var item in this.GetPortableAreaModules())
+                    {
+                        items.Add(item.Text, item.Value);
+                    }
+
+                    this.ddlAction.DataSource = items;
+                    this.ddlAction.DataBind();
+
+                    var val = this.ddlAction.Items[0].Value;
+                    foreach (var item in
+                        this.ddlAction.Items.Cast<ListItem>().Where(
+                            item => item.Text.Contains(desktopSrc.Replace("/", "\\"))))
+                    {
+                        val = item.Value;
+                        break;
+                    }
+
+                    this.ddlAction.SelectedValue = val;
+                }
+            }
+
+            // Populate checkbox list with all portals
+            // and "check" the ones already configured for this tab
+            var portals = modules.GetModuleInUse(this.defId).ToArray();
+
+            // Clear existing items in checkbox list
+            this.PortalsName.Items.Clear();
+            this.PortalsName.Items.AddRange(portals);
+
+            this.btnUseInstaller.Click += this.btnUseInstaller_Click;
+            this.btnDescription.Click += this.btnDescription_Click;
+            this.chbMVCAction.Click += this.chbMVCAction_Click;
+            this.chbPortableAreas.Click += this.chbPortableAreas_Click;
+            this.selectAllButton.Click += this.selectAllButton_Click;
+            this.selectNoneButton.Click += this.selectNoneButton_Click;
+
+            base.OnInit(e);
+        }
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Web.UI.Control.Load"/> event.
+        /// </summary>
+        /// <param name="e">
+        /// The <see cref="T:System.EventArgs"/> object that contains the event data.
+        /// </param>
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            // Verify that the current user has access to access this page
+            // Removed by Mario Endara <mario@softworks.com.uy> (2004/11/04)
+            // if (PortalSecurity.IsInRoles("Admins") == false) 
+            // PortalSecurity.AccessDeniedEdit();
+        }
+
+        /// <summary>
+        /// OnUpdate installs or refresh module definition on db
+        /// </summary>
+        /// <param name="e">
+        /// The <see cref="T:System.EventArgs"/> instance containing the event data.
+        /// </param>
+        protected override void OnUpdate(EventArgs e)
+        {
+            if (this.Page.IsValid)
+            {
+                try
+                {
+                    if (this.chbMVCAction.Visible || this.chbPortableAreas.Visible)
+                    {
+                        // Es un módulo clásico
+                        if (!this.btnUseInstaller.Visible)
+                        {
+                            ModuleInstall.InstallGroup(
+                                this.Server.MapPath(Path.ApplicationRoot + "/" + this.InstallerFileName.Text), 
+                                this.lblGUID.Text == string.Empty);
+                        }
+                        else
+                        {
+                            ModuleInstall.Install(
+                                this.FriendlyName.Text, 
+                                this.DesktopSrc.Text, 
+                                this.MobileSrc.Text, 
+                                this.lblGUID.Text == string.Empty);
+                        }
+
+                        // Update the module definition
+                    }
+                    else
+                    {
+                        // Es una acción MVC
+                        var path = this.ddlAction.SelectedValue;
+
+                        path = path.Substring(path.IndexOf("Areas"));
+                        path = path.Replace("\\", "/");
+                        path = path.Replace(".aspx", string.Empty);
+                        path = path.Replace(".ascx", string.Empty);
+
+                        var name = this.FriendlyNameMVC.Text;
+
+                        this.defId = ModelServices.AddMVCActionModule(name, path);
+                    }
+
+                    var modules = new ModulesDB();
+
+                    for (var i = 0; i < this.PortalsName.Items.Count; i++)
+                    {
+                        modules.UpdateModuleDefinitions(
+                            this.defId, 
+                            Convert.ToInt32(this.PortalsName.Items[i].Value), 
+                            this.PortalsName.Items[i].Selected);
+                    }
+
+                    // Redirect back to the portal admin page
+                    this.RedirectBackToReferringPage();
+                }
+                catch (ThreadAbortException)
+                {
+                    // normal with redirect 
+                }
+                catch (Exception ex)
+                {
+                    this.lblErrorDetail.Text =
+                        string.Format("{0}<br />", General.GetString("MODULE_DEFINITIONS_INSTALLING", "An error occurred installing.", this));
+                    this.lblErrorDetail.Text += ex.Message + "<br />";
+                    if (!this.btnUseInstaller.Visible)
+                    {
+                        this.lblErrorDetail.Text += string.Format(
+                            " Installer: {0}", 
+                            this.Server.MapPath(
+                                string.Format("{0}/{1}", Path.ApplicationRoot, this.InstallerFileName.Text)));
+                    }
+                    else
+                    {
+                        this.lblErrorDetail.Text += string.Format(
+                            " Module: '{0}' - Source: '{1}' - Mobile: '{2}'", 
+                            this.FriendlyName.Text, 
+                            this.DesktopSrc.Text, 
+                            this.MobileSrc.Text);
+                    }
+
+                    this.lblErrorDetail.Visible = true;
+
+                    ErrorHandler.Publish(LogLevel.Error, this.lblErrorDetail.Text, ex);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnRegisterPortableAreas control.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
+        protected void btnRegisterPortableAreas_Click(object sender, EventArgs e)
+        {
+            var modulesRegistered = new List<string>();
+            foreach (var file in new DirectoryInfo(this.Server.MapPath("~/bin/")).GetFiles("*.dll"))
+            {
+                var assembly = Assembly.LoadFile(file.FullName);
+                var areaName = assembly.GetName().Name;
+                try
+                {
+                    var modules = from t in assembly.GetTypes()
+                                  where
+                                      t.IsClass && t.Namespace == areaName + ".Controllers" &&
+                                      t.GetMethods().FirstOrDefault(d => d.Name == "Module") != null
+                                  select
+                                      new { AssemblyFullName = assembly.FullName, AreaName = areaName, Module = t.Name };
+
+                    foreach (var module in modules)
+                    {
+                        var moduleName = module.Module.Replace("Controller", string.Empty);
+                        ModelServices.RegisterPortableAreaModule(module.AreaName, module.AssemblyFullName, moduleName);
+                        modulesRegistered.Add(string.Format("{0} - {1}", module.AreaName, moduleName));
+                    }
+                }
+                catch (Exception exc)
+                {
+                    ErrorHandler.Publish(LogLevel.Debug, exc);
+                }
+            }
+
+            this.registeredAreas.DataSource = modulesRegistered;
+            this.registeredAreas.DataBind();
+        }
+
+        /// <summary>
+        /// The get portable area modules.
+        /// </summary>
+        /// <returns>
+        /// An enumerable of list items.
+        /// </returns>
+        private IEnumerable<ListItem> GetPortableAreaModules()
+        {
+            var result = new List<ListItem>();
+            foreach (var file in new DirectoryInfo(this.Server.MapPath("~/bin/")).GetFiles("*.dll"))
+            {
+                var assembly = Assembly.LoadFile(file.FullName);
+                var areaName = assembly.GetName().Name;
+                try
+                {
+                    var modules = from t in assembly.GetTypes()
+                                  where
+                                      t.IsClass && t.Namespace == areaName + ".Controllers" &&
+                                      t.GetMethods().FirstOrDefault(d => d.Name == "Module") != null
+                                  select
+                                      new { AssemblyFullName = assembly.FullName, AreaName = areaName, Module = t.Name };
+
+                    result.AddRange(
+                        from module in modules
+                        let moduleName = module.Module.Replace("Controller", string.Empty)
+                        let itemValue =
+                            String.Format("Areas\\{0}\\Views\\{1}\\Module", module.AreaName, moduleName)
+                        let itemText =
+                            String.Format(
+                                "[PortableArea] Areas\\{0}\\Views\\{1}\\Module", module.AreaName, moduleName)
+                        select new ListItem(itemText, itemValue));
+                }
+                catch (Exception exc)
+                {
+                    ErrorHandler.Publish(LogLevel.Debug, exc);
+                }
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Handles the Click event of the btnDescription control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="T:System.EventArgs"/> instance containing the event data.
+        /// </param>
         private void btnDescription_Click(object sender, EventArgs e)
         {
-            ChangeInstallMode(EditMode.Manually);
+            this.ChangeInstallMode(EditMode.Manually);
         }
-       
-}
 
-    public enum EditMode : int
+        /// <summary>
+        /// Handles the Click event of the btnUseInstaller control.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="T:System.EventArgs"/> instance containing the event data.
+        /// </param>
+        private void btnUseInstaller_Click(object sender, EventArgs e)
+        {
+            this.ChangeInstallMode(EditMode.Installer);
+        }
+
+        /// <summary>
+        /// The chb mvc action_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void chbMVCAction_Click(object sender, EventArgs e)
+        {
+            this.ChangeInstallMode(EditMode.MVC);
+        }
+
+        /// <summary>
+        /// The chb portable areas_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void chbPortableAreas_Click(object sender, EventArgs e)
+        {
+            this.ChangeInstallMode(EditMode.PortableAreas);
+        }
+
+        /// <summary>
+        /// Handles the Click event of the selectAllButton control.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="T:System.EventArgs"/> instance containing the event data.
+        /// </param>
+        private void selectAllButton_Click(object sender, EventArgs e)
+        {
+            for (var i = 0; i < this.PortalsName.Items.Count; i++)
+            {
+                this.PortalsName.Items[i].Selected = true;
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the selectNoneButton control.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="T:System.EventArgs"/> instance containing the event data.
+        /// </param>
+        private void selectNoneButton_Click(object sender, EventArgs e)
+        {
+            for (var i = 0; i < this.PortalsName.Items.Count; i++)
+            {
+                this.PortalsName.Items[i].Selected = false;
+            }
+        }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// The edit mode.
+    /// </summary>
+    public enum EditMode
     {
-        Installer = 0,
-        Manually,
-        MVC,
+        /// <summary>
+        ///   The installer.
+        /// </summary>
+        Installer = 0, 
+
+        /// <summary>
+        ///   The manually.
+        /// </summary>
+        Manually, 
+
+        /// <summary>
+        ///   The MVC edit mode.
+        /// </summary>
+        MVC, 
+
+        /// <summary>
+        ///   The portable areas.
+        /// </summary>
         PortableAreas
     }
 }

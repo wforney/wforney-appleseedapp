@@ -107,7 +107,7 @@ namespace Appleseed.Content.Web.Modules
             RequiredComponent.ErrorMessage = General.GetString("ERROR_VALID_DESCRIPTION");
 
             this.Load += new EventHandler(this.Page_Load);
-            this.updateButton.Click += new EventHandler(updateButton_Click);
+            this.UpdateButton.Click += new EventHandler(updateButton_Click);
 
             base.OnInit(e);
         }

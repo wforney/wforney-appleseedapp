@@ -1,40 +1,114 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="UpdateEntry.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   The update entry.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-namespace Appleseed.Framework.Core.Update
+namespace Appleseed.Framework.Update
 {
+    using System;
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// The update entry.
+    /// </summary>
     [Serializable]
-    public class UpdateEntry : IComparable
+    public class UpdateEntry : IComparable<UpdateEntry>
     {
+        #region Constructors and Destructors
+
         /// <summary>
-        /// IComparable.CompareTo implementation.
+        /// Initializes a new instance of the <see cref="UpdateEntry"/> class. 
         /// </summary>
-        /// <param name="obj">An object to compare with this instance.</param>
-        /// <returns>
-        /// A 32-bit signed integer that indicates the relative order of the objects being compared. The return value has these meanings: Value Meaning Less than zero This instance is less than obj. Zero This instance is equal to obj. Greater than zero This instance is greater than obj.
-        /// </returns>
-        /// <exception cref="T:System.ArgumentException">obj is not the same type as this instance. </exception>
-        public int CompareTo(object obj)
+        /// <remarks>
+        /// </remarks>
+        public UpdateEntry()
         {
-            if (obj is UpdateEntry)
-            {
-                UpdateEntry upd = (UpdateEntry)obj;
-                if (VersionNumber.CompareTo(upd.VersionNumber) == 0) //Version numbers are equal
-                    return Version.CompareTo(upd.Version);
-                else
-                    return VersionNumber.CompareTo(upd.VersionNumber);
-            }
-            throw new ArgumentException("object is not a UpdateEntry");
+            this.Modules = new List<string>();
+            this.Version = string.Empty;
+            this.ScriptNames = new List<string>();
         }
 
-        public int VersionNumber = 0;
-        public string Version = string.Empty;
-        public ArrayList scriptNames = new ArrayList();
-        public DateTime Date;
-        public ArrayList Modules = new ArrayList();
-        public bool Apply = false;
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether this <see cref = "UpdateEntry" /> is apply.
+        /// </summary>
+        /// <value><c>true</c> if apply; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// </remarks>
+        public bool Apply { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the date.
+        /// </summary>
+        /// <value>The date.</value>
+        /// <remarks>
+        /// </remarks>
+        public DateTime Date { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the modules.
+        /// </summary>
+        /// <value>The modules.</value>
+        /// <remarks>
+        /// </remarks>
+        public List<string> Modules { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the script names.
+        /// </summary>
+        /// <value>The script names.</value>
+        /// <remarks>
+        /// </remarks>
+        public List<string> ScriptNames { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the version.
+        /// </summary>
+        /// <value>The version.</value>
+        /// <remarks>
+        /// </remarks>
+        public string Version { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the version number.
+        /// </summary>
+        /// <value>The version number.</value>
+        /// <remarks>
+        /// </remarks>
+        public int VersionNumber { get; set; }
+
+        #endregion
+
+        #region Implemented Interfaces
+
+        #region IComparable<UpdateEntry>
+
+        /// <summary>
+        /// Compares the current object with another object of the same type.
+        /// </summary>
+        /// <returns>
+        /// A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
+        /// </returns>
+        /// <param name="other">
+        /// An object to compare with this object.
+        /// </param>
+        public int CompareTo(UpdateEntry other)
+        {
+            // if .. then Version numbers are equal else ..
+            return this.VersionNumber.CompareTo(other.VersionNumber) == 0
+                       ? this.Version.CompareTo(other.Version)
+                       : this.VersionNumber.CompareTo(other.VersionNumber);
+        }
+
+        #endregion
+
+        #endregion
     }
 }

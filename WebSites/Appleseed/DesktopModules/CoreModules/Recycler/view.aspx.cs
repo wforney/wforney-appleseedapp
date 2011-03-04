@@ -27,8 +27,8 @@ namespace Appleseed
         /// <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
         private void Page_Load(object sender, EventArgs e)
         {
-            deleteButton.Visible = true;
-            updateButton.Visible = false;
+            this.DeleteButton.Visible = true;
+            this.UpdateButton.Visible = false;
 
             try
             {
@@ -42,7 +42,7 @@ namespace Appleseed
                         //load tab names for the dropdown list, then bind them
                         // TODO check if this works
                         //portalTabs = new PagesDB().GetPagesFlat(portalSettings.PortalID);
-                        portalTabs = new PagesDB().GetPagesFlatTable(portalSettings.PortalID);
+                        portalTabs = new PagesDB().GetPagesFlatTable(this.PortalSettings.PortalID);
 
                         ddTabs.DataBind();
 
@@ -53,8 +53,8 @@ namespace Appleseed
 
                     // create an instance of the module
                     PortalModuleControl myPortalModule =
-                        (PortalModuleControl) LoadControl(Path.ApplicationRoot + "/" + module.DesktopSrc);
-                    myPortalModule.PortalID = portalSettings.PortalID;
+                        (PortalModuleControl) LoadControl(Path.ApplicationRoot + "/" + this.module.DesktopSrc);
+                    myPortalModule.PortalID = this.PortalSettings.PortalID;
                     myPortalModule.ModuleConfiguration = module;
 
                     // add the module to the placeholder

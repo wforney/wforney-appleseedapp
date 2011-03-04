@@ -1,216 +1,239 @@
-using System;
-using System.Collections;
-using System.IO;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="FolderDataType.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Implements a DropDownList with a list of directories
+//   and a TextBox for add and create a new directory.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.DataTypes
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+
     /// <summary>
-    /// Implements a DropDownList with a list of directorys 
-    /// and a TextBox for add and create a new directory.
+    /// Implements a DropDownList with a list of directories 
+    ///   and a TextBox for add and create a new directory.
     /// </summary>
-    public class FolderDataType : BaseDataType
+    public class FolderDataType : BaseDataType<string, Panel>
     {
-        private string _dataValueField;
-        private string _dataTextField;
-        private string _baseDirectory;
+        #region Constants and Fields
 
         /// <summary>
-        /// Constructor
+        /// The base directory.
         /// </summary>
-        /// <param name="baseDirectory">Create if not exists</param>
-        /// <param name="defaultDirectory">Create if not exists</param>
+        private readonly string baseDirectory;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FolderDataType"/> class.
+        /// </summary>
+        /// <param name="baseDirectory">
+        /// The base directory.
+        /// </param>
+        /// <param name="defaultDirectory">
+        /// The default directory.
+        /// </param>
         public FolderDataType(string baseDirectory, string defaultDirectory)
         {
-            _baseDirectory = baseDirectory;
-            InnerDataType = PropertiesDataType.List;
-
+            this.baseDirectory = baseDirectory;
+            
+            // this.Type = PropertiesDataType.List;
             if (defaultDirectory != null)
             {
                 try
                 {
-                    if (!Directory.Exists(baseDirectory + "/" + defaultDirectory))
+                    if (!Directory.Exists(string.Format("{0}/{1}", baseDirectory, defaultDirectory)))
                     {
                         if (!Directory.Exists(baseDirectory))
+                        {
                             Directory.CreateDirectory(baseDirectory);
-                        Directory.CreateDirectory(baseDirectory + "/" + defaultDirectory);
+                        }
+
+                        Directory.CreateDirectory(string.Format("{0}/{1}", baseDirectory, defaultDirectory));
                     }
                 }
                 catch (Exception ex)
                 {
-                    throw new ArgumentException("Cannot create the default directory '" + defaultDirectory + "'",
-                                                "FolderDataType", ex);
+                    throw new ArgumentException(
+                        string.Format("Cannot create the default directory '{0}'", defaultDirectory), 
+                        "defaultDirectory", 
+                        ex);
                 }
             }
-            ArrayList result = new ArrayList();
-            foreach (DirectoryInfo di in new DirectoryInfo(baseDirectory).GetDirectories())
-            {
-                if (di.Name != "CVS" && di.Name != "_svn") //Ignore CVS and _svn folders
-                {
-                    result.Add(new ListItem(di.Name, di.Name));
-                }
-            }
-            InnerDataSource = result;
+
+            var result =
+                new DirectoryInfo(baseDirectory).GetDirectories().Where(di => di.Name != "CVS" && di.Name != "_svn").
+                    Select(di => new ListItem(di.Name, di.Name)).ToList();
+            this.InnerDataSource = result;
         }
 
-        /// <summary>
-        /// InitializeComponents
-        /// </summary>
-        protected override void InitializeComponents()
-        {
-            using (Panel panel = new Panel())
-            {
-                using (DropDownList dd = new DropDownList())
-                {
-                    dd.CssClass = "NormalTextBox";
-                    dd.Width = new Unit(controlWidth);
-                    dd.DataSource = DataSource;
-                    dd.DataValueField = DataValueField;
-                    dd.DataTextField = DataTextField;
-                    dd.DataBind();
-                    dd.Width = (base.controlWidth/2 - 1);
-                    dd.ID = panel.ID + "dd";
+        #endregion
 
-                    panel.Controls.Add(dd);
-                }
-
-                using (TextBox tb = new TextBox())
-                {
-                    tb.CssClass = "NormalTextBox";
-                    tb.Text = General.GetString("NEW_FOLDER", "New Folder ?");
-                    tb.Columns = 30;
-                    tb.Width = (base.controlWidth/2 - 1);
-                    tb.ID = panel.ID + "tb";
-                    tb.MaxLength = 1500;
-
-                    panel.Controls.Add(tb);
-                }
-
-                innerControl = panel;
-            }
-        }
+        #region Properties
 
         /// <summary>
-        /// Gets or sets the data value field.
-        /// </summary>
-        /// <value>The data value field.</value>
-        public override string DataValueField
-        {
-            get { return _dataValueField; }
-            set { _dataValueField = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the data text field.
-        /// </summary>
-        /// <value>The data text field.</value>
-        public override string DataTextField
-        {
-            get { return _dataTextField; }
-            set { _dataTextField = value; }
-        }
-
-        /// <summary>
-        /// Gets DataSource
-        /// Should be overrided from inherited classes
+        ///   Gets DataSource
+        ///   Should be overridden from inherited classes
         /// </summary>
         /// <value>The data source.</value>
         public override object DataSource
         {
             get
             {
-                if (InnerDataSource != null)
-                    return InnerDataSource;
-                return null;
+                return this.InnerDataSource;
             }
-            set { InnerDataSource = value; }
+
+            set
+            {
+                this.InnerDataSource = value;
+            }
         }
 
         /// <summary>
-        /// Gets or sets the value.
+        ///   Gets or sets the data text field.
         /// </summary>
-        /// <value>The value.</value>
-        public override string Value
-        {
-            get { return (innerValue); }
-            set { innerValue = value; }
-        }
+        /// <value>The data text field.</value>
+        public override string DataTextField { get; set; }
 
         /// <summary>
-        /// EditControl
+        ///   Gets or sets the data value field.
         /// </summary>
-        /// <value>The edit control.</value>
-        public override Control EditControl
+        /// <value>The data value field.</value>
+        public override string DataValueField { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the edit control.
+        /// </summary>
+        /// <value>
+        ///   The edit control.
+        /// </value>
+        public override Panel EditControl
         {
             get
             {
-                if (innerControl == null)
-                    InitializeComponents();
-                Panel panel = (Panel) innerControl;
+                if (this.InnerControl == null)
+                {
+                    this.InitializeComponents();
+                }
+
+                var panel = this.InnerControl;
                 DropDownList dd = null;
-                foreach (Control c in panel.Controls)
+                if (panel != null)
+                {
+                    foreach (var c in panel.Controls.OfType<DropDownList>())
+                    {
+                        // Update value in control
+                        dd = c;
+                        dd.ClearSelection();
+                        if (dd.Items.FindByValue(this.Value) != null)
+                        {
+                            dd.Items.FindByValue(this.Value).Selected = true;
+                        }
+                    }
+                }
+
+                // Return control
+                return this.InnerControl;
+            }
+
+            set
+            {
+                this.InnerControl = value;
+
+                // Update value from control
+                DropDownList dd = null;
+                foreach (Control c in value.Controls)
                 {
                     if (c is DropDownList)
                     {
-                        //Update value in control
-                        dd = (DropDownList) c;
-                        dd.ClearSelection();
-                        if (dd.Items.FindByValue(Value) != null)
-                            dd.Items.FindByValue(Value).Selected = true;
+                        dd = (DropDownList)c;
+                        this.Value = dd.SelectedItem != null ? dd.SelectedItem.Value : string.Empty;
                     }
-                }
-                //Return control
-                return innerControl;
-            }
-            set
-            {
-                if (value is Panel)
-                {
-                    innerControl = value;
-                    //Update value from control
-                    DropDownList dd = null;
-                    foreach (Control c in value.Controls)
+
+                    if (c is TextBox)
                     {
-                        if (c is DropDownList)
+                        var tb = (TextBox)c;
+                        if (tb.Text != General.GetString("NEW_FOLDER", "New Folder ?"))
                         {
-                            dd = (DropDownList) c;
-                            if (dd.SelectedItem != null)
-                                Value = dd.SelectedItem.Value;
-                            else
-                                Value = string.Empty;
-                        }
-                        if (c is TextBox)
-                        {
-                            TextBox tb = (TextBox) c;
-                            if (tb.Text != General.GetString("NEW_FOLDER", "New Folder ?"))
+                            try
                             {
-                                try
+                                if (!Directory.Exists(string.Format("{0}/{1}", this.baseDirectory, tb.Text)))
                                 {
-                                    if (!Directory.Exists(_baseDirectory + "/" + tb.Text))
+                                    Directory.CreateDirectory(string.Format("{0}/{1}", this.baseDirectory, tb.Text));
+                                    if (dd != null)
                                     {
-                                        Directory.CreateDirectory(_baseDirectory + "/" + tb.Text);
-                                        if (dd != null)
+                                        dd.Items.Add(new ListItem(tb.Text, tb.Text));
+                                        dd.Items.FindByValue(tb.Text).Selected = true;
+                                        dd.SelectedIndex = dd.Items.Count - 1;
+                                        if (dd.SelectedItem != null)
                                         {
-                                            dd.Items.Add(new ListItem(tb.Text, tb.Text));
-                                            dd.Items.FindByValue(tb.Text).Selected = true;
-                                            dd.SelectedIndex = dd.Items.Count - 1;
-                                            Value = dd.SelectedItem.Value;
+                                            this.Value = dd.SelectedItem.Value;
                                         }
                                     }
                                 }
-                                catch
-                                {
-                                }
-                                tb.Text = General.GetString("NEW_FOLDER", "New Folder ?");
                             }
+                            catch
+                            {
+                            }
+
+                            tb.Text = General.GetString("NEW_FOLDER", "New Folder ?");
                         }
                     }
                 }
-                else
-                    throw new ArgumentException(
-                        "A Panel values is required, a '" + value.GetType().Name + "' is given.", "EditControl");
             }
         }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Initializes the components.
+        /// </summary>
+        protected override void InitializeComponents()
+        {
+            var dd = new DropDownList
+                {
+                    CssClass = "NormalTextBox", 
+                    Width = new Unit(this.ControlWidth), 
+                    DataSource = this.DataSource, 
+                    DataValueField = this.DataValueField, 
+                    DataTextField = this.DataTextField
+                };
+
+            dd.DataBind();
+            dd.Width = (this.ControlWidth / 2) - 1;
+
+            var panel = new Panel();
+
+            dd.ID = string.Format("{0}dd", panel.ID);
+
+            panel.Controls.Add(dd);
+
+            var tb = new TextBox
+                {
+                    CssClass = "NormalTextBox", 
+                    Text = General.GetString("NEW_FOLDER", "New Folder ?"), 
+                    Columns = 30, 
+                    Width = (base.ControlWidth / 2) - 1, 
+                    ID = string.Format("{0}tb", panel.ID), 
+                    MaxLength = 1500
+                };
+
+            panel.Controls.Add(tb);
+
+            this.InnerControl = panel;
+        }
+
+        #endregion
     }
 }

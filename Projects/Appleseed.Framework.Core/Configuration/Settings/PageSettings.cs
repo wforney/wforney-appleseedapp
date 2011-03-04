@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright company="--" file="PageSettings.cs">
-//   Copyright © -- 2010. All Rights Reserved.
+// <copyright file="PageSettings.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   PageSettings Class encapsulates the detailed settings
@@ -12,6 +12,7 @@ namespace Appleseed.Framework.Site.Configuration
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Data;
     using System.Data.SqlClient;
@@ -20,7 +21,9 @@ namespace Appleseed.Framework.Site.Configuration
     using System.Linq;
     using System.Threading;
     using System.Web;
+    using System.Web.UI.WebControls;
 
+    using Appleseed.Framework.Configuration.Settings;
     using Appleseed.Framework.DataTypes;
     using Appleseed.Framework.Design;
     using Appleseed.Framework.Localization;
@@ -31,85 +34,55 @@ namespace Appleseed.Framework.Site.Configuration
 
     /// <summary>
     /// PageSettings Class encapsulates the detailed settings 
-    ///     for a specific Page in the Portal
+    ///   for a specific Page in the Portal
     /// </summary>
-    public class PageSettings
+    public class PageSettings : ISettingHolder
     {
         #region Constants and Fields
 
         /// <summary>
-        ///     The authorized roles.
+        ///   The custom settings.
         /// </summary>
-        public string AuthorizedRoles;
+        private Dictionary<string, ISettingItem> customSettings;
 
         /// <summary>
-        ///     The mobile page name.
+        ///   The modules.
         /// </summary>
-        public string MobilePageName;
+        private List<IModuleSettings> modules = new List<IModuleSettings>();
 
         /// <summary>
-        ///     The modules.
-        /// </summary>
-        public ArrayList Modules = new ArrayList();
-
-        /// <summary>
-        ///     The page id.
-        /// </summary>
-        public int PageID;
-
-        /// <summary>
-        ///     The page layout.
-        /// </summary>
-        public string PageLayout;
-
-        /// <summary>
-        ///     The page order.
-        /// </summary>
-        public int PageOrder;
-
-        /// <summary>
-        ///     The parent page id.
-        /// </summary>
-        public int ParentPageID;
-
-        /// <summary>
-        ///     The show mobile.
-        /// </summary>
-        public bool ShowMobile;
-
-        /// <summary>
-        ///     The portal settings.
-        /// </summary>
-        private PortalSettings _portalSettings;
-
-        /// <summary>
-        ///     The custom settings.
-        /// </summary>
-        private Hashtable customSettings;
-
-        // Jes1111
-        // public int TemplateId;
-
-        /// <summary>
-        ///     The portal path.
+        ///   The portal path.
         /// </summary>
         /// <remarks>
-        ///     thierry (tiptopweb)
-        ///     to have dropdown list for the themes and layout, we need the data path for the portal (for private theme and layout)
-        ///     we need the portalPath here for this use and it has to be set from the current portalSettings before getting the
-        ///     CustomSettings for a tab
+        ///   thierry (tiptopweb)
+        ///   to have dropdown list for the themes and layout, we need the data path for the portal (for private theme and layout)
+        ///   we need the portalPath here for this use and it has to be set from the current portalSettings before getting the
+        ///   CustomSettings for a tab
         /// </remarks>
         private string portalPath;
+
+        /// <summary>
+        ///   The portal settings.
+        /// </summary>
+        private PortalSettings thePortalSettings;
 
         #endregion
 
         #region Properties
 
         /// <summary>
-        ///     Gets Page Settings For Search Engines
+        ///   Gets or sets the authorized roles.
+        /// </summary>
+        /// <value>The authorized roles.</value>
+        /// <remarks>
+        /// </remarks>
+        public string AuthorizedRoles { get; set; }
+
+        /// <summary>
+        ///   Gets Page Settings For Search Engines
         /// </summary>
         /// <value>The custom settings.</value>
-        public Hashtable CustomSettings
+        public Dictionary<string, ISettingItem> CustomSettings
         {
             get
             {
@@ -118,7 +91,50 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
-        ///     Gets or sets the name of the page.
+        ///   Gets or sets the name of the mobile page.
+        /// </summary>
+        /// <value>The name of the mobile page.</value>
+        /// <remarks>
+        /// </remarks>
+        public string MobilePageName { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the modules.
+        /// </summary>
+        /// <value>The modules.</value>
+        /// <remarks>
+        /// </remarks>
+        public List<IModuleSettings> Modules
+        {
+            get
+            {
+                return this.modules;
+            }
+
+            set
+            {
+                this.modules = value;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets the page ID.
+        /// </summary>
+        /// <value>The page ID.</value>
+        /// <remarks>
+        /// </remarks>
+        public int PageID { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the page layout.
+        /// </summary>
+        /// <value>The page layout.</value>
+        /// <remarks>
+        /// </remarks>
+        public string PageLayout { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the name of the page.
         /// </summary>
         /// <value>The name of the page.</value>
         /// <remarks>
@@ -126,7 +142,23 @@ namespace Appleseed.Framework.Site.Configuration
         public string PageName { get; set; }
 
         /// <summary>
-        ///     Gets or sets the portal path.
+        ///   Gets or sets the page order.
+        /// </summary>
+        /// <value>The page order.</value>
+        /// <remarks>
+        /// </remarks>
+        public int PageOrder { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the parent page ID.
+        /// </summary>
+        /// <value>The parent page ID.</value>
+        /// <remarks>
+        /// </remarks>
+        public int ParentPageID { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the portal path.
         /// </summary>
         /// <value>The portal path.</value>
         /// <remarks>
@@ -150,28 +182,51 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
-        ///     Stores current portal settings
+        ///   Gets the settings.
         /// </summary>
-        /// <value>The portal settings.</value>
-        public PortalSettings portalSettings
+        /// <remarks>
+        /// </remarks>
+        public IDictionary<string, ISettingItem> Settings
         {
             get
             {
-                if (this._portalSettings == null)
+                return this.GetPageCustomSettings(this.PageID);
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether [show mobile].
+        /// </summary>
+        /// <value><c>true</c> if [show mobile]; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// </remarks>
+        public bool ShowMobile { get; set; }
+
+        /// <summary>
+        ///   Gets or sets the portal settings.
+        /// </summary>
+        /// <value>The portal settings.</value>
+        /// <remarks>
+        /// </remarks>
+        public PortalSettings PortalSettings
+        {
+            get
+            {
+                if (this.thePortalSettings == null)
                 {
                     // Obtain PortalSettings from Current Context
                     if (HttpContext.Current != null)
                     {
-                        this._portalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
+                        this.thePortalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
                     }
                 }
 
-                return this._portalSettings;
+                return this.thePortalSettings;
             }
 
             set
             {
-                this._portalSettings = value;
+                this.thePortalSettings = value;
             }
         }
 
@@ -180,13 +235,13 @@ namespace Appleseed.Framework.Site.Configuration
         #region Public Methods
 
         /// <summary>
-        /// Read Current Page subtabs
+        /// Read Current Page sub-tabs
         /// </summary>
         /// <param name="pageId">
         /// The page ID.
         /// </param>
         /// <returns>
-        /// A sql data reader.
+        /// A SQL data reader.
         /// </returns>
         [Obsolete("Replace me and move to DAL")]
         public static SqlDataReader GetPageSettings(int pageId)
@@ -204,7 +259,7 @@ namespace Appleseed.Framework.Site.Configuration
                 var parameterPageId = new SqlParameter("@TabID", SqlDbType.Int) { Value = pageId };
                 command.Parameters.Add(parameterPageId);
 
-                // The new paramater "PortalLanguage" has been added to sp rb_GetPageSettings  
+                // The new parameter "PortalLanguage" has been added to sp rb_GetPageSettings  
                 // Onur Esnaf
                 var parameterPortalLanguage = new SqlParameter("@PortalLanguage", SqlDbType.NVarChar, 12)
                     {
@@ -220,7 +275,7 @@ namespace Appleseed.Framework.Site.Configuration
         }
 
         /// <summary>
-        /// Read Current Page subtabs
+        /// Read Current Page sub-tabs
         /// </summary>
         /// <param name="pageId">
         /// The page ID.
@@ -243,7 +298,7 @@ namespace Appleseed.Framework.Site.Configuration
                 var parameterPageId = new SqlParameter("@PageID", SqlDbType.Int) { Value = pageId };
                 command.Parameters.Add(parameterPageId);
 
-                // The new paramater "PortalLanguage" has been added to sp rb_GetPageSettings  
+                // The new parameter "PortalLanguage" has been added to sp rb_GetPageSettings  
                 // Onur Esnaf
                 var parameterPortalLanguage = new SqlParameter("@PortalLanguage", SqlDbType.NVarChar, 12)
                     {
@@ -274,7 +329,8 @@ namespace Appleseed.Framework.Site.Configuration
                     }
                     finally
                     {
-                        result.Close(); // by Manu, fixed bug 807858
+                        // by Manu, fixed bug 807858
+                        result.Close();
                     }
 
                     return tabs;
@@ -328,14 +384,14 @@ namespace Appleseed.Framework.Site.Configuration
                 CurrentCache.Remove(Key.TabSettings(pageId));
             }
 
-            // Clear url builder elements
+            // Clear URL builder elements
             HttpUrlBuilder.Clear(pageId);
         }
 
         /// <summary>
-        /// The PageSettings.GetPageCustomSettings Method returns a hashtable of
-        ///     custom Page specific settings from the database. This method is
-        ///     used by Portals to access misc Page settings.
+        /// The PageSettings.GetPageCustomSettings Method returns a hash table of
+        ///   custom Page specific settings from the database. This method is
+        ///   used by Portals to access misc Page settings.
         /// </summary>
         /// <param name="pageId">
         /// The page ID.
@@ -343,11 +399,15 @@ namespace Appleseed.Framework.Site.Configuration
         /// <returns>
         /// The hash table.
         /// </returns>
-        public Hashtable GetPageCustomSettings(int pageId)
+        public Dictionary<string, ISettingItem> GetPageCustomSettings(int pageId)
         {
-            Hashtable baseSettings;
+            Dictionary<string, ISettingItem> baseSettings;
 
-            if (!CurrentCache.Exists(Key.TabSettings(pageId)))
+            if (CurrentCache.Exists(Key.TabSettings(pageId)))
+            {
+                baseSettings = (Dictionary<string, ISettingItem>)CurrentCache.Get(Key.TabSettings(pageId));
+            }
+            else
             {
                 baseSettings = this.GetPageBaseSettings();
 
@@ -385,38 +445,40 @@ namespace Appleseed.Framework.Site.Configuration
 
                 // Thierry (Tiptopweb)
                 // TODO : put back the cache in GetPageBaseSettings() and reset values not found in the database
-                foreach (string key in baseSettings.Keys)
+                // REVIEW: This code is duplicated in portal settings.
+                foreach (var key in
+                    baseSettings.Keys.Where(key => settings[key] != null).Where(
+                        key => settings[key].ToString().Length != 0))
                 {
-                    if (settings[key] != null)
-                    {
-                        var s = (SettingItem)baseSettings[key];
-
-                        if (settings[key].ToString().Length != 0)
-                        {
-                            s.Value = settings[key].ToString();
-                        }
-                    }
-                    else
-                    {
-                        // by Manu
-                        // Thierry (Tiptopweb), see the comment in Hashtable GetPageBaseSettings()
-
-                        // this is not resetting key not found in the database
-                        var s = (SettingItem)baseSettings[key];
-
-                        // s.Value = string.Empty; 3_aug_2004 Cory Isakson.  This line caused an error with booleans
-                    }
+                    baseSettings[key].Value = settings[key];
                 }
 
                 CurrentCache.Insert(Key.TabSettings(pageId), baseSettings);
             }
-            else
-            {
-                baseSettings = (Hashtable)CurrentCache.Get(Key.TabSettings(pageId));
-            }
 
             return baseSettings;
         }
+
+        #endregion
+
+        #region Implemented Interfaces
+
+        #region ISettingHolder
+
+        /// <summary>
+        /// Inserts or updates the setting.
+        /// </summary>
+        /// <param name="settingItem">
+        /// The setting item.
+        /// </param>
+        /// <remarks>
+        /// </remarks>
+        public void Upsert(ISettingItem settingItem)
+        {
+            UpdatePageSettings(this.PageID, settingItem.EnglishName, settingItem.Value.ToString());
+        }
+
+        #endregion
 
         #endregion
 
@@ -432,13 +494,13 @@ namespace Appleseed.Framework.Site.Configuration
         {
             Hashtable imageMenuFiles;
 
-            if (!CurrentCache.Exists(Key.ImageMenuList(this.portalSettings.CurrentLayout)))
+            if (!CurrentCache.Exists(Key.ImageMenuList(this.PortalSettings.CurrentLayout)))
             {
                 imageMenuFiles = new Hashtable { { "-Default-", string.Empty } };
                 var layoutManager = new LayoutManager(this.PortalPath);
 
                 var menuDirectory = Path.WebPathCombine(
-                    layoutManager.PortalLayoutPath, this.portalSettings.CurrentLayout);
+                    layoutManager.PortalLayoutPath, this.PortalSettings.CurrentLayout);
                 if (Directory.Exists(menuDirectory))
                 {
                     menuDirectory = Path.WebPathCombine(menuDirectory, "menuimages");
@@ -446,7 +508,7 @@ namespace Appleseed.Framework.Site.Configuration
                 else
                 {
                     menuDirectory = Path.WebPathCombine(
-                        LayoutManager.Path, this.portalSettings.CurrentLayout, "menuimages");
+                        LayoutManager.Path, this.PortalSettings.CurrentLayout, "menuimages");
                 }
 
                 if (Directory.Exists(menuDirectory))
@@ -459,11 +521,11 @@ namespace Appleseed.Framework.Site.Configuration
                     }
                 }
 
-                CurrentCache.Insert(Key.ImageMenuList(this.portalSettings.CurrentLayout), imageMenuFiles, null);
+                CurrentCache.Insert(Key.ImageMenuList(this.PortalSettings.CurrentLayout), imageMenuFiles, null);
             }
             else
             {
-                imageMenuFiles = (Hashtable)CurrentCache.Get(Key.ImageMenuList(this.portalSettings.CurrentLayout));
+                imageMenuFiles = (Hashtable)CurrentCache.Get(Key.ImageMenuList(this.PortalSettings.CurrentLayout));
             }
 
             return imageMenuFiles;
@@ -471,34 +533,34 @@ namespace Appleseed.Framework.Site.Configuration
 
         /// <summary>
         /// Changed by Thierry@tiptopweb.com.au
-        ///     Page are different for custom page layout an theme, this cannot be static
-        ///     Added by john.mandia@whitelightsolutions.com
-        ///     Cache by Manu
-        ///     non static function, Thierry : this is necessary for page custom layout and themes
+        ///   Page are different for custom page layout an theme, this cannot be static
+        ///   Added by john.mandia@whitelightsolutions.com
+        ///   Cache by Manu
+        ///   non static function, Thierry : this is necessary for page custom layout and themes
         /// </summary>
         /// <returns>
         /// A System.Collections.Hashtable value...
         /// </returns>
-        private Hashtable GetPageBaseSettings()
+        private Dictionary<string, ISettingItem> GetPageBaseSettings()
         {
             // Define base settings
-            var baseSettings = new Hashtable();
+            var baseSettings = new Dictionary<string, ISettingItem>();
 
             // 2_aug_2004 Cory Isakson
             var groupOrderBase = (int)SettingItemGroup.NAVIGATION_SETTINGS;
             var group = SettingItemGroup.NAVIGATION_SETTINGS;
 
-            var tabPlaceholder = new SettingItem(new BooleanDataType())
+            var tabPlaceholder = new SettingItem<bool, CheckBox>(new BaseDataType<bool, CheckBox>())
                 {
                     Group = group, 
                     Order = groupOrderBase, 
-                    Value = "False", 
+                    Value = false, 
                     EnglishName = "Act as a Placeholder?", 
                     Description = "Allows this tab to act as a navigation placeholder only."
                 };
             baseSettings.Add("TabPlaceholder", tabPlaceholder);
 
-            var tabLink = new SettingItem(new StringDataType())
+            var tabLink = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     Value = string.Empty, 
@@ -508,28 +570,28 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("TabLink", tabLink);
 
-            var tabUrlKeyword = new SettingItem(new StringDataType())
+            var tabUrlKeyword = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     Order = groupOrderBase + 2, 
-                    EnglishName = "Url Keyword", 
-                    Description = "Allows you to specify a keyword that would appear in your url."
+                    EnglishName = "URL Keyword", 
+                    Description = "Allows you to specify a keyword that would appear in your URL."
                 };
             baseSettings.Add("TabUrlKeyword", tabUrlKeyword);
 
-            var urlPageName = new SettingItem(new StringDataType())
+            var urlPageName = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     Order = groupOrderBase + 3, 
-                    EnglishName = "Url Page Name", 
+                    EnglishName = "URL Page Name", 
                     Description =
-                        "This setting allows you to specify a name for this tab that will show up in the url instead of default.aspx"
+                        "This setting allows you to specify a name for this tab that will show up in the URL instead of default.aspx"
                 };
             baseSettings.Add("UrlPageName", urlPageName);
 
             // groupOrderBase = (int)SettingItemGroup.META_SETTINGS;
             group = SettingItemGroup.META_SETTINGS;
-            var tabTitle = new SettingItem(new StringDataType())
+            var tabTitle = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     EnglishName = "Tab / Page Title", 
@@ -538,23 +600,23 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("TabTitle", tabTitle);
 
-            var tabMetaKeyWords = new SettingItem(new StringDataType())
+            var tabMetaKeyWords = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     EnglishName = "Tab / Page Keywords", 
                     Description =
-                        "This setting is to help with search engine optimisation. Enter 1-15 Default Keywords that represent what this Tab / Page is about.Enter something here to override the default portal wide setting."
+                        "This setting is to help with search engine optimization. Enter 1-15 Default Keywords that represent what this Tab / Page is about.Enter something here to override the default portal wide setting."
                 };
             baseSettings.Add("TabMetaKeyWords", tabMetaKeyWords);
-            var tabMetaDescription = new SettingItem(new StringDataType())
+            var tabMetaDescription = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     EnglishName = "Tab / Page Description", 
                     Description =
-                        "This setting is to help with search engine optimisation. Enter a description (Not too long though. 1 paragraph is enough) that describes this particular Tab / Page. Enter something here to override the default portal wide setting."
+                        "This setting is to help with search engine optimization. Enter a description (Not too long though. 1 paragraph is enough) that describes this particular Tab / Page. Enter something here to override the default portal wide setting."
                 };
             baseSettings.Add("TabMetaDescription", tabMetaDescription);
-            var tabMetaEncoding = new SettingItem(new StringDataType())
+            var tabMetaEncoding = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     EnglishName = "Tab / Page Encoding", 
@@ -562,7 +624,7 @@ namespace Appleseed.Framework.Site.Configuration
                         "Every time your browser returns a page it looks to see what format it is retrieving. This allows you to specify the content type for this particular Tab / Page. Enter something here to override the default portal wide setting."
                 };
             baseSettings.Add("TabMetaEncoding", tabMetaEncoding);
-            var tabMetaOther = new SettingItem(new StringDataType())
+            var tabMetaOther = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     EnglishName = "Additional Meta Tag Entries", 
@@ -570,7 +632,7 @@ namespace Appleseed.Framework.Site.Configuration
                         "This setting allows you to enter new tags into this Tab / Page's HEAD Tag. Enter something here to override the default portal wide setting."
                 };
             baseSettings.Add("TabMetaOther", tabMetaOther);
-            var tabKeyPhrase = new SettingItem(new StringDataType())
+            var tabKeyPhrase = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                 {
                     Group = group, 
                     EnglishName = "Tab / Page Keyphrase", 
@@ -579,28 +641,24 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("TabKeyPhrase", tabKeyPhrase);
 
-            
-
-            #region Layout and Theme
-
             // changed Thierry (Tiptopweb) : have a dropdown menu to select layout and themes
             groupOrderBase = (int)SettingItemGroup.THEME_LAYOUT_SETTINGS;
             group = SettingItemGroup.THEME_LAYOUT_SETTINGS;
 
             // get the list of available layouts
             // changed: Jes1111 - 2004-08-06
-            var layoutsList = new ArrayList(new LayoutManager(this.portalSettings.PortalPath).GetLayouts());
+            var layoutsList = new ArrayList(new LayoutManager(this.PortalSettings.PortalPath).GetLayouts());
             var noCustomLayout = new LayoutItem { Name = string.Empty };
             layoutsList.Insert(0, noCustomLayout);
 
             // get the list of available themes
             // changed: Jes1111 - 2004-08-06
-            var themesList = new ArrayList(new ThemeManager(this.portalSettings.PortalPath).GetThemes());
+            var themesList = new ArrayList(new ThemeManager(this.PortalSettings.PortalPath).GetThemes());
             var noCustomTheme = new ThemeItem { Name = string.Empty };
             themesList.Insert(0, noCustomTheme);
 
             // changed: Jes1111 - 2004-08-06
-            var customLayout = new SettingItem(new CustomListDataType(layoutsList, "Name", "Name"))
+            var customLayout = new SettingItem<string, ListControl>(new CustomListDataType(layoutsList, "Name", "Name"))
                 {
                     Group = group, 
                     Order = groupOrderBase + 11, 
@@ -609,9 +667,9 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("CustomLayout", customLayout);
 
-            // SettingItem CustomTheme = new SettingItem(new StringDataType());
+            // SettingItem CustomTheme = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>());
             // changed: Jes1111 - 2004-08-06
-            var customTheme = new SettingItem(new CustomListDataType(themesList, "Name", "Name"))
+            var customTheme = new SettingItem<string, ListControl>(new CustomListDataType(themesList, "Name", "Name"))
                 {
                     Group = group, 
                     Order = groupOrderBase + 12, 
@@ -620,9 +678,10 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("CustomTheme", customTheme);
 
-            // SettingItem CustomThemeAlt = new SettingItem(new StringDataType());
+            // SettingItem CustomThemeAlt = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>());
             // changed: Jes1111 - 2004-08-06
-            var customThemeAlt = new SettingItem(new CustomListDataType(themesList, "Name", "Name"))
+            var customThemeAlt = new SettingItem<string, ListControl>(
+                new CustomListDataType(themesList, "Name", "Name"))
                 {
                     Group = group, 
                     Order = groupOrderBase + 13, 
@@ -631,18 +690,15 @@ namespace Appleseed.Framework.Site.Configuration
                 };
             baseSettings.Add("CustomThemeAlt", customThemeAlt);
 
-            var customMenuImage = new SettingItem(new CustomListDataType(this.GetImageMenu(), "Key", "Value"))
-                {
-                    Group = group, 
-                    Order = groupOrderBase + 14, 
-                    EnglishName = "Custom Image Menu", 
-                    Description = "Set a custom menu image for this tab"
-                };
+            var customMenuImage =
+                new SettingItem<string, ListControl>(new CustomListDataType(this.GetImageMenu(), "Key", "Value"))
+                    {
+                        Group = group, 
+                        Order = groupOrderBase + 14, 
+                        EnglishName = "Custom Image Menu", 
+                        Description = "Set a custom menu image for this tab"
+                    };
             baseSettings.Add("CustomMenuImage", customMenuImage);
-
-            #endregion
-
-            #region Language/Culture Management
 
             groupOrderBase = (int)SettingItemGroup.CULTURE_SETTINGS;
             group = SettingItemGroup.CULTURE_SETTINGS;
@@ -655,7 +711,7 @@ namespace Appleseed.Framework.Site.Configuration
             foreach (
                 var c in cultureList.Where(c => c != CultureInfo.InvariantCulture && !baseSettings.ContainsKey(c.Name)))
             {
-                var localizedTabKeyPhrase = new SettingItem(new StringDataType())
+                var localizedTabKeyPhrase = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                     {
                         Order = counter, 
                         Group = group, 
@@ -663,7 +719,7 @@ namespace Appleseed.Framework.Site.Configuration
                         Description = string.Format("Key Phrase this Tab/Page for {0} culture.", c.EnglishName)
                     };
                 baseSettings.Add(string.Format("TabKeyPhrase_{0}", c.Name), localizedTabKeyPhrase);
-                var localizedTitle = new SettingItem(new StringDataType())
+                var localizedTitle = new SettingItem<string, TextBox>(new BaseDataType<string, TextBox>())
                     {
                         Order = counter, 
                         Group = group, 
@@ -673,8 +729,6 @@ namespace Appleseed.Framework.Site.Configuration
                 baseSettings.Add(c.Name, localizedTitle);
                 counter++;
             }
-
-            #endregion
 
             return baseSettings;
         }

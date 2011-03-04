@@ -1,68 +1,405 @@
-using System;
-using System.Globalization;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Xml;
-using System.Xml.XPath;
-using Appleseed.Framework.Security;
-using Appleseed.Framework.Site.Configuration;
-using System.Web.Security;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="XslHelper.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   XslHelper object, designed to be imported into an XSLT transform
+//   via XsltArgumentList.AddExtensionObject(...). Provides transform with
+//   access to various Appleseed functions, such as BuildUrl(), IsInRoles(), data
+//   formatting, etc. (Jes1111)
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.Helpers
 {
+    using System;
+    using System.Globalization;
+    using System.Net;
+    using System.Text.RegularExpressions;
+    using System.Web;
+    using System.Web.Caching;
+    using System.Web.Security;
+    using System.Xml;
+    using System.Xml.XPath;
+    using System.Xml.Xsl;
+
+    using Appleseed.Framework.Security;
+    using Appleseed.Framework.Site.Configuration;
+    using Appleseed.Framework.Users.Data;
+
     /// <summary>
     /// XslHelper object, designed to be imported into an XSLT transform
-    /// via XsltArgumentList.AddExtensionObject(...). Provides transform with 
-    /// access to various Appleseed functions, such as BuildUrl(), IsInRoles(), data 
-    /// formatting, etc. (Jes1111)
+    ///   via XsltArgumentList.AddExtensionObject(...). Provides transform with 
+    ///   access to various Appleseed functions, such as BuildUrl(), IsInRoles(), data 
+    ///   formatting, etc. (Jes1111)
     /// </summary>
     public class XslHelper
     {
-        private PortalSettings portalSettings;
-        private MembershipUser user;
+        #region Constants and Fields
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:XslHelper"/> class.
+        ///   The portal settings.
+        /// </summary>
+        private readonly PortalSettings portalSettings;
+
+        /// <summary>
+        ///   The membership user.
+        /// </summary>
+        private readonly MembershipUser user;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "XslHelper" /> class.
+        /// </summary>
+        public XslHelper()
+        {
+            if (HttpContext.Current != null)
+            {
+                this.portalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
+
+                var users = new UsersDB();
+                this.user = users.GetSingleUser(HttpContext.Current.User.Identity.Name, this.portalSettings.PortalAlias);
+            }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Returns a compiled XSLT transform object for an XSLT file and caches it
+        /// </summary>
+        /// <param name="xsltFile">The relative path to the XSLT file</param>
+        /// <param name="cacheKey">The cache key.</param>
+        /// <returns>
+        /// An XslCompiledTransform object for the XSLT file
+        /// </returns>
+        public static XslCompiledTransform GetXslt(string xsltFile, string cacheKey = null)
+        {
+            cacheKey = cacheKey ?? string.Format("Xslt_{0}", xsltFile);
+            if (HttpRuntime.Cache[cacheKey] != null)
+            {
+                return (XslCompiledTransform)HttpRuntime.Cache[cacheKey];
+            }
+
+            var xslt = new XslCompiledTransform();
+            using (var xslReader = new XmlTextReader(HttpContext.Current.Server.MapPath(xsltFile)))
+            {
+                xslReader.EntityHandling = EntityHandling.ExpandCharEntities;
+                var xslResolver = new XmlUrlResolver { Credentials = CredentialCache.DefaultCredentials };
+                var settings = new XsltSettings { EnableDocumentFunction = true, EnableScript = true };
+                xslt.Load(xslReader, settings, xslResolver);
+                HttpRuntime.Cache.Insert(
+                    cacheKey, xslt, new CacheDependency(HttpContext.Current.Server.MapPath(xsltFile)));
+            }
+
+            return xslt;
+        }
+
+        /// <summary>
+        /// Adds to URL.
+        /// </summary>
+        /// <param name="url">
+        /// The URL to add to.
+        /// </param>
+        /// <param name="paramKey">
+        /// The key of the URL.
+        /// </param>
+        /// <param name="paramValue">
+        /// The value of the URL.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string AddToUrl(string url, string paramKey, string paramValue)
+        {
+            if (url.IndexOf(paramKey) == -1)
+            {
+                if (url.IndexOf("?") > 0)
+                {
+                    url = string.Format("{0}&{1}={2}", url.Trim(), paramKey.Trim(), paramValue.Trim());
+                }
+                else
+                {
+                    url = url.Trim();
+                    url = string.Format(
+                        "{0}/{1}_{2}{3}", 
+                        url.Substring(0, url.LastIndexOf("/")), 
+                        paramKey.Trim(), 
+                        paramValue.Trim(), 
+                        url.Substring(url.LastIndexOf("/")));
+                }
+            }
+
+            return url;
+        }
+
+        /// <summary>
+        /// Builds the URL.
+        /// </summary>
+        /// <param name="targetPage">
+        /// The target page.
+        /// </param>
+        /// <param name="pageId">
+        /// The page ID.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string BuildUrl(string targetPage, int pageId)
+        {
+            // targetPage = System.Text.RegularExpressions.Regex.Replace(targetPage,@"[\.\$\^\{\[\(\|\)\*\+\?!'""]",string.Empty);
+            // targetPage = targetPage.Replace(" ","_").ToLower();
+            // return Appleseed.HttpUrlBuilder.BuildUrl("~/" + targetPage + ".aspx", tabID);
+            return HttpUrlBuilder.BuildUrl(string.Concat("~/", Clean(targetPage), ".aspx"), pageId);
+        }
+
+        /// <summary>
+        /// Builds the URL.
+        /// </summary>
+        /// <param name="targetPage">
+        /// The target page.
+        /// </param>
+        /// <param name="pageId">
+        /// The page ID.
+        /// </param>
+        /// <param name="pathTrace">
+        /// The path trace.
+        /// </param>
+        /// <returns>
+        /// The build URL.
+        /// </returns>
+        public string BuildUrl(string targetPage, int pageId, string pathTrace)
+        {
+            return HttpUrlBuilder.BuildUrl(
+                string.Concat("~/", Clean(targetPage), ".aspx"), pageId, Clean(pathTrace));
+        }
+
+        /// <summary>
+        /// Builds the URL.
+        /// </summary>
+        /// <param name="pageId">
+        /// The page ID.
+        /// </param>
+        /// <param name="pathTrace">
+        /// The path trace.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string BuildUrl(int pageId, string pathTrace)
+        {
+            return HttpUrlBuilder.BuildUrl(pageId, Clean(pathTrace));
+        }
+
+        /// <summary>
+        /// Builds the URL.
+        /// </summary>
+        /// <param name="pageId">
+        /// The page ID.
+        /// </param>
+        /// <returns>
+        /// The build URL.
+        /// </returns>
+        public string BuildUrl(int pageId)
+        {
+            return HttpUrlBuilder.BuildUrl(pageId);
+        }
+
+        /// <summary>
+        /// C2s the F.
+        /// </summary>
+        /// <param name="c">
+        /// The c.
+        /// </param>
+        /// <returns>
+        /// A double value...
+        /// </returns>
+        public double C2F(double c)
+        {
+            return (1.8 * c) + 32;
+        }
+
+        /// <summary>
+        /// Checks the roles.
+        /// </summary>
+        /// <param name="authRoles">
+        /// The auth roles.
+        /// </param>
+        /// <returns>
+        /// A Boolean value...
+        /// </returns>
+        public bool CheckRoles(string authRoles)
+        {
+            return PortalSecurity.IsInRoles(authRoles);
+        }
+
+        /// <summary>
+        /// Desktops the tabs XML.
         /// </summary>
         /// <returns>
-        /// A void value...
+        /// A System.Xml.XPath.XPathNodeIterator value...
         /// </returns>
-        public XslHelper() {
-            if ( HttpContext.Current != null ) {
-                portalSettings = ( PortalSettings )HttpContext.Current.Items["PortalSettings"];
+        public XPathNodeIterator DesktopTabsXml()
+        {
+            return this.portalSettings.PortalPagesXml.CreateNavigator().Select("*");
+        }
 
-                Appleseed.Framework.Users.Data.UsersDB users = new Appleseed.Framework.Users.Data.UsersDB();
-                user = users.GetSingleUser( HttpContext.Current.User.Identity.Name, portalSettings.PortalAlias );
+        /// <summary>
+        /// F2s the C.
+        /// </summary>
+        /// <param name="f">
+        /// The f.
+        /// </param>
+        /// <returns>
+        /// A double value...
+        /// </returns>
+        public double F2C(double f)
+        {
+            return (f - 32) / 1.8;
+        }
+
+        /// <summary>
+        /// Formats the date time.
+        /// </summary>
+        /// <param name="dateStr">
+        /// The date STR.
+        /// </param>
+        /// <param name="dataCulture">
+        /// The data culture.
+        /// </param>
+        /// <param name="formatStr">
+        /// The format STR.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string FormatDateTime(string dateStr, string dataCulture, string formatStr)
+        {
+            try
+            {
+                return this.FormatDateTime(
+                    dateStr, dataCulture, this.portalSettings.PortalDataFormattingCulture.Name, formatStr);
+            }
+            catch
+            {
+                return dateStr;
             }
         }
 
         /// <summary>
-        /// Localizes the specified text key.
+        /// Formats the date time.
         /// </summary>
-        /// <param name="textKey">The text key.</param>
-        /// <param name="translation">The translation.</param>
-        /// <returns>A string value...</returns>
-        public string Localize(string textKey, string translation)
+        /// <param name="dateStr">
+        /// The date STR.
+        /// </param>
+        /// <param name="formatStr">
+        /// The format STR.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string FormatDateTime(string dateStr, string formatStr)
         {
-            return General.GetString(textKey, translation);
+            try
+            {
+                return this.FormatDateTime(
+                    dateStr, 
+                    this.portalSettings.PortalDataFormattingCulture.Name, 
+                    this.portalSettings.PortalDataFormattingCulture.Name, 
+                    formatStr);
+            }
+            catch
+            {
+                return dateStr;
+            }
         }
 
-        # region Data Formatting
+        /// <summary>
+        /// Formats the date time.
+        /// </summary>
+        /// <param name="dateStr">
+        /// The date STR.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string FormatDateTime(string dateStr)
+        {
+            try
+            {
+                return DateTime.Parse(dateStr).ToLongDateString();
+            }
+            catch
+            {
+                return dateStr;
+            }
+        }
+
+        /// <summary>
+        /// Formats the date time.
+        /// </summary>
+        /// <param name="dateStr">
+        /// The date STR.
+        /// </param>
+        /// <param name="dataCulture">
+        /// The data culture.
+        /// </param>
+        /// <param name="outputCulture">
+        /// The output culture.
+        /// </param>
+        /// <param name="formatStr">
+        /// The format STR.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string FormatDateTime(string dateStr, string dataCulture, string outputCulture, string formatStr)
+        {
+            try
+            {
+                var conv = dataCulture.ToLower() == this.portalSettings.PortalDataFormattingCulture.Name.ToLower()
+                               ? DateTime.ParseExact(
+                                   dateStr, 
+                                   "mm/dd/yyyy hh:mm:ss", 
+                                   new CultureInfo(dataCulture, false), 
+                                   DateTimeStyles.AdjustToUniversal)
+                               : DateTime.Parse(dateStr, new CultureInfo(dataCulture, false), DateTimeStyles.None);
+
+                return outputCulture.ToLower() == this.portalSettings.PortalDataFormattingCulture.Name.ToLower()
+                           ? conv.ToString(formatStr)
+                           : conv.ToString(formatStr, new CultureInfo(outputCulture, false));
+            }
+            catch
+            {
+                return dateStr;
+            }
+        }
 
         /// <summary>
         /// Formats the money.
         /// </summary>
-        /// <param name="myAmount">My amount.</param>
-        /// <param name="myCurrency">My currency.</param>
-        /// <returns>A string value...</returns>
-        public string FormatMoney(string myAmount, string myCurrency)
+        /// <param name="amount">
+        /// The amount.
+        /// </param>
+        /// <param name="currency">
+        /// The currency.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string FormatMoney(string amount, string currency)
         {
             try
             {
-                // Jonathan - im not sure what namesppace this comes from?
-                // TODO: FIX TIHS
-                return myAmount;
-                //return new Money(Decimal.Parse(myAmount, CultureInfo.InvariantCulture.NumberFormat), myCurrency).ToString();
+                // Jonathan - I'm not sure what namespace this comes from?
+                // TODO: FIX THIS
+                return amount;
+
+                // return new Money(Decimal.Parse(amount, CultureInfo.InvariantCulture.NumberFormat), currency).ToString();
             }
             catch
             {
@@ -71,12 +408,84 @@ namespace Appleseed.Framework.Helpers
         }
 
         /// <summary>
+        /// Formats the number.
+        /// </summary>
+        /// <param name="numberStr">
+        /// The number STR.
+        /// </param>
+        /// <param name="dataCulture">
+        /// The data culture.
+        /// </param>
+        /// <param name="formatStr">
+        /// The format STR.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string FormatNumber(string numberStr, string dataCulture, string formatStr)
+        {
+            try
+            {
+                return this.FormatNumber(
+                    numberStr, dataCulture, this.portalSettings.PortalDataFormattingCulture.Name, formatStr);
+            }
+            catch
+            {
+                return numberStr;
+            }
+        }
+
+        /// <summary>
+        /// Formats the number.
+        /// </summary>
+        /// <param name="numberStr">
+        /// The number STR.
+        /// </param>
+        /// <param name="dataCulture">
+        /// The data culture.
+        /// </param>
+        /// <param name="outputCulture">
+        /// The output culture.
+        /// </param>
+        /// <param name="formatStr">
+        /// The format STR.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string FormatNumber(string numberStr, string dataCulture, string outputCulture, string formatStr)
+        {
+            try
+            {
+                var conv = dataCulture.ToLower() == this.portalSettings.PortalDataFormattingCulture.Name.ToLower()
+                               ? Double.Parse(numberStr)
+                               : Double.Parse(numberStr, new CultureInfo(dataCulture, false));
+
+                return outputCulture.ToLower() == this.portalSettings.PortalDataFormattingCulture.Name.ToLower()
+                           ? conv.ToString(formatStr)
+                           : conv.ToString(formatStr, new CultureInfo(outputCulture, false));
+            }
+            catch
+            {
+                return numberStr;
+            }
+        }
+
+        /// <summary>
         /// Formats the temp.
         /// </summary>
-        /// <param name="tempStr">The temp STR.</param>
-        /// <param name="dataScale">The data scale.</param>
-        /// <param name="outputScale">The output scale.</param>
-        /// <returns>A string value...</returns>
+        /// <param name="tempStr">
+        /// The temp STR.
+        /// </param>
+        /// <param name="dataScale">
+        /// The data scale.
+        /// </param>
+        /// <param name="outputScale">
+        /// The output scale.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
         public string FormatTemp(string tempStr, string dataScale, string outputScale)
         {
             try
@@ -89,19 +498,15 @@ namespace Appleseed.Framework.Helpers
                     return conv.ToString("F0") + Convert.ToChar(176) + outputScale;
                 }
 
-                else if (outputScale.ToUpper() == "C")
+                if (outputScale.ToUpper() == "C")
                 {
-                    conv = F2C(double.Parse(tempStr, new CultureInfo(string.Empty)));
+                    conv = this.F2C(double.Parse(tempStr, new CultureInfo(string.Empty)));
                     return conv.ToString("F0") + Convert.ToChar(176) + "C";
                 }
 
-                else
-                {
-                    conv = C2F(double.Parse(tempStr, new CultureInfo(string.Empty)));
-                    return conv.ToString("F0") + Convert.ToChar(176) + "F";
-                }
+                conv = this.C2F(double.Parse(tempStr, new CultureInfo(string.Empty)));
+                return conv.ToString("F0") + Convert.ToChar(176) + "F";
             }
-
             catch
             {
                 return tempStr;
@@ -109,478 +514,252 @@ namespace Appleseed.Framework.Helpers
         }
 
         /// <summary>
-        /// C2s the F.
+        /// Localizes the specified text key.
         /// </summary>
-        /// <param name="c">The c.</param>
-        /// <returns>A double value...</returns>
-        public double C2F(double c)
+        /// <param name="textKey">
+        /// The text key.
+        /// </param>
+        /// <param name="translation">
+        /// The translation.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string Localize(string textKey, string translation)
         {
-            return (1.8*c) + 32;
-        }
-
-        /// <summary>
-        /// F2s the C.
-        /// </summary>
-        /// <param name="f">The f.</param>
-        /// <returns>A double value...</returns>
-        public double F2C(double f)
-        {
-            return (f - 32)/1.8;
-        }
-
-        /// <summary>
-        /// Formats the date time.
-        /// </summary>
-        /// <param name="dateStr">The date STR.</param>
-        /// <param name="dataCulture">The data culture.</param>
-        /// <param name="formatStr">The format STR.</param>
-        /// <returns>A string value...</returns>
-        public string FormatDateTime(string dateStr, string dataCulture, string formatStr)
-        {
-            try
-            {
-                return FormatDateTime(dateStr, dataCulture, portalSettings.PortalDataFormattingCulture.Name, formatStr);
-            }
-            catch
-            {
-                return dateStr;
-            }
-        }
-
-        /// <summary>
-        /// Formats the date time.
-        /// </summary>
-        /// <param name="dateStr">The date STR.</param>
-        /// <param name="formatStr">The format STR.</param>
-        /// <returns>A string value...</returns>
-        public string FormatDateTime(string dateStr, string formatStr)
-        {
-            try
-            {
-                return
-                    FormatDateTime(dateStr, portalSettings.PortalDataFormattingCulture.Name,
-                                   portalSettings.PortalDataFormattingCulture.Name, formatStr);
-            }
-            catch
-            {
-                return dateStr;
-            }
-        }
-
-        /// <summary>
-        /// Formats the date time.
-        /// </summary>
-        /// <param name="dateStr">The date STR.</param>
-        /// <returns>A string value...</returns>
-        public string FormatDateTime(string dateStr)
-        {
-            try
-            {
-                return DateTime.Parse(dateStr).ToLongDateString();
-            }
-
-            catch
-            {
-                return dateStr;
-            }
-        }
-
-        /// <summary>
-        /// Formats the date time.
-        /// </summary>
-        /// <param name="dateStr">The date STR.</param>
-        /// <param name="dataCulture">The data culture.</param>
-        /// <param name="outputCulture">The output culture.</param>
-        /// <param name="formatStr">The format STR.</param>
-        /// <returns>A string value...</returns>
-        public string FormatDateTime(string dateStr, string dataCulture, string outputCulture, string formatStr)
-        {
-            try
-            {
-                DateTime conv;
-
-                if (dataCulture.ToLower() == portalSettings.PortalDataFormattingCulture.Name.ToLower())
-                {
-                    conv =
-                        DateTime.ParseExact(dateStr, "mm/dd/yyyy hh:mm:ss", new CultureInfo(dataCulture, false),
-                                            DateTimeStyles.AdjustToUniversal);
-                }
-
-                else
-                {
-                    conv = DateTime.Parse(dateStr, new CultureInfo(dataCulture, false), DateTimeStyles.None);
-                }
-
-                if (outputCulture.ToLower() == portalSettings.PortalDataFormattingCulture.Name.ToLower())
-                    return conv.ToString(formatStr);
-
-                else
-                    return conv.ToString(formatStr, new CultureInfo(outputCulture, false));
-            }
-
-            catch
-            {
-                return dateStr;
-            }
-        }
-
-        /// <summary>
-        /// Formats the number.
-        /// </summary>
-        /// <param name="numberStr">The number STR.</param>
-        /// <param name="dataCulture">The data culture.</param>
-        /// <param name="formatStr">The format STR.</param>
-        /// <returns>A string value...</returns>
-        public string FormatNumber(string numberStr, string dataCulture, string formatStr)
-        {
-            try
-            {
-                return FormatNumber(numberStr, dataCulture, portalSettings.PortalDataFormattingCulture.Name, formatStr);
-            }
-
-            catch
-            {
-                return numberStr;
-            }
-        }
-
-        /// <summary>
-        /// Formats the number.
-        /// </summary>
-        /// <param name="numberStr">The number STR.</param>
-        /// <param name="dataCulture">The data culture.</param>
-        /// <param name="outputCulture">The output culture.</param>
-        /// <param name="formatStr">The format STR.</param>
-        /// <returns>A string value...</returns>
-        public string FormatNumber(string numberStr, string dataCulture, string outputCulture, string formatStr)
-        {
-            try
-            {
-                Double conv;
-
-                if (dataCulture.ToLower() == portalSettings.PortalDataFormattingCulture.Name.ToLower())
-                {
-                    conv = Double.Parse(numberStr);
-                }
-
-                else
-                {
-                    conv = Double.Parse(numberStr, new CultureInfo(dataCulture, false));
-                }
-
-                if (outputCulture.ToLower() == portalSettings.PortalDataFormattingCulture.Name.ToLower())
-                    return conv.ToString(formatStr);
-
-                else
-                    return conv.ToString(formatStr, new CultureInfo(outputCulture, false));
-            }
-
-            catch
-            {
-                return numberStr;
-            }
-        }
-
-        # endregion
-
-        # region Security
-
-        /// <summary>
-        /// Checks the roles.
-        /// </summary>
-        /// <param name="authRoles">The auth roles.</param>
-        /// <returns>A bool value...</returns>
-        public bool CheckRoles(string authRoles)
-        {
-            return PortalSecurity.IsInRoles(authRoles);
-        }
-
-        # endregion
-
-        # region Url Builder
-
-        /// <summary>
-        /// Adds to URL.
-        /// </summary>
-        /// <param name="url">The URL.</param>
-        /// <param name="paramKey">The param key.</param>
-        /// <param name="paramValue">The param value.</param>
-        /// <returns>A string value...</returns>
-        public string AddToUrl(string url, string paramKey, string paramValue)
-        {
-            if (url.IndexOf(paramKey) == -1)
-            {
-                if (url.IndexOf("?") > 0)
-                {
-                    url = url.Trim() + "&" + paramKey.Trim() + "=" + paramValue.Trim();
-                }
-
-                else
-                {
-                    url = url.Trim();
-                    url = url.Substring(0, url.LastIndexOf("/")) + "/" + paramKey.Trim() + "_" + paramValue.Trim() +
-                          url.Substring(url.LastIndexOf("/"));
-                }
-            }
-            return url;
-        }
-
-        /// <summary>
-        /// Builds the URL.
-        /// </summary>
-        /// <param name="targetPage">The target page.</param>
-        /// <param name="pageID">The page ID.</param>
-        /// <returns>A string value...</returns>
-        public string BuildUrl(string targetPage, int pageID)
-        {
-//			targetPage = System.Text.RegularExpressions.Regex.Replace(targetPage,@"[\.\$\^\{\[\(\|\)\*\+\?!'""]",string.Empty);
-//			targetPage = targetPage.Replace(" ","_").ToLower();
-//			return Appleseed.HttpUrlBuilder.BuildUrl("~/" + targetPage + ".aspx", tabID);
-
-            return HttpUrlBuilder.BuildUrl(string.Concat("~/", Clean(targetPage), ".aspx"), pageID);
-        }
-
-        /// <summary>
-        /// Builds the URL.
-        /// </summary>
-        /// <param name="targetPage">The target page.</param>
-        /// <param name="pageID">The page ID.</param>
-        /// <param name="pathTrace">The path trace.</param>
-        /// <returns></returns>
-        public string BuildUrl(string targetPage, int pageID, string pathTrace)
-        {
-            return HttpUrlBuilder.BuildUrl(string.Concat("~/", Clean(targetPage), ".aspx"), pageID, Clean(pathTrace));
-        }
-
-        /// <summary>
-        /// Builds the URL.
-        /// </summary>
-        /// <param name="pageID">The page ID.</param>
-        /// <param name="pathTrace">The path trace.</param>
-        /// <returns>A string value...</returns>
-        public string BuildUrl(int pageID, string pathTrace)
-        {
-            return HttpUrlBuilder.BuildUrl(pageID, Clean(pathTrace));
-        }
-
-        /// <summary>
-        /// Builds the URL.
-        /// </summary>
-        /// <param name="pageID">The page ID.</param>
-        /// <returns></returns>
-        public string BuildUrl(int pageID)
-        {
-            return HttpUrlBuilder.BuildUrl(pageID);
-        }
-
-        /// <summary>
-        /// Cleans the specified my text.
-        /// </summary>
-        /// <param name="myText">My text.</param>
-        /// <returns></returns>
-        private string Clean(string myText)
-        {
-            // is this faster/slower than using iteration over string?
-            char mySeparator = '_';
-            string singleSeparator = "_";
-            string doubleSeparator = "__";
-            //myText = Regex.Replace(myText.ToLower(), @"[^-'/\p{L}\p{N}]",singleSeparator);
-            myText = Regex.Replace(myText.ToLower(), @"[^-\p{L}\p{N}]", singleSeparator);
-
-            return myText.Replace(doubleSeparator, singleSeparator).Trim(mySeparator);
-        }
-
-        #endregion
-
-        # region Member Access - portalSettings
-
-        /// <summary>
-        /// Portals the alias.
-        /// </summary>
-        /// <returns>A string value...</returns>
-        public string PortalAlias()
-        {
-            return portalSettings.PortalAlias;
-        }
-
-        /// <summary>
-        /// Portals the ID.
-        /// </summary>
-        /// <returns>A string value...</returns>
-        public string PortalID()
-        {
-            return portalSettings.PortalID.ToString();
+            return General.GetString(textKey, translation);
         }
 
         /// <summary>
         /// Pages the ID.
         /// </summary>
-        /// <returns>A string value...</returns>
+        /// <returns>
+        /// A string value...
+        /// </returns>
         public string PageID()
         {
-            return portalSettings.ActivePage.PageID.ToString();
+            return this.portalSettings.ActivePage.PageID.ToString();
         }
 
         /// <summary>
-        /// Tabs the title.
+        /// Portals the alias.
         /// </summary>
-        /// <returns>A string value...</returns>
-        public string TabTitle()
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string PortalAlias()
         {
-            return portalSettings.ActivePage.PageName;
+            return this.portalSettings.PortalAlias;
         }
 
         /// <summary>
         /// Portals the content language.
         /// </summary>
-        /// <returns>A string value...</returns>
+        /// <returns>
+        /// A string value...
+        /// </returns>
         public string PortalContentLanguage()
         {
-            return portalSettings.PortalContentLanguage.Name;
-        }
-
-        /// <summary>
-        /// Portals the UI language.
-        /// </summary>
-        /// <returns>A string value...</returns>
-        public string PortalUILanguage()
-        {
-            return portalSettings.PortalUILanguage.Name;
+            return this.portalSettings.PortalContentLanguage.Name;
         }
 
         /// <summary>
         /// Portals the data formatting culture.
         /// </summary>
-        /// <returns>A string value...</returns>
+        /// <returns>
+        /// A string value...
+        /// </returns>
         public string PortalDataFormattingCulture()
         {
-            return portalSettings.PortalDataFormattingCulture.Name;
-        }
-
-        /// <summary>
-        /// Portals the layout path.
-        /// </summary>
-        /// <returns>A string value...</returns>
-        public string PortalLayoutPath()
-        {
-            return portalSettings.PortalLayoutPath;
+            return this.portalSettings.PortalDataFormattingCulture.Name;
         }
 
         /// <summary>
         /// Portals the full path.
         /// </summary>
-        /// <returns>A string value...</returns>
+        /// <returns>
+        /// A string value...
+        /// </returns>
         public string PortalFullPath()
         {
-            return portalSettings.PortalFullPath;
+            return this.portalSettings.PortalFullPath;
+        }
+
+        /// <summary>
+        /// Portals the ID.
+        /// </summary>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string PortalID()
+        {
+            return this.portalSettings.PortalID.ToString();
+        }
+
+        /// <summary>
+        /// Portals the layout path.
+        /// </summary>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string PortalLayoutPath()
+        {
+            return this.portalSettings.PortalLayoutPath;
         }
 
         /// <summary>
         /// Portals the name.
         /// </summary>
-        /// <returns>A string value...</returns>
+        /// <returns>
+        /// A string value...
+        /// </returns>
         public string PortalName()
         {
-            return portalSettings.PortalName;
+            return this.portalSettings.PortalName;
         }
 
         /// <summary>
         /// Portals the title.
         /// </summary>
-        /// <returns>A string value...</returns>
+        /// <returns>
+        /// A string value...
+        /// </returns>
         public string PortalTitle()
         {
-            return portalSettings.PortalTitle;
+            return this.portalSettings.PortalTitle;
         }
 
         /// <summary>
-        /// Users the name.
-        /// </summary>
-        /// <returns>A string value...</returns>
-        public string UserName()
-        {
-            return user.UserName;
-        }
-
-        /// <summary>
-        /// Users the email.
-        /// </summary>
-        /// <returns>A string value...</returns>
-        public string UserEmail()
-        {
-            return user.Email;
-        }
-
-        /// <summary>
-        /// Users the ID.
-        /// </summary>
-        /// <returns>A string value...</returns>
-        public Guid UserID()
-        {
-            return (Guid)user.ProviderUserKey;
-        }
-
-        /// <summary>
-        /// Desktops the tabs XML.
+        /// Portals the UI language.
         /// </summary>
         /// <returns>
-        /// A System.Xml.XPath.XPathNodeIterator value...
+        /// A string value...
         /// </returns>
-        public XPathNodeIterator DesktopTabsXml()
+        public string PortalUILanguage()
         {
-            return portalSettings.PortalPagesXml.CreateNavigator().Select("*");
+            return this.portalSettings.PortalUILanguage.Name;
         }
 
-        #endregion
-
-        #region Member Access - moduleSettings
-
-        #endregion
-
-        #region Selected Options for Products module (ECommerce receipt)
-
         /// <summary>
-        /// Selecteds the options.
+        /// Selected options.
         /// </summary>
-        /// <param name="metadataXml">The metadata XML.</param>
-        /// <returns>A string value...</returns>
+        /// <param name="metadataXml">
+        /// The metadata XML.
+        /// </param>
+        /// <returns>
+        /// A string value...
+        /// </returns>
         public string SelectedOptions(string metadataXml)
         {
-            string selectedOptions = string.Empty;
-            //Create a xml Document
-            XmlDocument myXmlDoc = new XmlDocument();
+            var selectedOptions = string.Empty;
 
-            if (metadataXml != null && metadataXml.Length > 0)
+            // Create a xml Document
+            var xmlDoc = new XmlDocument();
+
+            if (!string.IsNullOrEmpty(metadataXml))
             {
                 try
                 {
-                    myXmlDoc.LoadXml(metadataXml);
-                    XmlNode foundNode1 = myXmlDoc.SelectSingleNode("options/option1/selected");
+                    xmlDoc.LoadXml(metadataXml);
+                    var foundNode1 = xmlDoc.SelectSingleNode("options/option1/selected");
 
                     if (foundNode1 != null)
                     {
                         selectedOptions += foundNode1.InnerText;
                     }
-                    XmlNode foundNode2 = myXmlDoc.SelectSingleNode("options/option2/selected");
+
+                    var foundNode2 = xmlDoc.SelectSingleNode("options/option2/selected");
 
                     if (foundNode2 != null)
                     {
                         selectedOptions += " - " + foundNode2.InnerText;
                     }
-                    XmlNode foundNode3 = myXmlDoc.SelectSingleNode("options/option3/selected");
+
+                    var foundNode3 = xmlDoc.SelectSingleNode("options/option3/selected");
 
                     if (foundNode3 != null)
                     {
                         selectedOptions += " - " + foundNode3.InnerText;
                     }
                 }
-
                 catch (Exception ex)
                 {
-                    ErrorHandler.Publish(LogLevel.Warn, "XSL failed. Metadata Was: '" + metadataXml + "'", ex);
+                    ErrorHandler.Publish(
+                        LogLevel.Warn, string.Format("XSL failed. Metadata Was: '{0}'", metadataXml), ex);
                 }
             }
+
             return selectedOptions;
+        }
+
+        /// <summary>
+        /// Tabs the title.
+        /// </summary>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string TabTitle()
+        {
+            return this.portalSettings.ActivePage.PageName;
+        }
+
+        /// <summary>
+        /// Users the email.
+        /// </summary>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string UserEmail()
+        {
+            return this.user.Email;
+        }
+
+        /// <summary>
+        /// Users the ID.
+        /// </summary>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public Guid UserID()
+        {
+            return (Guid)this.user.ProviderUserKey;
+        }
+
+        /// <summary>
+        /// Users the name.
+        /// </summary>
+        /// <returns>
+        /// A string value...
+        /// </returns>
+        public string UserName()
+        {
+            return this.user.UserName;
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Cleans the specified text.
+        /// </summary>
+        /// <param name="text">
+        /// The text to clean.
+        /// </param>
+        /// <returns>
+        /// The cleaned text.
+        /// </returns>
+        private static string Clean(string text)
+        {
+            // is this faster/slower than using iteration over string?
+            const char Separator = '_';
+            const string SingleSeparator = "_";
+            const string DoubleSeparator = "__";
+
+            // text = Regex.Replace(text.ToLower(), @"[^-'/\p{L}\p{N}]", SingleSeparator);
+            text = Regex.Replace(text.ToLower(), @"[^-\p{L}\p{N}]", SingleSeparator);
+
+            return text.Replace(DoubleSeparator, SingleSeparator).Trim(Separator);
         }
 
         #endregion

@@ -12,6 +12,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Contacts module
     /// </summary>
@@ -118,61 +120,71 @@ namespace Appleseed.Content.Web.Modules
 
             //MH: Added  01/10/2003 [mario@hartmann.net] 
             // Hiding the Email, Contact1 and/or Contact2 Column
-            SettingItem setItem = new SettingItem(new BooleanDataType());
-            setItem.Value = "True";
+            var setItem = new SettingItem<bool, CheckBox>()
+                {
+                    Value = true,
+                    Group = group,
+                    Order = groupBase + 20,
+                    Description = "Switch for displaying the email column or not."
+                };
             // Modified by Hongwei Shen(hongwei.shen@gmail.com) 12/9/2005
             // setItem.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // setItem.Order = 1;
-            setItem.Group = group;
-            setItem.Order = groupBase + 20;
             // end of modification
-            setItem.Description = "Switch for displaying the email column or not.";
-            _baseSettings.Add("SHOW_COLUMN_EMAIL", setItem);
+            this.BaseSettings.Add("SHOW_COLUMN_EMAIL", setItem);
 
-            setItem = new SettingItem(new BooleanDataType());
-            setItem.Value = "True";
+            setItem = new SettingItem<bool, CheckBox>()
+                {
+                    Value = true,
+                    Group = group,
+                    Order = groupBase + 25,
+                    Description = "Switch for displaying the contact1 column or not."
+                };
             // Modified by Hongwei Shen(hongwei.shen@gmail.com) 12/9/2005
             // setItem.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // setItem.Order = 1;
-            setItem.Group = group;
-            setItem.Order = groupBase + 25;
             // end of modification
-            setItem.Description = "Switch for displaying the contact1 column or not.";
-            _baseSettings.Add("SHOW_COLUMN_CONTACT1", setItem);
+            this.BaseSettings.Add("SHOW_COLUMN_CONTACT1", setItem);
 
-            setItem = new SettingItem(new BooleanDataType());
-            setItem.Value = "True";
+            setItem = new SettingItem<bool, CheckBox>()
+                {
+                    Value = true,
+                    Group = group,
+                    Order = groupBase + 30,
+                    Description = "Switch for displaying the contact2 column or not."
+                };
             // Modified by Hongwei Shen(hongwei.shen@gmail.com) 12/9/2005
             // setItem.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // setItem.Order = 2;
-            setItem.Group = group;
-            setItem.Order = groupBase + 30;
             // end of modification
-            setItem.Description = "Switch for displaying the contact2 column or not.";
-            _baseSettings.Add("SHOW_COLUMN_CONTACT2", setItem);
+            this.BaseSettings.Add("SHOW_COLUMN_CONTACT2", setItem);
             //MH: End
 
-            setItem = new SettingItem(new BooleanDataType());
-            setItem.Value = "True";
+            setItem = new SettingItem<bool, CheckBox>()
+                {
+                    Value = true,
+                    Group = group,
+                    Order = groupBase + 35,
+                    Description = "Switch for displaying the Fax column or not."
+                };
             // Modified by Hongwei Shen(hongwei.shen@gmail.com) 12/9/2005
             // setItem.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // setItem.Order = 3;
-            setItem.Group = group;
-            setItem.Order = groupBase + 35;
             // end of modification
-            setItem.Description = "Switch for displaying the Fax column or not.";
-            _baseSettings.Add("SHOW_COLUMN_FAX", setItem);
+            this.BaseSettings.Add("SHOW_COLUMN_FAX", setItem);
 
-            setItem = new SettingItem(new BooleanDataType());
-            setItem.Value = "True";
+            setItem = new SettingItem<bool, CheckBox>()
+                {
+                    Value = true,
+                    Group = group,
+                    Order = groupBase + 40,
+                    Description = "Switch for displaying the Address column or not."
+                };
             // Modified by Hongwei Shen(hongwei.shen@gmail.com) 12/9/2005
             // setItem.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // setItem.Order = 4;
-            setItem.Group = group;
-            setItem.Order = groupBase + 40;
             // end of modification
-            setItem.Description = "Switch for displaying the Address column or not.";
-            _baseSettings.Add("SHOW_COLUMN_ADDRESS", setItem);
+            this.BaseSettings.Add("SHOW_COLUMN_ADDRESS", setItem);
         }
 
         #region Global Implementation
@@ -237,7 +249,7 @@ namespace Appleseed.Content.Web.Modules
         public override void Install(IDictionary stateSaver)
         {
             string currentScriptName = Path.Combine(Server.MapPath(TemplateSourceDirectory), "install.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback
@@ -252,7 +264,7 @@ namespace Appleseed.Content.Web.Modules
         public override void Uninstall(IDictionary stateSaver)
         {
             string currentScriptName = Path.Combine(Server.MapPath(TemplateSourceDirectory), "uninstall.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback

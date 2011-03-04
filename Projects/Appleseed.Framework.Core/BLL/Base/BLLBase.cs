@@ -1,15 +1,11 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="BLLBase.cs" company="--">
-//   Copyright © -- 2010. All Rights Reserved.
+//   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
 //   Base class for all the classes in the BLL
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-// Business Logic Layer
-// Appleseed.Framework.BLL.Base
-// "Business Layer Object" -- base class for all other classes in the BLL
-// Created By : bja@reedtek.com Date: 26/04/2003
 
 namespace Appleseed.Framework.BLL.Base
 {
@@ -27,11 +23,26 @@ namespace Appleseed.Framework.BLL.Base
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
-        public virtual void Dispose()
+        public void Dispose()
         {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         #endregion
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        /// <remarks></remarks>
+        protected void Dispose(bool disposing)
+        {
+        }
 
         #endregion
     }

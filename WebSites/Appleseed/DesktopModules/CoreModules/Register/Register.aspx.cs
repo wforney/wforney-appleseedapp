@@ -11,6 +11,8 @@ using Page=Appleseed.Framework.Web.UI.Page;
 
 namespace Appleseed.Admin
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// Summary description for Register.
     /// </summary>    
@@ -50,7 +52,7 @@ namespace Appleseed.Admin
         private void Page_Load(object sender, EventArgs e)
         {
             if (!EditMode &&
-                !bool.Parse(portalSettings.CustomSettings["SITESETTINGS_ALLOW_NEW_REGISTRATION"].ToString()))
+                !bool.Parse(this.PortalSettings.CustomSettings["SITESETTINGS_ALLOW_NEW_REGISTRATION"].ToString()))
                 PortalSecurity.AccessDeniedEdit();
 
             Control myControl = GetCurrentProfileControl();
@@ -101,7 +103,7 @@ namespace Appleseed.Admin
             int moduleID = int.Parse(portalSettings.CustomSettings["SITESETTINGS_REGISTER_MODULEID"].ToString());
             string moduleDesktopSrc = string.Empty;
             if (moduleID > 0)
-                moduleDesktopSrc = ModuleSettings.GetModuleDesktopSrc(moduleID);
+                moduleDesktopSrc = Framework.Site.Configuration.ModuleSettings.GetModuleDesktopSrc(moduleID);
             if (moduleDesktopSrc.Length == 0)
                 moduleDesktopSrc = RegisterPage;
 
@@ -112,9 +114,10 @@ namespace Appleseed.Admin
             //p.ModuleID = int.Parse(portalSettings.CustomSettings["SITESETTINGS_REGISTER_MODULEID"].ToString());
             p.ModuleID = moduleID;
             if (p.ModuleID == 0)
-                ((SettingItem)p.Settings["MODULESETTINGS_SHOW_TITLE"]).Value = "false";
+            {
+                ((SettingItem<bool, CheckBox>)p.Settings["MODULESETTINGS_SHOW_TITLE"]).Value = false;
+            }
             return ((Control)p);
-
         }
     }
 }

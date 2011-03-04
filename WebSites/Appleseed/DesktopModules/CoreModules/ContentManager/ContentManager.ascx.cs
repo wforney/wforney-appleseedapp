@@ -9,6 +9,9 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+    using System.Web.UI.WebControls;
+
     public partial class ContentManager : PortalModuleControl
     {
         /// <summary>
@@ -147,7 +150,7 @@ namespace Appleseed.Content.Web.Modules
                 SourcePortal.SelectedIndex = i;
                 DestinationPortal.SelectedIndex = i;
 
-                if (SourcePortal.SelectedItem.Value == (portalSettings.PortalID).ToString())
+                if (SourcePortal.SelectedItem.Value == (this.PortalSettings.PortalID).ToString())
                     return;
             } //end for
         }
@@ -403,16 +406,18 @@ namespace Appleseed.Content.Web.Modules
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:ContentManager"/> class.
+        /// Initializes a new instance of the <see cref="ContentManager"/> class.
         /// </summary>
         public ContentManager()
         {
-            //setting item for show portals
-            SettingItem showPortals = new SettingItem(new BooleanDataType());
-            showPortals.Value = "false";
-            showPortals.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
-            showPortals.Description = "Enable or Disable Multi-Portal Support";
-            _baseSettings.Add("MultiPortalSupport", showPortals);
+            // setting item for show portals
+            var showPortals = new SettingItem<bool, CheckBox>()
+                {
+                    Value = false,
+                    Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS,
+                    Description = "Enable or Disable Multi-Portal Support"
+                };
+            this.BaseSettings.Add("MultiPortalSupport", showPortals);
         }
 
         /// <summary>
@@ -443,7 +448,7 @@ namespace Appleseed.Content.Web.Modules
         {
             string currentScriptName = Path.Combine(Server.MapPath(TemplateSourceDirectory), "install.sql");
 
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback
@@ -473,7 +478,7 @@ namespace Appleseed.Content.Web.Modules
         {
             string currentScriptName = Path.Combine(Server.MapPath(TemplateSourceDirectory), "uninstall.sql");
 
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
 
             if (errors.Count > 0)
             {

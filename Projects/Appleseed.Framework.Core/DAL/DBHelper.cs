@@ -1,28 +1,84 @@
-using System;
-using System.Collections;
-using System.Data;
-using System.Data.SqlClient;
-using System.IO;
-using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
-using Appleseed.Framework.Exceptions;
-using Appleseed.Framework.Settings;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DBHelper.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Summary description for DBHelper
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.IO;
+    using System.Net;
+    using System.Text;
+    using System.Text.RegularExpressions;
+
+    using Appleseed.Framework.Exceptions;
+    using Appleseed.Framework.Settings;
+
     /// <summary>
-    /// Summary description for DBHelper
     /// </summary>
     public class DBHelper
     {
+        #region Public Methods
+
+        /// <summary>
+        /// Exes the SQL.
+        /// </summary>
+        /// <param name="sql">
+        /// The SQL.
+        /// </param>
+        /// <returns>
+        /// A int value...
+        /// </returns>
+        public static int ExeSQL(string sql)
+        {
+            int returnValue;
+
+            using (var connection = Config.SqlConnectionString)
+            using (var sqlCommand = new SqlCommand(sql, connection))
+            {
+                try
+                {
+                    sqlCommand.Connection.Open();
+                    returnValue = sqlCommand.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    ErrorHandler.Publish(
+                        LogLevel.Error, string.Format("Error in DBHelper - ExeSQL - SQL: '{0}'", sql), e);
+                    throw new DatabaseUnreachableException("Error in DBHelper - ExeSQL", e);
+
+                    // throw new Exception("Error in DBHelper:ExeSQL()-> " + e.ToString());
+                }
+                finally
+                {
+                    sqlCommand.Dispose();
+                    connection.Close();
+                    connection.Dispose();
+                }
+            }
+
+            return returnValue;
+        }
+
         /// <summary>
         /// Execute script using transaction
         /// </summary>
-        /// <param name="scriptPath">The script path.</param>
-        /// <param name="useTransaction">if set to <c>true</c> [use transaction].</param>
-        /// <returns></returns>
-        public static ArrayList ExecuteScript(string scriptPath, bool useTransaction)
+        /// <param name="scriptPath">
+        /// The script path.
+        /// </param>
+        /// <param name="useTransaction">
+        /// if set to <c>true</c> [use transaction].
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static List<string> ExecuteScript(string scriptPath, bool useTransaction)
         {
             return ExecuteScript(scriptPath, Config.SqlConnectionString, useTransaction);
         }
@@ -30,9 +86,12 @@ namespace Appleseed.Framework.Data
         /// <summary>
         /// Execute script (no transaction)
         /// </summary>
-        /// <param name="scriptPath">The script path.</param>
-        /// <returns></returns>
-        public static ArrayList ExecuteScript(string scriptPath)
+        /// <param name="scriptPath">
+        /// The script path.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static List<string> ExecuteScript(string scriptPath)
         {
             return ExecuteScript(scriptPath, Config.SqlConnectionString);
         }
@@ -40,74 +99,82 @@ namespace Appleseed.Framework.Data
         /// <summary>
         /// Execute script using transaction
         /// </summary>
-        /// <param name="scriptPath">The script path.</param>
-        /// <param name="myConnection">My connection.</param>
-        /// <param name="useTransaction">if set to <c>true</c> [use transaction].</param>
-        /// <returns></returns>
-        public static ArrayList ExecuteScript(string scriptPath, SqlConnection myConnection, bool useTransaction)
+        /// <param name="scriptPath">
+        /// The script path.
+        /// </param>
+        /// <param name="connection">
+        /// My connection.
+        /// </param>
+        /// <param name="useTransaction">
+        /// if set to <c>true</c> [use transaction].
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static List<string> ExecuteScript(string scriptPath, SqlConnection connection, bool useTransaction)
         {
             if (!useTransaction)
-                return ExecuteScript(scriptPath, myConnection); //FIX: Must pass connection as well
-            string strScript = GetScript(scriptPath);
-            ErrorHandler.Publish(LogLevel.Info, "Executing Script '" + scriptPath + "'");
-            ArrayList errors = new ArrayList();
+            {
+                return ExecuteScript(scriptPath, connection); // FIX: Must pass connection as well
+            }
+
+            var strScript = GetScript(scriptPath);
+            ErrorHandler.Publish(LogLevel.Info, string.Format("Executing Script '{0}'", scriptPath));
+            var errors = new List<string>();
+
             // Subdivide script based on GO keyword
-            string[] sqlCommands = Regex.Split(strScript, "\\sGO\\s", RegexOptions.IgnoreCase);
-            //Open connection
-            myConnection.Open();
-            //Wraps execution on a transaction 
-            //so we know that the script runs or fails
-            SqlTransaction myTrans;
-            string transactionName = "Appleseed";
-            myTrans = myConnection.BeginTransaction(IsolationLevel.RepeatableRead, transactionName);
+            var sqlCommands = Regex.Split(strScript, "\\sGO\\s", RegexOptions.IgnoreCase);
+
+            // Open connection
+            connection.Open();
+
+            // Wraps execution on a transaction 
+            // so we know that the script runs or fails
+            const string TransactionName = "Appleseed";
+            var trans = connection.BeginTransaction(IsolationLevel.RepeatableRead, TransactionName);
             ErrorHandler.Publish(LogLevel.Debug, "Start Script Transaction ");
 
             try
             {
-                //Cycles command and execute them
-                for (int s = 0; s <= sqlCommands.GetUpperBound(0); s++)
+                // Cycles command and execute them
+                for (var s = 0; s <= sqlCommands.GetUpperBound(0); s++)
                 {
-                    string mySqlText = sqlCommands[s].Trim();
+                    var sqlText = sqlCommands[s].Trim();
 
                     try
                     {
-                        if (mySqlText.Length > 0)
+                        if (sqlText.Length > 0)
                         {
-                            //Appleseed.Framework.Helpers.LogHelper.Logger.Log(Appleseed.Framework.Configuration.LogLevel.Debug, "Executing: " + mySqlText.Replace("\n", " "));
+                            // Appleseed.Framework.Helpers.LogHelper.Logger.Log(Appleseed.Framework.Configuration.LogLevel.Debug, "Executing: " + mySqlText.Replace("\n", " "));
                             // Must assign both transaction object and connection
                             // to Command object for a pending local transaction
-                            using (SqlCommand sqldbCommand = new SqlCommand())
+                            using (var sqldbCommand = new SqlCommand())
                             {
-                                sqldbCommand.Connection = myConnection;
+                                sqldbCommand.Connection = connection;
                                 sqldbCommand.CommandType = CommandType.Text;
-                                sqldbCommand.Transaction = myTrans;
-                                sqldbCommand.CommandText = mySqlText;
+                                sqldbCommand.Transaction = trans;
+                                sqldbCommand.CommandText = sqlText;
                                 sqldbCommand.CommandTimeout = 150;
                                 sqldbCommand.ExecuteNonQuery();
                             }
                         }
                     }
-
                     catch (Exception ex)
                     {
-                        myTrans.Rollback();
-                        errors.Add("<P>"
-                                   + ex.Message + "<br>"
-                                   + mySqlText
-                                   + "</P>");
-                        ErrorHandler.Publish(LogLevel.Warn, "ExecuteScript Failed: " + mySqlText, ex);
-                        throw new DatabaseUnreachableException("ExecuteScript Failed: " + mySqlText, ex);
+                        trans.Rollback();
+                        errors.Add(string.Format("<p>{0}<br />{1}</p>", ex.Message, sqlText));
+                        ErrorHandler.Publish(LogLevel.Warn, "ExecuteScript Failed: " + sqlText, ex);
+                        throw new DatabaseUnreachableException("ExecuteScript Failed: " + sqlText, ex);
                     }
                 }
-                // Succesfully applied this script
-                myTrans.Commit();
+
+                // Successfully applied this script
+                trans.Commit();
                 ErrorHandler.Publish(LogLevel.Debug, "Commit Script Transaction.");
             }
-
             catch (Exception ex)
             {
                 errors.Add(ex.Message);
-                int count = 0;
+                var count = 0;
 
                 while (ex.InnerException != null && count < 100)
                 {
@@ -116,80 +183,90 @@ namespace Appleseed.Framework.Data
                     count++;
                 }
             }
-
             finally
             {
-                if (myConnection.State == ConnectionState.Open)
-                    myConnection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
+
             return errors;
         }
 
         /// <summary>
         /// Execute script (no transaction)
         /// </summary>
-        /// <param name="scriptPath">The script path.</param>
-        /// <param name="myConnection">My connection.</param>
-        /// <returns></returns>
-        public static ArrayList ExecuteScript(string scriptPath, SqlConnection myConnection)
+        /// <param name="scriptPath">
+        /// The script path.
+        /// </param>
+        /// <param name="connection">
+        /// My connection.
+        /// </param>
+        /// <returns>
+        /// A list of results.
+        /// </returns>
+        public static List<string> ExecuteScript(string scriptPath, SqlConnection connection)
         {
-            string strScript = GetScript(scriptPath);
-            ErrorHandler.Publish(LogLevel.Info, "Executing Script '" + scriptPath + "'");
-            ArrayList errors = new ArrayList();
+            var strScript = GetScript(scriptPath);
+            ErrorHandler.Publish(LogLevel.Info, string.Format("Executing Script '{0}'", scriptPath));
+            var errors = new List<string>();
+
             // Subdivide script based on GO keyword
-            string[] sqlCommands = Regex.Split(strScript, "\\sGO\\s", RegexOptions.IgnoreCase);
+            var sqlCommands = Regex.Split(strScript, "\\sGO\\s", RegexOptions.IgnoreCase);
 
             try
             {
-                //Cycles command and execute them
-                for (int s = 0; s <= sqlCommands.GetUpperBound(0); s++)
+                // Cycles command and execute them
+                for (var s = 0; s <= sqlCommands.GetUpperBound(0); s++)
                 {
-                    string mySqlText = sqlCommands[s].Trim();
+                    var commandText = sqlCommands[s].Trim();
 
                     try
                     {
-                        if (mySqlText.Length > 0)
+                        if (commandText.Length > 0)
                         {
-                            //Open connection
-                            myConnection.Open();
+                            // Open connection
+                            connection.Open();
 
-                            ErrorHandler.Publish(LogLevel.Debug, "Executing: " + mySqlText.Replace("\n", " "));
-                            using (SqlCommand sqldbCommand = new SqlCommand())
+                            ErrorHandler.Publish(LogLevel.Debug, "Executing: " + commandText.Replace("\n", " "));
+                            using (var sqldbCommand = new SqlCommand())
                             {
-                                sqldbCommand.Connection = myConnection;
+                                sqldbCommand.Connection = connection;
                                 sqldbCommand.CommandType = CommandType.Text;
-                                sqldbCommand.CommandText = mySqlText;
+                                sqldbCommand.CommandText = commandText;
                                 sqldbCommand.CommandTimeout = 150;
                                 sqldbCommand.ExecuteNonQuery();
                             }
                         }
                     }
-
                     catch (Exception ex)
                     {
-                        errors.Add("<P>"
-                                   + ex.Message + "<br>"
-                                   + mySqlText
-                                   + "</P>");
-                        ErrorHandler.Publish(LogLevel.Warn, "ExecuteScript Failed: " + mySqlText, ex);
-                        // Rethrow exception
-                        throw new AppleseedException(LogLevel.Fatal, HttpStatusCode.ServiceUnavailable,
-                                                   "Script failed, please correct the error and retry: " + mySqlText, ex);
-                        //throw new Exception("Script failed, please correct the error and retry", ex);
-                    }
+                        errors.Add(string.Format("<p>{0}<br />{1}</p>", ex.Message, commandText));
+                        ErrorHandler.Publish(LogLevel.Warn, "ExecuteScript Failed: " + commandText, ex);
 
+                        // Re-throw exception
+                        throw new AppleseedException(
+                            LogLevel.Fatal, 
+                            HttpStatusCode.ServiceUnavailable, 
+                            "Script failed, please correct the error and retry: " + commandText, 
+                            ex);
+
+                        // throw new Exception("Script failed, please correct the error and retry", ex);
+                    }
                     finally
                     {
-                        if (myConnection.State == ConnectionState.Open)
-                            myConnection.Close();
+                        if (connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
                     }
                 }
             }
-
             catch (Exception ex)
             {
                 errors.Add(ex.Message);
-                int count = 0;
+                var count = 0;
 
                 while (ex.InnerException != null && count < 100)
                 {
@@ -198,164 +275,169 @@ namespace Appleseed.Framework.Data
                     count++;
                 }
             }
+
             return errors;
         }
 
         /// <summary>
         /// Executes the SQL scalar.
         /// </summary>
-        /// <param name="sql">The SQL.</param>
-        /// <returns>A object value...</returns>
-        public static object ExecuteSQLScalar(string sql)
+        /// <typeparam name="T">
+        /// The type to return.
+        /// </typeparam>
+        /// <param name="sql">
+        /// The SQL string.
+        /// </param>
+        /// <returns>
+        /// A object value...
+        /// </returns>
+        public static T ExecuteSqlScalar<T>(string sql)
         {
-            object returnValue;
+            T returnValue;
 
-            using (SqlConnection myConnection = Config.SqlConnectionString)
+            using (var connection = Config.SqlConnectionString)
+            using (var sqlCommand = new SqlCommand(sql, connection))
             {
-                using (SqlCommand sqlCommand = new SqlCommand(sql, myConnection))
+                try
                 {
-                    try
-                    {
-                        sqlCommand.Connection.Open();
-                        returnValue = sqlCommand.ExecuteScalar();
-                    }
-
-                    catch (Exception e)
-                    {
-                        throw new DatabaseUnreachableException("Error in DBHelper - ExecuteSQLScalar", e);
-                    }
-
-                    finally
-                    {
-                        sqlCommand.Dispose();
-                        myConnection.Close();
-                        myConnection.Dispose();
-                    }
+                    sqlCommand.Connection.Open();
+                    returnValue = (T)sqlCommand.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    throw new DatabaseUnreachableException("Error in DBHelper - ExecuteSQLScalar", e);
+                }
+                finally
+                {
+                    sqlCommand.Dispose();
+                    connection.Close();
+                    connection.Dispose();
                 }
             }
-            return returnValue;
-        }
 
-        /// <summary>
-        /// Exes the SQL.
-        /// </summary>
-        /// <param name="sql">The SQL.</param>
-        /// <returns>A int value...</returns>
-        public static Int32 ExeSQL(string sql)
-        {
-            int returnValue = -1;
-
-            using (SqlConnection myConnection = Config.SqlConnectionString)
-            {
-                using (SqlCommand sqlCommand = new SqlCommand(sql, myConnection))
-                {
-                    try
-                    {
-                        sqlCommand.Connection.Open();
-                        returnValue = sqlCommand.ExecuteNonQuery();
-                    }
-
-                    catch (Exception e)
-                    {
-                        ErrorHandler.Publish(LogLevel.Error, "Error in DBHelper - ExeSQL - SQL: '" + sql + "'", e);
-                        throw new DatabaseUnreachableException("Error in DBHelper - ExeSQL", e);
-                        //throw new Exception("Error in DBHelper:ExeSQL()-> " + e.ToString());
-                    }
-
-                    finally
-                    {
-                        sqlCommand.Dispose();
-                        myConnection.Close();
-                        myConnection.Dispose();
-                    }
-                }
-            }
             return returnValue;
         }
 
         /// <summary>
         /// Gets the data reader.
         /// </summary>
-        /// <param name="selectCmd">The select CMD.</param>
+        /// <param name="selectCmd">
+        /// The select CMD.
+        /// </param>
         /// <returns>
         /// A System.Data.SqlClient.SqlDataReader value...
         /// </returns>
-        // TODO --> [Obsolete("Replace me")]
         public static SqlDataReader GetDataReader(string selectCmd)
         {
-            SqlConnection myConnection = Config.SqlConnectionString;
+            var connection = Config.SqlConnectionString;
 
-            using (SqlCommand sqlCommand = new SqlCommand(selectCmd, myConnection))
+            using (var sqlCommand = new SqlCommand(selectCmd, connection))
             {
                 try
                 {
                     sqlCommand.Connection.Open();
                 }
-
                 catch (Exception e)
                 {
                     throw new DatabaseUnreachableException("Error in DBHelper - GetDataReader", e);
-                    //throw new Exception("Error in DBHelper::GetDataReader()-> " + e.ToString());
+
+                    // throw new Exception("Error in DBHelper::GetDataReader()-> " + e.ToString());
                 }
+
                 return sqlCommand.ExecuteReader(CommandBehavior.CloseConnection);
             }
         }
 
         /// <summary>
+        /// Gets the data reader.
+        /// </summary>
+        /// <param name="command">The command.</param>
+        /// <returns></returns>
+        public static SqlDataReader GetDataReader(SqlCommand command)
+        {
+            try
+            {
+                command.Connection = Config.SqlConnectionString;
+                command.Connection.Open();
+            }
+            catch (SqlException e)
+            {
+                throw new DatabaseUnreachableException("Error in DBHelper - GetDataReader", e);
+            }
+
+            return command.ExecuteReader(CommandBehavior.CloseConnection);
+        }
+
+        /// <summary>
         /// Gets the data set.
         /// </summary>
-        /// <param name="selectCmd">The select CMD.</param>
-        /// <returns>A System.Data.DataSet value...</returns>
+        /// <param name="selectCmd">
+        /// The select CMD.
+        /// </param>
+        /// <returns>
+        /// A System.Data.DataSet value...
+        /// </returns>
         public static DataSet GetDataSet(string selectCmd)
         {
             DataSet ds;
 
-            using (SqlConnection myConnection = Config.SqlConnectionString)
+            using (var connection = Config.SqlConnectionString)
             {
-                using (SqlDataAdapter m_SqlDataAdapter = new SqlDataAdapter(selectCmd, myConnection))
+                using (var sqlDataAdapter = new SqlDataAdapter(selectCmd, connection))
                 {
                     try
                     {
                         ds = new DataSet();
-                        m_SqlDataAdapter.Fill(ds, "Table0");
+                        sqlDataAdapter.Fill(ds, "Table0");
                     }
-
                     catch (Exception e)
                     {
                         throw new DatabaseUnreachableException("Error in DBHelper - GetDataSet", e);
-                        //throw new Exception("Error in ItemBase:GetDataSet()-> " + e.ToString());
-                    }
 
+                        // throw new Exception("Error in ItemBase:GetDataSet()-> " + e.ToString());
+                    }
                     finally
                     {
-                        m_SqlDataAdapter.Dispose();
-                        myConnection.Close();
-                        myConnection.Dispose();
+                        sqlDataAdapter.Dispose();
+                        connection.Close();
+                        connection.Dispose();
                     }
                 }
             }
+
             return ds;
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Get the script from a file
         /// </summary>
-        /// <param name="scriptPath">The script path.</param>
-        /// <returns></returns>
+        /// <param name="scriptPath">
+        /// The script path.
+        /// </param>
+        /// <returns>
+        /// The get script.
+        /// </returns>
         private static string GetScript(string scriptPath)
         {
             string strScript;
 
             // Load script file 
-            //using (System.IO.StreamReader objStreamReader = System.IO.File.OpenText(scriptPath)) 
-            //http://support.Appleseedportal.net/jira/browse/RBP-693
-            //to make it possible to have german umlauts or other special characters in the install_scripts
-            using (StreamReader objStreamReader = new StreamReader(scriptPath, Encoding.Default))
+            // using (System.IO.StreamReader objStreamReader = System.IO.File.OpenText(scriptPath)) 
+            // http://support.Appleseedportal.net/jira/browse/RBP-693
+            // to make it possible to have German umlauts or other special characters in the install_scripts
+            using (var objStreamReader = new StreamReader(scriptPath, Encoding.Default))
             {
                 strScript = objStreamReader.ReadToEnd();
                 objStreamReader.Close();
             }
-            return strScript + Environment.NewLine; //Append carriage for execute last command 
+
+            return strScript + Environment.NewLine; // Append carriage for execute last command 
         }
+
+        #endregion
     }
 }

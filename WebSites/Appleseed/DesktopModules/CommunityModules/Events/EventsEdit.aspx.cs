@@ -58,13 +58,13 @@ namespace Appleseed.Content.Web.Modules
 
             //Change Indah Fuldner indah@die-seitenweber.de
             HtmlEditorDataType h = new HtmlEditorDataType();
-            h.Value = moduleSettings["Editor"].ToString();
+            h.Value = this.ModuleSettings["Editor"].ToString();
             DescriptionField =
-                h.GetEditor(PlaceHolderHTMLEditor, ModuleID, bool.Parse(moduleSettings["ShowUpload"].ToString()),
-                            portalSettings);
+                h.GetEditor(PlaceHolderHTMLEditor, ModuleID, bool.Parse(this.ModuleSettings["ShowUpload"].ToString()),
+                            this.PortalSettings);
 
-            DescriptionField.Width = new Unit(moduleSettings["Width"].ToString());
-            DescriptionField.Height = new Unit(moduleSettings["Height"].ToString());
+            DescriptionField.Width = new Unit(this.ModuleSettings["Width"].ToString());
+            DescriptionField.Height = new Unit(this.ModuleSettings["Height"].ToString());
             //End Change Indah Fuldner indah@die-seitenweber.de
 
             // If the page is being	requested the first	time, determine	if an
@@ -150,8 +150,8 @@ namespace Appleseed.Content.Web.Modules
                 else
                 {
                     ExpireField.Text =
-                        DateTime.Now.AddDays(Int32.Parse(moduleSettings["DelayExpire"].ToString())).ToShortDateString();
-                    deleteButton.Visible = false; // Cannot	delete an unexsistent item
+                        DateTime.Now.AddDays(Int32.Parse(this.ModuleSettings["DelayExpire"].ToString())).ToShortDateString();
+                    this.DeleteButton.Visible = false; // Cannot	delete an unexsistent item
                 }
             }
         }

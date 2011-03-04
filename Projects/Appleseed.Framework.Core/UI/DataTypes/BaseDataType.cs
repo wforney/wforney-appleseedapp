@@ -1,180 +1,264 @@
-using System;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="BaseDataType.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Base Data Type
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.DataTypes
 {
-	/// <summary>
-	/// BaseDataType
-	/// </summary>
-	public abstract class BaseDataType
-	{
-		/// <summary>
-		/// Holds the value
-		/// </summary>
-		protected PropertiesDataType InnerDataType;
-		/// <summary>
-		/// 
-		/// </summary>
-		protected object InnerDataSource;
-		/// <summary>
-		/// 
-		/// </summary>
-		protected int controlWidth = 350;
-		/// <summary>
-		/// 
-		/// </summary>
-		protected Control innerControl;
-		/// <summary>
-		/// 
-		/// </summary>
-		protected string innerValue = string.Empty;
+    using System;
+    using System.ComponentModel;
+    using System.Web.UI.WebControls;
+
+    /// <summary>
+    /// Base Data Type
+    /// </summary>
+    /// <typeparam name="T">
+    /// The type of data.
+    /// </typeparam>
+    /// <typeparam name="TEditControl">
+    /// The edit control for the data type.
+    /// </typeparam>
+    public class BaseDataType<T, TEditControl>
+        where TEditControl : class
+    {
+        #region Constants and Fields
 
         /// <summary>
-        /// InitializeComponents
+        /// The inner data source.
         /// </summary>
-		protected virtual void InitializeComponents()
-		{
-			//Text box
-			using (TextBox tx = new TextBox())
-			{
-				tx.CssClass = "NormalTextBox";
-				tx.Columns = 30;
-				tx.Width = new Unit(controlWidth);
-				tx.MaxLength = 1500; //changed max value to 1500 since most of settings are string
-
-				innerControl = tx;
-			}
-		}
+        protected object InnerDataSource;
 
         /// <summary>
-        /// Gets DataSource
-        /// Should be overrided from inherited classes
+        /// The control width.
         /// </summary>
-        /// <value>The data source.</value>
-		public virtual object DataSource
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
-		}
+        protected int ControlWidth = 350;
 
-		/// <summary>
-		/// Gets or sets the data value field.
-		/// </summary>
-		/// <value>The data value field.</value>
-		public virtual string DataValueField
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
-		}
+        /// <summary>
+        /// The inner control.
+        /// </summary>
+        protected TEditControl InnerControl;
 
-		/// <summary>
-		/// Gets or sets the data text field.
-		/// </summary>
-		/// <value>The data text field.</value>
-		public virtual string DataTextField
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
-		}
+        #endregion
 
-		/// <summary>
-		/// Not Implemented
-		/// </summary>
-		/// <value>The full path.</value>
-		public virtual string FullPath
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-		}
+        #region Properties
 
-		/// <summary>
-		/// EditControl
-		/// </summary>
-		/// <value>The edit control.</value>
-		public virtual Control EditControl
-		{
-			get
-			{
-				if (innerControl == null)
-					InitializeComponents();
+        /// <summary>
+        /// Gets or sets the data source.
+        /// </summary>
+        /// <value>
+        /// The data source.
+        /// </value>
+        public virtual object DataSource
+        {
+            get
+            {
+                return this.InnerDataSource;
+            }
 
-				//Update value in control
-				((TextBox)innerControl).Text = Value;
-				//Return control
-				return innerControl;
-			}
-			set
-			{
-				if (value.GetType().Name == "TextBox")
-				{
-					innerControl = value;
-					//Update value from control
-					Value = ((TextBox)innerControl).Text;
-				}
-				else
-					throw new ArgumentException("A TextBox values is required, a '" + value.GetType().Name + "' is given.", "EditControl");
-			}
-		}
+            set
+            {
+                this.InnerDataSource = value;
+            }
+        }
 
-		/// <summary>
-		/// Gets the type.
-		/// </summary>
-		/// <value>The type.</value>
-		public virtual PropertiesDataType Type
-		{
-			get
-			{
-				return InnerDataType;
-			}
-		}
+        /// <summary>
+        ///   Gets or sets the data text field.
+        /// </summary>
+        /// <value>
+        ///   The data text field.
+        /// </value>
+        public virtual string DataTextField
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
 
-		/// <summary>
-		/// Gets or sets the value.
-		/// </summary>
-		/// <value>The value.</value>
-		public virtual string Value
-		{
-			get
-			{
-				return (innerValue);
-			}
-			set
-			{
-				innerValue = value;
-			}
-		}
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
 
-		/// <summary>
-		/// Gets the description.
-		/// </summary>
-		/// <value>The description.</value>
-		public virtual string Description
-		{
-			get
-			{
-				return string.Empty;
-			}
-		}
-	}
+        /// <summary>
+        ///   Gets or sets the data value field.
+        /// </summary>
+        /// <value>
+        ///   The data value field.
+        /// </value>
+        public virtual string DataValueField
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
+        ///   Gets the description.
+        /// </summary>
+        /// <value>The description.</value>
+        public virtual string Description
+        {
+            get
+            {
+                return typeof(T).Name;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the edit control.
+        /// </summary>
+        /// <value>
+        /// The edit control.
+        /// </value>
+        public virtual TEditControl EditControl
+        {
+            get
+            {
+                if (this.InnerControl == null)
+                {
+                    this.InitializeComponents();
+                }
+
+                if (typeof(TEditControl) == typeof(TextBox))
+                {
+                    var txt = this.InnerControl as TextBox;
+                    if (txt != null)
+                    {
+                        txt.Text = Convert.ToString(this.Value);
+                    }
+                }
+                else
+                {
+                    if (typeof(TEditControl) == typeof(CheckBox))
+                    {
+                        var cbx = this.InnerControl as CheckBox;
+                        if (cbx != null)
+                        {
+                            cbx.Checked = Convert.ToBoolean(this.Value);
+                        }
+                    }
+                    else
+                    {
+                        if (typeof(TEditControl) == typeof(ListControl))
+                        {
+                            var lc = this.InnerControl as ListControl;
+                            if (lc != null)
+                            {
+                                lc.SelectedValue = Convert.ToString(this.Value);
+                            }
+                        }
+                        else
+                        {
+                            throw new NotImplementedException("Unknown editor type. Please implement a value getter here.");
+                        }
+                    }
+                }
+
+                // Return control
+                return this.InnerControl;
+            }
+
+            set
+            {
+                this.InnerControl = value;
+
+                if (typeof(TEditControl) == typeof(TextBox))
+                {
+                    var txt = this.InnerControl as TextBox;
+                    if (txt != null)
+                    {
+                        this.Value = (T)Convert.ChangeType(txt.Text, typeof(T));
+                    }
+                }
+                else
+                {
+                    if (typeof(TEditControl) == typeof(CheckBox))
+                    {
+                        var cbx = this.InnerControl as CheckBox;
+                        if (cbx != null)
+                        {
+                            this.Value = (T)Convert.ChangeType(cbx.Checked, typeof(T));
+                        }
+                    }
+                    else
+                    {
+                        if (typeof(TEditControl) == typeof(ListControl))
+                        {
+                            var lc = this.InnerControl as ListControl;
+                            if (lc != null)
+                            {
+                                this.Value = (T)Convert.ChangeType(lc.SelectedValue, typeof(T));
+                            }
+                        }
+                        else
+                        {
+                            throw new NotImplementedException("Unknown editor type. Please implement a value setter here.");
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        ///   Gets the full path.
+        /// </summary>
+        public virtual string FullPath
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets the value.
+        /// </summary>
+        /// <value>The value.</value>
+        public virtual T Value { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Initializes the components.
+        /// </summary>
+        protected virtual void InitializeComponents()
+        {
+            if (typeof(TEditControl) == typeof(TextBox))
+            {
+                // Text box
+                // changed max value to 1500 since most of settings are string
+                var tx =
+                    new TextBox
+                        {
+                            CssClass = "NormalTextBox",
+                            Columns = 30,
+                            Width = new Unit(this.ControlWidth),
+                            MaxLength = 1500
+                        }
+
+                    as TEditControl;
+
+                this.InnerControl = tx;
+            }
+            else
+            {
+                this.InnerControl = (TEditControl)Activator.CreateInstance(typeof(TEditControl));
+            }
+        }
+
+        #endregion
+    }
 }

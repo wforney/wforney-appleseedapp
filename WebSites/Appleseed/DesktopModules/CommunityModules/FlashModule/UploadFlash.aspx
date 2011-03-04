@@ -5,7 +5,7 @@
 <head id="Head1" runat="server">
 </head>
 <body id="Body1" runat="server">
-    <form id="Form" runat="server" enctype="multipart/form-data">
+    <form id="F" runat="server" enctype="multipart/form-data">
         <asp:panel id="uploadpanel" runat="server">
             <table height="50" width="100%">
                 <tr>

@@ -1,19 +1,19 @@
-using System;
-using System.Collections;
-using System.Web;
-using System.Web.UI.WebControls;
-using Appleseed.Framework;
-using Appleseed.Framework.Content.Data;
-using Appleseed.Framework.Content.Security;
-using Appleseed.Framework.Settings;
-using Appleseed.Framework.Web.UI;
-using History=Appleseed.Framework.History;
-using ImageButton=Appleseed.Framework.Web.UI.WebControls.ImageButton;
-using Label=Appleseed.Framework.Web.UI.WebControls.Label;
-
 namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
 {
+    using System;
     using System.Collections.Generic;
+    using System.Web;
+    using System.Web.UI.WebControls;
+
+    using Appleseed.Framework;
+    using Appleseed.Framework.Content.Data;
+    using Appleseed.Framework.Content.Security;
+    using Appleseed.Framework.Settings;
+    using Appleseed.Framework.Web.UI;
+
+    using History = Appleseed.Framework.History;
+    using ImageButton = Appleseed.Framework.Web.UI.WebControls.ImageButton;
+    using Label = Appleseed.Framework.Web.UI.WebControls.Label;
 
     /// <summary>
     /// 
@@ -257,18 +257,18 @@ namespace Appleseed.Content.Web.Modules.DiscussionEnhanced
             this.Load += new System.EventHandler(this.Page_Load);
 
             /*
-			 * // Create a new Title the control
-			ModuleTitle = new DesktopModuleTitle();
-			
-			// Add a link for the edit page
-			// ModuleTitle.AddTarget = "_new";  // uncomment this if you want replies and new posts in a new web browser window
-			ModuleTitle.AddText = "DS_NEWTHREAD";
-			ModuleTitle.AddUrl = "~/DesktopModules/Discussion/DiscussionEdit.aspx";
-			
-			// Add title at the very beginning of the control's controls collection
-			Controls.AddAt(0, ModuleTitle);
-		
-			*/
+             * // Create a new Title the control
+            ModuleTitle = new DesktopModuleTitle();
+            
+            // Add a link for the edit page
+            // ModuleTitle.AddTarget = "_new";  // uncomment this if you want replies and new posts in a new web browser window
+            ModuleTitle.AddText = "DS_NEWTHREAD";
+            ModuleTitle.AddUrl = "~/DesktopModules/Discussion/DiscussionEdit.aspx";
+            
+            // Add title at the very beginning of the control's controls collection
+            Controls.AddAt(0, ModuleTitle);
+        
+            */
             base.OnInit(e);
         }
 

@@ -6,6 +6,8 @@ using History=Appleseed.Framework.History;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// Weather (Using USA zipcodes)
     /// Written by: Jason Schaitel, Jason_Schaitel@hotmail.com
@@ -21,19 +23,19 @@ namespace Appleseed.Content.Web.Modules
                 "changed DataType of setZip to StringdataType to enable leading zeros in zip.")]
         public WeatherUS()
         {
-            SettingItem setZip = new SettingItem(new StringDataType());
+            var setZip = new SettingItem<string, TextBox>();
             //setZip.MinValue = 0;
             //setZip.MaxValue = 99999;
             setZip.Required = true;
             setZip.Value = "10001";
             setZip.Order = 1;
-            _baseSettings.Add("Zip", setZip);
+            this.BaseSettings.Add("Zip", setZip);
 
-            SettingItem setOption = new SettingItem(new StringDataType());
+            var setOption = new SettingItem<string, TextBox>();
             setOption.Required = true;
             setOption.Value = "0";
             setOption.Order = 2;
-            _baseSettings.Add("Option", setOption);
+            this.BaseSettings.Add("Option", setOption);
         }
 
         /// <summary>

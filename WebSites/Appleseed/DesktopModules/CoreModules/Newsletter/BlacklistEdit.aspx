@@ -91,10 +91,10 @@
                     </FooterTemplate>
                 </asp:Repeater>
                 <p>
-                    <rbfwebui:LinkButton ID="updateButton" runat="server" CssClass="CommandButton" Text="Update">
+                    <rbfwebui:LinkButton ID="UpdateButton" runat="server" CssClass="CommandButton" Text="Update">
                     </rbfwebui:LinkButton>
                     &nbsp;
-                    <rbfwebui:LinkButton ID="cancelButton" runat="server" CausesValidation="False" CssClass="CommandButton"
+                    <rbfwebui:LinkButton ID="CancelButton" runat="server" CausesValidation="False" CssClass="CommandButton"
                         Text="Cancel">
                     </rbfwebui:LinkButton>
                 </p>

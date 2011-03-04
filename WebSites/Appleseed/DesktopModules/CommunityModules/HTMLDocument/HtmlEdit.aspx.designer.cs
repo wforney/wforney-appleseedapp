@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Appleseed.Content.Web.Modules {
+namespace Appleseed.DesktopModules.CommunityModules.HTMLDocument {
     
     
     public partial class HtmlEdit {

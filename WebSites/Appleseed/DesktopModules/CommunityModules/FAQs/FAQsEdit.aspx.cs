@@ -42,13 +42,13 @@ namespace Appleseed.Content.Web.Modules
         {
             //Editor placeholder setup
             HtmlEditorDataType h = new HtmlEditorDataType();
-            h.Value = moduleSettings["Editor"].ToString();
+            h.Value = this.ModuleSettings["Editor"].ToString();
             DesktopText =
-                h.GetEditor(PlaceHolderHTMLEditor, ModuleID, bool.Parse(moduleSettings["ShowUpload"].ToString()),
-                            portalSettings);
+                h.GetEditor(PlaceHolderHTMLEditor, ModuleID, bool.Parse(this.ModuleSettings["ShowUpload"].ToString()),
+                            this.PortalSettings);
 
-            DesktopText.Width = new Unit(moduleSettings["Width"].ToString());
-            DesktopText.Height = new Unit(moduleSettings["Height"].ToString());
+            DesktopText.Width = new Unit(this.ModuleSettings["Width"].ToString());
+            DesktopText.Height = new Unit(this.ModuleSettings["Height"].ToString());
 
 
             //  Determine itemID of FAQ to Update
@@ -163,7 +163,7 @@ namespace Appleseed.Content.Web.Modules
         /// <param name="e">An <see cref="T:System.EventArgs"></see> that contains the event data.</param>
         protected override void OnInit(EventArgs e)
         {
-            this.updateButton.Click += new EventHandler(updateButton_Click);
+            this.UpdateButton.Click += new EventHandler(updateButton_Click);
             this.Load += new EventHandler(this.Page_Load);
             base.OnInit(e);
         }
