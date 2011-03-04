@@ -8,7 +8,6 @@
 namespace Appleseed.Framework.Web.UI.WebControls
 {
     using System;
-    using System.Collections;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Linq;
@@ -50,7 +49,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// </summary>
         public ShopNavigation()
         {
-            this.EnableViewState = false;
+            base.EnableViewState = false;
             this.Load += this.LoadControl;
         }
 
@@ -123,13 +122,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
             var portalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
 
             // Build list of tabs to be shown to user 
-            var authorizedTabs = new ArrayList();
-
-            foreach (var tab in
-                portalSettings.DesktopPages.Cast<PageStripDetails>().Where(tab => PortalSecurity.IsInRoles(tab.AuthorizedRoles)))
-            {
-                authorizedTabs.Add(tab);
-            }
+            var authorizedTabs = portalSettings.DesktopPages.Cast<PageStripDetails>().Where(tab => PortalSecurity.IsInRoles(tab.AuthorizedRoles)).ToList();
 
             // Menu 
 
@@ -138,7 +131,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
             if (!currentTabOnly)
             {
-                foreach (var mytab in authorizedTabs.Cast<PageStripDetails>())
+                foreach (var mytab in authorizedTabs)
                 {
                     this.AddMenuTreeNode(mytab);
                 }
