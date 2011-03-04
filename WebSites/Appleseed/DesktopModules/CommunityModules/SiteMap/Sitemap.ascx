@@ -1,3 +1,2 @@
-<%@ control autoeventwireup="false" inherits="Appleseed.Content.Web.Modules.Sitemaps"
-    language="c#" Codebehind="Sitemap.ascx.cs" %>
-<asp:placeholder id="PlaceHolder1" runat="server"></asp:placeholder>
+<%@ Control Inherits="Appleseed.Content.Web.Modules.Sitemaps" Language="c#" CodeBehind="Sitemap.ascx.cs" %>
+<asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>

@@ -1,351 +1,441 @@
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Appleseed.Framework.Security;
-using Appleseed.Framework.Site.Configuration;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DesktopNavigation.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Represents a flat navigation bar.
+//   One dimension.
+//   Can render horizontally or vertically.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.Web.UI.WebControls
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Web;
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+
+    using Appleseed.Framework.Security;
+    using Appleseed.Framework.Site.Configuration;
+
     /// <summary>
     /// Represents a flat navigation bar. 
-    /// One dimension. 
-    /// Can render horizontally or vertically.
+    ///   One dimension. 
+    ///   Can render horizontally or vertically.
     /// </summary>
     public class DesktopNavigation : DataList, INavigation
     {
+        #region Constants and Fields
+
         /// <summary>
-        /// Default constructor
+        /// The _bind.
+        /// </summary>
+        private BindOption _bind = BindOption.BindOptionTop;
+
+        // MH: added 29/04/2003 by mario@hartmann.net
+        /// <summary>
+        /// The _defined parent tab.
+        /// </summary>
+        private int _definedParentTab = -1;
+
+        /// <summary>
+        /// The inner data source.
+        /// </summary>
+        private object innerDataSource;
+
+        /// <summary>
+        /// The rd.
+        /// </summary>
+        private RepeatDirection rd = RepeatDirection.Horizontal;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DesktopNavigation"/> class. 
+        ///   Default constructor
         /// </summary>
         public DesktopNavigation()
         {
-            EnableViewState = false;
-            RepeatDirection = RepeatDirection.Horizontal;
-            Load += new EventHandler(LoadControl);
+            this.EnableViewState = false;
+            this.RepeatDirection = RepeatDirection.Horizontal;
+            this.Load += this.LoadControl;
         }
 
+        #endregion
+
+        // MH: end
+        #region Properties
+
         /// <summary>
-        /// Loads the control.
+        ///   Indicates if control should bind when loads
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        private void LoadControl(object sender, EventArgs e)
-        {
-            if (AutoBind)
-                DataBind();
-        }
-
-        private RepeatDirection rd = RepeatDirection.Horizontal;
+        /// <value><c>true</c> if [auto bind]; otherwise, <c>false</c>.</value>
+        [Category("Data")]
+        [PersistenceMode(PersistenceMode.Attribute)]
+        public bool AutoBind { get; set; }
 
         /// <summary>
-        /// Gets or sets whether the <see cref="T:System.Web.UI.WebControls.DataList"></see> control displays vertically or horizontally.
+        ///   Describes how this control should bind to db data
+        /// </summary>
+        /// <value>The bind.</value>
+        [Category("Data")]
+        [PersistenceMode(PersistenceMode.Attribute)]
+        public BindOption Bind
+        {
+            get
+            {
+                return this._bind;
+            }
+
+            set
+            {
+                if (this._bind != value)
+                {
+                    this._bind = value;
+                }
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets the source containing a list of values used to populate the items within the control.
+        /// </summary>
+        /// <value>The data source.</value>
+        /// <returns>An <see cref = "T:System.Collections.IEnumerable" /> or <see cref = "T:System.ComponentModel.IListSource" /> that contains a collection of values used to supply data to this control. The default value is null.</returns>
+        /// <exception cref = "T:System.Web.HttpException">The data source cannot be resolved because a value is specified for both the <see cref = "P:System.Web.UI.WebControls.BaseDataList.DataSource" /> property and the <see cref = "P:System.Web.UI.WebControls.BaseDataList.DataSourceID" /> property. </exception>
+        /// <exception cref = "T:System.ArgumentException">The data source is of an invalid type. The data source must be null or implement either the <see cref = "T:System.Collections.IEnumerable" /> or the <see cref = "T:System.ComponentModel.IListSource" /> interface.</exception>
+        /// <remarks>
+        /// </remarks>
+        public override object DataSource
+        {
+            get
+            {
+                return this.innerDataSource ?? (this.innerDataSource = this.GetInnerDataSource());
+            }
+
+            set
+            {
+                this.innerDataSource = value;
+            }
+        }
+
+        // MH: added 23/05/2003 by mario@hartmann.net
+        /// <summary>
+        ///   defines the parentPageID when using BindOptionDefinedParent
+        /// </summary>
+        /// <value>The parent page ID.</value>
+        [Category("Data")]
+        [PersistenceMode(PersistenceMode.Attribute)]
+        public int ParentPageID
+        {
+            get
+            {
+                return this._definedParentTab;
+            }
+
+            set
+            {
+                if (this._definedParentTab != value)
+                {
+                    this._definedParentTab = value;
+                }
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets whether the <see cref = "T:System.Web.UI.WebControls.DataList"></see> control displays vertically or horizontally.
         /// </summary>
         /// <value></value>
-        /// <returns>One of the <see cref="T:System.Web.UI.WebControls.RepeatDirection"></see> values. The default is Vertical.</returns>
-        /// <exception cref="T:System.ArgumentException">The specified value is not one of the <see cref="T:System.Web.UI.WebControls.RepeatDirection"></see> values. </exception>
-        [
-            DefaultValue(RepeatDirection.Horizontal)
-            ]
+        /// <returns>One of the <see cref = "T:System.Web.UI.WebControls.RepeatDirection"></see> values. The default is Vertical.</returns>
+        /// <exception cref = "T:System.ArgumentException">The specified value is not one of the <see cref = "T:System.Web.UI.WebControls.RepeatDirection"></see> values. </exception>
+        [DefaultValue(RepeatDirection.Horizontal)]
         public override RepeatDirection RepeatDirection
         {
-            get { return rd; }
-            set { rd = value; }
+            get
+            {
+                return this.rd;
+            }
+
+            set
+            {
+                this.rd = value;
+            }
         }
+
+        /// <summary>
+        ///   Indicates if control show the tabname in the url
+        /// </summary>
+        /// <value><c>true</c> if [use tab name in URL]; otherwise, <c>false</c>.</value>
+        [Category("Data")]
+        [PersistenceMode(PersistenceMode.Attribute)]
+        public bool UseTabNameInUrl { get; set; }
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Gives the me URL.
         /// </summary>
-        /// <param name="tab">The tab.</param>
-        /// <param name="id">The id.</param>
-        /// <returns></returns>
+        /// <param name="tab">
+        /// The tab.
+        /// </param>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <returns>
+        /// The give me url.
+        /// </returns>
         public string giveMeUrl(string tab, int id)
         {
-            if (!UseTabNameInUrl) return HttpUrlBuilder.BuildUrl(id);
-            string auxtab = string.Empty;
-            foreach (char c in tab)
-                if (char.IsLetterOrDigit(c)) auxtab += c;
-                else auxtab += "_";
-            return HttpUrlBuilder.BuildUrl("~/" + auxtab + ".aspx", id);
-        }
-
-        #region INavigation implementation
-
-        private bool _useTabNameInUrl = false;
-
-        /// <summary>
-        /// Indicates if control show the tabname in the url
-        /// </summary>
-        /// <value><c>true</c> if [use tab name in URL]; otherwise, <c>false</c>.</value>
-        [Category("Data"), PersistenceMode(PersistenceMode.Attribute)]
-        public bool UseTabNameInUrl
-        {
-            get { return _useTabNameInUrl; }
-            set { _useTabNameInUrl = value; }
-        }
-
-        private BindOption _bind = BindOption.BindOptionTop;
-        private bool _autoBind = false;
-        //MH: added 29/04/2003 by mario@hartmann.net
-        private int _definedParentTab = -1;
-        //MH: end
-        /// <summary>
-        /// Indicates if control should bind when loads
-        /// </summary>
-        /// <value><c>true</c> if [auto bind]; otherwise, <c>false</c>.</value>
-        [
-            Category("Data"),
-                PersistenceMode(PersistenceMode.Attribute)
-            ]
-        public bool AutoBind
-        {
-            get { return _autoBind; }
-            set { _autoBind = value; }
-        }
-
-        /// <summary>
-        /// Describes how this control should bind to db data
-        /// </summary>
-        /// <value>The bind.</value>
-        [
-            Category("Data"),
-                PersistenceMode(PersistenceMode.Attribute)
-            ]
-        public BindOption Bind
-        {
-            get { return _bind; }
-            set
+            if (!this.UseTabNameInUrl)
             {
-                if (_bind != value)
-                {
-                    _bind = value;
-                }
+                return HttpUrlBuilder.BuildUrl(id);
             }
-        }
 
-        //MH: added 23/05/2003 by mario@hartmann.net
-        /// <summary>
-        /// defines the parentPageID when using BindOptionDefinedParent
-        /// </summary>
-        /// <value>The parent page ID.</value>
-        [
-            Category("Data"),
-                PersistenceMode(PersistenceMode.Attribute)
-            ]
-        public int ParentPageID
-        {
-            get { return _definedParentTab; }
-            set
-            {
-                if (_definedParentTab != value)
-                {
-                    _definedParentTab = value;
-                }
-            }
+            var auxtab = tab.Aggregate(
+                string.Empty, (current, c) => current + (char.IsLetterOrDigit(c) ? c.ToString() : "_"));
+            return HttpUrlBuilder.BuildUrl(string.Format("~/{0}.aspx", auxtab), id);
         }
-
-        //MH: end
 
         #endregion
 
-        private object innerDataSource = null;
+        // MH: end
+        #region Methods
 
         /// <summary>
         /// Populates ArrayList of tabs based on binding option selected.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// The get inner data source.
+        /// </returns>
         protected object GetInnerDataSource()
         {
-            ArrayList authorizedTabs = new ArrayList();
+            var authorizedTabs = new List<PageStripDetails>();
 
             if (HttpContext.Current != null)
             {
                 // Obtain PortalSettings from Current Context
-                PortalSettings portalSettings = (PortalSettings) HttpContext.Current.Items["PortalSettings"];
+                var portalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
 
-                switch (Bind)
+                switch (this.Bind)
                 {
                     case BindOption.BindOptionTop:
                         {
-                            authorizedTabs = GetTabs(0, portalSettings.ActivePage.PageID, portalSettings.DesktopPages);
+                            authorizedTabs = this.GetTabs(
+                                0, portalSettings.ActivePage.PageID, portalSettings.DesktopPages);
                             break;
                         }
 
                     case BindOption.BindOptionCurrentChilds:
                         {
-                            int currentTabRoot =
+                            var currentTabRoot =
                                 PortalSettings.GetRootPage(portalSettings.ActivePage, portalSettings.DesktopPages).
                                     PageID;
-                            authorizedTabs =
-                                GetTabs(currentTabRoot, portalSettings.ActivePage.PageID, portalSettings.DesktopPages);
+                            authorizedTabs = this.GetTabs(
+                                currentTabRoot, portalSettings.ActivePage.PageID, portalSettings.DesktopPages);
                             break;
                         }
-
 
                     case BindOption.BindOptionSubtabSibling:
                         {
                             int currentTabRoot;
                             if (portalSettings.ActivePage.ParentPageID == 0)
+                            {
                                 currentTabRoot = portalSettings.ActivePage.PageID;
+                            }
                             else
+                            {
                                 currentTabRoot = portalSettings.ActivePage.ParentPageID;
+                            }
 
-                            authorizedTabs =
-                                GetTabs(currentTabRoot, portalSettings.ActivePage.PageID, portalSettings.DesktopPages);
+                            authorizedTabs = this.GetTabs(
+                                currentTabRoot, portalSettings.ActivePage.PageID, portalSettings.DesktopPages);
                             break;
-//						int tmpPageID = 0;
-//
-//						if(portalSettings.ActivePage.ParentPageID == 0)
-//						{
-//							tmpPageID = portalSettings.ActivePage.PageID;
-//						}
-//						else
-//						{
-//							tmpPageID = portalSettings.ActivePage.ParentPageID;
-//						}
-//						ArrayList parentTabs = GetTabs(tmpPageID, portalSettings.DesktopPages);
-//						try
-//						{
-//							if (parentTabs.Count > 0)
-//							{
-//								PageStripDetails currentParentTab = (PageStripDetails) parentTabs[this.SelectedIndex];
-//								this.SelectedIndex = -1;
-//								authorizedTabs = GetTabs(portalSettings.ActivePage.PageID, currentParentTab.Pages);
-//							}
-//						}
-//						catch
-//						{}
-//						break;
+
+                            // 						int tmpPageID = 0;
+                            // 						if(portalSettings.ActivePage.ParentPageID == 0)
+                            // 						{
+                            // 							tmpPageID = portalSettings.ActivePage.PageID;
+                            // 						}
+                            // 						else
+                            // 						{
+                            // 							tmpPageID = portalSettings.ActivePage.ParentPageID;
+                            // 						}
+                            // 						ArrayList parentTabs = GetTabs(tmpPageID, portalSettings.DesktopPages);
+                            // 						try
+                            // 						{
+                            // 							if (parentTabs.Count > 0)
+                            // 							{
+                            // 								PageStripDetails currentParentTab = (PageStripDetails) parentTabs[this.SelectedIndex];
+                            // 								this.SelectedIndex = -1;
+                            // 								authorizedTabs = GetTabs(portalSettings.ActivePage.PageID, currentParentTab.Pages);
+                            // 							}
+                            // 						}
+                            // 						catch
+                            // 						{}
+                            // 						break;
                         }
+
                     case BindOption.BindOptionChildren:
                         {
-                            authorizedTabs =
-                                GetTabs(portalSettings.ActivePage.PageID, portalSettings.ActivePage.PageID,
-                                        portalSettings.DesktopPages);
+                            authorizedTabs = this.GetTabs(
+                                portalSettings.ActivePage.PageID, 
+                                portalSettings.ActivePage.PageID, 
+                                portalSettings.DesktopPages);
                             break;
                         }
-
 
                     case BindOption.BindOptionSiblings:
                         {
-                            authorizedTabs =
-                                GetTabs(portalSettings.ActivePage.ParentPageID, portalSettings.ActivePage.PageID,
-                                        portalSettings.DesktopPages);
+                            authorizedTabs = this.GetTabs(
+                                portalSettings.ActivePage.ParentPageID, 
+                                portalSettings.ActivePage.PageID, 
+                                portalSettings.DesktopPages);
                             break;
                         }
 
-                        //MH: added 19/09/2003 by mario@hartmann.net
+                        // MH: added 19/09/2003 by mario@hartmann.net
                     case BindOption.BindOptionTabSibling:
                         {
-                            authorizedTabs =
-                                GetTabs(portalSettings.ActivePage.PageID, portalSettings.ActivePage.PageID,
-                                        portalSettings.DesktopPages);
+                            authorizedTabs = this.GetTabs(
+                                portalSettings.ActivePage.PageID, 
+                                portalSettings.ActivePage.PageID, 
+                                portalSettings.DesktopPages);
 
                             if (authorizedTabs.Count == 0)
-                                authorizedTabs =
-                                    GetTabs(portalSettings.ActivePage.ParentPageID, portalSettings.ActivePage.PageID,
-                                            portalSettings.DesktopPages);
+                            {
+                                authorizedTabs = this.GetTabs(
+                                    portalSettings.ActivePage.ParentPageID, 
+                                    portalSettings.ActivePage.PageID, 
+                                    portalSettings.DesktopPages);
+                            }
 
                             break;
                         }
 
-                        //MH: added 29/04/2003 by mario@hartmann.net
+                        // MH: added 29/04/2003 by mario@hartmann.net
                     case BindOption.BindOptionDefinedParent:
-                        if (ParentPageID != -1)
-                            authorizedTabs =
-                                GetTabs(ParentPageID, portalSettings.ActivePage.PageID, portalSettings.DesktopPages);
+                        if (this.ParentPageID != -1)
+                        {
+                            authorizedTabs = this.GetTabs(
+                                this.ParentPageID, portalSettings.ActivePage.PageID, portalSettings.DesktopPages);
+                        }
+
                         break;
-                        //MH: end
+
+                        // MH: end
                     default:
                         {
                             break;
                         }
                 }
             }
+
             return authorizedTabs;
         }
 
         /// <summary>
         /// Gets the selected tab.
         /// </summary>
-        /// <param name="parentPageID">The parent page ID.</param>
-        /// <param name="activePageID">The active page ID.</param>
-        /// <param name="allTabs">All tabs.</param>
-        /// <returns></returns>
-        private int GetSelectedTab(int parentPageID, int activePageID, IList allTabs)
+        /// <param name="parentPageID">
+        /// The parent page ID.
+        /// </param>
+        /// <param name="activePageID">
+        /// The active page ID.
+        /// </param>
+        /// <param name="allTabs">
+        /// All tabs.
+        /// </param>
+        /// <returns>
+        /// The get selected tab.
+        /// </returns>
+        private int GetSelectedTab(int parentPageID, int activePageID, IEnumerable<PageStripDetails> allTabs)
         {
-            for (int i = 0; i < allTabs.Count; i++)
+            foreach (var tmpTab in allTabs)
             {
-                PageStripDetails tmpTab = (PageStripDetails) allTabs[i];
-                if (tmpTab.PageID == activePageID)
+                if (tmpTab.PageID != activePageID)
                 {
-                    int selectedPageID = activePageID;
-                    if (tmpTab.ParentPageID != parentPageID)
-                    {
-                        selectedPageID = GetSelectedTab(parentPageID, tmpTab.ParentPageID, allTabs);
-                        return selectedPageID;
-                    }
-                    else
-                    {
-                        return selectedPageID;
-                    }
+                    continue;
                 }
+
+                var selectedPageID = activePageID;
+                if (tmpTab.ParentPageID == parentPageID)
+                {
+                    return selectedPageID;
+                }
+
+                selectedPageID = this.GetSelectedTab(parentPageID, tmpTab.ParentPageID, allTabs);
+                return selectedPageID;
             }
+
             return 0;
         }
 
         /// <summary>
         /// Gets the tabs.
         /// </summary>
-        /// <param name="parentID">The parent ID.</param>
-        /// <param name="tabID">The tab ID.</param>
-        /// <param name="Tabs">The tabs.</param>
-        /// <returns></returns>
-        private ArrayList GetTabs(int parentID, int tabID, IList Tabs)
+        /// <param name="parentID">
+        /// The parent ID.
+        /// </param>
+        /// <param name="tabID">
+        /// The tab ID.
+        /// </param>
+        /// <param name="tabs">
+        /// The tabs.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        private List<PageStripDetails> GetTabs(int parentID, int tabID, IEnumerable<PageStripDetails> tabs)
         {
-            ArrayList authorizedTabs = new ArrayList();
-            int index = -1;
+            var authorizedTabs = new List<PageStripDetails>();
 
-            //MH:get the selected tab for this 
-            int selectedPageID = GetSelectedTab(parentID, tabID, Tabs);
-
+            // MH:get the selected tab for this 
+            var selectedPageID = this.GetSelectedTab(parentID, tabID, tabs);
 
             // Populate Tab List with authorized tabs
-            for (int i = 0; i < Tabs.Count; i++)
+            // Get selected row only
+            foreach (var tab in from PageStripDetails tab in tabs
+                                where tab.ParentPageID == parentID
+                                where PortalSecurity.IsInRoles(tab.AuthorizedRoles)
+                                select tab)
             {
-                PageStripDetails tab = (PageStripDetails) Tabs[i];
+                authorizedTabs.Add(tab);
+                var index = authorizedTabs.IndexOf(tab);
 
-                if (tab.ParentPageID == parentID) // Get selected row only
+                // MH:if (tab.PageID == tabID)
+                // MH:added to support the selected menutab in each level
+                if (tab.PageID == selectedPageID)
                 {
-                    if (PortalSecurity.IsInRoles(tab.AuthorizedRoles))
-                    {
-                        index = authorizedTabs.Add(tab);
-
-                        //MH:if (tab.PageID == tabID)
-                        //MH:added to support the selected menutab in each level
-                        if (tab.PageID == selectedPageID)
-                            SelectedIndex = index;
-                    }
+                    this.SelectedIndex = index;
                 }
             }
+
             return authorizedTabs;
         }
 
         /// <summary>
-        /// DataSource
+        /// Loads the control.
         /// </summary>
-        public override object DataSource
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="T:System.EventArgs"/> instance containing the event data.
+        /// </param>
+        private void LoadControl(object sender, EventArgs e)
         {
-            get
+            if (this.AutoBind)
             {
-                if (innerDataSource == null)
-                {
-                    innerDataSource = GetInnerDataSource();
-                }
-                return innerDataSource;
+                this.DataBind();
             }
-            set { innerDataSource = value; }
         }
+
+        #endregion
     }
 }

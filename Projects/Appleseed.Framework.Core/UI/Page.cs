@@ -6,7 +6,7 @@
 //   TODO: this class needs a better write-up ;-)
 //   A template page useful for constructing custom edit pages for module settings.<br />
 //   Encapsulates some common code including: module id,
-//   portalSettings and settings, referrer redirection, edit permission,
+//   PortalSettings and settings, referrer redirection, edit permission,
 //   cancel event, etc.
 //   This page is a base page.
 //   It is named USECURE because no check about security is made.
@@ -44,7 +44,7 @@ namespace Appleseed.Framework.Web.UI
     /// TODO: this class needs a better write-up ;-)
     ///   A template page useful for constructing custom edit pages for module settings.<br/>
     ///   Encapsulates some common code including: module id,
-    ///   portalSettings and settings, referrer redirection, edit permission,
+    ///   PortalSettings and settings, referrer redirection, edit permission,
     ///   cancel event, etc.
     ///   This page is a base page.
     ///   It is named USECURE because no check about security is made.
@@ -52,13 +52,13 @@ namespace Appleseed.Framework.Web.UI
     /// </summary>
     [History("ozan@Appleseed.web.tr", "2005/06/01", "Added new overload for RegisterCSSFile")]
     [History("jminond", "2005/03/10", "Tab to page conversion")]
-    [History("Jes1111", "2004/08/18", 
+    [History("Jes1111", "2004/08/18",
         "Extensive changes - new way to build head element, support for multiple CSS style sheets, etc.")]
     [History("jviladiu@portalServices.net", "2004/07/22", "Added Security Access.")]
-    [History("John.Mandia@whitelightsolutions.com", "2003/10/11", 
+    [History("John.Mandia@whitelightsolutions.com", "2003/10/11",
         "Added ability for each portal to have it's own custom icon instead of sharing one icon among many.")]
     [History("mario@hartmann.net", "2003/09/08", "Solpart Menu style sheet support added.")]
-    [History("Jes1111", "2003/03/04", 
+    [History("Jes1111", "2003/03/04",
         "Smoothed out page event inheritance hierarchy - placed security checks and cache flushing")]
     public class Page : ViewPage
     {
@@ -296,7 +296,7 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        ///   Stores current item id
+        ///   Gets or sets current item id
         /// </summary>
         /// <value>The item ID.</value>
         public int ItemID
@@ -392,7 +392,7 @@ namespace Appleseed.Framework.Web.UI
         }
 
         /// <summary>
-        ///   Stores current linked module ID if applicable
+        ///   Gets current linked module ID if applicable
         /// </summary>
         /// <value>The page ID.</value>
         public int PageID
@@ -566,7 +566,7 @@ namespace Appleseed.Framework.Web.UI
             {
                 return this.page ?? (this.page = this.PageID > 0
                                                      ? // _Page = Page.GetPageCustomSettings(PageID);
-                                                 // _Page = Page.GetPageCustomSettings(PageID);
+                    // _Page = Page.GetPageCustomSettings(PageID);
                                                  this.PortalSettings.ActivePage.GetPageCustomSettings(this.PageID)
                                                      : // Or provides an empty hash table
                                                  new Dictionary<string, ISettingItem>());
@@ -1054,7 +1054,7 @@ namespace Appleseed.Framework.Web.UI
                 this.Header.Controls.Add(
                     new LiteralControl(
                         string.Format(
-                            "<link rel=\"SHORTCUT ICON\" href=\"{0}/portalicon.ico\"/>\n", 
+                            "<link rel=\"SHORTCUT ICON\" href=\"{0}/portalicon.ico\"/>\n",
                             Path.WebPathCombine(Path.ApplicationRoot, this.PortalSettings.PortalPath))));
             }
 
@@ -1298,7 +1298,7 @@ namespace Appleseed.Framework.Web.UI
                     this.CancelButton = (LinkButton)control;
                 }
 
-                this.CancelButton.Click += this.CancelBtn_Click;
+                this.CancelButton.Click += this.CancelBtnClick;
                 this.CancelButton.Text = General.GetString("CANCEL", "Cancel");
                 this.CancelButton.CausesValidation = false;
                 this.CancelButton.EnableViewState = false;
@@ -1311,7 +1311,7 @@ namespace Appleseed.Framework.Web.UI
                     this.UpdateButton = (LinkButton)control;
                 }
 
-                this.UpdateButton.Click += this.UpdateBtn_Click;
+                this.UpdateButton.Click += this.UpdateBtnClick;
                 this.UpdateButton.Text = General.GetString("APPLY", "Apply", this.UpdateButton);
                 this.UpdateButton.EnableViewState = false;
             }
@@ -1323,7 +1323,7 @@ namespace Appleseed.Framework.Web.UI
                     this.DeleteButton = (LinkButton)control;
                 }
 
-                this.DeleteButton.Click += this.DeleteBtn_Click;
+                this.DeleteButton.Click += this.DeleteBtnClick;
                 this.DeleteButton.Text = General.GetString("DELETE", "Delete", this.DeleteButton);
                 this.DeleteButton.EnableViewState = false;
 
@@ -1338,8 +1338,8 @@ namespace Appleseed.Framework.Web.UI
                     {
                         string[] s = { "CONFIRM_DELETE" };
                         this.ClientScript.RegisterClientScriptBlock(
-                            this.GetType(), 
-                            "confirmDelete", 
+                            this.GetType(),
+                            "confirmDelete",
                             PortalSettings.GetStringResource("CONFIRM_DELETE_SCRIPT", s));
                     }
 
@@ -1354,20 +1354,20 @@ namespace Appleseed.Framework.Web.UI
                 this.Page.ClientScript.RegisterClientScriptInclude(
                     this.Page.GetType(), "jQuery", "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.5.min.js");
                 this.Page.ClientScript.RegisterClientScriptInclude(
-                    this.Page.GetType(), 
-                    "jQueryUI", 
+                    this.Page.GetType(),
+                    "jQueryUI",
                     "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js");
                 this.Page.ClientScript.RegisterClientScriptInclude(
-                    this.Page.GetType(), 
-                    "jQueryValidate", 
+                    this.Page.GetType(),
+                    "jQueryValidate",
                     "http://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js");
                 this.Page.ClientScript.RegisterClientScriptInclude(
-                    this.Page.GetType(), 
-                    "bgiFrame", 
+                    this.Page.GetType(),
+                    "bgiFrame",
                     "http://jquery-ui.googlecode.com/svn/tags/latest/external/jquery.bgiframe-2.1.1.js");
                 this.Page.ClientScript.RegisterClientScriptInclude(
-                    this.Page.GetType(), 
-                    "jQueryLang", 
+                    this.Page.GetType(),
+                    "jQueryLang",
                     "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/i18n/jquery-ui-i18n.min.js");
 
                 this.Page.ClientScript.RegisterClientScriptInclude(
@@ -1377,8 +1377,8 @@ namespace Appleseed.Framework.Web.UI
             if (!this.Page.ClientScript.IsStartupScriptRegistered("BROWSER_VERSION_WARNING"))
             {
                 this.Page.ClientScript.RegisterClientScriptInclude(
-                    this.Page.GetType(), 
-                    "BROWSER_VERSION_WARNING", 
+                    this.Page.GetType(),
+                    "BROWSER_VERSION_WARNING",
                     Path.ApplicationFullPath + "/aspnet_client/js/browser_upgrade_notification.js");
             }
 
@@ -1399,8 +1399,8 @@ namespace Appleseed.Framework.Web.UI
                             // }
                             var addThisUsername = Convert.ToString(addThisUsernameSetting);
                             this.Page.ClientScript.RegisterClientScriptInclude(
-                                this.Page.GetType(), 
-                                "ADD_THIS", 
+                                this.Page.GetType(),
+                                "ADD_THIS",
                                 "http://s7.addthis.com/js/250/addthis_widget.js#username=" + addThisUsername);
                         }
                     }
@@ -1541,7 +1541,7 @@ namespace Appleseed.Framework.Web.UI
         /// <param name="e">
         /// The <see cref="System.EventArgs"/> instance containing the event data.
         /// </param>
-        private void CancelBtn_Click(object sender, EventArgs e)
+        private void CancelBtnClick(object sender, EventArgs e)
         {
             this.OnCancel(e);
         }
@@ -1555,7 +1555,7 @@ namespace Appleseed.Framework.Web.UI
         /// <param name="e">
         /// The <see cref="System.EventArgs"/> instance containing the event data.
         /// </param>
-        private void DeleteBtn_Click(object sender, EventArgs e)
+        private void DeleteBtnClick(object sender, EventArgs e)
         {
             this.OnDelete(e);
         }
@@ -1591,10 +1591,10 @@ namespace Appleseed.Framework.Web.UI
                 catch (Exception exc)
                 {
                     ErrorHandler.Publish(
-                        LogLevel.Warn, 
+                        LogLevel.Warn,
                         string.Format(
-                            "Error while trying to get the '{0}' control in Appleseed.Framework.Web.UI.Page.GetControl(controlName).", 
-                            name), 
+                            "Error while trying to get the '{0}' control in Appleseed.Framework.Web.UI.Page.GetControl(controlName).",
+                            name),
                         exc);
                 }
             }
@@ -1613,12 +1613,11 @@ namespace Appleseed.Framework.Web.UI
             {
                 include = (ConfigurationManager.AppSettings["INCLUDE_GOOGLEANALYTICS_SETTINGS"] == null ||
                                 Convert.ToBoolean(ConfigurationManager.AppSettings["INCLUDE_GOOGLEANALYTICS_SETTINGS"])) &&
-                           this.portalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"] != null &&
-                           !this.portalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"].ToString().Trim().Equals(string.Empty);
+                           this.PortalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"] != null &&
+                           !this.PortalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"].ToString().Trim().Equals(string.Empty);
 
-                useCustVars = this.portalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS_CUSTOMVARS"] != null &&
-                            Convert.ToBoolean(this.portalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS_CUSTOMVARS"].ToString());
-
+                useCustVars = this.PortalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS_CUSTOMVARS"] != null &&
+                            Convert.ToBoolean(this.PortalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS_CUSTOMVARS"].ToString());
             }
             catch (Exception e)
             {
@@ -1633,35 +1632,42 @@ namespace Appleseed.Framework.Web.UI
                 return;
             }
 
-                    var script = new StringBuilder();
-                    script.AppendFormat("<script type=\"text/javascript\">");
-                    script.AppendFormat(
-                        "var gaJsHost = ((\"https:\" == document.location.protocol) ? \"https://ssl.\" : \"http://www.\");");
-                    script.AppendFormat(
-                        "document.write(unescape(\"%3Cscript src='\" + gaJsHost + \"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E\"));");
-                    script.AppendFormat("</script>");
+            var script = new StringBuilder();
+            script.AppendFormat("<script type=\"text/javascript\">");
+            script.AppendFormat(
+                "var gaJsHost = ((\"https:\" == document.location.protocol) ? \"https://ssl.\" : \"http://www.\");");
+            script.AppendFormat(
+                "document.write(unescape(\"%3Cscript src='\" + gaJsHost + \"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E\"));");
+            script.AppendFormat("</script>");
 
-                    script.AppendFormat("<script type=\"text/javascript\">");
-                    script.AppendFormat(
-                        "try {{ var pageTracker = _gat._getTracker(\"{0}\");",
+            script.AppendFormat("<script type=\"text/javascript\">");
+            script.AppendFormat(
+                "try {{ var pageTracker = _gat._getTracker(\"{0}\");",
                 this.PortalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"]);
             script.AppendFormat("pageTracker._trackPageview();");
-                if (PortalSettings.CurrentUser.Identity.IsAuthenticated && useCustVars)
-                {
-                    var email = PortalSettings.CurrentUser.Identity.Email;
-                    var index = email.IndexOf('@');
-                    script.AppendFormat("pageTracker._setCustomVar( 1, \"User Type\", \"Member\", 1);");  //Slot 1, visitor-level scope.
-                    script.AppendFormat("pageTracker._setCustomVar( 2, \"Authenticated\", \"Yes\", 2);");  //Slot 2, session-level scope.
-                    if (index >= 0 && index < email.Length - 1)
-                    {
-                        script.AppendFormat("pageTracker._setCustomVar( 3, \"Domain\", \"" + email.Substring(index + 1) + "\", 1);");  //Slot 3, vsitor-level scope.
-                    }
-                }
-                    script.AppendFormat("}} catch (err) {{ }}</script>");
-                //TODO: Add tracking variables
+            if (PortalSettings.CurrentUser.Identity.IsAuthenticated && useCustVars)
+            {
+                var email = PortalSettings.CurrentUser.Identity.Email;
+                var index = email.IndexOf('@');
 
-                    this.ClientScript.RegisterStartupScript(
-                        this.GetType(), "SITESETTINGS_GOOGLEANALYTICS", script.ToString(), false);
+                // Slot 1, visitor-level scope.
+                script.AppendFormat("pageTracker._setCustomVar( 1, \"User Type\", \"Member\", 1);");
+
+                // Slot 2, session-level scope.
+                script.AppendFormat("pageTracker._setCustomVar( 2, \"Authenticated\", \"Yes\", 2);");
+                if (index >= 0 && index < email.Length - 1)
+                {
+                    // Slot 3, visitor-level scope.
+                    script.AppendFormat(
+                        "pageTracker._setCustomVar( 3, \"Domain\", \"" + email.Substring(index + 1) + "\", 1);");
+                }
+            }
+            
+            script.AppendFormat("}} catch (err) {{ }}</script>");
+
+            // TODO: Add tracking variables
+            this.ClientScript.RegisterStartupScript(
+                this.GetType(), "SITESETTINGS_GOOGLEANALYTICS", script.ToString(), false);
         }
 
         /// <summary>
@@ -1673,7 +1679,7 @@ namespace Appleseed.Framework.Web.UI
         /// <param name="e">
         /// The <see cref="System.EventArgs"/> instance containing the event data.
         /// </param>
-        private void UpdateBtn_Click(object sender, EventArgs e)
+        private void UpdateBtnClick(object sender, EventArgs e)
         {
             this.OnUpdate(e);
         }
