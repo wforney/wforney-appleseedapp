@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Appleseed.Modules.Faq</name>
+    </assembly>
+    <members>
+        <member name="T:Appleseed.Content.Web.ModulesFAQs">
+            <summary>
+            IBS Portal FAQ module
+            (c)2002 by Christopher S Judd, CDP &amp; Horizons, LLC
+            Moved into Appleseed by Jakob Hansen, hansen3000@hotmail.com
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesFAQs.Literal1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesFAQs.myDataList">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQs.#ctor">
+            <summary>
+            FAQs constructor added 10/27/03 by Chris Farrell, chris@cftechconsulting.com
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQs.Page_Load(System.Object,System.EventArgs)">
+            <summary>
+            The Page_Load event on this page calls the BindData() method
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQs.myDataList_ItemCommand(System.Object,System.Web.UI.WebControls.DataListCommandEventArgs)">
+            <summary>
+            The myDataList_ItemCommand function is used to 
+            determine the FAQ the user selected in the form
+            </summary>
+            <param name="source"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQs.BindData">
+            <summary>
+            The Binddata method on this User Control is used to
+            obtain a DataReader of event information from the FAQ
+            table, and then databind the results to a templated DataList
+            server control. It uses the Appleseed.FAGsDB()
+            data component to encapsulate all data functionality.
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQs.SearchSqlSelect(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Searchable module implementation
+            </summary>
+            <param name="portalID">The portal ID</param>
+            <param name="userID">Id of the user is searching</param>
+            <param name="searchString">The text to search</param>
+            <param name="searchField">The fields where perfoming the search</param>
+            <returns>The SELECT sql to perform a search on the current module</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQs.Install(System.Collections.IDictionary)">
+            <summary>
+            
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQs.Uninstall(System.Collections.IDictionary)">
+            <summary>
+            
+            </summary>
+            <param name="stateSaver"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQs.OnInit(System.EventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQs.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesFAQs.Searchable">
+            <summary>
+            If the module is searchable you
+            must override the property to return true
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesFAQs.GuidID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesFAQsDB">
+            <summary>
+            IBS Portal FAQ module
+            (c)2002 by Christopher S Judd, CDP &amp; Horizons, LLC
+            Moved into Appleseed by Jakob Hansen, hansen3000@hotmail.com
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQsDB.AddFAQ(System.Int32,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            The AddFAQ function is used to ADD FAQs to the Database
+            </summary>
+            <param name="moduleID"></param>
+            <param name="itemID"></param>
+            <param name="userName"></param>
+            <param name="question"></param>
+            <param name="answer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQsDB.GetFAQ(System.Int32)">
+            <summary>
+            The GetFAQ function is used to get all the FAQs in the module
+            </summary>
+            <param name="moduleID">moduleID</param>
+            <returns>A DataSet</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQsDB.GetSingleFAQ(System.Int32)">
+            <summary>
+            The GetSingleFAQ function is used to Get a single FAQ
+            from the database for display/edit
+            </summary>
+            <param name="itemID">itemID</param>
+            <returns>A SqlDataReader</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQsDB.DeleteFAQ(System.Int32)">
+            <summary>
+            The DeleteFAQ function is used to remove FAQs from the Database
+            </summary>
+            <param name="itemID">itemID</param>
+            <returns>void</returns>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQsDB.UpdateFAQ(System.Int32,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            The UpdateFAQ function is used to update changes to the FAQs
+            </summary>
+            <param name="moduleID"></param>
+            <param name="itemID"></param>
+            <param name="userName"></param>
+            <param name="question"></param>
+            <param name="answer"></param>
+        </member>
+        <member name="T:Appleseed.Content.Web.ModulesFAQsEdit">
+            <summary>
+            IBS Portal FAQ module - Edit page part
+            (c)2002 by Christopher S Judd, CDP &amp; Horizons, LLC
+            Moved into Appleseed by Jakob Hansen, hansen3000@hotmail.com
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesFAQsEdit.Question">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesFAQsEdit.RequiredFieldValidatorQuestion">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesFAQsEdit.CreatedLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesFAQsEdit.OnLabel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesFAQsEdit.CreatedBy">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesFAQsEdit.CreatedDate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesFAQsEdit.Literal1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesFAQsEdit.Literal2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesFAQsEdit.Literal3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesFAQsEdit.PlaceHolderHTMLEditor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Appleseed.Content.Web.ModulesFAQsEdit.DesktopText">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQsEdit.OnUpdate(System.EventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQsEdit.OnDelete(System.EventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQsEdit.OnInit(System.EventArgs)">
+            <summary>
+            Raises OnInitEvent
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Appleseed.Content.Web.ModulesFAQsEdit.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Appleseed.Content.Web.ModulesFAQsEdit.AllowedModules">
+            <summary>
+            Set the module guids with free access to this page
+            </summary>
+        </member>
+    </members>
+</doc>
