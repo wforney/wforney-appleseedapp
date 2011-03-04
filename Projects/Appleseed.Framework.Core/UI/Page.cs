@@ -1560,9 +1560,9 @@ namespace Appleseed.Framework.Web.UI
                     "try {{ var pageTracker = _gat._getTracker(\"{0}\");",
                     this.portalSettings.CustomSettings["SITESETTINGS_GOOGLEANALYTICS"]);
                 script.AppendFormat("pageTracker._trackPageview();");
-                if (PortalSettings.CurrentUser.Identity.IsAuthenticated && useCustVars)
+				if (Request.IsAuthenticated && useCustVars)
                 {
-                    var email = PortalSettings.CurrentUser.Identity.Email;
+                    var email = Membership.GetUser().Email;                
                     var index = email.IndexOf('@');
                     script.AppendFormat("pageTracker._setCustomVar( 1, \"User Type\", \"Member\", 1);");  //Slot 1, visitor-level scope.
                     script.AppendFormat("pageTracker._setCustomVar( 2, \"Authenticated\", \"Yes\", 2);");  //Slot 2, session-level scope.
