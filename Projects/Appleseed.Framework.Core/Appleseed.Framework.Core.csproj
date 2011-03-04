@@ -163,6 +163,7 @@
     <Compile Include="DAL\AppleseedDynamicModel.cs" />
     <Compile Include="DAL\Database.cs" />
     <Compile Include="DAL\DBHelper.cs" />
+    <Compile Include="DAL\DynamicModel.cs" />
     <Compile Include="DAL\Massive.cs" />
     <Compile Include="DAL\ModulesDB.cs" />
     <Compile Include="DAL\PagesDB.cs" />
