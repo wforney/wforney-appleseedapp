@@ -5,6 +5,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// Quiz Module
     /// </summary>
@@ -22,23 +24,22 @@ namespace Appleseed.Content.Web.Modules
         }
 
         /// <summary>
-        /// Contstructor
+        /// Initializes a new instance of the <see cref="Quiz"/> class.
         /// </summary>
         public Quiz()
         {
-            SettingItem QuizName = new SettingItem(new StringDataType());
-            QuizName.Required = true;
-            QuizName.Order = 1;
-            QuizName.Value = "About Australia (Demo1)";
-            _baseSettings.Add("QuizName", QuizName);
+            var quizName = new SettingItem<string, TextBox>
+                {
+                    Required = true, Order = 1, Value = "About Australia (Demo1)" 
+                };
+            this.BaseSettings.Add("QuizName", quizName);
 
-            SettingItem XMLsrc = new SettingItem(new PortalUrlDataType());
-            XMLsrc.Required = true;
-            XMLsrc.Order = 2;
-            XMLsrc.Value = "/Quiz/Demo1.xml";
-            _baseSettings.Add("XMLsrc", XMLsrc);
+            var xmlSrc = new SettingItem<string, TextBox>(new PortalUrlDataType())
+                {
+                    Required = true, Order = 2, Value = "/Quiz/Demo1.xml" 
+                };
+            this.BaseSettings.Add("XMLsrc", xmlSrc);
         }
-
 
         /// <summary>
         /// GUID of module (mandatory)

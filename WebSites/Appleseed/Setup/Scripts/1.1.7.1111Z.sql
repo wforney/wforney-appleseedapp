@@ -72,73 +72,73 @@ IF EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[rb_Modules_IU]') AND
 DROP PROCEDURE [rb_Modules_IU]
 GO
 CREATE PROC rb_Modules_IU 	@ModuleID	int,
-  	@TabID	int,
-  	@GeneralModDefID	uniqueidentifier,
-  	@ModuleOrder	int,
-  	@PaneName	nvarchar(50),
-  	@ModuleTitle	nvarchar(256),
-  	@AuthorizedEditRoles	nvarchar(256),
-  	@AuthorizedViewRoles	nvarchar(256),
-  	@AuthorizedAddRoles	nvarchar(256),
-  	@AuthorizedDeleteRoles	nvarchar(256),
-  	@AuthorizedPropertiesRoles	nvarchar(256),
-  	@CacheTime	int,
-  	@ShowMobile	bit,
-  	@AuthorizedPublishingRoles	nvarchar(256),
-  	@NewVersion	bit,
-  	@SupportWorkflow	bit,
-  	@AuthorizedApproveRoles	nvarchar(256),
-  	@WorkflowState	tinyint,
-  	@LastModified	datetime,
-  	@LastEditor	nvarchar(256),
-  	@StagingLastModified	datetime,
-  	@StagingLastEditor	nvarchar(256),
-  	@SupportCollapsable	bit,
-  	@ShowEveryWhere		bit ,
-  	@AuthorizedMoveModuleRoles	nvarchar(256),
-	@AuthorizedDeleteModuleRoles	nvarchar(256)
+    @TabID	int,
+    @GeneralModDefID	uniqueidentifier,
+    @ModuleOrder	int,
+    @PaneName	nvarchar(50),
+    @ModuleTitle	nvarchar(256),
+    @AuthorizedEditRoles	nvarchar(256),
+    @AuthorizedViewRoles	nvarchar(256),
+    @AuthorizedAddRoles	nvarchar(256),
+    @AuthorizedDeleteRoles	nvarchar(256),
+    @AuthorizedPropertiesRoles	nvarchar(256),
+    @CacheTime	int,
+    @ShowMobile	bit,
+    @AuthorizedPublishingRoles	nvarchar(256),
+    @NewVersion	bit,
+    @SupportWorkflow	bit,
+    @AuthorizedApproveRoles	nvarchar(256),
+    @WorkflowState	tinyint,
+    @LastModified	datetime,
+    @LastEditor	nvarchar(256),
+    @StagingLastModified	datetime,
+    @StagingLastEditor	nvarchar(256),
+    @SupportCollapsable	bit,
+    @ShowEveryWhere		bit ,
+    @AuthorizedMoveModuleRoles	nvarchar(256),
+    @AuthorizedDeleteModuleRoles	nvarchar(256)
 
 AS  
 IF NOT exists (SELECT ModuleDefID FROM  rb_ModuleDefinitions WHERE GeneralModDefID = @GeneralModDefID)
 BEGIN
-	RAISERROR('Something gone wrong. Cannot find the module.', 16, 1)
-	RETURN
+    RAISERROR('Something gone wrong. Cannot find the module.', 16, 1)
+    RETURN
 END
 
 Declare @ModuleDefID int
 SET @ModuleDefID = 
-	(SELECT ModuleDefID FROM  rb_ModuleDefinitions WHERE GeneralModDefID = @GeneralModDefID)   
+    (SELECT ModuleDefID FROM  rb_ModuleDefinitions WHERE GeneralModDefID = @GeneralModDefID)   
 
 --RAISERROR('Something gone wrong. Cannot find module: ' + CONVERT(varchar(50), @GeneralModDefID) + '''', 16, 1)
-	
+    
 SET NOCOUNT ON
-  	UPDATE [rb_Modules] 	
+    UPDATE [rb_Modules] 	
 
 SET TabID = @TabID,
-  		ModuleDefID = @ModuleDefID,
-  		ModuleOrder = @ModuleOrder,
-  		PaneName = @PaneName,
-  		ModuleTitle = @ModuleTitle,
-  		AuthorizedEditRoles = @AuthorizedEditRoles,
-  		AuthorizedViewRoles = @AuthorizedViewRoles,
-  		AuthorizedAddRoles = @AuthorizedAddRoles,
-  		AuthorizedDeleteRoles = @AuthorizedDeleteRoles,
-  		AuthorizedPropertiesRoles = @AuthorizedPropertiesRoles,
-  		CacheTime = @CacheTime,
-  		ShowMobile = @ShowMobile,
-  		AuthorizedPublishingRoles = @AuthorizedPublishingRoles,
-  		NewVersion = @NewVersion,
-  		SupportWorkflow = @SupportWorkflow,
-  		AuthorizedApproveRoles = @AuthorizedApproveRoles,
-  		WorkflowState = @WorkflowState,
-  		LastModified = @LastModified,
-  		LastEditor = @LastEditor,
-  		StagingLastModified = @StagingLastModified,
-  		StagingLastEditor = @StagingLastEditor,
-  		SupportCollapsable = @SupportCollapsable,
-  		ShowEveryWhere = @ShowEveryWhere,
-		AuthorizedMoveModuleRoles = @AuthorizedMoveModuleRoles,
-		AuthorizedDeleteModuleRoles = @AuthorizedDeleteModuleRoles
+        ModuleDefID = @ModuleDefID,
+        ModuleOrder = @ModuleOrder,
+        PaneName = @PaneName,
+        ModuleTitle = @ModuleTitle,
+        AuthorizedEditRoles = @AuthorizedEditRoles,
+        AuthorizedViewRoles = @AuthorizedViewRoles,
+        AuthorizedAddRoles = @AuthorizedAddRoles,
+        AuthorizedDeleteRoles = @AuthorizedDeleteRoles,
+        AuthorizedPropertiesRoles = @AuthorizedPropertiesRoles,
+        CacheTime = @CacheTime,
+        ShowMobile = @ShowMobile,
+        AuthorizedPublishingRoles = @AuthorizedPublishingRoles,
+        NewVersion = @NewVersion,
+        SupportWorkflow = @SupportWorkflow,
+        AuthorizedApproveRoles = @AuthorizedApproveRoles,
+        WorkflowState = @WorkflowState,
+        LastModified = @LastModified,
+        LastEditor = @LastEditor,
+        StagingLastModified = @StagingLastModified,
+        StagingLastEditor = @StagingLastEditor,
+        SupportCollapsable = @SupportCollapsable,
+        ShowEveryWhere = @ShowEveryWhere,
+        AuthorizedMoveModuleRoles = @AuthorizedMoveModuleRoles,
+        AuthorizedDeleteModuleRoles = @AuthorizedDeleteModuleRoles
 
 WHERE ModuleID	=	@ModuleID
 
@@ -146,61 +146,61 @@ IF @@ROWCOUNT = 0
 BEGIN 	
 SET IDENTITY_INSERT [rb_Modules] ON 	
 
-	INSERT [rb_Modules] 
-		(ModuleID,
-  		TabID,
-  		ModuleDefID,
-  		ModuleOrder,
-  		PaneName,
-  		ModuleTitle,
-  		AuthorizedEditRoles,
-  		AuthorizedViewRoles,
-  		AuthorizedAddRoles,
-  		AuthorizedDeleteRoles,
-  		AuthorizedPropertiesRoles,
-  		CacheTime,
-  		ShowMobile,
-  		AuthorizedPublishingRoles,
-  		NewVersion,
-  		SupportWorkflow,
-  		AuthorizedApproveRoles,
-  		WorkflowState,
-  		LastModified,
-  		LastEditor,
-  		StagingLastModified,
-  		StagingLastEditor,
-  		SupportCollapsable,
-  		ShowEveryWhere,
-		AuthorizedMoveModuleRoles,
-		AuthorizedDeleteModuleRoles
+    INSERT [rb_Modules] 
+        (ModuleID,
+        TabID,
+        ModuleDefID,
+        ModuleOrder,
+        PaneName,
+        ModuleTitle,
+        AuthorizedEditRoles,
+        AuthorizedViewRoles,
+        AuthorizedAddRoles,
+        AuthorizedDeleteRoles,
+        AuthorizedPropertiesRoles,
+        CacheTime,
+        ShowMobile,
+        AuthorizedPublishingRoles,
+        NewVersion,
+        SupportWorkflow,
+        AuthorizedApproveRoles,
+        WorkflowState,
+        LastModified,
+        LastEditor,
+        StagingLastModified,
+        StagingLastEditor,
+        SupportCollapsable,
+        ShowEveryWhere,
+        AuthorizedMoveModuleRoles,
+        AuthorizedDeleteModuleRoles
 ) 	
 
 VALUES (@ModuleID,
-  		@TabID,
-  		@ModuleDefID,
-  		@ModuleOrder,
-  		@PaneName,
-  		@ModuleTitle,
-  		@AuthorizedEditRoles,
-  		@AuthorizedViewRoles,
-  		@AuthorizedAddRoles,
-  		@AuthorizedDeleteRoles,
-  		@AuthorizedPropertiesRoles,
-  		@CacheTime,
-  		@ShowMobile,
-  		@AuthorizedPublishingRoles,
-  		@NewVersion,
-  		@SupportWorkflow,
-  		@AuthorizedApproveRoles,
-  		@WorkflowState,
-  		@LastModified,
-  		@LastEditor,
-  		@StagingLastModified,
-  		@StagingLastEditor,
-  		@SupportCollapsable,
-  		@ShowEveryWhere,
-		@AuthorizedMoveModuleRoles,
-		@AuthorizedDeleteModuleRoles
+        @TabID,
+        @ModuleDefID,
+        @ModuleOrder,
+        @PaneName,
+        @ModuleTitle,
+        @AuthorizedEditRoles,
+        @AuthorizedViewRoles,
+        @AuthorizedAddRoles,
+        @AuthorizedDeleteRoles,
+        @AuthorizedPropertiesRoles,
+        @CacheTime,
+        @ShowMobile,
+        @AuthorizedPublishingRoles,
+        @NewVersion,
+        @SupportWorkflow,
+        @AuthorizedApproveRoles,
+        @WorkflowState,
+        @LastModified,
+        @LastEditor,
+        @StagingLastModified,
+        @StagingLastEditor,
+        @SupportCollapsable,
+        @ShowEveryWhere,
+        @AuthorizedMoveModuleRoles,
+        @AuthorizedDeleteModuleRoles
 ) 	SET IDENTITY_INSERT [rb_Modules] OFF 	END  Return 
 GO
 IF EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[rb_ModuleSettings_IU]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -443,87 +443,87 @@ GO
 INSERT rb_HtmlText_st
 (ModuleID, DesktopHtml, MobileSummary, MobileDetails)
 VALUES (5, '<style type="text/css">
-		/****************/
-		/****SLIDER*****/
-		/***************/
+        /****************/
+        /****SLIDER*****/
+        /***************/
 /*contenedor */	
 .slideshow{
-	width:940px;
-	height:300px;
-	margin-top:10px;
-	overflow:hidden;
-	position:relative;}
-	
+    width:940px;
+    height:300px;
+    margin-top:10px;
+    overflow:hidden;
+    position:relative;}
+    
 /* JPG */	
 .slider_image{
-	width:430px;
-	height:300px;
-	display:inline-block;}	
-	
+    width:430px;
+    height:300px;
+    display:inline-block;}	
+    
 /* TEXT */
 .wrap_text{
-	height:300px;
-	width:390px;
-	right:-440px;
-	top:30px;
-	color:#fff;
-	position:absolute;}	
+    height:300px;
+    width:390px;
+    right:-440px;
+    top:30px;
+    color:#fff;
+    position:absolute;}	
 
 /* LINKS */
 .continue{
-	float:right;
-	color:#fff!important;
-	font-family:Helvetica, Arial;
-	font-size:14px;
+    float:right;
+    color:#fff!important;
+    font-family:Helvetica, Arial;
+    font-size:14px;
 }
 .continue:hover{
-	float:right;
-	color:#ccc!important;
-	font-family:Helvetica, Arial;
-	font-size:14px;
+    float:right;
+    color:#ccc!important;
+    font-family:Helvetica, Arial;
+    font-size:14px;
 }
 #fsn {
-	background-image:url("../../DesktopLayouts/Education/images/trans.png");
-	display:block;
-	height:25px;
-	margin:10px auto -5px;
-	position:relative;
-	text-align:center;
-	width:940px;
-	z-index:0;
+    background-image:url("../../DesktopLayouts/Education/images/trans.png");
+    display:block;
+    height:25px;
+    margin:10px auto -5px;
+    position:relative;
+    text-align:center;
+    width:940px;
+    z-index:0;
 }
 #fsn ul {
-	display:block;
-	height:20px;
-	list-style:none outside none;
-	margin:0 auto;
-	overflow:hidden;
-	padding:5px 0 0;
-	position:relative;
-	width:125px;
+    display:block;
+    height:20px;
+    list-style:none outside none;
+    margin:0 auto;
+    overflow:hidden;
+    padding:5px 0 0;
+    position:relative;
+    width:125px;
 }
 #fs_pagination a{
-	display:block;
-	float:left;
-	height:17px;
-	margin:0 10px 0 0;
-	padding:0;
-	width:17px;
-	background-color:#ededed;
-	color:#22C0FD;
-	font-size:10px;
-	text-indent:-9999px;
-	font-weight:bold;
+    display:block;
+    float:left;
+    height:17px;
+    margin:0 10px 0 0;
+    padding:0;
+    width:17px;
+    background-color:#ededed;
+    color:#22C0FD;
+    font-size:10px;
+    text-indent:-9999px;
+    font-weight:bold;
 }
 #fs_pagination a:hover,
 #fs_pagination a:active,
  a.activeSlide{ 
-	background-color:#333!important;
-	text-indent:-9999px;
+    background-color:#333!important;
+    text-indent:-9999px;
 }
 
 #Content_moduleType{
-	color:#666;}
+    color:#666;}
 </style>
 <!-- include Cycle plugin -->
 <script type="text/javascript" src="../../aspnet_client/js/jquery.cycle.min.js"></script>
@@ -539,40 +539,40 @@ $(document).ready(function () {
    });
 });
 </script>
-	<!-- Jquery Container-->
-	<ul class="slideshow">
-			<!-- IMAGE & TEXT Number (1) -->
-			<li class="content">
-				<img class="slider_image" src="../../Design/DesktopLayouts/Education/images/slider1.jpg" width="430" height="300"/>
-					<div class="wrap_text">
-						<h1>Grow your business.</h1>
-							<h2>You downloaded Appleseed Portal to help you run your company online. As we work to make this easier for you in the upcoming versions. You still have to do some basic things. You should consider taking these steps as soon as you can if you haven''t.</h2>
-						<br/>
-					<a class="continue" href="">Continue Reading » </a>			
-				</div>
-			</li>
-			<!-- IMAGE & TEXT Number (2) -->
-			<li class="content">
-				<img  class="slider_image" src="../../Design/DesktopLayouts/Education/images/slider2.jpg" width="430" height="300" />
-					<div class="wrap_text">
-						<h1>Connect with others.</h1>
-							<h2>There are several ways for you to connect to other entrepreneurs, prospective customers and business partners. Here are a few suggestions that can get you started in your quest to build a great company.</h2>
-						<br/>
-					<a class="continue" href="">Continue Reading » </a>
-					</div>		
-			</li>
-			<!-- IMAGE & TEXT Number (3) -->
-			<li class="content">
-				<img class="slider_image" src="../../Design/DesktopLayouts/Education/images/slider3.jpg" width="430" height="300" />
-					<div class="wrap_text">				
-						<h1>Trade with the world.</h1>
-							<h2>Once you have your business setup, and have a network of businesses to help you deliver your products and services, you are ready to trade. Start small, and go&nbsp;big. Sky is the limit, until you surpass it.</h2>
-						<br/>
-					<a class="continue" href="">Continue Reading » </a>
-				</div>			
-			</li>
-	</ul>
-		<!-- End Jquery Container-->', '', '')
+    <!-- Jquery Container-->
+    <ul class="slideshow">
+            <!-- IMAGE & TEXT Number (1) -->
+            <li class="content">
+                <img class="slider_image" src="../../Design/DesktopLayouts/Education/images/slider1.jpg" width="430" height="300"/>
+                    <div class="wrap_text">
+                        <h1>Grow your business.</h1>
+                            <h2>You downloaded Appleseed Portal to help you run your company online. As we work to make this easier for you in the upcoming versions. You still have to do some basic things. You should consider taking these steps as soon as you can if you haven''t.</h2>
+                        <br/>
+                    <a class="continue" href="">Continue Reading » </a>			
+                </div>
+            </li>
+            <!-- IMAGE & TEXT Number (2) -->
+            <li class="content">
+                <img  class="slider_image" src="../../Design/DesktopLayouts/Education/images/slider2.jpg" width="430" height="300" />
+                    <div class="wrap_text">
+                        <h1>Connect with others.</h1>
+                            <h2>There are several ways for you to connect to other entrepreneurs, prospective customers and business partners. Here are a few suggestions that can get you started in your quest to build a great company.</h2>
+                        <br/>
+                    <a class="continue" href="">Continue Reading » </a>
+                    </div>		
+            </li>
+            <!-- IMAGE & TEXT Number (3) -->
+            <li class="content">
+                <img class="slider_image" src="../../Design/DesktopLayouts/Education/images/slider3.jpg" width="430" height="300" />
+                    <div class="wrap_text">				
+                        <h1>Trade with the world.</h1>
+                            <h2>Once you have your business setup, and have a network of businesses to help you deliver your products and services, you are ready to trade. Start small, and go&nbsp;big. Sky is the limit, until you surpass it.</h2>
+                        <br/>
+                    <a class="continue" href="">Continue Reading » </a>
+                </div>			
+            </li>
+    </ul>
+        <!-- End Jquery Container-->', '', '')
 DELETE FROM rb_HtmlText_st WHERE ModuleID = 6
 GO
 INSERT rb_HtmlText_st
@@ -654,8 +654,8 @@ SET SettingValue = @SettingValue
 WHERE ModuleID = @ModuleID AND SettingName = @SettingName
 IF @@ROWCOUNT = 0
 BEGIN
-	INSERT [rb_ModuleSettings] (ModuleID, SettingName, SettingValue)
-	VALUES (@ModuleID, @SettingName, @SettingValue)
+    INSERT [rb_ModuleSettings] (ModuleID, SettingName, SettingValue)
+    VALUES (@ModuleID, @SettingName, @SettingValue)
 END
 GO
 --	@ModuleID	,	@SettingName	,	@SettingValue
@@ -680,96 +680,96 @@ GO
 --FROM 1779
 IF EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[FK_rb_PortalSettings_rb_Portals]') AND OBJECTPROPERTY(id, N'IsForeignKey') = 1)
 ALTER TABLE rb_PortalSettings
-	DROP CONSTRAINT FK_rb_PortalSettings_rb_Portals
+    DROP CONSTRAINT FK_rb_PortalSettings_rb_Portals
 GO
 
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[FK_rb_PortalSettings_rb_Portals]') AND OBJECTPROPERTY(id, N'IsForeignKey') = 1)
 ALTER TABLE rb_PortalSettings WITH NOCHECK ADD CONSTRAINT
-	FK_rb_PortalSettings_rb_Portals FOREIGN KEY
-	(
-	PortalID
-	) REFERENCES rb_Portals
-	(
-	PortalID
-	) ON DELETE CASCADE
+    FK_rb_PortalSettings_rb_Portals FOREIGN KEY
+    (
+    PortalID
+    ) REFERENCES rb_Portals
+    (
+    PortalID
+    ) ON DELETE CASCADE
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[FK_rb_Modules_rb_Tabs1]') AND OBJECTPROPERTY(id, N'IsForeignKey') = 1)
 ALTER TABLE rb_Modules
-	DROP CONSTRAINT FK_rb_Modules_rb_Tabs1
+    DROP CONSTRAINT FK_rb_Modules_rb_Tabs1
 GO
 
 --Dropping 1 at the end
 IF EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[FK_rb_Modules_rb_Tabs]') AND OBJECTPROPERTY(id, N'IsForeignKey') = 1)
 ALTER TABLE rb_Modules
-	DROP CONSTRAINT FK_rb_Modules_rb_Tabs
+    DROP CONSTRAINT FK_rb_Modules_rb_Tabs
 GO
 
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[FK_rb_Modules_rb_Tabs]') AND OBJECTPROPERTY(id, N'IsForeignKey') = 1)
 ALTER TABLE rb_Modules WITH NOCHECK ADD CONSTRAINT
-	FK_rb_Modules_rb_Tabs FOREIGN KEY
-	(
-	TabID
-	) REFERENCES rb_Tabs
-	(
-	TabID
-	) ON DELETE CASCADE
-	
+    FK_rb_Modules_rb_Tabs FOREIGN KEY
+    (
+    TabID
+    ) REFERENCES rb_Tabs
+    (
+    TabID
+    ) ON DELETE CASCADE
+    
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[FK_rb_Tabs_rb_Portals]') AND OBJECTPROPERTY(id, N'IsForeignKey') = 1)
 ALTER TABLE rb_Tabs
-	DROP CONSTRAINT FK_rb_Tabs_rb_Portals
+    DROP CONSTRAINT FK_rb_Tabs_rb_Portals
 GO
 
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[FK_rb_Tabs_rb_Portals]') AND OBJECTPROPERTY(id, N'IsForeignKey') = 1)
 ALTER TABLE rb_Tabs WITH NOCHECK ADD CONSTRAINT
-	FK_rb_Tabs_rb_Portals FOREIGN KEY
-	(
-	PortalID
-	) REFERENCES rb_Portals
-	(
-	PortalID
-	) ON DELETE CASCADE
+    FK_rb_Tabs_rb_Portals FOREIGN KEY
+    (
+    PortalID
+    ) REFERENCES rb_Portals
+    (
+    PortalID
+    ) ON DELETE CASCADE
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[FK_rb_ModuleSettings_rb_Modules]') AND OBJECTPROPERTY(id, N'IsForeignKey') = 1)
 ALTER TABLE rb_ModuleSettings
-	DROP CONSTRAINT FK_rb_ModuleSettings_rb_Modules
+    DROP CONSTRAINT FK_rb_ModuleSettings_rb_Modules
 GO
 
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[FK_rb_ModuleSettings_rb_Modules]') AND OBJECTPROPERTY(id, N'IsForeignKey') = 1)
 ALTER TABLE rb_ModuleSettings WITH NOCHECK ADD CONSTRAINT
-	FK_rb_ModuleSettings_rb_Modules FOREIGN KEY
-	(
-	ModuleID
-	) REFERENCES rb_Modules
-	(
-	ModuleID
-	) ON DELETE CASCADE
+    FK_rb_ModuleSettings_rb_Modules FOREIGN KEY
+    (
+    ModuleID
+    ) REFERENCES rb_Modules
+    (
+    ModuleID
+    ) ON DELETE CASCADE
 GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[FK_rb_Modules_rb_ModuleDefinitions1]') AND OBJECTPROPERTY(id, N'IsForeignKey') = 1)
 ALTER TABLE rb_Modules
-	DROP CONSTRAINT FK_rb_Modules_rb_ModuleDefinitions1
+    DROP CONSTRAINT FK_rb_Modules_rb_ModuleDefinitions1
 GO
 
 --Dropping 1
 IF EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[FK_rb_Modules_rb_ModuleDefinitions]') AND OBJECTPROPERTY(id, N'IsForeignKey') = 1)
 ALTER TABLE rb_Modules
-	DROP CONSTRAINT FK_rb_Modules_rb_ModuleDefinitions
+    DROP CONSTRAINT FK_rb_Modules_rb_ModuleDefinitions
 GO
 
 IF NOT EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[FK_rb_Modules_rb_ModuleDefinitions]') AND OBJECTPROPERTY(id, N'IsForeignKey') = 1)
 ALTER TABLE rb_Modules WITH NOCHECK ADD CONSTRAINT
-	FK_rb_Modules_rb_ModuleDefinitions FOREIGN KEY
-	(
-	ModuleDefID
-	) REFERENCES rb_ModuleDefinitions
-	(
-	ModuleDefID
-	) ON DELETE CASCADE
-	
+    FK_rb_Modules_rb_ModuleDefinitions FOREIGN KEY
+    (
+    ModuleDefID
+    ) REFERENCES rb_ModuleDefinitions
+    (
+    ModuleDefID
+    ) ON DELETE CASCADE
+    
 GO
 
 -------------------
@@ -788,10 +788,10 @@ GO
 
 -- Add these columns to the users table, if they do not exist 
 if exists (select * from sysobjects where id = object_id(N'[rb_Users]') and OBJECTPROPERTY(id, N'IsUserTable') = 1) begin
-	if not exists (select * from syscolumns C inner join sysobjects O on O.id = C.id where O.id = object_id(N'[rb_Users]') and OBJECTPROPERTY(O.id, N'IsUserTable') = 1 and C.name = 'user_last_visit') 
-		ALTER TABLE rb_Users ADD user_last_visit datetime NOT NULL DEFAULT(getdate())
-	if not exists (select * from syscolumns C inner join sysobjects O on O.id = C.id where O.id = object_id(N'[rb_Users]') and OBJECTPROPERTY(O.id, N'IsUserTable') = 1 and C.name = 'user_current_visit') 
-		ALTER TABLE rb_Users ADD user_current_visit datetime NOT NULL DEFAULT(getdate())
+    if not exists (select * from syscolumns C inner join sysobjects O on O.id = C.id where O.id = object_id(N'[rb_Users]') and OBJECTPROPERTY(O.id, N'IsUserTable') = 1 and C.name = 'user_last_visit') 
+        ALTER TABLE rb_Users ADD user_last_visit datetime NOT NULL DEFAULT(getdate())
+    if not exists (select * from syscolumns C inner join sysobjects O on O.id = C.id where O.id = object_id(N'[rb_Users]') and OBJECTPROPERTY(O.id, N'IsUserTable') = 1 and C.name = 'user_current_visit') 
+        ALTER TABLE rb_Users ADD user_current_visit datetime NOT NULL DEFAULT(getdate())
 end
 GO
 
@@ -799,26 +799,26 @@ CREATE   PROCEDURE rb_GetSingleUser
 (
     @Email nvarchar(100),
     @PortalID int,
-	@IDLang	nchar(2) = 'IT'
+    @IDLang	nchar(2) = 'IT'
 )
 AS
 SELECT
-	rb_Users.*,
-	
-	(SELECT TOP 1 rb_Localize.Description
+    rb_Users.*,
+    
+    (SELECT TOP 1 rb_Localize.Description
 FROM         rb_Cultures INNER JOIN
                       rb_Localize ON rb_Cultures.CultureCode = rb_Localize.CultureCode INNER JOIN
                       rb_Countries ON rb_Localize.TextKey = 'COUNTRY_' + rb_Countries.CountryID
 WHERE     ((rb_Localize.CultureCode = @IDLang) OR
                       (rb_Cultures.NeutralCode = @IDLang)) AND (rb_Countries.CountryID = rb_Users.CountryID))
-	
-	
-	 AS Country
-					  
+    
+    
+     AS Country
+                      
 FROM 
-	rb_Users LEFT OUTER JOIN
-	rb_States ON rb_Users.StateID = rb_States.StateID
-	
+    rb_Users LEFT OUTER JOIN
+    rb_States ON rb_Users.StateID = rb_States.StateID
+    
 WHERE
 (rb_Users.Email = @Email) AND (rb_Users.PortalID = @PortalID)
 GO
@@ -829,9 +829,9 @@ CREATE       procedure rb_UpdateLastVisit (@Email varchar(100), @PortalID int)
 AS
 BEGIN
    DECLARE
-	@CurDate as datetime,
-	@LastCurDate as datetime,
-	@LastVisitDate as datetime
+    @CurDate as datetime,
+    @LastCurDate as datetime,
+    @LastVisitDate as datetime
 
    SET NOCOUNT ON
    --Call this procedure BEFORE you call procedures to obtain data based on user_last_visit date field 
@@ -853,18 +853,18 @@ BEGIN
          --This allows for the user to view the pages based on last visit date,
          --for 1 day after they first visit the site before it sets a new last
          --visit date
-			UPDATE rb_users 
-			SET 
-	 			user_current_visit = @CurDate,
-            	user_last_visit = @LastCurDate
-			WHERE Email = @Email AND PortalID = @PortalID
+            UPDATE rb_users 
+            SET 
+                user_current_visit = @CurDate,
+                user_last_visit = @LastCurDate
+            WHERE Email = @Email AND PortalID = @PortalID
        END
        ELSE
        BEGIN
          --else only set current visit date to current date
          UPDATE rb_users
          SET 
-			user_current_visit = @CurDate    
+            user_current_visit = @CurDate    
          WHERE Email = @Email AND PortalID = @PortalID
        END
      END
@@ -880,8 +880,8 @@ GO
 
 CREATE PROCEDURE rb_FindModulesByGuid
 (
-	@PortalID int,
-	@Guid uniqueidentifier
+    @PortalID int,
+    @Guid uniqueidentifier
 )
 AS
 
@@ -899,7 +899,7 @@ GO
 -- change DesktopSrc in RoleAssignment module
 UPDATE    rb_GeneralModuleDefinitions
 SET       DesktopSrc = 'DesktopModules/RoleAssignment/RoleAssignment.ascx',
-		  ClassName = 'Appleseed.Content.Web.ModulesRoleAssignment'
+          ClassName = 'Appleseed.Content.Web.ModulesRoleAssignment'
 WHERE     (GeneralModDefID = '{5EEE69A2-35BA-4B54-8451-E13B0CD24E99}')
 GO
 
@@ -970,8 +970,8 @@ GO
 
 CREATE PROCEDURE rb_GetTabsParent
 (
-	@PortalID int,
-	@TabID int
+    @PortalID int,
+    @TabID int
 )
 AS
 --Create a Temporary table to hold the tabs for this query
@@ -1103,12 +1103,12 @@ WHERE
 --Create a Temporary table to hold the tabs
 CREATE TABLE #TabTree
 (
-	[TabID] [int],
-	[TabName] [nvarchar] (100),
-	[ParentTabID] [int],
-	[TabOrder] [int],
-	[NestLevel] [int],
-	[TreeOrder] [varchar] (1000)
+    [TabID] [int],
+    [TabName] [nvarchar] (100),
+    [ParentTabID] [int],
+    [TabOrder] [int],
+    [NestLevel] [int],
+    [TreeOrder] [varchar] (1000)
 )
 SET NOCOUNT ON	-- Turn off echo of "... row(s) affected"
 DECLARE @LastLevel smallint
@@ -1116,11 +1116,11 @@ SET @LastLevel = 0
 -- First, the parent Levels
 INSERT INTO	#TabTree
 SELECT 	TabID,
-	TabName,
-	ParentTabID,
-	TabOrder,
-	0,
-	cast(100000000 + TabOrder AS varchar)
+    TabName,
+    ParentTabID,
+    TabOrder,
+    0,
+    cast(100000000 + TabOrder AS varchar)
 FROM	rb_Tabs
 WHERE	ParentTabID IS NULL AND PortalID =@PortalID
 ORDER BY TabOrder
@@ -1129,23 +1129,23 @@ WHILE (@@rowcount > 0)
 BEGIN
   SET @LastLevel = @LastLevel + 1
   INSERT 	#TabTree (TabID, TabName, ParentTabID, TabOrder, NestLevel, TreeOrder) 
-		SELECT 	rb_Tabs.TabID,
-			Replicate('-', @LastLevel *2) + rb_Tabs.TabName,
-			rb_Tabs.ParentTabID,
-			rb_Tabs.TabOrder,
-			@LastLevel,
-			cast(#TabTree.TreeOrder AS varchar) + '.' + cast(100000000 + rb_Tabs.TabOrder AS varchar)
-		FROM	rb_Tabs join #TabTree on rb_Tabs.ParentTabID= #TabTree.TabID
-		WHERE	EXISTS (SELECT 'X' FROM #TabTree WHERE TabID = rb_Tabs.ParentTabID AND NestLevel = @LastLevel - 1)
-		 AND PortalID =@PortalID
-		ORDER BY #TabTree.TabOrder
+        SELECT 	rb_Tabs.TabID,
+            Replicate('-', @LastLevel *2) + rb_Tabs.TabName,
+            rb_Tabs.ParentTabID,
+            rb_Tabs.TabOrder,
+            @LastLevel,
+            cast(#TabTree.TreeOrder AS varchar) + '.' + cast(100000000 + rb_Tabs.TabOrder AS varchar)
+        FROM	rb_Tabs join #TabTree on rb_Tabs.ParentTabID= #TabTree.TabID
+        WHERE	EXISTS (SELECT 'X' FROM #TabTree WHERE TabID = rb_Tabs.ParentTabID AND NestLevel = @LastLevel - 1)
+         AND PortalID =@PortalID
+        ORDER BY #TabTree.TabOrder
 END
 --Check that the Tab is found in the Tree.  If it is not then we abort the Update
 IF NOT EXISTS (SELECT TabID from #TabTree WHERE TabID=@TabID)
 BEGIN
-	ROLLBACK TRAN
-	--If we want to modify the TabLayout code then we can throw an error AND catch it.
-	RAISERROR('Not allowed to choose that parent.',11,1)
+    ROLLBACK TRAN
+    --If we want to modify the TabLayout code then we can throw an error AND catch it.
+    RAISERROR('Not allowed to choose that parent.',11,1)
 END
 ELSE
 COMMIT TRAN

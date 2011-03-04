@@ -32,49 +32,49 @@ namespace Appleseed.Content.Web.Modules
         protected int showTabID;
 
         /// <summary>
-        /// Sitemap Constructor
+        /// Initializes a new instance of the <see cref="Sitemaps"/> class.
         /// </summary>
         public Sitemaps()
         {
             //Bind to Tab setting
-            SettingItem BindToTab = new SettingItem(new BooleanDataType());
-            BindToTab.Value = "false";
-            _baseSettings.Add("BindToTab", BindToTab);
+            var BindToTab = new SettingItem<bool, CheckBox>();
+            BindToTab.Value = false;
+            this.BaseSettings.Add("BindToTab", BindToTab);
 
-            SettingItem showTabID = new SettingItem(new IntegerDataType());
+            var showTabID = new SettingItem<int, TextBox>();
             showTabID.Required = true;
-            showTabID.Value = "0";
+            showTabID.Value = 0;
             showTabID.MinValue = 0;
             showTabID.MaxValue = int.MaxValue;
-            _baseSettings.Add("ShowTabID", showTabID);
+            this.BaseSettings.Add("ShowTabID", showTabID);
 
-            SettingItem NodeIcon = new SettingItem(new StringDataType());
+            var NodeIcon = new SettingItem<string, TextBox>();
             NodeIcon.EnglishName = "Node Icon";
             NodeIcon.Required = false;
             NodeIcon.Order = 5;
             NodeIcon.Value = "sm_node.gif";
-            _baseSettings.Add("NodeIcon", NodeIcon);
+            this.BaseSettings.Add("NodeIcon", NodeIcon);
 
-            SettingItem RootIcon = new SettingItem(new StringDataType());
+            var RootIcon = new SettingItem<string, TextBox>();
             RootIcon.EnglishName = "Root Icon";
             RootIcon.Required = false;
             RootIcon.Order = 6;
             RootIcon.Value = "sm_rootnode.gif";
-            _baseSettings.Add("RootIcon", RootIcon);
+            this.BaseSettings.Add("RootIcon", RootIcon);
 
-            SettingItem IconWidth = new SettingItem(new IntegerDataType());
+            var IconWidth = new SettingItem<int, TextBox>();
             IconWidth.Required = true;
-            IconWidth.Value = "20";
+            IconWidth.Value = 20;
             IconWidth.MinValue = 0;
             IconWidth.MaxValue = int.MaxValue;
-            _baseSettings.Add("IconWidth", IconWidth);
+            this.BaseSettings.Add("IconWidth", IconWidth);
 
-            SettingItem IconHeight = new SettingItem(new IntegerDataType());
+            var IconHeight = new SettingItem<int, TextBox>();
             IconHeight.Required = true;
-            IconHeight.Value = "20";
+            IconHeight.Value = 20;
             IconHeight.MinValue = 0;
             IconHeight.MaxValue = int.MaxValue;
-            _baseSettings.Add("IconHeight", IconHeight);
+            this.BaseSettings.Add("IconHeight", IconHeight);
 
             // no viewstate needed
             EnableViewState = false;

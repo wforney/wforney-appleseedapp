@@ -35,5 +35,7 @@ _ReSharper*/
 rb_log.resx*
 builds/
 [Ll]ibs/[Pp]ortable[Aa]reas
-WebSites/AppleseedWebApplication/[Ww]eb.[Cc]onfig
-relre:WebSites/Appleseed/[Ww]eb.[Cc]onfig
+WebSites/Appleseed/[Ww]eb.[Cc]onfig
+*.vs10x
+glob:WebSites/Appleseed/App_Data/appleseed_log.LDF
+glob:WebSites/Appleseed/App_Data/appleseed.mdf

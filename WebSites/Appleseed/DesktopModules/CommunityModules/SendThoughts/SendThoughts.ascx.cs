@@ -9,6 +9,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// This module sends an email with some input from the portal user
     /// Written by: Vlado
@@ -120,17 +122,17 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public SendThoughts()
         {
-            SettingItem setEMail = new SettingItem(new StringDataType());
-            setEMail.Required = true;
-            setEMail.Value = string.Empty;
-            setEMail.Order = 1;
-            _baseSettings.Add("EMail", setEMail);
+            var setEMail = new SettingItem<string, TextBox>
+                { Required = true, Value = string.Empty, Order = 1 };
+            this.BaseSettings.Add("EMail", setEMail);
 
-            SettingItem setDescription = new SettingItem(new StringDataType());
-            setDescription.Required = true;
-            setDescription.Value = General.GetString("SENDTHTS_DES_TXT", "Write a description here...", this);
-            setDescription.Order = 2;
-            _baseSettings.Add("Description", setDescription);
+            var setDescription = new SettingItem<string, TextBox>
+                {
+                    Required = true,
+                    Value = General.GetString("SENDTHTS_DES_TXT", "Write a description here...", this),
+                    Order = 2
+                };
+            this.BaseSettings.Add("Description", setDescription);
         }
 
         #region Web Form Designer generated code

@@ -11,6 +11,8 @@ using Appleseed.Framework.Web.UI.WebControls;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// WebPart module - Digital Dashboard WebPart Wrapper
     /// Written by: damacco, damacco@hotmail.com
@@ -128,16 +130,16 @@ namespace Appleseed.Content.Web.Modules
                 StringWriter output = new StringWriter();
 
 #if FW10
-				XslTransform transform = new XslTransform();
-				
-				transform.Load(new XmlTextReader(new StringReader(xslContent)));
-				transform.Transform(document, null, output);
+                XslTransform transform = new XslTransform();
+                
+                transform.Load(new XmlTextReader(new StringReader(xslContent)));
+                transform.Transform(document, null, output);
 #else
 #if FW11
-				XslTransform transform = new XslTransform();
+                XslTransform transform = new XslTransform();
 
-				transform.Load(new XmlTextReader(new StringReader(xslContent)), new XmlUrlResolver(), new Evidence());
-				transform.Transform(document, null, output, new XmlUrlResolver());
+                transform.Load(new XmlTextReader(new StringReader(xslContent)), new XmlUrlResolver(), new Evidence());
+                transform.Transform(document, null, output, new XmlUrlResolver());
 #else
                 // setup and perform the XSLT transformation
                 XslCompiledTransform xslt = new XslCompiledTransform();
@@ -178,13 +180,12 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public WebPartModule()
         {
-            SettingItem setWebPartFile = new SettingItem(new StringDataType());
-            setWebPartFile.Required = true;
-            setWebPartFile.Value = "_Appleseed/WebParts/sales.dwp";
-            setWebPartFile.Order = 1;
-            _baseSettings.Add("WebPartFile", setWebPartFile);
+            var setWebPartFile = new SettingItem<string, TextBox>
+                {
+                    Required = true, Value = "_Appleseed/WebParts/sales.dwp", Order = 1 
+                };
+            this.BaseSettings.Add("WebPartFile", setWebPartFile);
         }
-
 
         /// <summary>
         /// GUID of module (mandatory)

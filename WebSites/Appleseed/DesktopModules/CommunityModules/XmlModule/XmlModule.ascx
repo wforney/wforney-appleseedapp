@@ -1,8 +1,9 @@
-<%@ register assembly="Appleseed.Framework" namespace="Appleseed.Framework.Web.UI.WebControls"
-    tagprefix="rbfwebui" %>
-<%@ control autoeventwireup="false" inherits="Appleseed.Content.Web.Modules.XmlModule"
-    language="c#" Codebehind="XmlModule.ascx.cs" %>
-<rbfwebui:desktopmoduletitle id="ModuleTitle" runat="server" propertiestext="PROPERTIES"
-    propertiesurl="~/DesktopModules/CoreModules/Admin/PropertyPage.aspx">
-</rbfwebui:desktopmoduletitle>
-<span class="Normal"><asp:xml id="xml1" runat="server"></asp:xml></span>
+<%@ Control AutoEventWireup="true" Inherits="Appleseed.Content.Web.Modules.XmlModule"
+    Language="c#" CodeBehind="XmlModule.ascx.cs" %>
+<%@ Register Assembly="Appleseed.Framework" Namespace="Appleseed.Framework.Web.UI.WebControls"
+    TagPrefix="rbfwebui" %>
+<rbfwebui:DesktopModuleTitle ID="XmlModuleTitle" runat="server" PropertiesText="PROPERTIES"
+    PropertiesUrl="~/DesktopModules/CoreModules/Admin/PropertyPage.aspx">
+</rbfwebui:DesktopModuleTitle>
+<span class="Normal">
+    <asp:Xml ID="xml1" runat="server"></asp:Xml></span>

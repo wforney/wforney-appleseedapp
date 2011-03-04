@@ -12,6 +12,11 @@ using Appleseed.Framework.Providers.AppleseedSiteMapProvider;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Collections.Generic;
+    using System.Web.UI.WebControls;
+
+    using ImageButton = Appleseed.Framework.Web.UI.WebControls.ImageButton;
+
     /// <summary>
     /// 
     /// </summary>
@@ -20,7 +25,7 @@ namespace Appleseed.Content.Web.Modules
         /// <summary>
         /// 
         /// </summary>
-        protected ArrayList portalPages { get; set; }
+        protected List<PageItem> portalPages { get; set; }
 
         /// <summary>
         /// Admin Module
@@ -35,13 +40,13 @@ namespace Appleseed.Content.Web.Modules
             base.OnLoad(e);
 
             // Set the ImageUrl for controls from current Theme
-            upBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Up", "Up.gif").ImageUrl;
-            downBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Down", "Down.gif").ImageUrl;
-            DeleteBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Delete", "Delete.gif").ImageUrl;
-            EditBtn.ImageUrl = CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl;
+            upBtn.ImageUrl = this.CurrentTheme.GetImage("Buttons_Up", "Up.gif").ImageUrl;
+            downBtn.ImageUrl = this.CurrentTheme.GetImage("Buttons_Down", "Down.gif").ImageUrl;
+            DeleteBtn.ImageUrl = this.CurrentTheme.GetImage("Buttons_Delete", "Delete.gif").ImageUrl;
+            EditBtn.ImageUrl = this.CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl;
 
             // If this is the first visit to the page, bind the tab data to the page listbox
-            portalPages = new PagesDB().GetPagesFlat(portalSettings.PortalID);
+            portalPages = new PagesDB().GetPagesFlat(this.PortalSettings.PortalID);
             if (!Page.IsPostBack) {
 
                 tabList.DataSource = portalPages;
@@ -69,13 +74,15 @@ namespace Appleseed.Content.Web.Modules
         {
             // EHN: Add new version control for tabs module. 
             //      Mike Stone - 19/12/2004
-            SettingItem PageVersion = new SettingItem(new BooleanDataType());
-            PageVersion.Value = "True";
-            PageVersion.EnglishName = "Use Old Version?";
-            PageVersion.Description =
-                "If Checked the module acts has it always did. If not it uses the new short form which allows security to be set so the new tab will not be seen by all users.";
-            PageVersion.Order = 10;
-            _baseSettings.Add("TAB_VERSION", PageVersion);
+            var pageVersion = new SettingItem<bool, CheckBox>()
+                {
+                    Value = true,
+                    EnglishName = "Use Old Version?",
+                    Description =
+                        "If Checked the module acts has it always did. If not it uses the new short form which allows security to be set so the new tab will not be seen by all users.",
+                    Order = 10
+                };
+            this.BaseSettings.Add("TAB_VERSION", pageVersion);
         }
 
         /// <summary>
@@ -173,7 +180,7 @@ namespace Appleseed.Content.Web.Modules
 
                     // write tab to database
                     PagesDB tabs = new PagesDB();
-                    t.ID = tabs.AddPage(portalSettings.PortalID, t.Name, t.Order);
+                    t.ID = tabs.AddPage(this.PortalSettings.PortalID, t.Name, t.Order);
 
                     // Reset the order numbers for the tabs within the list  
                     OrderPages();
@@ -256,7 +263,7 @@ namespace Appleseed.Content.Web.Modules
         public override void Install(IDictionary stateSaver)
         {
             string currentScriptName = Server.MapPath(TemplateSourceDirectory + "/Install.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0) {
                 // Call rollback
                 throw new Exception("Error occurred:" + errors[0].ToString());

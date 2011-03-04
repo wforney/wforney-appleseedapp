@@ -1,107 +1,137 @@
-using System.Web;
-using Appleseed.Framework.Settings;
-using Appleseed.Framework.Site.Configuration;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="PortalUrlDataType.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Portal URL Data Type
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Appleseed.Framework.DataTypes
 {
-    /// <summary>
-    /// PortalUrlDataType
-    /// </summary>
-    public class PortalUrlDataType : StringDataType
-    {
-        /// <remarks>
-        /// Change visibility to private because now we cache internal values.
-        /// Could be moved to protected again if we transform in a property and invalidate cache.
-        /// </remarks>
-        private string _portalPathPrefix = string.Empty;
+    using System.Web;
+    using System.Web.UI.WebControls;
 
+    using Appleseed.Framework.Settings;
+    using Appleseed.Framework.Site.Configuration;
+
+    /// <summary>
+    /// Portal URL Data Type
+    /// </summary>
+    public class PortalUrlDataType : BaseDataType<string, TextBox>
+    {
+        #region Constants and Fields
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PortalUrlDataType"/> class.
+        ///   The inner full path.
+        /// </summary>
+        private string innerFullPath;
+
+        /// <summary>
+        /// The the value.
+        /// </summary>
+        private string theValue;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "PortalUrlDataType" /> class.
         /// </summary>
         public PortalUrlDataType()
         {
-            InnerDataType = PropertiesDataType.String;
+            this.PortalPathPrefix = string.Empty;
 
-            //InitializeComponents();
-
-            if (HttpContext.Current.Items["PortalSettings"] != null)
+            if (HttpContext.Current.Items["PortalSettings"] == null)
             {
-                // Obtain PortalSettings from Current Context
-                PortalSettings portalSettings = (PortalSettings) HttpContext.Current.Items["PortalSettings"];
-                _portalPathPrefix = portalSettings.PortalFullPath;
-                if (!_portalPathPrefix.EndsWith("/"))
-                    _portalPathPrefix += "/";
+                return;
+            }
+
+            // Obtain PortalSettings from Current Context
+            var portalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
+            this.PortalPathPrefix = portalSettings.PortalFullPath;
+            if (!this.PortalPathPrefix.EndsWith("/"))
+            {
+                this.PortalPathPrefix += "/";
             }
         }
 
         /// <summary>
-        /// Use this on portalsetting or when you want turn off automatic discovery
+        /// Initializes a new instance of the <see cref="PortalUrlDataType"/> class. 
+        ///   Use this on portal setting or when you want turn off automatic discovery
         /// </summary>
-        /// <param name="PortalFullPath">The portal full path.</param>
-        public PortalUrlDataType(string PortalFullPath)
+        /// <param name="portalFullPath">
+        /// The portal full path.
+        /// </param>
+        public PortalUrlDataType(string portalFullPath)
         {
-            InnerDataType = PropertiesDataType.String;
+            this.PortalPathPrefix = portalFullPath;
+        }
 
-            //			InitializeComponents();			
+        #endregion
 
-            _portalPathPrefix = PortalFullPath;
+        #region Properties
+
+        /// <summary>
+        ///   Gets the description.
+        /// </summary>
+        public override string Description
+        {
+            get
+            {
+                return "URL relative to Portal";
+            }
         }
 
         /// <summary>
-        /// Gets the portal path prefix.
+        ///   Gets the full path.
         /// </summary>
-        /// <value>The portal path prefix.</value>
-        protected string PortalPathPrefix
-        {
-            get { return _portalPathPrefix; }
-        }
-
-        private string _innerFullPath;
-
-        /// <summary>
-        /// Not Implemented
-        /// </summary>
-        /// <value>The full path.</value>
         public override string FullPath
         {
             get
             {
-                if (_innerFullPath == null)
+                if (this.innerFullPath == null)
                 {
-                    _innerFullPath = Path.WebPathCombine(_portalPathPrefix, Value);
-                    _innerFullPath = _innerFullPath.TrimEnd('/'); //Removes trailings
+                    this.innerFullPath = Path.WebPathCombine(this.PortalPathPrefix, this.Value);
+
+                    // Removes trailing /
+                    this.innerFullPath = this.innerFullPath.TrimEnd('/');
                 }
-                return _innerFullPath;
+
+                return this.innerFullPath;
             }
         }
 
         /// <summary>
-        /// Gets or sets the value.
+        ///   Gets or sets the value.
         /// </summary>
         /// <value>The value.</value>
         public override string Value
         {
-            get { return (innerValue); }
+            get
+            {
+                return this.theValue;
+            }
+
             set
             {
-                //Remove portal path if present
-                if (value.StartsWith(_portalPathPrefix))
-                    innerValue = value.Substring(_portalPathPrefix.Length);
-                else
-                    innerValue = value;
-                //Reset _innerFullPath
-                _innerFullPath = null;
+                // Remove portal path if present
+                this.theValue = value.StartsWith(this.PortalPathPrefix)
+                                    ? value.Substring(this.PortalPathPrefix.Length)
+                                    : value;
+
+                // Reset innerFullPath
+                this.innerFullPath = null;
             }
         }
 
         /// <summary>
-        /// String
+        ///   Gets the portal path prefix.
         /// </summary>
-        /// <value></value>
-        public override string Description
-        {
-            get { return "Url relative to Portal"; }
-        }
+        /// <value>The portal path prefix.</value>
+        protected string PortalPathPrefix { get; private set; }
+
+        #endregion
     }
 }

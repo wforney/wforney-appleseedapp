@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Appleseed.Content.Web.Modules {
+namespace Appleseed.Content.Web.Modules.Discussion {
     
     
-    public partial class Discussion {
+    public partial class DiscussionModule {
         
         /// <summary>
         /// TopLevelList control.

@@ -32,6 +32,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,8 +43,30 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Appleseed.Framework.Core.XML</DocumentationFile>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRunCodeAnalysis>True</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>False</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>False</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>False</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>False</CodeContractsCacheAnalysisResults>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>DoNotBuild</CodeContractsReferenceAssembly>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -110,6 +133,7 @@
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\Base\BLLBase.cs" />
@@ -118,6 +142,7 @@
     <Compile Include="BLL\Utils\BagHolder.cs" />
     <Compile Include="BLL\Utils\CookieUtil.cs" />
     <Compile Include="BLL\Utils\GlobalResources.cs" />
+    <Compile Include="Configuration\Items\ISettingItem.cs" />
     <Compile Include="Configuration\Items\PagesBox.cs" />
     <Compile Include="Configuration\Items\SettingItem.cs" />
     <Compile Include="Configuration\Items\SettingItemGroups.cs" />
@@ -127,6 +152,9 @@
     <Compile Include="Configuration\Provider\ProviderConfiguration.cs" />
     <Compile Include="Configuration\Provider\ProviderConfigurationHandler.cs" />
     <Compile Include="Configuration\Provider\ProviderHelper.cs" />
+    <Compile Include="Configuration\Settings\IModuleSettings.cs" />
+    <Compile Include="Configuration\Settings\ISettingHolder.cs" />
+    <Compile Include="Configuration\Settings\Manager.cs" />
     <Compile Include="Configuration\Settings\ModuleSettings.cs" />
     <Compile Include="Configuration\Settings\ModuleSettingsCustom.cs" />
     <Compile Include="Configuration\Settings\PageSettings.cs" />
@@ -140,6 +168,7 @@
     <Compile Include="DAL\PagesDB.cs" />
     <Compile Include="DAL\PortalsDB.cs" />
     <Compile Include="DAL\RecyclerDB.cs" />
+    <Compile Include="DAL\SolutionModuleDefinition.cs" />
     <Compile Include="DAL\UsersDb.cs" />
     <Compile Include="DAL\WorkFlowDB.cs" />
     <Compile Include="Design\Layout.cs" />
@@ -160,6 +189,7 @@
     <Compile Include="Exceptions\PortalsLockedException.cs" />
     <Compile Include="Exceptions\AppleseedException.cs" />
     <Compile Include="Exceptions\AppleseedRedirect.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="General.cs" />
     <Compile Include="Helpers\ADHelper.cs" />
     <Compile Include="Helpers\CryptoHelper.cs" />
@@ -176,6 +206,7 @@
     <Compile Include="Helpers\SearchHelper.cs" />
     <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="Helpers\WebPartHelper.cs" />
+    <Compile Include="Helpers\WebPartParser.cs" />
     <Compile Include="Helpers\XslHelper.cs" />
     <Compile Include="HttpUrlBuilder.cs" />
     <Compile Include="Configuration\Items\ModuleItem.cs" />
@@ -185,6 +216,7 @@
     <Compile Include="KickStarter\CommonClasses\Error.cs" />
     <Compile Include="KickStarter\CommonClasses\SQLHelper.cs" />
     <Compile Include="Model\ModelServices.cs" />
+    <Compile Include="Monitoring\MonitoringAction.cs" />
     <Compile Include="Monitoring\Utility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GlobalEnums.cs" />
@@ -228,29 +260,22 @@
     <Compile Include="Setup\IInstaller.cs" />
     <Compile Include="UI\DataTypes\ApplicationUrlDataType.cs" />
     <Compile Include="UI\DataTypes\BaseDataType.cs" />
-    <Compile Include="UI\DataTypes\BooleanDataType.cs" />
     <Compile Include="UI\DataTypes\CheckBoxListDataType.cs" />
     <Compile Include="UI\DataTypes\CultureItem.cs" />
     <Compile Include="UI\DataTypes\CustomListDataType.cs" />
     <Compile Include="UI\DataTypes\CustomListDelegateDataType.cs" />
-    <Compile Include="UI\DataTypes\DateDataType.cs" />
-    <Compile Include="UI\DataTypes\DoubleDataType.cs" />
     <Compile Include="UI\DataTypes\EmailAddressList.cs" />
     <Compile Include="UI\DataTypes\FolderDataType.cs" />
     <Compile Include="UI\DataTypes\HtmlEditorDataType.cs" />
     <Compile Include="UI\DataTypes\ImageDTO.cs" />
-    <Compile Include="UI\DataTypes\IntegerDataType.cs" />
     <Compile Include="UI\DataTypes\ListDataType_Original.cs" />
     <Compile Include="UI\DataTypes\ModuleListDataType.cs" />
     <Compile Include="UI\DataTypes\MultiSelectListDataType.cs" />
-    <Compile Include="UI\DataTypes\NumericDataType.cs" />
     <Compile Include="UI\DataTypes\PageListDataType.cs" />
     <Compile Include="UI\DataTypes\PathDataType.cs" />
     <Compile Include="UI\DataTypes\Percentage.cs" />
     <Compile Include="UI\DataTypes\PortalUrlDataType.cs" />
-    <Compile Include="UI\DataTypes\PropertiesDataType.cs" />
     <Compile Include="UI\DataTypes\SettingOption.cs" />
-    <Compile Include="UI\DataTypes\StringDataType.cs" />
     <Compile Include="UI\DataTypes\UploadedFileDataType.cs" />
     <Compile Include="UI\DataTypes\UrlDataType.cs" />
     <Compile Include="Localization\LanguageCultureCollection.cs" />

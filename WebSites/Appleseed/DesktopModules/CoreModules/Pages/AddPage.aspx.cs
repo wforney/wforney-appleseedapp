@@ -131,7 +131,7 @@ namespace Appleseed.Admin
 
             // Add Page info in the database
             int NewPageID =
-                new PagesDB().AddPage(portalSettings.PortalID, Int32.Parse(parentPage.SelectedItem.Value), tabName.Text,
+                new PagesDB().AddPage(this.PortalSettings.PortalID, Int32.Parse(parentPage.SelectedItem.Value), tabName.Text,
                                       990000, authorizedRoles, showMobile.Checked, mobilePageName.Text);
             //Clear SiteMaps Cache
             AppleseedSiteMapProvider.ClearAllAppleseedSiteMapCaches();
@@ -146,7 +146,7 @@ namespace Appleseed.Admin
         /// layout panes with the current configuration information
         /// </summary>
         private void BindData() {
-            PageSettings tab = portalSettings.ActivePage;
+            PageSettings tab = this.PortalSettings.ActivePage;
 
             // Populate Page Names, etc.
             tabName.Text = "New Page";
@@ -155,7 +155,7 @@ namespace Appleseed.Admin
 
             // Populate the "ParentPage" Data
             PagesDB t = new PagesDB();
-            IList<PageItem> items = t.GetPagesParent( portalSettings.PortalID, PageID );
+            IList<PageItem> items = t.GetPagesParent( this.PortalSettings.PortalID, PageID );
             parentPage.DataSource = items;
             parentPage.DataBind();
 
@@ -167,7 +167,7 @@ namespace Appleseed.Admin
             // Populate checkbox list with all security roles for this portal
             // and "check" the ones already configured for this tab
             UsersDB users = new UsersDB();
-            IList<AppleseedRole> roles = users.GetPortalRoles( portalSettings.PortalAlias );
+            IList<AppleseedRole> roles = users.GetPortalRoles( this.PortalSettings.PortalAlias );
 
             // Clear existing items in checkboxlist
             authRoles.Items.Clear();
@@ -195,7 +195,7 @@ namespace Appleseed.Admin
         protected override void OnInit(EventArgs e)
         {
             this.saveButton.Click += new EventHandler(this.SaveButton_Click);
-            this.cancelButton.Click += new EventHandler(this.cancelButton_Click);
+            this.CancelButton.Click += new EventHandler(this.cancelButton_Click);
             this.Load += new EventHandler(this.Page_Load);
 
             //Confirm delete

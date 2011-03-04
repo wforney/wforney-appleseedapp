@@ -1,80 +1,108 @@
-using System.Data;
-using System.Data.SqlClient;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ComponentModuleDB.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   The component module db.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using Appleseed.Framework.Settings;
-using Appleseed.Framework.Web.UI.WebControls;
-using Appleseed.Framework;
-using Appleseed.Framework.Data;
 namespace Appleseed.Framework.Content.Data
 {
-	public class ComponentModuleDB
-	{
-        /// <summary>
-        /// GetComponentModule
-        /// </summary>
-        /// <param name="ModuleID">ModuleID</param>
-        /// <returns>A SqlDataReader</returns>
-		public SqlDataReader GetComponentModule(int ModuleID)
-		{
-			// Create Instance of Connection and Command Object
-			SqlConnection myConnection = Config.SqlConnectionString;
-			SqlCommand myCommand = new SqlCommand("rb_GetComponentModule", myConnection);
-			myCommand.CommandType = CommandType.StoredProcedure;
+    using System.Data;
+    using System.Data.SqlClient;
 
-			// Add Parameters to SPROC
-			SqlParameter parameterModuleID = new SqlParameter("@ModuleID", SqlDbType.Int);
-			parameterModuleID.Value = ModuleID;
-			myCommand.Parameters.Add(parameterModuleID);
+    using Appleseed.Framework.Settings;
 
-			// Execute the command
-			myConnection.Open();
-			SqlDataReader result = myCommand.ExecuteReader(CommandBehavior.CloseConnection);
-
-			// Return the datareader
-			return result;
-		}
+    /// <summary>
+    /// The component module db.
+    /// </summary>
+    public class ComponentModuleDB
+    {
+        #region Public Methods
 
         /// <summary>
-        /// UpdateComponentModule
+        /// Get Component Module
         /// </summary>
-        /// <param name="ModuleID">The module ID.</param>
-        /// <param name="CreatedByUser">The created by user.</param>
-        /// <param name="Title">The title.</param>
-        /// <param name="Component">Void</param>
-		public void UpdateComponentModule(int ModuleID, string CreatedByUser, string Title, string Component)
-		{
-			// Create Instance of Connection and Command Object
-			SqlConnection myConnection = Config.SqlConnectionString;
-			SqlCommand myCommand = new SqlCommand("rb_UpdateComponentModule", myConnection);
-			myCommand.CommandType = CommandType.StoredProcedure;
+        /// <param name="moduleId">
+        /// The ModuleID
+        /// </param>
+        /// <returns>
+        /// A SqlDataReader
+        /// </returns>
+        public SqlDataReader GetComponentModule(int moduleId)
+        {
+            // Create Instance of Connection and Command Object
+            var connection = Config.SqlConnectionString;
+            var sqlCommand = new SqlCommand("rb_GetComponentModule", connection)
+                {
+                    CommandType = CommandType.StoredProcedure 
+                };
 
-			// Update Parameters to SPROC
-			SqlParameter parameterModuleID = new SqlParameter("@ModuleID", SqlDbType.Int);
-			parameterModuleID.Value = ModuleID;
-			myCommand.Parameters.Add(parameterModuleID);
+            // Add Parameters to SPROC
+            var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int) { Value = moduleId };
+            sqlCommand.Parameters.Add(parameterModuleId);
 
-			SqlParameter parameterCreatedByUser = new SqlParameter("@CreatedByUser", SqlDbType.NVarChar, 100);
-			parameterCreatedByUser.Value = CreatedByUser;
-			myCommand.Parameters.Add(parameterCreatedByUser);
+            // Execute the command
+            connection.Open();
+            var result = sqlCommand.ExecuteReader(CommandBehavior.CloseConnection);
 
-			SqlParameter parameterTitle = new SqlParameter("@Title", SqlDbType.NVarChar, 100);
-			parameterTitle.Value = Title;
-			myCommand.Parameters.Add(parameterTitle);
+            // Return the data reader
+            return result;
+        }
 
-			SqlParameter parameterComponent = new SqlParameter("@Component", SqlDbType.NVarChar, 2000);
-			parameterComponent.Value = Component;
-			myCommand.Parameters.Add(parameterComponent);
+        /// <summary>
+        /// Update Component Module
+        /// </summary>
+        /// <param name="moduleId">
+        /// The module ID.
+        /// </param>
+        /// <param name="createdByUser">
+        /// The created by user.
+        /// </param>
+        /// <param name="title">
+        /// The title.
+        /// </param>
+        /// <param name="component">
+        /// The component (void).
+        /// </param>
+        public void UpdateComponentModule(int moduleId, string createdByUser, string title, string component)
+        {
+            // Create Instance of Connection and Command Object
+            var connection = Config.SqlConnectionString;
+            var sqlCommand = new SqlCommand("rb_UpdateComponentModule", connection)
+                {
+                   CommandType = CommandType.StoredProcedure 
+                };
 
-			// Execute the command
-			myConnection.Open();
-			try
-			{
-				myCommand.ExecuteNonQuery();
-			}
-			finally
-			{
-				myConnection.Close();
-			}
-		}
-	}
+            // Update Parameters to SPROC
+            var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int) { Value = moduleId };
+            sqlCommand.Parameters.Add(parameterModuleId);
+
+            var parameterCreatedByUser = new SqlParameter("@CreatedByUser", SqlDbType.NVarChar, 100)
+                {
+                   Value = createdByUser 
+                };
+            sqlCommand.Parameters.Add(parameterCreatedByUser);
+
+            var parameterTitle = new SqlParameter("@Title", SqlDbType.NVarChar, 100) { Value = title };
+            sqlCommand.Parameters.Add(parameterTitle);
+
+            var parameterComponent = new SqlParameter("@Component", SqlDbType.NVarChar, 2000) { Value = component };
+            sqlCommand.Parameters.Add(parameterComponent);
+
+            // Execute the command
+            connection.Open();
+            try
+            {
+                sqlCommand.ExecuteNonQuery();
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        #endregion
+    }
 }

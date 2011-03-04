@@ -18,6 +18,8 @@ using System.IO;
 
 namespace Appleseed.AdminAll
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// New portal wizard
     /// </summary>
@@ -97,7 +99,7 @@ namespace Appleseed.AdminAll
         private string GetPhysicalPackageTemplatesPath()
         {
             string path = Appleseed.Framework.Settings.Path.ApplicationPhysicalPath;
-            path = string.Format(@"{0}{1}\PortalTemplates", path, portalSettings.PortalFullPath.Substring(1));
+            path = string.Format(@"{0}{1}\PortalTemplates", path, this.PortalSettings.PortalFullPath.Substring(1));
             path = path.Replace("/", @"\");
             return path;
         }
@@ -142,7 +144,7 @@ namespace Appleseed.AdminAll
                     if (chkUseXMLTemplate.Checked == false) {
                         // Create portal the "old" way
                         int NewPortalID =
-                            portals.CreatePortal(this.portalSettings.PortalID, AliasField.Text, TitleField.Text, PathField.Text);
+                            portals.CreatePortal(this.PortalSettings.PortalID, AliasField.Text, TitleField.Text, PathField.Text);
 
                         // Update custom settings in the database
                         EditTable.ObjectID = NewPortalID;
@@ -212,8 +214,8 @@ namespace Appleseed.AdminAll
         /// <param name="e">The <see cref="T:Appleseed.Framework.Web.UI.WebControls.SettingsTableEventArgs"/> instance containing the event data.</param>
         private void EditTable_UpdateControl(object sender, SettingsTableEventArgs e)
         {
-            SettingsTable edt = (SettingsTable)sender;
-            PortalSettings.UpdatePortalSetting(edt.ObjectID, e.CurrentItem.EditControl.ID, e.CurrentItem.Value);
+            var edt = (SettingsTable)sender;
+            PortalSettings.UpdatePortalSetting(edt.ObjectID, ((SettingItem<string, TextBox>)e.CurrentItem).EditControl.ID, ((SettingItem<string, TextBox>)e.CurrentItem).Value);
         }
 
         /// <summary>
@@ -496,7 +498,7 @@ namespace Appleseed.AdminAll
 
                             while (dr.Read())
                             {
-                                ModuleSettings.UpdateModuleSetting(newModuleID, dr["SettingName"].ToString(),
+                                Framework.Site.Configuration.ModuleSettings.UpdateModuleSetting(newModuleID, dr["SettingName"].ToString(),
                                                                    dr["SettingValue"].ToString());
                             }
                             dr.Close();

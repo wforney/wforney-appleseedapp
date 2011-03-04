@@ -8,6 +8,8 @@ using System.Collections.Generic;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// The IframeModule provides an IFRAME where you can set the
     /// source URL and the height of the frame using the settings system.
@@ -98,33 +100,33 @@ namespace Appleseed.Content.Web.Modules
 
             //MH:canged to support relativ url
             //SettingItem url = new SettingItem(new UrlDataType());
-            SettingItem url = new SettingItem(new StringDataType());
+            var url = new SettingItem<string, TextBox>();
             url.Required = true;
             url.Group = group;
             url.Order = groupBase + 20; //1;
             url.Value = "http://www.Appleseedportal.net";
-            _baseSettings.Add("URL", url);
+            this.BaseSettings.Add("URL", url);
 
             //MH: added to support width values
-            SettingItem width = new SettingItem(new StringDataType());
+            var width = new SettingItem<string, TextBox>();
             width.Required = true;
             width.Group = group;
             width.Order = groupBase + 25; //2;
             width.Value = "250";
             //width.MinValue = 1;
             //width.MaxValue = 2000;
-            _baseSettings.Add("Width", width);
+            this.BaseSettings.Add("Width", width);
 
             //MH: changed to StringDataType to support  percent or pixel values
-            //SettingItem width = new SettingItem(new IntegerDataType());
-            SettingItem height = new SettingItem(new StringDataType());
+            //SettingItem width = new SettingItem<int, TextBox>();
+            var height = new SettingItem<string, TextBox>();
             height.Required = true;
             height.Group = group;
             height.Order = groupBase + 30; //3;
             height.Value = "250";
             //height.MinValue = 1;
             //height.MaxValue = 2000;
-            _baseSettings.Add("Height", height);
+            this.BaseSettings.Add("Height", height);
         }
 
         #region Web Form Designer generated code

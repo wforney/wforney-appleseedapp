@@ -21,7 +21,7 @@ namespace Appleseed.Framework.Web.UI
         protected override void LoadSettings()
         {
             base.LoadSettings();
-            this.portalSettings.ActiveModule = this.ModuleID;
+            this.PortalSettings.ActiveModule = this.ModuleID;
         }
 
         /// <summary>

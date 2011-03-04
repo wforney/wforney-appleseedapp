@@ -13,6 +13,7 @@
     <RootNamespace>Appleseed</RootNamespace>
     <AssemblyName>Appleseed</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
@@ -42,6 +43,47 @@
     <DeployIisAppPath>Appleseed</DeployIisAppPath>
     <ExcludeApp_Data>true</ExcludeApp_Data>
     <PublishDatabases>false</PublishDatabases>
+    <CodeContractsEnableRuntimeChecking>False</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRunCodeAnalysis>True</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>False</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>False</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>DoNotBuild</CodeContractsReferenceAssembly>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="ConnectionString-Deployment" Order="1">
+          <Destination Path="" />
+          <Object Type="dbFullSql">
+            <PreSource Path="Data Source=.\SQLExpress%3bInitial Catalog=appleseed%3bIntegrated Security=False%3bUser ID=appleseed%3bPassword=%40ppl3s33d" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" />
+            <Source Path="obj\Debug\AutoScripts\ConnectionString-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+        <ObjectGroup Name="AppleseedDBContext-Deployment" Order="2">
+          <Destination Path="" />
+          <Object Type="dbFullSql">
+            <PreSource Path="Data Source=.\SQLExpress%3bInitial Catalog=appleseed%3bIntegrated Security=False%3bUser ID=appleseed%3bPassword=%40ppl3s33d" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" />
+            <Source Path="obj\Debug\AutoScripts\AppleseedDBContext-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
     <!--<ExcludeFoldersFromDeployment>Portals</ExcludeFoldersFromDeployment>-->
     <!--<ExcludeFilesFromDeployment>Web.config</ExcludeFilesFromDeployment>-->
   </PropertyGroup>
@@ -210,6 +252,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Design" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DataVisualization.Design" />
     <Reference Include="System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
@@ -255,8 +299,187 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\Appleseed.ar.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.ar.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.bg.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.bg.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.ca.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.ca.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.cs.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.cs.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.da.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.da.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.de.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.el.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.el.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.en-GB.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.en-GB.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.en-US.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.en-US.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.en.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.en.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.es-ES.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.es-ES.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.es-MX.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.es-MX.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.es.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.es.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.fr-FR.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.fr-FR.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.fr.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.he.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.he.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.hi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.hi.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.hr.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.hr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.is.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.is.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.it.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.it.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.ja.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.ja.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.ko.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.ko.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.nl-BE.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.nl-BE.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.nl.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.nl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.no.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.no.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.pl.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.pt.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.pt.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.sl.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.sl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.sv.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.sv.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.tr.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.tr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.uk.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.vi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.vi.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.zh-CN.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Appleseed.zh-TW.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Appleseed.zh-TW.resx</DependentUpon>
+    </Compile>
     <Compile Include="app_support\FCK.filemanager\imagegallery.aspx.designer.cs">
       <DependentUpon>imagegallery.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="API\IPortalServices.cs" />
+    <Compile Include="API\Portal.svc.cs">
+      <DependentUpon>Portal.svc</DependentUpon>
     </Compile>
     <Compile Include="app_support\FCK.filemanager\upload.aspx.designer.cs">
       <DependentUpon>upload.aspx</DependentUpon>
@@ -942,7 +1165,7 @@
     <Compile Include="DesktopModules\CoreModules\Admin\ModuleSettings.aspx.designer.cs">
       <DependentUpon>ModuleSettings.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DesktopModules\CoreModules\Admin\PortalService.cs">
+    <Compile Include="DesktopModules\CoreModules\Admin\PortalService.asmx.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DesktopModules\CoreModules\Admin\PropertyPage.aspx.cs">
@@ -1266,21 +1489,23 @@
       <DependentUpon>SiteMasterDefault.master</DependentUpon>
     </Compile>
     <Compile Include="UI\Design\PagingDesigner.cs" />
-    <Compile Include="Old_App_Code\Adapters\ChangePasswordAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\CompositeDataBoundControlAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\CreateUserWizardAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\DataListAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\DetailsViewAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\FormViewAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\GoogleClosure.cs" />
-    <Compile Include="Old_App_Code\Adapters\GridViewAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\LoginAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\LoginStatusAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\MenuAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\PasswordRecoveryAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\TreeViewAdapter.cs" />
-    <Compile Include="Old_App_Code\Adapters\WebControlAdapterExtender.cs" />
-    <Compile Include="Old_App_Code\Global.asax.cs" />
+    <Compile Include="CSSFriendly\Adapters\ChangePasswordAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\CompositeDataBoundControlAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\CreateUserWizardAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\DataListAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\DetailsViewAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\FormViewAdapter.cs" />
+    <Compile Include="GoogleClosure.cs" />
+    <Compile Include="CSSFriendly\Adapters\GridViewAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\LoginAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\LoginStatusAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\MenuAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\PasswordRecoveryAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\TreeViewAdapter.cs" />
+    <Compile Include="CSSFriendly\Adapters\WebControlAdapterExtender.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\Appleseed.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1362,7 +1587,6 @@
     <Folder Include="Bin\" />
     <Folder Include="DesktopModules\CommunityModules\DiscussionEnhanced\images\" />
     <Folder Include="images\default\" />
-    <Folder Include="Old_App_Code\Appleseed\" />
     <Folder Include="Portals\_Appleseed\Album\" />
     <Folder Include="Portals\_Appleseed\SecureDocuments\" />
   </ItemGroup>
@@ -1421,6 +1645,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="API\Portal.svc" />
     <Content Include="App_Browsers\CSSFriendlyAdapters.browser">
       <SubType>Designer</SubType>
     </Content>
@@ -6016,9 +6241,6 @@
     <Content Include="Portals\_Appleseed\xml\sales2.xsl" />
     <Content Include="rb_logs\rb_logs.txt" />
     <Content Include="robots.txt" />
-    <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.4.1.js" />
-    <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="Setup\Scripts\1.1.7.1111.sql" />
     <Content Include="Setup\Scripts\1.1.7.1111Z.sql" />
     <Content Include="Setup\Scripts\1.1.7.1111_Localization.sql" />
@@ -6170,16 +6392,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>8792</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>True</UseCustomServer>
-          <CustomServerUrl>http://appleseed.local/</CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

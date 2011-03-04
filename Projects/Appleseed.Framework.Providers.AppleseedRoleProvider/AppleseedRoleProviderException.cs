@@ -1,28 +1,72 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Configuration.Provider;
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="AppleseedRoleProviderException.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   The appleseed role provider exception.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-namespace Appleseed.Framework.Providers.AppleseedRoleProvider {
+namespace Appleseed.Framework.Providers.AppleseedRoleProvider
+{
+    using System;
+    using System.Configuration.Provider;
+    using System.Runtime.Serialization;
 
-    [global::System.Serializable]
-    public class AppleseedRoleProviderException : ProviderException {
+    /// <summary>
+    /// The appleseed role provider exception.
+    /// </summary>
+    [Serializable]
+    public class AppleseedRoleProviderException : ProviderException
+    {
+        #region Constructors and Destructors
 
-        public AppleseedRoleProviderException() {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppleseedRoleProviderException"/> class.
+        /// </summary>
+        public AppleseedRoleProviderException()
+        {
         }
 
-        public AppleseedRoleProviderException( string message )
-            : base( message ) {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppleseedRoleProviderException"/> class.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public AppleseedRoleProviderException(string message)
+            : base(message)
+        {
         }
 
-        public AppleseedRoleProviderException( string message, Exception inner )
-            : base( message, inner ) {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppleseedRoleProviderException"/> class.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="inner">
+        /// The inner.
+        /// </param>
+        public AppleseedRoleProviderException(string message, Exception inner)
+            : base(message, inner)
+        {
         }
 
-        protected AppleseedRoleProviderException(
-          System.Runtime.Serialization.SerializationInfo info,
-          System.Runtime.Serialization.StreamingContext context )
-            : base( info, context ) {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppleseedRoleProviderException"/> class.
+        /// </summary>
+        /// <param name="info">
+        /// The info.
+        /// </param>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        protected AppleseedRoleProviderException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
         }
+
+        #endregion
     }
 }

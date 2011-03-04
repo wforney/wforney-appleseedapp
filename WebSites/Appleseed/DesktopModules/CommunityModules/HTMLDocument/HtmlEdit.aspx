@@ -1,5 +1,5 @@
-<%@ Page AutoEventWireup="false" Inherits="Appleseed.Content.Web.Modules.HtmlEdit"
-    Language="c#" MasterPageFile="~/Shared/SiteMasterDefault.master" Codebehind="HtmlEdit.aspx.cs" %>
+<%@ Page Inherits="Appleseed.DesktopModules.CommunityModules.HTMLDocument.HtmlEdit"
+    Language="c#" MasterPageFile="~/Shared/SiteMasterDefault.master" CodeBehind="HtmlEdit.aspx.cs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" runat="Server">
     <div class="div_ev_Table">
@@ -20,12 +20,12 @@
             <tr>
                 <td class="SubHead">
                     <%--<p>--%>
-                        <rbfwebui:Localize ID="Literal2" runat="server" Text="Desktop HTML Content" TextKey="HTML_DESKTOP_CONTENT">
-                        </rbfwebui:Localize><font face="ËÎÌו">:</font>
-                        <br />
-                        <div class="normal">
-                            <asp:PlaceHolder ID="PlaceHolderHTMLEditor" runat="server"></asp:PlaceHolder>
-                        </div>
+                    <rbfwebui:Localize ID="Literal2" runat="server" Text="Desktop HTML Content" TextKey="HTML_DESKTOP_CONTENT">
+                    </rbfwebui:Localize><font face="ËÎÌו">:</font>
+                    <br />
+                    <div class="normal">
+                        <asp:PlaceHolder ID="PlaceHolderHTMLEditor" runat="server"></asp:PlaceHolder>
+                    </div>
                     <%--</p>--%>
                 </td>
             </tr>

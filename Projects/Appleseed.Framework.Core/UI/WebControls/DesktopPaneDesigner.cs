@@ -1,3 +1,12 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DesktopPaneDesigner.cs" company="--">
+//   Copyright © -- 2010. All Rights Reserved.
+// </copyright>
+// <summary>
+//   DesktopPanes design support class for Visual Studio.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace Appleseed.Framework.Web.UI.WebControls
 {
     using System;
@@ -16,62 +25,67 @@ namespace Appleseed.Framework.Web.UI.WebControls
         #region Constants and Fields
 
         /// <summary>
-        /// The desktop panes designer switch.
+        ///   The desktop panes designer switch.
         /// </summary>
         internal static TraceSwitch DesktopPanesDesignerSwitch;
 
         /// <summary>
+        /// The idx content pane template.
         /// </summary>
         private const int IdxContentPaneTemplate = 1;
 
         /// <summary>
+        /// The idx horizontal separator template.
         /// </summary>
         private const int IdxHorizontalSeparatorTemplate = 0;
 
         /// <summary>
+        /// The idx left pane template.
         /// </summary>
         private const int IdxLeftPaneTemplate = 0;
 
         /// <summary>
+        /// The idx right pane template.
         /// </summary>
         private const int IdxRightPaneTemplate = 2;
 
         /// <summary>
+        /// The idx vertical separator template.
         /// </summary>
         private const int IdxVerticalSeparatorTemplate = 1;
 
         /// <summary>
-        /// The pane templates.
+        ///   The pane templates.
         /// </summary>
         private const int PaneTemplates = 0;
 
         /// <summary>
-        /// The separator templates.
+        ///   The separator templates.
         /// </summary>
         private const int SeparatorTemplates = 1;
 
         /// <summary>
-        /// The pane template names.
+        ///   The pane template names.
         /// </summary>
-        private static string[] PaneTemplateNames;
+        private static readonly string[] PaneTemplateNames;
 
         /// <summary>
-        /// The separator template names.
+        ///   The separator template names.
         /// </summary>
-        private static string[] SeparatorTemplateNames;
+        private static readonly string[] SeparatorTemplateNames;
 
         /// <summary>
-        /// The desktop panes.
+        ///   The desktop panes.
         /// </summary>
         private DesktopPanes desktopPanes;
 
         /// <summary>
-        /// The template verbs.
+        ///   The template verbs.
         /// </summary>
         private TemplateEditingVerb[] templateVerbs;
 
         /// <summary>
-        /// The template verbs dirty.
+        ///   The template verbs dirty.
         /// </summary>
         private bool templateVerbsDirty;
 
@@ -80,7 +94,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes static members of the <see cref="DesktopPanesDesigner"/> class.
+        ///   Initializes static members of the <see cref = "DesktopPanesDesigner" /> class.
         /// </summary>
         static DesktopPanesDesigner()
         {
@@ -100,8 +114,8 @@ namespace Appleseed.Framework.Web.UI.WebControls
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DesktopPanesDesigner"/> class. 
-        ///     Default constructor
+        ///   Initializes a new instance of the <see cref = "DesktopPanesDesigner" /> class. 
+        ///   Default constructor
         /// </summary>
         public DesktopPanesDesigner()
         {
@@ -113,12 +127,12 @@ namespace Appleseed.Framework.Web.UI.WebControls
         #region Properties
 
         /// <summary>
-        ///     Override the AllowResize property inherited
-        ///     from ControlDesigner to enable the control 
-        ///     to be resized. 
-        ///     It is recommended that controls allow resizing 
-        ///     when in template mode even if they normally 
-        ///     do not allow resizing.
+        ///   Override the AllowResize property inherited
+        ///   from ControlDesigner to enable the control 
+        ///   to be resized. 
+        ///   It is recommended that controls allow resizing 
+        ///   when in template mode even if they normally 
+        ///   do not allow resizing.
         /// </summary>
         public override bool AllowResize
         {
@@ -126,7 +140,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
             {
                 // When templates are not defined, render a read-only fixed-size block. 
                 // Once templates are defined or are being edited, the control should allow resizing.
-                return this.desktopPanes.ContentPaneTemplate == null || this.InTemplateMode;
+                return this.desktopPanes.ContentPaneTemplate == null || InTemplateMode;
             }
         }
 
@@ -136,7 +150,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
         /// <summary>
         /// As with any other designer, override the GetDesignTimeHtml.
-        ///     Gets the HTML that is used to represent the control at design time.
+        ///   Gets the HTML that is used to represent the control at design time.
         /// </summary>
         /// <returns>
         /// The get design time html.
@@ -227,7 +241,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
         /// <summary>
         /// Override the GetTemplateContent method that gets 
-        ///     the template content.
+        ///   the template content.
         /// </summary>
         /// <param name="editingFrame">
         /// The editing Frame.
@@ -241,7 +255,8 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// <returns>
         /// The get template content.
         /// </returns>
-        [Obsolete("Use of this method is not recommended because template editing is handled in ControlDesigner. To support template editing expose template data in the TemplateGroups property and call SetViewFlags(ViewFlags.TemplateEditing, true). http://go.microsoft.com/fwlink/?linkid=14202")]
+        [Obsolete(
+            "Use of this method is not recommended because template editing is handled in ControlDesigner. To support template editing expose template data in the TemplateGroups property and call SetViewFlags(ViewFlags.TemplateEditing, true). http://go.microsoft.com/fwlink/?linkid=14202")]
         public override string GetTemplateContent(
             ITemplateEditingFrame editingFrame, string templateName, out bool allowEditing)
         {
@@ -301,7 +316,9 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// <summary>
         /// Initializes the designer and loads the specified component.
         /// </summary>
-        /// <param name="component">The control element being designed.</param>
+        /// <param name="component">
+        /// The control element being designed.
+        /// </param>
         public override void Initialize(IComponent component)
         {
             this.desktopPanes = (DesktopPanes)component;
@@ -311,7 +328,7 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
         /// <summary>
         /// Override the SetTemplateContent method that sets 
-        ///     the template content.
+        ///   the template content.
         /// </summary>
         /// <param name="editingFrame">
         /// The editing Frame.
@@ -322,7 +339,8 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// <param name="templateContent">
         /// The template Content.
         /// </param>
-        [Obsolete("Use of this method is not recommended because template editing is handled in ControlDesigner. To support template editing expose template data in the TemplateGroups property and call SetViewFlags(ViewFlags.TemplateEditing, true). http://go.microsoft.com/fwlink/?linkid=14202")]
+        [Obsolete(
+            "Use of this method is not recommended because template editing is handled in ControlDesigner. To support template editing expose template data in the TemplateGroups property and call SetViewFlags(ViewFlags.TemplateEditing, true). http://go.microsoft.com/fwlink/?linkid=14202")]
         public override void SetTemplateContent(
             ITemplateEditingFrame editingFrame, string templateName, string templateContent)
         {
@@ -384,9 +402,15 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// <summary>
         /// When overridden in a derived class, creates a template editing frame for the specified verb.
         /// </summary>
-        /// <param name="verb">The template editing verb to create a template editing frame for.</param>
-        /// <returns>The new template editing frame.</returns>
-        [Obsolete("Use of this method is not recommended because template editing is handled in ControlDesigner. To support template editing expose template data in the TemplateGroups property and call SetViewFlags(ViewFlags.TemplateEditing, true). http://go.microsoft.com/fwlink/?linkid=14202")]
+        /// <param name="verb">
+        /// The template editing verb to create a template editing frame for.
+        /// </param>
+        /// <returns>
+        /// The new template editing frame.
+        /// </returns>
+        [Obsolete(
+            "Use of this method is not recommended because template editing is handled in ControlDesigner. To support template editing expose template data in the TemplateGroups property and call SetViewFlags(ViewFlags.TemplateEditing, true). http://go.microsoft.com/fwlink/?linkid=14202"
+            )]
         protected override ITemplateEditingFrame CreateTemplateEditingFrame(TemplateEditingVerb verb)
         {
             var teService = (ITemplateEditingService)this.GetService(typeof(ITemplateEditingService));
@@ -417,17 +441,24 @@ namespace Appleseed.Framework.Web.UI.WebControls
                     break;
             }
 
-            ITemplateEditingFrame editingFrame = teService.CreateFrame(
-                this, verb.Text, templateNames, this.desktopPanes.ControlStyle, templateStyles);
+            if (teService != null)
+            {
+                var editingFrame = teService.CreateFrame(
+                    this, verb.Text, templateNames, this.desktopPanes.ControlStyle, templateStyles);
 
-            // editingFrame = teService.CreateFrame(this, verb.Text, templateNames);
-            return editingFrame;
+                // editingFrame = teService.CreateFrame(this, verb.Text, templateNames);
+                return editingFrame;
+            }
+
+            return null;
         }
 
         /// <summary>
         /// Releases the unmanaged resources that are used by the <see cref="T:System.Web.UI.Design.HtmlControlDesigner"/> object and optionally releases the managed resources.
         /// </summary>
-        /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
+        /// <param name="disposing">
+        /// true to release both managed and unmanaged resources; false to release only unmanaged resources.
+        /// </param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -445,7 +476,8 @@ namespace Appleseed.Framework.Web.UI.WebControls
         /// <returns>
         /// An array of <see cref="T:System.Web.UI.Design.TemplateEditingVerb"/> objects, if any.
         /// </returns>
-        [Obsolete("Use of this method is not recommended because template editing is handled in ControlDesigner. To support template editing expose template data in the TemplateGroups property and call SetViewFlags(ViewFlags.TemplateEditing, true). http://go.microsoft.com/fwlink/?linkid=14202")]
+        [Obsolete(
+            "Use of this method is not recommended because template editing is handled in ControlDesigner. To support template editing expose template data in the TemplateGroups property and call SetViewFlags(ViewFlags.TemplateEditing, true). http://go.microsoft.com/fwlink/?linkid=14202")]
         protected override TemplateEditingVerb[] GetCachedTemplateEditingVerbs()
         {
             if (this.templateVerbsDirty)
@@ -464,16 +496,18 @@ namespace Appleseed.Framework.Web.UI.WebControls
 
         /// <summary>
         /// As with any other designer, 
-        ///     override the GetEmptyDesignTimeHtml.
-        ///     Gets the HTML used to represent 
-        ///     an empty template-based control at design time.
+        ///   override the GetEmptyDesignTimeHtml.
+        ///   Gets the HTML used to represent 
+        ///   an empty template-based control at design time.
         /// </summary>
         /// <returns>
         /// The get empty design time html.
         /// </returns>
         protected override string GetEmptyDesignTimeHtml()
         {
-            string text = this.CanEnterTemplateMode ? "Right click and choose a set of templates to edit their content." : "Switch to HTML view to edit the control's templates.";
+            var text = this.CanEnterTemplateMode
+                           ? "Right click and choose a set of templates to edit their content."
+                           : "Switch to HTML view to edit the control's templates.";
 
             return this.CreatePlaceHolderDesignTimeHtml(text);
         }

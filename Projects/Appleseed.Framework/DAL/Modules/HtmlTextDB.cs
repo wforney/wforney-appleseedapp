@@ -111,50 +111,48 @@ namespace Appleseed.Framework.Content.Data
 
             // Create Instance of Connection and Command Object
             using (var connection = Config.SqlConnectionString)
+            using (var command = new SqlCommand("rb_GetHtmlText", connection))
             {
-                using (var command = new SqlCommand("rb_GetHtmlText", connection))
-                {
-                    // Mark the Command as a SPROC
-                    command.CommandType = CommandType.StoredProcedure;
+                // Mark the Command as a SPROC
+                command.CommandType = CommandType.StoredProcedure;
 
-                    // Add Parameters to SPROC
-                    var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
-                    command.Parameters.Add(parameterModuleId);
+                // Add Parameters to SPROC
+                var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
+                command.Parameters.Add(parameterModuleId);
 
-                    // Change by Geert.Audenaert@Syntegra.Com
-                    // Date: 6/2/2003
-                    var parameterWorkflowVersion = new SqlParameter("@WorkflowVersion", SqlDbType.Int, 4)
-                        {
-                            Value = (int)version 
-                        };
-                    command.Parameters.Add(parameterWorkflowVersion);
-
-                    // End Change Geert.Audenaert@Syntegra.Com
-
-                    // Execute the command
-                    connection.Open();
-
-                    using (var result = command.ExecuteReader(CommandBehavior.CloseConnection))
+                // Change by Geert.Audenaert@Syntegra.Com
+                // Date: 6/2/2003
+                var parameterWorkflowVersion = new SqlParameter("@WorkflowVersion", SqlDbType.Int, 4)
                     {
-                        try
+                        Value = (int)version 
+                    };
+                command.Parameters.Add(parameterWorkflowVersion);
+
+                // End Change Geert.Audenaert@Syntegra.Com
+
+                // Execute the command
+                connection.Open();
+
+                using (var result = command.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    try
+                    {
+                        if (result.Read())
                         {
-                            if (result.Read())
-                            {
-                                strDesktopHtml = result["DesktopHtml"].ToString();
-                                mobileSummary = result["MobileSummary"].ToString();
-                                mobileDetails = result["MobileDetails"].ToString();
-                            }
-                            else
-                            {
-                                mobileSummary = string.Empty;
-                                mobileDetails = string.Empty;
-                            }
+                            strDesktopHtml = result["DesktopHtml"].ToString();
+                            mobileSummary = result["MobileSummary"].ToString();
+                            mobileDetails = result["MobileDetails"].ToString();
                         }
-                        finally
+                        else
                         {
-                            // Close the datareader
-                            result.Close();
+                            mobileSummary = string.Empty;
+                            mobileDetails = string.Empty;
                         }
+                    }
+                    finally
+                    {
+                        // Close the datareader
+                        result.Close();
                     }
                 }
             }
@@ -244,43 +242,37 @@ namespace Appleseed.Framework.Content.Data
         {
             // Create Instance of Connection and Command Object
             using (var connection = Config.SqlConnectionString)
+            using (var command = new SqlCommand("rb_UpdateHtmlText", connection))
             {
-                using (var command = new SqlCommand("rb_UpdateHtmlText", connection))
+                // Mark the Command as a SPROC
+                command.CommandType = CommandType.StoredProcedure;
+
+                // Add Parameters to SPROC
+                var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
+                command.Parameters.Add(parameterModuleId);
+
+                var parameterDesktopHtml = new SqlParameter("@DesktopHtml", SqlDbType.NText) { Value = desktopHtml };
+                command.Parameters.Add(parameterDesktopHtml);
+
+                var parameterMobileSummary = new SqlParameter("@MobileSummary", SqlDbType.NText)
+                    { Value = mobileSummary };
+                command.Parameters.Add(parameterMobileSummary);
+
+                var parameterMobileDetails = new SqlParameter("@MobileDetails", SqlDbType.NText)
+                    { Value = mobileDetails };
+                command.Parameters.Add(parameterMobileDetails);
+
+                // SqlParameter parameterCulture = new SqlParameter("@Culture", SqlDbType.NVarChar, 8);
+                // parameterCulture.Value = culture.Name;
+                // command.Parameters.Add(parameterCulture);
+                connection.Open();
+                try
                 {
-                    // Mark the Command as a SPROC
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    // Add Parameters to SPROC
-                    var parameterModuleId = new SqlParameter("@ModuleID", SqlDbType.Int, 4) { Value = moduleId };
-                    command.Parameters.Add(parameterModuleId);
-
-                    var parameterDesktopHtml = new SqlParameter("@DesktopHtml", SqlDbType.NText) { Value = desktopHtml };
-                    command.Parameters.Add(parameterDesktopHtml);
-
-                    var parameterMobileSummary = new SqlParameter("@MobileSummary", SqlDbType.NText)
-                        {
-                            Value = mobileSummary 
-                        };
-                    command.Parameters.Add(parameterMobileSummary);
-
-                    var parameterMobileDetails = new SqlParameter("@MobileDetails", SqlDbType.NText)
-                        {
-                            Value = mobileDetails 
-                        };
-                    command.Parameters.Add(parameterMobileDetails);
-
-                    // SqlParameter parameterCulture = new SqlParameter("@Culture", SqlDbType.NVarChar, 8);
-                    // parameterCulture.Value = culture.Name;
-                    // command.Parameters.Add(parameterCulture);
-                    connection.Open();
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                    }
-                    finally
-                    {
-                        connection.Close();
-                    }
+                    command.ExecuteNonQuery();
+                }
+                finally
+                {
+                    connection.Close();
                 }
             }
         }

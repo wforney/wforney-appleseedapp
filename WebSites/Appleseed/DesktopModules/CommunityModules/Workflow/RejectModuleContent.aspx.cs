@@ -31,9 +31,9 @@ namespace Appleseed.Content.Web.Modules
             {
                 // Destinators
                 ModuleSettings ms = null;
-                for (int i = 0; i < portalSettings.ActivePage.Modules.Count; i++)
+                for (int i = 0; i < this.PortalSettings.ActivePage.Modules.Count; i++)
                 {
-                    ms = (ModuleSettings) portalSettings.ActivePage.Modules[i];
+                    ms = (ModuleSettings) this.PortalSettings.ActivePage.Modules[i];
                     if (ms.ModuleID == ModuleID)
                         break;
                 }
@@ -41,7 +41,7 @@ namespace Appleseed.Content.Web.Modules
                 tmp += ms.AuthorizedEditRoles.Trim();
                 tmp += ms.AuthorizedDeleteRoles.Trim();
                 string[] emails =
-                    MailHelper.GetEmailAddressesInRoles(tmp.Split(";".ToCharArray()), portalSettings.PortalID);
+                    MailHelper.GetEmailAddressesInRoles(tmp.Split(";".ToCharArray()), this.PortalSettings.PortalID);
                 for (int i = 0; i < emails.Length; i++)
                     emailForm.To.Add(emails[i]);
                 // Subject
@@ -66,7 +66,7 @@ namespace Appleseed.Content.Web.Modules
         {
             this.btnRejectAndSendMail.Click += new EventHandler(this.btnRejectAndSendMail_Click);
             this.btnReject.Click += new EventHandler(this.btnReject_Click);
-            this.cancelButton.Click += new EventHandler(this.cancelButton_Click);
+            this.CancelButton.Click += new EventHandler(this.cancelButton_Click);
             this.Load += new EventHandler(this.Page_Load);
             base.OnInit(e);
         }

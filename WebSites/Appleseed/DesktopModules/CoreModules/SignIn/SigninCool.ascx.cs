@@ -15,6 +15,10 @@ using Appleseed.Framework.Providers.AppleseedMembershipProvider;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
+    using Localize = Appleseed.Framework.Web.UI.WebControls.Localize;
+
     /// <summary>
     /// The SignIn User Control enables clients to authenticate themselves using 
     /// the ASP.NET Forms based authentication system.
@@ -86,12 +90,12 @@ namespace Appleseed.Content.Web.Modules
             UsersDB usersDB = new UsersDB();
 
             //Obtain single row of User information
-            AppleseedUser user = usersDB.GetSingleUser( email.Text, portalSettings.PortalAlias );
+            AppleseedUser user = usersDB.GetSingleUser( email.Text, this.PortalSettings.PortalAlias );
 
             if ( user != null ) {
 
                 string Pswrd;
-                string AppName = portalSettings.PortalName;
+                string AppName = this.PortalSettings.PortalName;
                 bool encrypted = Config.EncryptPassword;
                 string Name = user.Email;
                 if ( encrypted ) {
@@ -103,7 +107,7 @@ namespace Appleseed.Content.Web.Modules
                 }
                 crypthelp.ResetPassword( Name, randomPassword );
                 string LoginUrl = Path.ApplicationFullPath + "DesktopModules/Admin/Logon.aspx?Usr=" + Name + "&Pwd=" +
-                                  Pswrd + "&Alias=" + portalSettings.PortalAlias;
+                                  Pswrd + "&Alias=" + this.PortalSettings.PortalAlias;
                 MailMessage mail = new MailMessage();
 
                 // Geert.Audenaert@Syntegra.Com
@@ -175,41 +179,46 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public SigninCool()
         {
-            SettingItem CoolText = new SettingItem(new StringDataType());
-            CoolText.Order = 10;
-            _baseSettings.Add("CoolText", CoolText);
+            var coolText = new SettingItem<string, TextBox> { Order = 10 };
+            this.BaseSettings.Add("CoolText", coolText);
 
-            SettingItem HideAutomatically = new SettingItem(new BooleanDataType());
-            HideAutomatically.Value = "True";
-            HideAutomatically.EnglishName = "Hide automatically";
-            HideAutomatically.Order = 20;
-            _baseSettings.Add("SIGNIN_AUTOMATICALLYHIDE", HideAutomatically);
+            var hideAutomatically = new SettingItem<bool, CheckBox>
+                {
+                    Value = true, EnglishName = "Hide automatically", Order = 20 
+                };
+            this.BaseSettings.Add("SIGNIN_AUTOMATICALLYHIDE", hideAutomatically);
 
             //1.2.8.1743b - 09/10/2003
             //New setting on Signin fo disable IE autocomplete by Mike Stone
             //If you uncheck this setting IE will not remember user name and passwords. 
             //Note that users who have memorized passwords will not be effected until their computer 
             //is reset, only new users and/or computers will honor this. 
-            SettingItem AutoComplete = new SettingItem(new BooleanDataType());
-            AutoComplete.Value = "True";
-            AutoComplete.EnglishName = "Allow IE Autocomplete";
-            AutoComplete.Description = "If Checked IE Will try to remember logins";
-            AutoComplete.Order = 30;
-            _baseSettings.Add("SIGNIN_ALLOW_AUTOCOMPLETE", AutoComplete);
+            var autoComplete = new SettingItem<bool, CheckBox>
+                {
+                    Value = true,
+                    EnglishName = "Allow IE Autocomplete",
+                    Description = "If Checked IE Will try to remember logins",
+                    Order = 30
+                };
+            this.BaseSettings.Add("SIGNIN_ALLOW_AUTOCOMPLETE", autoComplete);
 
-            SettingItem RememberLogin = new SettingItem(new BooleanDataType());
-            RememberLogin.Value = "True";
-            RememberLogin.EnglishName = "Allow Remember Login";
-            RememberLogin.Description = "If Checked allows to remember logins";
-            RememberLogin.Order = 40;
-            _baseSettings.Add("SIGNIN_ALLOW_REMEMBER_LOGIN", RememberLogin);
+            var rememberLogin = new SettingItem<bool, CheckBox>
+                {
+                    Value = true,
+                    EnglishName = "Allow Remember Login",
+                    Description = "If Checked allows to remember logins",
+                    Order = 40
+                };
+            this.BaseSettings.Add("SIGNIN_ALLOW_REMEMBER_LOGIN", rememberLogin);
 
-            SettingItem SendPassword = new SettingItem(new BooleanDataType());
-            SendPassword.Value = "True";
-            SendPassword.EnglishName = "Allow Send Password";
-            SendPassword.Description = "If Checked allows user to ask to get password by email if he forgotten";
-            SendPassword.Order = 50;
-            _baseSettings.Add("SIGNIN_ALLOW_SEND_PASSWORD", SendPassword);
+            var sendPassword = new SettingItem<bool, CheckBox>
+                {
+                    Value = true,
+                    EnglishName = "Allow Send Password",
+                    Description = "If Checked allows user to ask to get password by email if he forgotten",
+                    Order = 50
+                };
+            this.BaseSettings.Add("SIGNIN_ALLOW_SEND_PASSWORD", sendPassword);
         }
 
         #region General Implementation
@@ -252,8 +261,8 @@ namespace Appleseed.Content.Web.Modules
             bool hide = true;
             bool autocomplete = false;
 
-            if (portalSettings.CustomSettings["SITESETTINGS_ALLOW_NEW_REGISTRATION"] != null)
-                if (!bool.Parse(portalSettings.CustomSettings["SITESETTINGS_ALLOW_NEW_REGISTRATION"].ToString()))
+            if (this.PortalSettings.CustomSettings["SITESETTINGS_ALLOW_NEW_REGISTRATION"] != null)
+                if (!bool.Parse(this.PortalSettings.CustomSettings["SITESETTINGS_ALLOW_NEW_REGISTRATION"].ToString()))
                     RegisterBtn.Visible = false;
 
             if (Settings["SIGNIN_AUTOMATICALLYHIDE"] != null)

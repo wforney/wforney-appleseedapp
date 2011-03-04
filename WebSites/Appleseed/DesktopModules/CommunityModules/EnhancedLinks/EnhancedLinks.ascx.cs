@@ -1,19 +1,22 @@
-using System;
-using System.Collections;
-using System.Data;
-using System.Data.SqlClient;
-using System.Globalization;
-using System.Text;
-using System.Web;
-using Appleseed.Framework;
-using Appleseed.Framework.Content.Data;
-using Appleseed.Framework.Data;
-using Appleseed.Framework.DataTypes;
-using Appleseed.Framework.Helpers;
-using Appleseed.Framework.Web.UI.WebControls;
-
 namespace Appleseed.Content.Web.Modules
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.Globalization;
+    using System.Text;
+    using System.Web;
+    using System.Web.UI.WebControls;
+
+    using Appleseed.Framework;
+    using Appleseed.Framework.Content.Data;
+    using Appleseed.Framework.Data;
+    using Appleseed.Framework.DataTypes;
+    using Appleseed.Framework.Helpers;
+    using Appleseed.Framework.Web.UI.WebControls;
+
     /// <summary>
     /// Appleseed EnhancedLinks Module
     /// Written by: José Viladiu, jviladiu@portalServices.net
@@ -23,7 +26,7 @@ namespace Appleseed.Content.Web.Modules
         /// <summary>
         /// The Page_Load event handler on this User Control is used to
         /// obtain a DataReader of link information from the EnhancedLinks
-        /// table, and then databind the results to a templated DataList
+        /// table, and then data bind the results to a templated DataList
         /// server control.  It uses the Appleseed.EnhancedLinkDB()
         /// data component to encapsulate all data functionality.
         /// </summary>
@@ -77,21 +80,21 @@ namespace Appleseed.Content.Web.Modules
                 if (IsEditable)
                 {
                     listStr.Append("<td><a href=\"" + GetLinkUrl(dr["ItemID"].ToString(), linkStr, true) +
-                                   "\"><img src='" + CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl +
+                                   "\"><img src='" + this.CurrentTheme.GetImage("Buttons_Edit", "Edit.gif").ImageUrl +
                                    "' border=0></a>&nbsp;</td>");
                 }
                 string auxImage;
                 if ((imageStr != null) && (imageStr.Length > 0))
                 {
-                    auxImage = portalSettings.PortalFullPath + "/" + iconContainer + "/" + imageStr;
+                    auxImage = this.PortalSettings.PortalFullPath + "/" + iconContainer + "/" + imageStr;
                 }
                 else if ((defaultImage != null) && (defaultImage.Length > 0))
                 {
-                    auxImage = portalSettings.PortalFullPath + "/" + iconContainer + "/" + defaultImage;
+                    auxImage = this.PortalSettings.PortalFullPath + "/" + iconContainer + "/" + defaultImage;
                 }
                 else
                 {
-                    auxImage = CurrentTheme.GetImage("NavLink", "navlink.gif").ImageUrl;
+                    auxImage = this.CurrentTheme.GetImage("NavLink", "navlink.gif").ImageUrl;
                 }
                 string altStr = string.Empty;
                 if ((descStr != null) && (descStr.Length > 0))
@@ -267,77 +270,94 @@ namespace Appleseed.Content.Web.Modules
             int groupBase = (int) group;
             // end of modification
 
-            SettingItem IconPath = null;
-            if (portalSettings != null)
+            SettingItem<string, Panel> iconPath = null;
+            if (this.PortalSettings != null)
             {
-                IconPath =
-                    new SettingItem(
-                        new FolderDataType(HttpContext.Current.Server.MapPath(portalSettings.PortalFullPath),
-                                           "IconContainer"));
-                IconPath.Value = "IconContainer";
+                iconPath =
+                    new SettingItem<string, Panel>(
+                        new FolderDataType(
+                            HttpContext.Current.Server.MapPath(this.PortalSettings.PortalFullPath), "IconContainer"))
+                        {
+                            Value = "IconContainer", 
+                            Order = groupBase + 15, 
+                            Group = group, 
+                            EnglishName = "Container for Icons", 
+                            Description = "Portal directory for upload used icons"
+                        };
+
                 // Modified by Hongwei Shen
                 // IconPath.Order = 5;
                 // IconPath.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
-                IconPath.Order = groupBase + 15;
-                IconPath.Group = group;
                 // end of modification
-                IconPath.EnglishName = "Container for Icons";
-                IconPath.Description = "Portal directory for upload used icons";
             }
-            _baseSettings.Add("ENHANCEDLINKS_ICONPATH", IconPath);
 
-            ArrayList styleLink = new ArrayList();
-            styleLink.Add(new SettingOption(1, General.GetString("ENHANCEDLINKS_DROPDOWNLIST", "DropDownList", null)));
-            styleLink.Add(new SettingOption(2, General.GetString("ENHANCEDLINKS_LINKS", "Links", null)));
+            this.BaseSettings.Add("ENHANCEDLINKS_ICONPATH", iconPath);
 
+            var styleLink = new List<SettingOption>
+                {
+                    new SettingOption(1, General.GetString("ENHANCEDLINKS_DROPDOWNLIST", "DropDownList", null)), 
+                    new SettingOption(2, General.GetString("ENHANCEDLINKS_LINKS", "Links", null))
+                };
 
-            SettingItem MaxColums = new SettingItem(new IntegerDataType());
-            MaxColums.Value = "1";
-            MaxColums.EnglishName = "Max Colums";
-            MaxColums.Description = "Maximun number of colums";
+            var maxColums = new SettingItem<int, TextBox>()
+                {
+                    Value = 1, 
+                    EnglishName = "Max Colums", 
+                    Description = "Maximun number of colums", 
+                    Group = group, 
+                    Order = groupBase + 20
+                };
+
             // Modified by Hongwei Shen
             // MaxColums.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // MaxColums.Order = 10;
-            MaxColums.Group = group;
-            MaxColums.Order = groupBase + 20;
             // end of modification
-            _baseSettings.Add("ENHANCEDLINKS_MAXCOLUMS", MaxColums);
+            this.BaseSettings.Add("ENHANCEDLINKS_MAXCOLUMS", maxColums);
 
-            SettingItem labelStyleLink = new SettingItem(new CustomListDataType(styleLink, "Name", "Val"));
-            labelStyleLink.Description = "Select here how your module should look like";
-            labelStyleLink.EnglishName = "Style Links";
-            labelStyleLink.Value = "2";
+            var labelStyleLink = new SettingItem<string, ListControl>(new CustomListDataType(styleLink, "Name", "Val"))
+                {
+                    Description = "Select here how your module should look like",
+                    EnglishName = "Style Links",
+                    Value = "2",
+                    Group = group,
+                    Order = groupBase + 25
+                };
+
             // Modified by Hongwei Shen
             // abelStyleLink.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // labelStyleLink.Order = 15;
-            labelStyleLink.Group = group;
-            labelStyleLink.Order = groupBase + 25;
             // end of modification
-            _baseSettings.Add("ENHANCEDLINKS_SWITCHERTYPES", labelStyleLink);
+            this.BaseSettings.Add("ENHANCEDLINKS_SWITCHERTYPES", labelStyleLink);
 
-            SettingItem ImageDefault = new SettingItem(new StringDataType());
-            ImageDefault.Value = "navLink.gif";
-            ImageDefault.EnglishName = "Default Image for link";
-            ImageDefault.Description = "Select here a image for links with no special setting image";
+            var imageDefault = new SettingItem<string, TextBox>()
+                {
+                    Value = "navLink.gif",
+                    EnglishName = "Default Image for link",
+                    Description = "Select here a image for links with no special setting image",
+                    Group = group,
+                    Order = groupBase + 30
+                };
+
             // Modified by Hongwei Shen
             // ImageDefault.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // ImageDefault.Order = 20;
-            ImageDefault.Group = group;
-            ImageDefault.Order = groupBase + 30;
             // end of modification
-            _baseSettings.Add("ENHANCEDLINKS_DEFAULTIMAGE", ImageDefault);
+            this.BaseSettings.Add("ENHANCEDLINKS_DEFAULTIMAGE", imageDefault);
 
-            SettingItem ExpandAll = new SettingItem(new BooleanDataType());
-            ExpandAll.Value = "false";
-            ExpandAll.EnglishName = "Show Description";
-            ExpandAll.Description = "Mark this if you like to see the description down the link";
+            var expandAll = new SettingItem<bool, CheckBox>()
+                {
+                    Value = false,
+                    EnglishName = "Show Description",
+                    Description = "Mark this if you like to see the description down the link",
+                    Group = group,
+                    Order = groupBase + 35
+                };
+
             // Modified by Hongwei Shen
             // ExpandAll.Group = SettingItemGroup.MODULE_SPECIAL_SETTINGS;
             // ExpandAll.Order = 25;
-            ExpandAll.Group = group;
-            ExpandAll.Order = groupBase + 35;
             // end of modification
-            _baseSettings.Add("ENHANCEDLINKS_EXPANDALL", ExpandAll);
+            this.BaseSettings.Add("ENHANCEDLINKS_EXPANDALL", expandAll);
         }
 
         /// <summary>
@@ -432,7 +452,7 @@ namespace Appleseed.Content.Web.Modules
         public override void Install(IDictionary stateSaver)
         {
             string currentScriptName = Server.MapPath(this.TemplateSourceDirectory + "/Install.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback
@@ -443,7 +463,7 @@ namespace Appleseed.Content.Web.Modules
         public override void Uninstall(IDictionary stateSaver)
         {
             string currentScriptName = Server.MapPath(this.TemplateSourceDirectory + "/Uninstall.sql");
-            ArrayList errors = DBHelper.ExecuteScript(currentScriptName, true);
+            List<string> errors = DBHelper.ExecuteScript(currentScriptName, true);
             if (errors.Count > 0)
             {
                 // Call rollback

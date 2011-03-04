@@ -122,7 +122,7 @@ namespace Appleseed.Content.Web.Modules
         {
             lnkRSS.HRef = HttpUrlBuilder.BuildUrl("~/DesktopModules/CommunityModules/Blog/RSS.aspx", PageID, "&mID=" + ModuleID);
             imgRSS.Src = HttpUrlBuilder.BuildUrl("~/DesktopModules/CommunityModules/Blog/xml.gif");
-            lblCopyright.Text = moduleSettings["Copyright"].ToString();
+            lblCopyright.Text = this.ModuleSettings["Copyright"].ToString();
 
             BlogDB blogDB = new BlogDB();
             int month = -1;

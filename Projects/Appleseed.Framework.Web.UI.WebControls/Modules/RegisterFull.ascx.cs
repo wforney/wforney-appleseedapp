@@ -464,7 +464,7 @@ namespace Appleseed.Content.Web.Modules
 
             sb.Append("New User Registration\n");
             sb.Append("---------------------\n");
-            sb.Append("PORTAL         : " + this.portalSettings.PortalTitle + "\n");
+            sb.Append("PORTAL         : " + this.PortalSettings.PortalTitle + "\n");
             sb.Append("Name           : " + this.NameField.Text + "\n");
             sb.Append("Company        : " + this.CompanyField.Text + "\n");
             sb.Append("Address        : " + this.AddressField.Text + "\n");
@@ -482,9 +482,9 @@ namespace Appleseed.Content.Web.Modules
             sb.Append("Send Newsletter: " + this.SendNewsletter.Checked + "\n");
 
             MailHelper.SendMailNoAttachment(
-                this.portalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_TO"].ToString(), 
-                this.portalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_TO"].ToString(), 
-                "New User Registration for " + this.portalSettings.PortalAlias, 
+                this.PortalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_TO"].ToString(), 
+                this.PortalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_TO"].ToString(), 
+                "New User Registration for " + this.PortalSettings.PortalAlias, 
                 sb.ToString(), 
                 string.Empty, 
                 string.Empty, 
@@ -588,7 +588,7 @@ namespace Appleseed.Content.Web.Modules
                                 this.PasswordField.Text, 
                                 this.EmailField.Text, 
                                 this.SendNewsletter.Checked, 
-                                this.portalSettings.PortalAlias);
+                                this.PortalSettings.PortalAlias);
                         }
 
                         // If we are here no error occurred
@@ -697,7 +697,7 @@ namespace Appleseed.Content.Web.Modules
             // CountryField.Items.FindByValue(country.Name).Selected = true;
             this.BindState();
 
-            var termsOfService = this.portalSettings.GetTermsOfService;
+            var termsOfService = this.PortalSettings.GetTermsOfService;
 
             // Verify if we have to show conditions
             if (termsOfService.Length != 0)
@@ -751,7 +751,7 @@ namespace Appleseed.Content.Web.Modules
                         // Obtain a single row of event information
                         var accountSystem = new UsersDB();
 
-                        var memberUser = accountSystem.GetSingleUser(this.UserName, this.portalSettings.PortalAlias);
+                        var memberUser = accountSystem.GetSingleUser(this.UserName, this.PortalSettings.PortalAlias);
 
                         try
                         {
@@ -827,7 +827,7 @@ namespace Appleseed.Content.Web.Modules
                 return;
             }
 
-            if (this.portalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_TO"].ToString().Length > 0)
+            if (this.PortalSettings.CustomSettings["SITESETTINGS_ON_REGISTER_SEND_TO"].ToString().Length > 0)
             {
                 this.SendRegistrationNoticeToAdmin();
             }

@@ -1,6 +1,15 @@
-﻿namespace Appleseed.Framework.DataTypes
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="PageListDataType.cs" company="--">
+//   Copyright © -- 2011. All Rights Reserved.
+// </copyright>
+// <summary>
+//   Page List Data Type
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Appleseed.Framework.DataTypes
 {
-    using System.Collections;
+    using System.Collections.Generic;
     using System.Web;
 
     using Appleseed.Framework.Site.Configuration;
@@ -14,13 +23,13 @@
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PageListDataType"/> class. 
-        /// The page list data type.
+        ///   Initializes a new instance of the <see cref = "PageListDataType" /> class. 
+        ///   The page list data type.
         /// </summary>
         public PageListDataType()
             : base(GetPageList(), "Name", "Id")
         {
-            this.InnerDataType = PropertiesDataType.PageList;
+            // this.Type = PropertiesDataType.PageList;
         }
 
         #endregion
@@ -28,7 +37,7 @@
         #region Properties
 
         /// <summary>
-        ///     Gets the description.
+        ///   Gets the description.
         /// </summary>
         /// <value>The description.</value>
         public override string Description
@@ -46,10 +55,12 @@
         /// <summary>
         /// Gets the default value.
         /// </summary>
-        /// <returns>The default value.</returns>
+        /// <returns>
+        /// The default value.
+        /// </returns>
         public string GetDefaultValue()
         {
-            return ((PageItem)((ArrayList)this.InnerDataSource)[0]).ID.ToString();
+            return ((List<PageItem>)this.InnerDataSource)[0].ID.ToString();
         }
 
         #endregion
@@ -59,8 +70,10 @@
         /// <summary>
         /// Gets the page list.
         /// </summary>
-        /// <returns>The page list.</returns>
-        private static ArrayList GetPageList()
+        /// <returns>
+        /// The page list.
+        /// </returns>
+        private static List<PageItem> GetPageList()
         {
             var portalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"];
             return new PagesDB().GetPagesFlat(portalSettings.PortalID);

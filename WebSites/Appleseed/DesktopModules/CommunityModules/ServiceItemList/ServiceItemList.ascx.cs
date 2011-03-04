@@ -15,6 +15,8 @@ using Appleseed.Framework.Providers.AppleseedMembershipProvider;
 
 namespace Appleseed.Content.Web.Modules
 {
+    using System.Web.UI.WebControls;
+
     /// <summary>
     /// ServiceItemList
     /// Written by: Jakob hansen
@@ -46,9 +48,9 @@ namespace Appleseed.Content.Web.Modules
             requestInfo.PortalAlias = Settings["PortalAlias"].ToString();
             requestInfo.LocalMode = bool.Parse(Settings["LocalMode"].ToString().ToLower());
             /* Jakob says: later...
-			requestInfo.UserName = Settings["UserName"].ToString(); 
-			requestInfo.UserPassword = Settings["UserPassword"].ToString(); 
-			*/
+            requestInfo.UserName = Settings["UserName"].ToString(); 
+            requestInfo.UserPassword = Settings["UserPassword"].ToString(); 
+            */
 
             requestInfo.ListType = ServiceListType.Item;
             requestInfo.ModuleType = Settings["ModuleType"].ToString();
@@ -95,11 +97,11 @@ namespace Appleseed.Content.Web.Modules
             string status = "Dialing...";
             try
             {
-                int portalID = portalSettings.PortalID;
+                int portalID = this.PortalSettings.PortalID;
                 Guid userID = Guid.Empty;
 
                 UsersDB u = new UsersDB();
-                AppleseedUser s = u.GetSingleUser(PortalSettings.CurrentUser.Identity.Email, portalSettings.PortalAlias);
+                AppleseedUser s = u.GetSingleUser(PortalSettings.CurrentUser.Identity.Email, this.PortalSettings.PortalAlias);
                 try
                 {
                     userID = (Guid)s.ProviderUserKey;
@@ -343,157 +345,157 @@ namespace Appleseed.Content.Web.Modules
         /// </summary>
         public ServiceItemList()
         {
-            SettingItem setURL = new SettingItem(new UrlDataType());
+            var setURL = new SettingItem<Uri, TextBox>(new UrlDataType());
             setURL.Order = 1;
             setURL.Required = true;
-            setURL.Value = "http://www.Appleseedportal.net/";
-            _baseSettings.Add("URL", setURL);
+            setURL.Value = new Uri("http://www.Appleseedportal.net/");
+            this.BaseSettings.Add("URL", setURL);
 
-            SettingItem setPortalAlias = new SettingItem(new StringDataType());
+            var setPortalAlias = new SettingItem<string, TextBox>();
             setPortalAlias.Order = 2;
             setPortalAlias.Required = false;
             setPortalAlias.Value = string.Empty;
-            _baseSettings.Add("PortalAlias", setPortalAlias);
+            this.BaseSettings.Add("PortalAlias", setPortalAlias);
 
-            SettingItem setLocalMode = new SettingItem(new BooleanDataType());
+            var setLocalMode = new SettingItem<bool, CheckBox>();
             setLocalMode.Order = 3;
-            setLocalMode.Value = "false";
-            _baseSettings.Add("LocalMode", setLocalMode);
+            setLocalMode.Value = false;
+            this.BaseSettings.Add("LocalMode", setLocalMode);
 
-            SettingItem setModuleType =
-                new SettingItem(
-                    new ListDataType(
+            var setModuleType =
+                new SettingItem<string, ListControl>(
+                    new ListDataType<string, ListControl>(
                         "All;Announcements;Contacts;Discussion;Events;HtmlModule;Documents;Pictures;Articles;Tasks;FAQs;ComponentModule"));
             setModuleType.Order = 4;
             setModuleType.Required = true;
             setModuleType.Value = "All";
-            _baseSettings.Add("ModuleType", setModuleType);
+            this.BaseSettings.Add("ModuleType", setModuleType);
 
-            SettingItem setMaxHits = new SettingItem(new IntegerDataType());
+            var setMaxHits = new SettingItem<int, TextBox>();
             setMaxHits.Order = 5;
             setMaxHits.Required = true;
-            setMaxHits.Value = "20";
+            setMaxHits.Value = 20;
             setMaxHits.MinValue = 1;
             setMaxHits.MaxValue = 1000;
-            _baseSettings.Add("MaxHits", setMaxHits);
+            this.BaseSettings.Add("MaxHits", setMaxHits);
 
-            SettingItem setShowID = new SettingItem(new BooleanDataType());
+            var setShowID = new SettingItem<bool, CheckBox>();
             setShowID.Order = 6;
-            setShowID.Value = "false";
-            _baseSettings.Add("ShowID", setShowID);
+            setShowID.Value = false;
+            this.BaseSettings.Add("ShowID", setShowID);
 
-            SettingItem setSearchString = new SettingItem(new StringDataType());
+            var setSearchString = new SettingItem<string, TextBox>();
             setSearchString.Order = 7;
             setSearchString.Required = false;
             setSearchString.Value = "localization";
-            _baseSettings.Add("SearchString", setSearchString);
+            this.BaseSettings.Add("SearchString", setSearchString);
 
-            SettingItem setSearchField = new SettingItem(new StringDataType());
+            var setSearchField = new SettingItem<string, TextBox>();
             setSearchField.Order = 8;
             setSearchField.Required = false;
             setSearchField.Value = string.Empty;
-            _baseSettings.Add("SearchField", setSearchField);
+            this.BaseSettings.Add("SearchField", setSearchField);
 
-            SettingItem setSortField =
-                new SettingItem(new ListDataType("ModuleName;Title;CreatedByUser;CreatedDate;TabName"));
+            var setSortField =
+                new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("ModuleName;Title;CreatedByUser;CreatedDate;TabName"));
             setSortField.Order = 9;
             setSortField.Required = true;
             setSortField.Value = "ModuleName";
-            _baseSettings.Add("SortField", setSortField);
+            this.BaseSettings.Add("SortField", setSortField);
 
-            SettingItem setSortDirection = new SettingItem(new ListDataType("ASC;DESC"));
+            var setSortDirection = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("ASC;DESC"));
             setSortDirection.Order = 10;
             setSortDirection.Required = true;
             setSortDirection.Value = "ASC";
-            _baseSettings.Add("SortDirection", setSortDirection);
+            this.BaseSettings.Add("SortDirection", setSortDirection);
 
-            SettingItem setMobileOnly = new SettingItem(new BooleanDataType());
+            var setMobileOnly = new SettingItem<bool, CheckBox>();
             setMobileOnly.Order = 11;
-            setMobileOnly.Value = "false";
-            _baseSettings.Add("MobileOnly", setMobileOnly);
+            setMobileOnly.Value = false;
+            this.BaseSettings.Add("MobileOnly", setMobileOnly);
 
-            SettingItem setIDList = new SettingItem(new StringDataType());
+            var setIDList = new SettingItem<string, TextBox>();
             setIDList.Order = 12;
             setIDList.Required = false;
             setIDList.Value = string.Empty;
-            _baseSettings.Add("IDList", setIDList);
+            this.BaseSettings.Add("IDList", setIDList);
 
-            SettingItem setIDListType = new SettingItem(new ListDataType("Item;Module;Tab"));
+            var setIDListType = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("Item;Module;Tab"));
             setIDListType.Order = 13;
             setIDListType.Required = true;
             setIDListType.Value = "Tab";
-            _baseSettings.Add("IDListType", setIDListType);
+            this.BaseSettings.Add("IDListType", setIDListType);
 
-            SettingItem setTag = new SettingItem(new IntegerDataType());
+            var setTag = new SettingItem<int, TextBox>();
             setTag.Order = 14;
             setTag.Required = true;
-            setTag.Value = "0";
-            _baseSettings.Add("Tag", setTag);
+            setTag.Value = 0;
+            this.BaseSettings.Add("Tag", setTag);
 
-            //SettingItem showImage = new SettingItem(new BooleanDataType());
+            //var showImage = new SettingItem<bool, CheckBox>();
             //showImage.Order = 15;
-            //showImage.Value = "True";
+            //showImage.Value = true;
             //this._baseSettings.Add("ShowImage", showImage);
 
-            SettingItem setShowModuleFriendlyName = new SettingItem(new BooleanDataType());
+            var setShowModuleFriendlyName = new SettingItem<bool, CheckBox>();
             setShowModuleFriendlyName.Order = 16;
-            setShowModuleFriendlyName.Value = "true";
-            _baseSettings.Add("ShowModuleFriendlyName", setShowModuleFriendlyName);
+            setShowModuleFriendlyName.Value = true;
+            this.BaseSettings.Add("ShowModuleFriendlyName", setShowModuleFriendlyName);
 
-            SettingItem setShowSearchTitle = new SettingItem(new BooleanDataType());
+            var setShowSearchTitle = new SettingItem<bool, CheckBox>();
             setShowSearchTitle.Order = 17;
-            setShowSearchTitle.Value = "true";
-            _baseSettings.Add("ShowSearchTitle", setShowSearchTitle);
+            setShowSearchTitle.Value = true;
+            this.BaseSettings.Add("ShowSearchTitle", setShowSearchTitle);
 
-            SettingItem setShowDescription = new SettingItem(new BooleanDataType());
+            var setShowDescription = new SettingItem<bool, CheckBox>();
             setShowDescription.Order = 18;
-            setShowDescription.Value = "true";
-            _baseSettings.Add("ShowDescription", setShowDescription);
+            setShowDescription.Value = true;
+            this.BaseSettings.Add("ShowDescription", setShowDescription);
 
-            SettingItem setShowCreatedByUser = new SettingItem(new BooleanDataType());
+            var setShowCreatedByUser = new SettingItem<bool, CheckBox>();
             setShowCreatedByUser.Order = 19;
-            setShowCreatedByUser.Value = "true";
-            _baseSettings.Add("ShowCreatedByUser", setShowCreatedByUser);
+            setShowCreatedByUser.Value = true;
+            this.BaseSettings.Add("ShowCreatedByUser", setShowCreatedByUser);
 
-            SettingItem setShowCreatedDate = new SettingItem(new BooleanDataType());
+            var setShowCreatedDate = new SettingItem<bool, CheckBox>();
             setShowCreatedDate.Order = 20;
-            setShowCreatedDate.Value = "true";
-            _baseSettings.Add("ShowCreatedDate", setShowCreatedDate);
+            setShowCreatedDate.Value = true;
+            this.BaseSettings.Add("ShowCreatedDate", setShowCreatedDate);
 
-            SettingItem setShowLink = new SettingItem(new BooleanDataType());
+            var setShowLink = new SettingItem<bool, CheckBox>();
             setShowLink.Order = 21;
-            setShowLink.Value = "false";
-            _baseSettings.Add("ShowLink", setShowLink);
+            setShowLink.Value = false;
+            this.BaseSettings.Add("ShowLink", setShowLink);
 
-            SettingItem setShowTabName = new SettingItem(new BooleanDataType());
+            var setShowTabName = new SettingItem<bool, CheckBox>();
             setShowTabName.Order = 22;
-            setShowTabName.Value = "true";
-            _baseSettings.Add("ShowTabName", setShowTabName);
+            setShowTabName.Value = true;
+            this.BaseSettings.Add("ShowTabName", setShowTabName);
 
-            SettingItem setShowModuleTitle = new SettingItem(new BooleanDataType());
+            var setShowModuleTitle = new SettingItem<bool, CheckBox>();
             setShowModuleTitle.Order = 23;
-            setShowModuleTitle.Value = "false";
-            _baseSettings.Add("ShowModuleTitle", setShowModuleTitle);
+            setShowModuleTitle.Value = false;
+            this.BaseSettings.Add("ShowModuleTitle", setShowModuleTitle);
 
-            SettingItem setTarget = new SettingItem(new ListDataType("blank;parent;self;top"));
+            var setTarget = new SettingItem<string, ListControl>(new ListDataType<string, ListControl>("blank;parent;self;top"));
             setTarget.Order = 24;
             setTarget.Required = true;
             setTarget.Value = "blank";
-            _baseSettings.Add("Target", setTarget);
+            this.BaseSettings.Add("Target", setTarget);
 
             /* Jakob says: later...
-			SettingItem setUserName = new SettingItem(new StringDataType());
-			setUserName.Order = 25;
-			setUserName.Required = false;
-			setUserName.Value = string.Empty;
-			this._baseSettings.Add("UserName", setUserName);
+            var setUserName = new SettingItem<string, TextBox>();
+            setUserName.Order = 25;
+            setUserName.Required = false;
+            setUserName.Value = string.Empty;
+            this._baseSettings.Add("UserName", setUserName);
 
-			SettingItem setUserPassword = new SettingItem(new StringDataType());
-			setUserPassword.Order = 26;
-			setUserPassword.Required = false;
-			setUserPassword.Value = string.Empty;
-			this._baseSettings.Add("UserPassword", setUserPassword);
-			*/
+            var setUserPassword = new SettingItem<string, TextBox>();
+            setUserPassword.Order = 26;
+            setUserPassword.Required = false;
+            setUserPassword.Value = string.Empty;
+            this._baseSettings.Add("UserPassword", setUserPassword);
+            */
         }
 
 

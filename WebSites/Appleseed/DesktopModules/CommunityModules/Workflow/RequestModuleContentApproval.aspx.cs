@@ -41,15 +41,15 @@ namespace Appleseed.Content.Web.Modules
             {
                 // Destinators
                 ModuleSettings ms = null;
-                for (int i = 0; i < portalSettings.ActivePage.Modules.Count; i++)
+                for (int i = 0; i < this.PortalSettings.ActivePage.Modules.Count; i++)
                 {
-                    ms = (ModuleSettings) portalSettings.ActivePage.Modules[i];
+                    ms = (ModuleSettings) this.PortalSettings.ActivePage.Modules[i];
                     if (ms.ModuleID == ModuleID)
                         break;
                 }
                 string[] emails =
                     MailHelper.GetEmailAddressesInRoles(ms.AuthorizedApproveRoles.Split(";".ToCharArray()),
-                                                        portalSettings.PortalID);
+                                                        this.PortalSettings.PortalID);
                 for (int i = 0; i < emails.Length; i++)
                     emailForm.To.Add(emails[i]);
                 // Subject
@@ -74,7 +74,7 @@ namespace Appleseed.Content.Web.Modules
         {
             this.btnRequestApprovalAndSendMail.Click += new EventHandler(this.btnRequestApprovalAndSendMail_Click);
             this.btnRequestApproval.Click += new EventHandler(this.btnRequestApproval_Click);
-            this.cancelButton.Click += new EventHandler(this.cancelButton_Click);
+            this.CancelButton.Click += new EventHandler(this.cancelButton_Click);
             this.Load += new EventHandler(this.Page_Load);
             base.OnInit(e);
         }

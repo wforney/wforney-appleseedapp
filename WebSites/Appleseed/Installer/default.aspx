@@ -1,22 +1,12 @@
-<%--<%@ Page Language="C#" Debug="true" ValidateRequest="true"  %>--%>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="Appleseed.Installer.Default" %>
 
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="AppleseedWebApplication.Installer.Default" %>
-
-<%@ Import Namespace="System.Data" %>
-<%@ Import Namespace="System.Collections" %>
-<%@ Import Namespace="System.Collections.Specialized" %>
-<%@ Import Namespace="System.Data.SqlClient" %>
-<%@ Import Namespace="System.IO" %>
-<%@ Import Namespace="System.Security.Cryptography" %>
-<%@ Import Namespace="System.Text" %>
-<%@ Import Namespace="System.Security.Permissions" %>
 <html>
 <head>
     <title>Appleseed Web Installer</title>
     <link rel="stylesheet" href="style/default.css" type="text/css" />
-    <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js" type="text/javascript"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
-
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.5.min.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
+        type="text/javascript"></script>
 </head>
 <body>
     <form runat="server">
@@ -46,7 +36,7 @@
                                         Choose Database</div>
                                     <div class="<%=StepClass(WizardPanel.SiteInformation)%>">
                                         Site Information</div>
-                                        <div class="<%=StepClass(WizardPanel.Install)%>">
+                                    <div class="<%=StepClass(WizardPanel.Install)%>">
                                         Install Appleseed</div>
                                     <div class="<%=StepClass(WizardPanel.Done)%>">
                                         Completed</div>
@@ -97,23 +87,22 @@
                                             <ul>
                                                 <li style="margin-bottom: 8px;">
                                                     <div class="bold">
-                                                        Microsoft .NET Version :
-                                                        <asp:Literal EnableViewState="False" ID="lblAspNetVersion" runat="server" /></div>
+                                                        Microsoft .NET Version : <asp:Literal EnableViewState="False" ID="lblAspNetVersion"
+                                                            runat="server" /></div>
                                                 </li>
                                                 <li style="margin-bottom: 8px;">
                                                     <div class="bold">
-                                                        Web.Config :
-                                                        <asp:Literal EnableViewState="False" ID="lblWebConfigWritable" runat="server" /></div>
+                                                        Web.Config : <asp:Literal EnableViewState="False" ID="lblWebConfigWritable" runat="server" /></div>
                                                 </li>
                                                 <li style="margin-bottom: 8px;">
                                                     <div class="bold">
-                                                        RB Logs Directory :
-                                                        <asp:Literal EnableViewState="False" ID="lblLogsDirWritable" runat="server" /></div>
+                                                        RB Logs Directory : <asp:Literal EnableViewState="False" ID="lblLogsDirWritable"
+                                                            runat="server" /></div>
                                                 </li>
                                                 <li style="margin-bottom: 8px;">
                                                     <div class="bold">
-                                                        Portals Directory :
-                                                        <asp:Literal EnableViewState="False" ID="lblPortalsDirWritable" runat="server" /></div>
+                                                        Portals Directory : <asp:Literal EnableViewState="False" ID="lblPortalsDirWritable"
+                                                            runat="server" /></div>
                                                 </li>
                                             </ul>
                                         </div>
@@ -216,7 +205,7 @@
                                                         <asp:RequiredFieldValidator ID="req_rb_portalprefix" runat="server" ControlToValidate="rb_portalprefix"
                                                             Enabled="true" Display="Dynamic"><br>* Site Prefix is required!</asp:RequiredFieldValidator>
                                                     </td>
-                                                    <td width="50%" nowrap>
+                                                    <td width="50%" nowrap="nowrap">
                                                         example: My Site - . This will make all your page titles: "My Site - Page Name"
                                                     </td>
                                                 </tr>
@@ -252,21 +241,21 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                        
                                     </asp:Panel>
                                     <asp:Panel ID="Install" runat="server" Visible="false">
-                                        <div class="mainTitle">Installing Appleseed</div>
-                                         <div class="wizardsection">
+                                        <div class="mainTitle">
+                                            Installing Appleseed</div>
+                                        <div class="wizardsection">
                                             <table cellpadding="2" cellspacing="0" border="0">
                                                 <tr>
                                                     <td align="left">
-                                                        You are about to write configuration file and run db scripts. <br />
+                                                        You are about to write configuration file and run db scripts.
+                                                        <br />
                                                         Please click "Next" to continue.
                                                     </td>
                                                 </tr>
                                             </table>
                                         </div>
-                                       
                                     </asp:Panel>
                                     <asp:Panel ID="Done" runat="server" Visible="false">
                                         <div class="mainTitle">
@@ -274,7 +263,7 @@
                                         <div class="wizardsection">
                                             <div>
                                                 <div>
-                                                  Go to <a href="../Default.aspx">Appleseed</a>
+                                                    Go to <a href="../Default.aspx">Appleseed</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -332,7 +321,8 @@
                                 <div style="padding-right: 30px;">
                                     <asp:Button ID="Previous" OnClick="PreviousPanel" runat="server" Text="< Previous"
                                         CssClass="buttons"></asp:Button>&nbsp;<asp:Button ID="Next" OnClick="NextPanel" runat="server"
-                                            Text="Next >" CssClass="buttons"></asp:Button></div>
+                                            Text="Next >" CssClass="buttons"></asp:Button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
