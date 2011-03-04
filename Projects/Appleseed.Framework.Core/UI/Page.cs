@@ -23,6 +23,7 @@ namespace Appleseed.Framework.Web.UI
     using Appleseed.Framework.Site.Data;
 
     using Path = Appleseed.Framework.Settings.Path;
+	using System.Web.Security;
 
     /// <summary>
     /// TODO: this class needs a better write-up ;-)
