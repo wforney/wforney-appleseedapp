@@ -46,33 +46,35 @@ namespace Appleseed
         /// <summary>
         /// Registers the routes.
         /// </summary>
-        /// <param name="routes">The routes.</param>
+        /// <param name="routes">
+        /// The routes.
+        /// </param>
         public static void RegisterRoutes(RouteCollection routes)
         {
-            // TODO: WLF: Guys, the framework ignores these if they exist anyway... No need for this ignore.
             routes.IgnoreRoute("{*allaspx}", new { allaspx = @".*\.aspx(/.*)?" });
             routes.IgnoreRoute("{*allashx}", new { allashx = @".*\.ashx(/.*)?" });
-
             routes.IgnoreRoute("{*allasmx}", new { allasmx = @".*\.asmx(/.*)?" });
-
-            // WLF: Now these it needs I think.
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute(string.Empty);
 
             // routes.MapRoute(
-            // "Default",                                              // Route name
-            // "{controller}/{action}/{id}",                           // URL with parameters
+            // "Default",                                             // Route name
+            // "{controller}/{action}/{id}",                          // URL with parameters
             // new { controller = "Home", action = "Index", id = "" } // Parameter defaults
-
             // );
         }
 
         /// <summary>
         /// Runs on application end.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        /// <remarks></remarks>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
+        /// <remarks>
+        /// </remarks>
         public void Application_OnEnd(object sender, EventArgs e)
         {
             ErrorHandler.Publish(LogLevel.Info, "Application Ended");
@@ -85,8 +87,12 @@ namespace Appleseed
         /// <summary>
         /// Handles the BeginRequest event of the AppleseedApplication control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
         protected void AppleseedApplication_BeginRequest(object sender, EventArgs e)
         {
             var contextReader = new Reader(new WebContextReader());
@@ -125,7 +131,8 @@ namespace Appleseed
                     if (Regex.IsMatch(pname, @"^\d+$"))
                     {
                         context.RewritePath(
-                            string.Format("~/default.aspx?pageid={0}{1}", pname, context.Request.ServerVariables["QUERY_STRING"]));
+                            string.Format(
+                                "~/default.aspx?pageid={0}{1}", pname, context.Request.ServerVariables["QUERY_STRING"]));
                     }
                 }
             }
@@ -137,8 +144,6 @@ namespace Appleseed
             {
                 throw new AppleseedRedirect(LogLevel.Warn, HttpStatusCode.NotFound, "Malformed request", null);
             }
-
-            #region 2nd Check: is the AllPortals Lock switched on?
 
             // 2nd Check: is the AllPortals Lock switched on?
             // let the user through if client IP address is in LockExceptions list, otherwise throw...
@@ -173,10 +178,6 @@ namespace Appleseed
                 }
             }
 
-            #endregion
-
-            #region 3rd Check: is database/code version correct?
-
             // 3rd Check: is database/code version correct?
             var requestUri = context.Request.Url;
             var requestPath = requestUri.AbsolutePath.ToLower(CultureInfo.InvariantCulture);
@@ -198,8 +199,7 @@ namespace Appleseed
             }
 
             installRedirect = installRedirect.ToLower(CultureInfo.InvariantCulture);
-            if (requestPath.EndsWith(installRedirect) ||
-                requestPath.Contains(installRedirect.Split(new[] { '/' })[0]))
+            if (requestPath.EndsWith(installRedirect) || requestPath.Contains(installRedirect.Split(new[] { '/' })[0]))
             {
                 return; // this is Install page... so skip creation of PortalSettings
             }
@@ -237,10 +237,6 @@ namespace Appleseed
                 }
             }
 
-            #endregion
-
-            #region Comments
-
             // ************ 'calculate' response to this request ************
             // Test 1 - try requested Alias and requested PageID
             // Test 2 - try requested Alias and PageID 0
@@ -249,23 +245,21 @@ namespace Appleseed
             // The UrlToleranceLevel determines how many times the test is allowed to fail before the request is considered
             // to be "an error" and is therefore redirected:
             // UrlToleranceLevel 1 
-            // 		- requested Alias must be valid - if invalid, InvalidAliasRedirect page on default portal will be shown
-            // 		- if requested PageID is found, it is shown
-            // 		- if requested PageID is not found, InvalidPageIdRedirect page is shown
+            // - requested Alias must be valid - if invalid, InvalidAliasRedirect page on default portal will be shown
+            // - if requested PageID is found, it is shown
+            // - if requested PageID is not found, InvalidPageIdRedirect page is shown
             // UrlToleranceLevel 2 
-            // 		- requested Alias must be valid - if invalid, InvalidAliasRedirect page on default portal will be shown
-            // 		- if requested PageID is found, it is shown
-            // 		- if requested PageID is not found, PageID 0 (Home page) is shown
+            // - requested Alias must be valid - if invalid, InvalidAliasRedirect page on default portal will be shown
+            // - if requested PageID is found, it is shown
+            // - if requested PageID is not found, PageID 0 (Home page) is shown
             // UrlToleranceLevel 3 - <<<<<< not working?
-            // 		- if requested Alias is invalid, default Alias will be used
-            // 		- if requested PageID is found, it is shown
-            // 		- if requested PageID is not found, InvalidPageIdRedirect page is shown
+            // - if requested Alias is invalid, default Alias will be used
+            // - if requested PageID is found, it is shown
+            // - if requested PageID is not found, InvalidPageIdRedirect page is shown
             // UrlToleranceLevel 4 - 
-            // 		- if requested Alias is invalid, default Alias will be used
-            // 		- if requested PageID is found, it is shown
-            // 		- if requested PageID is not found, PageID 0 (Home page) is shown
-            #endregion
-
+            // - if requested Alias is invalid, default Alias will be used
+            // - if requested PageID is found, it is shown
+            // - if requested PageID is not found, PageID 0 (Home page) is shown
             PortalSettings portalSettings = null;
 
             var pageId = Portal.PageID; // Get PageID from QueryString
@@ -311,7 +305,7 @@ namespace Appleseed
                 {
                     break; // successful hit
                 }
-                    
+
                 testsCounter++; // increment the test counter and continue
             }
 
@@ -366,45 +360,64 @@ namespace Appleseed
                 }
             }
 
-            context.Response.Cookies["PortalAlias"].Path = "/";
-            if (portalSettings != null)
-            {
-                context.Response.Cookies["PortalAlias"].Value = portalSettings.PortalAlias;
-            }
-
+            // WLF: This was backwards before so it would always set refreshSite true because the cookie was changed before it was checked.
+            // WLF: REVIEW: This whole section needs a code review.
             // Try to get alias from cookie to determine if alias has been changed
             var refreshSite = false;
-            if (context.Request.Cookies["PortalAlias"] != null &&
-                context.Request.Cookies["PortalAlias"].Value.ToLower() != Portal.UniqueID)
+            var portalAliasCookie = context.Request.Cookies["PortalAlias"];
+            if (portalAliasCookie != null && portalAliasCookie.Value.ToLower() != Portal.UniqueID)
             {
                 refreshSite = true; // Portal has changed since last page request
             }
 
+            if (portalSettings != null)
+            {
+                portalAliasCookie = new HttpCookie("PortalAlias") { Path = "/", Value = portalSettings.PortalAlias };
+                if (context.Response.Cookies["PortalAlias"] == null)
+                {
+                    context.Response.Cookies.Add(portalAliasCookie);
+                }
+                else
+                {
+                    context.Response.Cookies.Set(portalAliasCookie);
+                }
+            }
+
             // if switching portals then clean parameters [TipTopWeb]
             // Must be the last instruction in this method 
+            var refreshedCookie = context.Request.Cookies["refreshed"];
 
             // 5/7/2006 Ed Daniel
             // Added hack for Http 302 by extending condition below to check for more than 3 cookies
             if (refreshSite && context.Request.Cookies.Keys.Count > 3)
             {
                 // Sign out and force the browser to refresh only once to avoid any dead-lock
-                if (context.Request.Cookies["refreshed"] == null ||
-                    (context.Request.Cookies["refreshed"] != null &&
-                     context.Response.Cookies["refreshed"].Value == "false"))
+                if (refreshedCookie == null || refreshedCookie.Value == "false")
                 {
                     var rawUrl = context.Request.RawUrl;
+                    var newRefreshedCookie = new HttpCookie("refreshed", "true")
+                        {
+                           Path = "/", Expires = DateTime.Now.AddMinutes(1) 
+                        };
+                    if (refreshedCookie == null)
+                    {
+                        context.Response.Cookies.Add(newRefreshedCookie);
+                    }
+                    else
+                    {
+                        context.Response.Cookies.Set(newRefreshedCookie);
+                    }
 
-                    context.Response.Cookies["refreshed"].Value = "true";
-                    context.Response.Cookies["refreshed"].Path = "/";
-                    context.Response.Cookies["refreshed"].Expires = DateTime.Now.AddMinutes(1);
+                    var msg =
+                        string.Format(
+                            "User logged out on global.asax line 423. Values -> refreshsite: {0}, context.Request.Cookies.Keys.count: {1}, rawurl: {2}",
+                            refreshSite,
+                            context.Request.Cookies.Keys.Count,
+                            rawUrl);
 
                     ErrorHandler.Publish(
                         LogLevel.Warn, 
-                        string.Format(
-                            "Deslogueo al usuario en el global asax line 306. Valores -> refreshsite:{0}, context.Request.Cookies.Keys.count: {1}, rawurl: {2}", 
-                            refreshSite, 
-                            context.Request.Cookies.Keys.Count, 
-                            rawUrl));
+                        msg);
 
                     // sign-out, if refreshed parameter on the command line we will not call it again
                     PortalSecurity.SignOut(rawUrl, false);
@@ -412,19 +425,38 @@ namespace Appleseed
             }
 
             // invalidate cookie, so the page can be refreshed when needed
-            if (context.Request.Cookies["refreshed"] != null && context.Request.Cookies.Keys.Count > 3)
+            refreshedCookie = context.Request.Cookies["refreshed"];
+            if (refreshedCookie != null && context.Request.Cookies.Keys.Count > 3)
             {
-                context.Response.Cookies["refreshed"].Path = "/";
-                context.Response.Cookies["refreshed"].Value = "false";
-                context.Response.Cookies["refreshed"].Expires = DateTime.Now.AddMinutes(1);
+                var newRefreshedCookie = new HttpCookie("refreshed", "false")
+                    {
+                       Path = "/", Expires = DateTime.Now.AddMinutes(1) 
+                    };
+                context.Response.Cookies.Set(newRefreshedCookie);
+            }
+
+            // This is done in order to allow the sitemap to reference a page that is outside this website.
+            var targetPage = this.Request.Params["sitemapTargetPage"];
+            if (!string.IsNullOrEmpty(targetPage))
+            {
+                int mvcPageId;
+                if (int.TryParse(targetPage, out mvcPageId))
+                {
+                    var url = HttpUrlBuilder.BuildUrl(mvcPageId);
+                    this.Response.Redirect(url);
+                }
             }
         }
 
         /// <summary>
         /// Handles the BeginRequest event of the Application control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             if (!this.Request.Path.ToLower().Contains("images.ashx"))
@@ -436,8 +468,12 @@ namespace Appleseed
         /// <summary>
         /// Handles the Error event of the Application control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
         protected void Application_Error(object sender, EventArgs e)
         {
             ErrorHandler.ProcessUnhandledException();
@@ -446,9 +482,14 @@ namespace Appleseed
         /// <summary>
         /// Runs when the application starts.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        /// <remarks></remarks>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
+        /// <remarks>
+        /// </remarks>
         protected void Application_Start(object sender, EventArgs e)
         {
             var context = HttpContext.Current;
@@ -459,7 +500,8 @@ namespace Appleseed
             HttpContext.Current.Application["CodeVersion"] = f.FilePrivatePart;
             HttpContext.Current.Application.UnLock();
 
-            ErrorHandler.Publish(LogLevel.Info, string.Format("Application Started: code version {0}", Portal.CodeVersion));
+            ErrorHandler.Publish(
+                LogLevel.Info, string.Format("Application Started: code version {0}", Portal.CodeVersion));
 
             if (Config.CheckForFilePermission)
             {
@@ -504,7 +546,7 @@ namespace Appleseed
             {
                 WebRequest.DefaultWebProxy = PortalSettings.GetProxy();
             }
-            
+
             AreaRegistration.RegisterAllAreas();
             RegisterRoutes(RouteTable.Routes);
 
