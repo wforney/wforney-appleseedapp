@@ -3,7 +3,7 @@
 //   Copyright © -- 2011. All Rights Reserved.
 // </copyright>
 // <summary>
-//   Summary description for SqlSiteMapProvider
+//   The appleseed sql site map provider.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -20,12 +20,14 @@ namespace Appleseed.Framework.Providers.AppleseedSiteMapProvider
     using System.Web;
     using System.Web.Caching;
     using System.Web.Configuration;
-using Appleseed.Framework.Settings;
 
     using Appleseed.Context;
+    using Appleseed.Framework.Settings;
+
+    using Reader = Appleseed.Context.Reader;
 
     /// <summary>
-    /// Summary description for SqlSiteMapProvider
+    /// The appleseed sql site map provider.
     /// </summary>
     /// <remarks>
     /// </remarks>
@@ -49,10 +51,12 @@ using Appleseed.Framework.Settings;
         /// </summary>
         private const string Errmsg2 = "Duplicate node ID";
 
+        /*
         /// <summary>
         ///   The errmsg 4.
         /// </summary>
         private const string Errmsg4 = "Invalid parent ID: {0} on this list: {1}";
+*/
 
         /// <summary>
         ///   The errmsg 5.
@@ -80,12 +84,12 @@ using Appleseed.Framework.Settings;
         private const int RootNodeId = -1;
 
         /// <summary>
-        ///   The the lock.
+        ///   The lock.
         /// </summary>
-        private readonly object theLock = new object();
+        private readonly object _theLock = new object();
 
         /// <summary>
-        ///   The the nodes.
+        ///   The nodes.
         /// </summary>
         private readonly Dictionary<int, SiteMapNode> theNodes = new Dictionary<int, SiteMapNode>(16);
 
@@ -188,7 +192,7 @@ using Appleseed.Framework.Settings;
         /// </remarks>
         public override SiteMapNode BuildSiteMap()
         {
-            lock (this.theLock)
+            lock (this._theLock)
             {
                 // Return immediately if this method has been called before
                 // if (_root != null) {
@@ -493,7 +497,7 @@ using Appleseed.Framework.Settings;
         /// </remarks>
         protected override SiteMapNode GetRootNodeCore()
         {
-            lock (this.theLock)
+            lock (this._theLock)
             {
                 this.BuildSiteMap();
                 return this.root;
@@ -503,8 +507,11 @@ using Appleseed.Framework.Settings;
         /// <summary>
         /// Builds the site map query.
         /// </summary>
-        /// <returns>The SQL string.</returns>
-        /// <remarks></remarks>
+        /// <returns>
+        /// The SQL string.
+        /// </returns>
+        /// <remarks>
+        /// </remarks>
         private static string BuildSiteMapQuery()
         {
             var s =
@@ -567,7 +574,7 @@ using Appleseed.Framework.Settings;
             {
                 url = HttpUrlBuilder.BuildUrl("~/Default.aspx", "sitemapTargetPage=" + id);
             }
-            
+
             // If roles were specified, turn the list into a string array
             string[] rolelist = null;
             if (!String.IsNullOrEmpty(roles))
@@ -656,7 +663,7 @@ using Appleseed.Framework.Settings;
         /// </remarks>
         private void OnSiteMapChanged(string key, object item, CacheItemRemovedReason reason)
         {
-            lock (this.theLock)
+            lock (this._theLock)
             {
                 if (key != CacheDependencyName || reason != CacheItemRemovedReason.DependencyChanged)
                 {

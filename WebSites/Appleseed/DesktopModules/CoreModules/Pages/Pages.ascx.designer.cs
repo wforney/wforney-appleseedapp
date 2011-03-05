@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Appleseed.Content.Web.Modules {
+namespace Appleseed.DesktopModules.CoreModules.Pages {
     
     
     public partial class Pages {
